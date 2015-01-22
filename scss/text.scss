@@ -49,7 +49,8 @@ ol {
     li {
     }
 
-    ol, ul {
+    ol,
+    ul {
 		margin-bottom: 0;
     }
 }
@@ -59,10 +60,23 @@ p {
 
 table {
 	display: table;
-    th, td {
+    
+    @include max-screen(639px) {
+		display: block;
+		overflow: auto;
+		padding-bottom: 1px;
+		width: 100%;
+		/* css3 */
+		-webkit-overflow-scrolling: touch;
+		overflow-scrolling: touch;
     }
     
-    thead td, th {
+    th,
+    td {
+    }
+    
+    thead td,
+    th {
     }
 }
 
@@ -70,7 +84,8 @@ ul {
     li {
     }
 
-    ul, ol {
+    ul,
+    ol {
         margin-bottom: 0;
     }
 }

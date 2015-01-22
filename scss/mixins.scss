@@ -14,7 +14,14 @@
     }
 }
 
-@mixin font-proportions($font-size, $line-height, $margin-bottom) {
+@mixin flex-fix {
+    .flexbox &,
+    .flexboxlegacy & {
+        float: none;
+    }
+}
+
+@mixin font-props($font-size, $line-height, $margin-bottom) {
     font-size: #{round($font-size)}px;    
     font-size: #{$font-size}px;
     font-size: #{$font-size/16}rem;
