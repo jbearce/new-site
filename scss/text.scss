@@ -1,0 +1,315 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Styles written by Jacob Bearce | jacob@weblinxinc.com | jacob@bearce.me */
+
+/* headings */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+}
+
+h1 {
+}
+
+h2 {
+}
+
+h3 {
+}
+
+h4 {
+}
+
+h5 {
+}
+
+h6 {
+}
+
+/* text */
+
+input,
+label,
+ol,
+p,
+.select,
+select,
+table,
+textarea,
+ul {
+    color: $textColor;
+}
+
+ol {
+    li {
+    }
+
+    ol, ul {
+		margin-bottom: 0;
+    }
+}
+
+p {
+}
+
+table {
+	display: table;
+    th, td {
+    }
+    
+    thead td, th {
+    }
+}
+
+ul {
+    li {
+    }
+
+    ul, ol {
+        margin-bottom: 0;
+    }
+}
+
+/* formatting */
+
+a {
+    color: $primaryColor;
+    text-decoration: none;
+    /* css3 */
+    transition: color 0.25s;
+    
+    &:hover {
+        color: lighten($primaryColor, 15%);
+    }
+}
+
+em,
+i {
+}
+
+q {
+}
+
+strike {
+}
+
+b,
+strong {
+}
+
+u {
+}
+
+/* forms */
+
+::-webkit-input-placeholder {
+	color: lighten($textColor, 15%);
+}
+
+:-moz-placeholder {
+	color: lighten($textColor, 15%);
+}
+
+::-moz-placeholder {
+	color: lighten($textColor, 15%);
+}
+
+:-ms-input-placeholder {
+	color: lighten($textColor, 15%);
+}
+
+.placeholder {
+	color: lighten($textColor, 15%);
+}
+
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+.button {
+	background: #E6E6E6;
+	border: 0;
+	display: inline-block;
+	margin: 0 0 10px;
+	padding: 6px 10px;
+	/* css3 */
+	transition: background 0.25s;
+}
+
+button:hover,
+input[type=button]:hover,
+input[type=reset]:hover,
+input[type=submit]:hover,
+.button:hover {
+	background: #999;
+}
+
+input[type=checkbox],
+input[type=radio] {
+	left: -999em;
+	position: absolute;
+    
+    & + label {
+		position: relative;
+		padding: (($inputImageSize / 2) - 1) 0 (($inputImageSize / 2) - 1) (($inputImageSize * 2) + ($inputImageSize / 2));
+        
+        &:before {
+            background: center center no-repeat $inputBackgroundColor;
+            background-size: $inputImageSize;
+            border: 1px solid #222;
+            content: "\0020";
+            display: block;
+            float: left;
+            height: ($inputImageSize * 2);
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: ($inputImageSize * 2);
+            
+            -webkit- &:active,
+            -webkit- &:focus {
+                outline: -webkit-focus-ring-color auto 5px;
+            }
+            
+            -ms- &:active,
+            -ms- &:focus {
+                outline: #808080 dashed 1px;
+            }
+        }
+
+        &:hover {
+            cusror: pointer;
+        }
+    }
+    
+    &:focus + label {
+        &:before {
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+    }
+    
+    &[disabled] + label {
+        &:before {
+            background: darken($inputBackgroundColor, 15%);
+        }
+    }
+}
+
+	input[type=checkbox]:checked + label:before {
+		background-image: url("../img/icon-checkbox.png");
+        
+        .no-backgroundsize & {
+            background-image: url("../img/icon-checkbox_small.png");
+        }
+	}
+
+	input[type=radio] + label:before {
+        /* css3 */
+        border-radius: 50%;
+	}
+
+	input[type=radio]:checked + label:before {
+		background-image: url("../img/icon-radio.png");
+        
+        .no-backgroundsize & {
+            background-image: url("../img/icon-checkbox_small.png");
+        }
+	}
+
+input[type=color],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=range],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+.select,
+textarea {
+	background: $inputBackgroundColor;
+	border: 1px solid #222;
+	box-sizing: border-box;
+	display: block;
+	margin: 0 0 10px;
+	outline: none;
+	padding: $inputPaddingTop $inputPaddingRight $inputPaddingBottom $inputPaddingLeft;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+label {
+	display: block;
+	margin: 0 0 10px;
+}
+
+label:hover {
+	cursor: pointer;
+}
+
+.select {
+    background: url("../img/icon-select.png") right center no-repeat;
+    background-position: right ($inputImageSize / 2) center;
+	background-size: $inputImageSize;
+	padding: 0;
+        
+    .no-backgroundsize & {
+        background-image: url("../img/icon-checkbox_small.png");
+    }
+    
+    select {
+		background: none;
+		border: 0;
+		display: block;
+		margin: 0;
+		outline: none;
+        padding: ($inputPaddingTop - 1) ($inputPaddingRight - 4) ($inputPaddingBottom - 1) ($inputPaddingLeft - 4);
+		text-indent: 0.01px;
+    	text-overflow: "";
+		width: 100%;
+		/* css3 */
+        appearance: none;
+
+        &::-ms-expand {
+            display: none;
+        }
+        
+        &:hover {
+            cursor: pointer;
+        }
+        
+        option {
+			background: #FFF;
+			color: #000;
+            
+            &:hover {
+                background: #DDD;
+            }
+        }
+    }
+}
+
+textarea {
+	max-width: 100%;
+	min-height: 100px;
+	min-width: 100%;
+}
+
+/* structural */
+
+blockquote {
+}
+
+hr {
+}

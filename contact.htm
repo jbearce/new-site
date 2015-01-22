@@ -1,0 +1,30 @@
+<head>
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+</head>
+<form action="captcha/formmail.php" method="post" name="contact_form">
+	<input type="hidden" name="derive_fields" value="imgverify=g-recaptcha-response" />
+    <input type="hidden" name="good_url" value="../thanks.htm" />
+    <input type="hidden" name="bad_url" value="../error.php" />
+	<input type="hidden" name="recipients" value="" />
+	<input type="hidden" name="required" value="email:Your email address.,message:Your message." />
+	<input type="hidden" name="subject" value="Contact Form Submission" />
+    <!-- field start -->
+	<input name="realname" placeholder="Name" type="text" />
+	<input name="company" placeholder="Company" type="text" />
+	<input name="phone" placeholder="Phone" type="tel" />
+	<input name="email" placeholder="Email" type="email" />
+	<select name="type_of_inquiry">
+		<option disabled selected value="">Type of Inquiry</option>
+		<option value="question">Question</option>
+		<option value="concern">Concern</option>
+	</select>
+	<input id="contact_via_email" name="contact_via_email" type="checkbox" />
+	<label for="contact_via_email">Email is my preferred method of contact</label>
+	<input id="newsletter_yes" name="newsletter" type="radio" value="yes" />
+	<label for="newsletter_yes">Yes, sign me up for your newsletter</label>
+	<input id="newsletter_no" name="newsletter" type="radio" value="no" />
+	<label for="newsletter_no">No, don't sign me up for your newsletter</label>
+	<textarea name="message" placeholder="Message"></textarea>
+    <div class="g-recaptcha" data-sitekey=""></div>
+	<input type="submit" value="Submit" />
+</form>

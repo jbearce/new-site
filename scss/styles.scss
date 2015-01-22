@@ -1,0 +1,77 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Styles written by Jacob Bearce | jacob@weblinxinc.com | jacob@bearce.me */
+
+/* imports */
+
+@import "normalize";
+@import "variables";
+@import "mixins";
+@import "text";
+@import "header";
+@import "main";
+@import "footer";
+
+/* general */
+
+::selection {
+	background: $primaryColor;
+	color: #FFF;
+}
+
+html,
+body {
+    @include max-screen(639px) {
+        height: 100%;
+    }
+}
+
+#pageWrapper {
+    @include max-screen(639px) {
+        background: #FFF;
+        right: 0;
+        min-height: 100%;
+        position: relative;
+        /* css3 */
+        transition: right 0.25s;
+        
+        .navopen & {
+            height: 100%;
+            overflow: hidden;
+            right: $mobileNavWidth;
+        }
+    }
+}
+
+/* independent classes */
+
+.iframe {
+	display: block;
+	height: 0;
+	position: relative;
+	width: 100%;
+
+    iframe {
+		bottom: 0;
+		height: 100%;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 100%;
+	}
+}
+
+/* recaptcha */
+
+.g-recaptcha {
+    margin-bottom: 10px;
+    margin-bottom: (10rem/16);
+}
+
+/* IE Snap Fix */
+
+@-ms-viewport {
+    width: device-width;
+}

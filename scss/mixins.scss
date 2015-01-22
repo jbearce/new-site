@@ -1,0 +1,27 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Styles written by Jacob Bearce | jacob@weblinxinc.com | jacob@bearce.me */
+
+@import "media-queries";
+
+@mixin clear {
+    &:after {
+        clear: both;
+        content: "\0020";
+        display: block;
+        visibility: hidden;
+    }
+}
+
+@mixin font-proportions($font-size, $line-height, $margin-bottom) {
+    font-size: #{round($font-size)}px;    
+    font-size: #{$font-size}px;
+    font-size: #{$font-size/16}rem;
+    line-height: #{round($line-height)}px;
+    line-height: #{$line-height}px;
+    line-height: #{$line-height/$font-size}em;
+    margin-bottom: #{round($margin-bottom)}px;
+    margin-bottom: #{$margin-bottom}px;
+    margin-bottom: #{$margin-bottom/$font-size}em;
+}
