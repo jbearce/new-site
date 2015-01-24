@@ -1,7 +1,4 @@
-@charset "utf-8";
-/* CSS Document */
-
-/* Styles written by Jacob Bearce | jacob@bearce.me */
+// Styles written by Jacob Bearce | jacob@bearce.me
 
 #mobileNavWrapper {
     background: #E6E6E6;
@@ -11,10 +8,11 @@
     right: 999em;
     top: 0;
     width: $mobileNavWidth;
-    /* css3 */
+    // css3
+    -webkit-transition: right 0s 0.25s;
     transition: right 0s 0.25s;
     
-    @include max-screen (639px) {
+    @include max-screen(639px) {
         & {
             display: block;
         }
@@ -22,7 +20,8 @@
 
     .navopen & {
         right: 0;
-        /* css3 */
+        // css3
+        -webkit-transition: none;
         transition: none;
     }
 
@@ -50,8 +49,6 @@
                         text-indent: -999em;
                         top: 0;
                         width: 34px;
-                        /* css3 */
-                        transition: transform 0.25s;
                         
                         &:before,
                         &:after {
@@ -62,37 +59,51 @@
                             position: absolute;
                             top: 15px;
                             width: 12px;
+                            // css3
+                            -webkit-transition: transform 0.25s;
+                            transition: transform 0.25s;
                         }
 
                         &:before {
                             left: 8px;
-                            /* css3 */
+                            // css3
+                            -webkit-transform: rotate(45deg);
                             transform: rotate(45deg);
                         }
 
                         &:after {
                             right: 8px;
-                            /* css3 */
+                            // css3
+                            -webkit-transform: rotate(-45deg);
                             transform: rotate(-45deg);
                         }
                     }
                     
-                    &.open > button {
-                        /* css3 */
-                        transform: rotate(180deg);
+                    &.open > button:before {
+                        // css3
+                        -webkit-transform: rotate(-45deg);
+                        transform: rotate(-45deg);
+                    }
+                    
+                    &.open > button:after {
+                        // css3
+                        -webkit-transform: rotate(45deg);
+                        transform: rotate(45deg);
                     }
                     
                     ul {
                         overflow: hidden;
                         max-height: 0;
                         padding-left: 10px;
-                        /* css3 */
+                        // css3
+                        -webkit-transition: max-height 0.25s;
                         transition: max-height 0.25s;
                     }
 
                     &.open > ul {
                         max-height: 500px;
-                        /* css3 */
+                        // css3
+                        -webkit-transition: max-height 0.5s;
                         transition: max-height 0.5s;
                     }
                 }
@@ -131,7 +142,8 @@
                     left: 10px;
                     position: absolute;
                     width: 20px;
-                    /* css3 */
+                    // css3
+                    -webkit-transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
                     transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
                 }
 
@@ -146,7 +158,8 @@
 
                     .navopen & {
                         top: 15px;
-                        /* css3 */
+                        // css3
+                        -webkit-transform: rotate(45deg);
                         transform: rotate(45deg);
                     }
                 }
@@ -164,7 +177,8 @@
 
                     .navopen & {
                         top: 21px;
-                        /* css3 */
+                        // css3
+                        -webkit-transform: rotate(-45deg);
                         transform: rotate(-45deg);
                     }
                 }
@@ -204,7 +218,8 @@
 						text-align: left;
 						top: 100%;
 						width: 200px;
-						/* css3 */
+						// css3
+                        -webkit-transition: opacity 0.25s 0s, left 0s 0.25s;
                         transition: opacity 0.25s 0s, left 0s 0.25s;
                         
                         li {
@@ -228,7 +243,8 @@
                     &:hover > ul {
 						left: 0;
 						opacity: 1;
-						/* css3 */
+						// css3
+                        -webkit-transition: opacity 0.25s 0s, left 0s 0s;
                         transition: opacity 0.25s 0s, left 0s 0s;
                     }
                 }

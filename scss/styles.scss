@@ -1,9 +1,6 @@
-@charset "utf-8";
-/* CSS Document */
+// Styles written by Jacob Bearce | jacob@bearce.me
 
-/* Styles written by Jacob Bearce | jacob@bearce.me */
-
-/* imports */
+// imports
 
 @import "normalize";
 @import "functions";
@@ -14,7 +11,7 @@
 @import "main";
 @import "footer";
 
-/* general */
+// general
 
 ::selection {
 	background: $primaryColor;
@@ -34,7 +31,7 @@ body {
         right: 0;
         min-height: 100%;
         position: relative;
-        /* css3 */
+        // css3
         transition: right 0.25s;
         
         .navopen & {
@@ -45,7 +42,7 @@ body {
     }
 }
 
-/* independent classes */
+// independent classes
 
 .iframe {
 	display: block;
@@ -64,14 +61,14 @@ body {
 	}
 }
 
-/* recaptcha */
+// recaptcha
 
 .g-recaptcha {
     margin-bottom: 10px;
     margin-bottom: (10rem/16);
 }
 
-/* IE Snap Fix */
+// IE Snap Fix
 
 @-ms-viewport {
     width: device-width;

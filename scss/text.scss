@@ -1,9 +1,6 @@
-@charset "utf-8";
-/* CSS Document */
+// Styles written by Jacob Bearce | jacob@bearce.me
 
-/* Styles written by Jacob Bearce | jacob@bearce.me */
-
-/* headings */
+// headings
 
 h1,
 h2,
@@ -31,7 +28,7 @@ h5 {
 h6 {
 }
 
-/* text */
+// text
 
 input,
 label,
@@ -66,7 +63,7 @@ table {
 		overflow: auto;
 		padding-bottom: 1px;
 		width: 100%;
-		/* css3 */
+		// css3
 		-webkit-overflow-scrolling: touch;
 		overflow-scrolling: touch;
     }
@@ -90,12 +87,13 @@ ul {
     }
 }
 
-/* formatting */
+// formatting
 
 a {
     color: $primaryColor;
     text-decoration: none;
-    /* css3 */
+    // css3
+    -webkit-transition: color 0.25s;
     transition: color 0.25s;
     
     &:hover {
@@ -120,7 +118,7 @@ strong {
 u {
 }
 
-/* forms */
+// forms
 
 ::-webkit-input-placeholder {
 	color: lighten($textColor, 15%);
@@ -152,7 +150,8 @@ input[type=submit],
 	display: inline-block;
 	margin: 0 0 10px;
 	padding: 6px 10px;
-	/* css3 */
+	// css3
+	-webkit-transition: background 0.25s;
 	transition: background 0.25s;
 }
 
@@ -225,6 +224,7 @@ input[type=radio] {
 
 	input[type=radio] + label:before {
         /* css3 */
+        -webkit-border-radius: 50%;
         border-radius: 50%;
 	}
 
@@ -293,7 +293,8 @@ label:hover {
 		text-indent: 0.01px;
     	text-overflow: "";
 		width: 100%;
-		/* css3 */
+		// css3 
+        -webkit-appearance: none;
         appearance: none;
 
         &::-ms-expand {
@@ -321,7 +322,7 @@ textarea {
 	min-width: 100%;
 }
 
-/* structural */
+// structural
 
 blockquote {
 }
