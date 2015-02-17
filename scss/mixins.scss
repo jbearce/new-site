@@ -3,12 +3,15 @@
 @import "media-queries";
 
 @mixin clear {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+    }
     &:after {
         clear: both;
-        content: "\0020";
-        display: block;
-        visibility: hidden;
     }
+    *zoom: 1;
 }
 
 @mixin flex-fix {
@@ -18,14 +21,44 @@
     }
 }
 
-@mixin font-props($font-size, $line-height, $margin-bottom) {
-    font-size: #{round($font-size)}px;    
-    font-size: #{$font-size}px;
-    font-size: #{$font-size/16}rem;
-    line-height: #{round($line-height)}px;
-    line-height: #{$line-height}px;
-    line-height: #{$line-height/$font-size}em;
-    margin-bottom: #{round($margin-bottom)}px;
-    margin-bottom: #{$margin-bottom}px;
-    margin-bottom: #{$margin-bottom/$font-size}em;
+@mixin retina($image, $width, $height) {
+    @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6/2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx) {
+        background-image: url($image);
+        background-size: $width $height;
+    }
+}
+
+@mixin font-size($size: 24, $base: 16) {
+    font-size: $size + px;
+    font-size: ($size / $base) * 1rem;
+}
+
+@mixin position($position, $args) {
+    @each $o in top right bottom left {
+        $i: index($args, $o);
+        @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
+            #{$o}: nth($args, $i + 1);
+        }
+    }
+    position: $position;
+}
+ 
+@mixin absolute($args) {
+    @include position("absolute", $args);
+}
+ 
+@mixin fixed($args) {
+    @include position("fixed", $args);
+}
+ 
+@mixin relative($args) {
+    @include position("relative", $args);
+}
+
+@mixin placeholder {
+    ::-webkit-input-placeholder {@content}
+    :-moz-placeholder {@content}
+    ::-moz-placeholder {@content}
+    :-ms-input-placeholder {@content}
+    .placeholder {@content}
 }

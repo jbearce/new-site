@@ -13,7 +13,15 @@ if (navigator.userAgent.match(/IEMobile/)) {
 	document.getElementsByTagName("head")[0].appendChild(msViewportStyle)
 }
 
-/* Navigation Tweaks */
+// responsive iframes
+$(document).ready(function() {
+	$("iframe").each(function() {
+		var height = $(this).attr("height");
+		var width = $(this).attr("width");
+		var aspectRatio = (height / width) * 100 + "%";
+		$(this).wrap("<span class=\"iframe\" style=\"padding-bottom:" + aspectRatio + "\">");
+	});
+});
 
 // possibly find this when the ul gets a max height of 0.
 var mobileWidth = 639;
@@ -34,10 +42,6 @@ if (((navigator.userAgent.toLowerCase().indexOf("android") > -1) || (navigator.u
 				touched = false;
 			});
 		});
-		// things to note:
-		// 1. If a user has a mouse attached to an Android device, this may
-		//    not work as expected. More research is required to determine
-		//    if I can check between Android click events and hover events.
 	});
 };
 
@@ -67,4 +71,12 @@ $(window).resize(function() {
 	}
 });
 
-/* End Navigation Tweaks */
+// mobile menu button pushes
+$("#headerWrapper header nav button").click(function(e) {
+    e.preventDefault();
+    $("html").toggleClass("navopen");
+});
+$("#mobileNavWrapper #mobileNav nav ul li button").click(function(e) {
+    e.preventDefault();
+    $(this).parent().toggleClass("open");
+});

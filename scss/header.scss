@@ -1,128 +1,16 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
-#mobileNavWrapper {
-    background: #E6E6E6;
-    bottom: 0;
-    display: none;
-    position: absolute;
-    right: 999em;
-    top: 0;
-    width: $mobileNavWidth;
-    // css3
-    -webkit-transition: right 0s 0.25s;
-    transition: right 0s 0.25s;
-    
-    @include max-screen(639px) {
-        & {
-            display: block;
-        }
-    }
-
-    .navopen & {
-        right: 0;
-        // css3
-        -webkit-transition: none;
-        transition: none;
-    }
-
-    #mobileNav {
-        nav {
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                
-                li {
-                    position: relative;
-                    
-                    a {
-                        display: block;
-                        padding: 8px 10px;
-                    }
-                    
-                    button {
-                        background: none;
-                        display: block;
-                        height: 34px;
-                        position: absolute;
-                        right: 0;
-                        text-indent: -999em;
-                        top: 0;
-                        width: 34px;
-                        
-                        &:before,
-                        &:after {
-                            background: #222;
-                            content: "\0020";
-                            display: block;
-                            height: 4px;
-                            position: absolute;
-                            top: 15px;
-                            width: 12px;
-                            // css3
-                            -webkit-transition: transform 0.25s;
-                            transition: transform 0.25s;
-                        }
-
-                        &:before {
-                            left: 8px;
-                            // css3
-                            -webkit-transform: rotate(45deg);
-                            transform: rotate(45deg);
-                        }
-
-                        &:after {
-                            right: 8px;
-                            // css3
-                            -webkit-transform: rotate(-45deg);
-                            transform: rotate(-45deg);
-                        }
-                    }
-                    
-                    &.open > button:before {
-                        // css3
-                        -webkit-transform: rotate(-45deg);
-                        transform: rotate(-45deg);
-                    }
-                    
-                    &.open > button:after {
-                        // css3
-                        -webkit-transform: rotate(45deg);
-                        transform: rotate(45deg);
-                    }
-                    
-                    ul {
-                        overflow: hidden;
-                        max-height: 0;
-                        padding-left: 10px;
-                        // css3
-                        -webkit-transition: max-height 0.25s;
-                        transition: max-height 0.25s;
-                    }
-
-                    &.open > ul {
-                        max-height: 500px;
-                        // css3
-                        -webkit-transition: max-height 0.5s;
-                        transition: max-height 0.5s;
-                    }
-                }
-            }
-        }
-    }
-}
-
 #headerWrapper {
     header {
         nav {
-			background: #E6E6E6;
+			background: $navy;
 			float: left;
 			position: relative;
 			width: 100%;
 			z-index: 999;
             
             & > button {
-                background: #222;
+                background: darken($navy, 15%);
                 display: none;
                 float: right;
                 height: 40px;
@@ -141,10 +29,8 @@
                     height: 4px;
                     left: 10px;
                     position: absolute;
-                    width: 20px;
-                    // css3
-                    -webkit-transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
                     transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
+                    width: 20px;
                 }
 
                 .navopen &:before,
@@ -158,8 +44,6 @@
 
                     .navopen & {
                         top: 15px;
-                        // css3
-                        -webkit-transform: rotate(45deg);
                         transform: rotate(45deg);
                     }
                 }
@@ -177,8 +61,6 @@
 
                     .navopen & {
                         top: 21px;
-                        // css3
-                        -webkit-transform: rotate(-45deg);
                         transform: rotate(-45deg);
                     }
                 }
@@ -203,24 +85,28 @@
 					float: left;
 					left: 50%;
 					position: relative;
+                    transition: background 0.25s;
 
+                    &:hover {
+                        background: $aqua;
+                    }
+                    
                     a {
+                        color: #FFF;
 						display: block;
 						padding: 8px 10px;
                     }
                     
                     // sub list
                     ul {
-						background: #CECECE;
+                        background: lighten($navy, 15%);
 						left: -999em;
 						opacity: 0;
 						position: absolute;
 						text-align: left;
 						top: 100%;
-						width: 200px;
-						// css3
-                        -webkit-transition: opacity 0.25s 0s, left 0s 0.25s;
                         transition: opacity 0.25s 0s, left 0s 0.25s;
+						width: 200px;
                         
                         li {
 							float: none;
@@ -229,7 +115,7 @@
                             
                             // sub sub list 
                             ul {
-								background: #B9B9B9;	
+                                background: lighten(lighten($navy, 15%), 15%);
 								top: 0;
 								width: 250px;
                             }
@@ -243,8 +129,6 @@
                     &:hover > ul {
 						left: 0;
 						opacity: 1;
-						// css3
-                        -webkit-transition: opacity 0.25s 0s, left 0s 0s;
                         transition: opacity 0.25s 0s, left 0s 0s;
                     }
                 }
@@ -254,6 +138,109 @@
                 }
                 
                 @include clear;
+            }
+        }
+    }
+}
+
+// mobile nav
+
+#mobileNavWrapper {
+    background: $navy;
+    bottom: 0;
+    display: none;
+    position: absolute;
+    right: 999em;
+    top: 0;
+    transition: right 0s 0.25s;
+    width: 220px;
+    
+    @include max-screen(639px) {
+        display: block;
+    }
+
+    .navopen & {
+        right: 0;
+        transition: none;
+    }
+
+    #mobileNav {
+        nav {
+            ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                
+                li {
+                    position: relative;
+                    
+                    a {
+                        color: #FFF;
+                        display: block;
+                        padding: 8px 10px;
+                    }
+                    
+                    button {
+                        background: none;
+                        display: block;
+                        height: 34px;
+                        position: absolute;
+                        right: 0;
+                        text-indent: -999em;
+                        top: 0;
+                        width: 34px;
+                        
+                        &:before,
+                        &:after {
+                            background: #FFF;
+                            content: "\0020";
+                            display: block;
+                            height: 4px;
+                            position: absolute;
+                            top: 15px;
+                            transition: transform 0.25s;
+                            width: 12px;
+                        }
+
+                        &:before {
+                            left: 8px;
+                            transform: rotate(45deg);
+                        }
+
+                        &:after {
+                            right: 8px;
+                            transform: rotate(-45deg);
+                        }
+                    }
+                    
+                    &.open > button:before {
+                        transform: rotate(-45deg);
+                    }
+                    
+                    &.open > button:after {
+                        transform: rotate(45deg);
+                    }
+                    
+                    // sub list
+                    ul {
+                        background: lighten($navy, 15%);
+                        overflow: hidden;
+                        max-height: 0;
+                        transition: max-height 0.25s;
+                    
+                        li {
+                            // sub list
+                            ul {
+                                background: lighten(lighten($navy, 15%), 15%);
+                            }
+                        }
+                    }
+
+                    &.open > ul {
+                        max-height: 500px;
+                        transition: max-height 0.5s;
+                    }
+                }
             }
         }
     }
