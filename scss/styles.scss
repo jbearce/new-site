@@ -19,10 +19,25 @@
 	color: #FFF;
 }
 
-html,
+html {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
 body {
     @include max-screen(639px) {
         height: 100%;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 100%;
+        // iOS fix
+        -webkit-overflow-scrolling: touch;
+        overflow-scrolling: touch;
+        
+        .navopen & {
+            overflow: hidden;
+        }
     }
 }
 
@@ -36,8 +51,8 @@ body {
         
         .navopen & {
             height: 100%;
-            overflow: hidden;
             right: 220px;
+            width: 100%;
         }
     }
 }

@@ -54,14 +54,14 @@ function ariaHaspopupEnabler() {
 	};
 }
 function ariaHaspopupDisabler() {
-	if (!navigator.userAgent.match(/IEMobile/)) {
-		$("header nav ul li ul, header nav ul li ul li ul").each(function() {
-			$(this).parent("li").children("a").attr("aria-haspopup","false");
-		});
-	};
+    $("header nav ul li ul, header nav ul li ul li ul").each(function() {
+        $(this).parent("li").children("a").attr("aria-haspopup","false");
+    });
 }
 $(document).ready(function() {
-	ariaHaspopupEnabler();
+    if (navigator.userAgent.match(/IEMobile/) || $(window).width() < mobileWidth) {
+        ariaHaspopupDisabler();
+    }
 });
 $(window).resize(function() {
 	if ($(window).width() > mobileWidth) {
@@ -72,11 +72,11 @@ $(window).resize(function() {
 });
 
 // mobile menu button pushes
-$("#headerWrapper header nav button").click(function(e) {
+$("#headerWrapper header nav > button").click(function(e) {
     e.preventDefault();
     $("html").toggleClass("navopen");
 });
-$("#mobileNavWrapper #mobileNav nav ul li button").click(function(e) {
+$("#headerWrapper header nav ul li button").click(function(e) {
     e.preventDefault();
     $(this).parent().toggleClass("open");
 });

@@ -8,6 +8,10 @@
 			position: relative;
 			width: 100%;
 			z-index: 999;
+
+            @include max-screen(639px) {
+                position: static;
+            }
             
             & > button {
                 background: darken($navy, 15%);
@@ -80,6 +84,20 @@
 				text-align: center;
 				width: auto;
 				z-index: 999;
+
+                @include max-screen(639px) {
+                    background: $navy;
+                    float: none;
+                    height: 100%;
+                    position: absolute;
+                    text-align: left;
+                    right: -220px;
+                    top: 0;
+                    transition: right 0.25s;
+                    width: 220px;
+                }
+
+                @include clear;
                 
                 li {
 					float: left;
@@ -87,108 +105,54 @@
 					position: relative;
                     transition: background 0.25s;
 
+                    @include max-screen(639px) {
+                        float: none;
+                        left: auto;
+                    }
+
                     &:hover {
                         background: $aqua;
+                    }
+                    
+                    &.search {
+                        display: none;
+                        padding: 10px;
+                        
+                        @include max-screen(639px) {
+                            display: block;
+                        }
+
+                        &:hover {
+                            background: none;
+                        }
                     }
                     
                     a {
                         color: #FFF;
 						display: block;
 						padding: 8px 10px;
-                    }
-                    
-                    // sub list
-                    ul {
-                        background: lighten($navy, 15%);
-						left: -999em;
-						opacity: 0;
-						position: absolute;
-						text-align: left;
-						top: 100%;
-                        transition: opacity 0.25s 0s, left 0s 0.25s;
-						width: 200px;
                         
-                        li {
-							float: none;
-							left: auto;
-							width: 100%;
-                            
-                            // sub sub list 
-                            ul {
-                                background: lighten(lighten($navy, 15%), 15%);
-								top: 0;
-								width: 250px;
-                            }
-                            
-                            &:hover > ul {
-                                left: 100%;
-                            }
+                        // tablet/desktop button support
+                        /*
+                        &[aria-haspopup=true] {
+                            padding-right: 35px;
                         }
-                    }
-
-                    &:hover > ul {
-						left: 0;
-						opacity: 1;
-                        transition: opacity 0.25s 0s, left 0s 0s;
-                    }
-                }
-                
-                @include max-screen(639px) {
-                    display: none;
-                }
-                
-                @include clear;
-            }
-        }
-    }
-}
-
-// mobile nav
-
-#mobileNavWrapper {
-    background: $navy;
-    bottom: 0;
-    display: none;
-    position: absolute;
-    right: 999em;
-    top: 0;
-    transition: right 0s 0.25s;
-    width: 220px;
-    
-    @include max-screen(639px) {
-        display: block;
-    }
-
-    .navopen & {
-        right: 0;
-        transition: none;
-    }
-
-    #mobileNav {
-        nav {
-            ul {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-                
-                li {
-                    position: relative;
-                    
-                    a {
-                        color: #FFF;
-                        display: block;
-                        padding: 8px 10px;
+                        */
                     }
                     
                     button {
                         background: none;
-                        display: block;
+                        display: none;
                         height: 34px;
                         position: absolute;
                         right: 0;
                         text-indent: -999em;
                         top: 0;
                         width: 34px;
+                        
+                        @include max-screen(639px) {
+                            display: block;
+                        }
                         
                         &:before,
                         &:after {
@@ -221,24 +185,99 @@
                         transform: rotate(45deg);
                     }
                     
+                    form {
+                        background: #FFF;
+                        display: block;
+                        
+                        @include clear;
+                        
+                        input[type=search],
+                        input[type=text] {
+                            background: none;
+                            border: 0;
+                            float: left;
+                            margin: 0;
+                            padding: 6px 10px;
+                            width: 168px;
+                        }
+                        
+                        input[type=submit] {
+                            background: url("../img/icon-search.png") center center no-repeat;
+                            background-size: 16px 16px;
+                            float: left;
+                            height: 32px;
+                            margin: 0;
+                            text-indent: -999em;
+                            width: 32px;
+                        }
+                    }
+                    
                     // sub list
                     ul {
                         background: lighten($navy, 15%);
-                        overflow: hidden;
-                        max-height: 0;
-                        transition: max-height 0.25s;
-                    
+						left: -999em;
+						opacity: 0;
+						position: absolute;
+						text-align: left;
+						top: 100%;
+                        transition: opacity 0.25s 0s, left 0s 0.25s;
+						width: 200px;
+                        
+                        @include max-screen(639px) {
+                            left: auto;
+                            max-height: 0;
+                            opacity: 1;
+                            overflow: hidden;
+                            position: static;
+                            top: auto;
+                            transition: max-height 0.5s;
+                            width: auto;
+                        }
+                        
                         li {
-                            // sub list
+							float: none;
+							left: auto;
+							width: 100%;
+                            
+                            // tablet/desktop button support
+                            /*
+                            button {
+                                @include min-screen(640px) {
+                                    transform: rotate(-90deg);
+                                }
+                            }
+                            */
+                            
+                            // sub sub list 
                             ul {
                                 background: lighten(lighten($navy, 15%), 15%);
+								top: 0;
+								width: 250px;
+                        
+                                @include max-screen(639px) {
+                                    top: auto;
+                                    width: auto;
+                                }
+                            }
+                            
+                            &:hover > ul {
+                                left: 100%;
                             }
                         }
                     }
-
+                        
                     &.open > ul {
                         max-height: 500px;
-                        transition: max-height 0.5s;
+                        transition: max-height 0.75s;
+                    }
+
+                    &:hover > ul {
+						left: 0;
+						opacity: 1;
+                        
+                        @include min-screen(640px) {
+                            transition: opacity 0.25s 0s, left 0s 0s;
+                        }
                     }
                 }
             }

@@ -24,68 +24,34 @@
 		<meta content="100-200 characters with spaces" name="description" />
 		<title>64-80 characters with spaces</title>
 		<!-- end branding -->
+        <style>
+            p {margin: 0 0 20px;}
+        </style>
 	</head>
 	<body>
-        <section id="mobileNavWrapper">
-            <section id="mobileNav">
-                <nav>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li>
-                            <a href="#">Portfolio</a>
-                            <button><em>More</em></button>
-                            <ul>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                                <li>
-                                    <a href="#">Sub link</a>
-                                    <button><em>More</em></button>
-                                    <ul>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Sub link</a>
-                                    <button><em>More</em></button>
-                                    <ul>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Resource</a></li>
-                        <li><a href="#">Advertise</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </nav>
-            </section><!--/#mobileNav-->
-        </section><!--/#mobileNavWrapper-->
         <section id="pageWrapper">
             <section id="headerWrapper">
                 <header>
                     <nav>
                         <button><em>Menu</em></button>
                         <ul>
+                            <li class="search">
+                                <form>
+                                    <input type="search" />
+                                    <input type="submit" value="Search" />
+                                </form>
+                            </li>
                             <li><a href="#">Home</a></li>
                             <li><a href="#">About</a></li>
                             <li>
-                                <a href="#">Portfolio</a>
+                                <a aria-haspopup="true" href="#">Portfolio</a>
+                                <button>More</button>
                                 <ul>
                                     <li><a href="#">Sub link</a></li>
                                     <li><a href="#">Sub link</a></li>
                                     <li>
-                                        <a href="#">Sub link</a>
+                                        <a aria-haspopup="true" href="#">Sub link</a>
+                                        <button>More</button>
                                         <ul>
                                             <li><a href="#">Sub Sub link</a></li>
                                             <li><a href="#">Sub Sub link</a></li>
@@ -93,7 +59,8 @@
                                         </ul>
                                     </li>
                                     <li>
-                                        <a href="#">Sub link</a>
+                                        <a aria-haspopup="true" href="#">Sub link</a>
+                                        <button>More</button>
                                         <ul>
                                             <li><a href="#">Sub Sub link</a></li>
                                             <li><a href="#">Sub Sub link</a></li>
