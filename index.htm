@@ -31,7 +31,7 @@
                 <header>
                     <nav>
                         <button><em>Menu</em></button>
-                        <ul>
+                        <ul id="nav">
                             <li class="search">
                                 <form>
                                     <input type="search" />
@@ -40,13 +40,13 @@
                             </li>
                             <li><a href="#">Home</a></li>
                             <li><a href="#">About</a></li>
-                            <li>
+                            <li class="menu-item-has-children">
                                 <a aria-haspopup="true" href="#">Portfolio</a>
                                 <button>More</button>
                                 <ul>
                                     <li><a href="#">Sub link</a></li>
                                     <li><a href="#">Sub link</a></li>
-                                    <li>
+                                    <li class="menu-item-has-children">
                                         <a aria-haspopup="true" href="#">Sub link</a>
                                         <button>More</button>
                                         <ul>
@@ -55,7 +55,7 @@
                                             <li><a href="#">Sub Sub link</a></li>
                                         </ul>
                                     </li>
-                                    <li>
+                                    <li class="menu-item-has-children">
                                         <a aria-haspopup="true" href="#">Sub link</a>
                                         <button>More</button>
                                         <ul>
@@ -97,7 +97,7 @@
 		<script src="js/jquery.modernizr.cssForms.js" type="text/javascript"></script>
 		<script src="js/jquery.responsiveFixes.js" type="text/javascript"></script>
 		<script src="js/scrollfix.js" type="text/javascript"></script>
-		<script type="text/javascript">new ScrollFix(document.getElementById("mobileNavWrapper"));</script>
+		<script type="text/javascript">new ScrollFix(document.getElementById("nav"));</script>
 		<!--[if lt IE 9]>
 			<script src="//s3.amazonaws.com/nwapi/nwmatcher/nwmatcher-1.2.5-min.js" type="text/javascript"></script>
 			<script src="js/nwmatcher.selectivizr.js" type="text/javascript"></script>

@@ -75,6 +75,7 @@ $(window).resize(function() {
 $("#headerWrapper header nav > button").click(function(e) {
     e.preventDefault();
     $("html").toggleClass("navopen");
+    $("body").scrollTop(0);
 });
 $("#headerWrapper header nav ul li button").click(function(e) {
     e.preventDefault();
