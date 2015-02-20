@@ -215,8 +215,7 @@
                             float: left;
                             margin: 0;
                             padding: 6px 10px;
-                            max-width: 168px;
-                            width: auto;
+                            width: 100px;
                             
                             @include flex-fix;
                         }
