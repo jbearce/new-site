@@ -15,8 +15,7 @@
 }
 
 @mixin flex-fix {
-    .flexbox &,
-    .flexboxlegacy & {
+    .flexbox & {
         float: none;
     }
 }
