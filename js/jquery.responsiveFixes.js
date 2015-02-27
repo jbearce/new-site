@@ -1,24 +1,21 @@
 // JavaScript Document
 
-/* Scripts written by Jacob Bearce | jacob@weblinxinc.com | jacob@bearce.me */
+// Scripts written by Jacob Bearce | jacob@bearce.me
 
 // fixes media querries in Internet Explorer
 if (navigator.userAgent.match(/IEMobile/)) {
-	var msViewportStyle = document.createElement("style")
-	msViewportStyle.appendChild(
-		document.createTextNode(
-			"@-ms-viewport{width:auto!important}"
-		)
-	)
-	document.getElementsByTagName("head")[0].appendChild(msViewportStyle)
+	var msViewportStyle = document.createElement("style");
+	msViewportStyle.appendChild(document.createTextNode("@-ms-viewport{width:auto!important;}"));
+	document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
 }
 
 // responsive iframes
-$(document).ready(function() {
-	$("iframe").each(function() {
-		var height = $(this).attr("height");
-		var width = $(this).attr("width");
-		var aspectRatio = (height / width) * 100 + "%";
+$(document).ready(function () {
+    "use strict";
+	$("iframe").each(function () {
+		var height = $(this).attr("height"),
+		    width = $(this).attr("width"),
+		    aspectRatio = (height / width) * 100 + "%";
 		$(this).wrap("<span class=\"iframe\" style=\"padding-bottom:" + aspectRatio + "\">");
 	});
 });
@@ -28,42 +25,46 @@ var mobileWidth = 639;
 
 // fixes drop downs in Android & iOS
 if (((navigator.userAgent.toLowerCase().indexOf("android") > -1) || (navigator.userAgent.match(/(iPad)/g))) && $(window).width() > mobileWidth) {
-	$(document).ready(function() {
-		$("header nav ul li ul, header nav ul li ul li ul").parent("li").children("a").each(function() {
+	$(document).ready(function () {
+        "use strict";
+		$("header nav ul li ul, header nav ul li ul li ul").parent("li").children("a").each(function () {
 			var touched = false;
-			$(this).click(function(e) {
-				if (touched == true) {
-				} else {
+			$(this).click(function (e) {
+				if (touched !== true) {
 					e.preventDefault();
 					touched = true;
-				};
+				}
 			});
-			$(this).mouseleave(function() {
+			$(this).mouseleave(function () {
 				touched = false;
 			});
 		});
 	});
-};
+}
 
 // fixes drop downs in Windows (Internet Explorer)
 function ariaHaspopupEnabler() {
+    "use strict";
 	if (!navigator.userAgent.match(/IEMobile/)) {
-		$("header nav ul li ul, header nav ul li ul li ul").each(function() {
-			$(this).parent("li").children("a").attr("aria-haspopup","true");
+		$("header nav ul li ul, header nav ul li ul li ul").each(function () {
+			$(this).parent("li").children("a").attr("aria-haspopup", "true");
 		});
-	};
+	}
 }
 function ariaHaspopupDisabler() {
-    $("header nav ul li ul, header nav ul li ul li ul").each(function() {
-        $(this).parent("li").children("a").attr("aria-haspopup","false");
+    "use strict";
+    $("header nav ul li ul, header nav ul li ul li ul").each(function () {
+        $(this).parent("li").children("a").attr("aria-haspopup", "false");
     });
 }
-$(document).ready(function() {
+$(document).ready(function () {
+    "use strict";
     if (navigator.userAgent.match(/IEMobile/) || $(window).width() < mobileWidth) {
         ariaHaspopupDisabler();
     }
 });
-$(window).resize(function() {
+$(window).resize(function () {
+    "use strict";
 	if ($(window).width() > mobileWidth) {
 		ariaHaspopupEnabler();
 	} else {
@@ -72,12 +73,14 @@ $(window).resize(function() {
 });
 
 // mobile menu button pushes
-$("#headerWrapper header nav > button").click(function(e) {
+$("#headerWrapper header nav > button").click(function (e) {
+    "use strict";
     e.preventDefault();
     $("html").toggleClass("navopen");
     $("body").scrollTop(0);
 });
-$("#headerWrapper header nav ul li button").click(function(e) {
+$("#headerWrapper header nav ul li button").click(function (e) {
+    "use strict";
     e.preventDefault();
     $(this).parent().toggleClass("open");
 });
