@@ -1,0 +1,308 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+#headerWrapper {
+    header {
+        @include clear;
+
+        nav {
+			background: $theme-color;
+			float: left;
+			position: relative;
+			width: 100%;
+			z-index: 999;
+
+            @include max-screen(639px) {
+                position: static;
+            }
+
+            @include clear;
+
+            & > button {
+                background: darken($theme-color, 15%);
+                display: none;
+                float: right;
+                height: 40px;
+                margin: 0;
+                padding: 0;
+                position: relative;
+                text-indent: -999em;
+                width: 40px;
+
+                &:before,
+                em,
+                &:after {
+                    background: #FFF;
+                    content: "\0020";
+                    display: block;
+                    height: 4px;
+                    left: 10px;
+                    position: absolute;
+                    transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
+                    width: 20px;
+                }
+
+                .navopen &:before,
+                .navopen &:after {
+                    left: 20px;
+                    width: 10px;
+                }
+
+                &:before {
+                    top: 11px;
+
+                    .navopen & {
+                        top: 15px;
+                        transform: rotate(45deg);
+                    }
+                }
+
+                em {
+                    top: 18px;
+
+                    .navopen & {
+                        width: 18px;
+                    }
+                }
+
+                &:after {
+                    top: 25px;
+
+                    .navopen & {
+                        top: 21px;
+                        transform: rotate(-45deg);
+                    }
+                }
+
+                @include max-screen(639px) {
+                    display: block;
+                }
+            }
+
+            ul {
+				float: right;
+				list-style: none;
+				margin: 0 auto;
+				padding: 0;
+				position: relative;
+				right: 50%;
+				text-align: center;
+				width: auto;
+				z-index: 999;
+
+                @include max-screen(639px) {
+                    background: $theme-color;
+                    float: none;
+                    height: 100%;
+                    overflow: auto;
+                    position: absolute;
+                    text-align: left;
+                    right: -220px;
+                    top: 0;
+                    transition: right 0.25s;
+                    width: 220px;
+                    // iOS fix
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                @include clear;
+
+                li {
+					float: left;
+					left: 50%;
+					position: relative;
+                    transition: background 0.25s;
+
+                    @include max-screen(639px) {
+                        float: none;
+                        left: auto;
+                    }
+
+                    &:hover {
+                        background: $accent-color;
+                    }
+
+                    &.search {
+                        display: none;
+                        padding: 10px;
+
+                        @include max-screen(639px) {
+                            display: block;
+                        }
+
+                        &:hover {
+                            background: none;
+                        }
+                    }
+
+                    a {
+                        color: #FFF;
+						display: block;
+						padding: 8px 10px;
+
+                        // tablet/desktop button support
+                        /*
+                        &[aria-haspopup=true] {
+                            padding-right: 35px;
+                        }
+                        */
+                    }
+
+                    &.menu-item-has-children a {
+                        @include max-screen(639px) {
+                            padding-right: 40px;
+                        }
+                    }
+
+                    button {
+                        background: none;
+                        display: none;
+                        height: 40px;
+                        margin: 0;
+                        padding: 0;
+                        position: absolute;
+                        right: 0;
+                        text-indent: -999em;
+                        top: 0;
+                        width: 40px;
+
+                        @include max-screen(639px) {
+                            display: block;
+                        }
+
+                        &:before,
+                        &:after {
+                            background: #FFF;
+                            content: "\0020";
+                            display: block;
+                            height: 4px;
+                            position: absolute;
+                            top: 18px;
+                            transition: transform 0.25s;
+                            width: 12px;
+                        }
+
+                        &:before {
+                            left: 11px;
+                            transform: rotate(45deg);
+                        }
+
+                        &:after {
+                            right: 11px;
+                            transform: rotate(-45deg);
+                        }
+                    }
+
+                    &.open > button:before {
+                        transform: rotate(-45deg);
+                    }
+
+                    &.open > button:after {
+                        transform: rotate(45deg);
+                    }
+
+                    form {
+                        background: #FFF;
+                        display: flex;
+                        width: 100%;
+
+                        @include clear;
+
+                        input[type=search],
+                        input[type=text] {
+                            background: none;
+                            border: 0;
+                            flex: 1 1 auto;
+                            float: left;
+                            margin: 0;
+                            padding: 6px 10px;
+                            width: 100px;
+
+                            @include flex-fix;
+                        }
+
+                        input[type=submit] {
+                            background: url("../img/icon-search.png") center center no-repeat;
+                            background-size: 16px 16px;
+                            flex: none;
+                            float: left;
+                            height: 36px;
+                            margin: 0;
+                            text-indent: -999em;
+                            width: 36px;
+
+                            @include flex-fix;
+                        }
+                    }
+
+                    // sub list
+                    ul {
+                        background: lighten($theme-color, 15%);
+						left: -999em;
+						opacity: 0;
+						position: absolute;
+						text-align: left;
+						top: 100%;
+                        transition: opacity 0.25s 0s, left 0s 0.25s;
+						width: 200px;
+
+                        @include max-screen(639px) {
+                            left: auto;
+                            max-height: 0;
+                            opacity: 1;
+                            overflow: hidden;
+                            position: static;
+                            top: auto;
+                            transition: max-height 0.5s;
+                            width: auto;
+                        }
+
+                        li {
+							float: none;
+							left: auto;
+							width: 100%;
+
+                            // tablet/desktop button support
+                            /*
+                            button {
+                                @include min-screen(640px) {
+                                    transform: rotate(-90deg);
+                                }
+                            }
+                            */
+
+                            // sub sub list
+                            ul {
+                                background: lighten(lighten($theme-color, 15%), 15%);
+								top: 0;
+								width: 250px;
+
+                                @include max-screen(639px) {
+                                    top: auto;
+                                    width: auto;
+                                }
+                            }
+
+                            &:hover > ul {
+                                left: 100%;
+                            }
+                        }
+                    }
+
+                    &.open > ul {
+                        max-height: 500px;
+                        transition: max-height 0.75s;
+                    }
+
+                    &:hover > ul {
+						left: 0;
+						opacity: 1;
+
+                        @include min-screen(640px) {
+                            transition: opacity 0.25s 0s, left 0s 0s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
