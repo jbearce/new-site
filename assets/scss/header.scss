@@ -3,7 +3,7 @@
 #headerWrapper {
     header {
         @include clear;
-        
+
         nav {
 			background: $theme-color;
 			float: left;
@@ -14,9 +14,9 @@
             @include max-screen(639px) {
                 position: static;
             }
-            
+
             @include clear;
-            
+
             & > button {
                 background: darken($theme-color, 15%);
                 display: none;
@@ -27,7 +27,7 @@
                 position: relative;
                 text-indent: -999em;
                 width: 40px;
-                
+
                 &:before,
                 em,
                 &:after {
@@ -55,7 +55,7 @@
                         transform: rotate(45deg);
                     }
                 }
-                
+
                 em {
                     top: 18px;
 
@@ -63,7 +63,7 @@
                         width: 18px;
                     }
                 }
-    
+
                 &:after {
                     top: 25px;
 
@@ -72,7 +72,7 @@
                         transform: rotate(-45deg);
                     }
                 }
-                
+
                 @include max-screen(639px) {
                     display: block;
                 }
@@ -105,7 +105,7 @@
                 }
 
                 @include clear;
-                
+
                 li {
 					float: left;
 					left: 50%;
@@ -120,11 +120,11 @@
                     &:hover {
                         background: $accent-color;
                     }
-                    
+
                     &.search {
                         display: none;
                         padding: 10px;
-                        
+
                         @include max-screen(639px) {
                             display: block;
                         }
@@ -133,12 +133,12 @@
                             background: none;
                         }
                     }
-                    
+
                     a {
                         color: #FFF;
 						display: block;
 						padding: 8px 10px;
-                        
+
                         // tablet/desktop button support
                         /*
                         &[aria-haspopup=true] {
@@ -146,13 +146,13 @@
                         }
                         */
                     }
-                    
+
                     &.menu-item-has-children a {
                         @include max-screen(639px) {
                             padding-right: 40px;
                         }
                     }
-                    
+
                     button {
                         background: none;
                         display: none;
@@ -164,11 +164,11 @@
                         text-indent: -999em;
                         top: 0;
                         width: 40px;
-                        
+
                         @include max-screen(639px) {
                             display: block;
                         }
-                        
+
                         &:before,
                         &:after {
                             background: #FFF;
@@ -191,22 +191,22 @@
                             transform: rotate(-45deg);
                         }
                     }
-                    
+
                     &.open > button:before {
                         transform: rotate(-45deg);
                     }
-                    
+
                     &.open > button:after {
                         transform: rotate(45deg);
                     }
-                    
+
                     form {
                         background: #FFF;
                         display: flex;
                         width: 100%;
-                        
+
                         @include clear;
-                        
+
                         input[type=search],
                         input[type=text] {
                             background: none;
@@ -216,10 +216,10 @@
                             margin: 0;
                             padding: 6px 10px;
                             width: 100px;
-                            
+
                             @include flex-fix;
                         }
-                        
+
                         input[type=submit] {
                             background: url("../img/icon-search.png") center center no-repeat;
                             background-size: 16px 16px;
@@ -229,11 +229,11 @@
                             margin: 0;
                             text-indent: -999em;
                             width: 36px;
-                            
+
                             @include flex-fix;
                         }
                     }
-                    
+
                     // sub list
                     ul {
                         background: lighten($theme-color, 15%);
@@ -244,7 +244,7 @@
 						top: 100%;
                         transition: opacity 0.25s 0s, left 0s 0.25s;
 						width: 200px;
-                        
+
                         @include max-screen(639px) {
                             left: auto;
                             max-height: 0;
@@ -255,12 +255,12 @@
                             transition: max-height 0.5s;
                             width: auto;
                         }
-                        
+
                         li {
 							float: none;
 							left: auto;
 							width: 100%;
-                            
+
                             // tablet/desktop button support
                             /*
                             button {
@@ -269,25 +269,25 @@
                                 }
                             }
                             */
-                            
-                            // sub sub list 
+
+                            // sub sub list
                             ul {
                                 background: lighten(lighten($theme-color, 15%), 15%);
 								top: 0;
 								width: 250px;
-                        
+
                                 @include max-screen(639px) {
                                     top: auto;
                                     width: auto;
                                 }
                             }
-                            
+
                             &:hover > ul {
                                 left: 100%;
                             }
                         }
                     }
-                        
+
                     &.open > ul {
                         max-height: 500px;
                         transition: max-height 0.75s;
@@ -296,7 +296,7 @@
                     &:hover > ul {
 						left: 0;
 						opacity: 1;
-                        
+
                         @include min-screen(640px) {
                             transition: opacity 0.25s 0s, left 0s 0s;
                         }

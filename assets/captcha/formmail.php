@@ -16,7 +16,7 @@ $FM_VERS = "9.10"; // script version
  ***  Visit www.tectite.com for free <a href="http://www.tectite.com/">FormMail</a>.
  *
  * Author: Russell Robinson
- * First released: 2nd October 2001 
+ * First released: 2nd October 2001
  *
  * Read This First
  * ~~~~~~~~~~~~~~~
@@ -913,7 +913,7 @@ class Settings
  * of "formmail-postconfig.inc.php" and other hook scripts.
  * Therefore, all configuration settings have been changed to be global
  * variables (no define's).
- * 
+ *
  * The following defines are for backward-compatibility with any existing
  * hook scripts that are expecting the old constants.
  */
@@ -3995,7 +3995,7 @@ function    LineFolding($s_str,$i_max_line,$s_before,$s_after,$s_fold)
 				}
 			}
 			//
-			// if we cannot fold and shorten the line, 
+			// if we cannot fold and shorten the line,
 			// ignore this and try for the next line
 			//
 			if ($b_done) {
@@ -5159,7 +5159,7 @@ function IsFieldSet($s_fld,$a_main_vars)
  * Function:    IsFileField
  * Parameters:  $s_fld  the field name
  * Returns:     bool    true if this is a file upload field
- * Description:     
+ * Description:
  *  Checks if a field is a file upload field (regardless of whether
  *  file uploads are being allowed, or whether the actual upload
  *  is valid in any way).
@@ -6911,7 +6911,7 @@ function    FMDebug($s_mesg)
 
 /*
  * Class:       NetIO
- * Description:     
+ * Description:
  *  A class to provide internet input/output capabilities.
  *  Use as a base class for more specific functions.
  */
@@ -7178,7 +7178,7 @@ class   NetIO
 
 /*
  * Class:       HTTPGet
- * Description:     
+ * Description:
  *  A class that implements HTTP GET method.
  */
 
@@ -7459,7 +7459,7 @@ class   HTTPGet extends NetIO
 
 /*
  * Class:       HTTPPost
- * Description:     
+ * Description:
  *  A class that implements HTTP POST method.
  */
 
@@ -9353,7 +9353,7 @@ function Filter($filter,$m_data)
  * Function:    FilterFiles
  * Parameters:  $a_files    list of file uploads to filter
  * Returns:     void
- * Description:     
+ * Description:
  *  Run the given files through any filter for which they are specified.
  */
 function    FilterFiles(&$a_files)
@@ -9429,14 +9429,14 @@ function    FilterFiles(&$a_files)
 	}
 }
 
-/* 
+/*
  * Function:    ReadInFile
  * Parameters:  $s_file_name    the name of the file
  *              $s_file_error_type type of file for any error message
  *              $b_text         if true, read file as text
  * Returns:     mixed           the entire contents of the file
  *                              as a string, or false on error
- * Description:     
+ * Description:
  *  Reads the contents of a file into a string.
  */
 function    ReadInFile($s_file_name,$s_file_error_type,$b_text = false)
@@ -9458,14 +9458,14 @@ function    ReadInFile($s_file_name,$s_file_error_type,$b_text = false)
 	return ($s_data);
 }
 
-/* 
+/*
  * Function:    WriteOutFile
  * Parameters:  $s_file_name    the name of the file
  *              $s_data         the data to write
  *              $s_file_error_type type of file for any error message
  *              $b_text         if true, read file as text
  * Returns:     bool            true on success, otherwise false
- * Description:     
+ * Description:
  *  Writes the contents of a file from a string.
  */
 function    WriteOutFile($s_file_name,$s_data,$s_file_error_type,$b_text = false)
@@ -9489,7 +9489,7 @@ function    WriteOutFile($s_file_name,$s_data,$s_file_error_type,$b_text = false
 
 /*
  * Class:       CSVFormat
- * Description:     
+ * Description:
  *  Manages formatting of CSV content.
  */
 
@@ -9509,7 +9509,7 @@ class   CSVFormat
      *              $s_esc_policy   escape processing policy to use
      *              $s_clean_func   a cleaning function
      * Returns:     n/a
-     * Description: 
+     * Description:
      *  Constructs the object.
      */
 	function    CSVFormat($c_sep = ',',$c_quote = '"',$c_int_sep = ';',
@@ -9527,7 +9527,7 @@ class   CSVFormat
      * Parameters:  $s_esc_policy   a string specifying the escape processing
      *                              policy to use
      * Returns:     void
-     * Description: 
+     * Description:
      *  Set the escape processing policy.
      */
 	function    SetEscPolicy($s_esc_policy)
@@ -9553,7 +9553,7 @@ class   CSVFormat
      * Method:      SetSep
      * Parameters:  $c_sep      the separator character to use
      * Returns:     void
-     * Description: 
+     * Description:
      *  Set the separator character for between fields.
      */
 	function    SetSep($c_sep)
@@ -9565,7 +9565,7 @@ class   CSVFormat
      * Method:      SetQuote
      * Parameters:  $c_quote      the quote character to use
      * Returns:     void
-     * Description: 
+     * Description:
      *  Set the quote character for quoting fields.
      */
 	function    SetQuote($c_quote)
@@ -9577,7 +9577,7 @@ class   CSVFormat
      * Method:      SetIntSep
      * Parameters:  $c_int_sep      the internal separator character to use
      * Returns:     void
-     * Description: 
+     * Description:
      *  Set the internal separator character for inside fields.
      */
 	function    SetIntSep($c_int_sep)
@@ -9589,7 +9589,7 @@ class   CSVFormat
      * Method:      SetCleanFunc
      * Parameters:  $s_clean_func   the name of a cleaning function (can be NULL)
      * Returns:     void
-     * Description: 
+     * Description:
      *  Set the cleaning function for fields.
      */
 	function    SetCleanFunc($s_clean_func)
@@ -9599,10 +9599,10 @@ class   CSVFormat
 
 	/*
      * Method:      _Escape
-     * Parameters:  $m_value    the field value; string or array of strings 
+     * Parameters:  $m_value    the field value; string or array of strings
      * Returns:     mixed       the field value escaped according to the
      *                          escape processing policy
-     * Description: 
+     * Description:
      *  Escapes a field value according to the configured requirements.
      */
 	function    _Escape($m_value)
@@ -9672,7 +9672,7 @@ class   CSVFormat
      *                              s   force to be a string
      *                              r   remove carriage returns
      * Returns:     string      the formatted value
-     * Description: 
+     * Description:
      *  Formats a value.
      */
 	function    _Format($s_value,$s_format = "")
@@ -9722,7 +9722,7 @@ class   CSVFormat
      * Parameters:  $s_col_spec a column specification
      * Returns:     array       the column name and the format specifier, if
      *                          any
-     * Description: 
+     * Description:
      *  Returns the column name and any format specifier.
      */
 	function    _GetColumn($s_col_spec)
@@ -9745,8 +9745,8 @@ class   CSVFormat
      *                              (field name).
      *                              A data value can be a string or an array
      *                              of strings.
-     * Returns:     string          the comma-separated value    
-     * Description: 
+     * Returns:     string          the comma-separated value
+     * Description:
      *  Creates a single CSV record for a list of columns.
      */
 	function    MakeCSVRecord($a_column_list,$a_vars)
@@ -9780,8 +9780,8 @@ class   CSVFormat
      * Method:      MakeHeading
      * Parameters:  $a_column_list  a list of column names (field names) to
      *                              include
-     * Returns:     string          the comma-separated heading record    
-     * Description: 
+     * Returns:     string          the comma-separated heading record
+     * Description:
      *  Creates a heading record for the CSV data.
      */
 	function    MakeHeading($a_column_list)
@@ -11746,15 +11746,15 @@ function GetFilterList($b_file_fields)
 	return (false);
 }
 
-/* 
+/*
  * Function:    GetFilterSpec
  * Parameters:  $s_filter       returns the filter name
  *              $m_filter_list  returns the list of fields to filter (an array)
  *                              or is set to false if there is no filter list
  *              $b_file_fields  if true, return file fields, otherwise return non-file fields
  * Returns:     bool            true if filtering a list of fields of the specified type
- * Description:     
- *  Checks whether the form has specified to filter a list of 
+ * Description:
+ *  Checks whether the form has specified to filter a list of
  *  fields of the specified type (file fields or non-file fields).
  */
 function    GetFilterSpec(&$s_filter,&$m_filter_list,$b_file_fields = false)
@@ -11864,7 +11864,7 @@ function SendResults($a_fld_order,$a_clean_fields,$s_to,$s_cc,$s_bcc,$a_raw_fiel
 		$s_sender = $a_headers['From'] = SafeHeader(UnMangle($s_sender));
 	}
 
-	/* 
+	/*
          * Override sender if $FIXED_SENDER is set.
          */
 	if (Settings::get('FIXED_SENDER') !== "") {
@@ -12472,7 +12472,7 @@ function MultiFormReturn($i_return_to)
 		}
 	} else
 		//
-		// we probably should include 
+		// we probably should include
 		//  $SessionAccessor->CopyIn(...,true);
 		// at some stage in the future to get the session values....need to think about this
 		// and run some case studies.
@@ -13137,7 +13137,7 @@ function    CheckCaptchaSubmit()
 
 /*
  * Class:       AutoResponder
- * Description:     
+ * Description:
  *  Implements the auto responding feature of FormMail.
  *  The object must only be created after special fields have been
  *  processed.
@@ -13171,8 +13171,8 @@ class   AutoResponder
 	/*
      * Method:      AutoResponder ctor
      * Parameters:  void
-     * Returns:     n/a 
-     * Description: 
+     * Returns:     n/a
+     * Description:
      *  Constructs the object.
      */
 	function    AutoResponder()
@@ -13243,8 +13243,8 @@ class   AutoResponder
      * Method:      AutoResponder::IsRequested
      * Parameters:  void
      * Returns:     bool    true if autoresponding has been requested
-     * Description: 
-     *  Determines if autoresponding has been requested by the HTML.  
+     * Description:
+     *  Determines if autoresponding has been requested by the HTML.
      */
 	function    IsRequested()
 	{
@@ -13255,7 +13255,7 @@ class   AutoResponder
      * Method:      AutoResponder::Process
      * Parameters:  $b_check_only   if true, perform checks but do not send
      * Returns:     void
-     * Description: 
+     * Description:
      *  Processes the autorespond.
      */
 	function    Process($b_check_only = false)
@@ -13295,8 +13295,8 @@ class   AutoResponder
 	/*
      * Method:      AutoResponder::_CheckCaptcha
      * Parameters:  void
-     * Returns:     void 
-     * Description: 
+     * Returns:     void
+     * Description:
      *  Checks the type of CAPTCHA that has been processed.
      *  This method should only be called if autoresponse has been requested
      *  by the form (i.e. IsRequested returns true).
@@ -13388,7 +13388,7 @@ class   AutoResponder
      * Method:      AutoResponder::_Send
      * Parameters:  $b_use_template  if true, allow template, otherwise file
      * Returns:     void
-     * Description: 
+     * Description:
      *  Sends an autoreponse using a template.
      */
 	function    _Send($b_use_template)
@@ -13434,7 +13434,7 @@ class   AutoResponder
      *              $a_values   field values to access
      *              $b_use_template if true, use a template, otherwise plain file
      * Returns:     bool        true on success, otherwise false
-     * Description: 
+     * Description:
      *  Sends an autoresponse email to the user.
      */
 	function _SendEmail($s_to,$s_subj,$a_values,$b_use_template)
@@ -13527,9 +13527,9 @@ class   AutoResponder
 	}
 }
 
-/* 
+/*
  * Class:       SessionAccess
- * Description:     
+ * Description:
  *  Implements access to the general PHP session.
  *  This provides a secure way of copy data to and from the
  *  user's PHP session.
@@ -13543,7 +13543,7 @@ class   SessionAccess
      * Method:      SessionAccess ctor
      * Parameters:  $a_access_list      list of variables that can be accessed
      * Returns:     n/a
-     * Description: 
+     * Description:
      *  Constructs the object.
      */
 	function    SessionAccess($a_access_list)
@@ -13557,7 +13557,7 @@ class   SessionAccess
      *              $b_overwrite_empty  if true, the session value will overwrite
      *                          an empty array variable
      * Returns:     int         number of values copied
-     * Description: 
+     * Description:
      *  Copies in the list of variables from the session to the given array.
      */
 	function    CopyIn(&$a_vars,$b_overwrite_empty)
@@ -13585,7 +13585,7 @@ class   SessionAccess
      * Parameters:  $a_vars     reference to an array of values (keyed on name)
      *              $a_fields   an array of fields to copy
      * Returns:     int         number of values copied
-     * Description: 
+     * Description:
      *  Copies the variables from the given array into the session.
      *  The list of fields to copy is specified in _aAccessList.
      *  If $a_fields is provided, it contains a list of fields to copy, which
@@ -14218,12 +14218,12 @@ if (!empty($SPECIAL_VALUES["fmcompute"])) {
 		}
 	}
 
-	/* 
+	/*
      * Function:    MergeFileArrays
      * Parameters:  $a_new_files    the list of files just submitted by the form
      *              $a_saved_files  the list of files that have been previously saved (can be NULL)
      * Returns:     array           a merged array
-     * Description:     
+     * Description:
      *  Intelligently merges two arrays of file definitions.
      *  If a file has been newly uploaded, its definition takes precedence.
      */

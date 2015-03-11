@@ -75,7 +75,7 @@ p {
 
 table {
 	display: table;
-    
+
     @include max-screen(639px) {
 		display: block;
 		overflow: auto;
@@ -84,14 +84,14 @@ table {
         // iOS fix
 		-webkit-overflow-scrolling: touch;
     }
-    
+
     th,
     td {
         border: 1px solid shade($accent-color, 85%);
         padding: 4px 6px;
         vertical-align: top;
     }
-    
+
     thead td,
     th {
         background: $accent-color;
@@ -111,7 +111,7 @@ a {
     color: $accent-color;
     text-decoration: none;
     transition: color 0.25s;
-    
+
     &:hover {
         color: lighten($accent-color, 15%);
     }

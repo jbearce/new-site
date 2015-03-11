@@ -9,7 +9,7 @@ textarea {
     font-family: $sans-serif-stack;
     @include font-size(16);
     @include line-height(24);
-    
+
 }
 
 @include placeholder {
@@ -46,11 +46,11 @@ input[type=checkbox],
 input[type=radio] {
 	left: -999em;
 	position: absolute;
-    
+
     & + label {
 		position: relative;
 		padding: 11px 0 11px 52px;
-        
+
         &:before {
             background: center center no-repeat #FFF;
             background-size: 24px;
@@ -63,13 +63,13 @@ input[type=radio] {
             position: absolute;
             top: 0;
             width: 42px;
-            
+
             // webkit focus rings to emulate checkbox/radio
             .-webkit- &:active,
             .-webkit- &:focus {
                 outline: -webkit-focus-ring-color auto 5px;
             }
-            
+
             // trident focus rings to emulate checkbox/radio
             .-ms- &:active,
             .-ms- &:focus {
@@ -81,13 +81,13 @@ input[type=radio] {
             cusror: pointer;
         }
     }
-    
+
     &:focus + label {
         &:before {
             outline: -webkit-focus-ring-color auto 5px;
         }
     }
-    
+
     &[disabled] + label {
         &:before {
             background: darken(#FFF, 15%);
@@ -97,7 +97,7 @@ input[type=radio] {
 
 	input[type=checkbox]:checked + label:before {
 		background-image: url("../img/icon-checkbox.png");
-        
+
         .no-backgroundsize & {
             background-image: url("../img/icon-checkbox_small.png");
         }
@@ -109,7 +109,7 @@ input[type=radio] {
 
 	input[type=radio]:checked + label:before {
 		background-image: url("../img/icon-radio.png");
-        
+
         .no-backgroundsize & {
             background-image: url("../img/icon-checkbox_small.png");
         }
@@ -157,11 +157,11 @@ label:hover {
     background-position: right 10px center;
 	background-size: 24px;
 	padding: 0;
-        
+
     .no-backgroundsize & {
         background-image: url("../img/icon-checkbox_small.png");
     }
-    
+
     select {
 		background: none;
 		border: 0;
@@ -179,15 +179,15 @@ label:hover {
         &::-ms-expand {
             display: none;
         }
-        
+
         &:hover {
             cursor: pointer;
         }
-        
+
         option {
 			background: #FFF;
 			color: #000;
-            
+
             &:hover {
                 background: #DDD;
             }

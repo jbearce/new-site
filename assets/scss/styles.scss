@@ -35,7 +35,7 @@ body {
         width: 100%;
         // iOS fix
         -webkit-overflow-scrolling: touch;
-        
+
         .navopen & {
             overflow: hidden;
         }
@@ -49,7 +49,7 @@ body {
         min-height: 100%;
         position: relative;
         transition: right 0.25s;
-        
+
         .navopen & {
             height: 100%;
             right: 220px;
