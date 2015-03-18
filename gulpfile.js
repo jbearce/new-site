@@ -1,7 +1,11 @@
-var gulp = require("gulp");
-var removeFiles = require("gulp-remove-files");
+var gulp = require("gulp"),
+    removeFiles = require("gulp-remove-files"),
+    watch = require("gulp-watch");
 
 gulp.task("default", function() {
+    gulp.watch("./assets/**/*.*", function() {
+        gulp.run("update-static");
+    });
 });
 
 gulp.task("update-static", function() {
