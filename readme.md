@@ -30,6 +30,7 @@ Planned:
 *   Lightweight framework with various alternate settings (i.e. left sidebar vs right sidebar, full bleed slideshow vs centered slideshow, etc. See framework branch for more.).
 
 Considering:
+------------
 
 *   gulp to compile SCSS
 
