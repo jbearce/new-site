@@ -25,9 +25,7 @@ Planned:
 
 *   Barebones framework for rapidly getting a site off the ground (see framework branch)
 
-*   Improved gulpfile.js
-
-    *   `gulp-watch` to automatically update _static assets whenever root assets change
+*   Improved gulpfile.js with `gulp-watch` to automatically update _static assets whenever root assets change
 
 *   Lightweight framework with various alternate settings (i.e. left sidebar vs right sidebar, full bleed slideshow vs centered slideshow, etc. See framework branch for more.).
 
