@@ -21,12 +21,13 @@
                 background: darken($theme-color, 15%);
                 display: none;
                 float: right;
-                height: 40px;
+                @include font-size(16);
+                @include height(40, 16, em);
                 margin: 0;
                 padding: 0;
                 position: relative;
                 text-indent: -999em;
-                width: 40px;
+                @include width(40, 16, em);
 
                 &:before,
                 em,
@@ -34,41 +35,41 @@
                     background: #FFF;
                     content: "\0020";
                     display: block;
-                    height: 4px;
-                    left: 10px;
+                    @include height(4, 16, em);
+                    @include left(10, 16, em);
                     position: absolute;
                     transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
-                    width: 20px;
+                    @include width(20, 16, em);
                 }
 
                 .navopen &:before,
                 .navopen &:after {
-                    left: 20px;
-                    width: 10px;
+                    @include left(20, 16, em);
+                    @include width(10, 16, em);
                 }
 
                 &:before {
-                    top: 11px;
+                    @include top(11, 16, em);
 
                     .navopen & {
-                        top: 15px;
+                        @include top(15, 16, em);
                         transform: rotate(45deg);
                     }
                 }
 
                 em {
-                    top: 18px;
+                    @include top(18, 16, em);
 
                     .navopen & {
-                        width: 18px;
+                        @include width(18, 16, em);
                     }
                 }
 
                 &:after {
-                    top: 25px;
+                    @include top(25, 16, em);
 
                     .navopen & {
-                        top: 21px;
+                        @include top(21, 16, em);
                         transform: rotate(-45deg);
                     }
                 }
@@ -89,21 +90,6 @@
 				width: auto;
 				z-index: 999;
 
-                @include max-screen(639px) {
-                    background: $theme-color;
-                    float: none;
-                    height: 100%;
-                    overflow: auto;
-                    position: absolute;
-                    text-align: left;
-                    right: -220px;
-                    top: 0;
-                    transition: right 0.25s;
-                    width: 220px;
-                    // iOS fix
-                    -webkit-overflow-scrolling: touch;
-                }
-
                 @include clear;
 
                 li {
@@ -112,26 +98,8 @@
 					position: relative;
                     transition: background 0.25s;
 
-                    @include max-screen(639px) {
-                        float: none;
-                        left: auto;
-                    }
-
                     &:hover {
                         background: $accent-color;
-                    }
-
-                    &.search {
-                        display: none;
-                        padding: 10px;
-
-                        @include max-screen(639px) {
-                            display: block;
-                        }
-
-                        &:hover {
-                            background: none;
-                        }
                     }
 
                     a {
@@ -153,87 +121,6 @@
                         }
                     }
 
-                    button {
-                        background: none;
-                        display: none;
-                        height: 40px;
-                        margin: 0;
-                        padding: 0;
-                        position: absolute;
-                        right: 0;
-                        text-indent: -999em;
-                        top: 0;
-                        width: 40px;
-
-                        @include max-screen(639px) {
-                            display: block;
-                        }
-
-                        &:before,
-                        &:after {
-                            background: #FFF;
-                            content: "\0020";
-                            display: block;
-                            height: 4px;
-                            position: absolute;
-                            top: 18px;
-                            transition: transform 0.25s;
-                            width: 12px;
-                        }
-
-                        &:before {
-                            left: 11px;
-                            transform: rotate(45deg);
-                        }
-
-                        &:after {
-                            right: 11px;
-                            transform: rotate(-45deg);
-                        }
-                    }
-
-                    &.open > button:before {
-                        transform: rotate(-45deg);
-                    }
-
-                    &.open > button:after {
-                        transform: rotate(45deg);
-                    }
-
-                    form {
-                        background: #FFF;
-                        display: flex;
-                        width: 100%;
-
-                        @include clear;
-
-                        input[type=search],
-                        input[type=text] {
-                            background: none;
-                            border: 0;
-                            flex: 1 1 auto;
-                            float: left;
-                            margin: 0;
-                            padding: 6px 10px;
-                            width: 100px;
-
-                            @include flex-fix;
-                        }
-
-                        input[type=submit] {
-                            background: url("../img/icon-search.png") center center no-repeat;
-                            background-size: 16px 16px;
-                            flex: none;
-                            float: left;
-                            height: 36px;
-                            margin: 0;
-                            text-indent: -999em;
-                            width: 36px;
-
-                            @include flex-fix;
-                        }
-                    }
-
                     // sub list
                     ul {
                         background: lighten($theme-color, 15%);
@@ -243,7 +130,7 @@
 						text-align: left;
 						top: 100%;
                         transition: opacity 0.25s 0s, left 0s 0.25s;
-						width: 200px;
+						@include width(200, 16, em);
 
                         @include max-screen(639px) {
                             left: auto;
@@ -274,23 +161,13 @@
                             ul {
                                 background: lighten(lighten($theme-color, 15%), 15%);
 								top: 0;
-								width: 250px;
-
-                                @include max-screen(639px) {
-                                    top: auto;
-                                    width: auto;
-                                }
+                                @include width(250, 16, em);
                             }
 
                             &:hover > ul {
                                 left: 100%;
                             }
                         }
-                    }
-
-                    &.open > ul {
-                        max-height: 500px;
-                        transition: max-height 0.75s;
                     }
 
                     &:hover > ul {

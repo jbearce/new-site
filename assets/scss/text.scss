@@ -8,30 +8,38 @@ h3,
 h4,
 h5,
 h6 {
+    color: $accent-color;
+    font-family: $serif;
 }
 
 h1 {
     @include font-size(28);
+    @include margin(0, 0, 16, $base: 28, $unit: em);
 }
 
 h2 {
     @include font-size(26);
+    @include margin(0, 0, 16, $base: 26, $unit: em);
 }
 
 h3 {
     @include font-size(24);
+    @include margin(0, 0, 16, $base: 24, $unit: em);
 }
 
 h4 {
     @include font-size(22);
+    @include margin(0, 0, 16, $base: 22, $unit: em);
 }
 
 h5 {
     @include font-size(20);
+    @include margin(0, 0, 16, $base: 20, $unit: em);
 }
 
 h6 {
     @include font-size(18);
+    @include margin(0, 0, 8, $base: 18, $unit: em);
 }
 
 // text
@@ -41,17 +49,17 @@ ol,
 p,
 table,
 ul {
-    color: grayscale($theme-color);
-    font-family: $sans-serif-stack;
+    color: $font-color;
+    font-family: $sans-serif;
     @include font-size(16);
-    @include line-height(24);
-    @include margin(0, 0, 24);
+    @include line-height(24, 16, em);
+    @include margin(0, 0, 24, $base: 16, $unit: em);
 }
 
 menu,
 ol,
 ul {
-    padding: 0 0 0 24px;
+    @include padding(0, 0, 0, 24, 16, em);
 
     menu,
     ol,
@@ -79,7 +87,7 @@ table {
     @include max-screen(639px) {
 		display: block;
 		overflow: auto;
-		padding-bottom: 1px;
+        @include padding-bottom(1, 16, em);
 		width: 100%;
         // iOS fix
 		-webkit-overflow-scrolling: touch;
@@ -87,8 +95,8 @@ table {
 
     th,
     td {
-        border: 1px solid shade($accent-color, 85%);
-        padding: 4px 6px;
+        @include border(1, solid, darken($theme-color, 15%), 16, em);
+        @include padding(4, 6, $base: 16, $unit: em);
         vertical-align: top;
     }
 
@@ -122,20 +130,21 @@ a {
 blockquote {
     border-left: 5px solid $accent-color;
     @include margin(0, 0, 24);
-    padding: 0 0 0 24px;
+    @include padding(0, 0, 0, 24);
 }
 
 hr {
     border: 0;
-    border-bottom: 1px solid $accent-color;
+    @include border-bottom(1, solid, $accent-color);
     @include margin(0, 0, 24);
 }
 
 pre {
     background: $theme-color;
-    border: 1px solid shade($theme-color, 85%);
+    @include border(1, solid, darken($theme-color, 15%), 16, em);
     display: block;
     color: #FFF;
-    padding: 20px 24px;
+    @include font-size(16);
+    @include padding(20, 24, $base: 16, $unit: em);
     width: 100%;
 }

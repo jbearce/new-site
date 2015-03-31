@@ -5,15 +5,15 @@ label,
 .select,
 select,
 textarea {
-    color: grayscale($theme-color);
-    font-family: $sans-serif-stack;
+    color: $font-color;
+    font-family: $sans-serif;
     @include font-size(16);
-    @include line-height(24);
+    @include line-height(24, 16, em);
 
 }
 
 @include placeholder {
-	color: lighten(grayscale($theme-color), 15%);
+	color: lighten($font-color, 15%);
 }
 
 button,
@@ -25,11 +25,11 @@ input[type=submit],
 	border: 0;
     color: #FFF;
 	display: inline-block;
-    font-family: $sans-serif-stack;
+    font-family: $sans-serif;
     @include font-size(16);
     font-weight: 700;
-	@include margin(0, 0, 10);
-	padding: 6px 10px;
+	@include margin(0, 0, 10, $base: 16, $unit: em);
+	@include padding(6, 10, $base: 16, $unit: em);
 	transition: background 0.25s;
 }
 
@@ -50,19 +50,20 @@ input[type=radio] {
     & + label {
 		position: relative;
 		padding: 11px 0 11px 52px;
+        @include padding(11, 0, 11, 52, 16, em);
 
         &:before {
             background: center center no-repeat #FFF;
-            background-size: 24px;
-            border: 1px solid grayscale($theme-color);
+            @include background-size(24, 16, em);
+            @include border(1, solid, $font-color, 16, em);
             content: "\0020";
             display: block;
             float: left;
-            height: 42px;
+            @include height(42, 16, em);
             left: 0;
             position: absolute;
             top: 0;
-            width: 42px;
+            @include width(42, 16, em);
 
             // webkit focus rings to emulate checkbox/radio
             .-webkit- &:active,
@@ -133,19 +134,19 @@ input[type=week],
 .select,
 textarea {
 	background: #FFF;
-	border: 1px solid grayscale($theme-color);
+    @include border(1, solid, $accent-color, 16, em);
 	box-sizing: border-box;
 	display: block;
-	margin: 0 0 10px;
+	@include margin(0, 0, 10, $base: 16, $unit: em);
 	outline: none;
-	padding: 10px 15px;
+	@include padding(10, 15, $base: 16, $unit: em);
 	text-overflow: ellipsis;
 	width: 100%;
 }
 
 label {
 	display: block;
-	margin: 0 0 10px;
+    @include margin(0, 0, 10, $base: 16, $unit: em);
 }
 
 label:hover {
@@ -155,7 +156,8 @@ label:hover {
 .select {
     background: url("../img/icon-select.png") right center no-repeat;
     background-position: right 10px center;
-	background-size: 24px;
+    background-position: right (10em / 16) center;
+    @include background-size(24, $base: 16, $unit: em);
 	padding: 0;
 
     .no-backgroundsize & {
@@ -168,7 +170,7 @@ label:hover {
 		display: block;
 		margin: 0;
 		outline: none;
-        padding: 9px 42px 9px 12px;
+        @include padding(9, 42, 9, 12, 16, em);
 		text-indent: 0.01px;
     	text-overflow: "";
 		width: 100%;
@@ -197,6 +199,6 @@ label:hover {
 
 textarea {
 	max-width: 100%;
-	min-height: 100px;
+	@include min-height(100, 16, em);
 	min-width: 100%;
 }
