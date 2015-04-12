@@ -52,6 +52,8 @@
 
 // rem/em stuff
 
+/// background
+
 @mixin background-size($x, $y: null, $base: 16, $unit: rem) {
     @if $y == null {
         background-size: ($x + px);
@@ -62,13 +64,10 @@
     }
 }
 
+/// border
+
 @mixin border($size, $style, $color, $base: 16, $unit: rem) {
     border: ($size + px) $style $color;
-    border-width: ($size / $base) + $unit;
-}
-
-@mixin border-width($size, $base: 16, $unit: rem) {
-    border-width: $size + px;
     border-width: ($size / $base) + $unit;
 }
 
@@ -77,18 +76,8 @@
     border-top-width: ($size / $base) + $unit;
 }
 
-@mixin border-top-width($size, $base: 16, $unit: rem) {
-    border-top-width: $size + px;
-    border-top-width: ($size / $base) + $unit;
-}
-
 @mixin border-right($size, $style, $color, $base: 16, $unit: rem) {
     border-right: ($size + px) $style $color;
-    border-right-width: ($size / $base) + $unit;
-}
-
-@mixin border-right-width($size, $base: 16, $unit: rem) {
-    border-right-width: $size + px;
     border-right-width: ($size / $base) + $unit;
 }
 
@@ -97,45 +86,58 @@
     border-bottom-width: ($size / $base) + $unit;
 }
 
-@mixin border-bottom-width($size, $base: 16, $unit: rem) {
-    border-bottom-width: $size + px;
-    border-bottom-width: ($size / $base) + $unit;
-}
-
 @mixin border-left($size, $style, $color, $base: 16, $unit: rem) {
     border-left: ($size + px) $style $color;
     border-left-width: ($size / $base) + $unit;
 }
 
-@mixin border-left-width($size, $base: 16, $unit: rem) {
-    border-left-width: $size + px;
-    border-left-width: ($size / $base) + $unit;
+/// border radius
+
+@mixin border-radius($top, $right: null, $bottom: null, $left: null, $base: 16, $unit: em) {
+    border-radius: {
+        top: $top + px;
+        @if $right != null {
+            right: $right + px;
+            @if $left == null {
+                left: $right + px;
+            }
+        }
+        @if $bottom != null {
+            bottom: $bottom + px;
+        } @else {
+            bottom: $top + px;
+        }
+        @if $left != null {
+            left: $left + px;
+        }
+        @if $right == null and $bottom == null and $left == null {
+            right: $top + px;
+            bottom: $top + px;
+            left: $top + px;
+        }
+    }
 }
 
-@mixin bottom($size, $base: 16, $unit: rem) {
-    bottom: $size + px;
-    bottom: ($size / $base) + $unit;
+/// box shadow
+
+@mixin box-shadow($x, $y, $blur, $spread: 0, $color: #000, $base: 16, $unit: rem) {
+    box-shadow: ($x + px) ($y + px) ($blur + px) ($spread + px) $color;
+    box-shadow: (($x / $base) + $unit) (($y / $base) + $unit) (($blur / $base) + $unit) (($spread / $base) + $unit) $color;
 }
+
+/// font
 
 @mixin font-size($size, $base: 16, $unit: rem) {
     font-size: $size + px;
     font-size: ($size / $base) + $unit;
 }
 
-@mixin height($size, $base: 16, $unit: rem) {
-    height: $size + px;
-    heihgt: ($size / $base) + $unit;
-}
-
-@mixin left($size, $base: 16, $unit: rem) {
-    left: $size + px;
-    left: ($size / $base) + $unit;
-}
-
 @mixin line-height($size, $base: 16, $unit: rem) {
     line-height: $size + px;
     line-height: ($size / $base) + $unit;
 }
+
+/// margin
 
 @mixin margin($top, $right: null, $bottom: null, $left: null, $base: 16, $unit: rem) {
     margin: {
@@ -184,45 +186,7 @@
     }
 }
 
-@mixin margin-top($size, $base: 16, $unit: rem) {
-    margin-top: $size + px;
-    margin-top: ($size / $base) + $unit;
-}
-
-@mixin margin-right($size, $base: 16, $unit: rem) {
-    margin-right: $size + px;
-    margin-right: ($size / $base) + $unit;
-}
-
-@mixin margin-bottom($size, $base: 16, $unit: rem) {
-    margin-bottom: $size + px;
-    margin-bottom: ($size / $base) + $unit;
-}
-
-@mixin margin-right($size, $base: 16, $unit: rem) {
-    margin-right: $size + px;
-    margin-right: ($size / $base) + $unit;
-}
-
-@mixin max-height($size, $base: 16, $unit: rem) {
-    max-height: $size + px;
-    max-height: ($size / $base) + $unit;
-}
-
-@mixin max-width($size, $base: 16, $unit: rem) {
-    max-width: $size + px;
-    max-width: ($size / $base) + $unit;
-}
-
-@mixin min-height($size, $base: 16, $unit: rem) {
-    min-height: $size + px;
-    min-height: ($size / $base) + $unit;
-}
-
-@mixin min-width($size, $base: 16, $unit: rem) {
-    min-width: $size + px;
-    min-width: ($size / $base) + $unit;
-}
+/// padding
 
 @mixin padding($top, $right: null, $bottom: null, $left: null, $base: 16, $unit: rem) {
     padding: {
@@ -271,24 +235,11 @@
     }
 }
 
-@mixin padding-top($size, $base: 16, $unit: rem) {
-    padding-top: $size + px;
-    padding-top: ($size / $base) + $unit;
-}
+/// position
 
-@mixin padding-right($size, $base: 16, $unit: rem) {
-    padding-right: $size + px;
-    padding-right: ($size / $base) + $unit;
-}
-
-@mixin padding-bottom($size, $base: 16, $unit: rem) {
-    padding-bottom: $size + px;
-    padding-bottom: ($size / $base) + $unit;
-}
-
-@mixin padding-right($size, $base: 16, $unit: rem) {
-    padding-right: $size + px;
-    padding-right: ($size / $base) + $unit;
+@mixin top($size, $base: 16, $unit: rem) {
+    top: $size + px;
+    top: ($size / $base) + $unit;
 }
 
 @mixin right($size, $base: 16, $unit: rem) {
@@ -296,12 +247,51 @@
     right: ($size / $base) + $unit;
 }
 
-@mixin top($size, $base: 16, $unit: rem) {
-    top: $size + px;
-    top: ($size / $base) + $unit;
+@mixin bottom($size, $base: 16, $unit: rem) {
+    bottom: $size + px;
+    bottom: ($size / $base) + $unit;
+}
+
+@mixin left($size, $base: 16, $unit: rem) {
+    left: $size + px;
+    left: ($size / $base) + $unit;
+}
+
+/// size
+
+@mixin height($size, $base: 16, $unit: rem) {
+    height: $size + px;
+    height: ($size / $base) + $unit;
+}
+
+@mixin max-height($size, $base: 16, $unit: rem) {
+    max-height: $size + px;
+    max-height: ($size / $base) + $unit;
+}
+
+@mixin min-height($size, $base: 16, $unit: rem) {
+    min-height: $size + px;
+    min-height: ($size / $base) + $unit;
 }
 
 @mixin width($size, $base: 16, $unit: rem) {
     width: $size + px;
     width: ($size / $base) + $unit;
+}
+
+@mixin max-width($size, $base: 16, $unit: rem) {
+    max-width: $size + px;
+    max-width: ($size / $base) + $unit;
+}
+
+@mixin min-width($size, $base: 16, $unit: rem) {
+    min-width: $size + px;
+    min-width: ($size / $base) + $unit;
+}
+
+/// other
+
+@mixin remify($property, $value, $base: 16, $unit: rem) {
+    #{$property}: $value + px;
+    #{$property}: ($value / $base) + $unit;
 }

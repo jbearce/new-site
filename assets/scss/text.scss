@@ -87,7 +87,7 @@ table {
     @include max-screen(639px) {
 		display: block;
 		overflow: auto;
-        @include padding-bottom(1, 16, em);
+        @include remify(padding-bottom, 1, 16, em);
 		width: 100%;
         // iOS fix
 		-webkit-overflow-scrolling: touch;
