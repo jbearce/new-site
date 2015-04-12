@@ -25,7 +25,7 @@
             &:before,
             em,
             &:after {
-                background: $accent-color;
+                background: lighten($theme-color, 75%);
                 content: "\0020";
                 display: block;
                 @include height(4, 16, em);
@@ -100,7 +100,7 @@
                 }
 
                 a {
-                    color: #FFF;
+                    color: lighten($theme-color, 75%);
                     display: block;
                     padding: 8px 10px;
                 }
@@ -113,7 +113,7 @@
                     position: absolute;
                     text-align: left;
                     top: 100%;
-                    transition: opacity 0.25s 0s, left 0s 0.25s;
+                    transition: opacity 0.25s, left 0s 0.25s;
                     @include width(200, 16, em);
 
                     li {
@@ -137,6 +137,7 @@
                 &:hover > ul {
                     left: 0;
                     opacity: 1;
+                    transition: opacity 0.25s;
                 }
             }
         }
