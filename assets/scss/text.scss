@@ -9,7 +9,7 @@ h4,
 h5,
 h6 {
     color: $accent-color;
-    font-family: $serif;
+    font-family: $heading-font;
 }
 
 h1 {
@@ -50,7 +50,7 @@ p,
 table,
 ul {
     color: $font-color;
-    font-family: $sans-serif;
+    font-family: $body-font;
     @include font-size(16);
     @include line-height(24, 16, em);
     @include margin(0, 0, 24, $base: 16, $unit: em);
@@ -118,7 +118,7 @@ ul {
 a {
     color: $accent-color;
     text-decoration: none;
-    transition: color 0.25s;
+    transition: color 0.15s;
 
     &:hover {
         color: lighten($accent-color, 15%);

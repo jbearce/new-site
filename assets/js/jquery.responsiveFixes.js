@@ -73,13 +73,13 @@ $(window).resize(function () {
 });
 
 // mobile menu button pushes
-$("#headerWrapper header nav > button").click(function (e) {
+$("#navWrapper nav > button").click(function (e) {
     "use strict";
     e.preventDefault();
     $("html").toggleClass("navopen");
     $("body").scrollTop(0);
 });
-$("#headerWrapper header nav ul li button").click(function (e) {
+$("#mobileNavWrapper #mobileNav nav ul li button").click(function (e) {
     "use strict";
     e.preventDefault();
     $(this).parent().toggleClass("open");

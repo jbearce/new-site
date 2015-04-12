@@ -6,7 +6,7 @@ label,
 select,
 textarea {
     color: $font-color;
-    font-family: $sans-serif;
+    font-family: $body-font;
     @include font-size(16);
     @include line-height(24, 16, em);
 
@@ -23,14 +23,14 @@ input[type=submit],
 .button {
 	background: $accent-color;
 	border: 0;
-    color: #FFF;
+    color: darken($accent-color, 15%);
 	display: inline-block;
-    font-family: $sans-serif;
+    font-family: $body-font;
     @include font-size(16);
     font-weight: 700;
 	@include margin(0, 0, 10, $base: 16, $unit: em);
 	@include padding(6, 10, $base: 16, $unit: em);
-	transition: background 0.25s;
+	transition: background 0.15s, color 0.15s;
 }
 
 button:hover,
@@ -39,7 +39,7 @@ input[type=reset]:hover,
 input[type=submit]:hover,
 .button:hover {
 	background: lighten($accent-color, 15%);
-    color: #FFF;
+    color: $accent-color;
 }
 
 input[type=checkbox],
@@ -49,13 +49,12 @@ input[type=radio] {
 
     & + label {
 		position: relative;
-		padding: 11px 0 11px 52px;
         @include padding(11, 0, 11, 52, 16, em);
 
         &:before {
-            background: center center no-repeat #FFF;
-            @include background-size(24, 16, em);
-            @include border(1, solid, $font-color, 16, em);
+            background: center center no-repeat $background-color;
+            @include background-size(24, $base: 16, $unit: em);
+            @include border(1, solid, $accent-color, 16, em);
             content: "\0020";
             display: block;
             float: left;
@@ -91,13 +90,17 @@ input[type=radio] {
 
     &[disabled] + label {
         &:before {
-            background: darken(#FFF, 15%);
+            background: darken($background-color, 15%);
         }
     }
 }
 
 	input[type=checkbox]:checked + label:before {
 		background-image: url("../img/icon-checkbox.png");
+
+        /*.svg & {
+            background-image: url("../img/icon-checkbox.svg");
+        }*/
 
         .no-backgroundsize & {
             background-image: url("../img/icon-checkbox_small.png");
@@ -110,6 +113,10 @@ input[type=radio] {
 
 	input[type=radio]:checked + label:before {
 		background-image: url("../img/icon-radio.png");
+
+        /*.svg & {
+            background-image: url("../img/icon-radio.svg");
+        }*/
 
         .no-backgroundsize & {
             background-image: url("../img/icon-checkbox_small.png");
@@ -133,7 +140,7 @@ input[type=url],
 input[type=week],
 .select,
 textarea {
-	background: #FFF;
+	background: $background-color;
     @include border(1, solid, $accent-color, 16, em);
 	box-sizing: border-box;
 	display: block;
@@ -171,13 +178,16 @@ label:hover {
 		margin: 0;
 		outline: none;
         @include padding(9, 42, 9, 12, 16, em);
+		width: 100%;
+        // gecko fix
 		text-indent: 0.01px;
     	text-overflow: "";
-		width: 100%;
         // webkit & gecko fix
         -webkit-appearance: none;
         -moz-appearance: none;
+        appearance: none;
 
+        // trident fix
         &::-ms-expand {
             display: none;
         }

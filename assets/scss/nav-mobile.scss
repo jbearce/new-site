@@ -1,0 +1,105 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+#mobileNavWrapper {
+    background: $theme-color;
+    @include bottom(0);
+    display: none;
+    overflow: auto;
+    position: absolute;
+    @include right(0);
+    @include top(0);
+    @include width($mobile-nav-width);
+    z-index: 1;
+
+    @include max-screen(639px) {
+        display: block;
+    }
+
+    #mobileNav {
+        nav {
+            @include font-size(16);
+
+            ul {
+                font-size: 1em;
+                list-style: none;
+                margin: 0;
+                padding: 0;
+
+                li {
+                    position: relative;
+
+                    a {
+                        display: block;
+                        @include padding(10, 20, $base: 16, $unit: em);
+                    }
+
+                    &.menu-item-has-children a {
+                        @include margin(0, 44, 0, 0, $base: 16, $unit: em);
+                    }
+
+                    button {
+                        background: none;
+                        font-size: 1em;
+                        @include height(44, $base: 16, $unit: em);
+                        margin: 0;
+                        padding: 0;
+                        position: absolute;
+                        right: 0;
+                        text-indent: -999em;
+                        top: 0;
+                        @include width(44, $base: 16, $unit: em);
+
+                        &:before,
+                        &:after {
+                            background: $accent-color;
+                            content: "\0020";
+                            display: block;
+                            @include height(4);
+                            position: absolute;
+                            transition: transform 0.15s;
+                            @include remify(top, 20, 16, em);
+                            @include width(10);
+                        }
+
+                        &:before {
+                            @include remify(left, 15, 16, em);
+                            transform: rotate(45deg);
+                        }
+
+                        &:after {
+                            @include remify(right, 15, 16, em);
+                            transform: rotate(-45deg);
+                        }
+                    }
+
+                    ul {
+                        background: lighten($theme-color, 15%);
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.15s;
+
+                        ul {
+                            background: lighten($theme-color, 30%);
+                        }
+                    }
+
+                    &.open {
+
+                        & > button:before {
+                            transform: rotate(-45deg);
+                        }
+
+                        & > button:after {
+                            transform: rotate(45deg);
+                        }
+
+                        & > ul {
+                            @include max-height(500);
+                            transition: max-height 0.3s;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
