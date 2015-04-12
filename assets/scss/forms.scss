@@ -28,8 +28,8 @@ input[type=submit],
     font-family: $body-font;
     @include font-size(16);
     font-weight: 700;
-	@include margin(0, 0, 10, $base: 16, $unit: em);
-	@include padding(6, 10, $base: 16, $unit: em);
+	@include margin(0 0 10, 16);
+	@include padding(6 10, 16);
 	transition: background 0.15s, color 0.15s;
 }
 
@@ -49,7 +49,7 @@ input[type=radio] {
 
     & + label {
 		position: relative;
-        @include padding(11, 0, 11, 52, 16, em);
+        @include padding(11 0 11 52, 16);
 
         &:before {
             background: center center no-repeat $background-color;
@@ -144,16 +144,16 @@ textarea {
     @include border(1, solid, $accent-color, 16, em);
 	box-sizing: border-box;
 	display: block;
-	@include margin(0, 0, 10, $base: 16, $unit: em);
+	@include margin(0 0 10, 16);
 	outline: none;
-	@include padding(10, 15, $base: 16, $unit: em);
+	@include padding(10 15, 16);
 	text-overflow: ellipsis;
 	width: 100%;
 }
 
 label {
 	display: block;
-    @include margin(0, 0, 10, $base: 16, $unit: em);
+    @include margin(0 0 10, 16);
 }
 
 label:hover {
@@ -177,7 +177,7 @@ label:hover {
 		display: block;
 		margin: 0;
 		outline: none;
-        @include padding(9, 42, 9, 12, 16, em);
+        @include padding(9 42 9 12, 16);
 		width: 100%;
         // gecko fix
 		text-indent: 0.01px;

@@ -30,11 +30,11 @@
 
                     a {
                         display: block;
-                        @include padding(10, 20, $base: 16, $unit: em);
+                        @include padding(10 20, 16);
                     }
 
                     &.menu-item-has-children a {
-                        @include margin(0, 44, 0, 0, $base: 16, $unit: em);
+                        @include margin(0 44 0 0, 16);
                     }
 
                     button {

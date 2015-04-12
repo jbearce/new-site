@@ -20,28 +20,6 @@
     }
 }
 
-@mixin position($position, $args) {
-    @each $o in top right bottom left {
-        $i: index($args, $o);
-        @if $i and $i + 1 <= length($args) and type-of(nth($args, $i + 1)) == number {
-            #{$o}: nth($args, $i + 1);
-        }
-    }
-    position: $position;
-}
-
-@mixin absolute($args) {
-    @include position("absolute", $args);
-}
-
-@mixin fixed($args) {
-    @include position("fixed", $args);
-}
-
-@mixin relative($args) {
-    @include position("relative", $args);
-}
-
 @mixin placeholder {
     ::-webkit-input-placeholder {@content}
     :-moz-placeholder {@content}
@@ -54,7 +32,17 @@
 
 /// background
 
-@mixin background-size($x, $y: null, $base: 16, $unit: rem) {
+@mixin background-size($x, $y: null, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     @if $y == null {
         background-size: ($x + px);
         background-size: ($x / $base) + $unit;
@@ -66,232 +54,408 @@
 
 /// border
 
-@mixin border($size, $style, $color, $base: 16, $unit: rem) {
+@mixin border($size, $style, $color, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     border: ($size + px) $style $color;
     border-width: ($size / $base) + $unit;
 }
 
-@mixin border-top($size, $style, $color, $base: 16, $unit: rem) {
+@mixin border-top($size, $style, $color, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     border-top: ($size + px) $style $color;
     border-top-width: ($size / $base) + $unit;
 }
 
-@mixin border-right($size, $style, $color, $base: 16, $unit: rem) {
+@mixin border-right($size, $style, $color, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     border-right: ($size + px) $style $color;
     border-right-width: ($size / $base) + $unit;
 }
 
-@mixin border-bottom($size, $style, $color, $base: 16, $unit: rem) {
+@mixin border-bottom($size, $style, $color, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     border-bottom: ($size + px) $style $color;
     border-bottom-width: ($size / $base) + $unit;
 }
 
-@mixin border-left($size, $style, $color, $base: 16, $unit: rem) {
+@mixin border-left($size, $style, $color, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     border-left: ($size + px) $style $color;
     border-left-width: ($size / $base) + $unit;
 }
 
 /// border radius
 
-@mixin border-radius($top, $right: null, $bottom: null, $left: null, $base: 16, $unit: em) {
-    border-radius: {
-        top: $top + px;
-        @if $right != null {
-            right: $right + px;
-            @if $left == null {
-                left: $right + px;
-            }
+@mixin border-radius($sizes: ($top-left, $top-right, $bottom-right, $bottom-left), $base: null, $unit: null) {
+    $value-px: null;
+    $value-rem: null;
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
         }
-        @if $bottom != null {
-            bottom: $bottom + px;
-        } @else {
-            bottom: $top + px;
-        }
-        @if $left != null {
-            left: $left + px;
-        }
-        @if $right == null and $bottom == null and $left == null {
-            right: $top + px;
-            bottom: $top + px;
-            left: $top + px;
+    } @else {
+        @if $unit == null {
+            $unit: em;
         }
     }
+    @each $size in $sizes {
+        @if $value-px == null {
+            $value-px: $size + px;
+        } @else {
+            $value-px: $value-px + " " + ($size + px);
+        }
+
+        @if $value-rem == null {
+            $value-rem: ($size / $base) + $unit;
+        } @else {
+            $value-rem: $value-rem + " " + (($size / $base) + $unit);
+        }
+    }
+    border-radius: $value-px;
+    border-radius: $value-rem;
 }
 
 /// box shadow
 
-@mixin box-shadow($x, $y, $blur, $spread: 0, $color: #000, $base: 16, $unit: rem) {
-    box-shadow: ($x + px) ($y + px) ($blur + px) ($spread + px) $color;
-    box-shadow: (($x / $base) + $unit) (($y / $base) + $unit) (($blur / $base) + $unit) (($spread / $base) + $unit) $color;
+@mixin box-shadow($sizes: ($x, $y, $blur, $spread), $color: #000, $base: null, $unit: null) {
+    $value-px: null;
+    $value-rem: null;
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
+    @each $size in $sizes {
+        @if $value-px == null {
+            $value-px: $size + px;
+        } @else {
+            $value-px: $value-px + " " + ($size + px);
+        }
+
+        @if $value-rem == null {
+            $value-rem: ($size / $base) + $unit;
+        } @else {
+            $value-rem: $value-rem + " " + (($size / $base) + $unit);
+        }
+    }
+    box-shadow: $value-px $color;
+    box-shadow: $value-rem $color;
 }
 
 /// font
 
-@mixin font-size($size, $base: 16, $unit: rem) {
+@mixin font-size($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     font-size: $size + px;
     font-size: ($size / $base) + $unit;
 }
 
-@mixin line-height($size, $base: 16, $unit: rem) {
+@mixin line-height($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     line-height: $size + px;
     line-height: ($size / $base) + $unit;
 }
 
 /// margin
 
-@mixin margin($top, $right: null, $bottom: null, $left: null, $base: 16, $unit: rem) {
-    margin: {
-        top: $top + px;
-        @if $right != null {
-            right: $right + px;
-            @if $left == null {
-                left: $right + px;
-            }
+@mixin margin($sizes: ($top, $right, $bottom, $left), $base: null, $unit: null) {
+    $value-px: null;
+    $value-rem: null;
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
         }
-        @if $bottom != null {
-            bottom: $bottom + px;
-        } @else {
-            bottom: $top + px;
-        }
-        @if $left != null {
-            left: $left + px;
-        }
-        @if $right == null and $bottom == null and $left == null {
-            right: $top + px;
-            bottom: $top + px;
-            left: $top + px;
+    } @else {
+        @if $unit == null {
+            $unit: em;
         }
     }
-    margin: {
-        top: ($top / $base) + $unit;
-        @if $right != null {
-            right: ($right / $base) + $unit;
-            @if $left == null {
-                left: ($right / $base) + $unit;
-            }
-        }
-        @if $bottom != null {
-            bottom: ($bottom / $base) + $unit;
+    @each $size in $sizes {
+        @if $value-px == null {
+            $value-px: $size + px;
         } @else {
-            bottom: ($top / $base) + $unit;
+            $value-px: $value-px + " " + ($size + px);
         }
-        @if $left != null {
-            left: ($left / $base) + $unit;
-        }
-        @if $right == null and $bottom == null and $left == null {
-            right: ($top / $base + $unit);
-            bottom: ($top / $base) + $unit;
-            left: ($top / $base) + $unit;
+
+        @if $value-rem == null {
+            $value-rem: ($size / $base) + $unit;
+        } @else {
+            $value-rem: $value-rem + " " + (($size / $base) + $unit);
         }
     }
+    margin: $value-px;
+    margin: $value-rem;
 }
 
 /// padding
 
-@mixin padding($top, $right: null, $bottom: null, $left: null, $base: 16, $unit: rem) {
-    padding: {
-        top: $top + px;
-        @if $right != null {
-            right: $right + px;
-            @if $left == null {
-                left: $right + px;
-            }
+@mixin padding($sizes: ($top, $right, $bottom, $left), $base: null, $unit: null) {
+    $value-px: null;
+    $value-rem: null;
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
         }
-        @if $bottom != null {
-            bottom: $bottom + px;
-        } @else {
-            bottom: $top + px;
-        }
-        @if $left != null {
-            left: $left + px;
-        }
-        @if $right == null and $bottom == null and $left == null {
-            right: $top + px;
-            bottom: $top + px;
-            left: $top + px;
+    } @else {
+        @if $unit == null {
+            $unit: em;
         }
     }
-    padding: {
-        top: ($top / $base) + $unit;
-        @if $right != null {
-            right: ($right / $base) + $unit;
-            @if $left == null {
-                left: ($right / $base) + $unit;
-            }
-        }
-        @if $bottom != null {
-            bottom: ($bottom / $base) + $unit;
+    @each $size in $sizes {
+        @if $value-px == null {
+            $value-px: $size + px;
         } @else {
-            bottom: ($top / $base) + $unit;
+            $value-px: $value-px + " " + ($size + px);
         }
-        @if $left != null {
-            left: ($left / $base) + $unit;
-        }
-        @if $right == null and $bottom == null and $left == null {
-            right: ($top / $base + $unit);
-            bottom: ($top / $base) + $unit;
-            left: ($top / $base) + $unit;
+
+        @if $value-rem == null {
+            $value-rem: ($size / $base) + $unit;
+        } @else {
+            $value-rem: $value-rem + " " + (($size / $base) + $unit);
         }
     }
+    padding: $value-px;
+    padding: $value-rem;
 }
 
 /// position
 
-@mixin top($size, $base: 16, $unit: rem) {
+@mixin top($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     top: $size + px;
     top: ($size / $base) + $unit;
 }
 
-@mixin right($size, $base: 16, $unit: rem) {
+@mixin right($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     right: $size + px;
     right: ($size / $base) + $unit;
 }
 
-@mixin bottom($size, $base: 16, $unit: rem) {
+@mixin bottom($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     bottom: $size + px;
     bottom: ($size / $base) + $unit;
 }
 
-@mixin left($size, $base: 16, $unit: rem) {
+@mixin left($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     left: $size + px;
     left: ($size / $base) + $unit;
 }
 
 /// size
 
-@mixin height($size, $base: 16, $unit: rem) {
+@mixin height($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     height: $size + px;
     height: ($size / $base) + $unit;
 }
 
-@mixin max-height($size, $base: 16, $unit: rem) {
+@mixin max-height($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     max-height: $size + px;
     max-height: ($size / $base) + $unit;
 }
 
-@mixin min-height($size, $base: 16, $unit: rem) {
+@mixin min-height($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     min-height: $size + px;
     min-height: ($size / $base) + $unit;
 }
 
-@mixin width($size, $base: 16, $unit: rem) {
+@mixin width($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     width: $size + px;
     width: ($size / $base) + $unit;
 }
 
-@mixin max-width($size, $base: 16, $unit: rem) {
+@mixin max-width($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     max-width: $size + px;
     max-width: ($size / $base) + $unit;
 }
 
-@mixin min-width($size, $base: 16, $unit: rem) {
+@mixin min-width($size, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     min-width: $size + px;
     min-width: ($size / $base) + $unit;
 }
 
 /// other
 
-@mixin remify($property, $value, $base: 16, $unit: rem) {
+@mixin remify($property, $value, $base: null, $unit: null) {
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
     #{$property}: $value + px;
     #{$property}: ($value / $base) + $unit;
 }
