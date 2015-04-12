@@ -11,7 +11,7 @@
     @include width($mobile-nav-width);
     z-index: 1;
 
-    @include max-screen(639px) {
+    @include max-screen($xs-break) {
         display: block;
     }
 

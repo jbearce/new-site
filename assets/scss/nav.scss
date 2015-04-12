@@ -67,7 +67,7 @@
                 }
             }
 
-            @include max-screen(639px) {
+            @include max-screen($xs-break) {
                 display: block;
             }
         }
@@ -85,7 +85,7 @@
 
             @include clear;
 
-            @include max-screen(639px) {
+            @include max-screen($xs-break) {
                 display: none;
             }
 
@@ -105,12 +105,6 @@
                     padding: 8px 10px;
                 }
 
-                &.menu-item-has-children a {
-                    @include max-screen(639px) {
-                        padding-right: 40px;
-                    }
-                }
-
                 // sub list
                 ul {
                     background: lighten($theme-color, 15%);
@@ -121,17 +115,6 @@
                     top: 100%;
                     transition: opacity 0.25s 0s, left 0s 0.25s;
                     @include width(200, 16, em);
-
-                    @include max-screen(639px) {
-                        left: auto;
-                        max-height: 0;
-                        opacity: 1;
-                        overflow: hidden;
-                        position: static;
-                        top: auto;
-                        transition: max-height 0.5s;
-                        width: auto;
-                    }
 
                     li {
                         float: none;
@@ -154,10 +137,6 @@
                 &:hover > ul {
                     left: 0;
                     opacity: 1;
-
-                    @include min-screen(640px) {
-                        transition: opacity 0.25s 0s, left 0s 0s;
-                    }
                 }
             }
         }

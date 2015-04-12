@@ -1,10 +1,23 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
-$font-color: #000;
+// theme colors
 $theme-color: #343843;
 $accent-color: #15BDC3;
 $background-color: #EEE;
+
+// fonts
+$font-color: #000;
 $heading-font: "Times New Roman", "Times", serif;
 $body-font: "Open Sans", "Arial", "Helvetica", sans-serif;
+
+// widths
 $site-width: 1200;
 $mobile-nav-width: 240;
+
+$xxl-break: (1279rem / 16);
+$xl-break: (1023rem / 16);
+$l-break: (959rem / 16);
+$m-break: (852rem / 16);
+$s-break: (767rem / 16);
+$xs-break: (639rem / 16);
+$xxs-break: (479rem / 16);

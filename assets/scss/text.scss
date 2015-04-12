@@ -84,7 +84,7 @@ p {
 table {
 	display: table;
 
-    @include max-screen(639px) {
+    @include max-screen($xs-break) {
 		display: block;
 		overflow: auto;
         @include remify(padding-bottom, 1, 16, em);
