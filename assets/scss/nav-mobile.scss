@@ -17,10 +17,8 @@
 
     #mobileNav {
         nav {
-            @include font-size(16);
-
             ul {
-                font-size: 1em;
+                @include font-size(16);
                 list-style: none;
                 margin: 0;
                 padding: 0;
@@ -41,34 +39,36 @@
                     button {
                         background: none;
                         font-size: 1em;
-                        @include height(44, $base: 16, $unit: em);
+                        @include height(44, 16);
                         margin: 0;
                         padding: 0;
                         position: absolute;
                         right: 0;
                         text-indent: -999em;
                         top: 0;
-                        @include width(44, $base: 16, $unit: em);
+                        @include width(44, 16);
 
                         &:before,
                         &:after {
-                            background: lighten($theme-color, 75%);
+                            background: $accent-color;
+                            @include border-radius(2, 16);
                             content: "\0020";
                             display: block;
-                            @include height(4);
+                            font-size: 1em;
+                            @include height(4, 16);
                             position: absolute;
                             transition: transform 0.15s;
-                            @include remify(top, 20, 16, em);
-                            @include width(10);
+                            @include top(20, 16);
+                            @include width(10, 16);
                         }
 
                         &:before {
-                            @include remify(left, 15, 16, em);
+                            @include left(15, 16);
                             transform: rotate(45deg);
                         }
 
                         &:after {
-                            @include remify(right, 15, 16, em);
+                            @include right(15, 16);
                             transform: rotate(-45deg);
                         }
                     }

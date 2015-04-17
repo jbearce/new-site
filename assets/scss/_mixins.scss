@@ -69,66 +69,6 @@
     border-width: ($size / $base) + $unit;
 }
 
-@mixin border-top($size, $style, $color, $base: null, $unit: null) {
-    @if $base == null {
-        $base: 16;
-        @if $unit == null {
-            $unit: rem;
-        }
-    } @else {
-        @if $unit == null {
-            $unit: em;
-        }
-    }
-    border-top: ($size + px) $style $color;
-    border-top-width: ($size / $base) + $unit;
-}
-
-@mixin border-right($size, $style, $color, $base: null, $unit: null) {
-    @if $base == null {
-        $base: 16;
-        @if $unit == null {
-            $unit: rem;
-        }
-    } @else {
-        @if $unit == null {
-            $unit: em;
-        }
-    }
-    border-right: ($size + px) $style $color;
-    border-right-width: ($size / $base) + $unit;
-}
-
-@mixin border-bottom($size, $style, $color, $base: null, $unit: null) {
-    @if $base == null {
-        $base: 16;
-        @if $unit == null {
-            $unit: rem;
-        }
-    } @else {
-        @if $unit == null {
-            $unit: em;
-        }
-    }
-    border-bottom: ($size + px) $style $color;
-    border-bottom-width: ($size / $base) + $unit;
-}
-
-@mixin border-left($size, $style, $color, $base: null, $unit: null) {
-    @if $base == null {
-        $base: 16;
-        @if $unit == null {
-            $unit: rem;
-        }
-    } @else {
-        @if $unit == null {
-            $unit: em;
-        }
-    }
-    border-left: ($size + px) $style $color;
-    border-left-width: ($size / $base) + $unit;
-}
-
 /// border radius
 
 @mixin border-radius($sizes: ($top-left, $top-right, $bottom-right, $bottom-left), $base: null, $unit: null) {
@@ -443,9 +383,11 @@
     min-width: ($size / $base) + $unit;
 }
 
-/// other
+/// text-shadow
 
-@mixin remify($property, $value, $base: null, $unit: null) {
+@mixin text-shadow($sizes: ($x, $y, $blur), $color: #000, $base: null, $unit: null) {
+    $value-px: null;
+    $value-rem: null;
     @if $base == null {
         $base: 16;
         @if $unit == null {
@@ -456,6 +398,51 @@
             $unit: em;
         }
     }
-    #{$property}: $value + px;
-    #{$property}: ($value / $base) + $unit;
+    @each $size in $sizes {
+        @if $value-px == null {
+            $value-px: $size + px;
+        } @else {
+            $value-px: $value-px + " " + ($size + px);
+        }
+
+        @if $value-rem == null {
+            $value-rem: ($size / $base) + $unit;
+        } @else {
+            $value-rem: $value-rem + " " + (($size / $base) + $unit);
+        }
+    }
+    text-shadow: $value-px $color;
+    text-shadow: $value-rem $color;
+}
+
+/// other
+
+@mixin remify($property, $sizes: ($first, $second, $third, $fourth), $additional: null, $base: null, $unit: null) {
+    $value-px: null;
+    $value-rem: null;
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
+    @each $size in $sizes {
+        @if $value-px == null {
+            $value-px: $size + px;
+        } @else {
+            $value-px: $value-px + " " + ($size + px);
+        }
+
+        @if $value-rem == null {
+            $value-rem: ($size / $base) + $unit;
+        } @else {
+            $value-rem: $value-rem + " " + (($size / $base) + $unit);
+        }
+    }
+    #{$property}: $value-px $additional;
+    #{$property}: $value-rem $additional;
 }

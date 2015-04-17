@@ -11,58 +11,60 @@
         @include clear;
 
         & > button {
-            background: darken($theme-color, 15%);
+            background: none;
             display: none;
             float: right;
             @include font-size(16);
-            @include height(40, 16, em);
+            @include height(40, 16);
             margin: 0;
             padding: 0;
             position: relative;
             text-indent: -999em;
-            @include width(40, 16, em);
+            @include width(40, 16);
 
             &:before,
             em,
             &:after {
-                background: lighten($theme-color, 75%);
+                background: $accent-color;
+                @include border-radius(2, 16);
                 content: "\0020";
                 display: block;
-                @include height(4, 16, em);
-                @include left(10, 16, em);
+                font-size: 1em;
+                @include height(4, 16);
+                @include left(10, 16);
                 position: absolute;
                 transition: left 0.25s, top 0.25s, transform 0.25s, width 0.25s;
-                @include width(20, 16, em);
+                @include width(20, 16);
             }
 
             .navopen &:before,
             .navopen &:after {
-                @include left(20, 16, em);
-                @include width(10, 16, em);
+                @include left(20, 16);
+                @include width(10, 16);
             }
 
             &:before {
-                @include top(11, 16, em);
+                @include top(11, 16);
 
                 .navopen & {
-                    @include top(15, 16, em);
+                    @include top(15, 16);
                     transform: rotate(45deg);
                 }
             }
 
             em {
-                @include top(18, 16, em);
+                @include top(18, 16);
 
                 .navopen & {
-                    @include width(18, 16, em);
+                    @include width(18, 16);
                 }
             }
 
             &:after {
-                @include top(25, 16, em);
+                @include top(25, 16);
 
                 .navopen & {
-                    @include top(21, 16, em);
+                    @include top(21, 16);
                     transform: rotate(-45deg);
                 }
             }
@@ -74,6 +76,7 @@
 
         ul {
             float: right;
+            @include font-size(16);
             list-style: none;
             margin: 0 auto;
             padding: 0;
@@ -103,6 +106,7 @@
                     color: lighten($theme-color, 75%);
                     display: block;
                     padding: 8px 10px;
+                    @include padding(8 10, 16)
                 }
 
                 // sub list
@@ -114,7 +118,7 @@
                     text-align: left;
                     top: 100%;
                     transition: opacity 0.25s, left 0s 0.25s;
-                    @include width(200, 16, em);
+                    @include width(200, 16);
 
                     li {
                         float: none;
@@ -125,7 +129,7 @@
                         ul {
                             background: lighten(lighten($theme-color, 15%), 15%);
                             top: 0;
-                            @include width(250, 16, em);
+                            @include width(250, 16);
                         }
 
                         &:hover > ul {

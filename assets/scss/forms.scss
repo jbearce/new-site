@@ -8,7 +8,7 @@ textarea {
     color: $font-color;
     font-family: $body-font;
     @include font-size(16);
-    @include line-height(24, 16, em);
+    @include line-height(24, 16);
 
 }
 
@@ -52,17 +52,20 @@ input[type=radio] {
         @include padding(11 0 11 52, 16);
 
         &:before {
-            background: center center no-repeat $background-color;
-            @include background-size(24, $base: 16, $unit: em);
-            @include border(1, solid, $accent-color, 16, em);
+            @include border(1, solid, $accent-color);
+            color: $accent-color;
             content: "\0020";
             display: block;
             float: left;
-            @include height(42, 16, em);
+            @include font-size(24, 16);
+            font-family: "fontawesome";
+            @include height(42, 24);
             left: 0;
+            @include line-height(38, 24);
             position: absolute;
+            text-align: center;
             top: 0;
-            @include width(42, 16, em);
+            @include width(42, 24);
 
             // webkit focus rings to emulate checkbox/radio
             .-webkit- &:active,
@@ -96,15 +99,7 @@ input[type=radio] {
 }
 
 	input[type=checkbox]:checked + label:before {
-		background-image: url("../img/icon-checkbox.png");
-
-        /*.svg & {
-            background-image: url("../img/icon-checkbox.svg");
-        }*/
-
-        .no-backgroundsize & {
-            background-image: url("../img/icon-checkbox_small.png");
-        }
+		content: "\F00C";
 	}
 
 	input[type=radio] + label:before {
@@ -112,15 +107,7 @@ input[type=radio] {
 	}
 
 	input[type=radio]:checked + label:before {
-		background-image: url("../img/icon-radio.png");
-
-        /*.svg & {
-            background-image: url("../img/icon-radio.svg");
-        }*/
-
-        .no-backgroundsize & {
-            background-image: url("../img/icon-checkbox_small.png");
-        }
+		content: "\F111";
 	}
 
 input[type=color],
@@ -141,12 +128,12 @@ input[type=week],
 .select,
 textarea {
 	background: $background-color;
-    @include border(1, solid, $accent-color, 16, em);
+    @include border(1, solid, $accent-color, 16);
 	box-sizing: border-box;
 	display: block;
 	@include margin(0 0 10, 16);
 	outline: none;
-	@include padding(10 15, 16);
+	@include padding(8 15 10, 16);
 	text-overflow: ellipsis;
 	width: 100%;
 }
@@ -161,14 +148,23 @@ label:hover {
 }
 
 .select {
-    background: url("../img/icon-select.png") right center no-repeat;
-    background-position: right 10px center;
-    background-position: right (10em / 16) center;
-    @include background-size(24, $base: 16, $unit: em);
 	padding: 0;
+    position: relative;
 
-    .no-backgroundsize & {
-        background-image: url("../img/icon-checkbox_small.png");
+    &:before {
+        color: $accent-color;
+        content: "\F078";
+        display: block;
+        font-family: "fontawesome";
+        @include font-size(24);
+        @include height(42, 24);
+        @include line-height(38, 24);
+        pointer-events: none;
+        position: absolute;
+        right: 0;
+        text-align: center;
+        top: 0;
+        @include width(42, 24);
     }
 
     select {
@@ -177,7 +173,7 @@ label:hover {
 		display: block;
 		margin: 0;
 		outline: none;
-        @include padding(9 42 9 12, 16);
+        @include padding(8 42 9 12, 16);
 		width: 100%;
         // gecko fix
 		text-indent: 0.01px;
@@ -209,6 +205,6 @@ label:hover {
 
 textarea {
 	max-width: 100%;
-	@include min-height(100, 16, em);
+	@include min-height(100, 16);
 	min-width: 100%;
 }

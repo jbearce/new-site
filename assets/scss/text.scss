@@ -87,7 +87,7 @@ table {
     @include max-screen($xs-break) {
 		display: block;
 		overflow: auto;
-        @include remify(padding-bottom, 1, 16, em);
+        @include remify(padding-bottom, 1, 16);
 		width: 100%;
         // iOS fix
 		-webkit-overflow-scrolling: touch;
@@ -95,7 +95,7 @@ table {
 
     th,
     td {
-        @include border(1, solid, darken($theme-color, 15%), 16, em);
+        @include border(1, solid, darken($theme-color, 15%));
         @include padding(4 6, 16);
         vertical-align: top;
     }
@@ -135,13 +135,13 @@ blockquote {
 
 hr {
     border: 0;
-    @include border-bottom(1, solid, $accent-color);
+    @include remify(border-bottom, 1, solid $accent-color);
     @include margin(0 0 24);
 }
 
 pre {
     background: $theme-color;
-    @include border(1, solid, darken($theme-color, 15%), 16, em);
+    @include border(1, solid, darken($theme-color, 15%), 16);
     display: block;
     color: #FFF;
     @include font-size(16);

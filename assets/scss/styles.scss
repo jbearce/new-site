@@ -36,7 +36,7 @@ body {
     height: 100%;
     width: 100%;
 
-    @include max-screen(639px) {
+    @include max-screen($xs-break) {
         .navopen & {
             overflow: hidden;
         }
@@ -44,7 +44,7 @@ body {
 }
 
 #pageWrapper {
-    @include max-screen(639px) {
+    @include max-screen($xs-break) {
         background: $background-color;
         left: 0;
         min-height: 100%;
