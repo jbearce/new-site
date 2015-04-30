@@ -15,92 +15,89 @@
         display: block;
     }
 
-    #mobileNav {
-        nav {
-            ul {
-                @include font-size(16);
-                list-style: none;
-                margin: 0;
-                padding: 0;
+    nav {
+        ul {
+            @include font-size(16);
+            list-style: none;
+            margin: 0;
+            padding: 0;
 
-                li {
-                    position: relative;
+            li {
+                position: relative;
 
-                    a {
-                        color: lighten($theme-color, 75%);
-                        display: block;
-                        @include padding(10 20, 16);
-                    }
-
-                    &.menu-item-has-children a {
-                        @include margin(0 44 0 0, 16);
-                    }
-
-                    button {
-                        background: none;
-                        font-size: 1em;
-                        @include height(44, 16);
-                        margin: 0;
-                        padding: 0;
-                        position: absolute;
-                        right: 0;
-                        text-indent: -999em;
-                        top: 0;
-                        @include width(44, 16);
-
-                        &:before,
-                        &:after {
-                            background: $accent-color;
-                            @include border-radius(2, 16);
-                            content: "\0020";
-                            display: block;
-                            font-size: 1em;
-                            @include height(4, 16);
-                            position: absolute;
-                            transition: transform 0.15s;
-                            @include top(20, 16);
-                            @include width(10, 16);
-                        }
-
-                        &:before {
-                            @include left(15, 16);
-                            transform: rotate(45deg);
-                        }
-
-                        &:after {
-                            @include right(15, 16);
-                            transform: rotate(-45deg);
-                        }
-                    }
-
-                    ul {
-                        background: lighten($theme-color, 15%);
-                        max-height: 0;
-                        overflow: hidden;
-                        transition: max-height 0.15s;
-
-                        ul {
-                            background: lighten($theme-color, 30%);
-                        }
-                    }
-
-                    &.open {
-
-                        & > button:before {
-                            transform: rotate(-45deg);
-                        }
-
-                        & > button:after {
-                            transform: rotate(45deg);
-                        }
-
-                        & > ul {
-                            @include max-height(500);
-                            transition: max-height 0.3s;
-                        }
-                    }
+                &.menu-item-has-children > a {
+                    @include margin(0 44 0 0, 16);
                 }
             }
+        }
+
+        ul.sub-menu {
+            background: lighten($theme-color, 15%);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s;
+
+            ul.sub-menu {
+                background: lighten($theme-color, 30%);
+            }
+        }
+
+        button {
+            background: none;
+            font-size: 1em;
+            @include height(44, 16);
+            margin: 0;
+            padding: 0;
+            position: absolute;
+            right: 0;
+            text-indent: -999em;
+            top: 0;
+            @include width(44, 16);
+
+            &:before,
+            &:after {
+                background: $accent-color;
+                @include border-radius(2, 16);
+                content: "\0020";
+                display: block;
+                font-size: 1em;
+                @include height(4, 16);
+                position: absolute;
+                transition: transform 0.15s;
+                @include top(20, 16);
+                @include width(10, 16);
+            }
+
+            &:before {
+                @include left(15, 16);
+                transform: rotate(45deg);
+            }
+
+            &:after {
+                @include right(15, 16);
+                transform: rotate(-45deg);
+            }
+        }
+
+        .open {
+            & > button:before {
+                transform: rotate(-45deg);
+            }
+
+            & > button:after {
+                transform: rotate(45deg);
+            }
+
+            & > ul.sub-menu {
+                @include max-height(1000);
+                transition: max-height 0.6s;
+            }
+        }
+
+        a {
+            color: lighten($theme-color, 75%);
+            display: block;
+            @include padding(10 20, 16);
         }
     }
 }

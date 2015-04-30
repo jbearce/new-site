@@ -12,7 +12,10 @@
     }
 
     button {
-        background: none;
+        background: $accent-color;
+        border: 10px solid $theme-color;
+        border-top-width: 18px;
+        border-bottom-width: 18px;
         display: none;
         float: right;
         @include font-size(16);
@@ -21,25 +24,51 @@
         padding: 0;
         position: relative;
         text-indent: -999em;
+        transition: background-color 0.15s;
         @include width(40, 16);
 
-        &:before {
+        .navopen & {
+            background-color: $theme-color;
+        }
+
+        @include max-screen($xs-break) {
+            display: block;
+        }
+
+        &:before,
+        &:after {
             background: $accent-color;
-            bottom: 0;
-            box-shadow: 0 (-8em / 16) 0 0 $accent-color, 0 (8em / 16) 0 0 $accent-color;
             content: "\0020";
+            display: block;
             display: block;
             @include height(4, 16);
             left: 0;
             margin: auto;
             position: absolute;
             right: 0;
-            top: 0;
+            transition: top 0.15s 0.15s, transform 0.15s;
             @include width(20, 16);
+
+            .navopen & {
+                top: 0;
+                transition: top 0.15s, transform 0.15s 0.15s;
+            }
         }
 
-        @include max-screen($xs-break) {
-            display: block;
+        &:before {
+            @include top(-8);
+
+            .navopen & {
+                transform: rotate(45deg);
+            }
+        }
+
+        &:after {
+            @include top(8);
+
+            .navopen & {
+                transform: rotate(-45deg);
+            }
         }
     }
 
