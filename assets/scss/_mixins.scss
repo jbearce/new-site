@@ -2,6 +2,11 @@
 
 @import "vendors/media-queries";
 
+/* ------------------------------------------------------------------------
+ * Clear Fix
+ * ------------------------------------------------------------------------
+ */
+
 @mixin clear {
     &:before,
     &:after {
@@ -14,11 +19,21 @@
     *zoom: 1;
 }
 
+/* ------------------------------------------------------------------------
+ * Flex Fix for Safari
+ * ------------------------------------------------------------------------
+ */
+
 @mixin flex-fix {
     .flexbox & {
         float: none;
     }
 }
+
+/* ------------------------------------------------------------------------
+ * Placeholders
+ * ------------------------------------------------------------------------
+ */
 
 @mixin placeholder {
     ::-webkit-input-placeholder {@content}
@@ -28,9 +43,42 @@
     .placeholder {@content}
 }
 
-// rem/em stuff
+/* ------------------------------------------------------------------------
+ * Quantity Queries
+ * ------------------------------------------------------------------------
+ */
 
-/// background
+&:nth-last-child(#{$nth}):first-child {
+    &,
+    & ~ * {
+        @content;
+    }
+}
+
+@mixin qq-equal($number) {
+  @include quantity-query($number, equal) {
+    @content;
+  }
+}
+
+@mixin qq-greater($number) {
+    @include quantity-query($number, greater) {
+        @content;
+    }
+}
+
+@mixin qq-less($number) {
+    @include quantity-query($number, less) {
+        @content;
+    }
+}
+
+/* ------------------------------------------------------------------------
+ * REM/EM
+ * ------------------------------------------------------------------------
+ */
+
+// background
 
 @mixin background-size($x, $y: null, $base: null, $unit: null) {
     @if $base == null {
@@ -52,7 +100,7 @@
     }
 }
 
-/// border
+// border
 
 @mixin border($size, $style, $color, $base: null, $unit: null) {
     @if $base == null {
@@ -69,7 +117,7 @@
     border-width: ($size / $base) + $unit;
 }
 
-/// border radius
+// border radius
 
 @mixin border-radius($sizes: ($top-left, $top-right, $bottom-right, $bottom-left), $base: null, $unit: null) {
     $value-px: null;
@@ -101,7 +149,7 @@
     border-radius: $value-rem;
 }
 
-/// box shadow
+// box shadow
 
 @mixin box-shadow($sizes: ($x, $y, $blur, $spread), $color: #000, $base: null, $unit: null) {
     $value-px: null;
@@ -133,7 +181,7 @@
     box-shadow: $value-rem $color;
 }
 
-/// font
+// font
 
 @mixin font-size($size, $base: null, $unit: null) {
     @if $base == null {
@@ -165,7 +213,7 @@
     line-height: ($size / $base) + $unit;
 }
 
-/// margin
+// margin
 
 @mixin margin($sizes: ($top, $right, $bottom, $left), $base: null, $unit: null) {
     $value-px: null;
@@ -197,7 +245,7 @@
     margin: $value-rem;
 }
 
-/// padding
+// padding
 
 @mixin padding($sizes: ($top, $right, $bottom, $left), $base: null, $unit: null) {
     $value-px: null;
@@ -229,7 +277,7 @@
     padding: $value-rem;
 }
 
-/// position
+// position
 
 @mixin top($size, $base: null, $unit: null) {
     @if $base == null {
@@ -291,7 +339,7 @@
     left: ($size / $base) + $unit;
 }
 
-/// size
+// size
 
 @mixin height($size, $base: null, $unit: null) {
     @if $base == null {
@@ -383,7 +431,7 @@
     min-width: ($size / $base) + $unit;
 }
 
-/// text-shadow
+// text-shadow
 
 @mixin text-shadow($sizes: ($x, $y, $blur), $color: #000, $base: null, $unit: null) {
     $value-px: null;
@@ -415,7 +463,7 @@
     text-shadow: $value-rem $color;
 }
 
-/// other
+// other
 
 @mixin remify($property, $sizes: ($first, $second, $third, $fourth), $additional: null, $base: null, $unit: null) {
     $value-px: null;
