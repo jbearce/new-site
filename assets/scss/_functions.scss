@@ -1,16 +1,31 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
-// generate black rgba value with specified opacity
+/*
+ * ------------------------------------------------------------------------
+ * Generate black rgba value with specified opacity
+ * ------------------------------------------------------------------------
+ */
+
 @function black($opacity) {
     @return rgba(0,0,0,$opacity)
 }
 
-// generate white rgba value with specified opacity
+/*
+ * ------------------------------------------------------------------------
+ * Generate white rgba value with specified opacity
+ * ------------------------------------------------------------------------
+ */
+
 @function white($opacity) {
     @return rgba(255,255,255,$opacity)
 }
 
-/// Remove the unit of a length
+/*
+ * ------------------------------------------------------------------------
+ * Remove the unit of a length
+ * ------------------------------------------------------------------------
+ */
+
 @function strip-unit($number) {
     @if type-of($number) == 'number' and not unitless($number) {
         @return $number / ($number * 0 + 1);
