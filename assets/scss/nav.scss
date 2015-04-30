@@ -1,6 +1,8 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 #navWrapper {
+    @include clear;
+
     nav {
         @include clear;
 
@@ -12,10 +14,7 @@
     }
 
     button {
-        background: $accent-color;
-        border: 10px solid $theme-color;
-        border-top-width: 18px;
-        border-bottom-width: 18px;
+        background: none;
         display: none;
         float: right;
         @include font-size(16);
@@ -38,36 +37,40 @@
         &:before,
         &:after {
             background: $accent-color;
+            bottom: 0;
             content: "\0020";
-            display: block;
             display: block;
             @include height(4, 16);
             left: 0;
             margin: auto;
             position: absolute;
             right: 0;
-            transition: top 0.15s 0.15s, transform 0.15s;
+            top: 0;
+            transition: box-shadow 0.15s 0.15s, top 0.15s 0.15s, transform 0.15s;
             @include width(20, 16);
 
             .navopen & {
-                top: 0;
-                transition: top 0.15s, transform 0.15s 0.15s;
+                transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
             }
         }
 
         &:before {
-            @include top(-8);
+            box-shadow: 0 (8em / 16) 0 0 $accent-color;
+            @include top(-16);
 
             .navopen & {
+                box-shadow: 0 0 0 0 transparent;
                 transform: rotate(45deg);
+                top: 0;
             }
         }
 
         &:after {
-            @include top(8);
+            @include top(16);
 
             .navopen & {
                 transform: rotate(-45deg);
+                top: 0;
             }
         }
     }
