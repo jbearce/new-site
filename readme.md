@@ -1,37 +1,42 @@
 New Site
 ========
 
-These are the files I use whenever I start a new site. They're pretty bare bones at this stage, but I am working on a miniamlistic framework as well (see the framework branch).
+This is the project I use to build every new site. I'll be slowly improving it over time, adding new features, attempting to implement new coding standards, etc.
 
-Features:
----------
-
-*   App-style mobile menu
-
-*   Standard styles for various text and form elements
-
-*   Minimal markup for header, main, and footer
-
-*   Tectite form integration (with noCAPTCHA reCAPTCHA)
-
-*   gulpfile.js to maintain assets between a possible _static folder and the root
-
-Planned:
+Features
 --------
 
-*   Drag to the left or right to show mobile menu
+* Great mixins for rem/em
 
-*   Improved SCSS mixins for margin and padding (I'm trying to figure out how to mimic the default behavior of `margin` and `padding`, i.e. `@include margin(15, 20)` would output `margin: 15px 20px; margin: 0.9375rem 1.25rem`)
+* Clearly organized SCSS
 
-*   Barebones framework for rapidly getting a site off the ground (see framework branch)
+* Integration with FontAwesome
 
-*   Improved gulpfile.js with `gulp-watch` to automatically update _static assets whenever root assets change
+* Drop downs that work on tablets & desktops
 
-*   Lightweight framework with various alternate settings (i.e. left sidebar vs right sidebar, full bleed slideshow vs centered slideshow, etc. See framework branch for more.).
+* Incredible one elment hamburger-style menu icon with great animations and no images
 
-Considering:
-------------
+* Awesome slide-out mobile menu, with beautiful animations
 
-*   gulp to compile SCSS
+Planned
+-------
 
-*   gulp to concat JS
+* Dynamic grid system
+
+* Framework for rapid deployment
+
+* SCSS Extends support (need to research this a bit more)
+
+* Pull left/right to open menu using [Hammer JS](http://hammerjs.github.io/)
+
+* Integration with [Gulp](http://gulpjs.com/) - [specifically this](http://code.tutsplus.com/tutorials/using-gulp-for-wordpress-automation--cms-23081)
+
+* Improved rem/em mixins to adhere to DRY standards
+
+
+Considering
+-----------
+
+* [Switch back to px instead of rem/em](http://benfrain.com/just-use-pixels/)
+
+* [Change colors to a SASS map](https://scotch.io/tutorials/aesthetic-sass-2-colors)
