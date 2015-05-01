@@ -30,7 +30,7 @@ body {
 
 #pageWrapper {
     @include max-screen($xs-break) {
-        background: $background-color;
+        background: $background;
         left: 0;
         min-height: 100%;
         position: relative;

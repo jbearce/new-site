@@ -2,13 +2,15 @@
 
 /*
  * ------------------------------------------------------------------------
- * theme colors
+ * colors
  * ------------------------------------------------------------------------
  */
 
-$theme-color: #343843;
-$accent-color: #15BDC3;
-$background-color: #EEE;
+$primary: #343843;
+$secondary: #525869;
+$accent: #15BDC3;
+$foreground: #222222;
+$background: #EEEEEE;
 
 /*
  * ------------------------------------------------------------------------
@@ -16,7 +18,6 @@ $background-color: #EEE;
  * ------------------------------------------------------------------------
  */
 
-$font-color: #000;
 $heading-font: "Times New Roman", "Times", serif;
 $body-font: "Open Sans", "Arial", "Helvetica", sans-serif;
 

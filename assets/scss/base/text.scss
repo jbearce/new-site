@@ -7,7 +7,7 @@
  */
 
 ::selection {
-	background: $theme-color;
+	background: $primary;
 	color: #FFF;
 }
 
@@ -23,7 +23,7 @@ h3,
 h4,
 h5,
 h6 {
-    color: $accent-color;
+    color: $accent;
     font-family: $heading-font;
 }
 
@@ -68,7 +68,7 @@ ol,
 p,
 table,
 ul {
-    color: $font-color;
+    color: $foreground;
     font-family: $body-font;
     @include font-size(16);
     @include line-height(24, 16, em);
@@ -114,14 +114,14 @@ table {
 
     th,
     td {
-        @include border(1, solid, darken($theme-color, 15%));
+        @include border(1, solid, darken($primary, 15%));
         @include padding(4 6, 16);
         vertical-align: top;
     }
 
     thead td,
     th {
-        background: $accent-color;
+        background: $accent;
         color: #FFF;
         font-weight: 700;
     }
@@ -139,12 +139,12 @@ ul {
  */
 
 a {
-    color: $accent-color;
+    color: $accent;
     text-decoration: none;
     transition: color 0.15s;
 
     &:hover {
-        color: lighten($accent-color, 15%);
+        color: lighten($accent, 15%);
     }
 }
 
@@ -155,20 +155,20 @@ a {
  */
 
 blockquote {
-    border-left: 5px solid $accent-color;
+    border-left: 5px solid $accent;
     @include margin(0 0 24);
     @include padding(0 0 0 24);
 }
 
 hr {
     border: 0;
-    @include remify(border-bottom, 1, solid $accent-color);
+    @include remify(border-bottom, 1, solid $accent);
     @include margin(0 0 24);
 }
 
 pre {
-    background: $theme-color;
-    @include border(1, solid, darken($theme-color, 15%), 16);
+    background: $primary;
+    @include border(1, solid, darken($primary, 15%), 16);
     display: block;
     color: #FFF;
     @include font-size(16);

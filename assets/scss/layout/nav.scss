@@ -7,7 +7,7 @@
     nav {
         @include clear;
 
-        background: $theme-color;
+        background: $primary;
         float: left;
         position: relative;
         width: 100%;
@@ -28,7 +28,7 @@
         @include width(40, 16);
 
         .navopen & {
-            background-color: $theme-color;
+            background-color: $primary;
         }
 
         @include max-screen($xs-break) {
@@ -37,7 +37,7 @@
 
         &:before,
         &:after {
-            background: $accent-color;
+            background: $accent;
             bottom: 0;
             content: "\0020";
             display: block;
@@ -56,7 +56,7 @@
         }
 
         &:before {
-            box-shadow: 0 (8em / 16) 0 0 $accent-color;
+            box-shadow: 0 (8em / 16) 0 0 $accent;
             @include top(-16);
 
             .navopen & {
@@ -101,7 +101,7 @@
             transition: background 0.25s;
 
             &:hover {
-                background: $accent-color;
+                background: $accent;
 
                 & > ul.sub-menu {
                     left: 0;
@@ -111,7 +111,7 @@
             }
 
             a {
-                color: lighten($theme-color, 75%);
+                color: lighten($primary, 75%);
                 display: block;
                 padding: 8px 10px;
                 @include padding(8 10, 16)
@@ -120,7 +120,7 @@
     }
 
     ul.sub-menu {
-        background: lighten($theme-color, 15%);
+        background: lighten($primary, 15%);
         left: -999em;
         opacity: 0;
         position: absolute;
@@ -139,7 +139,7 @@
             }
 
             ul.sub-menu {
-                background: lighten(lighten($theme-color, 15%), 15%);
+                background: lighten(lighten($primary, 15%), 15%);
                 top: 0;
                 @include width(250, 16);
             }

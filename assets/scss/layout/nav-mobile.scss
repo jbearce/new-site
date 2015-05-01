@@ -1,7 +1,7 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 #mobileNavWrapper {
-    background: $theme-color;
+    background: $primary;
     @include bottom(0);
     display: none;
     overflow: auto;
@@ -32,13 +32,13 @@
         }
 
         ul.sub-menu {
-            background: lighten($theme-color, 15%);
+            background: lighten($primary, 15%);
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.3s;
 
             ul.sub-menu {
-                background: lighten($theme-color, 30%);
+                background: lighten($primary, 30%);
             }
         }
 
@@ -56,7 +56,7 @@
 
             &:before,
             &:after {
-                background: $accent-color;
+                background: $accent;
                 @include border-radius(2, 16);
                 content: "\0020";
                 display: block;
@@ -95,7 +95,7 @@
         }
 
         a {
-            color: lighten($theme-color, 75%);
+            color: lighten($primary, 75%);
             display: block;
             @include padding(10 20, 16);
         }
