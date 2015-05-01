@@ -58,7 +58,6 @@ input[type=radio] {
             display: block;
             float: left;
             @include font-size(24, 16);
-            font-family: "fontawesome";
             @include height(42, 24);
             left: 0;
             @include line-height(38, 24);
@@ -99,7 +98,7 @@ input[type=radio] {
 }
 
 	input[type=checkbox]:checked + label:before {
-		content: "\F00C";
+        @include icon("fontawesome", "check");
 	}
 
 	input[type=radio] + label:before {
@@ -107,7 +106,7 @@ input[type=radio] {
 	}
 
 	input[type=radio]:checked + label:before {
-		content: "\F111";
+        @include icon("fontawesome", "circle");
 	}
 
 input[type=color],
@@ -153,9 +152,8 @@ label:hover {
 
     &:before {
         color: $accent-color;
-        content: "\F078";
         display: block;
-        font-family: "fontawesome";
+        @include icon("fontawesome", "chevron-down");
         @include font-size(24);
         @include height(42, 24);
         @include line-height(38, 24);

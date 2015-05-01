@@ -1,6 +1,8 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 #headerWrapper {
+    @include layer("header");
+
     header {
     }
 }

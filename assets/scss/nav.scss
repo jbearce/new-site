@@ -2,6 +2,7 @@
 
 #navWrapper {
     @include clear;
+    @include layer("navigation");
 
     nav {
         @include clear;
