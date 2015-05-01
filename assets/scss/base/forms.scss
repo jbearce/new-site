@@ -1,5 +1,11 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
+/*
+ * ------------------------------------------------------------------------
+ * general
+ * ------------------------------------------------------------------------
+ */
+
 input,
 label,
 .select,
@@ -12,9 +18,33 @@ textarea {
 
 }
 
+label {
+	display: block;
+    @include margin(0 0 10, 16);
+}
+
+label:hover {
+	cursor: pointer;
+}
+
+/*
+ * ------------------------------------------------------------------------
+ * placeholder text
+ * ------------------------------------------------------------------------
+ */
+
 @include placeholder {
 	color: lighten($font-color, 15%);
+    opacity: 1;
 }
+
+/*
+ * ------------------------------------------------------------------------
+ * buttons
+ * ------------------------------------------------------------------------
+ */
+
+// actual buttons
 
 button,
 input[type=button],
@@ -41,6 +71,8 @@ input[type=submit]:hover,
 	background: lighten($accent-color, 15%);
     color: $accent-color;
 }
+
+// check/radio buttons
 
 input[type=checkbox],
 input[type=radio] {
@@ -109,6 +141,16 @@ input[type=radio] {
         @include icon("fontawesome", "circle");
 	}
 
+
+
+/*
+ * ------------------------------------------------------------------------
+ * text fields
+ * ------------------------------------------------------------------------
+ */
+
+// general
+
 input[type=color],
 input[type=date],
 input[type=datetime],
@@ -137,14 +179,7 @@ textarea {
 	width: 100%;
 }
 
-label {
-	display: block;
-    @include margin(0 0 10, 16);
-}
-
-label:hover {
-	cursor: pointer;
-}
+// select
 
 .select {
 	padding: 0;
@@ -201,8 +236,21 @@ label:hover {
     }
 }
 
+// textarea
+
 textarea {
 	max-width: 100%;
 	@include min-height(100, 16);
 	min-width: 100%;
 }
+
+/*
+ * ------------------------------------------------------------------------
+ * reCAPTCHA
+ * ------------------------------------------------------------------------
+ */
+
+.g-recaptcha {
+    @include margin(0, 0, 10);
+}
+
