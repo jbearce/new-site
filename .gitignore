@@ -224,3 +224,6 @@ pip-log.txt
 
 #Prepros
 prepros.cfg
+
+#Build
+web/

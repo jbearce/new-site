@@ -1,0 +1,148 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+#navWrapper {
+    @include clear;
+    @include layer("navigation");
+
+    nav {
+        @include clear;
+
+        background: $primary;
+        float: left;
+        position: relative;
+        width: 100%;
+        z-index: 999;
+    }
+
+    button {
+        background: none;
+        display: none;
+        float: right;
+        @include font-size(16);
+        @include height(40, 16);
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-indent: -999em;
+        transition: background-color 0.15s;
+        @include width(40, 16);
+
+        .navopen & {
+            background-color: $primary;
+        }
+
+        @include max-screen($xs-break) {
+            display: block;
+        }
+
+        &:before,
+        &:after {
+            background: $accent;
+            bottom: 0;
+            content: "\0020";
+            display: block;
+            @include height(4, 16);
+            left: 0;
+            margin: auto;
+            position: absolute;
+            right: 0;
+            top: 0;
+            transition: box-shadow 0.15s 0.15s, top 0.15s 0.15s, transform 0.15s;
+            @include width(20, 16);
+
+            .navopen & {
+                transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
+            }
+        }
+
+        &:before {
+            box-shadow: 0 (8em / 16) 0 0 $accent;
+            @include top(-16);
+
+            .navopen & {
+                box-shadow: 0 0 0 0 transparent;
+                transform: rotate(45deg);
+                top: 0;
+            }
+        }
+
+        &:after {
+            @include top(16);
+
+            .navopen & {
+                transform: rotate(-45deg);
+                top: 0;
+            }
+        }
+    }
+
+    ul {
+        @include clear;
+
+        float: right;
+        @include font-size(16);
+        list-style: none;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+        right: 50%;
+        text-align: center;
+        width: auto;
+        z-index: 999;
+
+        @include max-screen($xs-break) {
+            display: none;
+        }
+
+        li {
+            float: left;
+            left: 50%;
+            position: relative;
+            transition: background 0.25s;
+
+            &:hover {
+                background: $accent;
+
+                & > ul.sub-menu {
+                    left: 0;
+                    opacity: 1;
+                    transition: opacity 0.25s;
+                }
+            }
+
+            a {
+                color: lighten($primary, 75%);
+                display: block;
+                padding: 8px 10px;
+                @include padding(8 10, 16)
+            }
+        }
+    }
+
+    ul.sub-menu {
+        background: lighten($primary, 15%);
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        text-align: left;
+        top: 100%;
+        transition: opacity 0.25s, left 0s 0.25s;
+        @include width(200, 16);
+
+        li {
+            float: none;
+            left: auto;
+            width: 100%;
+
+            &:hover > ul.sub-menu {
+                left: 100%;
+            }
+
+            ul.sub-menu {
+                background: lighten(lighten($primary, 15%), 15%);
+                top: 0;
+                @include width(250, 16);
+            }
+        }
+    }
+}

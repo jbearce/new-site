@@ -1,0 +1,13 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+#mainWrapper {
+    @include layer("content");
+
+    main {
+        #post {
+        }
+
+        #sidebar {
+        }
+    }
+}
