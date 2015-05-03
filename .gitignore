@@ -226,4 +226,8 @@ pip-log.txt
 prepros.cfg
 
 #Build
+<<<<<<< HEAD
 dist/
+=======
+web/
+>>>>>>> Prep for improved Gulp
