@@ -1,50 +1,33 @@
 <!doctype html>
 <html lang="en-US">
-    <head>
-        <meta content="text/html;charset=utf-8" http-equiv="content-type" />
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
-        <title>404 &ndash; Page Not Found</title>
-        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" type="text/css">
-		<style type="text/css">
-            body {
-                background-color: #222;
-                margin: 0;
-            }
-            h1 {
-                color: #111;
-                font-family: "Open Sans", "Verdana", "Arial", "Helvetica", sans-serif;
-                font-size: 16px;
-                font-size: 1rem;
-                font-weight: 700;
-                margin: 0 0 6px;
-                text-align: center;
-            }
-            p {
-                color: #222;
-                font-family: "Open Sans", "Verdana", "Arial", "Helvetica", sans-serif;
-                font-size: 12px;
-                font-size: 0.75rem;
-                font-weight: 400;
-                margin: 0;
-                text-align: center;
-            }
-            a {
-                color: #36C;
-                text-decoration: none;
-            }
-            div {
-                background: #EEE;
-                border-radius: 5px;
-                margin: 50px auto;
-                padding: 20px 25px;
-                width: 200px;
-            }
-        </style>
-    </head>
-    <body>
-        <div>
-            <h1>404 - Page Not Found</h1>
-            <p>This page does not exist. Please return to our <a href="/">home page</a>.</p>
-        </div>
-    </body>
+	<head>
+        @@include("./includes/head.htm")
+        <!-- SEO -->
+        <meta content="156 characters with spaces" name="description" />
+        <title>404 - Page Not Found</title>
+        <!-- end SEO -->
+	</head>
+	<body>
+        <section id="pageWrapper">
+            @@include("./includes/header.htm")
+            <section id="mainWrapper">
+                <main>
+                    <section id="post">
+                        <article>
+                            <header>
+                                <h1>404 - Page Not Found</h1>
+                            </header>
+                            <p>Looks like this page doesn't exist. It may have moved, or it may have been deleted.</p>
+                        </article>
+                    </section><!--/#post-->
+                    <section id="sidebar">
+                        @@include("./includes/sidebar.htm")
+                    </section><!--/#sidebar-->
+                </main>
+            </section><!--/#mainWrapper-->
+            @@include("./includes/footer.htm")
+        </section><!--/#pageWrapper-->
+        @@include("./includes/nav-mobile.htm")
+        @@include("./includes/foot.htm")
+	</body>
 </html>

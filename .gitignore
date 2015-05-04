@@ -226,4 +226,4 @@ pip-log.txt
 prepros.cfg
 
 #Build
-web/
+dist/
