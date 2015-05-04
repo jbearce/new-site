@@ -227,7 +227,11 @@ prepros.cfg
 
 #Build
 <<<<<<< HEAD
+<<<<<<< HEAD
 dist/
 =======
 web/
 >>>>>>> Prep for improved Gulp
+=======
+dist/
+>>>>>>> Gulp stuff
