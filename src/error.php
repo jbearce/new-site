@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-US">
 	<head>
+<<<<<<< HEAD
         <!-- settings -->
         <meta content="text/html;charset=utf-8" http-equiv="content-type" />
         <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
@@ -26,6 +27,9 @@
             <script src="assets/js/vendors/selectivizr-1.0.2.min.js" type="text/javascript"></script>
         <![endif]-->
         <!-- end IE8- fallback -->
+=======
+        @@include("./includes/head.htm")
+>>>>>>> Gulp stuff
         <!-- SEO -->
         <meta content="156 characters with spaces" name="description" />
         <title>Error</title>
@@ -33,6 +37,7 @@
 	</head>
 	<body>
         <section id="pageWrapper">
+<<<<<<< HEAD
             <section id="headerWrapper">
                 <header>
                 </header>
@@ -78,6 +83,9 @@
                     </ul>
                 </nav>
             </section><!--/#navWrapper-->
+=======
+            @@include("./includes/header.htm")
+>>>>>>> Gulp stuff
             <section id="mainWrapper">
                 <main>
                     <section id="post">
@@ -92,6 +100,7 @@
                         ?>
                     </section><!--/#post-->
                     <section id="sidebar">
+<<<<<<< HEAD
                     </section><!--/#sidebar-->
                 </main>
             </section><!--/#mainWrapper-->
@@ -147,5 +156,15 @@
         </section><!--/#mobileNavWrapper-->
         <script src="assets/scripts/scripts.min.js" type="text/javascript"></script>
         <script type="text/javascript">if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {new ScrollFix(document.getElementById("mobileNavWrapper"))};</script>
+=======
+                        @@include("./includes/sidebar.htm")
+                    </section><!--/#sidebar-->
+                </main>
+            </section><!--/#mainWrapper-->
+            @@include("./includes/footer.htm")
+        </section><!--/#pageWrapper-->
+        @@include("./includes/nav-mobile.htm")
+        @@include("./includes/foot.htm")
+>>>>>>> Gulp stuff
 	</body>
 </html>
