@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en-US">
+	<head>
+        <!-- html5 fallback -->
+        <!--[if lt IE 9]>
+            <script src="assets/js/vendors/html5shiv.js" type="text/javascript"></script>
+        <![endif]-->
+        <!-- end html5 fallback -->
+        <!-- settings -->
+        <meta content="text/html;charset=utf-8" http-equiv="content-type" />
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
+        <meta content="no" name="msapplication-tap-highlight" />
+        <!-- end settings -->
+        <!-- branding -->
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
+        <link href="assets/css/styles.css" rel="stylesheet" type="text/css" />
+        <link href="assets/img/logo-ios.png" rel="apple-touch-icon" />
+        <link href="assets/img/logo-favicon.png" rel="shortcut icon" />
+        <meta content="Site Name" name="application-name" />
+        <meta content="#000000" name="msapplication-TileColor" />
+        <meta content="assets/img/logo-windows-tiny.png" name="msapplication-square70x70logo" />
+        <meta content="assets/img/logo-windows-square.png" name="msapplication-square150x150logo" />
+        <meta content="assets/img/logo-windows-wide.png" name="msapplication-wide310x150logo" />
+        <meta content="assets/img/logo-windows-large.png" name="msapplication-square310x310logo" />
+        <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=5; cycle=1" name="msapplication-notification" />
+        <!-- end branding -->
+        <!-- SEO -->
+        <meta content="156 characters with spaces" name="description" />
+        <title>Contact</title>
+        <!-- end SEO -->
+        <script src="//www.google.com/recaptcha/api.js"></script>
+	</head>
+	<body>
+        <section id="pageWrapper">
+            <section id="headerWrapper">
+                <header>
+                </header>
+            </section><!--/#headerWrapper-->
+            <section id="navWrapper">
+                <nav>
+                    <button>Menu</button>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li class="menu-item-has-children">
+                            <a aria-haspopup="true" href="#">Portfolio</a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li class="menu-item-has-children">
+                                    <a aria-haspopup="true" href="#">Sub link</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a aria-haspopup="true" href="#">Sub link</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Resource</a></li>
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </nav>
+            </section><!--/#navWrapper-->
+            <section id="mainWrapper">
+                <main>
+                    <section id="post">
+                        <article>
+                            <h1>Contact Us</h1>
+                            <form action="assets/captcha/formmail.php" method="post" name="contact_form">
+                                <input type="hidden" name="derive_fields" value="imgverify=g-recaptcha-response" />
+                                <input type="hidden" name="good_url" value="../../thanks.htm" />
+                                <input type="hidden" name="bad_url" value="../../error.php" />
+                                <input type="hidden" name="recipients" value="" />
+                                <input type="hidden" name="required" value="email:Your email address.,message:Your message." />
+                                <input type="hidden" name="subject" value="Contact Form Submission" />
+                                <!-- field start -->
+                                <input name="realname" placeholder="Name" type="text" />
+                                <input name="company" placeholder="Company" type="text" />
+                                <input name="phone" placeholder="Phone" type="tel" />
+                                <input name="email" placeholder="Email" type="email" />
+                                <select name="type_of_inquiry">
+                                    <option disabled selected value="">Type of Inquiry</option>
+                                    <option value="question">Question</option>
+                                    <option value="concern">Concern</option>
+                                </select>
+                                <input id="contact_via_email" name="contact_via_email" type="checkbox" />
+                                <label for="contact_via_email">Email is my preferred method of contact</label>
+                                <input id="newsletter_yes" name="newsletter" type="radio" value="yes" />
+                                <label for="newsletter_yes">Yes, sign me up for your newsletter</label>
+                                <input id="newsletter_no" name="newsletter" type="radio" value="no" />
+                                <label for="newsletter_no">No, don't sign me up for your newsletter</label>
+                                <textarea name="message" placeholder="Message"></textarea>
+                                <div class="g-recaptcha" data-sitekey=""></div>
+                                <input type="submit" value="Submit" />
+                            </form>
+                        </article>
+                    </section><!--/#post-->
+                    <section id="sidebar">
+                    </section><!--/#sidebar-->
+                </main>
+            </section><!--/#mainWrapper-->
+            <section id="footerWrapper">
+                <footer>
+                </footer>
+            </section><!--/#footerWrapper-->
+        </section><!--/#pageWrapper-->
+        <section id="mobileNavWrapper">
+            <section id="mobileNav">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li class="menu-item-has-children">
+                            <a href="#">Portfolio</a>
+                            <button>More</button>
+                            <ul class="sub-menu">
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li class="menu-item-has-children">
+                                    <a href="#">Sub link</a>
+                                    <button>More</button>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a href="#">Sub link</a>
+                                    <button>More</button>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Resource</a></li>
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </nav>
+            </section><!--/#mobileNav-->
+        </section><!--/#mobileNavWrapper-->
+        <script src="assets/js/scripts.js" type="text/javascript"></script>
+        <script type="text/javascript">if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {new ScrollFix(document.getElementById("mobileNavWrapper"))};</script>
+	</body>
+</html>
