@@ -1,0 +1,16 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Footer                                                                   *
+\* ------------------------------------------------------------------------ */
+
+// wrapper
+
+#footerWrapper {
+    @include layer("footer");
+}
+
+// content
+
+#footerWrapper footer {
+}

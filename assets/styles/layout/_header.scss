@@ -1,0 +1,16 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Header                                                                   *
+\* ------------------------------------------------------------------------ */
+
+// wrapper
+
+#headerWrapper {
+    @include layer("header");
+}
+
+// content
+
+#headerWrapper header {
+}

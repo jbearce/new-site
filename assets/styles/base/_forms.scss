@@ -1,0 +1,254 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Generic Form Elements                                                    *
+\* ------------------------------------------------------------------------ */
+
+// general
+
+input,
+label,
+.select,
+select,
+textarea {
+    color: $foreground;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    line-height: 24px;
+    line-height: remify(24, 16);
+}
+
+label {
+	display: block;
+    margin: 0 0 10px;
+    margin-bottom: remify(10, 16);
+}
+
+label:hover {
+	cursor: pointer;
+}
+
+// placeholders
+
+@include placeholder {
+	color: lighten($foreground, 15%);
+    opacity: 1;
+}
+
+// buttons
+
+button,
+input[type=button],
+input[type=reset],
+input[type=submit],
+.button {
+	background: $accent;
+	border: 0;
+    color: darken($accent, 15%);
+	display: inline-block;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    font-weight: 700;
+    margin: 0 0 10px;
+    margin-bottom: remify(10, 16);
+    padding: 6px 10px;
+    padding: remify(6 10, 16);
+	transition: background 0.15s, color 0.15s;
+}
+
+button:hover,
+input[type=button]:hover,
+input[type=reset]:hover,
+input[type=submit]:hover,
+.button:hover {
+	background: lighten($accent, 15%);
+    color: $accent;
+}
+
+// check/radio buttons
+
+input[type=checkbox],
+input[type=radio] {
+	left: -999em;
+	position: absolute;
+}
+
+input[type=checkbox] + label,
+input[type=radio] + label {
+    position: relative;
+    padding: 11px 0 11px 52px;
+    padding: remify(11 0 11 52, 16);
+
+    &:before {
+        border: 1px solid $accent;
+        border-width: remify(1);
+        color: $accent;
+        content: "\0020";
+        display: block;
+        float: left;
+        font-size: 24px;
+        font-size: remify(24, 16);
+        height: 42px;
+        height: remify(42, 24);
+        left: 0;
+        line-height: 38px;
+        line-height: remify(38, 24);
+        position: absolute;
+        text-align: center;
+        top: 0;
+        width: 42px;
+        width: remify(42, 24);
+
+        // webkit focus rings to emulate checkbox/radio
+        .-webkit- &:active,
+        .-webkit- &:focus {
+            outline: -webkit-focus-ring-color auto 5px;
+        }
+
+        // trident focus rings to emulate checkbox/radio
+        .-ms- &:active,
+        .-ms- &:focus {
+            outline: #808080 dashed 1px;
+        }
+    }
+
+    &:hover {
+        cusror: pointer;
+    }
+}
+
+input[type=checkbox]:focus + label:before,
+input[type=radio]:focus + label:before {
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+input[type=checkbox][disabled] + label:before,
+input[type=radio][disabled] + label:before {
+    background: darken($background, 15%);
+}
+
+input[type=checkbox]:checked + label:before {
+    @include icon("fontawesome", "check");
+}
+
+input[type=radio] + label:before {
+    border-radius: 50%;
+}
+
+input[type=radio]:checked + label:before {
+    @include icon("fontawesome", "circle");
+}
+
+// text fields
+
+input[type=color],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=range],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+.select,
+textarea {
+	background: $background;
+    border: 1px solid $accent;
+    border-width: remify(1);
+	box-sizing: border-box;
+	display: block;
+    margin: 0 0 10px;
+    margin-botom: remify(10, 16);
+	outline: none;
+    padding: 8px 15px 10px;
+    padding: remify(8 15 10, 16);
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+// select
+
+.select {
+	padding: 0;
+    position: relative;
+}
+
+.select:before {
+    color: $accent;
+    display: block;
+    @include icon("fontawesome", "chevron-down");
+    font-size: 24px;
+    font-size: remify(24);
+    height: 42px;
+    height: remify(42, 24);
+    line-height: 38px;
+    line-height: remify(38, 24);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 42px;
+    width: remify(42, 24);
+}
+
+.select select {
+    background: none;
+    border: 0;
+    display: block;
+    margin: 0;
+    outline: none;
+    padding: 8px 42px 9px 12px;
+    padding: remify(8 42 9 12, 16);
+    width: 100%;
+    // gecko fix
+    text-indent: 0.01px;
+    text-overflow: "";
+    // webkit & gecko fix
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    // trident fix
+    &::-ms-expand {
+        display: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.select option {
+    // fix for inconsistancies accross browsers
+    background: #FFF;
+    color: #000;
+
+    &:hover {
+        background: #DDD;
+    }
+}
+
+// textarea
+
+textarea {
+	max-width: 100%;
+	min-height: 100px;
+    min-height: remify(100);
+	min-width: 100%;
+}
+
+// recaptcha
+
+.g-recaptcha {
+    margin: 0 0 10px;
+    margin: remify(0 0 10);
+}
+

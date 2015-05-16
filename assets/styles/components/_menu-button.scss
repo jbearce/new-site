@@ -1,0 +1,71 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Menu Buton                                                               *
+\* ------------------------------------------------------------------------ */
+
+button.menu {
+    background: none;
+    display: none;
+    float: right;
+    font-size: 16px;
+    font-size: remify(16);
+    height: 40px;
+    height: remify(40, 16);
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-indent: -999em;
+    transition: background-color 0.15s;
+    width: 40px;
+    width: remify(40, 16);
+
+    .navopen & {
+        background-color: $primary;
+    }
+}
+
+button.menu:before,
+button.menu:after {
+    background: $accent;
+    bottom: 0;
+    content: "\0020";
+    display: block;
+    height: 4px;
+    height: remify(4, 16);
+    left: 0;
+    margin: auto;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: box-shadow 0.15s 0.15s, top 0.15s 0.15s, transform 0.15s;
+    width: 20px;
+    width: remify(20, 16);
+
+    .navOpen & {
+        transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
+    }
+}
+
+button.menu:before {
+    box-shadow: 0 8px 0 0 $accent;
+    box-shadow: 0 remify(8, 16) 0 0 $accent;
+    top: -16px;
+    top: remify(-16, 16);
+
+    .navOpen & {
+        box-shadow: 0 0 0 0 transparent;
+        transform: rotate(45deg);
+        top: 0;
+    }
+}
+
+button.menu:after {
+    top: 16px;
+    top: remify(16, 16);
+
+    .navOpen & {
+        transform: rotate(-45deg);
+        top: 0;
+    }
+}

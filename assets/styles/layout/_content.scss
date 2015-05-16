@@ -1,0 +1,24 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Content                                                                  *
+\* ------------------------------------------------------------------------ */
+
+// wrappers
+
+#mainWrapper {
+    @include layer("content");
+}
+
+#mainWrapper main {
+}
+
+// main content
+
+#mainWrapper #post {
+}
+
+// secondary content
+
+#mainWrapper #sidebar {
+}

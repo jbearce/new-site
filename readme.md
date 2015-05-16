@@ -10,6 +10,8 @@ Features
 
 * Clearly organized SCSS
 
+* Minified & Concated JS using [Prepros](http://www.prepros.io/)
+
 * Integration with FontAwesome
 
 * Drop downs that work on tablets & desktops
@@ -29,7 +31,7 @@ Planned
 
 * Pull left/right to open menu using [Hammer JS](http://hammerjs.github.io/)
 
-* Integration with [Gulp](http://gulpjs.com/) - [specifically this](http://code.tutsplus.com/tutorials/using-gulp-for-wordpress-automation--cms-23081)
+* ~~Integration with [Gulp](http://gulpjs.com/) - [specifically this](http://code.tutsplus.com/tutorials/using-gulp-for-wordpress-automation--cms-23081)~~
 
 * Improved rem/em mixins to adhere to DRY standards
 
