@@ -4,20 +4,26 @@
  * Base                                                                     *
 \* ------------------------------------------------------------------------ */
 
-@import "base/_text_xs";
+@import "base/vendors/normalize";
+@import "base/text/_screen";
+@import "base/forms/_screen";
 
 /* ------------------------------------------------------------------------ *\
  * Layout                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "layout/_page_xs";
-@import "layout/_nav_xs";
+@import "layout/page/_screen";
+@import "layout/header/_screen";
+@import "layout/nav/_screen";
+@import "layout/content/_screen";
+@import "layout/footer/_screen";
 
 /* ------------------------------------------------------------------------ *\
  * Components                                                               *
 \* ------------------------------------------------------------------------ */
 
-@import "components/_menu-button_xs";
+@import "components/menu-button/_screen";
+@import "components/video-embeds/_screen";
 
 /* ------------------------------------------------------------------------ *\
  * Pages                                                                    *

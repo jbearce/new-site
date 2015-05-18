@@ -13,15 +13,15 @@
         <!-- end settings -->
         <!-- branding -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" />
-        <link href="assets/css/styles.css" rel="stylesheet" type="text/css" />
-        <link href="assets/img/logo-ios.png" rel="apple-touch-icon" />
-        <link href="assets/img/logo-favicon.png" rel="shortcut icon" />
+        <link href="assets/styles/all.css" rel="stylesheet" type="text/css" />
+        <link href="assets/media/logo-ios.png" rel="apple-touch-icon" />
+        <link href="assets/media/logo-favicon.png" rel="shortcut icon" />
         <meta content="Site Name" name="application-name" />
         <meta content="#000000" name="msapplication-TileColor" />
-        <meta content="assets/img/logo-windows-tiny.png" name="msapplication-square70x70logo" />
-        <meta content="assets/img/logo-windows-square.png" name="msapplication-square150x150logo" />
-        <meta content="assets/img/logo-windows-wide.png" name="msapplication-wide310x150logo" />
-        <meta content="assets/img/logo-windows-large.png" name="msapplication-square310x310logo" />
+        <meta content="assets/media/logo-windows-tiny.png" name="msapplication-square70x70logo" />
+        <meta content="assets/media/logo-windows-square.png" name="msapplication-square150x150logo" />
+        <meta content="assets/media/logo-windows-wide.png" name="msapplication-wide310x150logo" />
+        <meta content="assets/media/logo-windows-large.png" name="msapplication-square310x310logo" />
         <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=5; cycle=1" name="msapplication-notification" />
         <!-- end branding -->
         <!-- SEO -->
@@ -37,7 +37,7 @@
             </section><!--/#headerWrapper-->
             <section id="navWrapper">
                 <nav>
-                    <button>Menu</button>
+                    <button class="menu">Menu</button>
                     <ul>
                         <li><a href="#">Home</a></li>
                         <li><a href="#">About</a></li>
@@ -143,7 +143,7 @@
                 </nav>
             </section><!--/#mobileNav-->
         </section><!--/#mobileNavWrapper-->
-        <script src="assets/js/scripts.js" type="text/javascript"></script>
+        <script src="assets/scripts/all.js" type="text/javascript"></script>
         <script type="text/javascript">if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {new ScrollFix(document.getElementById("mobileNavWrapper"))};</script>
 	</body>
 </html>
