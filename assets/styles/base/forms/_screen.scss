@@ -55,6 +55,7 @@ input[type=submit],
     margin-bottom: remify(10, 16);
     padding: 6px 10px;
     padding: remify(6 10, 16);
+    text-transform: uppercase;
 	transition: background 0.15s, color 0.15s;
 }
 
@@ -82,24 +83,25 @@ input[type=radio] + label {
     padding: remify(11 0 11 52, 16);
 
     &:before {
+        background: $background;
         border: 1px solid $accent;
         border-width: remify(1);
         color: $accent;
         content: "\0020";
         display: block;
         float: left;
-        font-size: 24px;
-        font-size: remify(24, 16);
-        height: 42px;
-        height: remify(42, 24);
+        font-size: 25px;
+        font-size: remify(25, 16);
+        height: 44px;
+        height: remify(44, 25);
         left: 0;
-        line-height: 38px;
-        line-height: remify(38, 24);
+        line-height: 41px;
+        line-height: remify(41, 25);
         position: absolute;
         text-align: center;
         top: 0;
-        width: 42px;
-        width: remify(42, 24);
+        width: 44px;
+        width: remify(44, 25);
 
         // webkit focus rings to emulate checkbox/radio
         .-webkit- &:active,
@@ -182,15 +184,15 @@ textarea {
 }
 
 .select:before {
-    color: $accent;
+    background: $accent;
+    color: darken($accent, 15%);
     display: block;
-    @include icon("fontawesome", "chevron-down");
+    @include icon("fontawesome", "sort");
     font-size: 24px;
     font-size: remify(24);
-    height: 42px;
-    height: remify(42, 24);
-    line-height: 38px;
-    line-height: remify(38, 24);
+    height: 100%;
+    line-height: 42px;
+    line-height: remify(42, 24);
     pointer-events: none;
     position: absolute;
     right: 0;
