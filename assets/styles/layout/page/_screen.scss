@@ -4,21 +4,13 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-// Wrappers
-
 html {
-    height: 100%;
     width: 100%;
 }
 
 body {
     background: $background;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
     width: 100%;
-    // iOS fix
-    -webkit-overflow-scrolling: touch;
 }
 
 // IE snap fix

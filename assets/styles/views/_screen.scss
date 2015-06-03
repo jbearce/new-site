@@ -15,6 +15,7 @@
 @import "../layout/page/_screen";
 @import "../layout/header/_screen";
 @import "../layout/nav/_screen";
+@import "../layout/nav-mobile/_screen";
 @import "../layout/content/_screen";
 @import "../layout/footer/_screen";
 
@@ -23,12 +24,4 @@
 \* ------------------------------------------------------------------------ */
 
 @import "../components/menu-button/_screen";
-@import "../components/video-embeds/_screen";
-
-/* ------------------------------------------------------------------------ *\
- * Pages                                                                    *
-\* ------------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------------ *\
- * Themes                                                                   *
-\* ------------------------------------------------------------------------ */
+@import "../components/video-embed/_screen";

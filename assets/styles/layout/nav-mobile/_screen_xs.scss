@@ -1,12 +1,9 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Header                                                                   *
+ * Mobile Navigation                                                        *
 \* ------------------------------------------------------------------------ */
 
-#headerWrapper {
-    @include layer("header");
-}
-
-#headerWrapper header {
+#mobileNavWrapper {
+    display: block;
 }

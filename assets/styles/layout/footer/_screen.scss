@@ -4,13 +4,9 @@
  * Footer                                                                   *
 \* ------------------------------------------------------------------------ */
 
-// wrapper
-
 #footerWrapper {
     @include layer("footer");
 }
-
-// content
 
 #footerWrapper footer {
 }

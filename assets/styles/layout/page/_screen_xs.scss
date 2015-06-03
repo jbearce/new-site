@@ -6,6 +6,15 @@
 
 // Wrappers
 
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    // iOS fix
+    -webkit-overflow-scrolling: touch;
+}
+
 html.navOpen,
 .navOpen body {
     overflow: hidden;
