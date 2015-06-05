@@ -44,4 +44,4 @@ Considering
 
 * [Change colors to a SASS map](https://scotch.io/tutorials/aesthetic-sass-2-colors)
 
-* [DashIcons](https://developer.wordpress.org/resource/dashicons/) integration (currently partially supported, would just need to import the actual font)
+* [DashIcons](https://developer.wordpress.org/resource/dashicons/) integration (currently partially supported, would just need to import the actual font & finish the map)
