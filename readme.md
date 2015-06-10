@@ -18,10 +18,10 @@ Features
 
 * Awesome slide-out mobile menu, with beautiful animations
 
+* Integration with [Swiper](https://github.com/nolimits4web/swiper/)
+
 Planned
 -------
-
-* Integration with [Swiper](https://github.com/nolimits4web/swiper/)
 
 * Complete FontAwesome icon map (time consuming and I'm lazy)
 
