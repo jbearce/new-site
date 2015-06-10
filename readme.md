@@ -35,6 +35,8 @@ Planned
 
 * rem/em mixins that adhere to DRY standards (eh?)
 
+* Awesome [MSN-style](http://www.msn.com/) tablet menu (tap arrows to pan between long nav on tablet view)
+
 Considering
 -----------
 
