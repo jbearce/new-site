@@ -42,7 +42,7 @@ button.menu:after {
     width: 20px;
     width: remify(20, 16);
 
-    .navOpen & {
+    .snapjs-right & {
         transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
     }
 }
@@ -53,7 +53,7 @@ button.menu:before {
     top: -16px;
     top: remify(-16, 16);
 
-    .navOpen & {
+    .snapjs-right & {
         box-shadow: 0 0 0 0 transparent;
         transform: rotate(45deg);
         top: 0;
@@ -64,7 +64,7 @@ button.menu:after {
     top: 16px;
     top: remify(16, 16);
 
-    .navOpen & {
+    .snapjs-right & {
         transform: rotate(-45deg);
         top: 0;
     }

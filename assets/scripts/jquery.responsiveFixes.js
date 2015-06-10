@@ -76,9 +76,16 @@ $(window).resize(function () {
 $("button.menu").click(function (e) {
     "use strict";
     e.preventDefault();
-    $("html").toggleClass("navOpen");
-    $("body").scrollTop(0);
+    if ($("html").hasClass("navOpen")) {
+        $("html").removeClass("navOpen");
+        snapper.close("right");
+    } else {
+        $("body").scrollTop(0);
+        $("html").addClass("navOpen");
+        snapper.open("right");
+    }
 });
+
 $("#mobileNavWrapper li.menu-item-has-children button").click(function (e) {
     "use strict";
     e.preventDefault();
