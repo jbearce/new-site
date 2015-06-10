@@ -30,6 +30,8 @@
         <meta content="156 characters with spaces" name="description" />
         <title>Home | Site Name</title>
         <!-- end SEO -->
+        <!-- page specific -->
+        <link href="assets/styles/components/vendors/swiper.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body>
         <section id="pageWrapper">
@@ -78,6 +80,16 @@
                     </ul>
                 </nav>
             </section><!--/#navWrapper-->
+            <section id="slideshowWrapper" class="swiper-container">
+                <section id="slideshow" class="swiper-wrapper">
+                    <figure class="swiper-slide">
+                        <img src="http://placehold.it/2000x500" />
+                    </figure><!--/.swiper-slide-->
+                    <figure class="swiper-slide">
+                        <img src="http://dummyimage.com/2000x500/000/fff" />
+                    </figure><!--/.swiper-slide-->
+                </section><!--/#slideshow-->
+            </section><!--/#slideshowWrapper-->
             <section id="mainWrapper">
                 <main>
                     <section id="post">
@@ -139,5 +151,10 @@
         <script src="assets/scripts/vendors/jquery.min.js" type="text/javascript"></script>
         <script src="assets/scripts/all.js" type="text/javascript"></script>
         <script type="text/javascript">if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {new ScrollFix(document.getElementById("mobileNavWrapper"))};</script>
+        <!-- page specific -->
+        <script src="assets/scripts/vendors/swiper.jquery.min.js"></script>
+        <script type="text/javascript">
+            var swiper = new Swiper(".swiper-container");
+        </script>
 	</body>
 </html>

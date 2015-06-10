@@ -1,0 +1,30 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Slideshow                                                                *
+\* ------------------------------------------------------------------------ */
+
+#slideshowWrapper {
+    @include layer("slideshow");
+
+    font-size: 16px;
+    font-size: remify(16);
+}
+
+#slideshow {
+}
+
+#slideshow .swiper-slide img {
+    float: left;
+    height: 500px;
+    height: remify(500, 16);
+    left: 50%;
+    position: relative;
+    transform: translateX(-50%);
+
+    .no-csstransforms & {
+        float: none;
+        left: auto;
+        transform: none;
+    }
+}
