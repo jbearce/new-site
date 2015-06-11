@@ -1,9 +1,13 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Menu Buton                                                               *
+ * Hiders                                                                   *
 \* ------------------------------------------------------------------------ */
 
-button.menu {
-    display: block;
+.xs {
+    display: block !important;
+}
+
+.s-plus {
+    display: none !important;
 }

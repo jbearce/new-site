@@ -12,11 +12,10 @@
 
 @import "../layout/page/_screen_xs";
 @import "../layout/nav/_screen_xs";
-@import "../layout/nav-mobile/_screen_xs";
 @import "../layout/slideshow/_screen_xs";
 
 /* ------------------------------------------------------------------------ *\
  * Components                                                               *
 \* ------------------------------------------------------------------------ */
 
-@import "../components/menu-button/_screen_xs";
+@import "../components/hiders/_screen_xl";

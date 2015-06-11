@@ -1,9 +1,13 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Mobile Navigation                                                        *
+ * Hiders                                                                   *
 \* ------------------------------------------------------------------------ */
 
-#mobileNavWrapper {
-    display: block;
+.xxs {
+    display: block !important;
+}
+
+.xs-plus {
+    display: none !important;
 }
