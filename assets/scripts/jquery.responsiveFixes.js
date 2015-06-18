@@ -20,8 +20,17 @@ $(document).ready(function () {
 	});
 });
 
+// prevent scrolling in table from opening mobile nav
+$(document).ready(function()  {
+   "use strict";
+    $("table").each(function () {
+        "use strict";
+        $(this).attr("data-snap-ignore", "true");
+    });
+});
+
 // possibly find this when the ul gets a max height of 0.
-var mobileWidth = 639;
+var mobileWidth = 640;
 
 // fixes drop downs in Android & iOS
 if (((navigator.userAgent.toLowerCase().indexOf("android") > -1) || (navigator.userAgent.match(/(iPad)/g))) && $(window).width() > mobileWidth) {
@@ -46,7 +55,7 @@ if (((navigator.userAgent.toLowerCase().indexOf("android") > -1) || (navigator.u
 function ariaHaspopupEnabler() {
     "use strict";
 	if (!navigator.userAgent.match(/IEMobile/)) {
-		$("header nav ul li ul, header nav ul li ul li ul").each(function () {
+		$("#navWrapper ul li ul").each(function () {
 			$(this).parent("li").children("a").attr("aria-haspopup", "true");
 		});
 	}
@@ -72,22 +81,44 @@ $(window).resize(function () {
 	}
 });
 
-// mobile menu button pushes
+// mobile menu button
 $("button.menu").click(function (e) {
     "use strict";
     e.preventDefault();
-    if ($("html").hasClass("navOpen")) {
-        $("html").removeClass("navOpen");
-        snapper.close("right");
-    } else {
+    if (!$("body").hasClass("snapjs-right")) {
         $("body").scrollTop(0);
-        $("html").addClass("navOpen");
         snapper.open("right");
     }
 });
 
+// mobile drop down buttons
 $("#mobileNavWrapper li.menu-item-has-children button").click(function (e) {
     "use strict";
     e.preventDefault();
     $(this).parent().toggleClass("open");
+});
+
+// fix scrolling in mobileNavWrapper on iOS
+if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
+    new ScrollFix(document.getElementById("mobileNavWrapper"))
+};
+
+// enable snapper
+var snapper = new Snap({
+    element: document.getElementById("pageWrapper"),
+    disable: "left",
+    hyperextensible: false,
+    minPosition: -240,
+    transitionSpeed: 0.15,
+});
+var snaperDisabled = false;
+$(window).on("load resize", function () {
+    if ($(window).width() < mobileWidth && snaperDisabled === true) {
+        snapper.enable();
+        snaperDisabled = false;
+    } else if ($(window).width() >= mobileWidth && snaperDisabled === false) {
+        snapper.close();
+        snapper.disable();
+        snaperDisabled = true;
+    };
 });

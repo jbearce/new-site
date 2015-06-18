@@ -7,17 +7,14 @@
 button.menu {
     background: none;
     display: none;
-    float: right;
     font-size: 16px;
     font-size: remify(16);
-    height: 40px;
     height: remify(40, 16);
     margin: 0;
     padding: 0;
     position: relative;
     text-indent: -999em;
     transition: background-color 0.15s;
-    width: 40px;
     width: remify(40, 16);
 
     .navopen & {
@@ -31,7 +28,6 @@ button.menu:after {
     bottom: 0;
     content: "\0020";
     display: block;
-    height: 4px;
     height: remify(4, 16);
     left: 0;
     margin: auto;
@@ -39,7 +35,6 @@ button.menu:after {
     right: 0;
     top: 0;
     transition: box-shadow 0.15s 0.15s, top 0.15s 0.15s, transform 0.15s;
-    width: 20px;
     width: remify(20, 16);
 
     .snapjs-right & {
@@ -48,9 +43,7 @@ button.menu:after {
 }
 
 button.menu:before {
-    box-shadow: 0 8px 0 0 $accent;
-    box-shadow: 0 remify(8, 16) 0 0 $accent;
-    top: -16px;
+    box-shadow: remify(0 8 0 0, 16) $accent;
     top: remify(-16, 16);
 
     .snapjs-right & {
@@ -61,7 +54,6 @@ button.menu:before {
 }
 
 button.menu:after {
-    top: 16px;
     top: remify(16, 16);
 
     .snapjs-right & {

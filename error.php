@@ -32,75 +32,7 @@
         <!-- end SEO -->
 	</head>
 	<body>
-        <section id="pageWrapper">
-            <section id="headerWrapper">
-                <header>
-                </header>
-            </section><!--/#headerWrapper-->
-            <section id="navWrapper">
-                <nav>
-                    <button class="menu xs">Menu</button>
-                    <ul>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About</a></li>
-                        <li class="menu-item-has-children">
-                            <a aria-haspopup="true" href="#">Portfolio</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                                <li class="menu-item-has-children">
-                                    <a aria-haspopup="true" href="#">Sub link</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                    </ul>
-                                </li>
-                                <li class="menu-item-has-children">
-                                    <a aria-haspopup="true" href="#">Sub link</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                                <li><a href="#">Sub link</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Resource</a></li>
-                        <li><a href="#">Advertise</a></li>
-                        <li><a href="#">FAQ</a></li>
-                    </ul>
-                </nav>
-            </section><!--/#navWrapper-->
-            <section id="mainWrapper">
-                <main>
-                    <section id="post">
-                        <p>Sorry, it looks like something went wrong.</p>
-                        <?
-                        if ($_GET["error"]) {
-                            echo "<p>" . $_GET["error"] . "</p>";
-                        }
-                        if ($_GET["extra"]) {
-                            echo "<p>" . $_GET["extra"] . "</p>";
-                        }
-                        ?>
-                    </section><!--/#post-->
-                    <section id="sidebar">
-                    </section><!--/#sidebar-->
-                </main>
-            </section><!--/#mainWrapper-->
-            <section id="footerWrapper">
-                <footer>
-                </footer>
-            </section><!--/#footerWrapper-->
-        </section><!--/#pageWrapper-->
-        <section id="mobileNavWrapper" class="xs">
+        <div id="mobileNavWrapper" class="xs">
             <section id="mobileNav">
                 <nav>
                     <ul>
@@ -144,10 +76,76 @@
                     </ul>
                 </nav>
             </section><!--/#mobileNav-->
-        </section><!--/#mobileNavWrapper-->
+        </div><!--/#mobileNavWrapper-->
+        <section id="pageWrapper">
+            <div id="headerWrapper">
+                <header>
+                    <button class="menu xs">Menu</button>
+                </header>
+            </div><!--/#headerWrapper-->
+            <div id="navWrapper" class="s-plus">
+                <nav>
+                    <ul>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">About</a></li>
+                        <li class="menu-item-has-children">
+                            <a aria-haspopup="true" href="#">Portfolio</a>
+                            <ul class="sub-menu">
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li class="menu-item-has-children">
+                                    <a aria-haspopup="true" href="#">Sub link</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                    </ul>
+                                </li>
+                                <li class="menu-item-has-children">
+                                    <a aria-haspopup="true" href="#">Sub link</a>
+                                    <ul class="sub-menu">
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                        <li><a href="#">Sub Sub link</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                                <li><a href="#">Sub link</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Resource</a></li>
+                        <li><a href="#">Advertise</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </nav>
+            </div><!--/#navWrapper-->
+            <div id="mainWrapper">
+                <main>
+                    <div id="post">
+                        <p>Sorry, it looks like something went wrong.</p>
+                        <?
+                        if ($_GET["error"]) {
+                            echo "<p>" . $_GET["error"] . "</p>";
+                        }
+                        if ($_GET["extra"]) {
+                            echo "<p>" . $_GET["extra"] . "</p>";
+                        }
+                        ?>
+                    </div><!--/#post-->
+                    <div id="sidebar">
+                    </div><!--/#sidebar-->
+                </main>
+            </div><!--/#mainWrapper-->
+            <div id="footerWrapper">
+                <footer>
+                </footer>
+            </div><!--/#footerWrapper-->
+        </div><!--/#pageWrapper-->
         <script src="assets/scripts/vendors/jquery.min.js" type="text/javascript"></script>
         <script src="assets/scripts/all.js" type="text/javascript"></script>
-        <script type="text/javascript">if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {new ScrollFix(document.getElementById("mobileNavWrapper"))};</script>
-        <script type="text/javascript">var snapper = new Snap({element: document.getElementById("pageWrapper"),disable: "left",hyperextensible: false,minPosition: -240,transitionSpeed: 0.15,});</script>
 	</body>
 </html>

@@ -13,14 +13,12 @@ textarea {
     font-family: $body-font;
     font-size: 16px;
     font-size: remify(16);
-    line-height: 24px;
     line-height: remify(24, 16);
 }
 
 label {
 	display: block;
-    margin: 0 0 10px;
-    margin-bottom: remify(10, 16);
+    margin: remify(0 0 10, 16);
 }
 
 label:hover {
@@ -45,9 +43,7 @@ input[type=submit],
     font-size: 16px;
     font-size: remify(16);
     font-weight: 700;
-    margin: 0 0 10px;
-    margin-bottom: remify(10, 16);
-    padding: 6px 10px;
+    margin: remify(0 0 10, 16);
     padding: remify(6 10, 16);
     text-transform: uppercase;
 	transition: background 0.15s, color 0.15s;
@@ -71,7 +67,6 @@ input[type=radio] {
 input[type=checkbox] + label,
 input[type=radio] + label {
     position: relative;
-    padding: 11px 0 11px 52px;
     padding: remify(11 0 11 52, 16);
 
     &:before {
@@ -82,17 +77,13 @@ input[type=radio] + label {
         content: "\0020";
         display: block;
         float: left;
-        font-size: 25px;
         font-size: remify(25, 16);
-        height: 44px;
         height: remify(44, 25);
         left: 0;
-        line-height: 41px;
         line-height: remify(41, 25);
         position: absolute;
         text-align: center;
         top: 0;
-        width: 44px;
         width: remify(44, 25);
 
         // webkit focus rings to emulate checkbox/radio
@@ -154,13 +145,10 @@ input[type=week],
 textarea {
 	background: $background;
     border: 1px solid $accent;
-    border-width: remify(1);
 	box-sizing: border-box;
 	display: block;
-    margin: 0 0 10px;
-    margin-botom: remify(10, 16);
+    margin: remify(0 0 10, 16);
 	outline: none;
-    padding: 8px 15px 10px;
     padding: remify(8 15 10, 16);
 	text-overflow: ellipsis;
 	width: 100%;
@@ -176,17 +164,14 @@ textarea {
     color: darken($accent, 15%);
     display: block;
     @include icon("fontawesome", "sort");
-    font-size: 24px;
-    font-size: remify(24);
+    font-size: remify(24, 16);
     height: 100%;
-    line-height: 42px;
     line-height: remify(42, 24);
     pointer-events: none;
     position: absolute;
     right: 0;
     text-align: center;
     top: 0;
-    width: 42px;
     width: remify(42, 24);
 }
 
@@ -196,7 +181,6 @@ textarea {
     display: block;
     margin: 0;
     outline: none;
-    padding: 8px 42px 9px 12px;
     padding: remify(8 42 9 12, 16);
     width: 100%;
     // gecko fix
@@ -229,12 +213,10 @@ textarea {
 
 textarea {
 	max-width: 100%;
-	min-height: 100px;
-    min-height: remify(100);
+    min-height: remify(100, 16);
 	min-width: 100%;
 }
 
 .g-recaptcha {
-    margin: 0 0 10px;
-    margin: remify(0 0 10);
+    margin: remify(0 0 10, 16);
 }

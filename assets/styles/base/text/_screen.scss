@@ -22,43 +22,37 @@ h6 {
 h1 {
     font-size: 28px;
     font-size: remify(28);
-    margin: 0 0 16px;
-    margin: 0 0 remify(16, 28);
+    margin: remify(0 0 16, 28);
 }
 
 h2 {
     font-size: 26px;
     font-size: remify(26);
-    margin: 0 0 16px;
-    margin: 0 0 remify(16, 26);
+    margin: remify(0 0 16, 26);
 }
 
 h3 {
     font-size: 24px;
     font-size: remify(24);
-    margin: 0 0 16px;
-    margin: 0 0 remify(16, 24);
+    margin: remify(0 0 16, 24);
 }
 
 h4 {
     font-size: 22px;
     font-size: remify(22);
-    margin: 0 0 16px;
-    margin: 0 0 remify(16, 22);
+    margin: remify(0 0 16, 22);
 }
 
 h5 {
     font-size: 20px;
     font-size: remify(20);
-    margin: 0 0 16px;
-    margin: 0 0 remify(16, 20);
+    margin: remify(0 0 16, 20);
 }
 
 h6 {
     font-size: 18px;
     font-size: remify(18);
-    margin: 0 0 8px;
-    margin: 0 0 remify(8, 18);
+    margin: remify(0 0 8, 18);
 }
 
 menu,
@@ -79,8 +73,7 @@ ul {
 menu,
 ol,
 ul {
-    padding: 0 0 0 24px;
-    padding: 0 0 0 remify(24, 16);
+    padding: remify(0 0 0 24, 16);
 
     menu,
     ol,
@@ -96,8 +89,6 @@ table {
 table th,
 table td {
     border: 1px solid darken($primary, 15%);
-    border-width: remify(1, 16);
-    padding: 4px 6px;
     padding: remify(4 6, 16);
     vertical-align: top;
 }
@@ -122,9 +113,9 @@ a {
 blockquote {
     border-left: 5px solid $accent;
     margin: 0 0 24px;
-    margin: 0 0 remify(24);
+    margin-bottom: remify(24);
     padding: 0 0 0 24px;
-    padding: 0 0 0 remify(24);
+    padding-left: remify(24);
 }
 
 hr {
@@ -132,18 +123,16 @@ hr {
     border-bottom: 1px solid $accent;
     border-bottom-width: remify(1);
     margin: 0 0 24px;
-    margin: 0 0 remify(24);
+    margin-bottom: remify(24);
 }
 
 pre {
     background: $primary;
     border: 1px solid darken($primary, 15%);
-    border-width: remify(1, 16);
     display: block;
     color: #FFF;
     font-size: 16px;
-    font-size: remify(1);
-    padding: 20 24px;
+    font-size: remify(16);
     padding: remify(20 24, 16);
     width: 100%;
 }

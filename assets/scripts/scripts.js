@@ -3,3 +3,4 @@
 //@prepros-append vendors/snap.min.js
 //@prepros-append jquery.modernizr.cssForms.js
 //@prepros-append jquery.responsiveFixes.js
+//@prepros-append userAgent.js
