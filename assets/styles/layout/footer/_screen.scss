@@ -6,7 +6,13 @@
 
 #footerWrapper {
     @include layer("footer");
+
+    font-size: 16px;
+    font-size: remify(16);
+    padding: remify(0 20, 16);
 }
 
 #footerWrapper footer {
+    margin: 0 auto;
+    width: remify($site-width, 16);
 }

@@ -16,6 +16,15 @@
     @return rgba(255,255,255,$opacity)
 }
 
+// Remove the unit of a length
+
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+    @return $number;
+}
+
 // Remify
 
 @function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
@@ -32,19 +41,10 @@
     }
     @each $size in $sizes {
         @if $value-rem == null {
-            $value-rem: ($size / $base) + $unit;
+            $value-rem: (strip-unit($size) / strip-unit($base)) + $unit;
         } @else {
-            $value-rem: $value-rem + " " + (($size / $base) + $unit);
+            $value-rem: $value-rem + " " + ((strip-unit($size) / strip-unit($base)) + $unit);
         }
     }
     @return $value-rem;
-}
-
-// Remove the unit of a length
-
-@function strip-unit($number) {
-    @if type-of($number) == 'number' and not unitless($number) {
-        @return $number / ($number * 0 + 1);
-    }
-    @return $number;
 }

@@ -34,8 +34,7 @@ body {
     backface-visibility: hidden;
 
     .snapjs-right & {
-        box-shadow: 0 0 10px black(0.5);
-        box-shadow: 0 0 remify(10) black(0.5);
+        box-shadow: remify(0 0 10, 16) black(0.5);
     }
 }
 

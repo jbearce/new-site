@@ -13,6 +13,11 @@ body {
     width: 100%;
 }
 
+#pageWrapper {
+    font-size: 16px;
+    font-size: remify(16);
+}
+
 // IE snap fix
 
 @-ms-viewport {

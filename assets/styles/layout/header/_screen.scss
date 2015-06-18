@@ -6,7 +6,13 @@
 
 #headerWrapper {
     @include layer("header");
+
+    font-size: 16px;
+    font-size: remify(16);
+    padding: remify(0 20, 16);
 }
 
 #headerWrapper header {
+    margin: 0 auto;
+    width: remify($site-width, 16);
 }

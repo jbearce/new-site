@@ -7,6 +7,9 @@
 #navWrapper {
     @include clear;
     @include layer("navigation");
+
+    font-size: 16px;
+    font-size: remify(16);
 }
 
 #navWrapper nav {
@@ -23,8 +26,7 @@
     @include clear;
 
     float: right;
-    font-size: 16px;
-    font-size: remify(16);
+    font-size: remify(16, 16);
     list-style: none;
     margin: 0 auto;
     padding: 0;
@@ -55,8 +57,7 @@
 #navWrapper a {
     color: lighten($primary, 75%);
     display: block;
-    padding: 8px 10px;
-    padding: remify(8 10);
+    padding: remify(8 10, 16);
 }
 
 #navWrapper ul.sub-menu {
@@ -67,8 +68,7 @@
     text-align: left;
     top: 100%;
     transition: opacity 0.25s, left 0s 0.25s;
-    width: 200px;
-    width: remify(200);
+    width: remify(200, 16);
 }
 
 #navWrapper ul.sub-menu li {
@@ -84,6 +84,5 @@
 #navWrapper ul.sub-menu ul.sub-menu {
     background: lighten(lighten($primary, 15%), 15%);
     top: 0;
-    width: 250px;
     width: remify(250, 16);
 }

@@ -6,9 +6,15 @@
 
 #mainWrapper {
     @include layer("content");
+
+    font-size: 16px;
+    font-size: remify(16);
+    padding: remify(0 20, 16);
 }
 
 #mainWrapper main {
+    margin: 0 auto;
+    width: remify($site-width, 16);
 }
 
 #mainWrapper #post {

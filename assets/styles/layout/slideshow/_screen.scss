@@ -12,11 +12,11 @@
 }
 
 #slideshow {
+    width: 100%;
 }
 
 #slideshow .swiper-slide img {
     float: left;
-    height: 500px;
     height: remify(500, 16);
     left: 50%;
     position: relative;
