@@ -19,10 +19,10 @@ textarea {
 label {
 	display: block;
     margin: remify(0 0 10, 16);
-}
 
-label:hover {
-	cursor: pointer;
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 @include placeholder {
@@ -47,60 +47,55 @@ input[type=submit],
     padding: remify(6 10, 16);
     text-transform: uppercase;
 	transition: background 0.15s, color 0.15s;
-}
 
-button:hover,
-input[type=button]:hover,
-input[type=reset]:hover,
-input[type=submit]:hover,
-.button:hover {
-	background: lighten($accent, 15%);
-    color: $accent;
+    &:hover {
+        background: lighten($accent, 15%);
+        color: $accent;
+    }
 }
 
 input[type=checkbox],
 input[type=radio] {
 	left: -999em;
 	position: absolute;
-}
 
-input[type=checkbox] + label,
-input[type=radio] + label {
-    position: relative;
-    padding: remify(11 0 11 52, 16);
+    & + label {
+        position: relative;
+        padding: remify(11 0 11 52, 16);
 
-    &:before {
-        background: $background;
-        border: 1px solid $accent;
-        border-width: remify(1);
-        color: $accent;
-        content: "\0020";
-        display: block;
-        float: left;
-        font-size: remify(25, 16);
-        height: remify(44, 25);
-        left: 0;
-        line-height: remify(41, 25);
-        position: absolute;
-        text-align: center;
-        top: 0;
-        width: remify(44, 25);
+        &:before {
+            background: $background;
+            border: 1px solid $accent;
+            border-width: remify(1);
+            color: $accent;
+            content: "\0020";
+            display: block;
+            float: left;
+            font-size: remify(25, 16);
+            height: remify(44, 25);
+            left: 0;
+            line-height: remify(41, 25);
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: remify(44, 25);
 
-        // webkit focus rings to emulate checkbox/radio
-        .-webkit- &:active,
-        .-webkit- &:focus {
-            outline: -webkit-focus-ring-color auto 5px;
+            // webkit focus rings to emulate checkbox/radio
+            .-webkit- &:active,
+            .-webkit- &:focus {
+                outline: -webkit-focus-ring-color auto 5px;
+            }
+
+            // trident focus rings to emulate checkbox/radio
+            .-ms- &:active,
+            .-ms- &:focus {
+                outline: #808080 dashed 1px;
+            }
         }
 
-        // trident focus rings to emulate checkbox/radio
-        .-ms- &:active,
-        .-ms- &:focus {
-            outline: #808080 dashed 1px;
+        &:hover {
+            cusror: pointer;
         }
-    }
-
-    &:hover {
-        cusror: pointer;
     }
 }
 
@@ -200,6 +195,12 @@ textarea {
     }
 }
 
+textarea {
+	max-width: 100%;
+    min-height: remify(100, 16);
+	min-width: 100%;
+}
+
 // fix for inconsistancies accross browsers
 
 .select option {
@@ -209,12 +210,6 @@ textarea {
     &:hover {
         background: #DDD;
     }
-}
-
-textarea {
-	max-width: 100%;
-    min-height: remify(100, 16);
-	min-width: 100%;
 }
 
 .g-recaptcha {

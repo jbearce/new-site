@@ -1,9 +1,11 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Slideshow                                                                *
+ * Content                                                                  *
 \* ------------------------------------------------------------------------ */
 
-#slideshow .swiper-slide img {
-    height: remify(250, 16);
+#mainWrapper main {
+    max-width: $site-width + px;
+    max-width: remify($site-width);
+    width: auto;
 }

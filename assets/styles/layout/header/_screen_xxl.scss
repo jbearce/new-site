@@ -4,17 +4,8 @@
  * Header                                                                   *
 \* ------------------------------------------------------------------------ */
 
-#headerWrapper {
-    @include layer("header");
-
-    font-size: 16px;
-    font-size: remify(16);
-    padding: 0 20px;
-    padding: remify(0 20);
-}
-
 #headerWrapper header {
-    margin: 0 auto;
-    width: $site-width + px;
-    width: remify($site-width);
+    max-width: $site-width + px;
+    max-width: remify($site-width);
+    width: auto;
 }

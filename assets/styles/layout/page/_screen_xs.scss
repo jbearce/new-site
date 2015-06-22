@@ -4,8 +4,6 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-// Wrappers
-
 html,
 body {
     height: 100%;
@@ -36,10 +34,4 @@ body {
     .snapjs-right & {
         box-shadow: remify(0 0 10, 16) black(0.5);
     }
-}
-
-// IE snap fix
-
-@-ms-viewport {
-    width: device-width;
 }

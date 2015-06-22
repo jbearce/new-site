@@ -1,0 +1,24 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Generic Block Elements                                                   *
+\* ------------------------------------------------------------------------ */
+
+blockquote {
+    border-left: 5px solid $accent;
+    margin: 0 0 24px;
+    margin-bottom: remify(24);
+    padding: 0 0 0 24px;
+    padding-left: remify(24);
+}
+
+hr {
+    border: 0;
+    border-bottom: 1px solid $accent;
+    margin: 0 0 24px;
+    margin-bottom: remify(24);
+}
+
+img {
+    max-width: 100%;
+}

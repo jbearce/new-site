@@ -4,17 +4,8 @@
  * Footer                                                                   *
 \* ------------------------------------------------------------------------ */
 
-#footerWrapper {
-    @include layer("footer");
-
-    font-size: 16px;
-    font-size: remify(16);
-    padding: 0 20px;
-    padding: remify(0 20);
-}
-
 #footerWrapper footer {
-    margin: 0 auto;
-    width: $site-width + px;
-    width: remify($site-width);
+    max-width: $site-width + px;
+    max-width: remify($site-width);
+    width: auto;
 }
