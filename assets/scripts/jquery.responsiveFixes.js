@@ -85,10 +85,7 @@ $(window).resize(function () {
 $("button.menu").click(function (e) {
     "use strict";
     e.preventDefault();
-    if (!$("body").hasClass("snapjs-right")) {
-        $("body").scrollTop(0);
-        snapper.open("right");
-    }
+    $("html").toggleClass("navopen");
 });
 
 // mobile drop down buttons
@@ -103,22 +100,3 @@ if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
     new ScrollFix(document.getElementById("mobileNavWrapper"))
 };
 
-// enable snapper
-var snapper = new Snap({
-    element: document.getElementById("pageWrapper"),
-    disable: "left",
-    hyperextensible: false,
-    minPosition: -240,
-    transitionSpeed: 0.15,
-});
-var snaperDisabled = false;
-$(window).on("load resize", function () {
-    if ($(window).width() < mobileWidth && snaperDisabled === true) {
-        snapper.enable();
-        snaperDisabled = false;
-    } else if ($(window).width() >= mobileWidth && snaperDisabled === false) {
-        snapper.close();
-        snapper.disable();
-        snaperDisabled = true;
-    };
-});

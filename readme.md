@@ -13,7 +13,6 @@ Features
 - Incredible one elment hamburger-style menu icon with great animations and no images
 - Awesome slide-out mobile menu, with beautiful animations
 - Integration with [Swiper](https://github.com/nolimits4web/swiper/)
-- Pull to open the menu with [Snap.js](https://github.com/jakiestfu/Snap.js/)
 
 Planned
 -------
@@ -32,4 +31,3 @@ Considering
 - [Switch back to px instead of rem/em](http://benfrain.com/just-use-pixels/)
 - [Change colors to a SASS map](https://scotch.io/tutorials/aesthetic-sass-2-colors)
 - [DashIcons](https://developer.wordpress.org/resource/dashicons/) integration (currently partially supported, would just need to import the actual font & finish the map)
-- Removing Snap.js support (seems kinda wonky)

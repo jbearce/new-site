@@ -13,7 +13,7 @@ body {
     -webkit-overflow-scrolling: touch;
 }
 
-.snapjs-right body {
+.navopen body {
     overflow: hidden;
 }
 
@@ -22,7 +22,7 @@ body {
     left: 0;
     min-height: 100%;
     position: relative;
-    transition: box-shdow 0.15s;
+    transition: box-shdow 0.15s, left 0.15s;
     width: 100%;
     z-index: 2;
     // fixes flickering in snap.js
@@ -31,7 +31,9 @@ body {
     -ms-backface-visibility: hidden;
     backface-visibility: hidden;
 
-    .snapjs-right & {
+    .navopen & {
         box-shadow: remify(0 0 10, 16) black(0.5);
+        left: -$mobile-nav-width + px;
+        width: remify(-$mobile-nav-width);
     }
 }
