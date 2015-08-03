@@ -4,7 +4,7 @@
  * Content                                                                  *
 \* ------------------------------------------------------------------------ */
 
-#mainWrapper main {
+#content {
     max-width: $site-width + px;
     max-width: remify($site-width);
     width: auto;

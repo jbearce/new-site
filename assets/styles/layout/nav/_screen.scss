@@ -4,85 +4,20 @@
  * Navigation                                                               *
 \* ------------------------------------------------------------------------ */
 
-#navWrapper {
+#nav-wrapper {
     @include clear;
     @include layer("navigation");
 
     font-size: 16px;
     font-size: remify(16);
+    padding: 0 20px;
+    padding: remify(0 20);
 }
 
-#navWrapper nav {
+#nav {
     @include clear;
 
-    background: $primary;
-    float: left;
-    position: relative;
-    width: 100%;
-    z-index: 999;
-}
-
-#navWrapper ul {
-    @include clear;
-
-    float: right;
-    font-size: remify(16, 16);
-    list-style: none;
     margin: 0 auto;
-    padding: 0;
-    position: relative;
-    right: 50%;
-    text-align: center;
-    width: auto;
-    z-index: 999;
-}
-
-#navWrapper li {
-    float: left;
-    left: 50%;
-    position: relative;
-    transition: background 0.25s;
-
-    &:hover {
-        background: $accent;
-
-        & > ul.sub-menu {
-            left: 0;
-            opacity: 1;
-            transition: opacity 0.25s;
-        }
-    }
-}
-
-#navWrapper a {
-    color: lighten($primary, 75%);
-    display: block;
-    padding: remify(8 10, 16);
-}
-
-#navWrapper ul.sub-menu {
-    background: lighten($primary, 15%);
-    left: -999em;
-    opacity: 0;
-    position: absolute;
-    text-align: left;
-    top: 100%;
-    transition: opacity 0.25s, left 0s 0.25s;
-    width: remify(200, 16);
-}
-
-#navWrapper ul.sub-menu li {
-    float: none;
-    left: auto;
-    width: 100%;
-
-    &:hover > ul.sub-menu {
-        left: 100%;
-    }
-}
-
-#navWrapper ul.sub-menu ul.sub-menu {
-    background: lighten(lighten($primary, 15%), 15%);
-    top: 0;
-    width: remify(250, 16);
+    width: $site-width + px;
+    width: remify($site-width);
 }

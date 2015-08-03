@@ -4,7 +4,12 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-#page-wrapper {
-    font-size: 16px;
-    font-size: remify(16);
+.is-navopen body {
+    overflow: hidden;
+}
+
+.is-navopen #page-wrapper {
+    box-shadow: remify(0 0 10, 16) black(0.5);
+    left: -$mobile-nav-width + px;
+    width: remify(-$mobile-nav-width);
 }

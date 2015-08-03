@@ -4,20 +4,7 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-html,
-body {
-    height: 100%;
-    overflow-x: hidden;
-    width: 100%;
-    // iOS fix
-    -webkit-overflow-scrolling: touch;
-}
-
-.navopen body {
-    overflow: hidden;
-}
-
-#pageWrapper {
+#page-wrapper {
     background: $background;
     left: 0;
     min-height: 100%;
@@ -30,10 +17,4 @@ body {
     -moz-backface-visibility: hidden;
     -ms-backface-visibility: hidden;
     backface-visibility: hidden;
-
-    .navopen & {
-        box-shadow: remify(0 0 10, 16) black(0.5);
-        left: -$mobile-nav-width + px;
-        width: remify(-$mobile-nav-width);
-    }
 }

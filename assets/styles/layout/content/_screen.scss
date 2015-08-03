@@ -4,7 +4,7 @@
  * Content                                                                  *
 \* ------------------------------------------------------------------------ */
 
-#mainWrapper {
+#content-wrapper {
     @include layer("content");
 
     font-size: 16px;
@@ -13,14 +13,14 @@
     padding: remify(0 20);
 }
 
-#mainWrapper main {
+#content {
     margin: 0 auto;
     width: $site-width + px;
     width: remify($site-width);
 }
 
-#mainWrapper #post {
+#post {
 }
 
-#mainWrapper #sidebar {
+#sidebar {
 }

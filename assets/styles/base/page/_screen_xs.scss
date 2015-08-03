@@ -1,11 +1,14 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Header                                                                   *
+ * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-#header {
-    max-width: $site-width + px;
-    max-width: remify($site-width);
-    width: auto;
+html,
+body {
+    height: 100%;
+    overflow-x: hidden;
+    width: 100%;
+    // iOS fix
+    -webkit-overflow-scrolling: touch;
 }

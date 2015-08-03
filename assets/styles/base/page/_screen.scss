@@ -1,16 +1,20 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Slideshow                                                                *
+ * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-#slideshow-wrapper {
-    @include layer("slideshow");
-
-    font-size: 16px;
-    font-size: remify(16);
+html {
+    width: 100%;
 }
 
-#slideshow {
+body {
+    background: $background;
     width: 100%;
+}
+
+// IE snap fix
+
+@-ms-viewport {
+    width: device-width;
 }

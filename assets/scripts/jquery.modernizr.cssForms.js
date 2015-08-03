@@ -6,7 +6,7 @@ $(document).ready(function () {
     "use strict";
 	$("select").not("select[multiple], .select select").each(function () {
 		if ($(this).css("display") !== "none") {
-			$(this).wrap("<div class=\"select\">");
+			$(this).wrap("<div class='select'>");
 		}
 	});
 	/*

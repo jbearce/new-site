@@ -6,7 +6,7 @@ This is the project I use to build every new site. I'll be slowly improving it o
 Features
 --------
 
-- Clearly organized SCSS
+- Clearly organized SCSS closely in line with the [SMACSS methodology](https://smacss.com/)
 - Minified & Concated JS using [Prepros](http://www.prepros.io/)
 - Integration with FontAwesome
 - Drop downs that work on tablets & desktops

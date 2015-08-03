@@ -1,11 +1,13 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Header                                                                   *
+ * Swiper                                                                   *
 \* ------------------------------------------------------------------------ */
 
-#header {
-    max-width: $site-width + px;
-    max-width: remify($site-width);
-    width: auto;
-}
+// import base styles
+
+@import "_vendor";
+
+// custom styles
+
+
