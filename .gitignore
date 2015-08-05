@@ -224,3 +224,7 @@ pip-log.txt
 
 #Prepros
 prepros.cfg
+
+#SourceMaps
+*.css.map
+*.js.map
