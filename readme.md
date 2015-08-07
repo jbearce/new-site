@@ -1,10 +1,10 @@
-New Site
-========
+# New Site
 
 This is the project I use to build every new site. I'll be slowly improving it over time, adding new features, attempting to implement new coding standards, etc.
 
-Features
---------
+If you'd like to make changes to this project, I recommend checking out my [getting started guide](getting-started.md).
+
+## Features
 
 - Clearly organized SCSS closely in line with the [SMACSS methodology](https://smacss.com/)
 - Minified & Concated JS using [Prepros](http://www.prepros.io/)
@@ -14,8 +14,7 @@ Features
 - Awesome slide-out mobile menu, with beautiful animations
 - Integration with [Swiper](https://github.com/nolimits4web/swiper/)
 
-Planned
--------
+## Planned
 
 - Complete FontAwesome icon map (time consuming and I'm lazy)
 - Better FontAwesome mixin
@@ -24,8 +23,7 @@ Planned
 - rem/em mixins that adhere to DRY standards (eh?)
 - Awesome [MSN-style](http://www.msn.com/) tablet menu (tap arrows to pan between long nav on tablet view)
 
-Considering
------------
+## Considering
 
 - Framework for rapid deployment
 - [Switch back to px instead of rem/em](http://benfrain.com/just-use-pixels/)
