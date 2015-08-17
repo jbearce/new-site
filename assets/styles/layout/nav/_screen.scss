@@ -5,7 +5,6 @@
 \* ------------------------------------------------------------------------ */
 
 #nav-wrapper {
-    @include clear;
     @include layer("navigation");
 
     font-size: 16px;

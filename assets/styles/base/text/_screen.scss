@@ -64,10 +64,8 @@ ul {
     font-family: $body-font;
     font-size: 16px;
     font-size: remify(16);
-    line-height: 24px;
     line-height: remify(24, 16);
-    margin: 0 0 24px;
-    margin: 0 0 remify(24, 16);
+    margin: remify(0 0 24, 16);
 }
 
 menu,
