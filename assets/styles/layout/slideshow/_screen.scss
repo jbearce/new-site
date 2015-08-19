@@ -4,13 +4,13 @@
  * Slideshow                                                                *
 \* ------------------------------------------------------------------------ */
 
-#slideshow-wrapper {
+.slideshow-wrapper {
     @include layer("slideshow");
 
     font-size: 16px;
     font-size: remify(16);
 }
 
-#slideshow {
+.slideshow {
     width: 100%;
 }

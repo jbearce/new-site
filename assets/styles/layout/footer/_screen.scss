@@ -4,7 +4,7 @@
  * Footer                                                                   *
 \* ------------------------------------------------------------------------ */
 
-#footer-wrapper {
+.footer-wrapper {
     @include layer("footer");
 
     font-size: 16px;
@@ -13,7 +13,7 @@
     padding: remify(0 20);
 }
 
-#footer {
+.footer {
     margin: 0 auto;
     width: $site-width + px;
     width: remify($site-width);

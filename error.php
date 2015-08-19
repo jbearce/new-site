@@ -32,8 +32,8 @@
         <!-- end SEO -->
 	</head>
 	<body>
-        <div id="mobile-nav-wrapper" class="xs">
-            <section id="mobile-nav">
+        <div class="mobile-nav-wrapper xs">
+            <section class="mobile-nav">
                 <nav class="menu-wrapper">
                     <ul class="menu-list l-vertical">
                         <li class="menu-item"><a href="#">Home</a></li>
@@ -75,16 +75,16 @@
                         <li class="menu-item"><a href="#">FAQ</a></li>
                     </ul><!--/.menu-list.l-vertical-->
                 </nav><!--/.menu-wrapper-->
-            </section><!--/#mobile-nav-->
-        </div><!--/#mobile-nav-wrapper-->
-        <div id="page-wrapper">
-            <div id="header-wrapper">
-                <header id="header">
+            </section><!--/.mobile-nav-->
+        </div><!--/.mobile-nav-wrapper-->
+        <div class="page-wrapper">
+            <div class="header-wrapper">
+                <header class="header">
                     <button class="menu-button xs">Menu</button>
-                </header><!--/#header-->
-            </div><!--/#header-wrapper-->
-            <div id="nav-wrapper" class="s-plus">
-                <div id="nav">
+                </header><!--/.header-->
+            </div><!--/.header-wrapper-->
+            <div class="nav-wrapper s-plus">
+                <div class="nav">
                     <nav class="menu-wrapper">
                         <ul class="menu-list">
                             <li class="menu-item"><a href="#">Home</a></li>
@@ -123,11 +123,11 @@
                             <li class="menu-item"><a href="#">FAQ</a></li>
                         </ul><!--/.menu-list-->
                     </nav><!--/.menu-wrapper-->
-                </div><!--/#nav-->
-            </div><!--/#nav-wrapper-->
-            <div id="content-wrapper">
-                <main id="content">
-                    <div id="post">
+                </div><!--/.nav-->
+            </div><!--/.nav-wrapper-->
+            <div class="content-wrapper">
+                <main class="content">
+                    <div class="post">
                         <p>Sorry, it looks like something went wrong.</p>
                         <?
                         if ($_GET["error"]) {
@@ -137,16 +137,16 @@
                             echo "<p>" . $_GET["extra"] . "</p>";
                         }
                         ?>
-                    </div><!--/#post-->
-                    <div id="sidebar">
-                    </div><!--/#sidebar-->
-                </main>
-            </div><!--/#content-wrapper-->
-            <div id="footer-wrapper">
-                <footer id="footer">
-                </footer><!--/#footer-->
-            </div><!--/#footer-wrapper-->
-        </div><!--/#page-wrapper-->
+                    </div><!--/.post-->
+                    <div class="sidebar">
+                    </div><!--/.sidebar-->
+                </main><!--/.content-->
+            </div><!--/.content-wrapper-->
+            <div class="footer-wrapper">
+                <footer class="footer">
+                </footer><!--/.footer-->
+            </div><!--/.footer-wrapper-->
+        </div><!--/.page-wrapper-->
         <script src="assets/scripts/vendors/jquery.min.js" type="text/javascript"></script>
         <script src="assets/scripts/all.js" type="text/javascript"></script>
 	</body>

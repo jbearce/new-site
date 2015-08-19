@@ -4,7 +4,7 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-#page-wrapper {
+.page-wrapper {
     background: $background;
     left: 0;
     min-height: 100%;
@@ -12,9 +12,4 @@
     transition: box-shdow 0.15s, left 0.15s;
     width: 100%;
     z-index: 2;
-    // fixes flickering in snap.js
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    -ms-backface-visibility: hidden;
-    backface-visibility: hidden;
 }

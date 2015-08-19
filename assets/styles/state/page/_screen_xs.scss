@@ -8,7 +8,7 @@
     overflow: hidden;
 }
 
-.is-navopen #page-wrapper {
+.is-navopen .page-wrapper {
     box-shadow: remify(0 0 10, 16) black(0.5);
     left: -$mobile-nav-width + px;
     width: remify(-$mobile-nav-width);
