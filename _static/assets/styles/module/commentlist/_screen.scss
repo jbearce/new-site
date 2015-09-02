@@ -1,0 +1,110 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Comments                                                                 *
+\* ------------------------------------------------------------------------ */
+
+.commentlist .comment .comment-body .comment-author,
+.commentlist .comment .comment-body .comment-meta {
+	color: $foreground;
+	font-family: $body-font;
+    font-size: remify(16, 16);
+	font-weight: normal;
+	line-height: remify(32, 16);
+	margin: remify(0 0 16, 16);
+}
+
+.commentlist {
+	clear: both;
+	list-style: none;
+	padding-left: 0;
+}
+
+.commentlist .comment {
+    padding: 0;
+
+    &:before {
+        display: none;
+    }
+}
+
+.commentlist .comment-body {
+    background: #DDD;
+    float: none;
+    padding: remify(16, 16);
+    width: auto;
+}
+
+.commentlist .comment-author {
+    @include clear;
+
+    float: left;
+    text-align: left;
+}
+
+.commentlist .comment-author img {
+    float: left !important;
+    margin: remify(0 10 0 0, 16) !important;
+}
+
+.commentlist .comment-meta {
+    @include clear;
+
+    margin: 0 !important;
+    padding: 0;
+    text-align: left;
+}
+
+.commentlist .comment-meta .comment-author {
+    float: left;
+}
+
+.commentlist .comment-meta .comment-metadata {
+    float: right;
+}
+
+.commentlist p {
+    clear: both;
+}
+
+.commentlist .reply {
+    text-align: right;
+}
+
+.commentlist ul.children {
+    list-style: none;
+    padding-left: remify(16, 16);
+}
+
+.commentlist ul.children .comment-body {
+    background: #E5E5E5;
+}
+
+.commentlist ul.children ul.children .comment-body {
+    background: #E5E5E5;
+}
+
+.commentlist ul.children ul.children ul.children .comment-body {
+    background: #EDEDED;
+}
+
+.commentlist ul.children ul.children ul.children ul.children .comment-body {
+    background: #F5F5F5;
+}
+
+.commentlist ul.children ul.children ul.children ul.children .comment-body {
+    background: #FCFCFC;
+}
+
+#respond {
+	clear: both;
+}
+
+#respond textarea {
+    height: remify(100, 16) !important;
+    resize: none !important;
+}
+
+#respond input {
+    margin-bottom: 0 !important;
+}

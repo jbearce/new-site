@@ -1,0 +1,100 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Ninja Forms                                                              *
+\* ------------------------------------------------------------------------ */
+
+.ninja-forms-cont,
+.ninja-forms-required-items {
+    margin: 0 0 10px;
+}
+
+.field-wrap {
+    @include clear;
+
+    margin: 0 0 10px;
+    visibility: visible !important;
+
+    input[type=checkbox],
+    input[type=radio] {
+        left: auto;
+        position: relative;
+    }
+
+    select {
+        width: 100%;
+    }
+
+    button,
+    input[type=button],
+    input[type=submit],
+    input[type=reset],
+    select {
+        margin-left: 0 !important;
+    }
+
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+        min-width: 0;
+        width: 100%;
+    }
+
+    .ninja-forms-field-description p,
+    &.label-below .ninja-forms-field-description p {
+        margin-bottom: 0;
+        margin-top: 15px;
+    }
+
+    &.checkbox-wrap {
+        &.label-above {
+            label {
+                margin-bottom: 0;
+            }
+        }
+
+        &.label-right {
+            label {
+                padding-left: 0;
+            }
+        }
+    }
+
+    &.label-below {
+        margin-bottom: 20px;
+
+        input,
+        select,
+        textarea {
+            margin-bottom: 0;
+        }
+    }
+
+    &.label-left,
+    &.label-right {
+        display: flex;
+
+        label {
+            display: block;
+            line-height: 100%;
+            margin: 0;
+        }
+
+        input,
+        .select,
+        textarea {
+            display: block;
+            flex: 1 1 auto;
+            margin: 0;
+        }
+    }
+
+    &.label-left label {
+        padding-right: 6px;
+    }
+
+    &.label-right label {
+        padding-left: 6px;
+    }
+}

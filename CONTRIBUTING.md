@@ -9,8 +9,10 @@ First off, you're going to need to clone this repository. If you've never used G
 Once you've got Git set up on your system, just follow these steps to set up this project:
 
  1. Open up a terminal window where you want the project to reside.
- 2. Type `git clone http://username:password@git.ghostlyco.de/revxx14/new-site.git`, where `username` is your GitLab username and `password` is your password. For example, I'd use: `git clone http://revxx14:NotMyPassword@git.ghostlyco.de/revxx14/new-site.git`
- 3. Once the terminal finishes the cloning process, it'll present you with a new blank line. You're now ready to start editing.
+ 2. Attempt to set up SSH using [this guide](http://git.weblinx.local/weblinx/git-sandbox/blob/master/ssh.md). If successful, move to step 5. If unsuccessful, move to setp 4.
+ 3. Type `git clone git@git.ghostlyco.de:revxx14/new-site.git`
+ 4. Type `git clone http://username:password@git.ghostlyco.de/revxx14/new-site.git`, where `username` is your GitLab username and `password` is your password. For example, I'd use: `git clone http://jacob:NotMyPassword@git.ghostlyco.de/revxx14/new-site.git`
+ 5. Once the terminal finishes the cloning process, it'll present you with a new blank line. You're now ready to start editing.
  
 #### Step 2: Setting up for SCSS
  

@@ -1,0 +1,355 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* Styles written by Jacob Bearce | jacob@weblinxinc.com | jacob@bearce.me */
+
+/* events bar */
+
+#tribe-events-bar {
+	background: #F5F5F5;
+	margin: 0 0 30px;
+	position: relative;
+	z-index: 1;
+}
+
+	#tribe-events-bar #tribe-bar-form {
+		position: relative;
+	}
+
+		#tribe-events-bar #tribe-bar-form #tribe-bar-collapse-toggle {
+			color: #000;
+			font-family: sans-serif;
+			font-size: 13px;
+			font-weight: 700;
+			height: 62px;
+			padding: 24px 212px 23px 15px;
+			position: relative;
+			text-transform: uppercase;
+			width: 100%;
+		}
+
+		@media screen and (max-width: 479px) {
+			#tribe-events-bar #tribe-bar-form #tribe-bar-collapse-toggle {
+				padding-right: 112px;
+			}
+		}
+
+			#tribe-events-bar #tribe-bar-form #tribe-bar-collapse-toggle .tribe-bar-toggle-arrow {
+				border-left: 8px solid transparent;
+				border-right: 8px solid transparent;
+				border-top: 8px solid #000;
+				height: 0;
+				position: absolute;
+				right: 216px;
+				top: 28px;
+				width: 0;
+			}
+
+			@media screen and (max-width: 479px) {
+				#tribe-events-bar #tribe-bar-form #tribe-bar-collapse-toggle .tribe-bar-toggle-arrow {
+					right: 116px;
+				}
+			}
+
+			#tribe-events-bar #tribe-bar-form #tribe-bar-collapse-toggle.tribe-bar-filters-open .tribe-bar-toggle-arrow {
+				border-bottom: 8px solid #000;
+				border-top: 0;
+			}
+
+		#tribe-events-bar #tribe-bar-form #tribe-bar-views {
+			background: #E0E0E0;
+			height: 62px;
+			position: absolute;
+			right: 0;
+			top: 0;
+			width: 197px;
+			z-index: 999;
+		}
+
+		@media screen and (max-width: 479px) {
+			#tribe-events-bar #tribe-bar-form #tribe-bar-views {
+				width: 97px;
+			}
+		}
+
+		#tribe-events-bar #tribe-bar-form #tribe-bar-views.tribe-bar-views-open  {
+			height: auto;
+		}
+
+			#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner {
+				left: 0;
+				padding: 12px 14px;
+				right: 0;
+				top: 0;
+			}
+
+				#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner label {
+					color: #000;
+					font-size: 11px;
+					font-weight: 700;
+					line-height: normal;
+					margin: 0;
+					text-transform: uppercase;
+				}
+
+				#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .select {
+					display: none;
+				}
+
+				#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list {
+					color: #000;
+					font-size: 15px;
+					font-weight: normal;
+					line-height: normal;
+					list-style: none;
+					margin: 0;
+					padding: 0;
+				}
+
+					#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li {
+						display: none;
+					}
+
+					#tribe-events-bar #tribe-bar-form #tribe-bar-views.tribe-bar-views-open .tribe-bar-views-inner .tribe-bar-views-list li {
+						display: block;
+					}
+
+					#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li.tribe-bar-active {
+						display: block;
+					}
+
+						#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li a {
+							color: #535353;
+							display: block;
+						}
+
+							#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li a span {
+								display: block;
+								padding: 3px 0 3px 25px;
+								position: relative;
+							}
+
+								#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li a span:before {
+									color: #535353;
+									content: "\0020";
+									display: block;
+									font-family: "dashicons";
+									font-size: 18px;
+									font-weight: 400;
+									left: 0;
+									position: absolute;
+									top: 4px;
+								}
+
+								#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li a span.tribe-icon-day:before {
+									content: "\F469";
+								}
+
+								#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li a span.tribe-icon-list:before {
+									content: "\F163";
+								}
+
+								#tribe-events-bar #tribe-bar-form #tribe-bar-views .tribe-bar-views-inner .tribe-bar-views-list li a span.tribe-icon-month:before {
+									content: "\F508";
+								}
+
+		#tribe-events-bar #tribe-bar-form .tribe-bar-filters {
+			display: none;
+		}
+
+			#tribe-events-bar #tribe-bar-form .tribe-bar-filters .tribe-bar-filters-inner {
+				padding: 15px;
+			}
+
+				#tribe-events-bar #tribe-bar-form .tribe-bar-filters .tribe-bar-filters-inner label {
+					color: #000;
+					font-size: 11px;
+					font-weight: 700;
+					line-height: normal;
+					margin: 0;
+					text-transform: uppercase;
+				}
+
+				#tribe-events-bar #tribe-bar-form .tribe-bar-filters .tribe-bar-filters-inner input[type=text],
+				#tribe-events-bar #tribe-bar-form .tribe-bar-filters .tribe-bar-filters-inner input[type=search] {
+					background: none;
+					border: 0;
+					border-bottom: 1px dashed #B9B9B9;
+					color: #000;
+					font-size: 15px;
+					font-style: italic;
+					font-weight: 400;
+					line-height: normal;
+					margin: 0 0 30px;
+					padding: 5px 0;
+				}
+
+				#tribe-events-bar #tribe-bar-form .tribe-bar-filters .tribe-bar-filters-inner input[type=submit] {
+					background: #666;
+					border: 0;
+					color: #FFF;
+					display: block;
+					font-size: 12px;
+					font-weight: 700;
+					line-height: normal;
+					margin: 0;
+					padding: 12px 15px;
+					text-align: center;
+					text-transform: uppercase;
+					width: 100%;
+					/* css3 */
+					-webkit-border-radius: 0;
+					border-radius: 0;
+					-webkit-box-shadow: none;
+					box-shadow: none;
+				}
+
+		#tribe-events-bar #tribe-bar-form:after {
+			clear: both;
+			content: "\0020";
+			dislay: block;
+			visibility: hidden;
+		}
+
+	#tribe-events-bar:after {
+		clear: both;
+		content: "\0020";
+		dislay: block;
+		visibility: hidden;
+	}
+
+.datepicker {
+}
+
+	.datepicker * {
+		/* css3 */
+		-webkit-border-radius: 0 !important;
+		border-radius: 0 !important;
+	}
+
+	.datepicker thead tr:first-child th:hover, .datepicker tfoot tr th:hover {
+		background: #3F8DE0;
+	}
+
+	.datepicker .active {
+		background: #377BC6 !important;
+	}
+
+/* calendar */
+
+#tribe-events-content .tribe-events-calendar td {
+	padding: 6px;
+}
+
+.tribe-events-calendar td div[id*="tribe-events-daynum-"] {
+	padding: 0 0 6px;
+}
+
+/* list */
+
+.tribe-events-list-separator-month {
+	color: #000;
+	display: block;
+	font-family: sans-serif;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: normal;
+	margin: 0 0 15px;
+	position: relative;
+	text-align: center;
+}
+
+	.tribe-events-list-separator-month span {
+		background: #FFF;
+		display: inline-block;
+		margin: 0 auto;
+		padding: 0 35px;
+		position: relative;
+		z-index: 2;
+	}
+
+	.tribe-events-list-separator-month:after {
+		background: #CCC;
+		content: "\0020";
+		display: block;
+		height: 1px;
+		left: 0;
+		position: absolute;
+		right: 0;
+		top: 50%;
+		z-index: 1;
+	}
+
+.hentry {
+}
+
+	.hentry .tribe-events-event-cost {
+		background: #EEE;
+		border: 1px solid #DDD;
+		float: right;
+		padding: 3px 6px;
+	}
+
+		.hentry .tribe-events-event-cost span {
+			font-size: 16px;
+			font-weight: 700;
+		}
+
+	.hentry h2.tribe-events-list-event-title {
+		float: left;
+	}
+
+	.hentry .tribe-events-event-meta {
+		clear: both;
+		font-size: 0.75em;
+	}
+
+	.hentry .tribe-events-event-image {
+		float: left;
+		padding: 0 20px 0 0;
+		width: 25%;
+	}
+
+		.hentry .tribe-events-event-image img {
+			display: block;
+			width: 100%;
+		}
+
+	.hentry .tribe-events-event-image + .tribe-events-list-event-description {
+		clear: none;
+		float: left;
+		width: 75%;
+	}
+
+	.hentry:after {
+		clear: both;
+		content: "\0020";
+		display: block;
+		visibility: hidden;
+	}
+
+/* single */
+
+.tribe-events-meta-wrapper {
+}
+
+	.tribe-events-meta-wrapper .tribe-events-meta-group {
+		float: left;
+		padding-right: 20px;
+		width: 50%;
+	}
+
+	.tribe-events-meta-wrapper .tribe-events-meta-group:nth-of-type(3) {
+		clear: both;
+	}
+
+	@media screen and (max-width: 767px) {
+		.tribe-events-meta-wrapper .tribe-events-meta-group {
+			padding-right: 0;
+			width: 100%;
+		}
+
+		.tribe-events-meta-wrapper .tribe-events-meta-group:nth-of-type(3) {
+			clear: both;
+		}
+	}
