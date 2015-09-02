@@ -227,3 +227,7 @@ prepros.cfg
 #SourceMaps
 *.css.map
 *.js.map
+
+#Slicers
+_slicers/
+_slicers/*
