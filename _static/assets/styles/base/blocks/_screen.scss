@@ -22,3 +22,12 @@ hr {
 img {
     max-width: 100%;
 }
+
+pre {
+    background: $foreground_alt;
+    border: 1px solid $foreground;
+    display: block;
+    margin: remify(0 0 24, 16);
+    padding: remify(20 24, 16);
+    width: 100%;
+}

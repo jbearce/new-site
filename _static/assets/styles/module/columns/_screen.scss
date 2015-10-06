@@ -1,0 +1,42 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Columns                                                                  *
+\* ------------------------------------------------------------------------ */
+
+.columns {
+    @include clear;
+
+    width: calc(100% + 20px);
+    width: calc(100% + #{remify(20)});
+}
+
+.half {
+    float: left;
+    width: 50%;
+
+    .columns & {
+        padding-right: 20px;
+        padding-right: remify(20);
+    }
+}
+
+.third {
+    float: left;
+    width: (100% / 3);
+
+    .columns & {
+        padding-right: 20px;
+        padding-right: remify(20);
+    }
+}
+
+.fourth {
+    float: left;
+    width: 25%;
+
+    .columns & {
+        padding-right: 20px;
+        padding-right: remify(20);
+    }
+}

@@ -5,8 +5,8 @@
 \* ------------------------------------------------------------------------ */
 
 ::selection {
-	background: $primary;
-	color: #FFF;
+	background: $accent_alt;
+	color: $background;
 }
 
 h1,
@@ -84,18 +84,33 @@ table {
 	display: table;
 }
 
-table th,
-table td {
-    border: 1px solid darken($primary, 15%);
+table td,
+table th {
     padding: remify(4 6, 16);
     vertical-align: top;
 }
 
+
 table thead td,
 table th {
+    font-weight: 700;
+    text-align: left;
+}
+
+table thead td,
+table thead th {
     background: $accent;
     color: #FFF;
-    font-weight: 700;
+}
+
+table tfoot td,
+table tfoot th {
+    font-style: italic;
+}
+
+table tr:nth-child(even) td,
+table tr:nth-child(even) th {
+    background: $background_alt;
 }
 
 a {
@@ -104,17 +119,13 @@ a {
     transition: color 0.15s;
 
     &:hover {
-        color: lighten($accent, 15%);
+        color: $accent_alt;
     }
 }
 
 pre {
-    background: $primary;
-    border: 1px solid darken($primary, 15%);
-    display: block;
-    color: #FFF;
+    color: $foreground;
+    font-family: monospace;
     font-size: 16px;
     font-size: remify(16);
-    padding: remify(20 24, 16);
-    width: 100%;
 }

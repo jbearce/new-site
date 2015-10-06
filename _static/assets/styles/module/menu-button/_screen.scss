@@ -6,6 +6,7 @@
 
 .menu-button {
     background: none;
+    color: $accent;
     display: none;
     font-size: 16px;
     font-size: remify(16);
@@ -16,11 +17,16 @@
     text-indent: -999em;
     transition: background-color 0.15s;
     width: remify(40, 16);
+
+    &:hover {
+        background: none;
+        color: $accent;
+    }
 }
 
 .menu-button:before,
 .menu-button:after {
-    background: $accent;
+    background: currentColor;
     bottom: 0;
     content: "\0020";
     display: block;
@@ -39,7 +45,7 @@
 }
 
 .menu-button:before {
-    box-shadow: remify(0 8 0 0, 16) $accent;
+    box-shadow: remify(0 8 0 0, 16) currentColor;
     top: remify(-16, 16);
 
     .navopen & {

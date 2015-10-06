@@ -90,6 +90,7 @@
 
 .menu-toggle {
     background: none;
+    color: $accent;
     height: 2.6875em;
     margin: 0;
     padding: 0;
@@ -101,11 +102,12 @@
 
     &:hover {
         background: none;
+        color: $accent;
     }
 
     &:before,
     &:after {
-        background: $accent;
+        background: currentColor;
         content: "\0020";
         display: block;
         height: remify(4, 16);

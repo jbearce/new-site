@@ -26,7 +26,7 @@ label {
 }
 
 @include placeholder {
-	color: lighten($foreground, 15%);
+	color: $foreground_alt;
     opacity: 1;
 }
 
@@ -37,7 +37,7 @@ input[type=submit],
 .button {
 	background: $accent;
 	border: 0;
-    color: darken($accent, 15%);
+    color: $background;
 	display: inline-block;
     font-family: $body-font;
     font-size: 16px;
@@ -49,8 +49,8 @@ input[type=submit],
 	transition: background 0.15s, color 0.15s;
 
     &:hover {
-        background: lighten($accent, 15%);
-        color: $accent;
+        background: $accent_alt;
+        color: $background;
     }
 }
 
@@ -61,7 +61,7 @@ input[type=radio] {
 
     & + label {
         position: relative;
-        padding: remify(11 0 11 52, 16);
+        padding: remify(9 0 11 52, 16);
 
         &:before {
             background: $background;
@@ -106,7 +106,7 @@ input[type=radio]:focus + label:before {
 
 input[type=checkbox][disabled] + label:before,
 input[type=radio][disabled] + label:before {
-    background: darken($background, 15%);
+    background: $background_alt;
 }
 
 input[type=checkbox]:checked + label:before {
@@ -156,7 +156,7 @@ textarea {
 
 .select:before {
     background: $accent;
-    color: darken($accent, 15%);
+    color: $background;
     display: block;
     @include icon("fontawesome", "sort");
     font-size: remify(24, 16);
@@ -176,7 +176,7 @@ textarea {
     display: block;
     margin: 0;
     outline: none;
-    padding: remify(8 42 9 12, 16);
+    padding: remify(9 42 11 12, 16);
     width: 100%;
     // gecko fix
     text-indent: 0.01px;
