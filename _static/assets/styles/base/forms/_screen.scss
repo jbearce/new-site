@@ -155,19 +155,34 @@ textarea {
 }
 
 .select:before {
-    background: $accent;
+    @include icon("fontawesome", "sort");
+
     color: $background;
     display: block;
-    @include icon("fontawesome", "sort");
     font-size: remify(24, 16);
-    height: 100%;
-    line-height: remify(42, 24);
+    line-height: normal;
     pointer-events: none;
     position: absolute;
     right: 0;
     text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: remify(42, 24);
+    z-index: 2;
+}
+
+.select:after {
+    background: $accent;
+    bottom: 0;
+    content: "\0020";
+    display: block;
+    font-size: remify(24, 16);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
     top: 0;
     width: remify(42, 24);
+    z-index: 1;
 }
 
 .select select {
@@ -176,15 +191,14 @@ textarea {
     display: block;
     margin: 0;
     outline: none;
-    padding: remify(9 42 11 12, 16);
+    padding: remify(9 54 11 12, 16);
     width: 100%;
     // gecko fix
     text-indent: 0.01px;
     text-overflow: "";
-    // webkit & gecko fix
-    -webkit-appearance: none;
     -moz-appearance: none;
-
+    // webkit fix
+    -webkit-appearance: none;
     // trident fix
     &::-ms-expand {
         display: none;
