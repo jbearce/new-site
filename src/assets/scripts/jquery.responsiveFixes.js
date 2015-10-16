@@ -88,6 +88,6 @@ $(".menu-list .menu-item-has-children .menu-toggle").click(function (e) {
 
 // fix scrolling in mobileNavWrapper on iOS
 if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {
-    new ScrollFix(document.getElementById("mobile-nav-wrapper"))
-};
+    new ScrollFix(document.getElementById("mobile-nav-wrapper"));
+}
 

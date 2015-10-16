@@ -2,12 +2,12 @@
 
 This is the project I use to build every new site. I'll be slowly improving it over time, adding new features, attempting to implement new coding standards, etc.
 
-If you'd like to make changes to this project, I recommend checking out my [getting started guide](getting-started.md).
+For information on how to clone this repo, how to use my Gulp tasks, and more, take a look at my [contribution guide](CONTRIBUTING.md).
 
 ## Features
 
 - Clearly organized SCSS closely in line with the [SMACSS methodology](https://smacss.com/)
-- Minified & Concated JS using [Prepros](http://www.prepros.io/)
+- Minified & Concated JS, CSS, and HTML with [Gulp](http://gulpjs.com/)
 - Integration with FontAwesome
 - Drop downs that work on tablets & desktops
 - Incredible one elment hamburger-style menu icon with great animations and no images
@@ -16,6 +16,7 @@ If you'd like to make changes to this project, I recommend checking out my [gett
 
 ## Planned
 
+- Semi-auto generated WordPress theme using if gulp-file-include if statements
 - Complete FontAwesome icon map (time consuming and I'm lazy)
 - Better FontAwesome mixin
 - Dynamic grid system
@@ -25,6 +26,7 @@ If you'd like to make changes to this project, I recommend checking out my [gett
 
 ## Considering
 
+- Markdown for src files
 - Framework for rapid deployment
 - [Switch back to px instead of rem/em](http://benfrain.com/just-use-pixels/)
 - [Change colors to a SASS map](https://scotch.io/tutorials/aesthetic-sass-2-colors)

@@ -1,8 +1,14 @@
 # https://git-scm.com/docs/gitignore
 # https://help.github.com/articles/ignoring-files
 # Example .gitignore files: https://github.com/github/gitignore
-/bower_components/
-/node_modules/
+bower_components/
+bower_components/*
+node_modules/
+node_modules/*
+dev/
+dev/*
+dist/
+dist/*
 =======
 #################
 ## Eclipse
