@@ -1,11 +1,13 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Navigation                                                               *
+ * Mobile Navigation                                                        *
 \* ------------------------------------------------------------------------ */
 
-.nav {
-    max-width: $site-width + px;
-    max-width: remify($site-width);
-    width: auto;
+// wrapper
+
+.is-navopen .mobile-nav-wrapper {
+    right: 0;
+    transition: none;
+    top: 0;
 }

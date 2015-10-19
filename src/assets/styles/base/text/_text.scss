@@ -81,8 +81,14 @@ ul {
 }
 
 table {
-	display: table;
+    display: block;
+    overflow: auto;
+    padding-bottom: 1px;
+    padding-bottom: remify(1, 16);
     table-layout: fixed;
+    width: 100%;
+    // iOS fix
+    -webkit-overflow-scrolling: touch;
 }
 
 table td,

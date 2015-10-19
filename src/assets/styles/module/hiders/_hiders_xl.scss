@@ -4,10 +4,10 @@
  * Hiders                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.xl {
-    display: block !important;
+.show-xl {
+    display: none !important;
 }
 
-.xxl-plus {
-    display: none !important;
+.hide-xl {
+    display: block !important;
 }

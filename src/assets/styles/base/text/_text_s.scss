@@ -1,12 +1,14 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Columns                                                                  *
+ * Generic Text Elements                                                    *
 \* ------------------------------------------------------------------------ */
 
-.half,
-.third,
-.fourth {
-    float: none;
-    width: auto;
+table {
+}
+
+table {
+	display: table;
+    overflow: visible;
+    padding: 0;
 }

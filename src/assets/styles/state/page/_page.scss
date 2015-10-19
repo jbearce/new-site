@@ -4,11 +4,18 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-html,
-body {
+html.is-navopen,
+.is-navopen body {
     height: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
     width: 100%;
-    // iOS fix
-    -webkit-overflow-scrolling: touch;
+}
+
+.is-navopen .page-wrapper {
+    box-shadow: remify(0 0 10, 16) black(0.5);
+    height: 100%;
+    left: - $mobile-nav-width + px;
+    left: - remify($mobile-nav-width);
+    overflow: hidden;
+    width: 100%;
 }

@@ -4,8 +4,8 @@
  * Colors                                                                   *
 \* ------------------------------------------------------------------------ */
 
-$primary: #0390A9;
-$primary_alt: #6CC1C6;
+$primary: #17AAEC;
+$primary_alt: #57CAFF;
 
 $secondary: #BA3626;
 $secondary_alt: #FF9486;
@@ -16,8 +16,8 @@ $tertiary_alt: #CDFBF3;
 $quatinary: #ECBF4F;
 $quatinary_alt: #A17300;
 
-$accent: #0390A9;
-$accent_alt: #6CC1C6;
+$accent: #17AAEC;
+$accent_alt: #57CAFF;
 
 $foreground: #8C8A95;
 $foreground_alt: #D2D2D2;
@@ -41,18 +41,19 @@ $body-font: "Open Sans", "Arial", "Helvetica", sans-serif;
 
 $site-width: 1200;
 $mobile-nav-width: 240;
+$grid-gutter: 20;
 
 /* ------------------------------------------------------------------------ *\
  * Break Points                                                             *
 \* ------------------------------------------------------------------------ */
 
-$xxl-break: (1279rem / 16);
-$xl-break: (1023rem / 16);
-$l-break: (959rem / 16);
-$m-break: (852rem / 16);
-$s-break: (767rem / 16);
-$xs-break: (639rem / 16);
-$xxs-break: (479rem / 16);
+$xxl-break: 1279rem / 16;
+$xl-break: 1023rem / 16;
+$l-break: 959rem / 16;
+$m-break: 852rem / 16;
+$s-break: 767rem / 16;
+$xs-break: 639rem / 16;
+$xxs-break: 479rem / 16;
 
 /* ------------------------------------------------------------------------ *\
  * Layers                                                                   *

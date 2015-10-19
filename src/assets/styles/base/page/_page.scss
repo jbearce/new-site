@@ -4,16 +4,19 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
+html,
+body {
+    width: 100%;
+}
+
 html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    width: 100%;
 }
 
 body {
     background: $background;
-    width: 100%;
 }
 
 // IE snap fix

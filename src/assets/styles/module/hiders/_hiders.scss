@@ -4,6 +4,10 @@
  * Hiders                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.xxl, .xl, .l, .m, .s, .xs, .xxs {
+.show-xxs, .show-xs, .show-s, .show-m, .show-l, .show-xl, .show-xxl {
+    display: block !important;
+}
+
+.hide-xxs, .hide-xs, .hide-s, .hide-m, .hide-l, .hide-xl, .hide-xxl {
     display: none !important;
 }

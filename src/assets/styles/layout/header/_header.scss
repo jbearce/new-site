@@ -14,7 +14,13 @@
 }
 
 .header {
+    @include clear;
+
     margin: 0 auto;
-    width: $site-width + px;
-    width: remify($site-width);
+    max-width: $site-width + px;
+    max-width: remify($site-width);
+}
+
+.header .menu-button {
+    float: right;
 }

@@ -14,13 +14,9 @@
 }
 
 .content {
+    @include clear;
+
     margin: 0 auto;
-    width: $site-width + px;
-    width: remify($site-width);
-}
-
-.post {
-}
-
-.sidebar {
+    max-width: $site-width + px;
+    max-width: remify($site-width);
 }

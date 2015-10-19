@@ -12,8 +12,10 @@
     font-size: remify(16);
     overflow: auto;
     position: absolute;
-    right: 0;
-    top: 0;
-    width: remify($mobile-nav-width, 16);
+    right: 999em;
+    top: 999em;;
+    transition: right 0s 0.15s, top 0s 0.15s;
+    width: $mobile-nav-width + px;
+    width: remify($mobile-nav-width);
     z-index: 1;
 }

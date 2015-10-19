@@ -76,7 +76,7 @@ gulp.task("html", function () {
                 name: "new-site",
                 tagline: "A brand new site",
                 copyright_year: "2015",
-                theme_color: "#000000",
+                theme_color: "#17AAEC",
                 template_directory: "",
                 home_url: "index.htm"
             }

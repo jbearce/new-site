@@ -34,8 +34,8 @@
         <!-- end SEO -->
 	</head>
     @@if (context.page && context.page === "front-page") {<body class="home">}
-    @@if (!context.page) {<body>}
-        <div class="mobile-nav-wrapper xs">
+    @@if (!context.page || context.page !== "front-page") {<body>}
+        <div class="mobile-nav-wrapper show-xs">
             <section class="mobile-nav">
                 <nav class="menu-wrapper">
                     <ul class="menu-list l-vertical">
@@ -87,10 +87,10 @@
                         <img alt="@@name | @@tagline" src="@@template_directoryassets/media/logo_small.png" srcset="@@template_directoryassets/media/logo.png 2x" />
                     </a><!--/.logo-->
                     @@include("searchform.htm")
-                    <button class="menu-button xs">Menu</button>
+                    <button class="menu-button show-xs">Menu</button>
                 </header><!--/.header-->
             </div><!--/.header-wrapper-->
-            <div class="nav-wrapper s-plus">
+            <div class="nav-wrapper hide-xs">
                 <div class="nav">
                     <nav class="menu-wrapper">
                         <ul class="menu-list">

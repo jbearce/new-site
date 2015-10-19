@@ -4,10 +4,10 @@
  * Hiders                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.xs {
-    display: block !important;
+.show-xs {
+    display: none !important;
 }
 
-.s-plus {
-    display: none !important;
+.hide-xs {
+    display: block !important;
 }
