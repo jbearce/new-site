@@ -39,12 +39,12 @@ gulp.task("styles", function () {
 // lint and concat scripts
 gulp.task("scripts", function () {
     // lint
-    gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/*.js"])
+    gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(jshint())
         .pipe(jshint.reporter("default"))
 
     // concat
-    gulp.src(["./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/*.js"])
+    gulp.src(["./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(sourcemaps.init())
         .pipe(concat("all.js"))
         .pipe(sourcemaps.write("./"))
