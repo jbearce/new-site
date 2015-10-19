@@ -4,25 +4,25 @@
  * Base                                                                     *
 \* ------------------------------------------------------------------------ */
 
-@import "../base/text/_screen_xs";
-@import "../base/page/_screen_xs";
+@import "../base/text/_text_xs";
+@import "../base/page/_page_xs";
 
 /* ------------------------------------------------------------------------ *\
  * Layout                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../layout/page/_screen_xs";
+@import "../layout/page/_page_xs";
 
 /* ------------------------------------------------------------------------ *\
  * Module                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../module/align/_screen_xs";
-@import "../module/columns/_screen_xs";
-@import "../module/hiders/_screen_xs";
+@import "../module/align/_align_xs";
+@import "../module/columns/_columns_xs";
+@import "../module/hiders/_hiders_xs";
 
 /* ------------------------------------------------------------------------ *\
  * State                                                                    *
 \* ------------------------------------------------------------------------ */
 
-@import "../state/page/_screen_xs";
+@import "../state/page/_page_xs";

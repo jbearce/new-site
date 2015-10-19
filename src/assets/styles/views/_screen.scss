@@ -4,44 +4,44 @@
  * Base                                                                     *
 \* ------------------------------------------------------------------------ */
 
-@import "../base/normalize/_screen";
-@import "../base/blocks/_screen";
-@import "../base/text/_screen";
-@import "../base/forms/_screen";
-@import "../base/page/_screen";
+@import "../base/normalize/_normalize";
+@import "../base/blocks/_blocks";
+@import "../base/text/_text";
+@import "../base/forms/_forms";
+@import "../base/page/_page";
 
 /* ------------------------------------------------------------------------ *\
  * Layout                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../layout/page/_screen";
-@import "../layout/header/_screen";
-@import "../layout/nav/_screen";
-@import "../layout/nav-mobile/_screen";
-@import "../layout/slideshow/_screen";
-@import "../layout/content/_screen";
-@import "../layout/footer/_screen";
+@import "../layout/page/_page";
+@import "../layout/header/_header";
+@import "../layout/nav/_nav";
+@import "../layout/nav-mobile/_nav-mobile";
+@import "../layout/slideshow/_slideshow";
+@import "../layout/content/_content";
+@import "../layout/footer/_footer";
 
 /* ------------------------------------------------------------------------ *\
  * Module                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../module/align/_screen";
-@import "../module/columns/_screen";
-@import "../module/commentlist/_screen";
-@import "../module/hiders/_screen";
-@import "../module/iframe/_screen";
-@import "../module/menu-button/_screen";
-@import "../module/menu-list/_screen";
-@import "../module/meta-list/_screen";
-@import "../module/ninja-forms/_screen";
-@import "../module/search-form/_screen";
-@import "../module/swiper/_screen";
-@import "../module/wp-caption/_screen";
+@import "../module/align/_align";
+@import "../module/columns/_columns";
+@import "../module/commentlist/_commentlist";
+@import "../module/hiders/_hiders";
+@import "../module/iframe/_iframe";
+@import "../module/menu-button/_menu-button";
+@import "../module/menu-list/_menu-list";
+@import "../module/meta-list/_meta-list";
+@import "../module/ninja-forms/_ninja-forms";
+@import "../module/search-form/_search-form";
+@import "../module/swiper/_swiper";
+@import "../module/wp-caption/_wp-caption";
 
 /* ------------------------------------------------------------------------ *\
  * State                                                                    *
 \* ------------------------------------------------------------------------ */
 
-@import "../state/menu-button/_screen";
-@import "../state/menu-list/_screen";
+@import "../state/menu-button/_menu-button";
+@import "../state/menu-list/_menu-list";
