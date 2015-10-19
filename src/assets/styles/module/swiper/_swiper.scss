@@ -10,4 +10,10 @@
 
 // custom styles
 
+.no-csstransforms .swiper-slide {
+    display: none;
 
+    &:first-child {
+        display: block;
+    }
+}
