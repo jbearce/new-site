@@ -12,6 +12,7 @@ var gulp = require("gulp"),
     htmlmin = require("gulp-htmlmin"),
     uglify = require("gulp-uglify"),
     runSequence = require("run-sequence"),
+    gls = require("gulp-live-server"),
     del = require("del");
 
 // delete dev & dist directories
@@ -113,4 +114,16 @@ gulp.task("default", function (callback) {
 // uglify and populate dist
 gulp.task("build", function (callback) {
     runSequence("clean", "styles", "scripts", "media", "html", "dist", callback);
+});
+
+// watch task, runs server, executes default task & updates server on file chagne
+gulp.task("watch", function() {
+    var server = gls.static("./dev");
+    server.start();
+
+    gulp.watch("./src/**/*", function (callback) {
+        runSequence("default", function() {
+            server.notify.apply(server, [callback]);
+        });
+    });
 });

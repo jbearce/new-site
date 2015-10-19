@@ -32,18 +32,20 @@ To use this project's Gulp tasks, you'll need to run `npm install` in the same f
 
 Now that you've installed all the project dependencies, you're ready to start using Gulp! There are a few tasks that I've set up:
 
-- gulp styles: This task compiles all the SCSS and puts it in /dev/assets/styles/all.css, in expanded form.
+- `gulp watch` This tastk sets up a local server at [http://localhost:3000/](http://localhost:3000/), watches for file changes in `./src`, runs the default task `gulp`, and auto-updates the local server.
 
-- gulp scripts: This task compiles all the scripts and puts it in /dev/assets/scripts/all.js, in expanded form.
+- `gulp styles` This task compiles all the SCSS and puts it in /dev/assets/styles/all.css, in expanded form.
 
-- gulp media: This task uses lossless compression to shrink image size, and puts them in /dev/assets/media/
+- `gulp scripts` This task compiles all the scripts and puts it in /dev/assets/scripts/all.js, in expanded form.
 
-- gulp html: This task compiles all the HTML and puts it in /dev/, in expanded form.
+- `gulp media` This task uses lossless compression to shrink image size, and puts them in /dev/assets/media/
 
-- gulp dist: This task minifies all styles, scripts, media, and HTML in /dev/, putting everything in /dist/
+- `gulp html` This task compiles all the HTML and puts it in /dev/, in expanded form.
 
-- gulp build: This task runs clean, styles, scripts, media, html, and dist, putting everything in /dist/
+- `gulp dist` This task minifies all styles, scripts, media, and HTML in /dev/, putting everything in /dist/
 
-- gulp clean: This task deletes the /dev/ and /dist/ directories from your local machine. This task gets used by other tasks automatically, and you shouldn't need to use it manually.
+- `gulp build` This task runs clean, styles, scripts, media, html, and dist, putting everything in /dist/
 
-- gulp: This is the default task, and it runs styles, scripts, media, and html all at once, putting everything in /dev/
+- `gulp clean` This task deletes the /dev/ and /dist/ directories from your local machine. This task gets used by other tasks automatically, and you shouldn't need to use it manually.
+
+- `gulp` This is the default task, and it runs styles, scripts, media, and html all at once, putting everything in /dev/
