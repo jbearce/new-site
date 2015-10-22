@@ -4,10 +4,18 @@
  * Hiders                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.show-s {
+.hide-s {
     display: none !important;
+
+    &.inline {
+        display: none !important;
+    }
 }
 
-.hide-s {
+.show-s {
     display: block !important;
+
+    &.inline {
+        display: inline-block !important;
+    }
 }
