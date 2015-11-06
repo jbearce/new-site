@@ -26,15 +26,30 @@
         <meta content="@@template_directoryassets/media/logo-windows-square.png" name="msapplication-square150x150logo" />
         <meta content="@@template_directoryassets/media/logo-windows-wide.png" name="msapplication-wide310x150logo" />
         <meta content="@@template_directoryassets/media/logo-windows-large.png" name="msapplication-square310x310logo" />
-        <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=5; cycle=1" name="msapplication-notification" />
+        <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=@@rss_url&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=http://www.example.com/feed/&id=5; cycle=1" name="msapplication-notification" />
         <!-- end branding -->
-        <!-- SEO -->
-        @@if (context.meta_description) {<meta content="@@meta_description" name="description" />}
-        <title>@@title | @@name</title>
-        <!-- end SEO -->
+        @@if (context.wordpress) {
+            <!-- SEO -->
+            <title><? wp_title("|", true, "right"); ?></title>
+            <!-- end SEO -->
+            <? wp_head(); ?>
+            <script>var $ = jQuery.noConflict();</script>
+        }
+        @@if (context.static) {
+            <!-- SEO -->
+            @@if (context.meta_description) {<meta content="@@meta_description" name="description" />}
+            <title>@@title | @@name</title>
+            <!-- end SEO -->
+            <script src="@@template_directoryassets/scripts/jquery.min.js" type="text/javascript"></script>
+        }
 	</head>
-    @@if (context.page && context.page === "front-page") {<body class="home">}
-    @@if (!context.page || context.page !== "front-page") {<body>}
+    @@if (context.wordpress) {
+        <body <? body_class(); ?>>
+    }
+    @@if (context.static) {
+        @@if (context.page && context.page === "front-page") {<body class="home">}
+        @@if (!context.page || context.page !== "front-page") {<body>}
+    }
         <!--[if lt IE 10]>
         <div class="ie-warning-wrapper">
             <div class="ie-warning">
@@ -45,45 +60,58 @@
         <div class="mobile-nav-wrapper hide-xs">
             <section class="mobile-nav">
                 <nav class="menu-wrapper">
-                    <ul class="menu-list l-vertical">
-                        <li class="menu-item"><a href="#">Home</a></li>
-                        <li class="menu-item"><a href="#">About</a></li>
-                        <li class="menu-item menu-item-has-children">
-                            <a href="#">Portfolio</a>
-                            <button class="menu-toggle">More</button>
-                            <ul class="menu-list sub-menu l-vertical">
-                                <li class="menu-item"><a href="#">Sub link</a></li>
-                                <li class="menu-item"><a href="#">Sub link</a></li>
-                                <li class="menu-item menu-item-has-children">
-                                    <a href="#">Sub link</a>
-                                    <button class="menu-toggle">More</button>
-                                    <ul class="menu-list sub-menu l-vertical">
-                                        <li class="menu-item"><a href="#">Sub Sub link</a></li>
-                                        <li class="menu-item"><a href="#">Sub Sub link</a></li>
-                                        <li class="menu-item"><a href="#">Sub Sub link</a></li>
-                                    </ul><!--/.menu-list.sub-menu.l-vertical-->
-                                </li><!--./menu-item.menu-item-has-children-->
-                                <li class="menu-item menu-item-has-children">
-                                    <a href="#">Sub link</a>
-                                    <button class="menu-toggle">More</button>
-                                    <ul class="menu-list sub-menu l-vertical">
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                        <li><a href="#">Sub Sub link</a></li>
-                                    </ul><!--/.menu-list.sub-menu-->
-                                </li><!--/.menu-item.menu-item-has-children.l-vertical-->
-                                <li class="menu-item"><a href="#">Sub link</a></li>
-                                <li class="menu-item"><a href="#">Sub link</a></li>
-                                <li class="menu-item"><a href="#">Sub link</a></li>
-                                <li class="menu-item"><a href="#">Sub link</a></li>
-                            </ul><!--/.menu-list.sub-menu.l-vertical-->
-                        </li><!--/.menu-item.menu-item-has-children-->
-                        <li class="menu-item"><a href="#">Blog</a></li>
-                        <li class="menu-item"><a href="#">Contact Us</a></li>
-                        <li class="menu-item"><a href="#">Resource</a></li>
-                        <li class="menu-item"><a href="#">Advertise</a></li>
-                        <li class="menu-item"><a href="#">FAQ</a></li>
-                    </ul><!--/.menu-list.l-vertical-->
+                    @@if (context.wordpress) {
+                        <?
+                        wp_nav_menu(array(
+                            "container"		 => false,
+                            "depth"          => 3,
+                            "items_wrap"	 => "<ul class='menu-list l-vertical'>%3\$s</ul>",
+                            "theme_location" => "primary",
+                            "walker"         => new mobileSMACSSwalker(),
+                        ));
+                        ?>
+                    }
+                    @@if (context.static) {
+                        <ul class="menu-list l-vertical">
+                            <li class="menu-item"><a href="#">Home</a></li>
+                            <li class="menu-item"><a href="#">About</a></li>
+                            <li class="menu-item menu-item-has-children">
+                                <a href="#">Portfolio</a>
+                                <button class="menu-toggle">More</button>
+                                <ul class="menu-list sub-menu l-vertical">
+                                    <li class="menu-item"><a href="#">Sub link</a></li>
+                                    <li class="menu-item"><a href="#">Sub link</a></li>
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="#">Sub link</a>
+                                        <button class="menu-toggle">More</button>
+                                        <ul class="menu-list sub-menu l-vertical">
+                                            <li class="menu-item"><a href="#">Sub Sub link</a></li>
+                                            <li class="menu-item"><a href="#">Sub Sub link</a></li>
+                                            <li class="menu-item"><a href="#">Sub Sub link</a></li>
+                                        </ul><!--/.menu-list.sub-menu.l-vertical-->
+                                    </li><!--./menu-item.menu-item-has-children-->
+                                    <li class="menu-item menu-item-has-children">
+                                        <a href="#">Sub link</a>
+                                        <button class="menu-toggle">More</button>
+                                        <ul class="menu-list sub-menu l-vertical">
+                                            <li><a href="#">Sub Sub link</a></li>
+                                            <li><a href="#">Sub Sub link</a></li>
+                                            <li><a href="#">Sub Sub link</a></li>
+                                        </ul><!--/.menu-list.sub-menu-->
+                                    </li><!--/.menu-item.menu-item-has-children.l-vertical-->
+                                    <li class="menu-item"><a href="#">Sub link</a></li>
+                                    <li class="menu-item"><a href="#">Sub link</a></li>
+                                    <li class="menu-item"><a href="#">Sub link</a></li>
+                                    <li class="menu-item"><a href="#">Sub link</a></li>
+                                </ul><!--/.menu-list.sub-menu.l-vertical-->
+                            </li><!--/.menu-item.menu-item-has-children-->
+                            <li class="menu-item"><a href="#">Blog</a></li>
+                            <li class="menu-item"><a href="#">Contact Us</a></li>
+                            <li class="menu-item"><a href="#">Resource</a></li>
+                            <li class="menu-item"><a href="#">Advertise</a></li>
+                            <li class="menu-item"><a href="#">FAQ</a></li>
+                        </ul><!--/.menu-list.l-vertical-->
+                    }
                 </nav><!--/.menu-wrapper-->
             </section><!--/.mobile-nav-->
         </div><!--/.mobile-nav-wrapper-->
@@ -100,42 +128,55 @@
             <div class="nav-wrapper show-xs">
                 <div class="nav">
                     <nav class="menu-wrapper">
-                        <ul class="menu-list">
-                            <li class="menu-item"><a href="#">Home</a></li>
-                            <li class="menu-item"><a href="#">About</a></li>
-                            <li class="menu-item menu-item-has-children">
-                                <a aria-haspopup="true" href="#">Portfolio</a>
-                                <ul class="menu-list sub-menu">
-                                    <li class="menu-item"><a href="#">Sub link</a></li>
-                                    <li class="menu-item"><a href="#">Sub link</a></li>
-                                    <li class="menu-item menu-item-has-children">
-                                        <a aria-haspopup="true" href="#">Sub link</a>
-                                        <ul class="menu-list sub-menu">
-                                            <li><a href="#">Sub Sub link</a></li>
-                                            <li><a href="#">Sub Sub link</a></li>
-                                            <li><a href="#">Sub Sub link</a></li>
-                                        </ul><!--/.menu-list.sub-menu-->
-                                    </li><!--/.menu-item.menu-item-has-children-->
-                                    <li class="menu-item menu-item-has-children">
-                                        <a aria-haspopup="true" href="#">Sub link</a>
-                                        <ul class="menu-list sub-menu">
-                                            <li><a href="#">Sub Sub link</a></li>
-                                            <li><a href="#">Sub Sub link</a></li>
-                                            <li><a href="#">Sub Sub link</a></li>
-                                        </ul><!--/.menu-list.sub-menu-->
-                                    </li><!--/.menu-item.menu-item-has-children-->
-                                    <li class="menu-item"><a href="#">Sub link</a></li>
-                                    <li class="menu-item"><a href="#">Sub link</a></li>
-                                    <li class="menu-item"><a href="#">Sub link</a></li>
-                                    <li class="menu-item"><a href="#">Sub link</a></li>
-                                </ul><!--/.menu-list.sub-menu-->
-                            </li><!--/.menu-item.menu-item-has-children-->
-                            <li class="menu-item"><a href="#">Blog</a></li>
-                            <li class="menu-item"><a href="#">Contact Us</a></li>
-                            <li class="menu-item"><a href="#">Resource</a></li>
-                            <li class="menu-item"><a href="#">Advertise</a></li>
-                            <li class="menu-item"><a href="#">FAQ</a></li>
-                        </ul><!--/.menu-list-->
+                        @@if (context.wordpress) {
+                            <?
+                            wp_nav_menu(array(
+                                "container"		 => false,
+                                "depth"          => 3,
+                                "items_wrap"	 => "<ul class='menu-list'>%3\$s</ul>",
+                                "theme_location" => "primary",
+                                "walker"         => new SMACSSwalker(),
+                            ));
+                            ?>
+                        }
+                        @@if (context.static) {
+                            <ul class="menu-list">
+                                <li class="menu-item"><a href="#">Home</a></li>
+                                <li class="menu-item"><a href="#">About</a></li>
+                                <li class="menu-item menu-item-has-children">
+                                    <a aria-haspopup="true" href="#">Portfolio</a>
+                                    <ul class="menu-list sub-menu">
+                                        <li class="menu-item"><a href="#">Sub link</a></li>
+                                        <li class="menu-item"><a href="#">Sub link</a></li>
+                                        <li class="menu-item menu-item-has-children">
+                                            <a aria-haspopup="true" href="#">Sub link</a>
+                                            <ul class="menu-list sub-menu">
+                                                <li><a href="#">Sub Sub link</a></li>
+                                                <li><a href="#">Sub Sub link</a></li>
+                                                <li><a href="#">Sub Sub link</a></li>
+                                            </ul><!--/.menu-list.sub-menu-->
+                                        </li><!--/.menu-item.menu-item-has-children-->
+                                        <li class="menu-item menu-item-has-children">
+                                            <a aria-haspopup="true" href="#">Sub link</a>
+                                            <ul class="menu-list sub-menu">
+                                                <li><a href="#">Sub Sub link</a></li>
+                                                <li><a href="#">Sub Sub link</a></li>
+                                                <li><a href="#">Sub Sub link</a></li>
+                                            </ul><!--/.menu-list.sub-menu-->
+                                        </li><!--/.menu-item.menu-item-has-children-->
+                                        <li class="menu-item"><a href="#">Sub link</a></li>
+                                        <li class="menu-item"><a href="#">Sub link</a></li>
+                                        <li class="menu-item"><a href="#">Sub link</a></li>
+                                        <li class="menu-item"><a href="#">Sub link</a></li>
+                                    </ul><!--/.menu-list.sub-menu-->
+                                </li><!--/.menu-item.menu-item-has-children-->
+                                <li class="menu-item"><a href="#">Blog</a></li>
+                                <li class="menu-item"><a href="#">Contact Us</a></li>
+                                <li class="menu-item"><a href="#">Resource</a></li>
+                                <li class="menu-item"><a href="#">Advertise</a></li>
+                                <li class="menu-item"><a href="#">FAQ</a></li>
+                            </ul><!--/.menu-list-->
+                        }
                     </nav><!--/.menu-wrapper-->
                 </div><!--/.nav-->
             </div><!--/.nav-wrapper-->

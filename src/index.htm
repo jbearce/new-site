@@ -1,124 +1,169 @@
-@@include("header.htm", {"title": "Sample Elements"})
+@@if (context.wordpress) {
+    <? get_header(); ?>
+}
+@@if (context.static) {
+    @@include("header.htm", {"title": "Sample Elements"})
+}
             <div class="content-wrapper">
                 <main class="content">
                     <div class="post">
-                        <article>
+                        @@if (context.wordpress) {
+                            <?
+                            if (is_attachment()) {
+                                echo "<article>";
+                            }
+                            ?>
+                            <?
+                            if (has_post_thumbnail($id)) {
+                                echo "<figure>" . get_the_post_thumbnail($id, "large") . "</figure>";
+                            }
+                            ?>
                             <header>
-                                <h1>Sample Elements</h1>
+                                <? the_title("<h1>", "</h1>"); ?>
                             </header>
-                            <h1>This is a Header1</h1>
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. <em>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</em> Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-                            <h2>Header Level 2</h2>
-                            <ol>
-                                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                                <li>Aliquam tincidunt mauris eu risus.</li>
-                            </ol>
-                            <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
-                            <h3>Header Level 3</h3>
-                            <ul>
-                                <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
-                                <li>Aliquam tincidunt mauris eu risus.</li>
-                            </ul>
-                            <blockquote>
-                                <p>This is a blockquote text area. Consuetudium enim sed facit sit erat. Ut consuetudium doming legunt notare ii. Doming nostrud nulla soluta commodo parum. Adipiscing in futurum notare lorem consequat. Molestie feugiat fiant liber qui nihil. Tation autem consectetuer facer decima erat. Imperdiet assum luptatum videntur decima duis. </p>
-                            </blockquote>
-                            <h4>This is a Header4</h4>
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-                            <h5>This is a Header5</h5>
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                            <?
+                            if (have_posts()) {
+                                while (have_posts()) {
+                                    the_post();
+                                    the_content();
+                                    if (comments_open() || get_comments_number() > 0) {
+                                        echo "<footer>";
+                                        comments_template();
+                                        echo "</footer>";
+                                    }
+                                }
+                            }
+                            ?>
+                            <?
+                            if (is_attachment()) {
+                                echo "</article>";
+                            }
+                            ?>
+                        }
+                        @@if (context.static) {
+                            <article>
+                                <header>
+                                    <h1>Sample Elements</h1>
+                                </header>
+                                <h1>This is a Header1</h1>
+                                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. <em>Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</em> Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                                <h2>Header Level 2</h2>
+                                <ol>
+                                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                                    <li>Aliquam tincidunt mauris eu risus.</li>
+                                </ol>
+                                <blockquote><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus magna. Cras in mi at felis aliquet congue. Ut a est eget ligula molestie gravida. Curabitur massa. Donec eleifend, libero at sagittis mollis, tellus est malesuada tellus, at luctus turpis elit sit amet quam. Vivamus pretium ornare est.</p></blockquote>
+                                <h3>Header Level 3</h3>
+                                <ul>
+                                    <li>Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</li>
+                                    <li>Aliquam tincidunt mauris eu risus.</li>
+                                </ul>
+                                <blockquote>
+                                    <p>This is a blockquote text area. Consuetudium enim sed facit sit erat. Ut consuetudium doming legunt notare ii. Doming nostrud nulla soluta commodo parum. Adipiscing in futurum notare lorem consequat. Molestie feugiat fiant liber qui nihil. Tation autem consectetuer facer decima erat. Imperdiet assum luptatum videntur decima duis. </p>
+                                </blockquote>
+                                <h4>This is a Header4</h4>
+                                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                                <h5>This is a Header5</h5>
+                                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
 <pre>
 .example {
     font-size: 16px;
 }
 </pre>
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-                            <hr />
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <td>This is a thead td</td>
-                                        <td>Nam nec quam ut ipsum</td>
-                                        <td>Malesuada porttitor</td>
-                                        <td>Integer cursus quam</td>
-                                        <td>Nunc pulvinar erat id tellus</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>This is a tbody td</td>
-                                        <th>Etiam a ipsum eget</th>
-                                        <td>Suspendisse vel ante sed odio lacinia sodales a eu enim</td>
-                                        <td>Phasellus in velit quis</td>
-                                        <td>Duis egestas tortor</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nam ac elit id nisi sodales</td>
-                                        <td>Pellentesque vitae lorem ac</td>
-                                        <td>Nam vestibulum turpis condimentum</td>
-                                        <td>In non lacus id libero</td>
-                                        <td>Aliquam non elit ac justo</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nulla malesuada sapien</td>
-                                        <td>Sed bibendum ullamcorper</td>
-                                        <td>Proin et turpis nisi</td>
-                                        <td>Pellentesque vitae lorem ac orci</td>
-                                        <td>Mauris vitae massa a augue </td>
-                                    </tr>
-                                </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td>This is a tfoot td</td>
-                                        <td>Etiam a ipsum eget</td>
-                                        <td>Suspendisse vel ante sed odio lacinia sodales a eu enim</td>
-                                        <td>Phasellus in velit quis</td>
-                                        <td>Duis egestas tortor</td>
-                                    </tr>
-                                </tfoot>
-                            </table>
-                            <h6>This is a Header6</h6>
-                            <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
-                            <div class="grid"><!--
-                                --><div class="grid-item full one-fourth-s">
-                                    <p>One Fourth</p>
-                                </div><!--
-                                --><div class="grid-item one-half">
-                                    <p>One Half</p>
-                                </div><!--
-                                --><div class="grid-item one-half one-fourth-s">
-                                    <p>One Fourth</p>
-                                </div><!--
-                                --><div class="grid-item one-fourth two-sixths-s">
-                                    <p>Two Sixths</p>
-                                </div><!--
-                                --><div class="grid-item three-fourths four-sixths-s">
-                                    <p>Four Sixths</p>
-                                </div><!--
-                                --><div class="grid-item full">
-                                    <p>Full</p>
-                                </div>
-                            </div><!--/.grid-->
-                            <h6>Example Form</h6>
-                            <form>
-                                <input type="text" placeholder="Name" />
-                                <input type="email" placeholder="Email Address" />
-                                <input type="tel" placeholder="Phone Number" />
-                                <input type="url" placeholder="Website" />
-                                <input type="number" placeholder="Favorite Number" />
-                                <label for="favorite-color">Favorite Color</label>
-                                <input id="favorite-color" type="color" />
-                                <input type="date" placeholder="Birthday" />
-                                <input id="newsletter" type="checkbox" />
-                                <label for="newsletter">Subscribe to Our Newsletter</label>
-                                <input id="male" name="gender" type="radio" />
-                                <label for="male">I am a male</label>
-                                <input id="female" name="gender" type="radio" />
-                                <label for="female">I am a female</label>
-                                <input type="submit" value="Submit" />
-                            </form>
-                        </article>
+                                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                                <hr />
+                                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <td>This is a thead td</td>
+                                            <td>Nam nec quam ut ipsum</td>
+                                            <td>Malesuada porttitor</td>
+                                            <td>Integer cursus quam</td>
+                                            <td>Nunc pulvinar erat id tellus</td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>This is a tbody td</td>
+                                            <th>Etiam a ipsum eget</th>
+                                            <td>Suspendisse vel ante sed odio lacinia sodales a eu enim</td>
+                                            <td>Phasellus in velit quis</td>
+                                            <td>Duis egestas tortor</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nam ac elit id nisi sodales</td>
+                                            <td>Pellentesque vitae lorem ac</td>
+                                            <td>Nam vestibulum turpis condimentum</td>
+                                            <td>In non lacus id libero</td>
+                                            <td>Aliquam non elit ac justo</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Nulla malesuada sapien</td>
+                                            <td>Sed bibendum ullamcorper</td>
+                                            <td>Proin et turpis nisi</td>
+                                            <td>Pellentesque vitae lorem ac orci</td>
+                                            <td>Mauris vitae massa a augue </td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td>This is a tfoot td</td>
+                                            <td>Etiam a ipsum eget</td>
+                                            <td>Suspendisse vel ante sed odio lacinia sodales a eu enim</td>
+                                            <td>Phasellus in velit quis</td>
+                                            <td>Duis egestas tortor</td>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <h6>This is a Header6</h6>
+                                <p><strong>Pellentesque habitant morbi tristique</strong> senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante. Donec eu libero sit amet quam egestas semper. <em>Aenean ultricies mi vitae est.</em> Mauris placerat eleifend leo. Quisque sit amet est et sapien ullamcorper pharetra. Vestibulum erat wisi, condimentum sed, <code>commodo vitae</code>, ornare sit amet, wisi. Aenean fermentum, elit eget tincidunt condimentum, eros ipsum rutrum orci, sagittis tempus lacus enim ac dui. <a href="#">Donec non enim</a> in turpis pulvinar facilisis. Ut felis.</p>
+                                <div class="grid"><!--
+                                    --><div class="grid-item full one-fourth-s">
+                                        <p>One Fourth</p>
+                                    </div><!--
+                                    --><div class="grid-item one-half">
+                                        <p>One Half</p>
+                                    </div><!--
+                                    --><div class="grid-item one-half one-fourth-s">
+                                        <p>One Fourth</p>
+                                    </div><!--
+                                    --><div class="grid-item one-fourth two-sixths-s">
+                                        <p>Two Sixths</p>
+                                    </div><!--
+                                    --><div class="grid-item three-fourths four-sixths-s">
+                                        <p>Four Sixths</p>
+                                    </div><!--
+                                    --><div class="grid-item full">
+                                        <p>Full</p>
+                                    </div>
+                                </div><!--/.grid-->
+                                <h6>Example Form</h6>
+                                <form>
+                                    <input type="text" placeholder="Name" />
+                                    <input type="email" placeholder="Email Address" />
+                                    <input type="tel" placeholder="Phone Number" />
+                                    <input type="url" placeholder="Website" />
+                                    <input type="number" placeholder="Favorite Number" />
+                                    <label for="favorite-color">Favorite Color</label>
+                                    <input id="favorite-color" type="color" />
+                                    <input type="date" placeholder="Birthday" />
+                                    <input id="newsletter" type="checkbox" />
+                                    <label for="newsletter">Subscribe to Our Newsletter</label>
+                                    <input id="male" name="gender" type="radio" />
+                                    <label for="male">I am a male</label>
+                                    <input id="female" name="gender" type="radio" />
+                                    <label for="female">I am a female</label>
+                                    <input type="submit" value="Submit" />
+                                </form>
+                            </article>
+                        }
                     </div><!--/.post-->
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
-@@include("footer.htm")
+@@if (context.wordpress) {
+    <? get_footer(); ?>
+}
+@@if (context.static) {
+    @@include("footer.htm")
+}

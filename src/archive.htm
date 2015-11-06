@@ -1,29 +1,110 @@
-@@include("header.htm", {"title": "Uncategorized Archive", "page": "front-page"})
+@@if (context.wordpress) {
+    <? get_header(); ?>
+}
+@@if (context.static) {
+    @@include("header.htm", {"title": "Uncategorized Archive"})
+}
             <div class="content-wrapper">
                 <main class="content">
                     <div class="post">
-                        <header>
-                            <h1>Uncategorized</h1>
-                        </header>
-                        <article>
+                        @@if (context.wordpress) {
                             <header>
-                                <h2 style="margin-bottom:0;"><a href="single.htm">Curabitur urna nulla, venenatis vitae viverra vel, efficitur in nisi</a></h2>
-                                <ul class="meta-list">
-                                    <li class="time"><a href="#"><time datetime="2015-10-16T13:48:16+00:00">October 16, 2015 at 1:48 pm</time></a></li>
-                                    <li class="categories"><a href="archive.htm">Uncategorized</a></li>
-                                    <li class="tags"><a href="archive.htm">Lorem Ipsum</a>, <a href="archive.htm">Dolor Sit</a></li>
-                                    <li class="comments"><a href="#comments">2 Comments</a></li>
-                                </ul><!--/.meta-list-->
+                                <?
+                                $term = get_queried_object();
+                                if (is_category()) {
+                                    echo "<h1>" . single_cat_title("", false) . "</h1>";
+                                } elseif (is_tag()) {
+                                    echo "<h1>" . single_tag_title("", false) . "</h1>";
+                                } elseif (is_tax() && $term->name) {
+                                    echo "<h1>" . $term->name . "</h1>";
+                                } else {
+                                    echo "<h1>" . get_the_time("F, Y") . " Archive</h1>";
+                                }
+                                ?>
+                                <?
+                                if ($term->description) {
+                                    echo wpautop($term->description);
+                                }
+                                ?>
                             </header>
-                            <p>Nam a venenatis neque, ultrices volutpat eros. Nulla consequat metus nisl, elementum vehicula mauris ornare et. Suspendisse nec hendrerit eros. Phasellus venenatis quis lectus in posuere. Sed molestie aliquet nunc, id lobortis [&hellip;] <strong><a href="single.htm">Read More</a></strong></p>
-                        </article>
-                    </div><!--/.post-->
-                    @@include("sidebar.htm", {
-                        "widget": {
-                            "title": "Categories",
-                            "content": "<nav class='menu-wrapper'><ul class='menu-list l-vertical'><li class='menu-item'><a href='archive.htm'>Uncategorized</a></li><li class='menu-item'><a href='archive.htm'>Nunc Accumsan</a></li><li class='menu-item'><a href='archive.htm'>Sed Molestie Aliquet</a></li></ul></nav>"
+                            <?
+                            if (have_posts()) {
+                                while (have_posts()) {
+                                    the_post();
+                                    echo "<article>";
+                                    echo "<header>";
+                                    echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                    echo "<ul class='meta-list'>";
+                                    echo "<li class='time'><a href='" . get_the_permalink() . "'>" . get_the_date() . "</a></li>";
+                                    if (get_the_category_list()) {
+                                        echo "<li class='categories'>" . get_the_category_list(", ") . "</li>";
+                                    }
+                                    the_tags("<li class='tags'>", ", ", "</li>");
+                                    if (comments_open() || get_comments_number() > 0) {
+                                        echo "<li class='comments'>";
+                                        comments_popup_link("No Comments", "1 Comment", "% Comments");
+                                        echo "</li>";
+                                    }
+                                    echo "</ul>";
+                                    echo "</header>";
+                                    the_excerpt();
+                                    echo "<p><a class='button' href='" . get_the_permalink() . "'>Read More</a></p>";
+                                    echo "</article>";
+                                }
+                            }
+                            ?>
+                            <?
+                            if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
+                                echo "<footer><p style='overflow:hidden;'>";
+                                if (get_adjacent_post(false, "", false)) {
+                                    previous_posts_link("<span style='float:left;'>&larr; Previous Page</span>");
+                                }
+                                if (get_adjacent_post(false, "", true)) {
+                                    next_posts_link("<span style='float:right;'>Next Page &rarr;</span>");
+                                }
+                                echo "</p></footer>";
+                            }
+                            ?>
+                            <?
+                            if (is_front_page() || is_attachment()) {
+                                echo "</article>";
+                            }
+                            ?>
                         }
-                    })
+                        @@if (context.static) {
+                            <header>
+                                <h1>Uncategorized</h1>
+                            </header>
+                            <article>
+                                <header>
+                                    <h2 style="margin-bottom:0;"><a href="single.htm">Curabitur urna nulla, venenatis vitae viverra vel, efficitur in nisi</a></h2>
+                                    <ul class="meta-list">
+                                        <li class="time"><a href="#"><time datetime="2015-10-16T13:48:16+00:00">October 16, 2015 at 1:48 pm</time></a></li>
+                                        <li class="categories"><a href="archive.htm">Uncategorized</a></li>
+                                        <li class="tags"><a href="archive.htm">Lorem Ipsum</a>, <a href="archive.htm">Dolor Sit</a></li>
+                                        <li class="comments"><a href="#comments">2 Comments</a></li>
+                                    </ul><!--/.meta-list-->
+                                </header>
+                                <p>Nam a venenatis neque, ultrices volutpat eros. Nulla consequat metus nisl, elementum vehicula mauris ornare et. Suspendisse nec hendrerit eros. Phasellus venenatis quis lectus in posuere. Sed molestie aliquet nunc, id lobortis [&hellip;] <strong><a href="single.htm">Read More</a></strong></p>
+                            </article>
+                        }
+                    </div><!--/.post-->
+                    @@if (context.wordpress) {
+                        <? get_sidebar(); ?>
+                    }
+                    @@if (context.static) {
+                        @@include("sidebar.htm", {
+                            "widget": {
+                                "title": "Categories",
+                                "content": "<nav class='menu-wrapper'><ul class='menu-list l-vertical'><li class='menu-item'><a href='archive.htm'>Uncategorized</a></li><li class='menu-item'><a href='archive.htm'>Nunc Accumsan</a></li><li class='menu-item'><a href='archive.htm'>Sed Molestie Aliquet</a></li></ul></nav>"
+                            }
+                        })
+                    }
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
-@@include("footer.htm")
+@@if (context.wordpress) {
+    <? get_footer(); ?>
+}
+@@if (context.static) {
+    @@include("footer.htm")
+}

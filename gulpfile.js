@@ -68,7 +68,7 @@ gulp.task("media", function () {
 
 // process HTML includes
 gulp.task("html", function () {
-    return gulp.src(["./src/archive.htm", "./src/front-page.htm", "./src/home.htm", "./src/index.htm", "./src/page.htm", "./src/search.htm", "./src/single.htm"])
+    return gulp.src(["./src/404.htm", "./src/archive.htm", "./src/front-page.htm", "./src/home.htm", "./src/index.htm", "./src/page.htm", "./src/search.htm", "./src/single.htm"])
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
@@ -78,7 +78,28 @@ gulp.task("html", function () {
                 copyright_year: "2015",
                 theme_color: "#17AAEC",
                 template_directory: "",
-                home_url: "index.htm"
+                home_url: "index.htm",
+                rss_url: "http://www.example.com/feed/",
+                static: "true",
+            }
+        }))
+        .pipe(gulp.dest("./dev/"));
+});
+
+gulp.task("php", function () {
+    return gulp.src(["./src/404.htm", "./src/archive.htm", "./src/front-page.htm", "./src/home.htm", "./src/index.htm", "./src/page.htm", "./src/search.htm", "./src/single.htm"])
+        .pipe(fileinclude({
+            prefix: "@@",
+            basepath: "@file",
+            context: {
+                name: "<? bloginfo('name'); ?>",
+                tagline: "<? bloginfo('tagline'); ?>",
+                copyright_year: "<? echo date('Y'); ?>",
+                theme_color: "#17AAEC",
+                template_directory: "<? bloginfo('template_directory'); ?>/",
+                home_url: "<? echo home_url(); ?>",
+                rss_url: "<? bloginfo('rss2_url'); ?>",
+                wordpress: "true"
             }
         }))
         .pipe(gulp.dest("./dev/"));

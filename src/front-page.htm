@@ -1,4 +1,15 @@
-@@include("header.htm", {"page": "front-page", "title": "Home"})
+@@if (context.wordpress) {
+    <?
+    if (get_option("show_on_front") != "page") {
+        include(TEMPLATEPATH . "/home.php");
+        return;
+    }
+    ?>
+    <? get_header(); ?>
+}
+@@if (context.static) {
+    @@include("header.htm", {"page": "front-page", "title": "Home"})
+}
             <div class="slideshow-wrapper">
                 <div class="slideshow">
                     <div class="swiper-container">
@@ -31,4 +42,9 @@
                     })
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
-@@include("footer.htm", {"page": "front-page"})
+@@if (context.wordpress) {
+    <? get_footer(); ?>
+}
+@@if (context.static) {
+    @@include("footer.htm", {"page": "front-page"})
+}
