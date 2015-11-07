@@ -8,16 +8,19 @@
     "del": "^2.0.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
+    "gulp-batch": "^1.0.5",
     "gulp-concat": "^2.6.0",
     "gulp-file-include": "^0.13.7",
     "gulp-imagemin": "^2.3.0",
     "gulp-jshint": "^1.11.2",
-    "gulp-live-server": "0.0.29",
     "gulp-sass": "^2.0.4",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^1.4.2",
+    "gulp-watch": "^4.3.5",
     "imagemin-pngquant": "^4.2.0",
     "json-file": "^0.1.0",
-    "run-sequence": "^1.1.4"
+    "run-sequence": "^1.1.4",
+    "vinyl-ftp": "^0.4.5",
+    "yargs": "^3.29.0"
   }
 }

@@ -192,7 +192,7 @@ This task is a combination of a number of other tasks. Namely:
 
 ### `gulp watch`
 
-Watches for changes, and runs `gulp` when changes are detected.
+Watches for changes to `/src/`, runs `gulp`, and then runs `ftp`.
 
 ### `gulp dist`
 
@@ -228,6 +228,10 @@ Adds a version string to each URL and copies code in to `/dev/`.
 ### `gulp dist`
 
 Compresses CSS and JS, and copies all files from `/dev/` in to `/dist/`.
+
+### `gulp ftp`
+
+Uploads via FTP using the settings in `ftp.json`. Add the `--dist` flag to upload to your production environment.
 
 ## Versioning
 

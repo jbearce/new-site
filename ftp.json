@@ -1,0 +1,14 @@
+{
+  "dev": {
+    "host": "dev.example.com",
+    "user": "ftpuser",
+    "pass": "drowssap",
+    "path": "/"
+  },
+  "dist": {
+    "host": "example.com",
+    "user": "ftpuser",
+    "pass": "drowssap",
+    "path": "/"
+  }
+}

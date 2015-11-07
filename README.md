@@ -18,6 +18,7 @@ A number of pre-built modules are included, including:
  - Concatenates, and uglifies JS
  - Losslessly compresses images
  - Syncs name, version, license, etc between package.json and style.css
+ - Automatically FTPs up to either a develoment or production server
 
 **SMACSS!**
 
@@ -42,21 +43,6 @@ I'd like to keep as much code as possible shared between my WordPress framework 
 **Improved Documentation**
 
 I don't think I'm going to build out a wiki or anything, but I need to add inline documentation explaining what my code does.
-
-**Better Watch Task**
-
-It really bothers me that my `gulp watch` task doesn't notice new files. There's got to be a way to refresh the task when a new file gets added. [This might be what I'm looking for](http://stackoverflow.com/a/22391756/654480).
-
-**FTP Task**
-
-Not sure if this is possible or not. Would be immensely useful during development. Maybe a `ftp.json` that gets added to the `.gitignore` would be useful for per-project configuration. Could be formatted like `package.json`, something like:
-
-    {
-        hostname: "example.com",
-        username: "ftpuser",
-        password: "drowssap",
-        path: "/public_html/wp-content/themes/new-site/"
-    }
 
 **More Modules**
 

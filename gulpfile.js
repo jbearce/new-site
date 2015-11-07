@@ -10,6 +10,16 @@ var gulp = require("gulp"),
     themeLicense = json.read("./package.json").get("license"),
     themeColor = "#1664A7",
 
+    devHost = json.read("./ftp.json").get("dev.host"),
+    devUser = json.read("./ftp.json").get("dev.user"),
+    devPass = json.read("./ftp.json").get("dev.pass"),
+    devPath = json.read("./ftp.json").get("dev.path"),
+
+    distHost = json.read("./ftp.json").get("dist.host"),
+    distUser = json.read("./ftp.json").get("dist.user"),
+    distPass = json.read("./ftp.json").get("dist.pass"),
+    distPath = json.read("./ftp.json").get("dist.path"),
+
     sourcemaps = require("gulp-sourcemaps"),
     autoprefixer = require("gulp-autoprefixer"),
     sass = require("gulp-sass"),
@@ -20,7 +30,10 @@ var gulp = require("gulp"),
     fileinclude = require("gulp-file-include"),
     uglify = require("gulp-uglify"),
     runSequence = require("run-sequence"),
-    gls = require("gulp-live-server"),
+    argv = require("yargs").argv,
+    ftp = require("vinyl-ftp"),
+    watch = require("gulp-watch"),
+    batch = require("gulp-batch"),
     del = require("del");
 
 // delete dev & dist directories
@@ -76,7 +89,7 @@ gulp.task("media", function () {
 
 // add version number in PHP
 gulp.task("php", function () {
-    return gulp.src(["!./src/assets", "./src/**/*"])
+    return gulp.src(["./src/**/*",  "!./src/{assets,assets/**}"])
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
@@ -113,6 +126,31 @@ gulp.task("dist", function () {
         .pipe(gulp.dest("./dist/"))
 });
 
+// upload to FTP environment
+gulp.task("ftp", function() {
+    if (argv.dist) {
+        var conn = ftp.create({
+                host: distHost,
+                user: distUser,
+                pass: distPass,
+            })
+
+        return gulp.src("./dist/**/*")
+            .pipe(conn.newer(distPath))
+            .pipe(conn.dest(distPath));
+    } else {
+        var conn = ftp.create({
+                host: devHost,
+                user: devUser,
+                pass: devPass,
+            })
+
+        return gulp.src("./dev/**/*")
+            .pipe(conn.newer(devPath))
+            .pipe(conn.dest(devPath));
+    }
+})
+
 // default task, builds to dev
 gulp.task("default", function (callback) {
     runSequence("clean", "styles", "scripts", "media", "php", callback);
@@ -123,14 +161,9 @@ gulp.task("build", function (callback) {
     runSequence("clean", "styles", "scripts", "media", "php", "dist", callback);
 });
 
-// watch task, runs server, executes default task & updates server on file chagne
-gulp.task("watch", function() {
-    var server = gls.static("./dev");
-    server.start();
-
-    gulp.watch("./src/**/*", function (callback) {
-        runSequence("default", function() {
-            server.notify.apply(server, [callback]);
-        });
-    });
+// watch task, executes default task & updates server on file chagne
+gulp.task("watch", function () {
+    watch("./src/**/*", batch(function (events, callback) {
+        runSequence("default", "ftp", callback);
+    }));
 });
