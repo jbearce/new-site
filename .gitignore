@@ -235,3 +235,7 @@ prepros.cfg
 #Slicers
 _slicers/
 _slicers/*
+
+#Unneeded CAPTCHA
+src/assets/captcha/
+src/assets/captcha/*
