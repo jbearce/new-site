@@ -9,4 +9,4 @@ I'm rethinking how my build process should work. I want things it to be more lik
 - Documentation
 - Proper SMACSS
 - Ability to set up /dist/ as a submodule, which could then be used to deploy
-- style.css should pull data from package.json
+- /src/style.css should pull data from package.json
