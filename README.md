@@ -31,7 +31,7 @@ Lots of compression, efficient code, and FontAwesome integration means a leightw
 
 **Documented!**
 
-Okay, so it's not documented very well yet, but check out [CONTRIBUTING.md](CONTRIBUTING.md) for some basic information. Proper documentation coming soon!
+Check out [CONTRIBUTING.md](CONTRIBUTING.md) for information on setting up, organziation, etc. I still need to add in proper documentation throughout my code.
 
 ## Planned
 
@@ -39,9 +39,9 @@ Okay, so it's not documented very well yet, but check out [CONTRIBUTING.md](CONT
 
 I'd like to keep as much code as possible shared between my WordPress framework and my static framework. This may end up being a sub-module, new-site-assets, where I add `/src/assets/captcha/` to `.gitignore` in new-site. This requires more thought and research before officially syncing the two.
 
-**Proper Documentation**
+**Improved Documentation**
 
-I don't think I'm going to build out a wiki or anything, but I need to re-write [CONTRIBUTING.md](CONTRIBUTING.md) so that it contains a good getting-started guide for SMACSS, tutorials on managing the Gulp tasks, versioning, etc. Again, this is going to require some more thought. I'm wondering if a `/docs/` folder may be in order.
+I don't think I'm going to build out a wiki or anything, but I need to add inline documentation explaining what my code does.
 
 **Better Watch Task**
 
