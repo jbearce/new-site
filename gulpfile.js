@@ -70,7 +70,7 @@ gulp.task("media", function () {
         .pipe(gulp.dest("./dev/assets/media/"));
 });
 
-// copy PHP
+// add version number in PHP
 gulp.task("php", function () {
     return gulp.src(["!./src/assets", "./src/**/*"])
         .pipe(fileinclude({
@@ -85,22 +85,22 @@ gulp.task("php", function () {
 
 // distribute to dist
 gulp.task("dist", function () {
-    // styles
+    // compress styles
     gulp.src("./dev/assets/styles/all.css")
         .pipe(sass({outputStyle: "compressed"}))
         .pipe(gulp.dest("./dist/assets/styles/"))
 
-    // scripts
+    // compress scripts
     gulp.src("./dev/assets/scripts/all.js")
         .pipe(uglify())
         .pipe(gulp.dest("./dist/assets/scripts/"))
 
-    // media
+    // copy compressed media
     gulp.src("./dev/assets/media/*")
         .pipe(gulp.dest("./dist/assets/media/"))
 
-    // PHP
-    gulp.src(["!./src/assets", "./src/**/*"])
+    // copy PHP
+    gulp.src(["!./dev/assets", "./dev/**/*"])
         .pipe(gulp.dest("./dist/"))
 });
 
