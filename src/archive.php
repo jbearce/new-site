@@ -65,7 +65,7 @@
                         }
                         ?>
                     </div><!--/.post-->
-				    <? get_sidebar(); ?>
+                    <? get_sidebar(); ?>
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
 <? get_footer(); ?>

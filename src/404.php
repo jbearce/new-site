@@ -1,9 +1,4 @@
-@@if (context.wordpress) {
-    <? get_header(); ?>
-}
-@@if (context.static) {
-    @@include("header.htm", {"title": "404: Page Not Found"})
-}
+<? get_header(); ?>
             <div class="content-wrapper">
                 <main class="content">
                     <div class="post">
@@ -16,9 +11,4 @@
                     </div><!--/.post-->
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
-@@if (context.wordpress) {
-    <? get_footer(); ?>
-}
-@@if (context.static) {
-    @@include("footer.htm")
-}
+<? get_footer(); ?>

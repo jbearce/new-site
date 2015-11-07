@@ -1,15 +1,10 @@
-@@if (context.wordpress) {
-    <?
-    if (get_option("show_on_front") != "page") {
-        include(TEMPLATEPATH . "/home.php");
-        return;
-    }
-    ?>
-    <? get_header(); ?>
+<?
+if (get_option("show_on_front") != "page") {
+    include(TEMPLATEPATH . "/home.php");
+    return;
 }
-@@if (context.static) {
-    @@include("header.htm", {"page": "front-page", "title": "Home"})
-}
+?>
+<? get_header(); ?>
             <div class="slideshow-wrapper">
                 <div class="slideshow">
                     <div class="swiper-container">
@@ -34,17 +29,7 @@
                             <p>Cras eget orci massa. Maecenas condimentum sapien ipsum, et auctor lacus tristique vel. Ut vel lobortis diam, sed sollicitudin metus. Cras mattis nisl in arcu convallis aliquet. Suspendisse mollis ex eget maximus facilisis. Sed molestie scelerisque lacus, vitae rutrum massa interdum id. Proin condimentum augue vel enim commodo, id egestas massa condimentum. Nulla vel tempor libero, vel efficitur justo. Donec scelerisque blandit enim, sit amet semper turpis hendrerit vehicula. Mauris accumsan urna turpis, consectetur tincidunt massa ultrices in. Aenean sit amet ultrices neque. Cras sapien lectus, ornare ac diam laoreet, fringilla venenatis ex. Mauris tincidunt tristique ante, sed tempus ante.</p>
                         </article>
                     </div><!--/.post-->
-                    @@include("sidebar.htm", {
-                        "widget": {
-                            "title": "About Us",
-                            "content": "<p>Nam viverra lorem ipsum, in euismod felis ullamcorper eget. Curabitur tempor elit faucibus quam maximus placerat. Curabitur nec libero eu lacus egestas pellentesque id in diam. Morbi finibus justo felis. Pellentesque sed dictum sapien, sed posuere orci. Vivamus luctus arcu vitae lacus ultricies, et pharetra leo laoreet. Cras rutrum diam euismod, aliquet ante ultrices, pretium quam.</p>"
-                        }
-                    })
+                    <? get_sidebar(); ?>
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
-@@if (context.wordpress) {
-    <? get_footer(); ?>
-}
-@@if (context.static) {
-    @@include("footer.htm", {"page": "front-page"})
-}
+<? get_footer(); ?>
