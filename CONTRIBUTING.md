@@ -89,6 +89,8 @@ If you have code that should start working at the large breakpoint, you would cr
 
 These `_screen_*.scss` files then get included in their matching breakpoint in `/src/assets/all.scss`.
 
+**IMPORATNT:** This project scales up, rather than scaling down. This means that the default view is mobile, with each bigger size affecting bigger and bigger screens. For example, by default, `_screen_xxs.scss` will affect screen sizes `480px` and wider, `_screen_xs.scss` `640px` and widder, `_screen_s.scss` `768px` and wider, and so on. The reasoning for this is that typically the bigger a device is, the more powerful it will be. Thus, the smallest device processes the least code, and the largest the most.
+
 ##### Base
 
 `/src/assets/base/` contains all the most basic, general styles for the project. All of these styles can be used anywhere throughout the project.
