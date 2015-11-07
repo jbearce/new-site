@@ -3,8 +3,12 @@
 var gulp = require("gulp"),
     json = require("json-file"),
 
-    siteVersion = json.read("./package.json").get("version"),
-    siteColor = "#1664A7",
+    themeName = json.read("./package.json").get("name"),
+    themeVersion = json.read("./package.json").get("version"),
+    themeDescription = json.read("./package.json").get("description"),
+    themeRepository = json.read("./package.json").get("repository"),
+    themeLicense = json.read("./package.json").get("license"),
+    themeColor = "#1664A7",
 
     sourcemaps = require("gulp-sourcemaps"),
     autoprefixer = require("gulp-autoprefixer"),
@@ -77,7 +81,12 @@ gulp.task("php", function () {
             prefix: "@@",
             basepath: "@file",
             context: {
-                version: siteVersion,
+                name: themeName,
+                version: themeVersion,
+                description: themeDescription,
+                repository: themeRepository,
+                license: themeLicense,
+                color: themeColor,
             }
         }))
         .pipe(gulp.dest("./dev/"));

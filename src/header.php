@@ -19,7 +19,7 @@
         <link href="<? bloginfo("template_directory"); ?>/assets/media/logo-ios.png@@if (context.version) {?v=@@version}" rel="apple-touch-icon" />
         <link href="<? bloginfo("template_directory"); ?>/assets/media/logo-favicon.png@@if (context.version) {?v=@@version}" rel="shortcut icon" />
         <meta content="<? bloginfo("name"); ?>" name="application-name" />
-        <meta content="@@theme_color" name="msapplication-TileColor" />
+        <meta content="@@color" name="msapplication-TileColor" />
         <meta content="<? bloginfo("template_directory"); ?>/assets/media/logo-windows-tiny.png@@if (context.version) {?v=@@version}" name="msapplication-square70x70logo" />
         <meta content="<? bloginfo("template_directory"); ?>/assets/media/logo-windows-square.png@@if (context.version) {?v=@@version}" name="msapplication-square150x150logo" />
         <meta content="<? bloginfo("template_directory"); ?>/assets/media/logo-windows-wide.png@@if (context.version) {?v=@@version}" name="msapplication-wide310x150logo" />
