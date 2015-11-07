@@ -1,6 +1,6 @@
             <div class="footer-wrapper">
                 <footer class="footer">
-                    <p>&copy; @@copyright_year <? bloginfo("name"); ?></p>
+                    <p>&copy; <? echo date("Y"); ?> <? bloginfo("name"); ?></p>
                 </footer><!--/.footer-->
             </div><!--/.footer-wrapper-->
         </div><!--/.page-wrapper-->
