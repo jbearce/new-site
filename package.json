@@ -10,7 +10,6 @@
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",
     "gulp-file-include": "^0.13.7",
-    "gulp-htmlmin": "^1.2.0",
     "gulp-imagemin": "^2.3.0",
     "gulp-jshint": "^1.11.2",
     "gulp-live-server": "0.0.29",

@@ -14,7 +14,6 @@ var gulp = require("gulp"),
     imagemin = require("gulp-imagemin"),
     pngquant = require("imagemin-pngquant"),
     fileinclude = require("gulp-file-include"),
-    htmlmin = require("gulp-htmlmin"),
     uglify = require("gulp-uglify"),
     runSequence = require("run-sequence"),
     gls = require("gulp-live-server"),
@@ -71,19 +70,14 @@ gulp.task("media", function () {
         .pipe(gulp.dest("./dev/assets/media/"));
 });
 
-// process HTML includes
-gulp.task("html", function () {
-    return gulp.src(["!./src/assets", "!./src/includes", "./src/*"])
+// copy PHP
+gulp.task("php", function () {
+    return gulp.src(["!./src/assets", "./src/**/*"])
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
             context: {
-                name: siteName,
                 version: siteVersion,
-                tagline: siteTagline,
-                copyright_year: siteYear,
-                theme_color: siteColor,
-                home_url: siteURL,
             }
         }))
         .pipe(gulp.dest("./dev/"));
@@ -105,20 +99,19 @@ gulp.task("dist", function () {
     gulp.src("./dev/assets/media/*")
         .pipe(gulp.dest("./dist/assets/media/"))
 
-    // HTML
-    gulp.src("./dev/*.htm")
-        .pipe(htmlmin({collapseWhitespace: true, removeComments: true}))
+    // PHP
+    gulp.src(["!./src/assets", "./src/**/*"])
         .pipe(gulp.dest("./dist/"))
 });
 
 // default task, builds to dev
 gulp.task("default", function (callback) {
-    runSequence("clean", "styles", "scripts", "media", "html", callback);
+    runSequence("clean", "styles", "scripts", "media", "php", callback);
 });
 
 // uglify and populate dist
 gulp.task("build", function (callback) {
-    runSequence("clean", "styles", "scripts", "media", "html", "dist", callback);
+    runSequence("clean", "styles", "scripts", "media", "php", "dist", callback);
 });
 
 // watch task, runs server, executes default task & updates server on file chagne
