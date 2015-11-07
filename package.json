@@ -19,6 +19,7 @@
     "gulp-watch": "^4.3.5",
     "imagemin-pngquant": "^4.2.0",
     "json-file": "^0.1.0",
+    "merge-stream": "^1.0.0",
     "run-sequence": "^1.1.4",
     "vinyl-ftp": "^0.4.5",
     "yargs": "^3.29.0"

@@ -34,6 +34,7 @@ var gulp = require("gulp"),
     ftp = require("vinyl-ftp"),
     watch = require("gulp-watch"),
     batch = require("gulp-batch"),
+    merge = require("merge-stream"),
     del = require("del");
 
 // delete dev & dist directories
@@ -60,20 +61,22 @@ gulp.task("styles", function () {
 // lint and concat scripts
 gulp.task("scripts", function () {
     // lint
-    gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
+    var lintedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(jshint())
         .pipe(jshint.reporter("default"))
 
     // concat
-    gulp.src(["./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
+    var concattedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(sourcemaps.init())
         .pipe(concat("all.js"))
         .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest("./dev/assets/scripts/"))
 
     // copy fallbacks
-    gulp.src("./src/assets/scripts/fallback/*")
+    var copiedScripts = gulp.src("./src/assets/scripts/fallback/*")
         .pipe(gulp.dest("./dev/assets/scripts/fallback/"))
+
+    return merge(lintedScripts, concattedScripts, copiedScripts)
 });
 
 // compress images
