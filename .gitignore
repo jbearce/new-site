@@ -233,9 +233,8 @@ prepros.cfg
 *.js.map
 
 #Slicers
-_slicers/
-_slicers/*
+slicers/
+slicers/*
 
-#Unneeded CAPTCHA
-src/assets/captcha/
-src/assets/captcha/*
+#Protect FTP credentials
+ftp.json

@@ -192,7 +192,7 @@ This task is a combination of a number of other tasks. Namely:
 
 ### `gulp watch`
 
-Watches for changes to `/src/`, runs `gulp`, and then runs `ftp`.
+Watches for changes to `/src/`, and runs `gulp` when changes are detected. Use the `--ftp` flag to automatically upload files to your development server (configured in `ftp.json`)
 
 ### `gulp dist`
 

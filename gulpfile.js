@@ -164,6 +164,10 @@ gulp.task("build", function (callback) {
 // watch task, executes default task & updates server on file chagne
 gulp.task("watch", function () {
     watch("./src/**/*", batch(function (events, callback) {
-        runSequence("default", "ftp", callback);
+        if (argv.ftp) {
+            runSequence("default", "ftp", callback);
+        } else {
+            runSequence("default", callback);
+        }
     }));
 });
