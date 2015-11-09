@@ -1,6 +1,45 @@
 <div class="sidebar">
     <?
     if (is_page() || is_single()) {
+        if (have_rows("gallery")) {
+            echo "<div class='gallery'>";
+            echo "<div class='gallery-images'>";
+            $img_counter = 0;
+            while (have_rows("gallery")) {
+                the_row();
+                $img = get_sub_field("image");
+                $img_src = $img["sizes"]["gallery"];
+                $img_alt = $img["alt"] != "" ? " alt='{$img["alt"]}'" : "";
+                $img_class = "";
+                if ($img) {
+                    $img_counter++;
+                    if ($img_counter == 1) {
+                        $img_class = " active";
+                    }
+                    echo "<figure class='gallery-image{$img_class}' data-img='{$img_counter}'><img{$img_alt} src='{$img_src}' /></figure>";
+                }
+            }
+            echo "</div>";
+            echo "<menu class='gallery-thumbnails'>";
+            $img_counter = 0;
+            while (have_rows("gallery")) {
+                the_row();
+                $img = get_sub_field("image");
+                $img_src = $img["sizes"]["thumbnail"];
+                $img_alt = $img["alt"] != "" ? " alt='{$img["alt"]}'" : "";
+                $img_class = "";
+                if ($img) {
+                    $img_counter++;
+                    if ($img_counter == 1) {
+                        $img_class = " active";
+                    }
+                    echo "<li class='gallery-thumbnail{$img_class}'><button data-img='{$img_counter}'><img{$img_alt} src='{$img_src}' /></button></li>";
+                }
+            }
+            echo "</menu>";
+            echo "</div>";
+        }
+
         if (get_field("sidebar")) {
             echo "<div class='widget'>";
             echo "<div class='widget-content'>";
