@@ -52,6 +52,22 @@ To compile the SCSS, JS, etc, you'll need to install this project's dependencies
  2. Use the `cd` command to navigate to this repository. For example, I would run `cd C:\Users\Jacob\Repositories\new-site`
  3. Install this projects dependencies with the command `npm install`
 
+### Configuration
+
+If you've forked @revxx14/new-site or @revxx14/new-site-static, and are using it for your own projects, you'll need to configure a few additional items:
+
+#### README
+
+Update the README to reflect your projects names, features, and plans.
+
+#### package.json
+
+Update the package.json to reflect your projects name, description, version, repository, and license.
+
+#### FTP
+
+IF you'd like to use the `gulp ftp` task, make sure you [download my example ftp.json](https://gist.github.com/revxx14/a04f5ba7e00b267e71e2) and add in the correct paramters for your development environment.
+
 ## CSS
 
 This project uses SCSS, a preprocessed version of CSS. In addition, it follows the [SMACSS methodology](http://www.smacss.com/).
