@@ -54,7 +54,7 @@ To compile the SCSS, JS, etc, you'll need to install this project's dependencies
 
 ### Configuration
 
-If you've forked @revxx14/new-site or @revxx14/new-site-static, and are using it for your own projects, you'll need to configure a few additional items:
+If you've forked [revxx14/new-site](https://github.com/revxx14/new-site) or [revxx14/new-site-static](https://github.com/revxx14/new-site-static), and are using it for your own projects, you'll need to configure a few additional items:
 
 #### README
 
