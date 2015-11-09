@@ -44,7 +44,7 @@ gulp.task("clean", function() {
 
 // compile and autoprefix styles
 gulp.task("styles", function () {
-    return gulp.src("./src/assets/styles/all.scss")
+    return gulp.src(["./src/assets/styles/modern.scss", "./src/assets/styles/legacy.scss"])
         // compile SASS
         .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: "expanded"}).on("error", sass.logError))
@@ -111,7 +111,7 @@ gulp.task("php", function () {
 // distribute to dist
 gulp.task("dist", function () {
     // compress styles
-    gulp.src("./dev/assets/styles/all.css")
+    gulp.src("./dev/assets/styles/*.css")
         .pipe(sass({outputStyle: "compressed"}))
         .pipe(gulp.dest("./dist/assets/styles/"))
 

@@ -1,13 +1,6 @@
 <!doctype html>
 <html lang="en-US">
 	<head>
-        <!-- html5 fallback -->
-        <!--[if lt IE 9]>
-        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/html5shiv.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
-        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/nwmatcher-1.3.4.min.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
-        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/selectivizr-1.0.2.min.js" type="text/javascript@@if (context.version) {?v=@@version}"></script>
-        <![endif]-->
-        <!-- end html5 fallback -->
         <!-- settings -->
         <meta content="text/html;charset=utf-8" http-equiv="content-type" />
         <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
@@ -15,7 +8,7 @@
         <!-- end settings -->
         <!-- branding -->
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css@@if (context.version) {?v=@@version}" rel="stylesheet" />
-        <link href="<? bloginfo("template_directory"); ?>/assets/styles/all.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
+        <link href="<? bloginfo("template_directory"); ?>/assets/styles/modern.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
         <link href="<? bloginfo("template_directory"); ?>/assets/media/logo-ios.png@@if (context.version) {?v=@@version}" rel="apple-touch-icon" />
         <link href="<? bloginfo("template_directory"); ?>/assets/media/logo-favicon.png@@if (context.version) {?v=@@version}" rel="shortcut icon" />
         <meta content="<? bloginfo("name"); ?>" name="application-name" />
@@ -26,6 +19,14 @@
         <meta content="<? bloginfo("template_directory"); ?>/assets/media/logo-windows-large.png@@if (context.version) {?v=@@version}" name="msapplication-square310x310logo" />
         <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=5; cycle=1" name="msapplication-notification" />
         <!-- end branding -->
+        <!-- html5 fallback -->
+        <!--[if lt IE 9]>
+        <link href="<? bloginfo("template_directory"); ?>/assets/styles/legacy.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
+        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/html5shiv.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
+        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/nwmatcher-1.3.4.min.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
+        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/selectivizr-1.0.2.min.js" type="text/javascript@@if (context.version) {?v=@@version}"></script>
+        <![endif]-->
+        <!-- end html5 fallback -->
         <!-- SEO -->
         <title><? wp_title("|", true, "right"); ?></title>
         <!-- end SEO -->
