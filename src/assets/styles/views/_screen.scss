@@ -4,12 +4,11 @@
  * Base                                                                     *
 \* ------------------------------------------------------------------------ */
 
+@import "../base/content/_content";
 @import "../base/normalize/_normalize";
 @import "../base/grid/_grid";
-@import "../base/blocks/_blocks";
-@import "../base/text/_text";
-@import "../base/forms/_forms";
 @import "../base/page/_page";
+@import "../base/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
  * Layout                                                                   *

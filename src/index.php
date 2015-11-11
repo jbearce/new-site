@@ -6,20 +6,16 @@
                         if (is_attachment()) {
                             echo "<article>";
                         }
-                        ?>
-                        <?
                         if (has_post_thumbnail($id)) {
-                            echo "<figure>" . get_the_post_thumbnail($id, "large") . "</figure>";
+                            echo "<figure class='featured-image'>" . get_the_post_thumbnail($id, "large") . "</figure>";
                         }
-                        ?>
-                        <header>
-                            <? the_title("<h1>", "</h1>"); ?>
-                        </header>
-                        <?
+                        the_title("<header><h1 class='hdg hdg1'>", "</h1></header>");
                         if (have_posts()) {
                             while (have_posts()) {
                                 the_post();
+                                echo "<div class='user-content'>";
                                 the_content();
+                                echo "</div>";
                                 if (comments_open() || get_comments_number() > 0) {
                                     echo "<footer>";
                                     comments_template();
@@ -27,8 +23,6 @@
                                 }
                             }
                         }
-                        ?>
-                        <?
                         if (is_attachment()) {
                             echo "</article>";
                         }

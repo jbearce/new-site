@@ -37,7 +37,7 @@ add_action("admin_menu", "remove_acf_menu", 999);
 // enable menus
 function register_menus() {
 	register_nav_menus(array(
-		"primary" => "Navigation"
+		"primary" => "Navigation",
 	));
 }
 add_action("init", "register_menus");

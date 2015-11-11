@@ -39,11 +39,11 @@
             echo "</menu>";
             echo "</div>";
         }
-
         if (get_field("sidebar")) {
-            echo "<div class='widget'>";
-            echo "<div class='widget-content'>";
+            echo "<div class='widget'><div class='widget-content'>";
+            echo "<div class='user-content'>";
             the_field("sidebar");
+            echo "</div>";
             echo "</div></div>";
         }
     }

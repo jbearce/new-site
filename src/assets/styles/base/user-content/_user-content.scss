@@ -1,0 +1,416 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * User Content                                                             *
+\* ------------------------------------------------------------------------ */
+
+/* -------------- *\
+ * Universal      *
+\* -------------- */
+
+.user-content a {
+    color: $accent;
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+        color: $accent_alt;
+    }
+}
+
+/* -------------- *\
+ * Headers        *
+\* -------------- */
+
+.user-content h1,
+.user-content h2,
+.user-content h3,
+.user-content h4,
+.user-content h5,
+.user-content h6 {
+    color: $accent;
+    font-family: $heading-font;
+}
+
+.user-content h1 {
+    font-size: 28px;
+    font-size: remify(28);
+    margin: remify(0 0 16, 28);
+}
+
+.user-content h2 {
+    font-size: 26px;
+    font-size: remify(26);
+    margin: remify(0 0 16, 26);
+}
+
+.user-content h3 {
+    font-size: 24px;
+    font-size: remify(24);
+    margin: remify(0 0 16, 24);
+}
+
+.user-content h4 {
+    font-size: 22px;
+    font-size: remify(22);
+    margin: remify(0 0 16, 22);
+}
+
+.user-content h5 {
+    font-size: 20px;
+    font-size: remify(20);
+    margin: remify(0 0 16, 20);
+}
+
+.user-content h6 {
+    font-size: 18px;
+    font-size: remify(18);
+    margin: remify(0 0 8, 18);
+}
+
+/* -------------- *\
+ * General Text   *
+\* -------------- */
+
+.user-content menu,
+.user-content ol,
+.user-content p,
+.user-content table,
+.user-content ul {
+    color: $foreground;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    line-height: remify(24, 16);
+    margin: remify(0 0 24, 16);
+}
+
+/* -------------- *\
+ * Lists          *
+\* -------------- */
+
+.user-content menu,
+.user-content ol,
+.user-content ul {
+    padding: remify(0 0 0 24, 16);
+
+    menu,
+    ol,
+    ul {
+		margin-bottom: 0;
+    }
+}
+
+/* -------------- *\
+ * Tables         *
+\* -------------- */
+
+.user-content table {
+    display: block;
+    overflow: auto;
+    padding-bottom: 1px;
+    padding-bottom: remify(1, 16);
+    table-layout: fixed;
+    width: 100%;
+    // iOS fix
+    -webkit-overflow-scrolling: touch;
+}
+
+.user-content table td,
+.user-content table th {
+    padding: remify(4 6, 16);
+    vertical-align: top;
+}
+
+
+.user-content table thead td,
+.user-content table th {
+    font-weight: 700;
+    text-align: left;
+}
+
+.user-content table thead td,
+.user-content table thead th {
+    background: $accent;
+    color: #FFF;
+}
+
+.user-content table tfoot td,
+.user-content table tfoot th {
+    font-style: italic;
+}
+
+.user-content table tr:nth-child(even) td,
+.user-content table tr:nth-child(even) th {
+    background: $background_alt;
+}
+
+/* -------------- *\
+ * Blocks of Text *
+\* -------------- */
+
+.user-content pre {
+    background: $foreground_alt;
+    border: 1px solid $foreground;
+    color: $foreground;
+    display: block;
+    font-family: monospace;
+    font-size: 16px;
+    font-size: remify(16);
+    margin: remify(0 0 24, 16);
+    padding: remify(20 24, 16);
+    width: 100%;
+}
+
+.user-content blockquote {
+    border-left: 5px solid $accent;
+    margin: 0 0 24px;
+    margin-bottom: remify(24);
+    padding: 0 0 0 24px;
+    padding-left: remify(24);
+}
+
+/* -------------- *\
+ * HRs            *
+\* -------------- */
+
+.user-content hr {
+    border: 0;
+    border-bottom: 1px solid $accent;
+    margin: 0 0 24px;
+    margin-bottom: remify(24);
+}
+
+/* -------------- *\
+ * Images         *
+\* -------------- */
+
+.user-content img {
+    height: auto !important;
+    max-width: 100%;
+}
+
+/* -------------- *\
+ * General Forms  *
+\* -------------- */
+
+.user-content input,
+.user-content .select,
+.user-content select,
+.user-content textarea {
+    color: $foreground;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    line-height: remify(24, 16);
+}
+
+/* -------------- *\
+ * Buttons        *
+\* -------------- */
+
+.user-content button,
+.user-content input[type=button],
+.user-content input[type=reset],
+.user-content input[type=submit] {
+	background: $accent;
+	border: 0;
+    color: $background;
+	display: inline-block;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    font-weight: 700;
+    margin: remify(0 0 10, 16);
+    padding: remify(6 10, 16);
+    text-transform: uppercase;
+	transition: background 0.15s, color 0.15s;
+
+    &:hover {
+        background: $accent_alt;
+        color: $background;
+    }
+}
+
+/* -------------- *\
+ * Checkbox/Radio *
+\* -------------- */
+
+.user-content input[type=checkbox],
+.user-content input[type=radio] {
+	left: -999em;
+	position: absolute;
+
+    & + label {
+        position: relative;
+        padding: remify(9 0 11 52, 16);
+
+        &:before {
+            background: $background;
+            border: 1px solid $accent;
+            border-width: remify(1);
+            color: $accent;
+            content: "\0020";
+            display: block;
+            float: left;
+            font-size: remify(25, 16);
+            height: remify(44, 25);
+            left: 0;
+            line-height: remify(41, 25);
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: remify(44, 25);
+
+            // webkit focus rings to emulate checkbox/radio
+            .-webkit- &:active,
+            .-webkit- &:focus {
+                outline: -webkit-focus-ring-color auto 5px;
+            }
+
+            // trident focus rings to emulate checkbox/radio
+            .-ms- &:active,
+            .-ms- &:focus {
+                outline: #808080 dashed 1px;
+            }
+        }
+    }
+
+    &:focus + label:before,
+    &:focus + label:before {
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+
+    &[disabled] + label:before {
+        background: $background_alt;
+    }
+}
+
+.user-content input[type=radio] + label:before {
+    border-radius: 50%;
+}
+
+.user-content input[type=checkbox]:checked + label:before {
+    @include icon("fontawesome", "check");
+}
+
+.user-content input[type=radio]:checked + label:before {
+    @include icon("fontawesome", "circle");
+}
+
+/* -------------- *\
+ * Inputs         *
+\* -------------- */
+
+.user-content input[type=color],
+.user-content input[type=date],
+.user-content input[type=datetime],
+.user-content input[type=datetime-local],
+.user-content input[type=email],
+.user-content input[type=month],
+.user-content input[type=number],
+.user-content input[type=password],
+.user-content input[type=range],
+.user-content input[type=search],
+.user-content input[type=tel],
+.user-content input[type=text],
+.user-content input[type=time],
+.user-content input[type=url],
+.user-content input[type=week],
+.user-content .select,
+.user-content textarea {
+	background: $background;
+    border: 1px solid $accent;
+	box-sizing: border-box;
+	display: block;
+    margin: remify(0 0 10, 16);
+	outline: none;
+    padding: remify(8 15 10, 16);
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+/* -------------- *\
+ * Selects        *
+\* -------------- */
+
+.user-content .select {
+	padding: 0;
+    position: relative;
+}
+
+.user-content .select:before {
+    @include icon("fontawesome", "sort");
+
+    color: $background;
+    display: block;
+    font-size: remify(24, 16);
+    line-height: normal;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: remify(42, 24);
+    z-index: 2;
+}
+
+.user-content .select:after {
+    background: $accent;
+    bottom: 0;
+    content: "\0020";
+    display: block;
+    font-size: remify(24, 16);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: remify(42, 24);
+    z-index: 1;
+}
+
+.user-content .select select {
+    background: none;
+    border: 0;
+    display: block;
+    margin: 0;
+    outline: none;
+    padding: remify(9 54 11 12, 16);
+    width: 100%;
+    // gecko fix
+    text-indent: 0.01px;
+    text-overflow: "";
+    -moz-appearance: none;
+    // webkit fix
+    -webkit-appearance: none;
+    // trident fix
+    &::-ms-expand {
+        display: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// fix for inconsistancies accross browsers
+
+.user-content .select option {
+    background: #FFF;
+    color: #000;
+
+    &:hover {
+        background: #DDD;
+    }
+}
+
+/* -------------- *\
+ * Textareas      *
+\* -------------- */
+
+.user-content textarea {
+	max-width: 100%;
+    min-height: remify(100, 16);
+	min-width: 100%;
+}

@@ -8,19 +8,19 @@
                         } else {
                             $home_title = "Blog";
                         }
-                        echo "<header><h1>{$home_title}</h1></header>";
+                        echo "<header><h1 class='hdg hdg1'>{$home_title}</h1></header>";
                         ?>
                         <?
                         if (have_posts()) {
                             while (have_posts()) {
                                 the_post();
-                                echo "<article>";
-                                if (has_post_thumbnail($post->ID)) {
-                                    echo "<figure><a href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium") . "</a></figure>";
+                                echo "<article class='mini-article'>";
+                                if (has_post_thumbnail()) {
+                                    echo "<figure class='mini-article-image'><a href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium") . "</a></figure>";
+                                    echo "<div class='mini-article-content'>";
                                 }
-                                echo "<div>";
                                 echo "<header>";
-                                echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                echo "<h2 class='hdg hdg2'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
                                 if (get_post_type() == "post") {
                                     echo "<ul class='meta-list'>";
                                     echo "<li class='time'><a href='" . get_the_permalink() . "'>" . get_the_date() . "</a></li>";
@@ -36,8 +36,12 @@
                                     echo "</ul>";
                                 }
                                 echo "</header>";
+                                echo "<div class='user-content'>";
                                 the_excerpt();
                                 echo "</div>";
+                                if (has_post_thumbnail()) {
+                                    echo "</div>";
+                                }
                                 echo "</article>";
 
                             }

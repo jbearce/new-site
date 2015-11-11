@@ -6,18 +6,18 @@
                             <?
                             $term = get_queried_object();
                             if (is_category()) {
-                                echo "<h1>" . single_cat_title("", false) . "</h1>";
+                                echo "<h1 class='hdg hdg1'>" . single_cat_title("", false) . "</h1>";
                             } elseif (is_tag()) {
-                                echo "<h1>" . single_tag_title("", false) . "</h1>";
+                                echo "<h1 class='hdg hdg1'>" . single_tag_title("", false) . "</h1>";
                             } elseif (is_tax() && $term->name) {
-                                echo "<h1>" . $term->name . "</h1>";
+                                echo "<h1 class='hdg hdg1'>" . $term->name . "</h1>";
                             } else {
-                                echo "<h1>" . get_the_time("F, Y") . " Archive</h1>";
+                                echo "<h1 class='hdg hdg1'>" . get_the_time("F, Y") . " Archive</h1>";
                             }
                             ?>
                             <?
                             if ($term->description) {
-                                echo wpautop($term->description);
+                                echo "<div class='user-content'>" . wpautop($term->description) . "</div>";
                             }
                             ?>
                         </header>
@@ -25,31 +25,42 @@
                         if (have_posts()) {
                             while (have_posts()) {
                                 the_post();
-                                echo "<article>";
+                                echo "<article class='mini-article'>";
+                                if (has_post_thumbnail()) {
+                                    echo "<figure class='mini-article-image'><a href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium") . "</a></figure>";
+                                    echo "<div class='mini-article-content'>";
+                                }
                                 echo "<header>";
-                                echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
-                                echo "<ul class='meta-list'>";
-                                echo "<li class='time'><a href='" . get_the_permalink() . "'>" . get_the_date() . "</a></li>";
-                                if (get_the_category_list()) {
-                                    echo "<li class='categories'>" . get_the_category_list(", ") . "</li>";
+                                echo "<h2 class='hdg hdg2'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                if (get_post_type() == "post") {
+                                    echo "<ul class='meta-list'>";
+                                    echo "<li class='time'><a href='" . get_the_permalink() . "'>" . get_the_date() . "</a></li>";
+                                    if (get_the_category_list()) {
+                                        echo "<li class='categories'>" . get_the_category_list(", ") . "</li>";
+                                    }
+                                    the_tags("<li class='tags'>", ", ", "</li>");
+                                    if (comments_open() || get_comments_number() > 0) {
+                                        echo "<li class='comments'>";
+                                        comments_popup_link("No Comments", "1 Comment", "% Comments");
+                                        echo "</li>";
+                                    }
+                                    echo "</ul>";
                                 }
-                                the_tags("<li class='tags'>", ", ", "</li>");
-                                if (comments_open() || get_comments_number() > 0) {
-                                    echo "<li class='comments'>";
-                                    comments_popup_link("No Comments", "1 Comment", "% Comments");
-                                    echo "</li>";
-                                }
-                                echo "</ul>";
                                 echo "</header>";
+                                echo "<div class='user-content'>";
                                 the_excerpt();
-                                echo "<p><a class='button' href='" . get_the_permalink() . "'>Read More</a></p>";
+                                echo "</div>";
+                                if (has_post_thumbnail()) {
+                                    echo "</div>";
+                                }
                                 echo "</article>";
+
                             }
                         }
                         ?>
                         <?
                         if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
-                            echo "<footer><p style='overflow:hidden;'>";
+                            echo "<footer><p class='txt txtp' style='overflow:hidden;'>";
                             if (get_adjacent_post(false, "", false)) {
                                 previous_posts_link("<span style='float:left;'>&larr; Previous Page</span>");
                             }

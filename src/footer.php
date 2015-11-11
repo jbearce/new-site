@@ -10,5 +10,6 @@
             var swiper = new Swiper(".swiper-container");
         </script>
         <? endif; ?>
+        <? wp_footer(); ?>
 	</body>
 </html>
