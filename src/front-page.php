@@ -5,29 +5,43 @@ if (get_option("show_on_front") != "page") {
 }
 ?>
 <? get_header(); ?>
-            <div class="slideshow-wrapper">
-                <div class="slideshow">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <figure class="swiper-slide">
-                                <img src="http://placehold.it/1200x400" />
-                            </figure><!--/.swiper-slide-->
-                            <figure class="swiper-slide">
-                                <img src="http://dummyimage.com/1200x400/000/fff" />
-                            </figure><!--/.swiper-slide-->
-                        </div><!--/.swiper-wrapper-->
-                    </div><!--/.swiper-container-->
-                </div><!--/.slideshow-->
-            </div><!--/.slideshowWrapper-->
+            <?
+            if (have_rows("slideshow")) {
+                echo "<div class='slideshow-wrapper'><div class='slideshow'><div class='swiper-container'><div class='swiper-wrapper'>";
+                while (have_rows("slideshow")) {
+                    the_row();
+                    $img = get_sub_field("image");
+                    if ($img) {
+                        $img_alt = $img["alt"] == "" ? "" : " alt='{$image["alt"]}'";
+                        $img_src = $img["sizes"]["slideshow"];
+                        echo "<figure class='swiper-slide'><img{$img_alt} src='{$img_src}@@if (context.version) {?v=@@version}' /></figure>";
+                    }
+                }
+                echo "</div></div></div></div>";
+            }
+            ?>
             <div class="content-wrapper">
                 <main class="content">
                     <div class="post">
-                        <article>
-                            <header>
-                                <h1>Donec tortor mi, lobortis et fringilla ut, rhoncus vitae turpis</h1>
-                            </header>
-                            <p>Cras eget orci massa. Maecenas condimentum sapien ipsum, et auctor lacus tristique vel. Ut vel lobortis diam, sed sollicitudin metus. Cras mattis nisl in arcu convallis aliquet. Suspendisse mollis ex eget maximus facilisis. Sed molestie scelerisque lacus, vitae rutrum massa interdum id. Proin condimentum augue vel enim commodo, id egestas massa condimentum. Nulla vel tempor libero, vel efficitur justo. Donec scelerisque blandit enim, sit amet semper turpis hendrerit vehicula. Mauris accumsan urna turpis, consectetur tincidunt massa ultrices in. Aenean sit amet ultrices neque. Cras sapien lectus, ornare ac diam laoreet, fringilla venenatis ex. Mauris tincidunt tristique ante, sed tempus ante.</p>
-                        </article>
+                        <?
+                        if (have_posts()) {
+                            while (have_posts()) {
+                                the_post();
+                                echo "<article>";
+                                if (has_post_thumbnail($id)) {
+                                    echo "<figure>" . get_the_post_thumbnail($id, "large") . "</figure>";
+                                }
+                                echo "<header><h1>". get_bloginfo("description") . "</h1></header>";
+                                the_content();
+                                if (comments_open() || get_comments_number() > 0) {
+                                    echo "<footer>";
+                                    comments_template();
+                                    echo "</footer>";
+                                }
+                                echo "</article>";
+                            }
+                        }
+                        ?>
                     </div><!--/.post-->
                     <? get_sidebar(); ?>
                 </main><!--/.content-->
