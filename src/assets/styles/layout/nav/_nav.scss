@@ -1,0 +1,22 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Navigation                                                               *
+\* ------------------------------------------------------------------------ */
+
+.nav-wrapper {
+    @include layer("navigation");
+
+    font-size: 16px;
+    font-size: remify(16);
+    padding: 0 20px;
+    padding: remify(0 20);
+}
+
+.nav {
+    @include clear;
+
+    margin: 0 auto;
+    max-width: $site-width + px;
+    max-width: remify($site-width);
+}

@@ -1,0 +1,37 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * IE Warning                                                               *
+\* ------------------------------------------------------------------------ */
+
+.ie-warning-wrapper {
+    background: #BF1313;
+    padding: 0 20px;
+}
+
+.ie-warning {
+    margin: 0 auto;
+    padding: 20px 0;
+    width: $site-width + px;
+}
+
+.ie-warning p {
+    color: #FFF;
+    display: block;
+    font-family: sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: normal;
+    margin: 0;
+    text-align: center;
+    text-transform: none;
+}
+
+.ie-warning a {
+    color: #FFF;
+    text-decoration: underline;
+
+    &:hover {
+        color: #FFF;
+    }
+}

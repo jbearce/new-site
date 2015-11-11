@@ -1,0 +1,293 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Grid                                                                     *
+\* ------------------------------------------------------------------------ */
+
+// full
+
+.grid-item.full-m {
+    width: 100%;
+}
+
+// ones
+
+.grid-item.one-half-m {
+    width: (100% / 2);
+}
+
+.grid-item.one-third-m {
+    width: (100% / 3);
+}
+
+.grid-item.one-fourth-m {
+    width: (100% / 4);
+}
+
+.grid-item.one-fifth-m {
+    width: (100% / 5);
+}
+
+.grid-item.one-sixth-m {
+    width: (100% / 6);
+}
+
+.grid-item.one-seventh-m {
+    width: (100% / 7);
+}
+
+.grid-item.one-eighth-m {
+    width: (100% / 8);
+}
+
+.grid-item.one-ninth-m {
+    width: (100% / 9);
+}
+
+.grid-item.one-tenth-m {
+    width: (100% / 10);
+}
+
+// twos
+
+.grid-item.two-half-m,
+.grid-item.two-halfs-m,
+.grid-item.two-halves-m {
+    width: (100% / 3) * 2;
+}
+
+.grid-item.two-third-m,
+.grid-item.two-thirds-m {
+    width: (100% / 3) * 2;
+}
+
+.grid-item.two-fourth-m,
+.grid-item.two-fourths-m {
+    width: (100% / 4) * 2;
+}
+
+.grid-item.two-fifth-m,
+.grid-item.two-fifths-m {
+    width: (100% / 5) * 2;
+}
+
+.grid-item.two-sixth-m,
+.grid-item.two-sixths-m {
+    width: (100% / 6) * 2;
+}
+
+.grid-item.two-seventh-m,
+.grid-item.two-sevenths-m {
+    width: (100% / 7) * 2;
+}
+
+.grid-item.two-eighth-m,
+.grid-item.two-eighths-m {
+    width: (100% / 8) * 2;
+}
+
+.grid-item.two-ninth-m,
+.grid-item.two-ninths-m {
+    width: (100% / 9) * 2;
+}
+
+.grid-item.two-tenth-m,
+.grid-item.two-tenths-m {
+    width: (100% / 10) * 2;
+}
+
+// threes
+
+.grid-item.three-third-m,
+.grid-item.three-thirds-m {
+    width: (100% / 3) * 3;
+}
+
+.grid-item.three-fourth-m,
+.grid-item.three-fourths-m {
+    width: (100% / 4) * 3;
+}
+
+.grid-item.three-fifth-m,
+.grid-item.three-fifths-m {
+    width: (100% / 5) * 3;
+}
+
+.grid-item.three-sixth-m,
+.grid-item.three-sixths-m {
+    width: (100% / 6) * 3;
+}
+
+.grid-item.three-seventh-m,
+.grid-item.three-sevenths-m {
+    width: (100% / 7) * 3;
+}
+
+.grid-item.three-eighth-m,
+.grid-item.three-eighths-m {
+    width: (100% / 8) * 3;
+}
+
+.grid-item.three-ninth-m,
+.grid-item.three-ninths-m {
+    width: (100% / 9) * 3;
+}
+
+.grid-item.three-tenth-m,
+.grid-item.three-tenths-m {
+    width: (100% / 10) * 3;
+}
+
+// fours
+
+.grid-item.four-fourth-m,
+.grid-item.four-fourths-m {
+    width: (100% / 4) * 4;
+}
+
+.grid-item.four-fifth-m,
+.grid-item.four-fifths-m {
+    width: (100% / 5) * 4;
+}
+
+.grid-item.four-sixth-m,
+.grid-item.four-sixths-m {
+    width: (100% / 6) * 4;
+}
+
+.grid-item.four-seventh-m,
+.grid-item.four-sevenths-m {
+    width: (100% / 7) * 4;
+}
+
+.grid-item.four-eighth-m,
+.grid-item.four-eighths-m {
+    width: (100% / 8) * 4;
+}
+
+.grid-item.four-ninth-m,
+.grid-item.four-ninths-m {
+    width: (100% / 9) * 4;
+}
+
+.grid-item.four-tenth-m,
+.grid-item.four-tenths-m {
+    width: (100% / 10) * 4;
+}
+
+// fives
+
+.grid-item.five-fifth-m,
+.grid-item.five-fifths-m {
+    width: (100% / 5) * 5;
+}
+
+.grid-item.five-sixth-m,
+.grid-item.five-sixths-m {
+    width: (100% / 6) * 5;
+}
+
+.grid-item.five-seventh-m,
+.grid-item.five-sevenths-m {
+    width: (100% / 7) * 5;
+}
+
+.grid-item.five-eighth-m,
+.grid-item.five-eighths-m {
+    width: (100% / 8) * 5;
+}
+
+.grid-item.five-ninth-m,
+.grid-item.five-ninths-m {
+    width: (100% / 9) * 5;
+}
+
+.grid-item.five-tenth-m,
+.grid-item.five-tenths-m {
+    width: (100% / 10) * 5;
+}
+
+// sixes
+
+.grid-item.six-sixth-m,
+.grid-item.six-sixths-m {
+    width: (100% / 6) * 6;
+}
+
+.grid-item.six-seventh-m,
+.grid-item.six-sevenths-m {
+    width: (100% / 7) * 6;
+}
+
+.grid-item.six-eighth-m,
+.grid-item.six-eighths-m {
+    width: (100% / 8) * 6;
+}
+
+.grid-item.six-ninth-m,
+.grid-item.six-ninths-m {
+    width: (100% / 9) * 6;
+}
+
+.grid-item.six-tenth-m,
+.grid-item.six-tenths-m {
+    width: (100% / 10) * 6;
+}
+
+// sevens
+
+.grid-item.seven-seventh-m,
+.grid-item.seven-sevenths-m {
+    width: (100% / 7) * 7;
+}
+
+.grid-item.seven-eighth-m,
+.grid-item.seven-eighths-m {
+    width: (100% / 8) * 7;
+}
+
+.grid-item.seven-ninth-m,
+.grid-item.seven-ninths-m {
+    width: (100% / 9) * 7;
+}
+
+.grid-item.seven-tenth-m,
+.grid-item.seven-tenths-m {
+    width: (100% / 10) * 7;
+}
+
+// eights
+
+.grid-item.eight-eighth-m,
+.grid-item.eight-eighths-m {
+    width: (100% / 8) * 8;
+}
+
+.grid-item.eight-ninth-m,
+.grid-item.eight-ninths-m {
+    width: (100% / 9) * 8;
+}
+
+.grid-item.eight-tenth-m,
+.grid-item.eight-tenths-m {
+    width: (100% / 10) * 8;
+}
+
+// nines
+
+.grid-item.nine-ninth-m,
+.grid-item.nine-ninths-m {
+    width: (100% / 9) * 9;
+}
+
+.grid-item.nine-tenth-m,
+.grid-item.nine-tenths-m {
+    width: (100% / 10) * 9;
+}
+
+// tens
+
+.grid-item.ten-tenth-m,
+.grid-item.ten-tenths-m {
+    width: (100% / 10) * 10;
+}

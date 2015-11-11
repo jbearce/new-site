@@ -1,0 +1,129 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Menu List                                                                *
+\* ------------------------------------------------------------------------ */
+
+.menu-wrapper {
+    @include clear;
+}
+
+.menu-list {
+    @include clear;
+
+    font-size: 1em;
+    line-height: normal;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    text-align: center;
+
+    &.l-center {
+        float: right;
+        right: 50%;
+    }
+
+    &.l-vertical {
+        text-align: left;
+    }
+}
+
+.menu-list.sub-menu {
+    float: none;
+    right: auto;
+    left: -999em;
+    opacity: 0;
+    position: absolute;
+    text-align: left;
+    top: -999em;
+    transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s;
+    width: remify($mobile-nav-width, 16);
+
+    .menu-item:hover > & {
+        left: 0;
+        opacity: 1;
+        top: 100%;
+        transition: opacity 0.15s;
+    }
+
+    .l-vertical &,
+    .l-vertical .menu-item:hover > & {
+        left: auto;
+        max-height: 0;
+        opacity: 1;
+        overflow: hidden;
+        position: static;
+        top: auto;
+        transition: max-height 0.5s;
+        width: auto;
+    }
+}
+
+.menu-list.sub-menu .menu-item:hover > .menu-list.sub-menu {
+    left: 100%;
+    top: 0;
+}
+
+.menu-item {
+    float: left;
+    position: relative;
+
+    .l-center & {
+        left: 50%;
+    }
+
+    .l-vertical & {
+        float: none;
+    }
+
+    .sub-menu & {
+        float: none;
+        left: auto;
+    }
+}
+
+.menu-item a {
+    display: block;
+    padding: remify(10 20, 16);
+}
+
+.menu-toggle {
+    background: none;
+    color: $accent;
+    height: 2.6875em;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+    text-indent: -999em;
+    top: 0;
+    width: 2.6875em;
+
+    &:hover {
+        background: none;
+        color: $accent;
+    }
+
+    &:before,
+    &:after {
+        background: currentColor;
+        content: "\0020";
+        display: block;
+        height: remify(4, 16);
+        position: absolute;
+        top: remify(20, 16);
+        transition: transform 0.15s;
+        width: remify(10, 16);
+    }
+
+    &:before {
+        left: remify(14, 16);
+        transform: rotate(45deg);
+    }
+
+    &:after {
+        right: remify(14, 16);
+        transform: rotate(-45deg);
+    }
+}

@@ -1,0 +1,21 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Hiders                                                                   *
+\* ------------------------------------------------------------------------ */
+
+.hide-s {
+    display: none !important;
+
+    &.inline {
+        display: none !important;
+    }
+}
+
+.show-s {
+    display: block !important;
+
+    &.inline {
+        display: inline-block !important;
+    }
+}

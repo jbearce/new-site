@@ -1,0 +1,32 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+@import "utilities/_screen";
+@import "views/_screen";
+
+@media screen and (min-width: $xxs-break) {
+    @import "views/_screen_xxs";
+}
+
+@media screen and (min-width: $xs-break) {
+    @import "views/_screen_xs";
+}
+
+@media screen and (min-width: $s-break) {
+    @import "views/_screen_s";
+}
+
+@media screen and (min-width: $m-break) {
+    @import "views/_screen_m";
+}
+
+@media screen and (min-width: $l-break) {
+    @import "views/_screen_l";
+}
+
+@media screen and (min-width: $xl-break) {
+    @import "views/_screen_xl";
+}
+
+@media screen and (min-width: $xxl-break) {
+    @import "views/_screen_xxl";
+}

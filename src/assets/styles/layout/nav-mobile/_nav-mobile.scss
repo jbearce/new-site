@@ -1,0 +1,21 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Mobile Navigation                                                        *
+\* ------------------------------------------------------------------------ */
+
+// wrapper
+
+.mobile-nav-wrapper {
+    bottom: 0;
+    font-size: 16px;
+    font-size: remify(16);
+    overflow: auto;
+    position: absolute;
+    right: 999em;
+    top: 999em;;
+    transition: right 0s 0.15s, top 0s 0.15s;
+    width: $mobile-nav-width + px;
+    width: remify($mobile-nav-width);
+    z-index: 1;
+}

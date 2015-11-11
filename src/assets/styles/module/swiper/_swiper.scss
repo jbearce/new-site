@@ -1,0 +1,19 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Swiper                                                                   *
+\* ------------------------------------------------------------------------ */
+
+// import base styles
+
+@import "_swiper-vendor";
+
+// custom styles
+
+.no-csstransforms .swiper-slide {
+    display: none;
+
+    &:first-child {
+        display: block;
+    }
+}

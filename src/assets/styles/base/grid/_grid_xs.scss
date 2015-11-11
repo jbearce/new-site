@@ -1,0 +1,293 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Grid                                                                     *
+\* ------------------------------------------------------------------------ */
+
+// full
+
+.grid-item.full-xs {
+    width: 100%;
+}
+
+// ones
+
+.grid-item.one-half-xs {
+    width: (100% / 2);
+}
+
+.grid-item.one-third-xs {
+    width: (100% / 3);
+}
+
+.grid-item.one-fourth-xs {
+    width: (100% / 4);
+}
+
+.grid-item.one-fifth-xs {
+    width: (100% / 5);
+}
+
+.grid-item.one-sixth-xs {
+    width: (100% / 6);
+}
+
+.grid-item.one-seventh-xs {
+    width: (100% / 7);
+}
+
+.grid-item.one-eighth-xs {
+    width: (100% / 8);
+}
+
+.grid-item.one-ninth-xs {
+    width: (100% / 9);
+}
+
+.grid-item.one-tenth-xs {
+    width: (100% / 10);
+}
+
+// twos
+
+.grid-item.two-half-xs,
+.grid-item.two-halfs-xs,
+.grid-item.two-halves-xs {
+    width: (100% / 3) * 2;
+}
+
+.grid-item.two-third-xs,
+.grid-item.two-thirds-xs {
+    width: (100% / 3) * 2;
+}
+
+.grid-item.two-fourth-xs,
+.grid-item.two-fourths-xs {
+    width: (100% / 4) * 2;
+}
+
+.grid-item.two-fifth-xs,
+.grid-item.two-fifths-xs {
+    width: (100% / 5) * 2;
+}
+
+.grid-item.two-sixth-xs,
+.grid-item.two-sixths-xs {
+    width: (100% / 6) * 2;
+}
+
+.grid-item.two-seventh-xs,
+.grid-item.two-sevenths-xs {
+    width: (100% / 7) * 2;
+}
+
+.grid-item.two-eighth-xs,
+.grid-item.two-eighths-xs {
+    width: (100% / 8) * 2;
+}
+
+.grid-item.two-ninth-xs,
+.grid-item.two-ninths-xs {
+    width: (100% / 9) * 2;
+}
+
+.grid-item.two-tenth-xs,
+.grid-item.two-tenths-xs {
+    width: (100% / 10) * 2;
+}
+
+// threes
+
+.grid-item.three-third-xs,
+.grid-item.three-thirds-xs {
+    width: (100% / 3) * 3;
+}
+
+.grid-item.three-fourth-xs,
+.grid-item.three-fourths-xs {
+    width: (100% / 4) * 3;
+}
+
+.grid-item.three-fifth-xs,
+.grid-item.three-fifths-xs {
+    width: (100% / 5) * 3;
+}
+
+.grid-item.three-sixth-xs,
+.grid-item.three-sixths-xs {
+    width: (100% / 6) * 3;
+}
+
+.grid-item.three-seventh-xs,
+.grid-item.three-sevenths-xs {
+    width: (100% / 7) * 3;
+}
+
+.grid-item.three-eighth-xs,
+.grid-item.three-eighths-xs {
+    width: (100% / 8) * 3;
+}
+
+.grid-item.three-ninth-xs,
+.grid-item.three-ninths-xs {
+    width: (100% / 9) * 3;
+}
+
+.grid-item.three-tenth-xs,
+.grid-item.three-tenths-xs {
+    width: (100% / 10) * 3;
+}
+
+// fours
+
+.grid-item.four-fourth-xs,
+.grid-item.four-fourths-xs {
+    width: (100% / 4) * 4;
+}
+
+.grid-item.four-fifth-xs,
+.grid-item.four-fifths-xs {
+    width: (100% / 5) * 4;
+}
+
+.grid-item.four-sixth-xs,
+.grid-item.four-sixths-xs {
+    width: (100% / 6) * 4;
+}
+
+.grid-item.four-seventh-xs,
+.grid-item.four-sevenths-xs {
+    width: (100% / 7) * 4;
+}
+
+.grid-item.four-eighth-xs,
+.grid-item.four-eighths-xs {
+    width: (100% / 8) * 4;
+}
+
+.grid-item.four-ninth-xs,
+.grid-item.four-ninths-xs {
+    width: (100% / 9) * 4;
+}
+
+.grid-item.four-tenth-xs,
+.grid-item.four-tenths-xs {
+    width: (100% / 10) * 4;
+}
+
+// fives
+
+.grid-item.five-fifth-xs,
+.grid-item.five-fifths-xs {
+    width: (100% / 5) * 5;
+}
+
+.grid-item.five-sixth-xs,
+.grid-item.five-sixths-xs {
+    width: (100% / 6) * 5;
+}
+
+.grid-item.five-seventh-xs,
+.grid-item.five-sevenths-xs {
+    width: (100% / 7) * 5;
+}
+
+.grid-item.five-eighth-xs,
+.grid-item.five-eighths-xs {
+    width: (100% / 8) * 5;
+}
+
+.grid-item.five-ninth-xs,
+.grid-item.five-ninths-xs {
+    width: (100% / 9) * 5;
+}
+
+.grid-item.five-tenth-xs,
+.grid-item.five-tenths-xs {
+    width: (100% / 10) * 5;
+}
+
+// sixes
+
+.grid-item.six-sixth-xs,
+.grid-item.six-sixths-xs {
+    width: (100% / 6) * 6;
+}
+
+.grid-item.six-seventh-xs,
+.grid-item.six-sevenths-xs {
+    width: (100% / 7) * 6;
+}
+
+.grid-item.six-eighth-xs,
+.grid-item.six-eighths-xs {
+    width: (100% / 8) * 6;
+}
+
+.grid-item.six-ninth-xs,
+.grid-item.six-ninths-xs {
+    width: (100% / 9) * 6;
+}
+
+.grid-item.six-tenth-xs,
+.grid-item.six-tenths-xs {
+    width: (100% / 10) * 6;
+}
+
+// sevens
+
+.grid-item.seven-seventh-xs,
+.grid-item.seven-sevenths-xs {
+    width: (100% / 7) * 7;
+}
+
+.grid-item.seven-eighth-xs,
+.grid-item.seven-eighths-xs {
+    width: (100% / 8) * 7;
+}
+
+.grid-item.seven-ninth-xs,
+.grid-item.seven-ninths-xs {
+    width: (100% / 9) * 7;
+}
+
+.grid-item.seven-tenth-xs,
+.grid-item.seven-tenths-xs {
+    width: (100% / 10) * 7;
+}
+
+// eights
+
+.grid-item.eight-eighth-xs,
+.grid-item.eight-eighths-xs {
+    width: (100% / 8) * 8;
+}
+
+.grid-item.eight-ninth-xs,
+.grid-item.eight-ninths-xs {
+    width: (100% / 9) * 8;
+}
+
+.grid-item.eight-tenth-xs,
+.grid-item.eight-tenths-xs {
+    width: (100% / 10) * 8;
+}
+
+// nines
+
+.grid-item.nine-ninth-xs,
+.grid-item.nine-ninths-xs {
+    width: (100% / 9) * 9;
+}
+
+.grid-item.nine-tenth-xs,
+.grid-item.nine-tenths-xs {
+    width: (100% / 10) * 9;
+}
+
+// tens
+
+.grid-item.ten-tenth-xs,
+.grid-item.ten-tenths-xs {
+    width: (100% / 10) * 10;
+}
