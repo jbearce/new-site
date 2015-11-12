@@ -14,4 +14,13 @@
     transition: box-shadow 0.15s, left 0.15s;
     width: 100%;
     z-index: 2;
+    
+    .is-navopen & {
+        box-shadow: remify(0 0 10, 16) black(0.5);
+        height: 100%;
+        left: - $mobile-nav-width + px;
+        left: - remify($mobile-nav-width);
+        overflow: hidden;
+        width: 100%;
+    }
 }

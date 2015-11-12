@@ -39,7 +39,7 @@
     transition: box-shadow 0.15s 0.15s, top 0.15s 0.15s, transform 0.15s;
     width: remify(20, 16);
 
-    .navopen & {
+    .is-navopen & {
         transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
     }
 }
@@ -48,7 +48,7 @@
     box-shadow: remify(0 8 0 0, 16) currentColor;
     top: remify(-16, 16);
 
-    .navopen & {
+    .is-navopen & {
         box-shadow: 0 0 0 0 transparent;
         transform: rotate(45deg);
         top: 0;
@@ -58,7 +58,7 @@
 .menu-button:after {
     top: remify(16, 16);
 
-    .navopen & {
+    .is-navopen & {
         transform: rotate(-45deg);
         top: 0;
     }

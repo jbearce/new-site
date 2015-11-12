@@ -58,6 +58,12 @@
         transition: max-height 0.5s;
         width: auto;
     }
+    
+    .l-vertical .menu-item.is-open > &,
+    .l-vertical .menu-item.is-open:hover > & {
+        max-height: remify(1000, 16);
+        transition: max-height 1s;
+    }
 }
 
 .menu-list.sub-menu .menu-item:hover > .menu-list.sub-menu {
@@ -120,10 +126,18 @@
     &:before {
         left: remify(14, 16);
         transform: rotate(45deg);
+        
+        .menu-item.is-open > & {
+            transform: rotate(-45deg);
+        }
     }
 
     &:after {
         right: remify(14, 16);
         transform: rotate(-45deg);
+        
+        .menu-item.is-open > & {
+            transform: rotate(45deg);
+        }
     }
 }

@@ -18,4 +18,10 @@
     width: $mobile-nav-width + px;
     width: remify($mobile-nav-width);
     z-index: 1;
+    
+    .is-navopen & {
+        right: 0;
+        transition: none;
+        top: 0;
+    }
 }

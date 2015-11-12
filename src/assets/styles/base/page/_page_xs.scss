@@ -1,13 +1,11 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Mobile Navigation                                                        *
+ * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-// wrapper
-
-.is-navopen .mobile-nav-wrapper {
-    right: 0;
-    transition: none;
-    top: 0;
+html.is-navopen,
+.is-navopen body {
+    height: auto;
+    width: auto;
 }

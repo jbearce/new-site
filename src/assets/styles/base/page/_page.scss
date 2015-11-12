@@ -19,6 +19,13 @@ body {
     background: $background;
 }
 
+html.is-navopen,
+.is-navopen body {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
 // IE snap fix
 
 @-ms-viewport {
