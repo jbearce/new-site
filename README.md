@@ -24,11 +24,11 @@ A number of pre-built modules are included, including:
 
 Clearly organized code following a set of guidelines means anyone can jump in!
 
-<small>PS: I'm not SMACSS expert, but it's as close as I can get for now >.>;</small>
+*PS: I'm not SMACSS expert, but it's as close as I can get for now&hellip;*
 
 **Fast!**
 
-Lots of compression, efficient code, and FontAwesome integration means a leightweight, lean framework.
+Lots of compression, efficient code, and FontAwesome integration means a lightweight, lean framework.
 
 **Documented!**
 
@@ -36,22 +36,16 @@ Check out [CONTRIBUTING.md](CONTRIBUTING.md) for information on setting up, orga
 
 ## Planned
 
-**Partially synced assets with [new-site-static](https://github.com/revxx14/new-site-static)**
-
-I'd like to keep as much code as possible shared between my WordPress framework and my static framework. This may end up being a sub-module, new-site-assets, where I add `/src/assets/captcha/` to `.gitignore` in new-site. This requires more thought and research before officially syncing the two.
-
-**Improved Documentation**
-
-I don't think I'm going to build out a wiki or anything, but I need to add inline documentation explaining what my code does.
-
 **More Modules**
 
 I need to add in more modules, things like:
 
- - A better search form
- - A gallery system
  - Breadcrumb navigation
  - Improved responsive tables
  - Light windows
  - Social media icons
  - More stuff as it comes up
+
+**More use of the grid system**
+
+Right now nothing's using the grid system by default. I should really try to avoid using custom grids wherever possible, and instead rely on the grid system.
