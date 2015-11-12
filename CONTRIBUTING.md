@@ -115,13 +115,9 @@ These `_screen_*.scss` files then get included in their matching breakpoint in `
 
 The `user-content` folder contains styles for raw HTML elements (i.e. `h1`, `h2`, `p`, `ul`, `table`) contained within an element with the class `.user-content`. To prevent conflicts, no element should be styled without a class.
 
+The `content` folder contains styles for headings, forms, standard text, etc, in the format of `.hdg.hdg1`, `.input.inputtext`, `.txt.txtp`.
+
 The column framework is contained in `/src/assets/grid/`. These files shouldn't need to be edited, but you can view them to get an understanding of how the system works. Up to ten columns are supported, in any combination, and at any breakpoint. You can change to a certain number of columns at different breakpoints by using classes like `.grid-item.one-third-s`, `.grid-item.six-sevenths-xl`, etc.
-
-The `text` folder contains styles for various text classes. There are two main classes, `.hdg` for headings and `.txt` for standard text elements. There are then specific classes for each type of element, like `.hdg-1`, `.hdg-2`, `.hdg-3`, `.txt-p`, `.txt-ul`, `.txt-table`.
-
-Similarly, `forms` contains styles for various form elements. There's a general `.input` class, with more specific classes for each type of input, such as `.input-search`, `.input-text`, `.input-password`, etc.
-
-<small>*Note: My `base` styles are currently undergoing a rework, so these notes may not corresponding to the actual state of the folder*</small>
 
 ##### Modules
 
