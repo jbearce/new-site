@@ -36,21 +36,21 @@
 }
 
 .meta-list li.comments:before {
-    @include icon("fontawesome", "comment");
+    @include icon("comment");
 }
 
 .meta-list li.categories:before {
-    @include icon("fontawesome", "folder");
+    @include icon("folder");
 }
 
 .meta-list li.tags:before {
-    @include icon("fontawesome", "tag");
+    @include icon("tag");
 }
 
 .meta-list li.time:before {
-    @include icon("fontawesome", "clock-o");
+    @include icon("clock-o");
 }
 
 .meta-list li.url:before {
-    @include icon("fontawesome", "globe");
+    @include icon("globe");
 }

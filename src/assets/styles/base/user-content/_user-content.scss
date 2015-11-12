@@ -291,11 +291,11 @@
 }
 
 .user-content input[type=checkbox]:checked + label:before {
-    @include icon("fontawesome", "check");
+    @include icon("check");
 }
 
 .user-content input[type=radio]:checked + label:before {
-    @include icon("fontawesome", "circle");
+    @include icon("circle");
 }
 
 /* -------------- *\
@@ -340,7 +340,7 @@
 }
 
 .user-content .select:before {
-    @include icon("fontawesome", "sort");
+    @include icon("sort");
 
     color: $background;
     display: block;

@@ -86,11 +86,6 @@
 
 // icons
 
-@mixin icon($font: "fontawesome", $icon: null) {
-    @if $font == "fontawesome" {
-        content: map-get($fa-icons, $icon);
-    } @elseif $font == "dashicons" {
-        content: map-get($di-icons, $icon);
-    }
-    font-family: $font;
+@mixin icon($icon: null) {
+    content: map-get($fa-icons, $icon);
 }
