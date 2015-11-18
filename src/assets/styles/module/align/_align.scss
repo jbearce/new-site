@@ -4,17 +4,9 @@
  * Align                                                                    *
 \* ------------------------------------------------------------------------ */
 
-.aligncenter {
-    display: block;
-    margin: 0 auto remify(60, 16);
-}
-
-.alignleft {
-    float: left;
-    margin: remify(0 60 60 0, 16);
-}
-
+.aligncenter,
+.alignleft,
 .alignright {
-    float: right;
-    margin: remify(0 0 60 60, 16);
+    display: block;
+    margin: 0 auto remify(30, 16);
 }

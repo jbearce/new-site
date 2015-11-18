@@ -5,17 +5,15 @@
 \* ------------------------------------------------------------------------ */
 
 .aligncenter {
-    margin-bottom: remify(30, 16);
+    margin: 0 auto remify(30, 16);
 }
 
 .alignleft {
-    display: block;
-    float: none;
-    margin: 0 auto remify(30, 16);
+    float: left;
+    margin: remify(0 30 30 0, 16);
 }
 
 .alignright {
-    display: block;
-    float: none;
-    margin: 0 auto remify(30, 16);
+    float: right;
+    margin: remify(0 0 30 30, 16);
 }
