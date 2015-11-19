@@ -25,7 +25,7 @@
         <link href="<? bloginfo("template_directory"); ?>/assets/styles/legacy.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
         <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/html5shiv.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
         <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/nwmatcher-1.3.4.min.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
-        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/selectivizr-1.0.2.min.js" type="text/javascript@@if (context.version) {?v=@@version}"></script>
+        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/selectivizr-1.0.2.min.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
         <![endif]-->
         <!-- end html5 fallback -->
         <!-- SEO -->
