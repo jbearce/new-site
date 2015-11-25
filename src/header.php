@@ -7,7 +7,7 @@
         <meta content="no" name="msapplication-tap-highlight" />
         <!-- end settings -->
         <!-- branding -->
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
         <link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
         <link href="<? bloginfo("template_directory"); ?>/assets/styles/modern.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
         <link href="<? bloginfo("template_directory"); ?>/assets/media/logo-ios.png@@if (context.version) {?v=@@version}" rel="apple-touch-icon" />
