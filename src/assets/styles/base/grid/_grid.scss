@@ -15,6 +15,7 @@
     display: inline-block;
     padding-left: $grid-gutter + px;
     padding-left: remify($grid-gutter);
+    vertical-align: top;
     width: (100% / 1);
 }
 
