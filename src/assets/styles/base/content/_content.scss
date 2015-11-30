@@ -1,46 +1,416 @@
 // Styles written by Jacob Bearce | jacob@bearce.me
 
 /* ------------------------------------------------------------------------ *\
- * Content                                                                  *
+ * User Content                                                             *
 \* ------------------------------------------------------------------------ */
 
-.hdg {
+/* -------------- *\
+ * Universal      *
+\* -------------- */
+
+a {
+    color: $accent;
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+        color: $accent_alt;
+    }
+}
+
+/* -------------- *\
+ * Headers        *
+\* -------------- */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $accent;
     font-family: $heading-font;
 }
 
-.hdg.hdg1 {
+h1 {
+    font-size: 28px;
+    font-size: remify(28);
+    margin: remify(0 0 16, 28);
 }
 
-.hdg.hdg2 {
+h2 {
+    font-size: 26px;
+    font-size: remify(26);
+    margin: remify(0 0 16, 26);
 }
 
-.hdg.hdg3 {
+h3 {
+    font-size: 24px;
+    font-size: remify(24);
+    margin: remify(0 0 16, 24);
 }
 
-.hdg.hdg4 {
+h4 {
+    font-size: 22px;
+    font-size: remify(22);
+    margin: remify(0 0 16, 22);
 }
 
-.hdg.hdg5 {
+h5 {
+    font-size: 20px;
+    font-size: remify(20);
+    margin: remify(0 0 16, 20);
 }
 
-.hdg.hdg6 {
+h6 {
+    font-size: 18px;
+    font-size: remify(18);
+    margin: remify(0 0 8, 18);
 }
 
-.txt {
+/* -------------- *\
+ * General Text   *
+\* -------------- */
+
+menu,
+ol,
+p,
+table,
+ul {
+    color: $foreground;
     font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    line-height: remify(24, 16);
+    margin: remify(0 0 24, 16);
 }
 
-.txt.txtmenu {
+/* -------------- *\
+ * Lists          *
+\* -------------- */
+
+menu,
+ol,
+ul {
+    padding: remify(0 0 0 24, 16);
+
+    menu,
+    ol,
+    ul {
+		margin-bottom: 0;
+    }
 }
 
-.txt.txtol {
+/* -------------- *\
+ * Tables         *
+\* -------------- */
+
+table {
+    display: block;
+    overflow: auto;
+    padding-bottom: 1px;
+    padding-bottom: remify(1, 16);
+    table-layout: fixed;
+    width: 100%;
+    // iOS fix
+    -webkit-overflow-scrolling: touch;
 }
 
-.txt.txtp {
+table td,
+table th {
+    padding: remify(4 6, 16);
+    vertical-align: top;
 }
 
-.txt.txttable {
+
+table thead td,
+table th {
+    font-weight: 700;
+    text-align: left;
 }
 
-.txt.txtul {
+table thead td,
+table thead th {
+    background: $accent;
+    color: #FFF;
+}
+
+table tfoot td,
+table tfoot th {
+    font-style: italic;
+}
+
+table tr:nth-child(even) td,
+table tr:nth-child(even) th {
+    background: $background_alt;
+}
+
+/* -------------- *\
+ * Blocks of Text *
+\* -------------- */
+
+pre {
+    background: $foreground_alt;
+    border: 1px solid $foreground;
+    color: $background;
+    display: block;
+    font-family: monospace;
+    font-size: 16px;
+    font-size: remify(16);
+    margin: remify(0 0 24, 16);
+    padding: remify(20 24, 16);
+    width: 100%;
+}
+
+blockquote {
+    border-left: 5px solid $accent;
+    margin: 0 0 24px;
+    margin-bottom: remify(24);
+    padding: 0 0 0 24px;
+    padding-left: remify(24);
+}
+
+/* -------------- *\
+ * HRs            *
+\* -------------- */
+
+hr {
+    border: 0;
+    border-bottom: 1px solid $accent;
+    margin: 0 0 24px;
+    margin-bottom: remify(24);
+}
+
+/* -------------- *\
+ * Images         *
+\* -------------- */
+
+img {
+    height: auto !important;
+    max-width: 100%;
+}
+
+/* -------------- *\
+ * General Forms  *
+\* -------------- */
+
+input,
+.select,
+select,
+textarea {
+    color: $foreground;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    line-height: remify(24, 16);
+}
+
+/* -------------- *\
+ * Buttons        *
+\* -------------- */
+
+button,
+input[type=button],
+input[type=reset],
+input[type=submit] {
+	background: $accent;
+	border: 0;
+    color: $background;
+	display: inline-block;
+    font-family: $body-font;
+    font-size: 16px;
+    font-size: remify(16);
+    font-weight: 700;
+    margin: remify(0 0 10, 16);
+    padding: remify(6 10, 16);
+    text-transform: uppercase;
+	transition: background 0.15s, color 0.15s;
+
+    &:hover {
+        background: $accent_alt;
+        color: $background;
+    }
+}
+
+/* -------------- *\
+ * Checkbox/Radio *
+\* -------------- */
+
+input[type=checkbox],
+input[type=radio] {
+	left: -999em;
+	position: absolute;
+
+    & + label {
+        position: relative;
+        padding: remify(9 0 11 52, 16);
+
+        &:before {
+            background: $background;
+            border: 1px solid $accent;
+            border-width: remify(1);
+            color: $accent;
+            content: "\0020";
+            display: block;
+            float: left;
+            font-size: remify(25, 16);
+            height: remify(44, 25);
+            left: 0;
+            line-height: remify(41, 25);
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: remify(44, 25);
+
+            // webkit focus rings to emulate checkbox/radio
+            .-webkit- &:active,
+            .-webkit- &:focus {
+                outline: -webkit-focus-ring-color auto 5px;
+            }
+
+            // trident focus rings to emulate checkbox/radio
+            .-ms- &:active,
+            .-ms- &:focus {
+                outline: #808080 dashed 1px;
+            }
+        }
+    }
+
+    &:focus + label:before,
+    &:focus + label:before {
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+
+    &[disabled] + label:before {
+        background: $background_alt;
+    }
+}
+
+input[type=radio] + label:before {
+    border-radius: 50%;
+}
+
+input[type=checkbox]:checked + label:before {
+    @include icon("check");
+}
+
+input[type=radio]:checked + label:before {
+    @include icon("circle");
+}
+
+/* -------------- *\
+ * Inputs         *
+\* -------------- */
+
+input[type=color],
+input[type=date],
+input[type=datetime],
+input[type=datetime-local],
+input[type=email],
+input[type=month],
+input[type=number],
+input[type=password],
+input[type=range],
+input[type=search],
+input[type=tel],
+input[type=text],
+input[type=time],
+input[type=url],
+input[type=week],
+.select,
+textarea {
+	background: $background;
+    border: 1px solid $accent;
+	box-sizing: border-box;
+	display: block;
+    margin: remify(0 0 10, 16);
+	outline: none;
+    padding: remify(8 16, 16);
+	text-overflow: ellipsis;
+	width: 100%;
+}
+
+/* -------------- *\
+ * Selects        *
+\* -------------- */
+
+.select {
+	padding: 0;
+    position: relative;
+}
+
+.select:before {
+    @include icon("sort");
+
+    color: $background;
+    display: block;
+    font-size: remify(24, 16);
+    line-height: normal;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: remify(42, 24);
+    z-index: 2;
+}
+
+.select:after {
+    background: $accent;
+    bottom: 0;
+    content: "\0020";
+    display: block;
+    font-size: remify(24, 16);
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: remify(42, 24);
+    z-index: 1;
+}
+
+.select select {
+    background: none;
+    border: 0;
+    display: block;
+    margin: 0;
+    outline: none;
+    padding: remify(9 54 11 12, 16);
+    width: 100%;
+    // gecko fix
+    text-indent: 0.01px;
+    text-overflow: "";
+    -moz-appearance: none;
+    // webkit fix
+    -webkit-appearance: none;
+    // trident fix
+    &::-ms-expand {
+        display: none;
+    }
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+// fix for inconsistancies accross browsers
+
+.select option {
+    background: #FFF;
+    color: #000;
+
+    &:hover {
+        background: #DDD;
+    }
+}
+
+/* -------------- *\
+ * Textareas      *
+\* -------------- */
+
+textarea {
+	max-width: 100%;
+    min-height: remify(100, 16);
+	min-width: 100%;
 }

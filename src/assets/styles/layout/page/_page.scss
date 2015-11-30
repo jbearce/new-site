@@ -4,6 +4,28 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
+html,
+body {
+    width: 100%;
+}
+
+html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+body {
+    background: $background;
+}
+
+html.is-navopen,
+.is-navopen body {
+    height: 100%;
+    overflow: hidden;
+    width: 100%;
+}
+
 .page-wrapper {
     background: $background;
     font-size: 16px;
@@ -23,4 +45,10 @@
         overflow: hidden;
         width: 100%;
     }
+}
+
+// IE snap fix
+
+@-ms-viewport {
+    width: device-width;
 }

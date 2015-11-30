@@ -4,7 +4,15 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-.is-navopen .page-wrapper {
-    box-shadow: none;
-    left: auto;
+html.is-navopen,
+.is-navopen body {
+    height: auto;
+    width: auto;
+}
+
+.page-wrapper {
+    .is-navopen & {
+        box-shadow: none;
+        left: auto;
+    }
 }
