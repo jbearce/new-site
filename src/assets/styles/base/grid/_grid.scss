@@ -7,6 +7,10 @@
 .grid {
     margin-left: - $grid-gutter + px;
     margin-left: - remify($grid-gutter);
+
+    &.no-gutter {
+        margin-left: 0;
+    }
 }
 
 // basic
@@ -17,6 +21,10 @@
     padding-left: remify($grid-gutter);
     vertical-align: top;
     width: (100% / 1);
+
+    .grid.no-gutter > & {
+        padding-left: 0;
+    }
 }
 
 // full
