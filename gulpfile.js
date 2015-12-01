@@ -1,5 +1,3 @@
-"use strict";
-
 var gulp = require("gulp"),
     json = require("json-file"),
 
@@ -8,7 +6,7 @@ var gulp = require("gulp"),
     themeDescription = json.read("./package.json").get("description"),
     themeRepository = json.read("./package.json").get("repository"),
     themeLicense = json.read("./package.json").get("license"),
-    themeColor = "#1664A7",
+    themeColor = "#73233C",
 
     devHost = json.read("./ftp.json").get("dev.host"),
     devUser = json.read("./ftp.json").get("dev.user"),
@@ -46,15 +44,11 @@ gulp.task("clean", function() {
 gulp.task("styles", function () {
     return gulp.src(["./src/assets/styles/modern.scss", "./src/assets/styles/legacy.scss"])
         // compile SASS
-        .pipe(sourcemaps.init())
         .pipe(sass({outputStyle: "expanded"}).on("error", sass.logError))
-        .pipe(sourcemaps.write())
         .pipe(gulp.dest("./dev/assets/styles/"))
 
         // autoprefix
-        .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
-        .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest("./dev/assets/styles/"))
 });
 
@@ -67,9 +61,7 @@ gulp.task("scripts", function () {
 
     // concat
     var concattedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
-        .pipe(sourcemaps.init())
         .pipe(concat("all.js"))
-        .pipe(sourcemaps.write("./"))
         .pipe(gulp.dest("./dev/assets/scripts/"))
 
     // copy fallbacks
@@ -121,11 +113,11 @@ gulp.task("dist", function () {
         .pipe(gulp.dest("./dist/assets/scripts/"))
 
     // copy compressed media
-    gulp.src("./dev/assets/media/*")
+    gulp.src("./dev/assets/media/**/*")
         .pipe(gulp.dest("./dist/assets/media/"))
 
     // copy PHP
-    gulp.src(["!./dev/assets", "./dev/**/*"])
+    gulp.src(["!./dev/assets", "!./dev/assets/**/*", "./dev/**/*"])
         .pipe(gulp.dest("./dist/"))
 });
 
