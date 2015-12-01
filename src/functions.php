@@ -125,11 +125,16 @@ class SMACSSwalker extends Walker_Nav_Menu {
 		}
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
+        $target = "";
+        if ($item->target) {
+            $target = " target='_blank'";
+        }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a href='%s'>%s</a>",
+            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,
+            $target,
             $item->title
         );
         self::$li_count++;
@@ -156,11 +161,16 @@ class mobileSMACSSwalker extends Walker_Nav_Menu {
 		}
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
+        $target = "";
+        if ($item->target) {
+            $target = " target='_blank'";
+        }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a href='%s'>%s</a>",
+            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,
+            $target,
             $item->title
         );
         self::$li_count++;
