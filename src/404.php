@@ -1,7 +1,7 @@
 <? get_header(); ?>
             <div class="content-wrapper">
                 <main class="content">
-                    <div class="post">
+                    <div class="content-post">
                         <article>
                             <header>
                                 <h1 class="hdg hdg1">404: Page Not Found</h1>
@@ -10,7 +10,7 @@
                                 <p>This page could not be found. It may have been moved or deleted.</p>
                             </div><!--/.user-content-->
                         </article>
-                    </div><!--/.post-->
+                    </div><!--/.content-post-->
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
 <? get_footer(); ?>

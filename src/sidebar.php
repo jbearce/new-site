@@ -1,4 +1,4 @@
-<div class="sidebar">
+<div class="content-sidebar">
     <?
     if (is_page() || is_single()) {
         if (have_rows("gallery")) {
@@ -82,4 +82,4 @@
         echo "</div>";
     }
     ?>
-</div><!--/.sidebar-->
+</div><!--/.content-sidebar-->

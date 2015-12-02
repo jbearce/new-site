@@ -22,7 +22,7 @@ if (get_option("show_on_front") != "page") {
             ?>
             <div class="content-wrapper">
                 <main class="content">
-                    <div class="post">
+                    <div class="content-post">
                         <?
                         if (have_posts()) {
                             while (have_posts()) {
@@ -44,7 +44,7 @@ if (get_option("show_on_front") != "page") {
                             }
                         }
                         ?>
-                    </div><!--/.post-->
+                    </div><!--/.content-post-->
                     <? get_sidebar(); ?>
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->

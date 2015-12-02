@@ -1,7 +1,7 @@
 <? get_header(); ?>
             <div class="content-wrapper">
                 <main class="content">
-                    <div class="post">
+                    <div class="content-post">
                         <?
                         ob_start();
                         wp_nav_menu(array(
@@ -37,7 +37,7 @@
                             }
                         }
                         ?>
-                    </div><!--/.post-->
+                    </div><!--/.content-post-->
                     <? get_sidebar(); ?>
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->

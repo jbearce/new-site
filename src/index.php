@@ -1,7 +1,7 @@
 <? get_header(); ?>
             <div class="content-wrapper">
                 <main class="content">
-                    <div class="post">
+                    <div class="content-post">
                         <?
                         if (is_attachment()) {
                             echo "<article>";
@@ -27,7 +27,7 @@
                             echo "</article>";
                         }
                         ?>
-                    </div><!--/.post-->
+                    </div><!--/.content-post-->
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
 <? get_footer(); ?>

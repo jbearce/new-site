@@ -1,7 +1,7 @@
 <? get_header(); ?>
             <div class="content-wrapper">
                 <main class="content">
-                    <div class="post">
+                    <div class="content-post">
                         <?
                         if (get_option("show_on_front") == "page") {
                             $home_title = get_the_title(get_option("page_for_posts"));
@@ -59,7 +59,7 @@
                             echo "</p></footer>";
                         }
                         ?>
-                    </div><!--/.post-->
+                    </div><!--/.content-post-->
                     <? get_sidebar(); ?>
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->

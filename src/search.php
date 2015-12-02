@@ -1,7 +1,7 @@
 <? get_header(); ?>
             <div class="content-wrapper">
                 <main class="content">
-                    <div class="post">
+                    <div class="content-post">
                         <form class="search-form" action="<? echo home_url(); ?>" method="get">
                             <label class="search-label" for="s">Search for:</label>
                             <input class="search-input" name="s" title="Search for:" type="search" value="<? the_search_query(); ?>" />
@@ -47,7 +47,7 @@
                             echo "</p></footer>";
                         }
                         ?>
-                    </div><!--/.post-->
+                    </div><!--/.content-post-->
                     <? get_sidebar(); ?>
                 </main><!--/.content-->
             </div><!--/.content-wrapper-->
