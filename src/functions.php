@@ -47,10 +47,10 @@ if (function_exists("register_sidebar")) {
 	register_sidebar(array(
 		"id"			=> "sidebar",
 		"name" 			=> "Sidebar",
-		"before_widget" => "<section class='widget'>",
-		"before_title" 	=> "<header><h6>",
+		"before_widget" => "<div class='widget'>",
+		"before_title" 	=> "<header class='widget-header'><h6 class='widget-title'>",
 		"after_title" 	=> "</h6></header>",
-		"after_widget" 	=> "</section><!--/.widget-->",
+		"after_widget" 	=> "</div>",
 	));
 }
 
