@@ -88,4 +88,5 @@
 
 @mixin icon($icon: null) {
     content: map-get($fa-icons, $icon);
+    font-family: "fontawesome";
 }
