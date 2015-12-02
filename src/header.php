@@ -44,17 +44,17 @@
         <![endif]-->
         <div class="mobile-nav-wrapper hide-xs">
             <section class="mobile-nav">
-                <nav class="menu-wrapper">
+                <nav class="menu-wrapper l-vertical">
                     <?
                     wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
-                        "items_wrap"	 => "<ul class='menu-list l-vertical'>%3\$s</ul>",
+                        "items_wrap"	 => "<ul class='menu-list'>%3\$s</ul>",
                         "theme_location" => "primary",
                         "walker"         => new mobileSMACSSwalker(),
                     ));
                     ?>
-                </nav><!--/.menu-wrapper-->
+                </nav><!--/.menu-wrapper.l-vertical-->
             </section><!--/.mobile-nav-->
         </div><!--/.mobile-nav-wrapper-->
         <div class="page-wrapper">

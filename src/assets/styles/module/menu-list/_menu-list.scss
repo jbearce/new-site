@@ -19,12 +19,12 @@
     position: relative;
     text-align: center;
 
-    &.l-center {
+    .l-center & {
         float: right;
         right: 50%;
     }
 
-    &.l-vertical {
+    .l-vertical & {
         text-align: left;
     }
 }
