@@ -178,7 +178,7 @@ Names should be consistent with their parent modules name. For example, if you w
             <h6 class="widget-title">Demo Widget</h6>
         </div><!--/.widget-header-->
         <div class="widget-content">
-            <p class="widget-text txt txt-p">Quisque et est eros. Sed quis dignissim leo. Sed sed porta ex. Maecenas ac tellus massa. Phasellus rutrum ex rhoncus, pretium lectus vel, hendrerit dui. Ut faucibus faucibus eros ut luctus. Curabitur magna elit, dapibus in lobortis ac, faucibus ac mi. Integer aliquet dui at sagittis efficitur.</p>
+            <p class="widget-text">Quisque et est eros. Sed quis dignissim leo. Sed sed porta ex. Maecenas ac tellus massa. Phasellus rutrum ex rhoncus, pretium lectus vel, hendrerit dui. Ut faucibus faucibus eros ut luctus. Curabitur magna elit, dapibus in lobortis ac, faucibus ac mi. Integer aliquet dui at sagittis efficitur.</p>
         </div><!--/.widget-content-->
     </div><!--/.widget-->
 

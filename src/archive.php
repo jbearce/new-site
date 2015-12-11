@@ -60,7 +60,7 @@
                         ?>
                         <?
                         if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
-                            echo "<footer><p class='txt txtp' style='overflow:hidden;'>";
+                            echo "<footer><p style='overflow:hidden;'>";
                             if (get_adjacent_post(false, "", false)) {
                                 previous_posts_link("<span style='float:left;'>&larr; Previous Page</span>");
                             }

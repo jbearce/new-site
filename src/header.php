@@ -38,7 +38,7 @@
         <!--[if lt IE 10]>
         <div class="ie-warning-wrapper">
             <div class="ie-warning">
-                <p class="txt txtp"><i class="fa fa-exclamation-circle"></i> It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher. <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank">Click here to learn about upgrading.</a></p>
+                <p><i class="fa fa-exclamation-circle"></i> It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher. <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank">Click here to learn about upgrading.</a></p>
             </div>
         </div>
         <![endif]-->

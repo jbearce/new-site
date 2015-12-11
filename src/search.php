@@ -32,7 +32,7 @@
 
                             }
                         } else {
-                            echo "<p class='txt txtp'>No results found for <strong>" . get_search_query() . "</strong>.</p>";
+                            echo "<p>No results found for <strong>" . get_search_query() . "</strong>.</p>";
                         }
                         ?>
                         <?
