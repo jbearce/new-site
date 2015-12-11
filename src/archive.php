@@ -6,13 +6,13 @@
                             <?
                             $term = get_queried_object();
                             if (is_category()) {
-                                echo "<h1 class='hdg hdg1'>" . single_cat_title("", false) . "</h1>";
+                                echo "<h1>" . single_cat_title("", false) . "</h1>";
                             } elseif (is_tag()) {
-                                echo "<h1 class='hdg hdg1'>" . single_tag_title("", false) . "</h1>";
+                                echo "<h1>" . single_tag_title("", false) . "</h1>";
                             } elseif (is_tax() && $term->name) {
-                                echo "<h1 class='hdg hdg1'>" . $term->name . "</h1>";
+                                echo "<h1>" . $term->name . "</h1>";
                             } else {
-                                echo "<h1 class='hdg hdg1'>" . get_the_time("F, Y") . " Archive</h1>";
+                                echo "<h1>" . get_the_time("F, Y") . " Archive</h1>";
                             }
                             ?>
                             <?
@@ -31,7 +31,7 @@
                                     echo "<div class='mini-article-content'>";
                                 }
                                 echo "<header>";
-                                echo "<h2 class='hdg hdg2'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
                                 if (get_post_type() == "post") {
                                     echo "<ul class='meta-list'>";
                                     echo "<li class='time'><a href='" . get_the_permalink() . "'>" . get_the_date() . "</a></li>";

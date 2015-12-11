@@ -113,9 +113,9 @@ These `_screen_*.scss` files then get included in their matching breakpoint in `
 
 `normalize` uses the excellent [Normalize project](https://github.com/necolas/normalize.css) to standardize code between browsers. This shouldn't need to be modified, but if it does, put your custom styles in `_normalize`, and leave `_normalize-vendor` as is.
 
-The `user-content` folder contains styles for raw HTML elements (i.e. `h1`, `h2`, `p`, `ul`, `table`) contained within an element with the class `.user-content`. To prevent conflicts, no element should be styled without a class.
+The `user-content` folder contains styles for raw HTML elements (i.e. `h1`, `h2`, `p`, `ul`, `table`) contained within an element with the class `.user-content`. This can be used to apply different styles to something if a user entered the content.
 
-The `content` folder contains styles for headings, forms, standard text, etc, in the format of `.hdg.hdg1`, `.input.inputtext`, `.txt.txtp`.
+The `content` folder contains default styles for headings, forms, standard text, etc.
 
 The column framework is contained in `/src/assets/grid/`. These files shouldn't need to be edited, but you can view them to get an understanding of how the system works. Up to ten columns are supported, in any combination, and at any breakpoint. You can change to a certain number of columns at different breakpoints by using classes like `.grid-item.one-third-s`, `.grid-item.six-sevenths-xl`, etc.
 
@@ -175,7 +175,7 @@ Names should be consistent with their parent modules name. For example, if you w
 
     <div class="widget">
         <div class="widget-header">
-            <h6 class="widget-title hdg hdg-6">Demo Widget</h6>
+            <h6 class="widget-title">Demo Widget</h6>
         </div><!--/.widget-header-->
         <div class="widget-content">
             <p class="widget-text txt txt-p">Quisque et est eros. Sed quis dignissim leo. Sed sed porta ex. Maecenas ac tellus massa. Phasellus rutrum ex rhoncus, pretium lectus vel, hendrerit dui. Ut faucibus faucibus eros ut luctus. Curabitur magna elit, dapibus in lobortis ac, faucibus ac mi. Integer aliquet dui at sagittis efficitur.</p>

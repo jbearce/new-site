@@ -31,7 +31,7 @@ if (get_option("show_on_front") != "page") {
                                 if (has_post_thumbnail($id)) {
                                     echo "<figure>" . get_the_post_thumbnail($id, "large") . "</figure>";
                                 }
-                                echo "<header><h1 class='hdg hdg1'>". get_bloginfo("description") . "</h1></header>";
+                                echo "<header><h1>". get_bloginfo("description") . "</h1></header>";
                                 echo "<div class='user-content'>";
                                 the_content();
                                 echo "</div>";

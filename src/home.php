@@ -8,7 +8,7 @@
                         } else {
                             $home_title = "Blog";
                         }
-                        echo "<header><h1 class='hdg hdg1'>{$home_title}</h1></header>";
+                        echo "<header><h1>{$home_title}</h1></header>";
                         ?>
                         <?
                         if (have_posts()) {
@@ -20,7 +20,7 @@
                                     echo "<div class='mini-article-content'>";
                                 }
                                 echo "<header>";
-                                echo "<h2 class='hdg hdg2'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
                                 if (get_post_type() == "post") {
                                     echo "<ul class='meta-list'>";
                                     echo "<li class='time'><a href='" . get_the_permalink() . "'>" . get_the_date() . "</a></li>";

@@ -17,7 +17,7 @@
                                     echo "<div class='mini-article-content'>";
                                 }
                                 echo "<header>";
-                                echo "<h2 class='hdg hdg2'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
                                 echo "<ul class='meta-list'>";
                                 echo "<li class='url'><a href='" . get_the_permalink() . "'>" . str_replace("http://", "", get_the_permalink()) . "</a></li>";
                                 echo "</ul>";

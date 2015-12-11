@@ -24,7 +24,7 @@
                                 if (has_post_thumbnail($id)) {
                                     echo "<figure class='featured-image'>" . get_the_post_thumbnail($id, "large") . "</figure>";
                                 }
-                                the_title("<header><h1 class='hdg hdg1'>", "</h1></header>");
+                                the_title("<header><h1>", "</h1></header>");
                                 echo "<div class='user-content'>";
                                 the_content();
                                 echo "</div>";

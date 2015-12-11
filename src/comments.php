@@ -7,7 +7,7 @@ if (post_password_required()) {
 }
 ?>
 <? if (have_comments()): ?>
-    <h3 class='hdg hdg3' id="comments"><? printf(_n('One Response to %2$s', '%1$s Responses to %2$s', get_comments_number()), number_format_i18n(get_comments_number()), '&#8220;' . get_the_title() . '&#8221;'); ?></h3>
+    <h3 id="comments"><? printf(_n('One Response to %2$s', '%1$s Responses to %2$s', get_comments_number()), number_format_i18n(get_comments_number()), '&#8220;' . get_the_title() . '&#8221;'); ?></h3>
     <div class="navigation">
         <div class="alignleft"><? previous_comments_link(); ?></div>
         <div class="alignright"><? next_comments_link(); ?></div>
@@ -24,7 +24,7 @@ if (post_password_required()) {
 <? endif; ?>
 <? if (comments_open()): ?>
 <div id="respond">
-    <h3 class='hdg hdg3'><? comment_form_title(__('Leave a Reply'), __('Leave a Reply to %s')); ?></h3>
+    <h3><? comment_form_title(__('Leave a Reply'), __('Leave a Reply to %s')); ?></h3>
     <div id="cancel-comment-reply">
         <small><? cancel_comment_reply_link(); ?></small>
     </div>
