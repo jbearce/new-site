@@ -73,18 +73,28 @@ gulp.task("scripts", function () {
 
 // compress images
 gulp.task("media", function () {
-    return gulp.src("./src/assets/media/**/*")
+    var compressedAssets = gulp.src("./src/assets/media/**/*")
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
         .pipe(gulp.dest("./dev/assets/media/"));
+
+    var compressedScreenshot = gulp.src("./src/screenshot.png")
+        .pipe(imagemin({
+            progressive: true,
+            svgoPlugins: [{removeViewBox: false}],
+            use: [pngquant()]
+        }))
+        .pipe(gulp.dest("./dev/"));
+
+    return merge(compressedAssets, compressedScreenshot)
 });
 
 // add version number in PHP
 gulp.task("php", function () {
-    return gulp.src(["./src/**/*",  "!./src/{assets,assets/**}"])
+    return gulp.src(["./src/**/*", "!./src/screenshot.png", "!./src/{assets,assets/**}"])
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
@@ -115,6 +125,10 @@ gulp.task("dist", function () {
     // copy compressed media
     gulp.src("./dev/assets/media/**/*")
         .pipe(gulp.dest("./dist/assets/media/"))
+
+    // copy compressed screenshots
+    gulp.src("./dev/screenshot.png")
+        .pipe(gulp.dest("./dist/"))
 
     // copy PHP
     gulp.src(["!./dev/assets", "!./dev/assets/**/*", "./dev/**/*"])
