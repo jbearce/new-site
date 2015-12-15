@@ -3,7 +3,7 @@
 	<head>
         <!-- settings -->
         <meta content="text/html;charset=utf-8" http-equiv="content-type" />
-        <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <meta content="no" name="msapplication-tap-highlight" />
         <!-- end settings -->
         <!-- branding -->
