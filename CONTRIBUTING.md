@@ -66,7 +66,7 @@ Update the package.json to reflect your projects name, description, version, rep
 
 #### FTP
 
-IF you'd like to use the `gulp ftp` task, make sure you [download my example ftp.json](https://gist.github.com/revxx14/a04f5ba7e00b267e71e2) and add in the correct paramters for your development environment.
+If you'd like to use the `gulp ftp` task, make sure you [download my example ftp.json](https://gist.github.com/revxx14/a04f5ba7e00b267e71e2) and add in the correct parameters for your development environment.
 
 ## CSS
 
@@ -74,7 +74,7 @@ This project uses SCSS, a preprocessed version of CSS. In addition, it follows t
 
 ### SCSS
 
-SCSS is a preprocessed version of CSS. It adds in a number of excellent features, like variables, functions, mixins, nesting, etc. All standard CSS rules are perfecly usable in SCSS, so I'm not going to go in depth here, but please check out [this excellent guide on A List Apart](http://alistapart.com/article/getting-started-with-sass) to get a grasp on how it all works. Full documentation is available at [sass-lang.com](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
+SCSS is a preprocessed version of CSS. It adds in a number of excellent features, like variables, functions, mixins, nesting, etc. All standard CSS rules are perfectly usable in SCSS, so I'm not going to go in depth here, but please check out [this excellent guide on A List Apart](http://alistapart.com/article/getting-started-with-sass) to get a grasp on how it all works. Full documentation is available at [sass-lang.com](http://sass-lang.com/documentation/file.SASS_REFERENCE.html).
 
 ### SMACSS
 
@@ -88,14 +88,14 @@ Each SCSS file is placed in one of 6 folders, depending on what it does.
 
 All variables, functions, and mixins are placed in `/src/assets/utilities/`. All colors, font families, and major widths, should be set here.
 
-You should never put a color code directly in to the SCSS, you should always use a variable, and adjust it as necessary. [This tool](http://razorjam.github.io/sasscolourfunctioncalculator/) lets you enter your  variable color and the color it should be changed to, and generates a SCSS function to do so. Just remember to replace the color you entered with the proper variable before commiting.
+You should never put a color code directly in to the SCSS, you should always use a variable, and adjust it as necessary. [This tool](http://razorjam.github.io/sasscolourfunctioncalculator/) lets you enter your  variable color and the color it should be changed to, and generates a SCSS function to do so. Just remember to replace the color you entered with the proper variable before committing.
 
 There are a number of built-in functions and mixins. The primary ones to be aware of are:
 
  - **`remify($size, $base, $unit)`**: This function accepts up to three parameters. The first is the size in pixels that you're going to display. Setting just this first parameter will result in REM units, based off of a default size of `16`. For example, `remify(16)` runs `16 / 16rem`, which results in `1rem`. The second parameter is the font size of the parent element. Setting the first two parameters overrides the default unit `REM` and changes it to `EM`. For example, `remify(16, 20)` runs `16 / 20em`, which results in `0.8em`. The final parameter lets you again override `EM` back to `REM`. For example, `remify(16, 20, rem)` runs `16 / 20rem`, which results in `0.8rem`.
- - **`@include clear`**: This, as its name implies, inserst a clearfix.
+ - **`@include clear`**: This, as its name implies, inserts a clearfix.
  - **`@include flexfix`**: This clears floats on flexed items, which fixes an issue in Safari where flexed items could be invisible.
- - **`@include icon($icon)`**: This function inserts a FontAwesome icon. The list of possible icons can be viewied in `/src/assets/utilities/_variables.scss`.
+ - **`@include icon($icon)`**: This function inserts a FontAwesome icon. The list of possible icons can be viewed in `/src/assets/utilities/_variables.scss`.
  
 ##### Views
 
@@ -121,11 +121,11 @@ The column framework is contained in `/src/assets/grid/`. These files shouldn't 
 
 ##### Modules
 
-In `/src/assets/modules/`, you'll find all the different componenets of this project. These can be plugged in wherever necessary, so make them as general as possible. For example, modules typically shouldn't have fixed widths, so that they'll fit anywhere on the site.
+In `/src/assets/modules/`, you'll find all the different components of this project. These can be plugged in wherever necessary, so make them as general as possible. For example, modules typically shouldn't have fixed widths, so that they'll fit anywhere on the site.
 
 ##### Layout
 
-`/src/assets/layout/` is where you can put styles that affect the layout of the site, as well as custom styles for modules that are dependant on where they're placed on the page.
+`/src/assets/layout/` is where you can put styles that affect the layout of the site, as well as custom styles for modules that are dependent on where they're placed on the page.
 
 For example, if the links in a `.menu-list` that's in the header should have a `20px` font size., you could add `.header .menu-item a {font-size: remify(20)}` in `/src/assets/styles/layout/header/_header.scss`.
 
@@ -159,10 +159,10 @@ Rules should be organized in a consistent and orderly manner. Here's a breakdown
         }                              // appearon the page
         
         &.alt {                        // alternate classes 
-            color: $secondary;         // come after psuedo elements
+            color: $secondary;         // come after pseudo elements
         }                              // and are alphabetized
         
-        &.active:active {              // and the cycle
+        &.alt:active {              // and the cycle
             color: $secondary_alt;     // repeats, without
         }                              // further nesting
     }
@@ -219,11 +219,11 @@ This is also a combined task, which runs:
 
 ### `gulp clean`
 
-Wipes out both `/dev/` and `/dist/`, usually in preperation for recompilng new source code.
+Wipes out both `/dev/` and `/dist/`, usually in preparation for recompiling new source code.
 
 ### `gulp styles`
 
-Compiles and prefxies SCSS in to `/dev/assets/styles/all.css`.
+Compiles and prefixes SCSS in to `/dev/assets/styles/all.css`.
 
 ### `gulp scripts``
 
@@ -253,7 +253,7 @@ When code is ready to be pushed to production server, the projects version numbe
  - Middle points (i.e. vX.1.X, vX.2.X, vX.3.X) are for more minor changes that are bigger than bug fixes. For example, if you added a newsletter form to `sidebar.php`, this would be a middle point update. When upping a middle point, minor points get reset to 0.
  - Minor points (i.e. vX.X.1, vX.X.2, vX.X.3) are for minor bug fixes. For example, if you fixed a typo, or added ", Inc." to the copyright information, this would be a minor point update.
  
-Note that reaching 9 for a middle or minor point **does not** raise the next level. You could, for instance, ahve a version `v2.18.42`. 
+Note that reaching 9 for a middle or minor point **does not** raise the next level. You could, for instance, have a version `v2.18.42`. 
 
 When you're ready to up the version number, there are a few steps to follow:
 
