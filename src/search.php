@@ -2,6 +2,11 @@
             <div class="content-wrapper">
                 <main class="content">
                     <div class="content-post">
+                        <?
+                        if (function_exists("yoast_breadcrumb")) {
+                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                        }
+                        ?>
                         <form class="search-form" action="<? echo home_url(); ?>" method="get">
                             <label class="search-label" for="s">Search for:</label>
                             <input class="search-input" name="s" title="Search for:" type="search" value="<? the_search_query(); ?>" />

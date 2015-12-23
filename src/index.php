@@ -3,6 +3,11 @@
                 <main class="content">
                     <div class="content-post">
                         <?
+                        if (function_exists("yoast_breadcrumb")) {
+                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                        }
+                        ?>
+                        <?
                         if (is_attachment()) {
                             echo "<article>";
                         }

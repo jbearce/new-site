@@ -2,6 +2,11 @@
             <div class="content-wrapper">
                 <main class="content">
                     <div class="content-post">
+                        <?
+                        if (function_exists("yoast_breadcrumb")) {
+                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                        }
+                        ?>
                         <header>
                             <?
                             $term = get_queried_object();

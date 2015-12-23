@@ -3,6 +3,11 @@
                 <main class="content">
                     <div class="content-post">
                         <?
+                        if (function_exists("yoast_breadcrumb")) {
+                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                        }
+                        ?>
+                        <?
                         if (get_option("show_on_front") == "page") {
                             $home_title = get_the_title(get_option("page_for_posts"));
                         } else {

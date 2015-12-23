@@ -2,6 +2,11 @@
             <div class="content-wrapper">
                 <main class="content">
                     <div class="content-post">
+                        <?
+                        if (function_exists("yoast_breadcrumb")) {
+                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                        }
+                        ?>
                         <article>
                             <header>
                                 <h1>404: Page Not Found</h1>
