@@ -162,7 +162,7 @@ Rules should be organized in a consistent and orderly manner. Here's a breakdown
             color: $secondary;         // come after pseudo elements
         }                              // and are alphabetized
         
-        &.alt:active {              // and the cycle
+        &.alt:active {                 // and the cycle
             color: $secondary_alt;     // repeats, without
         }                              // further nesting
     }
@@ -206,17 +206,6 @@ This task is a combination of a number of other tasks. Namely:
 
 Watches for changes to `/src/`, and runs `gulp` when changes are detected. Use the `--ftp` flag to automatically upload files to your development server (configured in `ftp.json`)
 
-### `gulp dist`
-
-This is also a combined task, which runs:
-
- - `clean`
- - `styles`
- - `scripts`
- - `media`
- - `php`
- - `dist`
-
 ### `gulp clean`
 
 Wipes out both `/dev/` and `/dist/`, usually in preparation for recompiling new source code.
@@ -237,13 +226,13 @@ Losslessly compresses images and copies them in to `/dev/assets/media/`.
 
 Adds a version string to each URL and copies code in to `/dev/`.
 
-### `gulp dist`
-
-Compresses CSS and JS, and copies all files from `/dev/` in to `/dist/`.
-
 ### `gulp ftp`
 
 Uploads via FTP using the settings in `ftp.json`. Add the `--dist` flag to upload to your production environment.
+
+### `gulp dist`
+
+Compresses CSS and JS, and copies all files from `/dev/` in to `/dist/`. Must be combined with `gulp` (default task). As a shortcut, you can run `gulp & gulp dist`, and even combine it with the ftp task, `gulp & gulp dist & gulp ftp --dist`.
 
 ## Versioning
 
