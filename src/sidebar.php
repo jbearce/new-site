@@ -47,20 +47,6 @@
             echo "</div></div>";
         }
     }
-    if (is_page()) {
-        $sub_menu = wp_nav_menu(array(
-            "container"		 => false,
-            "depth"          => 2,
-            "direct_parent"  => true,
-            "echo"           => false,
-            "sub_menu"		 => true,
-            // "parent_id"      => $parent_id,
-            "theme_location" => "primary",
-        ));
-        if ($sub_menu != "") {
-            echo "<div class='widget'><div class='widget-content'><nav class='menu-wrapper l-vertical'>{$sub_menu}</nav></div></div>";
-        }
-    }
     if (is_single() || is_archive()) {
         echo "<div class='widget'>";
         $term = get_queried_object();
@@ -81,5 +67,26 @@
         echo "</div>";
         echo "</div>";
     }
+    /*
+    if (is_page()) {
+        $sub_menu = wp_nav_menu(array(
+            "container"		 => false,
+            "depth"          => 2,
+            "direct_parent"  => true,
+            "echo"           => false,
+            "sub_menu"		 => true,
+            // "parent_id"      => $parent_id,
+            "theme_location" => "primary",
+        ));
+        if ($sub_menu != "") {
+            echo "<div class='widget'><div class='widget-content'><nav class='menu-wrapper l-vertical'>{$sub_menu}</nav></div></div>";
+        }
+    }
+    */
+    /*
+    if (is_active_sidebar("sidebar")) {
+        dynamic_sidebar("sidebar");
+    }
+    */
     ?>
 </div><!--/.content-sidebar-->
