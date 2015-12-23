@@ -18,7 +18,6 @@ function register_menus() {
 	));
 }
 add_action("init", "register_menus");
-*/
 
 // add slideshow image size
 add_image_size("slideshow", 1600, 900, true);

@@ -1,6 +1,14 @@
 <div class="content-sidebar">
     <?
     if (is_page() || is_single()) {
+        if (get_field("sidebar")) {
+            echo "<div class='widget'><div class='widget-content'>";
+            echo "<div class='user-content'>";
+            the_field("sidebar");
+            echo "</div>";
+            echo "</div></div>";
+        }
+        /*
         if (have_rows("gallery")) {
             echo "<div class='gallery'>";
             echo "<div class='gallery-images'>";
@@ -39,13 +47,7 @@
             echo "</menu>";
             echo "</div>";
         }
-        if (get_field("sidebar")) {
-            echo "<div class='widget'><div class='widget-content'>";
-            echo "<div class='user-content'>";
-            the_field("sidebar");
-            echo "</div>";
-            echo "</div></div>";
-        }
+        */
     }
     if (is_single() || is_archive()) {
         echo "<div class='widget'>";
