@@ -21,11 +21,12 @@
         <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=<? bloginfo("rss2_url"); ?>&id=5; cycle=1" name="msapplication-notification" />
         <!-- end branding -->
         <!-- html5 fallback -->
-        <!--[if lt IE 9]>
+        <!--[if lte IE 9]>
         <link href="<? bloginfo("template_directory"); ?>/assets/styles/legacy.css@@if (context.version) {?v=@@version}" rel="stylesheet" type="text/css" />
         <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/html5shiv.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
         <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/nwmatcher-1.3.4.min.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
         <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/selectivizr-1.0.2.min.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
+        <script src="<? bloginfo("template_directory"); ?>/assets/scripts/fallback/flexibility.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
         <![endif]-->
         <!-- end html5 fallback -->
         <!-- SEO -->

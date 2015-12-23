@@ -118,7 +118,7 @@ gulp.task("dist", function () {
         .pipe(gulp.dest("./dist/assets/styles/"))
 
     // compress scripts
-    gulp.src("./dev/assets/scripts/all.js")
+    gulp.src("./dev/assets/scripts/**/*")
         .pipe(uglify())
         .pipe(gulp.dest("./dist/assets/scripts/"))
 
