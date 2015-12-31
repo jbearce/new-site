@@ -55,12 +55,12 @@ gulp.task("styles", function () {
 // lint and concat scripts
 gulp.task("scripts", function () {
     // lint
-    var lintedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
+    var lintedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/jquery.lazy_content.js", "!./src/assets/scripts/jquery.lazy_content_img.js", "!./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(jshint())
         .pipe(jshint.reporter("default"))
 
     // concat
-    var concattedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
+    var concattedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/jquery.lazy_content.js", "./src/assets/scripts/jquery.lazy_content_img.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(concat("all.js"))
         .pipe(gulp.dest("./dev/assets/scripts/"))
 
