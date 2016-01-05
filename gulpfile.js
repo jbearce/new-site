@@ -42,7 +42,7 @@ gulp.task("clean", function() {
 
 // compile and autoprefix styles
 gulp.task("styles", function () {
-    return gulp.src(["./src/assets/styles/modern.scss", "./src/assets/styles/legacy.scss"])
+    return gulp.src("./src/assets/styles/*.scss")
         // compile SASS
         .pipe(sass({outputStyle: "expanded"}).on("error", sass.logError))
         .pipe(gulp.dest("./dev/assets/styles/"))
@@ -55,17 +55,17 @@ gulp.task("styles", function () {
 // lint and concat scripts
 gulp.task("scripts", function () {
     // lint
-    var lintedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/jquery.lazy_content.js", "!./src/assets/scripts/jquery.lazy_content_img.js", "!./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
+    var lintedScripts = gulp.src(["./src/assets/scripts/*.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/jquery.lazy_content.js", "!./src/assets/scripts/jquery.lazy_content_img.js", "!./src/assets/scripts/scrollfix.js"])
         .pipe(jshint())
         .pipe(jshint.reporter("default"))
 
     // concat
-    var concattedScripts = gulp.src(["!./src/assets/scripts/jquery.min.js", "./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/jquery.lazy_content.js", "./src/assets/scripts/jquery.lazy_content_img.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
+    var concattedScripts = gulp.src(["./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/jquery.lazy_content.js", "./src/assets/scripts/jquery.lazy_content_img.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
         .pipe(concat("all.js"))
         .pipe(gulp.dest("./dev/assets/scripts/"))
 
     // copy fallbacks
-    var copiedScripts = gulp.src("./src/assets/scripts/fallback/*")
+    var copiedScripts = gulp.src("./src/assets/scripts/fallback/*.js")
         .pipe(gulp.dest("./dev/assets/scripts/fallback/"))
 
     return merge(lintedScripts, concattedScripts, copiedScripts)
@@ -118,7 +118,7 @@ gulp.task("dist", function () {
         .pipe(gulp.dest("./dist/assets/styles/"))
 
     // compress scripts
-    gulp.src("./dev/assets/scripts/**/*")
+    gulp.src("./dev/assets/scripts/**/*.js")
         .pipe(uglify())
         .pipe(gulp.dest("./dist/assets/scripts/"))
 
@@ -131,7 +131,7 @@ gulp.task("dist", function () {
         .pipe(gulp.dest("./dist/"))
 
     // copy PHP
-    gulp.src(["!./dev/assets", "!./dev/assets/**/*", "./dev/**/*"])
+    gulp.src(["./dev/**/*", "!./dev/{assets,assets/**}"])
         .pipe(gulp.dest("./dist/"))
 });
 
