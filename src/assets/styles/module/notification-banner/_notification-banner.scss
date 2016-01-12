@@ -4,18 +4,22 @@
  * IE Warning                                                               *
 \* ------------------------------------------------------------------------ */
 
-.ie-warning-wrapper {
-    background: #BF1313;
+.notification-banner-wrapper {
+    background: #FF6700;
     padding: 0 20px;
+
+    &.error {
+        background: #BF1313;
+    }
 }
 
-.ie-warning {
+.notification-banner {
     margin: 0 auto;
     padding: 20px 0;
     width: $site-width + px;
 }
 
-.ie-warning p {
+.notification-banner p {
     color: #FFF;
     display: block;
     font-family: sans-serif;
@@ -27,7 +31,7 @@
     text-transform: none;
 }
 
-.ie-warning a {
+.notification-banner a {
     color: #FFF;
     text-decoration: underline;
 

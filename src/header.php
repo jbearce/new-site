@@ -37,12 +37,19 @@
 	</head>
     <body <? body_class(); ?>>
         <!--[if lt IE 10]>
-        <div class="ie-warning-wrapper">
-            <div class="ie-warning">
+        <div class="notification-banner-wrapper error">
+            <div class="notification-banner">
                 <p><i class="fa fa-exclamation-circle"></i> It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher. <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank">Click here to learn about upgrading.</a></p>
             </div>
         </div>
         <![endif]-->
+        <? if (WP_DEBUG): ?>
+        <div class="notification-banner-wrapper">
+            <div class="notification-banner">
+                <p><i class="fa fa-info-circle"></i> Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.</p>
+            </div><!--/.notification-banner-->
+        </div><!--/.notification-banner-wrapper-->
+        <? endif; ?>
         <div class="mobile-nav-wrapper hide-xs">
             <section class="mobile-nav">
                 <nav class="menu-wrapper l-vertical">
