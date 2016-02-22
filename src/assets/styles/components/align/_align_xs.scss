@@ -1,0 +1,25 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Align                                                                    *
+\* ------------------------------------------------------------------------ */
+
+.aligncenter {
+    & {
+        margin: 0 auto remify(30, 16);
+    }
+}
+
+.alignleft {
+    & {
+        float: left;
+        margin: remify(0 30 30 0, 16);
+    }
+}
+
+.alignright {
+    & {
+        float: right;
+        margin: remify(0 0 30 30, 16);
+    }
+}

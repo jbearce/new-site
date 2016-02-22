@@ -1,15 +1,18 @@
 <? get_header(); ?>
             <div class="content-wrapper">
-                <main class="content">
-                    <div class="content-post">
+                <main class="content-block">
+                    <div class="post">
                         <?
+                        // display breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
                         }
                         ?>
-				        <? woocommerce_content(); ?>
-                    </div><!--/.content-post-->
+                        <article class="article-card">
+                            <? woocommerce_content(); ?>
+                        </article>
+                    </div><!--/.post-->
 				    <? get_sidebar(); ?>
-                </main><!--/.content-->
+                </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
 <? get_footer(); ?>

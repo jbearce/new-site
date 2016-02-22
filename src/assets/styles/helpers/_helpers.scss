@@ -1,0 +1,35 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Helpers                                                                  *
+\* ------------------------------------------------------------------------ */
+
+// imports
+
+@import "_variables";
+@import "_functions";
+@import "_mixins";
+
+// generic helpers
+
+%clearfix {
+    *zoom: 1 !important;
+
+    &:before,
+    &:after {
+        content: "\0020" !important;
+        display: table !important;
+    }
+
+    &:after {
+        clear: both !important;
+    }
+}
+
+._nomargin {
+    margin: 0 !important;
+}
+
+._nopadding {
+    padding: 0 !important;
+}

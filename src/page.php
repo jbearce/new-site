@@ -1,35 +1,47 @@
 <? get_header(); ?>
             <div class="content-wrapper">
-                <main class="content">
-                    <div class="content-post">
+                <main class="content-block">
+                    <div class="post">
                         <?
+                        // display the breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
                         }
                         ?>
                         <?
+                        // display the post
                         if (have_posts()) {
                             while (have_posts()) {
                                 the_post();
-                                echo "<article>";
-                                if (has_post_thumbnail($id)) {
-                                    echo "<figure class='featured-image'>" . get_the_post_thumbnail($id, "large") . "</figure>";
+
+                                // open an article card
+                                echo "<article class='article-card'>"
+
+                                // display the title
+                                the_title("<header class='header'><h1 class='title'>", "</h1></header>");
+
+                                // display the featured image
+                                if (has_post_thumbnail()) {
+                                    echo "<figure class='image'>" . get_the_post_thumbnail($post->ID, "large") . "</figure>";
                                 }
-                                the_title("<header><h1>", "</h1></header>");
-                                echo "<div class='user-content'>";
+
+                                // display the content
+                                echo "<div class='content'><div class='user-content'>";
                                 the_content();
-                                echo "</div>";
+                                echo "</div></div>";
+
+                                // display the comemnts
                                 if (comments_open() || get_comments_number() > 0) {
-                                    echo "<footer>";
                                     comments_template();
-                                    echo "</footer>";
                                 }
+
+                                // close the article card
                                 echo "</article>";
                             }
                         }
                         ?>
-                    </div><!--/.content-post-->
+                    </div><!--/.post-->
                     <? get_sidebar(); ?>
-                </main><!--/.content-->
+                </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
 <? get_footer(); ?>

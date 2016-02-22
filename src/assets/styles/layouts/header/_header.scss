@@ -1,0 +1,21 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Header                                                                   *
+\* ------------------------------------------------------------------------ */
+
+.header-wrapper {
+    & {
+        @include layer("header");
+
+        font-size: remify(16, 16);
+        padding: remify(0 20, 16);
+    }
+
+    > .header-block {
+        @extend %clearfix;
+
+        margin: 0 auto;
+        max-width: remify($site-width, 16);
+    }
+}

@@ -37,7 +37,7 @@
 	</head>
     <body <? body_class(); ?>>
         <!--[if lt IE 10]>
-        <div class="notification-banner-wrapper error">
+        <div class="notification-banner-wrapper -error">
             <div class="notification-banner">
                 <p><i class="fa fa-exclamation-circle"></i> It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher. <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank">Click here to learn about upgrading.</a></p>
             </div>
@@ -50,43 +50,39 @@
             </div><!--/.notification-banner-->
         </div><!--/.notification-banner-wrapper-->
         <? endif; ?>
-        <div class="mobile-nav-wrapper hide-xs">
-            <section class="mobile-nav">
-                <nav class="menu-wrapper l-vertical">
+        <div class="mobile-nav-wrapper">
+            <div class="mobile-nav-block">
+                <?
+                wp_nav_menu(array(
+                    "container"		 => false,
+                    "depth"          => 3,
+                    "items_wrap"	 => "<nav class='menu-wrapper -nav -vertical'><ul class='menu-list'>%3\$s</ul></nav>",
+                    "theme_location" => "primary",
+                    "walker"         => new mobileRSCSSwalker(),
+                ));
+                ?>
+            </div><!--/.mobile-nav-block-->
+        </div><!--/.mobile-nav-wrapper-->
+        <div class="page-wrapper">
+            <div class="header-wrapper">
+                <header class="header-block">
+                    <a class="logo" href="<? echo home_url(); ?>">
+                        <img alt="<? bloginfo("name"); ?> | <? bloginfo("description"); ?>" src="<? bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<? bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
+                    </a><!--/.logo-->
+                    <? get_search_form(); ?>
+                    <button class="menu-button">Menu</button>
+                </header><!--/.header-block-->
+            </div><!--/.header-wrapper-->
+            <div class="nav-wrapper">
+                <div class="nav-block">
                     <?
                     wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
-                        "items_wrap"	 => "<ul class='menu-list'>%3\$s</ul>",
+                        "items_wrap"	 => "<nav class='menu-wrapper -nav'><ul class='menu-list'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
-                        "walker"         => new mobileSMACSSwalker(),
+                        "walker"         => new RSCSSwalker(),
                     ));
                     ?>
-                </nav><!--/.menu-wrapper.l-vertical-->
-            </section><!--/.mobile-nav-->
-        </div><!--/.mobile-nav-wrapper-->
-        <div class="page-wrapper">
-            <div class="header-wrapper">
-                <header class="header">
-                    <a class="logo" href="<? echo home_url(); ?>">
-                        <img alt="<? bloginfo("name"); ?> | <? bloginfo("description"); ?>" src="<? bloginfo("template_directory"); ?>/assets/media/logo_small.png@@if (context.version) {?v=@@version}" srcset="<? bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version} 2x" />
-                    </a><!--/.logo-->
-                    <? get_search_form(); ?>
-                    <button class="menu-button hide-xs">Menu</button>
-                </header><!--/.header-->
-            </div><!--/.header-wrapper-->
-            <div class="nav-wrapper show-xs">
-                <div class="nav">
-                    <nav class="menu-wrapper">
-                        <?
-                        wp_nav_menu(array(
-                            "container"		 => false,
-                            "depth"          => 3,
-                            "items_wrap"	 => "<ul class='menu-list'>%3\$s</ul>",
-                            "theme_location" => "primary",
-                            "walker"         => new SMACSSwalker(),
-                        ));
-                        ?>
-                    </nav><!--/.menu-wrapper-->
-                </div><!--/.nav-->
+                </div><!--/.nav-block-->
             </div><!--/.nav-wrapper-->

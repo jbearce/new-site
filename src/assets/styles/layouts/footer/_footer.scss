@@ -1,0 +1,21 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Footer                                                                   *
+\* ------------------------------------------------------------------------ */
+
+.footer-wrapper {
+    & {
+        @include layer("footer");
+
+        font-size: remify(16, 16);
+        padding: remify(0 20, 16);
+    }
+
+    > .footer-block {
+        @extend %clearfix;
+
+        margin: 0 auto;
+        max-width: remify($site-width, 16);
+    }
+}
