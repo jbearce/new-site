@@ -1,0 +1,20 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Page                                                                     *
+\* ------------------------------------------------------------------------ */
+
+html.-navactive,
+html.-navactive body {
+    & {
+        height: auto;
+        width: auto;
+    }
+}
+
+.page-wrapper {
+    html.-navactive & {
+        box-shadow: none;
+        left: auto;
+    }
+}

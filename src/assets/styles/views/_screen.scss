@@ -10,33 +10,23 @@
 @import "../base/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
- * Layout                                                                   *
+ * Components                                                               *
 \* ------------------------------------------------------------------------ */
 
-@import "../layout/page/_page";
-@import "../layout/header/_header";
-@import "../layout/nav/_nav";
-@import "../layout/nav-mobile/_nav-mobile";
-@import "../layout/slideshow/_slideshow";
-@import "../layout/content/_content";
-@import "../layout/footer/_footer";
+@import "../components/align/_align";
+@import "../components/iframe/_iframe";
+@import "../components/menu-button/_menu-button";
+@import "../components/notification-banner/_notification-banner";
+@import "../components/swiper/_swiper";
 
 /* ------------------------------------------------------------------------ *\
- * Module                                                                   *
+ * Layouts                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../module/align/_align";
-@import "../module/commentlist/_commentlist";
-@import "../module/gallery/_gallery";
-@import "../module/hiders/_hiders";
-@import "../module/notification-banner/_notification-banner";
-@import "../module/iframe/_iframe";
-@import "../module/logo/_logo";
-@import "../module/menu-button/_menu-button";
-@import "../module/menu-list/_menu-list";
-@import "../module/meta-list/_meta-list";
-@import "../module/ninja-forms/_ninja-forms";
-@import "../module/search-form/_search-form";
-@import "../module/swiper/_swiper";
-@import "../module/widget/_widget";
-@import "../module/wp-caption/_wp-caption";
+@import "../layouts/page/_page";
+@import "../layouts/header/_header";
+@import "../layouts/nav/_nav";
+@import "../layouts/nav-mobile/_nav-mobile";
+@import "../layouts/slideshow/_slideshow";
+@import "../layouts/content/_content";
+@import "../layouts/footer/_footer";

@@ -4,19 +4,41 @@
  * Normalize                                                                *
 \* ------------------------------------------------------------------------ */
 
-// import base styles
+// import vendor styles
 
-@import "_normalize-vendor";
+@import "../../vendors/_normalize";
 
 // custom styles
 
-// Set everything up for box-sizing: border-box!
-// http://css-tricks.com/international-box-sizing-awareness-day/
+// Set everything to box-sizing: border-box;
+// https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
+
+html {
+    & {
+        box-sizing: border-box;
+    }
+}
 
 *, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+    & {
+        box-sizing: inheirt;
+    }
+}
+
+// Better text rendering
+
+html {
+    & {
+        -moz-osx-font-smoothing: grayscale;
+        -webkit-font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+    }
+}
+
+// IE snap fix
+
+@-ms-viewport {
+    width: device-width;
 }
 
 // Remove arrows on numbers and date fields in Webkit
@@ -33,11 +55,23 @@
 // Remove arrows on numbers and date fields in Mozilla
 
 input[type="number"] {
-    -moz-appearance:textfield;
+    & {
+        -moz-appearance: textfield;
+    }
 }
 
 // Reset italics on address
 
 address {
-    font-style: normal;
+    & {
+        font-style: normal;
+    }
+}
+
+// Remove margin from figures
+
+figure {
+    & {
+        margin: 0;
+    }
 }

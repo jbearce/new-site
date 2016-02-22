@@ -1,0 +1,21 @@
+// Styles written by Jacob Bearce | jacob@weblinxinc.com
+
+/* ------------------------------------------------------------------------ *\
+ * Swiper                                                                   *
+\* ------------------------------------------------------------------------ */
+
+// import base styles
+
+@import "../../vendors/_swiper";
+
+// custom styles
+
+.swiper-container {
+    background: $background_alt;
+}
+
+// display the first slide in older browsers
+
+.no-csstransforms .swiper-slide:not(:first-child) {
+    display: none;
+}

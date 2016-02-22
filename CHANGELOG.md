@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.2.0
+
+- Refactored for RSCSS
+- Rewrote some scripts
+- Deleted a ton of styles
+- Better gulpfile
+- Externalized the contribution guide
+
 ## v0.1.4
 
 - Cleaned up the gulpfile a bit

@@ -1,38 +1,46 @@
 <? get_header(); ?>
             <div class="content-wrapper">
-                <main class="content">
-                    <div class="content-post">
+                <main class="content-block">
+                    <div class="post">
                         <?
+                        // display the breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb'><p>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
                         }
                         ?>
                         <?
-                        if (is_attachment()) {
-                            echo "<article>";
-                        }
-                        if (has_post_thumbnail($id)) {
-                            echo "<figure class='featured-image'>" . get_the_post_thumbnail($id, "large") . "</figure>";
-                        }
-                        the_title("<header><h1>", "</h1></header>");
+                        // display the post
                         if (have_posts()) {
                             while (have_posts()) {
                                 the_post();
-                                echo "<div class='user-content'>";
-                                the_content();
-                                echo "</div>";
-                                if (comments_open() || get_comments_number() > 0) {
-                                    echo "<footer>";
-                                    comments_template();
-                                    echo "</footer>";
+
+                                // open an article card
+                                echo "<article class='article-card'>";
+
+                                // display the title
+                                the_title("<header class='header'><h1 class='title'>", "</h1></header>");
+
+                                // display the featured image
+                                if (has_post_thumbnail()) {
+                                    echo "<figure class='image'>" . get_the_post_thumbnail($post->ID, "large") . "</figure>";
                                 }
+
+                                // display the content
+                                echo "<div class='content'><div class='user-content'>";
+                                the_content();
+                                echo "</div></div>";
+
+                                // display the comemnts
+                                if (comments_open() || get_comments_number() > 0) {
+                                    comments_template();
+                                }
+
+                                // close the article card
+                                echo "</article>";
                             }
                         }
-                        if (is_attachment()) {
-                            echo "</article>";
-                        }
                         ?>
-                    </div><!--/.content-post-->
-                </main><!--/.content-->
+                    </div><!--/.post-->
+                </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
 <? get_footer(); ?>

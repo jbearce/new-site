@@ -6,12 +6,12 @@
 $(".menu-button").click(function (e) {
     "use strict";
     e.preventDefault();
-    $("html").toggleClass("is-navopen");
+    $("html").toggleClass("-navactive");
 });
 
 // mobile drop down buttons
-$(".menu-list .menu-item-has-children .menu-toggle").click(function (e) {
+$(".menu-toggle").click(function (e) {
     "use strict";
     e.preventDefault();
-    $(this).parent().toggleClass("is-open");
+    $(this).closest(".menu-list.-submenu").toggleClass("-active");
 });

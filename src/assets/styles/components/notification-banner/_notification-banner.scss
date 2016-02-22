@@ -1,0 +1,39 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Notification Banners                                                     *
+\* ------------------------------------------------------------------------ */
+
+.notification-banner-wrapper {
+    & {
+        background: #FF6700;
+        color: $light;
+        padding: 0 20px;
+    }
+
+    &.-error {
+        background: #BF1313;
+    }
+
+    > .notification-banner {
+        margin: 0 auto;
+        padding: remify(20 0, 16);
+        width: remify($site-width, 16);
+    }
+
+    > .notification-banner > .content {
+        color: inherit;
+        display: block;
+        font-size: remify(16, 16);
+        font-weight: 400;
+        line-height: normal;
+        margin: 0;
+        text-align: center;
+        text-transform: none;
+    }
+
+    > .notification-banner > .content > .link {
+        color: inherit;
+        text-decoration: underline;
+    }
+}
