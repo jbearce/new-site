@@ -1,182 +1,371 @@
-var gulp = require("gulp"),
-    json = require("json-file"),
+    // general stuff
+var gulp = require("gulp"),                      // gulp
+    fs = require("fs"),                          // the file system
+    runSequence = require("run-sequence"),       // allow tasks to be ran in sequence
+    json = require("json-file"),                 // read/write JSON files
+    prompt = require("gulp-prompt")              // allow user input
+    argv = require("yargs").argv,                // --flags
+    del = require("del"),                        // delete files & folders
+    newer = require("gulp-newer"),               // checks if files are newer
+    merge = require("merge-stream"),             // merge streams
+    gulpif = require("gulp-if"),                 // if statements in pipes
+    watch = require("gulp-watch"),               // watch for file changes
+    sourcemaps = require("gulp-sourcemaps"),     // sourcemaps
+    concat = require("gulp-concat"),             // concatenater
+    fileinclude = require("gulp-file-include"),  // file includer, variable replacer
 
-    themeName = json.read("./package.json").get("name"),
-    themeVersion = json.read("./package.json").get("version"),
-    themeDescription = json.read("./package.json").get("description"),
-    themeRepository = json.read("./package.json").get("repository"),
-    themeLicense = json.read("./package.json").get("license"),
-    themeColor = "#73233C",
+    // media stuff
+    imagemin = require("gulp-imagemin"),         // image compressor
+    pngquant = require("imagemin-pngquant"),     // image compressor for PNGs
 
-    devHost = json.read("./ftp.json").get("dev.host"),
-    devUser = json.read("./ftp.json").get("dev.user"),
-    devPass = json.read("./ftp.json").get("dev.pass"),
-    devPath = json.read("./ftp.json").get("dev.path"),
+    // JS stuff
+    jshint = require("gulp-jshint"),             // linter
+    uglify = require("gulp-uglify"),             // concatenater
 
-    distHost = json.read("./ftp.json").get("dist.host"),
-    distUser = json.read("./ftp.json").get("dist.user"),
-    distPass = json.read("./ftp.json").get("dist.pass"),
-    distPath = json.read("./ftp.json").get("dist.path"),
+    // CSS stuff
+    sass = require("gulp-sass"),                 // SCSS compiler
+    autoprefixer = require("gulp-autoprefixer"), // autoprefix CSS
 
-    sourcemaps = require("gulp-sourcemaps"),
-    autoprefixer = require("gulp-autoprefixer"),
-    sass = require("gulp-sass"),
-    jshint = require("gulp-jshint"),
-    concat = require("gulp-concat"),
-    imagemin = require("gulp-imagemin"),
-    pngquant = require("imagemin-pngquant"),
-    fileinclude = require("gulp-file-include"),
-    uglify = require("gulp-uglify"),
-    runSequence = require("run-sequence"),
-    argv = require("yargs").argv,
-    ftp = require("vinyl-ftp"),
-    watch = require("gulp-watch"),
-    batch = require("gulp-batch"),
-    merge = require("merge-stream"),
-    del = require("del");
+    // FTP stuff
+    ftp = require("vinyl-ftp"),                  // FTP client
 
-// delete dev & dist directories
-gulp.task("clean", function() {
-    del(["./dev/", "./dist/"]);
-});
+    host = "",                                   // FTP hostname (leave blank)
+    user = "",                                   // FTP username (leave blank)
+    pass = "",                                   // FTP password (leave blank)
+    path = "",                                   // FTP path (leave blank)
 
-// compile and autoprefix styles
-gulp.task("styles", function () {
-    return gulp.src("./src/assets/styles/*.scss")
-        // compile SASS
-        .pipe(sass({outputStyle: "expanded"}).on("error", sass.logError))
-        .pipe(gulp.dest("./dev/assets/styles/"))
+    // read data from package.json
+    name = json.read("./package.json").get("name"),
+    description = json.read("./package.json").get("description"),
+    version = json.read("./package.json").get("version"),
+    repository = json.read("./package.json").get("repository"),
+    license = json.read("./package.json").get("license"),
 
-        // autoprefix
-        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
-        .pipe(gulp.dest("./dev/assets/styles/"))
-});
+    // set up environment paths
+    src = "./src",   // source directory
+    dev = "./dev",   // development directory
+    dist = "./dist"; // production directory
 
-// lint and concat scripts
-gulp.task("scripts", function () {
-    // lint
-    var lintedScripts = gulp.src(["./src/assets/scripts/*.js", "!./src/assets/scripts/modernizr.custom.min.js", "!./src/assets/scripts/swiper.jquery.min.js", "!./src/assets/scripts/jquery.lazy_content.js", "!./src/assets/scripts/jquery.lazy_content_img.js", "!./src/assets/scripts/scrollfix.js"])
-        .pipe(jshint())
-        .pipe(jshint.reporter("default"))
-
-    // concat
-    var concattedScripts = gulp.src(["./src/assets/scripts/modernizr.custom.min.js", "./src/assets/scripts/jquery.lazy_content.js", "./src/assets/scripts/jquery.lazy_content_img.js", "./src/assets/scripts/scrollfix.js", "./src/assets/scripts/*.js"])
-        .pipe(concat("all.js"))
-        .pipe(gulp.dest("./dev/assets/scripts/"))
-
-    // copy fallbacks
-    var copiedScripts = gulp.src("./src/assets/scripts/fallback/*.js")
-        .pipe(gulp.dest("./dev/assets/scripts/fallback/"))
-
-    return merge(lintedScripts, concattedScripts, copiedScripts)
-});
-
-// compress images
+// media task, compresses images & copies media
 gulp.task("media", function () {
-    var compressedAssets = gulp.src("./src/assets/media/**/*")
+    "use strict";
+
+    // development media directory
+    var mediaDirectory = dev + "/assets/media";
+    var screenshotDirectory = dev;
+
+    // production media directory (if --dist is passed)
+    if (argv.dist) {
+        mediaDirectory = dist + "/assets/media";
+        screenshotDirectory = dist;
+    }
+
+    // clean directory if --clean is passed
+    if (argv.clean) {
+        del(mediaDirectory + "/**/*");
+        del(screenshotDirectory + "/screenshot.png");
+    }
+
+    // compress images, copy media
+    var media = gulp.src(src + "/assets/media/**/*")
+        // check if source is newer than destination
+        .pipe(newer(mediaDirectory))
+        // compress images
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest("./dev/assets/media/"));
+        // output to the compiled directory
+        .pipe(gulp.dest(mediaDirectory));
 
-    var compressedScreenshot = gulp.src("./src/screenshot.png")
+    // compress screenshot
+    var screenshot = gulp.src(src + "/screenshot.png")
+        // check if source is newer than destination
+        .pipe(newer(screenshotDirectory))
+        // compress screenshot
         .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()]
         }))
-        .pipe(gulp.dest("./dev/"));
+        // output to the compiled directory
+        .pipe(gulp.dest(screenshotDirectory));
 
-    return merge(compressedAssets, compressedScreenshot)
+    // merge both steams back in to one
+    return merge(media, screenshot);
 });
 
-// add version number in PHP
-gulp.task("php", function () {
-    return gulp.src(["./src/**/*", "!./src/screenshot.png", "!./src/{assets,assets/**}"])
+// scripts task, concatenates & lints JS
+gulp.task("scripts", function () {
+    "use strict";
+
+    // development JS directory
+    var jsDirectory = dev + "/assets/scripts";
+
+    // production JS directory (if --dist is passed)
+    if (argv.dist) {
+        jsDirectory = dist + "/assets/scripts";
+    }
+
+    // clean directory if --clean is passed
+    if (argv.clean) {
+        del(jsDirectory + "/**/*");
+    }
+
+    // lint scripts
+    var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
+        // check if source is newer than destination
+        .pipe(newer(jsDirectory + "/all.js"))
+        // lint all non-vendor scripts
+        .pipe(jshint())
+        // print lint errors
+        .pipe(jshint.reporter("default"));
+
+    // concatenate scripts
+    var concated = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/jquery.googleMaps.js"])
+        // check if source is newer than destination
+        .pipe(newer(jsDirectory + "/all.js"))
+        // initialize sourcemap
+        .pipe(sourcemaps.init())
+        // concatenate to all.js
+        .pipe(concat("all.js"))
+        // uglify (if --dist is passed)
+        .pipe(gulpif(argv.dist, uglify()))
+        // write the sourcemap (if --dist isn't passed)
+        .pipe(gulpif(!argv.dist, sourcemaps.write()))
+        // output to the compiled directory
+        .pipe(gulp.dest(jsDirectory));
+
+    // copy fallback scripts
+    var copied = gulp.src([src + "/assets/scripts/fallback/**/*"])
+        // check if source is newer than destination
+        .pipe(newer(jsDirectory))
+        // output to the compiled directory
+        .pipe(gulp.dest(jsDirectory + "/fallback"));
+
+    // copy special scripts
+    var special = gulp.src([src + "/assets/scripts/jquery.googleMaps.js"])
+        // check if source is newer than destination
+        .pipe(newer(jsDirectory))
+        // output to the compiled directory
+        .pipe(gulp.dest(jsDirectory));
+
+    // merge all three steams back in to one
+    return merge(linted, concated, copied, special);
+});
+
+// styles task, compiles & prefixes SCSS
+gulp.task("styles", function () {
+    "use strict";
+
+    // development CSS directory
+    var cssDirectory = dev + "/assets/styles";
+
+    // production CSS directory (if --dist is passed)
+    if (argv.dist) {
+        cssDirectory = dist + "/assets/styles";
+    }
+
+    // clean directory if --clean is passed
+    if (argv.clean) {
+        del(cssDirectory + "/**/*");
+    }
+
+    // compile all SCSS in the root styles directory
+    return gulp.src(src + "/assets/styles/*.scss")
+        // check if source is newer than destination
+        .pipe(newer(cssDirectory + "/all.css"))
+        // initialize sourcemap
+        .pipe(sourcemaps.init())
+        // compile SCSS (compress if --dist is passed)
+        .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}).on("error", sass.logError), sass().on("error", sass.logError)))
+        // prefix CSS
+        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
+        // write the sourcemap (if --dist isn't passed)
+        .pipe(gulpif(!argv.dist, sourcemaps.write()))
+        // output to the compiled directory
+        .pipe(gulp.dest(cssDirectory));
+});
+
+// styles task, compiles & prefixes SCSS
+gulp.task("html", function () {
+    "use strict";
+
+    // development HTML directory
+    var htmlDirectory = dev;
+
+    // production HTML directory (if --dist is passed)
+    if (argv.dist) {
+        htmlDirectory = dist;
+    }
+
+    // clean directory if --clean is passed
+    if (argv.clean) {
+        del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
+    }
+
+    // import HTML files and replace their variables
+    return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
+        // check if source is newer than destination
+        .pipe(newer(htmlDirectory))
+        // insert variables
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
             context: {
-                name: themeName,
-                version: themeVersion,
-                description: themeDescription,
-                repository: themeRepository,
-                license: themeLicense,
-                color: themeColor,
+                name: name,
+                description: description,
+                version: version,
+                repository: repository,
+                license: license,
             }
         }))
-        .pipe(gulp.dest("./dev/"));
+        // output to the compiled directory
+        .pipe(gulp.dest(htmlDirectory));
 });
 
-// distribute to dist
-gulp.task("dist", function () {
-    // compress styles
-    gulp.src("./dev/assets/styles/*.css")
-        .pipe(sass({outputStyle: "compressed"}))
-        .pipe(gulp.dest("./dist/assets/styles/"))
+// default task, runs through everything but dist
+gulp.task("default", function () {
+    "use strict";
 
-    // compress scripts
-    gulp.src("./dev/assets/scripts/**/*.js")
-        .pipe(uglify())
-        .pipe(gulp.dest("./dist/assets/scripts/"))
-
-    // copy compressed media
-    gulp.src("./dev/assets/media/**/*")
-        .pipe(gulp.dest("./dist/assets/media/"))
-
-    // copy compressed screenshots
-    gulp.src("./dev/screenshot.png")
-        .pipe(gulp.dest("./dist/"))
-
-    // copy PHP
-    gulp.src(["./dev/**/*", "!./dev/{assets,assets/**}"])
-        .pipe(gulp.dest("./dist/"))
-});
-
-// upload to FTP environment
-gulp.task("ftp", function() {
-    if (argv.dist) {
-        var conn = ftp.create({
-                host: distHost,
-                user: distUser,
-                pass: distPass,
-            })
-
-        return gulp.src("./dist/**/*")
-            .pipe(conn.newer(distPath))
-            .pipe(conn.dest(distPath));
+    if (argv.ftp) {
+        runSequence(["media", "scripts", "styles", "html"], "ftp");
     } else {
-        var conn = ftp.create({
-                host: devHost,
-                user: devUser,
-                pass: devPass,
-            })
+        runSequence(["media", "scripts", "styles", "html"]);
+    }
+});
 
-        return gulp.src("./dev/**/*")
-            .pipe(conn.newer(devPath))
-            .pipe(conn.dest(devPath));
+// watch task, runs through everything but dist, triggers when a file is saved
+gulp.task("watch", function () {
+    "use strict";
+
+    watch("./src/**/*", function () {
+        if (argv.ftp) {
+            runSequence(["media", "scripts", "styles", "html"], "ftp");
+        } else {
+            runSequence(["media", "scripts", "styles", "html"]);
+        }
+    });
+});
+
+// initialize ftp.json
+gulp.task("ftp-init", function(cb) {
+    // check if the ftp.json exists
+    fs.stat("./ftp.json", function (err, stats) {
+        if (err != null) {
+            // if it doesn't, create it
+            fs.writeFile("./ftp.json", "{\"dev\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"\},\"dist\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"\}}", function (err) {
+                cb(err);
+            });
+        } else {
+            // otherwise return
+            cb(err);
+        }
+    });
+});
+
+// configure FTP credentials in ftp.json, depends on ftp-init
+gulp.task("ftp-config", ["ftp-init"], function(cb) {
+    // read FTP credentials from ftp.json
+    host = json.read("./ftp.json").get("dev.host"),
+    user = json.read("./ftp.json").get("dev.user"),
+    pass = json.read("./ftp.json").get("dev.pass"),
+    path = json.read("./ftp.json").get("dev.path");
+
+    // read dist FTP credentials from ftp.json (if --dist is passed)
+    if (argv.dist) {
+        host = json.read("./ftp.json").get("dist.host"),
+        user = json.read("./ftp.json").get("dist.user"),
+        pass = json.read("./ftp.json").get("dist.pass"),
+        path = json.read("./ftp.json").get("dist.path");
+    }
+
+    if (host === "" || user === "" || pass === "" || argv.config) {
+        // reconfigure ftp.json if a field is empty or if --config is passed
+        gulp.src("./ftp.json")
+            .pipe(prompt.prompt([{
+                // prompt for the hostname
+                type: "input",
+                name: "host",
+                message: "host:",
+                default: host,
+            },
+            {
+                // prompt for the username
+                type: "input",
+                name: "user",
+                message: "username:",
+                default: user,
+            },
+            {
+                // prompt for the password
+                type: "password",
+                name: "pass",
+                message: "password:",
+                default: pass,
+            },
+            {
+                // prompt for the remote path
+                type: "input",
+                name: "path",
+                message: "remote path:",
+                default: path,
+            }], function(res) {
+                // open the ftp.json
+                var file = json.read("./ftp.json");
+
+                // set connection to dev
+                var connection = "dev";
+
+                // set connection to dist (if --dist is passed)
+                if (argv.dist) {
+                    connection = "dist";
+                }
+
+                // update the file contents
+                file.set(connection + ".host", res.host);
+                file.set(connection + ".user", res.user);
+                file.set(connection + ".pass", res.pass);
+                file.set(connection + ".path", res.path);
+
+                // write the updated file contents
+                file.writeSync();
+
+                cb(null);
+            }));
+    } else {
+        // otherwise return
+        cb(null);
     }
 })
 
-// default task, builds to dev
-gulp.task("default", function (callback) {
-    runSequence("clean", "styles", "scripts", "media", "php", callback);
+// upload to FTP environment, depends on ftp-config, ftp-init
+gulp.task("ftp-upload", ["ftp-config", "ftp-init"], function(cb) {
+    // development FTP directory
+    var ftpDirectory = dev;
+
+    // production FTP directory (if --dist is passed)
+    if (argv.dist) {
+        ftpDirectory = dist;
+    }
+
+    // create the FTP connection
+    var conn = ftp.create({
+        host: host,
+        user: user,
+        pass: pass,
+        path: path,
+    })
+
+    // upload the changed files
+    return gulp.src(ftpDirectory + "/**/*")
+        .pipe(conn.newer(path))
+        .pipe(conn.dest(path));
+
+    // return
+    cb(null);
 });
 
-// uglify and populate dist
-gulp.task("build", function (callback) {
-    runSequence("clean", "styles", "scripts", "media", "php", "dist", callback);
-});
-
-// watch task, executes default task & updates server on file chagne
-gulp.task("watch", function () {
-    watch("./src/**/*", batch(function (events, callback) {
-        if (argv.ftp) {
-            runSequence("default", "ftp", callback);
-        } else {
-            runSequence("default", callback);
-        }
-    }));
-});
+// combine FTP tasks
+gulp.task("ftp", ["ftp-upload", "ftp-config", "ftp-init"]);
