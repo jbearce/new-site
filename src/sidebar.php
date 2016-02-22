@@ -1,5 +1,5 @@
 <div class="sidebar">
-    <?
+    <?php
     if (is_page() || is_single()) {
         if (get_field("sidebar")) {
             echo "<div class='widget-card'><div class='content'>";

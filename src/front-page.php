@@ -1,12 +1,12 @@
-<?
+<?php
 // redirect to the home templmate if no front page is set
 if (get_option("show_on_front") != "page") {
     include(TEMPLATEPATH . "/home.php");
     return;
 }
 ?>
-<? get_header(); ?>
-            <?
+<?php get_header(); ?>
+            <?php
             if (have_rows("slideshow")) {
                 // open the slideshow and swiper wrappers
                 echo "<div class='slideshow-wrapper'><div class='slideshow-block'><div class='swiper-container'><div class='swiper-wrapper'>";
@@ -30,7 +30,7 @@ if (get_option("show_on_front") != "page") {
                 <main class="content-block">
                     <div class="post">
                         <article class="article-card">
-                            <?
+                            <?php
                             // display the post
                             if (have_posts()) {
                                 while (have_posts()) {
@@ -59,7 +59,7 @@ if (get_option("show_on_front") != "page") {
                             ?>
                         </aricle><!--/.article-card-->
                     </div><!--/.post-->
-                    <? get_sidebar(); ?>
+                    <?php get_sidebar(); ?>
                 </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
-<? get_footer(); ?>
+<?php get_footer(); ?>

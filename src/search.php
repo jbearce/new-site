@@ -1,8 +1,8 @@
-<? get_header(); ?>
+<?php get_header(); ?>
             <div class="content-wrapper">
                 <main class="content-block">
                     <div class="post">
-                        <?
+                        <?php
                         // display breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
                             yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
@@ -10,10 +10,10 @@
                         ?>
                         <div class="article-card">
                             <header class="header">
-                                <? get_search_form(); ?>
+                                <?php get_search_form(); ?>
                             </header><!--/.header-->
                             <div class="content">
-                                <?
+                                <?php
                                 // display the posts
                                 if (have_posts()) {
                                     while (have_posts()) {
@@ -65,7 +65,7 @@
                                 }
                                 ?>
                             </div><!--/.content-->
-                            <?
+                            <?php
                             // display the pagination links
                             if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
                                 echo "<footer class='pagination-block'><p class='pagination text'>";
@@ -80,7 +80,7 @@
                             ?>
                         </div><!--/.article-card-->
                     </div><!--/.post-->
-                    <? get_sidebar(); ?>
+                    <?php get_sidebar(); ?>
                 </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
-<? get_footer(); ?>
+<?php get_footer(); ?>

@@ -1,5 +1,5 @@
 <div class="comments-block" id="comments">
-    <?
+    <?php
     if (post_password_required()) {
         echo "<p class='password-protected text'>";
         _e("This post is password protected. Enter the password to view comments.");
@@ -7,7 +7,7 @@
         return;
     }
     ?>
-    <?
+    <?php
     if (have_comments()) {
         // get comment pagination
         $comment_nav = false;
@@ -38,7 +38,7 @@
         echo "<p class='comments-closed text'>Comments are closed.</p>";
     }
     ?>
-    <?
+    <?php
     if (comments_open()) {
         // open the comment form wrapper
         echo "<div class='comment-form-wrapper' id='respond'>";

@@ -1,15 +1,15 @@
-<? get_header(); ?>
+<?php get_header(); ?>
             <div class="content-wrapper">
                 <main class="content-block">
                     <div class="post">
-                        <?
+                        <?php
                         // display breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
                             yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
                         }
                         ?>
                         <div class="article-card">
-                            <?
+                            <?php
                             // get the term title
                             $term = get_queried_object();
                             $term_title = get_the_time("F, Y") . " Archive";
@@ -24,7 +24,7 @@
                             // display the term title
                             echo "<header class='header'><h1 class='title'>{$term_title}</h1></header>";
                             ?>
-                            <?
+                            <?php
                             if ($term->description || have_posts()) {
                                 // open a content
                                 echo "<div class='content'>";
@@ -84,7 +84,7 @@
                                 echo "</div>";
                             }
                             ?>
-                            <?
+                            <?php
                             // display the pagination links
                             if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
                                 echo "<footer class='pagination-block'><p class='pagination text'>";
@@ -99,7 +99,7 @@
                             ?>
                         </div><!--/.article-card-->
                     </div><!--/.post-->
-                    <? get_sidebar(); ?>
+                    <?php get_sidebar(); ?>
                 </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
-<? get_footer(); ?>
+<?php get_footer(); ?>

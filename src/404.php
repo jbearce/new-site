@@ -1,9 +1,9 @@
-<? get_header(); ?>
+<?php get_header(); ?>
             <div class="content-wrapper">
                 <main class="content-block">
                     <div class="post">
                         <article class="article-card">
-                            <?
+                            <?php
                             // display breadcrumbs
                             if (function_exists("yoast_breadcrumb")) {
                                 yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
@@ -21,4 +21,4 @@
                     </div><!--/.post-->
                 </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
-<? get_footer(); ?>
+<?php get_footer(); ?>

@@ -1,15 +1,15 @@
-<? get_header(); ?>
+<?php get_header(); ?>
             <div class="content-wrapper">
                 <main class="content-block">
                     <div class="post">
-                        <?
+                        <?php
                         // display the breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
                             yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
                         }
                         ?>
                         <div class="article-card">
-                            <?
+                            <?php
                             // get the page title
                             if (get_option("show_on_front") == "page") {
                                 $home_title = get_the_title(get_option("page_for_posts"));
@@ -20,7 +20,7 @@
                             // display the page title
                             echo "<header class='header'><h1 class='title'>{$home_title}</h1></header>";
                             ?>
-                            <?
+                            <?php
                             // display the posts
                             if (have_posts()) {
                                 // open a content
@@ -74,7 +74,7 @@
                                 echo "</div>";
                             }
                             ?>
-                            <?
+                            <?php
                             // display the pagination links
                             if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
                                 echo "<footer class='pagination-block'><p class='pagination text'>";
@@ -89,7 +89,7 @@
                             ?>
                         </div><!--/.article-card-->
                     </div><!--/.post-->
-                    <? get_sidebar(); ?>
+                    <?php get_sidebar(); ?>
                 </main><!--/.content-block-->
             </div><!--/.content-wrapper-->
-<? get_footer(); ?>
+<?php get_footer(); ?>
