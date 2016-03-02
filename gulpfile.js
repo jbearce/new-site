@@ -325,6 +325,12 @@ gulp.task("ftp-config", ["ftp-init"], function(cb) {
                 // write the updated file contents
                 file.writeSync();
 
+                // read FTP credentials from ftp.json
+                host = res.host,
+                user = res.user,
+                pass = res.pass,
+                path = res.path;
+
                 cb(null);
             }));
     } else {
