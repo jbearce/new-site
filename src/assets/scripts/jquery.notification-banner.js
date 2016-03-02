@@ -1,0 +1,29 @@
+// JavaScript Document
+
+// Scripts written by Jacob Bearce @ Weblinx, Inc.
+
+$(".notification-banner-wrapper").each(function() {
+    // get the name of the cookie
+    var cookieName = $(this).data("banner");
+
+    // check if the cookie is set
+    if (document.cookie.indexOf(cookieName) === -1) {
+        // show the banner if the cookie doesn't exist
+        $(this).slideDown(500, function() {
+            // adjust the accibility values after the animation completes
+            $(this).removeAttr("hidden").attr("aria-hidden", "false");
+        });
+    }
+
+    // handle button clicks
+    $(this).find(".notification-button").click(function(e) {
+        // hide the notification banner
+        $(this).closest(".notification-banner-wrapper").slideUp(250, function() {
+            // set the cookie after the animation completes
+            document.cookie = cookieName + "=yes";
+
+            // adjust the accibility values after the animation completes
+            $(this).attr("hidden", "hidden").attr("aria-hidden", "true");
+        });
+    });
+});
