@@ -1,7 +1,7 @@
 {
   "name": "new-site",
   "description": "A basic framework for a WordPress template",
-  "version": "0.1.4",
+  "version": "0.0.1",
   "repository": "https://github.com/revxx14/new-site",
   "license": "MIT",
   "devDependencies": {
