@@ -3,7 +3,7 @@
   "description": "A basic framework for a WordPress template",
   "version": "0.0.1",
   "repository": "https://github.com/revxx14/new-site",
-  "license": "MIT",
+  "license": "UNLICENSED",
   "devDependencies": {
     "del": "^2.2.0",
     "gulp": "^3.9.0",
