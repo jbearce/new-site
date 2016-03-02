@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by Jacob Bearce | jacob@bearce.me
+// Scripts written by Jacob Bearce @ Weblinx, Inc.
 
 // mobile menu button
 $(".menu-button").click(function (e) {

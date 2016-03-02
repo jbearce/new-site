@@ -1,13 +1,23 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by Jacob Bearce @ Weblinx, Inc.
 
 /* ------------------------------------------------------------------------ *\
- * User Content                                                             *
+ * Basic Global Content                                                     *
 \* ------------------------------------------------------------------------ */
 
 .title {
     font-family: $heading-font;
 }
 
-.content {
+.text {
     font-family: $body-font;
+}
+
+.link {
+    color: $accent;
+    text-decoration: none;
+    transition: color 0.15s;
+
+    &:hover {
+        color: $accent_alt;
+    }
 }
