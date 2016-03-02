@@ -1,39 +1,122 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by Jacob Bearce | jacob@weblinxinc.com
 
 /* ------------------------------------------------------------------------ *\
- * Notification Banners                                                     *
+ * Notificaiton Banners                                                     *
 \* ------------------------------------------------------------------------ */
 
 .notification-banner-wrapper {
-    & {
-        background: #FF6700;
-        color: $light;
-        padding: 0 20px;
+    background: $warning;
+
+    &.-notice {
+        background: lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863);
+    }
+}
+
+.notification-banner {
+    margin: 0 auto;
+    max-width: $site-width + px;
+    max-width: remify($site-width);
+    min-height: remify(80, 16);
+    position: relative;
+}
+
+.notification-title {
+    align-items: center;
+    border-bottom: remify(2) solid transparentize($dark, 0.9);
+    color: $light;
+    display: flex;
+    font-family: $heading-font;
+    font-size: remify(24, 16);
+    font-weight: 700;
+    line-height: remify(24, 24);
+    margin: 0;
+    padding: remify(24 104 24 86, 24);
+    position: relative;
+    text-transform: uppercase;
+
+    .fa {
+        color: $warning_alt;
+        font-size: remify(42, 24);
+        left: remify(30, 42);
+        position: absolute;
+        transform: translateY(-50%);
+        top: 50%;
     }
 
-    &.-error {
-        background: #BF1313;
+    .notification-banner-wrapper.-notice & .fa {
+        color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
+    }
+}
+
+.notification-excerpt {
+    color: $light;
+    flex: 1 1 auto;
+    font-family: $body-font;
+    font-size: remify(15, 16);
+    line-height: remify(24, 15);
+    margin: 0;
+    padding: remify(24 30, 15);
+
+    a {
+        color: $warning_alt;
+        text-decoration: none;
     }
 
-    > .notification-banner {
-        margin: 0 auto;
-        padding: remify(20 0, 16);
-        width: remify($site-width, 16);
+    .notification-banner-wrapper.-notice & a {
+        color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
+    }
+}
+
+.notification-content {
+    padding: remify(24 30, 15);
+
+    &.user-content {
+        ol,
+        p,
+        table,
+        ul {
+            color: $light;
+            font-family: $body-font;
+            font-size: remify(15, 16);
+            line-height: remify(24, 15);
+        }
+
+        & > *:last-child {
+            margin-bottom: 0;
+        }
+
+        a {
+            color: $warning_alt;
+            text-decoration: none;
+        }
+
+        .notification-banner-wrapper.-notice & a {
+            color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
+        }
+    }
+}
+
+.notification-button {
+    background: none;
+    border: 0;
+    font-size: remify(24, 16);
+    height: remify(96, 24);
+    padding: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: remify(104, 24);
+
+    .fa {
+        color: $warning_alt;
+        font-size: remify(42, 24);
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%) translateY(-50%);
+        top: 50%;
     }
 
-    > .notification-banner > .content {
-        color: inherit;
-        display: block;
-        font-size: remify(16, 16);
-        font-weight: 400;
-        line-height: normal;
-        margin: 0;
-        text-align: center;
-        text-transform: none;
-    }
-
-    > .notification-banner > .content > .link {
-        color: inherit;
-        text-decoration: underline;
+    .notification-banner-wrapper.-notice & .fa {
+        color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
     }
 }

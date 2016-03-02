@@ -36,20 +36,6 @@
         <script>var $ = jQuery.noConflict();</script>
 	</head>
     <body <?php body_class(); ?>>
-        <!--[if lt IE 10]>
-        <div class="notification-banner-wrapper -error">
-            <div class="notification-banner">
-                <p><i class="fa fa-exclamation-circle"></i> It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher. <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank">Click here to learn about upgrading.</a></p>
-            </div>
-        </div>
-        <![endif]-->
-        <?php if (WP_DEBUG): ?>
-        <div class="notification-banner-wrapper">
-            <div class="notification-banner">
-                <p><i class="fa fa-info-circle"></i> Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.</p>
-            </div><!--/.notification-banner-->
-        </div><!--/.notification-banner-wrapper-->
-        <?php endif; ?>
         <div class="mobile-nav-wrapper">
             <div class="mobile-nav-block">
                 <?php
@@ -64,6 +50,24 @@
             </div><!--/.mobile-nav-block-->
         </div><!--/.mobile-nav-wrapper-->
         <div class="page-wrapper">
+            <!--[if lt IE 10]>
+            <div class="notification-banner-wrapper" data-banner="old-browser" hidden aria-hidden="true">
+                <div class="notification-banner">
+                    <h6 class="notification-title"><i class="fa fa-internet-explorer"></i> <? _e("Old<br /> Browser", "new-site"); ?></h6>
+                    <p class="notification-excerpt"><? _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new-site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><? _e("Click here to learn about upgrading.", "new-site"); ?></a></p>
+                    <button class="notification-button"><i class="fa fa-times-circle"></i> <span class="visually-hidden" aria-hidden="true"><? _e("Hide Notice", "new-site"); ?></span></button>
+                </div>
+            </div>
+            <![endif]-->
+            <? if (WP_DEBUG): ?>
+            <div class="notification-banner-wrapper -notice" data-banner="under-construction" hidden aria-hidden="true">
+                <div class="notification-banner">
+                    <h6 class="notification-title"><i class="fa fa-info-circle"></i> <? _e("Under<br /> Construction", "new-site"); ?></h6>
+                    <p class="notification-excerpt"><? _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-sites"); ?></p>
+                    <button class="notification-button"><i class="fa fa-times-circle"></i> <span class="visually-hidden" aria-hidden="true"><? _e("Hide Notice", "new-site"); ?></span></button>
+                </div><!--/.notification-banner-->
+            </div><!--/.notification-banner-wrapper-->
+            <? endif; ?>
             <div class="header-wrapper">
                 <header class="header-block">
                     <a class="logo" href="<?php echo home_url(); ?>">
