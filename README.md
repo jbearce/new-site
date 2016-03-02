@@ -14,6 +14,12 @@ These are the basic starting files we use for WordPress development at [Weblinx,
 - [Normalize](http://necolas.github.io/normalize.css/)
 - More stuff that I'll add later
 
+## Using This project
+
+If you choose to use this repository as a basis for a new project, please be sure to update all the instances of "Jacob Bearce @ Weblinx, Inc," as well as any references to Weblinx, Inc. or my name anywhere else in the project.
+
+I'd love to see what gets built with this, so feel free to tweet your site @revxx14 :)
+
 ## License
 
 The LICENSE.md included with this project, as well as the LICENSE field in package.json are intended for new projects, not for this project itself. This project is licensed under MIT.
