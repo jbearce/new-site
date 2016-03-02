@@ -123,7 +123,7 @@ gulp.task("scripts", function () {
         .pipe(jshint.reporter("default"));
 
     // concatenate scripts
-    var concated = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/jquery.googleMaps.js"])
+    var concated = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
         // check if source is newer than destination
         .pipe(newer(jsDirectory + "/all.js"))
         // initialize sourcemap
@@ -144,15 +144,8 @@ gulp.task("scripts", function () {
         // output to the compiled directory
         .pipe(gulp.dest(jsDirectory + "/fallback"));
 
-    // copy special scripts
-    var special = gulp.src([src + "/assets/scripts/jquery.googleMaps.js"])
-        // check if source is newer than destination
-        .pipe(newer(jsDirectory))
-        // output to the compiled directory
-        .pipe(gulp.dest(jsDirectory));
-
     // merge all three steams back in to one
-    return merge(linted, concated, copied, special);
+    return merge(linted, concated, copied);
 });
 
 // styles task, compiles & prefixes SCSS
@@ -175,7 +168,7 @@ gulp.task("styles", function () {
     // compile all SCSS in the root styles directory
     return gulp.src(src + "/assets/styles/*.scss")
         // check if source is newer than destination
-        .pipe(newer(cssDirectory + "/all.css"))
+        .pipe(newer(cssDirectory + "/modern.css"))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
