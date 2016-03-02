@@ -31,21 +31,32 @@
                                         echo "<header class='header'>";
 
                                         // display the title
-                                        echo "<h2><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                        echo "<h2 class='title'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
 
                                         // display the meta information
                                         if (get_post_type() == "post") {
+                                            // open a menu-wrapper and menu-list
                                             echo "<nav class='menu-wrapper -icons'><ul class='menu-list'>";
+
+                                            // display the date posted
                                             echo "<li class='menu-item'><a href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
+
+                                            // display the category list
                                             if (get_the_category_list()) {
                                                 echo "<li class='menu-item'><i class='fa fa-fodler'></i> " . get_the_category_list(", ") . "</li>";
                                             }
+
+                                            // display the tag list
                                             the_tags("<li class='menu-item'><i class='fa fa-tags'></i> ", ", ", "</li>");
+
+                                            // display the comment count
                                             if (comments_open() || get_comments_number() > 0) {
                                                 echo "<li class='menu-item'>";
                                                 comments_popup_link("<i class='fa fa-comment-o'></i> No Comments", "<i class='fa fa-comment'></i> 1 Comment", "<i class='fa fa-comments'></i> % Comments");
                                                 echo "</li>";
                                             }
+
+                                            // close the menu-list and menu-wrapper
                                             echo "</ul></nav>";
                                         }
 
@@ -53,15 +64,15 @@
                                         echo "</header>";
 
                                         // display the post excerpt
-                                        $post_excerpt = $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55);
-                                        echo "<div class='content'><p class='text'>{$post_excerpt}</p></div>";
+                                        $post_excerpt = $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55) . " [...]";
+                                        echo "<div class='content'><p class='excerpt text'>{$post_excerpt}</p></div>";
 
                                         // close the article card
                                         echo "</article>";
                                     }
 
                                 } else {
-                                    echo "<p class='no-results text'>No results found for <strong>" . get_search_query() . "</strong>.</p>";
+                                    echo "<p class='text'>" . __("No results found for ", "new-site") . "<strong>" . get_search_query() . "</strong>.</p>";
                                 }
                                 ?>
                             </div><!--/.content-->
