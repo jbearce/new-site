@@ -10,8 +10,8 @@ $(".notification-banner-wrapper").each(function() {
     if (document.cookie.indexOf(cookieName) === -1) {
         // show the banner if the cookie doesn't exist
         $(this).slideDown(500, function() {
-            // adjust the accibility values after the animation completes
-            $(this).removeAttr("hidden").attr("aria-hidden", "false");
+            // adjust the hidden value after the animation completes
+            $(this).removeAttr("hidden");
         });
     }
 
@@ -22,8 +22,8 @@ $(".notification-banner-wrapper").each(function() {
             // set the cookie after the animation completes
             document.cookie = cookieName + "=yes";
 
-            // adjust the accibility values after the animation completes
-            $(this).attr("hidden", "hidden").attr("aria-hidden", "true");
+            // adjust the hidden value after the animation completes
+            $(this).attr("hidden", "hidden");
         });
     });
 });
