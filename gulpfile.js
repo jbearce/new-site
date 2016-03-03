@@ -166,7 +166,7 @@ gulp.task("styles", function () {
     }
 
     // compile all SCSS in the root styles directory
-    return gulp.src(src + "/assets/styles/*.scss")
+    return gulp.src(src + "/assets/styles/**/*.scss")
         // check if source is newer than destination
         .pipe(newer(cssDirectory + "/modern.css"))
         // initialize sourcemap
