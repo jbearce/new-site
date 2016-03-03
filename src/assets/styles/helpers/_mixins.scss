@@ -4,20 +4,6 @@
  * Mixins                                                                   *
 \* ------------------------------------------------------------------------ */
 
-// clear fix
-
-@mixin clear {
-    &:before,
-    &:after {
-        content: "";
-        display: table;
-    }
-
-    &:after {
-        clear: both;
-    }
-}
-
 // placeholders
 
 @mixin placeholder {
