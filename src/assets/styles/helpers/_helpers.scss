@@ -33,3 +33,9 @@
 ._nopadding {
     padding: 0 !important;
 }
+
+._visuallyhidden {
+    left: -999em !important;
+    position: absolute !important;
+    top: -999em !important;
+}
