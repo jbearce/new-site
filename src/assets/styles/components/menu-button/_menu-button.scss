@@ -7,6 +7,7 @@
 .menu-button {
     & {
         background: none;
+        border: 0;
         color: $accent;
         display: block;
         font-size: 16px;
@@ -18,11 +19,6 @@
         text-indent: -999em;
         transition: background-color 0.15s;
         width: remify(40, 16);
-    }
-
-    &:hover {
-        background: none;
-        color: $accent;
     }
 
     &:before,
