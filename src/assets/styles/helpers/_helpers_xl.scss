@@ -1,0 +1,19 @@
+// Styles written by Jacob Bearce @ Weblinx, Inc.
+
+/* ------------------------------------------------------------------------ *\
+ * Helpers                                                                  *
+\* ------------------------------------------------------------------------ */
+
+/* visibility classes */
+// ideal: https://www.w3.org/TR/css-display-3/#propdef-box-suppress
+
+._showtablet,
+._hidedesktop {
+    max-height: 0 !important;
+    visibility: hidden !important;
+}
+
+._showdesktop {
+    max-height: none !important;
+    visibility: visible !important;
+}

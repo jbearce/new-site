@@ -1,0 +1,19 @@
+// Styles written by Jacob Bearce @ Weblinx, Inc.
+
+/* ------------------------------------------------------------------------ *\
+ * Helpers                                                                  *
+\* ------------------------------------------------------------------------ */
+
+/* visibility classes */
+// ideal: https://www.w3.org/TR/css-display-3/#propdef-box-suppress
+
+._showmobile,
+._hidetablet {
+    max-height: 0 !important;
+    visibility: hidden !important;
+}
+
+._showtablet {
+    max-height: none !important;
+    visibility: visible !important;
+}

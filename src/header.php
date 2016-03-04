@@ -36,7 +36,7 @@
         <script>var $ = jQuery.noConflict();</script>
 	</head>
     <body <?php body_class(); ?>>
-        <div class="mobile-nav-wrapper">
+        <div class="mobile-nav-wrapper _hidetablet">
             <div class="mobile-nav-block">
                 <?php
                 wp_nav_menu(array(
@@ -74,7 +74,7 @@
                         <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<?php bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
                     </a><!--/.logo-->
                     <?php get_search_form(); ?>
-                    <button class="menu-button">Menu</button>
+                    <button class="menu-button _hidetablet">Menu</button>
                 </header><!--/.header-block-->
             </div><!--/.header-wrapper-->
             <div class="nav-wrapper">

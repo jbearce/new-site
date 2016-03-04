@@ -39,3 +39,18 @@
     position: absolute !important;
     top: -999em !important;
 }
+
+/* visibility classes */
+// ideal: https://www.w3.org/TR/css-display-3/#propdef-box-suppress
+
+._hidemobile,
+._showtablet,
+._showdesktop {
+    max-height: 0 !important;
+    visibility: hidden !important;
+}
+
+._showmobile {
+    max-height: none !important;
+    visibility: visible !important;
+}
