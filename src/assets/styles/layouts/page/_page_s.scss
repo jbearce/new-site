@@ -8,6 +8,7 @@ html.-navactive,
 html.-navactive body {
     & {
         height: auto;
+        overflow: auto;
         width: auto;
     }
 }
