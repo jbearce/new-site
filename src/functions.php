@@ -28,9 +28,6 @@ class RSCSSwalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
         $item_id = $item->ID;
-        if ($depth == 0) {
-			self::$li_count = 0;
-		}
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
         $target = "";
@@ -38,17 +35,17 @@ class RSCSSwalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
+            "<li id='menu-item-%s'%s><a class='menu-link' href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,
             $target,
             $item->title
         );
-        self::$li_count++;
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "<ul class='menu-list -submenu'>";
+        $flyout_class = $depth > 0 ? " -flyout" : "";
+        $output .= "<ul class='menu-list -submenu{$flyout_class}'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= "</ul>";
@@ -64,9 +61,6 @@ class mobileRSCSSwalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
         $item_id = $item->ID;
-        if ($depth == 0) {
-			self::$li_count = 0;
-		}
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
         $target = "";
@@ -74,18 +68,18 @@ class mobileRSCSSwalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
+            "<li id='menu-item-%s'%s><a class='menu-link' href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,
             $target,
             $item->title
         );
-        self::$li_count++;
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "<button class='menu-toggle'>More</button>";
-        $output .= "<ul class='menu-list -submenu'>";
+        $flyout_class = $depth > 0 ? " -flyout" : "";
+        $output .= "<button class='menu-toggle'><span class='_visuallyhidden'>" . __("Show More") . "</span></button>";
+        $output .= "<ul class='menu-list -submenu{$flyout_class}'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= "</ul>";

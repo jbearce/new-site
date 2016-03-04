@@ -42,7 +42,7 @@
                 wp_nav_menu(array(
                     "container"		 => false,
                     "depth"          => 3,
-                    "items_wrap"	 => "<nav class='menu-wrapper -nav -vertical'><ul class='menu-list'>%3\$s</ul></nav>",
+                    "items_wrap"	 => "<nav class='menu-wrapper'><ul class='menu-list -vertical title'>%3\$s</ul></nav>",
                     "theme_location" => "primary",
                     "walker"         => new mobileRSCSSwalker(),
                 ));
@@ -83,7 +83,7 @@
                     wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
-                        "items_wrap"	 => "<nav class='menu-wrapper -nav'><ul class='menu-list'>%3\$s</ul></nav>",
+                        "items_wrap"	 => "<nav class='menu-wrapper'><ul class='menu-list title'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
                         "walker"         => new RSCSSwalker(),
                     ));
