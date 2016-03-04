@@ -4,14 +4,19 @@
 
 // mobile menu button
 $(".menu-button").click(function (e) {
-    "use strict";
     e.preventDefault();
+
+    // mark the mobile nav as open
     $("html").toggleClass("-navactive");
 });
 
 // mobile drop down buttons
 $(".menu-toggle").click(function (e) {
-    "use strict";
     e.preventDefault();
-    $(this).closest(".menu-list.-submenu").toggleClass("-active");
+
+    // mark thsi button as active
+    $(this).toggleClass("-active");
+
+    // mark the next drop down as active
+    $(this).next(".menu-list.-submenu").toggleClass("-active");
 });
