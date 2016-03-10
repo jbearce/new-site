@@ -10,9 +10,15 @@ These are the basic starting files we use for WordPress development at [Weblinx,
  - Notification banners
  - Menus
  - [Swiper](http://idangero.us/swiper/)
- - More coming soon (logos, )
+ - Logos
+- Nifty helpers
+ - Mixins for quantity queries, layers, and FontAwesome icons
+ - Functions for stripping units and (r)emifying units
+ - Variables for colors, fonts, widths, icons, and More
+ - Global classes to hide or show elements on mobile, tablet, or desktop (WIP)
 - [Normalize](http://necolas.github.io/normalize.css/)
-- More stuff that I'll add later
+- [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
+- More stuff coming soon
 
 ## Using This project
 
