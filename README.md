@@ -7,22 +7,22 @@ These are the basic starting files we use for WordPress development at [Weblinx,
 - Responsive, built for mobile first
 - [RSCSS](http://rscss.io/) compliant (WIP)
 - Pre-built components
+- Menus
+ - [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
  - Notification banners
- - Menus
- - [Swiper](http://idangero.us/swiper/)
  - Logos
+ - [Swiper](http://idangero.us/swiper/)
 - Nifty helpers
+- Functions for stripping units and (r)emifying lengths
+- Global helper classes to hide or show elements on mobile, tablet, or desktop (WIP)
  - Mixins for quantity queries, layers, and FontAwesome icons
- - Functions for stripping units and (r)emifying units
  - Variables for colors, fonts, widths, icons, and More
- - Global classes to hide or show elements on mobile, tablet, or desktop (WIP)
 - [Normalize](http://necolas.github.io/normalize.css/)
-- [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
 - More stuff coming soon
 
 ## Using This project
 
-If you choose to use this repository as a basis for a new project, please be sure to update all the instances of "Jacob Bearce @ Weblinx, Inc," as well as any references to Weblinx, Inc. or my name anywhere else in the project.
+If you choose to use this repository as a basis for a new project, please be sure to update all the instances of "YOURNAME @ YOURCOMPANY," as well as any references to Weblinx, Inc. or my name anywhere else in the project.
 
 I'd love to see what gets built with this, so feel free to tweet your site @revxx14 :)
 
@@ -32,7 +32,7 @@ The LICENSE.md included with this project, as well as the LICENSE field in packa
 
 ### The MIT License (MIT)
 
-Copyright (c) 2016 Jacob Bearce @ Weblinx, Inc.
+Copyright (c) 2016 YOURNAME @ YOURCOMPANY
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
