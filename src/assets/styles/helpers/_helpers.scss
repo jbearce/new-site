@@ -26,6 +26,31 @@
     }
 }
 
+._center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+._left {
+    float: left !important;
+}
+
+._right {
+    float: right !important;
+}
+
+._textcenter {
+    text-align: center !important;
+}
+
+._textleft {
+    text-align: left !important;
+}
+
+._textright {
+    text-align: right !important;
+}
+
 ._nomargin {
     margin: 0 !important;
 }
