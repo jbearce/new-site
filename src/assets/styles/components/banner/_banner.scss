@@ -1,10 +1,10 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Notificaiton Banners                                                     *
+ * Banner                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.notification-banner-wrapper {
+.banner-wrapper {
     background: $warning;
 
     &.-notice {
@@ -12,7 +12,7 @@
     }
 }
 
-.notification-banner {
+.banner {
     margin: 0 auto;
     max-width: $site-width + px;
     max-width: remify($site-width);
@@ -20,7 +20,7 @@
     position: relative;
 }
 
-.notification-title {
+.banner-title {
     align-items: center;
     border-bottom: remify(2) solid transparentize($dark, 0.9);
     color: $light;
@@ -48,7 +48,7 @@
     }
 }
 
-.notification-excerpt {
+.banner-excerpt {
     color: $light;
     flex: 1 1 auto;
     font-family: $body-font;
@@ -62,12 +62,12 @@
         text-decoration: none;
     }
 
-    .notification-banner-wrapper.-notice & a {
+    .banner-wrapper.-notice & a {
         color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
     }
 }
 
-.notification-content {
+.banner-content {
     padding: remify(24 30, 15);
 
     &.user-content {
@@ -90,13 +90,13 @@
             text-decoration: none;
         }
 
-        .notification-banner-wrapper.-notice & a {
+        .banner-wrapper.-notice & a {
             color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
         }
     }
 }
 
-.notification-button {
+.banner-button {
     background: none;
     border: 0;
     font-size: remify(24, 16);
@@ -116,7 +116,7 @@
         top: 50%;
     }
 
-    .notification-banner-wrapper.-notice & .fa {
+    .banner-wrapper.-notice & .fa {
         color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
     }
 }

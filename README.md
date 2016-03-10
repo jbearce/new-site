@@ -9,7 +9,7 @@ These are the basic starting files we use for WordPress development at [Weblinx,
 - Pre-built components
 - Menus
  - [FontAwesome](http://fortawesome.github.io/Font-Awesome/)
- - Notification banners
+ - Banners
  - Logos
  - [Swiper](http://idangero.us/swiper/)
 - Nifty helpers

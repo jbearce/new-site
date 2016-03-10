@@ -1,19 +1,19 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Notificaiton Banners                                                     *
+ * Banners                                                                  *
 \* ------------------------------------------------------------------------ */
 
-.notification-banner-wrapper {
+.banner-wrapper {
     padding: remify(0 20, 16);
 }
 
-.notification-banner {
+.banner {
     display: flex;
     min-height: remify(86, 16);
 }
 
-.notification-title {
+.banner-title {
     border-bottom: 0;
     border-right: remify(2) solid transparentize($dark, 0.9);
     flex: none;
@@ -24,8 +24,8 @@
     }
 }
 
-.notification-excerpt,
-.notification-content {
+.banner-excerpt,
+.banner-content {
     flex: 1 1 auto;
 
     &:not(:last-child) {
@@ -33,7 +33,7 @@
     }
 }
 
-.notification-button {
+.banner-button {
     height: 100%;
     min-height: remify(86, 24);
     width: remify(86, 24);
