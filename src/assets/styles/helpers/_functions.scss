@@ -4,18 +4,6 @@
  * Functions                                                                *
 \* ------------------------------------------------------------------------ */
 
-// Generate black rgba value with specified opacity
-
-@function black($opacity) {
-    @return rgba(0,0,0,$opacity)
-}
-
-// Generate white rgba value with specified opacity
-
-@function white($opacity) {
-    @return rgba(255,255,255,$opacity)
-}
-
 // Remove the unit of a length
 
 @function strip-unit($number) {
@@ -41,9 +29,17 @@
     }
     @each $size in $sizes {
         @if $value-rem == null {
-            $value-rem: (strip-unit($size) / strip-unit($base)) + $unit;
+            @if type-of($size) == "number" {
+                $value-rem: (strip-unit($size) / strip-unit($base)) + $unit;
+            } @else {
+                $value-rem: $size;
+            }
         } @else {
-            $value-rem: $value-rem + " " + ((strip-unit($size) / strip-unit($base)) + $unit);
+            @if type-of($size) == "number" {
+                $value-rem: $value-rem + " " + ((strip-unit($size) / strip-unit($base)) + $unit);
+            } @else {
+                $value-rem: $value-rem + " " + $size;
+            }
         }
     }
     @return $value-rem;
