@@ -16,7 +16,7 @@ $(".banner-wrapper").each(function() {
     }
 
     // handle button clicks
-    $(this).find(".banner-button").click(function(e) {
+    $(this).find(".banner > .button").click(function(e) {
         // hide the notification banner
         $(this).closest(".banner-wrapper").slideUp(250, function() {
             // set the cookie after the animation completes

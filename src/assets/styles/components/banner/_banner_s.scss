@@ -5,36 +5,38 @@
 \* ------------------------------------------------------------------------ */
 
 .banner-wrapper {
-    padding: remify(0 20, 16);
-}
+    & {
+        padding: remify(0 20, 16);
+    }
 
-.banner {
-    display: flex;
-    min-height: remify(86, 16);
-}
+    & > .banner {
+        display: flex;
+        min-height: remify(86, 16);
+    }
 
-.banner-title {
-    border-bottom: 0;
-    border-right: remify(2) solid transparentize($dark, 0.9);
-    flex: none;
-    padding: remify(24 56, 24);
+    & > .banner > .title {
+        border-bottom: 0;
+        border-right: remify(2) solid transparentize($dark, 0.9);
+        flex: none;
+        padding: remify(24 56, 24);
+    }
 
-    .fa {
+    & > .banner > .title > .fa {
         left: 0;
     }
-}
 
-.banner-excerpt,
-.banner-content {
-    flex: 1 1 auto;
+    & > .banner > .excerpt,
+    & > .banner > .content {
+        flex: 1 1 auto;
 
-    &:not(:last-child) {
-        padding-right: remify(200, 16);
+        &:not(:last-child) {
+            padding-right: remify(200, 16);
+        }
     }
-}
 
-.banner-button {
-    height: 100%;
-    min-height: remify(86, 24);
-    width: remify(86, 24);
+    & > .banner > .button {
+        height: 100%;
+        min-height: remify(86, 24);
+        width: remify(86, 24);
+    }
 }

@@ -60,18 +60,18 @@
             <!--[if lt IE 10]>
             <div class="banner-wrapper" data-banner="old-browser" hidden>
                 <div class="banner">
-                    <h6 class="banner-title"><i class="fa fa-internet-explorer"></i> <? _e("Old<br /> Browser", "new-site"); ?></h6>
-                    <p class="banner-excerpt"><? _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new-site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><? _e("Click here to learn about upgrading.", "new-site"); ?></a></p>
-                    <button class="banner-button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><? _e("Hide Notice", "new-site"); ?></span></button>
+                    <h6 class="title"><i class="fa fa-internet-explorer"></i> <? _e("Old<br /> Browser", "new-site"); ?></h6>
+                    <p class="excerpt"><? _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new-site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><? _e("Click here to learn about upgrading.", "new-site"); ?></a></p>
+                    <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><? _e("Hide Notice", "new-site"); ?></span></button>
                 </div>
             </div>
             <![endif]-->
             <? if (WP_DEBUG): ?>
             <div class="banner-wrapper -notice" data-banner="under-construction" hidden>
                 <div class="banner">
-                    <h6 class="banner-title"><i class="fa fa-info-circle"></i> <? _e("Under<br /> Construction", "new-site"); ?></h6>
-                    <p class="banner-excerpt"><? _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-sites"); ?></p>
-                    <button class="banner-button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><? _e("Hide Notice", "new-site"); ?></span></button>
+                    <h6 class="title"><i class="fa fa-info-circle"></i> <? _e("Under<br /> Construction", "new-site"); ?></h6>
+                    <p class="excerpt"><? _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-sites"); ?></p>
+                    <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><? _e("Hide Notice", "new-site"); ?></span></button>
                 </div><!--/.banner-->
             </div><!--/.banner-wrapper-->
             <? endif; ?>
