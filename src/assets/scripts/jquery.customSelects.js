@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by Jacob Bearce @ Weblinx, Inc.
+// Scripts written by YOURNAME @ YOURCOMPANY
 
 $("select").not("select[multiple], .select-box > select").each(function () {
 	if ($(this).css("display") !== "none") {

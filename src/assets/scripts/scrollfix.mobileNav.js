@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by Jacob Bearce @ Weblinx, Inc.
+// Scripts written by YOURNAME @ YOURCOMPANY
 
 // fix scrolling in mobileNavWrapper on iOS
 if (navigator.userAgent.match(/(iPad|iPhone|iPod)/g)) {

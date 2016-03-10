@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by Jacob Bearce @ Weblinx, Inc.
+// Scripts written by YOURNAME @ YOURCOMPANY
 
 $(".notification-banner-wrapper").each(function() {
     // get the name of the cookie
