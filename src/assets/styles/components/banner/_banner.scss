@@ -49,7 +49,7 @@
         color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
     }
 
-    & > .banner > .excerpt {
+    > .banner > .excerpt {
         color: $light;
         flex: 1 1 auto;
         font-family: $body-font;
@@ -59,7 +59,7 @@
         padding: remify(24 30, 15);
     }
 
-    & > .banner > .excerpt > a {
+    > .banner > .excerpt > a {
         color: $warning_alt;
         text-decoration: none;
     }
@@ -68,11 +68,11 @@
         color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
     }
 
-    & > .banner > .content {
+    > .banner > .content {
         padding: remify(24 30, 15);
     }
 
-    & > .banner > .content.user-content {
+    > .banner > .content.user-content {
         ol,
         p,
         table,
@@ -83,7 +83,7 @@
             line-height: remify(24, 15);
         }
 
-        & > *:last-child {
+        > *:last-child {
             margin-bottom: 0;
         }
 
@@ -93,13 +93,13 @@
         }
     }
 
-    & > .banner > .content.user-content {
+    > .banner > .content.user-content {
         a {
             color: lighten(desaturate(adjust-hue(lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863), 0.0000), 6.7308), 28.0392);
         }
     }
 
-    & > .banner > .button {
+    > .banner > .button {
         background: none;
         border: 0;
         font-size: remify(24, 16);
@@ -111,7 +111,7 @@
         width: remify(104, 24);
     }
 
-    & > .banner > .button > .fa {
+    > .banner > .button > .fa {
         color: $warning_alt;
         font-size: remify(42, 24);
         left: 50%;
