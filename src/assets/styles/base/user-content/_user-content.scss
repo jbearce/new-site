@@ -415,4 +415,17 @@
         min-height: remify(100, 16);
     	min-width: 100%;
     }
+
+    /* -------------- *\
+     * Alignment      *
+    \* -------------- */
+
+    .aligncenter,
+    .alignleft,
+    .alignright {
+        & {
+            display: block;
+            margin: 0 auto remify(30, 16);
+        }
+    }
 }
