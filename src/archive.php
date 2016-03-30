@@ -12,7 +12,7 @@
                             <?php
                             // get the term title
                             $term = get_queried_object();
-                            $term_title = get_the_time("F, Y") . " Archive";
+                            $term_title = get_the_time("F, Y") . " " . __("Archive", "new-site");
                             if (is_category()) {
                                 $term_title = single_cat_title("", false);
                             } elseif (is_tag()) {
@@ -34,9 +34,11 @@
                                     echo "<div class='user-content'>" . wpautop($term->description) . "</div>";
                                 }
 
-                                // display the posts
+                                // check if posts exist
                                 if (have_posts()) {
+                                    // loop through each post
                                     while (have_posts()) {
+                                        // iterate the post index
                                         the_post();
 
                                         // open an article card

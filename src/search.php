@@ -14,9 +14,11 @@
                             </header><!--/.header-->
                             <div class="content">
                                 <?php
-                                // display the posts
+                                // check if posts exist
                                 if (have_posts()) {
+                                    // loop through each post
                                     while (have_posts()) {
+                                        // iterate the post index
                                         the_post();
 
                                         // open an article card

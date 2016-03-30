@@ -9,13 +9,15 @@
                         }
                         ?>
                         <?php
-                        // display the post
+                        // check if posts exist
                         if (have_posts()) {
+                            // loop through each post
                             while (have_posts()) {
+                                // iterate the post index
                                 the_post();
 
                                 // open an article card
-                                echo "<article class='article-card'>"
+                                echo "<article class='article-card'>";
 
                                 // display the title
                                 the_title("<header class='header'><h1 class='title'>", "</h1></header>");

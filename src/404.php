@@ -10,11 +10,11 @@
                         ?>
                         <article class="article-card">
                             <header class="header">
-                                <h1 class="title">404: Page Not Found</h1>
+                                <h1 class="title"><?php _e("404: Page Not Found", "new-site"); ?></h1>
                             </header><!--/.header-->
                             <div class="content">
                                 <div class="user-content">
-                                    <p>This page could not be found. It may have been moved or deleted.</p>
+                                    <p><?php _e("This page could not be found. It may have been moved or deleted.", "new-site"); ?></p>
                                 </div><!--/.user-content-->
                             </div><!--/.content-->
                         </article><!--/.article-card-->

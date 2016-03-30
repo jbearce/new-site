@@ -1,0 +1,91 @@
+// Styles written by Jacob Bearce | jacob@bearce.me
+
+/* ------------------------------------------------------------------------ *\
+ * Comments                                                                 *
+\* ------------------------------------------------------------------------ */
+
+// Comment Title
+
+.comments-title {
+    font-size: remify(30, 16);
+    padding: remify(42 0 0, 30);
+}
+
+// Comment List
+
+.comment-list,
+.comment-list .children {
+    margin: remify(0 0 48, 16);
+}
+
+.comment-list .children {
+    padding: remify(0 0 0 32, 16);
+}
+
+.comment-body {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    padding: remify(40 0, 16);
+}
+
+.comment-meta {
+    font-size: remify(20, 16);
+}
+
+
+.comment-author {
+    float: left;
+}
+
+.comment-metadata {
+    float: right;
+}
+
+.comment-content {
+    flex: 1 1 auto;
+    width: 1px; // as small as posisble so it won't wrap
+
+    > *:last-child {
+        margin-bottom: 0 !important; // should always be 0
+    }
+}
+
+.comment-reply-link {
+    flex: none;
+    margin: remify(0 0 0 50, 18);
+}
+
+// Comment Pagination
+
+.comments-nav {
+    font-size: remify(18, 16);
+    line-height: remify(34, 18);
+    text-align: right;
+}
+
+.comments-nav .page-numbers {
+    margin: remify(0 0 0 6, 18);
+}
+
+// Comment Form
+
+.comment-form-title {
+    font-size: remify(30, 16);
+}
+
+.comment-logged-in {
+    font-size: remify(18, 16);
+}
+
+.comment-form .col-half.-padded-right {
+    padding-right: remify(10);
+}
+
+.comment-form .col-half.-padded-left {
+    padding-left: remify(10);
+}
+
+.comment-input {
+    font-size: remify(18, 16);
+}

@@ -3,20 +3,20 @@
 // Scripts written by YOURNAME @ YOURCOMPANY
 
 // mobile menu button
-$(".menu-button").click(function (e) {
+jQuery(".menu-button").click(function (e) {
     e.preventDefault();
 
     // mark the mobile nav as open
-    $("html").toggleClass("-navactive");
+    jQuery("html").toggleClass("-navactive");
 });
 
 // mobile drop down buttons
-$(".menu-toggle").click(function (e) {
+jQuery(".menu-toggle").click(function (e) {
     e.preventDefault();
 
     // mark thsi button as active
-    $(this).toggleClass("-active");
+    jQuery(this).toggleClass("-active");
 
     // mark the next drop down as active
-    $(this).next(".menu-list.-submenu").toggleClass("-active");
+    jQuery(this).next(".menu-list.-submenu").toggleClass("-active");
 });

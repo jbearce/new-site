@@ -17,7 +17,7 @@
         echo "<div class='widget-card'>";
 
         // get the title
-        $widget_title = get_the_time("F, Y") . " Archive";
+        $widget_title = get_the_time("F, Y") . " " . __("Archive", "new-site");
         if (is_category()) {
             $widget_title = single_cat_title("", false);
         } elseif (is_tag()) {

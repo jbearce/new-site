@@ -75,3 +75,12 @@ figure {
         margin: 0;
     }
 }
+
+// Remove border radius from inputs and buttons in iOS
+
+button,
+input {
+    & {
+        border-radius: 0;
+    }
+}

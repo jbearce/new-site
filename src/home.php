@@ -17,12 +17,14 @@
                             echo "<header class='header'><h1 class='title'>{$home_title}</h1></header>";
                             ?>
                             <?php
-                            // display the posts
+                            // check if posts exist
                             if (have_posts()) {
                                 // open a content
                                 echo "<div class='content'>";
-
+                                
+                                // loop through each post
                                 while (have_posts()) {
+                                    // iterate the post index
                                     the_post();
 
                                     // open an article card

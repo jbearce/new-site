@@ -2,28 +2,28 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-$(".banner-wrapper").each(function() {
+jQuery(".banner-wrapper").each(function() {
     // get the name of the cookie
-    var cookieName = $(this).data("banner");
+    var cookieName = jQuery(this).data("banner");
 
     // check if the cookie is set
     if (document.cookie.indexOf(cookieName) === -1) {
         // show the banner if the cookie doesn't exist
-        $(this).slideDown(500, function() {
+        jQuery(this).slideDown(500, function() {
             // adjust the hidden value after the animation completes
-            $(this).removeAttr("hidden");
+            jQuery(this).removeAttr("hidden");
         });
     }
 
     // handle button clicks
-    $(this).find(".banner > .button").click(function(e) {
+    jQuery(this).find(".banner > .button").click(function(e) {
         // hide the notification banner
-        $(this).closest(".banner-wrapper").slideUp(250, function() {
+        jQuery(this).closest(".banner-wrapper").slideUp(250, function() {
             // set the cookie after the animation completes
             document.cookie = cookieName + "=yes";
 
             // adjust the hidden value after the animation completes
-            $(this).attr("hidden", "hidden");
+            jQuery(this).attr("hidden", "hidden");
         });
     });
 });

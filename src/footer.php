@@ -7,12 +7,11 @@
                 </footer><!--/.footer-block-->
             </div><!--/.footer-wrapper-->
         </div><!--/.page-wrapper-->
-        <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/all.js@@if (context.version) {?v=@@version}" type="text/javascript"></script>
-        <?php if (is_front_page() && have_rows("slideshow")): ?>
-        <script type="text/javascript">
-            var swiper = new Swiper(".swiper-container");
-        </script>
-        <?php endif; ?>
         <?php wp_footer(); ?>
+        <?php if (is_front_page() && have_rows("slideshow")): ?>
+            <script type="text/javascript">
+            var swiper = new Swiper(".swiper-container");
+            </script>
+        <?php endif; ?>
 	</body>
 </html>

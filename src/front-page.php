@@ -31,9 +31,11 @@ if (get_option("show_on_front") != "page") {
                     <div class="post">
                         <article class="article-card">
                             <?php
-                            // display the post
+                            // check if posts exist
                             if (have_posts()) {
+                                // loop through each post
                                 while (have_posts()) {
+                                    // iterate the post index
                                     the_post();
 
                                     // display the title

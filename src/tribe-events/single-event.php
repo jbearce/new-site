@@ -1,116 +1,87 @@
-<?php if (!defined("ABSPATH")) {die("-1");} ?>
-<?php $event_id = get_the_ID(); ?>
-<div id="tribe-events-content" class="tribe-events-single">
-	<p class="tribe-events-back"><a href="<?php echo tribe_get_events_link(); ?>"> <?php _e("&laquo; All Events", "tribe-events-calendar"); ?></a></p>
-	<?php tribe_events_the_notices() ?>
-	<?php the_title("<h2 class='tribe-events-single-event-title summary'>", "</h2>"); ?>
-	<div class="tribe-events-schedule updated published tribe-clearfix">
-		<h3>
-			<?php echo tribe_events_event_schedule_details($event_id); ?>
-			<?php if (tribe_get_cost()):  ?>
-				<span class="tribe-events-divider">|</span>
-				<span class="tribe-events-cost"><?php echo tribe_get_cost(null, true); ?></span>
-			<?php endif; ?>
-		</h3>
-	</div><!--/.tribe-events-schedule.updated.published.tribe-clearfix-->
-	<div id="tribe-events-header" <?php tribe_events_the_header_attributes(); ?>>
-		<h3 class="tribe-events-visuallyhidden"><?php _e("Event Navigation", "tribe-events-calendar"); ?></h3>
-		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link("<span>&laquo;</span> %title%") ?></li>
-			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link("%title% <span>&raquo;</span>") ?></li>
-		</ul><!--/.tribe-events-sub-nav-->
-	</div><!--/#tribe-events-header-->
-	<?php while (have_posts()):  the_post(); ?>
-	<div id="post-<?php the_ID(); ?>" <?php post_class("vevent"); ?>>
-		<?php echo tribe_event_featured_image(); ?>
-		<?php do_action("tribe_events_single_event_before_the_content") ?>
-		<div class="tribe-events-single-event-description tribe-events-content entry-content description">
-			<?php the_content(); ?>
-		</div><!--/.tribe-events-single-event-description.tribe-events-content.entry-content.description-->
-		<?php do_action("tribe_events_single_event_after_the_content"); ?>
-		<div class="tribe-events-meta-wrapper tribe-clearfix">
-			<?php do_action("tribe_events_single_event_before_the_meta"); ?>
-			<?php // echo tribe_events_single_event_meta() ?>
-			<div class="tribe-events-meta-group tribe-events-meta-group-details">
-				<h3>Details</h3>
-				<?php if (tribe_get_start_date(null, false) != tribe_get_end_date(null, false)): ?>
-				<h4>Start:</h4>
-				<p><?php echo tribe_get_start_date(null, false); ?></p>
-				<h4>End:</h4>
-				<p><?php echo tribe_get_end_date(null, false); ?></p>
-				<?php else: ?>
-				<h4>Date:</h4>
-				<p><?php echo tribe_get_start_date(null, false); ?></p>
-				<?php endif; ?>
-				<?php if (tribe_get_cost()): ?>
-				<h4>Cost:</h4>
-				<p><?php echo tribe_get_formatted_cost(); ?></p>
-				<?php endif; ?>
-				<?php if (tribe_get_event_website_link()): ?>
-				<h4>Website:</h4>
-				<p><?php echo tribe_get_event_website_link(); ?></p>
-				<?php endif; ?>
-			</div><!--/.tribe-events-meta-group.tribe-events-meta-group-details-->
-			<?php if (tribe_get_organizer()): ?>
-			<div class="tribe-events-meta-group tribe-events-meta-group-organizer vcard">
-				<h3>Organizer</h3>
-				<p><?php echo tribe_get_organizer(); ?></p>
-				<?php if (tribe_get_organizer_phone()): ?>
-				<h4>Phone:</h4>
-				<p><?php echo tribe_get_organizer_phone(); ?></p>
-				<?php endif; ?>
-				<?php if (tribe_get_organizer_email()): ?>
-				<h4>Email:</h4>
-				<p><?php echo tribe_get_organizer_email(); ?></p>
-				<?php endif; ?>
-				<?php if (tribe_get_organizer_website_link()): ?>
-				<h4>Website:</h4>
-				<p><?php echo tribe_get_organizer_website_link(); ?></p>
-				<?php endif; ?>
-			</div><!--/.tribe-events-meta-group.tribe-events-meta-group-organizer.vcard -->
-			<?php endif; ?>
-			<?php if (tribe_get_venue()): ?>
-			<div class="tribe-events-meta-group tribe-events-meta-group-venue vcard">
-				<h3>Venue</h3>
-				<p><?php echo tribe_get_venue(); ?></p>
-				<?php if (tribe_get_phone()): ?>
-				<h4>Phone:</h4>
-				<p><?php echo tribe_get_phone(); ?></p>
-				<?php endif; ?>
-				<?php if (tribe_get_address()): ?>
-				<p>
-					<?php echo tribe_get_address(); ?><br />
-					<?php echo tribe_get_city(); ?>, <?php echo tribe_get_state(); ?> <?php echo tribe_get_zip(); ?> <?php echo tribe_get_country(); ?>
-					<?php if (tribe_show_google_map_link()): ?><br />
-					<a href="<?php echo tribe_get_map_link(); ?>" target="_blank">+ Google Map</a>
-					<?php endif; ?>
-				</p>
-				<?php endif; ?>
-				<?php if (tribe_get_venue_website_link()): ?>
-				<h4>Website</h4>
-				<p><?php echo tribe_get_venue_website_link(); ?></p>
-				<?php endif; ?>
-			</div><!--/.tribe-events-meta-group.tribe-events-meta-group-venue .vcard -->
-			<?php endif; ?>
-			<?php if (tribe_embed_google_map()): ?>
-			<div class="tribe-events-meta-group tribe-events-venue-map">
-				<?php echo tribe_get_embedded_map(); ?>
-			</div><!--/.tribe-events-meta-group.tribe-events-venue-map -->
-			<?php endif; ?>
-			<?php do_action("tribe_events_single_event_after_the_meta"); ?>
-		</div><!--/.tribe-events-meta-wrapper.tribe-clearfix-->
-	</div><!--/.hentry.vevent -->
-	<?php
-	if (get_post_type() == TribeEvents::POSTTYPE && tribe_get_option("showComments", false )) {
-		comments_template();
-	}
-	?>
-	<?php endwhile; ?>
-    <div id="tribe-events-footer">
-		<h3 class="tribe-events-visuallyhidden"><?php _e("Event Navigation", "tribe-events-calendar") ?></h3>
-		<ul class="tribe-events-sub-nav">
-			<li class="tribe-events-nav-previous"><?php tribe_the_prev_event_link("<span>&laquo;</span> %title%"); ?></li>
-			<li class="tribe-events-nav-next"><?php tribe_the_next_event_link("%title% <span>&raquo;</span>"); ?></li>
-		</ul><!--/.tribe-events-sub-nav-->
-	</div><!--/#tribe-events-footer-->
-</div><!--/#tribe-events-content-->
+<?php
+// get the event data
+$events_label_singular = tribe_get_event_label_singular();
+$events_label_plural = tribe_get_event_label_plural();
+$event_id = get_the_ID();
+
+if (have_posts()) {
+    while (have_posts()) {
+        the_post();
+
+        // display Tribe notices
+    	tribe_the_notices();
+
+        // open an article-card
+        echo "<article class='article-card'>";
+
+        // open a post-header
+        echo "<header class='header'>";
+
+        // display the title
+        the_title("<h1 class='title'>", "</h1>");
+
+        // display the event meta
+        echo "<h2 class='title -sub'>";
+        echo tribe_events_event_schedule_details($event_id, "", "");
+        if (tribe_get_cost()) {
+            echo " | ";
+            echo tribe_get_cost(null, true);
+        }
+        echo "</h2>";
+
+        // close the header
+        echo "</header>";
+
+        // check if a featured image exists
+        if (has_post_thumbnail()) {
+            // display the featured image
+            echo "<figure class='image'>" . get_the_post_thumbnail($event_id, "large") . "</figure>";
+        }
+
+        // open a content
+        echo "<div class='content'>";
+
+        // Tribe hook
+        do_action("tribe_events_single_event_before_the_content");
+
+        // display the content
+        echo "<div class='user-content'>";
+        the_content();
+        echo "</div>";
+
+        // Tribe hook
+        do_action("tribe_events_single_event_after_the_content");
+
+        // display the comments
+        if (comments_open() || get_comments_number() > 0) {
+            comments_template();
+        }
+
+        // close the content
+        echo "</div>";
+
+        // Tribe hook
+		do_action("tribe_events_single_event_before_the_meta");
+
+        // display meta
+        tribe_get_template_part("modules/meta");
+
+        // Tribe hook
+        do_action("tribe_events_single_event_after_the_meta");
+
+        // close the article-card
+        echo "</article>";
+    }
+}
+
+// display a "return to list" button
+echo "<a class='button' href='" . esc_url(tribe_get_events_link()) . "'>";
+printf("<i class='fa fa-caret-left'></i> " . esc_html__("Back to All %s", "new-site"), $events_label_plural);
+echo "</a>";
+
+// display the pagination
+echo "<footer class='pagination-block'><p class='pagination text'>";
+tribe_the_prev_event_link("<span class='link -prev'><i class='fa fa-caret-left'></i> %title%</span>");
+tribe_the_next_event_link("<span class='link -next'>%title% <i class='fa fa-caret-right'></i></span>");
+echo "</p></footer>";
+?>
