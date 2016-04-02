@@ -8,31 +8,25 @@
 
 .mobile-nav-wrapper {
     & {
+        background: $background;
         bottom: 999em;
         font-size: remify(16, 16);
+        left: 999em;
         overflow: auto;
         position: absolute;
         right: 999em;
         top: -999em;;
-        transition: bottom 0s 0.15s, right 0s 0.15s, top 0s 0.15s;
-        width: remify($mobile-nav-width, 16);
-        z-index: 1;
+        transform: translateX(100%);
+        transition: bottom 0s 0.15s, left 0s 0.15s, right 0s 0.15s, top 0s 0.15s, transform 0.15s;
+        z-index: 999;
     }
 
     .-navactive & {
         bottom: 0;
+        left: remify(80, 16);
         right: 0;
-        transition: none;
+        transition: transform 0.15s;
+        transform: translateX(0);
         top: 0;
-    }
-
-    .-navactive .admin-bar & {
-        top: 46px;
-    }
-
-    @media screen and (min-width: 783px) {
-        .-navactive .admin-bar & {
-            top: 32px;
-        }
     }
 }

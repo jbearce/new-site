@@ -10,6 +10,15 @@ jQuery(".menu-button").click(function (e) {
     jQuery("html").toggleClass("-navactive");
 });
 
+// page-wrapper (when nav is active)
+jQuery(".page-wrapper").click(function(e) {
+    // skip clicks on children
+    if (e.target != this) return;
+
+    // remove the class
+    jQuery("html").removeClass("-navactive");
+});
+
 // mobile drop down buttons
 jQuery(".menu-toggle").click(function (e) {
     e.preventDefault();
