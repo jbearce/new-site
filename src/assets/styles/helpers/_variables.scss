@@ -56,19 +56,18 @@ $body-font: "Open Sans", "Arial", "Helvetica", sans-serif;
 
 $site-width: 1200;
 $mobile-nav-width: 240;
-$grid-gutter: 20;
 
 /* ------------------------------------------------------------------------ *\
  * Break Points                                                             *
 \* ------------------------------------------------------------------------ */
 
-$xxl-break: 1280rem / 16;
-$xl-break: 1024rem / 16;
-$l-break: 960rem / 16;
-$m-break: 853rem / 16;
-$s-break: 768rem / 16;
-$xs-break: 640rem / 16;
-$xxs-break: 480rem / 16;
+$xxl-break: remify(1280, 16);
+$xl-break: remify(1024, 16);
+$l-break: remify(960, 16);
+$m-break: remify(853, 16);
+$s-break: remify(768, 16);
+$xs-break: remify(640, 16);
+$xxs-break: remify(480, 16);
 
 /* ------------------------------------------------------------------------ *\
  * Layers                                                                   *
