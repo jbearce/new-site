@@ -61,13 +61,13 @@ $mobile-nav-width: 240;
  * Break Points                                                             *
 \* ------------------------------------------------------------------------ */
 
-$xxl-break: remify(1280, 16);
-$xl-break: remify(1024, 16);
-$l-break: remify(960, 16);
-$m-break: remify(853, 16);
-$s-break: remify(768, 16);
-$xs-break: remify(640, 16);
-$xxs-break: remify(480, 16);
+$xxl-break: 1280em / 16;
+$xl-break: 1024em / 16;
+$l-break: 960em / 16;
+$m-break: 853em / 16;
+$s-break: 768em / 16;
+$xs-break: 640em / 16;
+$xxs-break: 480em / 16;
 
 /* ------------------------------------------------------------------------ *\
  * Layers                                                                   *
