@@ -82,6 +82,7 @@ class RSCSSwalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
         $item_id = $item->ID;
+        $aria_haspopup = in_array("menu-item-has-children", $classes) ? " aria-haspopup='true'" : "";
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
         $target = "";
@@ -89,11 +90,12 @@ class RSCSSwalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a class='menu-link' href='%s'%s>%s</a>",
+            "<li id='menu-item-%s'%s><a class='menu-link' href='%s'%s%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,
             $target,
+            $aria_haspopup,
             $item->title
         );
     }

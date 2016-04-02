@@ -104,7 +104,8 @@
         transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s;
     }
 
-    .menu-item:hover > & {
+    .menu-item:hover > &,
+    .menu-item.-active > & {
         left: 0;
         opacity: 1;
         transition: left 0s 0.25s, opacity 0.15s 0.25s, top 0s 0.25s;

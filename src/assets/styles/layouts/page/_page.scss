@@ -13,6 +13,7 @@
 html,
 body {
     & {
+        height: 100%;
         width: 100%;
     }
 }
@@ -24,6 +25,7 @@ body {
 }
 
 .page-wrapper {
+    min-height: 100%;
     overflow: hidden;
     position: relative;
     width: 100%;
