@@ -30,20 +30,20 @@
         <?php wp_head(); ?>
 	</head>
     <body <?php body_class(); ?>>
-        <div class="mobile-nav-wrapper _hidetablet">
-            <div class="mobile-nav-block">
-                <?php
-                wp_nav_menu(array(
-                    "container"		 => false,
-                    "depth"          => 3,
-                    "items_wrap"	 => "<nav class='menu-wrapper'><ul class='menu-list -vertical title'>%3\$s</ul></nav>",
-                    "theme_location" => "primary",
-                    "walker"         => new mobileRSCSSwalker(),
-                ));
-                ?>
-            </div><!--/.mobile-nav-block-->
-        </div><!--/.mobile-nav-wrapper-->
         <div class="page-wrapper">
+			<div class="mobile-nav-wrapper _mobile">
+				<div class="mobile-nav-block">
+					<?php
+					wp_nav_menu(array(
+						"container"		 => false,
+						"depth"          => 3,
+						"items_wrap"	 => "<nav class='menu-wrapper'><ul class='menu-list -vertical title'>%3\$s</ul></nav>",
+						"theme_location" => "primary",
+						"walker"         => new mobileRSCSSwalker(),
+					));
+					?>
+				</div><!--/.mobile-nav-block-->
+			</div><!--/.mobile-nav-wrapper-->
             <!--[if lt IE 10]>
             <div class="banner-wrapper" data-banner="old-browser" hidden>
                 <div class="banner">
@@ -68,10 +68,10 @@
                         <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<?php bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
                     </a><!--/.logo-->
                     <?php get_search_form(); ?>
-                    <button class="menu-button _hidetablet"><?php _e("Menu", "new-site"); ?></button>
+                    <button class="menu-button _mobile"><?php _e("Menu", "new-site"); ?></button>
                 </header><!--/.header-block-->
             </div><!--/.header-wrapper-->
-            <div class="nav-wrapper">
+            <div class="nav-wrapper _tabletdesktop">
                 <div class="nav-block">
                     <?php
                     wp_nav_menu(array(

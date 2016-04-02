@@ -12,6 +12,12 @@
         padding: remify(0 20, 16);
     }
 
+    @media screen and (max-width: ($s-break - (1 / 16))) {
+        html.-navactive & {
+            position: static;
+        }
+    }
+
     > .header-block {
         @extend %clearfix;
 

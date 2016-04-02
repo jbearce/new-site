@@ -4,18 +4,8 @@
  * Page                                                                     *
 \* ------------------------------------------------------------------------ */
 
-html.-navactive,
-html.-navactive body {
-    & {
-        height: auto;
-        overflow: auto;
-        width: auto;
-    }
-}
-
 .page-wrapper {
-    html.-navactive & {
-        box-shadow: none;
-        left: auto;
+    &:before {
+        display: none;
     }
 }
