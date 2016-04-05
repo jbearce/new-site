@@ -11,11 +11,15 @@
 // custom styles
 
 .swiper-container {
-    background: $background_alt;
+    & {
+        background: $background_alt;
+    }
 }
 
 // display the first slide in older browsers
 
 .no-csstransforms .swiper-slide:not(:first-child) {
-    display: none;
+    & {
+        display: none;
+    }
 }
