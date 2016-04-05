@@ -81,13 +81,13 @@
 }
 
 @media screen and (max-width: ($s-break - 1 / 16)) {
-    ._tabletdesktop {
+    ._tablet._desktop {
         display: none !important;
     }
 }
 
 @media screen and (max-width: ($xl-break - 1 / 16)) {
-    ._desktop {
+    ._desktop:not(._tablet) {
         display: none !important;
     }
 }
