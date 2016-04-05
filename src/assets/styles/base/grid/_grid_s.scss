@@ -38,4 +38,12 @@
     &.-equal {
         flex: 1 1 0%;
     }
+
+    &.-padded:not(:first-child) {
+        padding-left: remify(10);
+    }
+
+    &.-padded:not(:last-child) {
+        padding-right: remify(10);
+    }
 }
