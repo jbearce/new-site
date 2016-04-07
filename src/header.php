@@ -28,6 +28,12 @@
         <title><?php wp_title("|", true, "right"); ?></title>
         <!-- end SEO -->
         <?php wp_head(); ?>
+        <noscript>
+            <style type="text/javascript">
+                .banner-wrapper {display: block !important;}
+                .banner-wrapper > .banner > .button {display: none !important;}
+            </style>
+        </noscript>
 	</head>
     <body <?php body_class(); ?>>
         <div class="page-wrapper">
@@ -57,11 +63,20 @@
             <div class="banner-wrapper -notice" data-banner="under-construction" hidden>
                 <div class="banner">
                     <h6 class="title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "new-site"); ?></h6>
-                    <p class="excerpt"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-sites"); ?></p>
+                    <p class="excerpt"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-site"); ?></p>
                     <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
                 </div><!--/.banner-->
             </div><!--/.banner-wrapper-->
             <?php endif; ?>
+            <noscript>
+                <div class="banner-wrapper -notice" data-banner="noscript" hidden>
+                    <div class="banner">
+                        <h6 class="title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "new-site"); ?></h6>
+                        <p class="excerpt"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "new-site"); ?></p>
+                        <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
+                    </div><!--/.banner-->
+                </div><!--/.banner-wrapper-->
+            </noscript>
             <div class="header-wrapper">
                 <header class="header-block">
                     <a class="logo" href="<?php echo home_url(); ?>">
