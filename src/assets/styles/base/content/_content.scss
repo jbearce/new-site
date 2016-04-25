@@ -6,6 +6,7 @@
 
 .title {
     & {
+        color: $primary;
         font-family: $heading-font;
         font-size: remify(24, 16);
         font-weight: 700;
@@ -17,6 +18,7 @@
 
 .text {
     & {
+        color: $foreground;
         font-family: $body-font;
         font-size: remify(16, 16);
         font-weight: 400;
