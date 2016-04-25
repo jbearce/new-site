@@ -65,7 +65,7 @@
 
                                             // display the category list
                                             if (get_the_category_list()) {
-                                                echo "<li class='menu-item'><i class='fa fa-fodler'></i> " . get_the_category_list(", ") . "</li>";
+                                                echo "<li class='menu-item'><i class='fa fa-folder'></i> " . get_the_category_list(", ") . "</li>";
                                             }
 
                                             // display the tag list
