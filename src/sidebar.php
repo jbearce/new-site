@@ -9,6 +9,8 @@
             echo "<div class='widget-card'><div class='content'><div class='user-content'>{$sidebar}</div></div></div>";
         }
     }
+    ?>
+    <?php
     if (is_single() || is_archive()) {
         // get the term
         $term = get_queried_object();
@@ -29,14 +31,16 @@
         // display the title
         echo "<div class='title'><h6>{$widget_title}</h6></div>";
 
-        // display the c ategory list
-        echo "<div class='content'><nav class='menu-wrapper -subnav -vertical'><ul class='menu-list'>";
+        // display the category list
+        echo "<div class='content'><nav class='menu-wrapper'><ul class='menu-list -subnav -vertical'>";
         wp_list_categories("orderby=name");
         echo "</ul></nav></div>";
 
-        // closethe widget card
+        // close the widget card
         echo "</div>";
     }
+    ?>
+    <?php
     /*
     if (is_page()) {
         // get the submenu
@@ -49,7 +53,7 @@
             "show_parent"    => true,
             "sub_menu"		 => true,
             "theme_location" => "primary",
-            "walker"         => new SMACSSwalker(),
+            "walker"         => new RSCSSwalker(),
         ));
 
         // display the submenu
@@ -58,6 +62,8 @@
         }
     }
     */
+    ?>
+    <?php
     /*
     // display the widgetized sidebar
     if (is_active_sidebar("sidebar")) {
