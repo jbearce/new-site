@@ -8,6 +8,14 @@
     & {
         flex-direction: row;
     }
+
+    &.-center {
+        align-items: center;
+    }
+
+    &.-spacebetween {
+        justify-content: space-between;
+    }
 }
 
 .col {
@@ -39,11 +47,7 @@
         flex: 1 1 0%;
     }
 
-    &.-padded:not(:first-child) {
-        padding-left: remify(10);
-    }
-
-    &.-padded:not(:last-child) {
-        padding-right: remify(10);
+    &.-none {
+        flex: none;
     }
 }
