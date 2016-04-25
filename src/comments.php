@@ -60,7 +60,7 @@
 
             if (is_user_logged_in()) {
                 // show the logged in username
-                echo "<p class='text'>" . __("Logged in as", "new-site") . " <a href='" . get_edit_user_link() . "'>{$user_identity}</a>. <a href='" . wp_logout_url(get_permalink()) . "' title='" . __("Log out of this account", "new-site") . "'>" . __("Log out", "new-site") . " &raquo;</a></p>";
+                echo "<p class='text'>" . __("Logged in as", "new-site") . " <a class='link' href='" . get_edit_user_link() . "'>{$user_identity}</a>. <a class='link' href='" . wp_logout_url(get_permalink()) . "' title='" . __("Log out of this account", "new-site") . "'>" . __("Log out", "new-site") . " &raquo;</a></p>";
             } else {
                 // open a row
                 echo "<div class='row'>";
@@ -70,7 +70,7 @@
                 $required_aria = $req ? " aria-required='true'" : "";
                 echo "<div class='col -half -padded'>";
                 echo "<label class='_visuallyhidden' for='author'>" . __("Your Name", "new-site") . "{$required}</label>";
-                echo "<input class='input -name' id='author' name='author' placeholder='" . __("Your Name", "new-site") . "' tabindex='1' type='text' value='{$comment_author}'{$required_aria} />";
+                echo "<input class='input -text' id='author' name='author' placeholder='" . __("Your Name", "new-site") . "' tabindex='1' type='text' value='{$comment_author}'{$required_aria} />";
                 echo "</div>";
 
                 // display the email field
@@ -86,10 +86,10 @@
             }
 
             // display comment field
-            echo "<textarea class='comment-input -comment' id='comment' name='comment' placeholder='" . __("Comment", "new-site") . "' tabindex='4'></textarea>";
+            echo "<textarea class='input -textarea' id='comment' name='comment' placeholder='" . __("Comment", "new-site") . "' tabindex='4'></textarea>";
 
             // display submit button
-            echo"<input class='comment-submit button -alt2' name='submit' type='submit' id='submit' tabindex='5' value='" . __("Submit", "new-site") . "' />";
+            echo"<input class='comment-submit button' name='submit' type='submit' id='submit' tabindex='5' value='" . __("Submit", "new-site") . "' />";
 
             // display hidden fields
             comment_id_fields();
