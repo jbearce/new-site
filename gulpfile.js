@@ -1,6 +1,8 @@
     // general stuff
 var gulp = require("gulp"),                      // gulp
     fs = require("fs"),                          // the file system
+    notify = require("gulp-notify"),             // notifications
+    plumber = require("gulp-plumber"),           // prevent pipe breaking
     runSequence = require("run-sequence"),       // allow tasks to be ran in sequence
     json = require("json-file"),                 // read/write JSON files
     prompt = require("gulp-prompt")              // allow user input
@@ -45,6 +47,18 @@ var gulp = require("gulp"),                      // gulp
     src = "./src",   // source directory
     dev = "./dev",   // development directory
     dist = "./dist"; // production directory
+
+// Error handling
+var onError = function(err) {
+    notify.onError({
+        title:    "Gulp",
+        subtitle: "Error!",
+        message:  "<%= error.message %>",
+        sound:    "Beep"
+    })(err);
+
+    this.emit("end");
+};
 
 // media task, compresses images & copies media
 gulp.task("media", function () {
@@ -93,7 +107,8 @@ gulp.task("media", function () {
         .pipe(gulp.dest(screenshotDirectory));
 
     // merge both steams back in to one
-    return merge(media, screenshot);
+    return merge(media, screenshot)
+        .pipe(notify({message: "Media task complete!", onLast: true}));
 });
 
 // scripts task, concatenates & lints JS
@@ -140,12 +155,13 @@ gulp.task("scripts", function () {
     // copy fallback scripts
     var copied = gulp.src([src + "/assets/scripts/fallback/**/*"])
         // check if source is newer than destination
-        .pipe(newer(jsDirectory))
+        .pipe(newer(jsDirectory + "/fallback"))
         // output to the compiled directory
         .pipe(gulp.dest(jsDirectory + "/fallback"));
 
     // merge all three steams back in to one
-    return merge(linted, concated, copied);
+    return merge(linted, concated, copied)
+        .pipe(notify({message: "Scripts task complete!", onLast: true}));
 });
 
 // styles task, compiles & prefixes SCSS
@@ -166,19 +182,22 @@ gulp.task("styles", function () {
     }
 
     // compile all SCSS in the root styles directory
-    return gulp.src(src + "/assets/styles/**/*.scss")
+    return gulp.src(src + "/assets/styles/*.scss")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
-        .pipe(newer(cssDirectory + "/modern.css"))
+        //.pipe(newer(cssDirectory + "/modern.css")) // doens't work due to imports
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
-        .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}).on("error", sass.logError), sass().on("error", sass.logError)))
+        .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
         // prefix CSS
         .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to the compiled directory
-        .pipe(gulp.dest(cssDirectory));
+        .pipe(gulp.dest(cssDirectory))
+        .pipe(notify({message: "Styles task complete!", onLast: true}));
 });
 
 // styles task, compiles & prefixes SCSS
@@ -215,7 +234,8 @@ gulp.task("html", function () {
             }
         }))
         // output to the compiled directory
-        .pipe(gulp.dest(htmlDirectory));
+        .pipe(gulp.dest(htmlDirectory))
+        .pipe(notify({message: "HTML task complete!", onLast: true}));
 });
 
 // default task, runs through everything but dist
@@ -360,7 +380,8 @@ gulp.task("ftp-upload", ["ftp-config", "ftp-init"], function(cb) {
     // upload the changed files
     return gulp.src(ftpDirectory + "/**/*")
         .pipe(conn.newer(path))
-        .pipe(conn.dest(path));
+        .pipe(conn.dest(path))
+        .pipe(notify({message: "FTP task complete!", onLast: true}));
 
     // return
     cb(null);
