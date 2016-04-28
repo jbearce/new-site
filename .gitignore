@@ -237,3 +237,6 @@ slicers/*
 
 #Protect FTP credentials
 ftp.json
+
+#Exclude BrowserSync settings
+browsersync.json

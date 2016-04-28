@@ -5,6 +5,7 @@
   "repository": "https://github.com/revxx14/new-site",
   "license": "UNLICENSED",
   "devDependencies": {
+    "browser-sync": "^2.12.5",
     "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
