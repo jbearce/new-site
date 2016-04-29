@@ -258,105 +258,167 @@ gulp.task("html", function () {
         .pipe(notify({message: "HTML task complete!", onLast: true}));
 });
 
-// initialize ftp.json
-gulp.task("ftp-init", function(cb) {
-    // check if the ftp.json exists
-    fs.stat("./ftp.json", function (err, stats) {
+gulp.task("config", function (cb) {
+    "use strict";
+
+    fs.stat("./config.json", function (err, stats) {
         if (err != null) {
-            // if it doesn't, create it
-            fs.writeFile("./ftp.json", "{\"dev\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"\},\"dist\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"\}}", function (err) {
-                cb(err);
+            fs.writeFile("./config.json", "{\"ftp\": {\"dev\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"},\"dist\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"}},\"browsersync\": {\"proxy\": \"\",\"port\": \"\",\"open\": \"\",\"notify\": \"\"}}", function (err) {
+                configureFTP(function() {
+                    configureBrowsersync();
+                });
             });
         } else {
-            // otherwise return
-            cb(err);
+            configureFTP(function() {
+                configureBrowsersync();
+            });
         }
     });
+
+    function configureFTP(cb) {
+        // read FTP settingss from config.json
+        if (!argv.dist) {
+            ftpHost = json.read("./config.json").get("ftp.dev.host"),
+            ftpUser = json.read("./config.json").get("ftp.dev.user"),
+            ftpPass = json.read("./config.json").get("ftp.dev.pass"),
+            ftpPath = json.read("./config.json").get("ftp.dev.path");
+        } else {
+            ftpHost = json.read("./config.json").get("ftp.dist.host"),
+            ftpUser = json.read("./config.json").get("ftp.dist.user"),
+            ftpPass = json.read("./config.json").get("ftp.dist.pass"),
+            ftpPath = json.read("./config.json").get("ftp.dist.path");
+        }
+
+        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("ftp") || argv.ftp) && (argv.config || ftpHost === "" || ftpUser === "" || ftpPass === "" || ftpPath === "")) {
+            // reconfigure settings in config.json if a field is empty or if --config is passed
+            gulp.src("./config.json")
+                .pipe(prompt.prompt([{
+                    // prompt for the host
+                    type: "input",
+                    name: "host",
+                    message: "FTP hostname:",
+                    default: ftpHost,
+                },
+                {
+                    // prompt for the user
+                    type: "input",
+                    name: "user",
+                    message: "FTP username:",
+                    default: ftpUser,
+                },
+                {
+                    // prompt for the host
+                    type: "password",
+                    name: "pass",
+                    message: "FTP password:",
+                    default: ftpPass,
+                },
+                {
+                    // prompt for the path
+                    type: "input",
+                    name: "path",
+                    message: "FTP remote path:",
+                    default: ftpPath,
+                }], function(res) {
+                    // open the browsersync.json
+                    var file = json.read("./config.json");
+
+                    // update the ftp settings in config.json
+                    if (!argv.dist) {
+                        file.set("ftp.dev.host", res.host);
+                        file.set("ftp.dev.user", res.user);
+                        file.set("ftp.dev.pass", res.pass);
+                        file.set("ftp.dev.port", res.port);
+                    } else {
+                        file.set("ftp.dist.host", res.host);
+                        file.set("ftp.dist.user", res.user);
+                        file.set("ftp.dist.pass", res.pass);
+                        file.set("ftp.dist.port", res.port);
+                    }
+
+                    // write the updated file contents
+                    file.writeSync();
+
+                    // read browsersync settings from browsersync.json
+                    ftpHost = res.host,
+                    ftpUser = res.user,
+                    ftpPass = res.pass,
+                    ftpPath = res.path;
+
+                    cb();
+                }));
+        } else {
+            cb();
+        }
+    }
+
+
+    function configureBrowsersync() {
+        // read browsersync settings from config.json
+        bsProxy = json.read("./config.json").get("browsersync.proxy"),
+        bsPort = json.read("./config.json").get("browsersync.port"),
+        bsOpen = json.read("./config.json").get("browsersync.open"),
+        bsNotify = json.read("./config.json").get("browsersync.notify");
+
+        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("sync") || argv.sync) && (argv.config || bsProxy === "" || bsPort === "" || bsOpen === "" || bsNotify === "")) {
+            // reconfigure settings in config.json if a field is empty or if --config is passed
+            gulp.src("./config.json")
+                .pipe(prompt.prompt([{
+                    // prompt for the proxy
+                    type: "input",
+                    name: "proxy",
+                    message: "Browsersync proxy:",
+                    default: bsProxy,
+                },
+                {
+                    // prompt for the port
+                    type: "input",
+                    name: "port",
+                    message: "Browsersync port:",
+                    default: bsPort,
+                },
+                {
+                    // prompt for how to open
+                    type: "input",
+                    name: "open",
+                    message: "Browsersync open:",
+                    default: bsOpen,
+                },
+                {
+                    // prompt for whether to notify
+                    type: "input",
+                    name: "notify",
+                    message: "Browsersync notify:",
+                    default: bsNotify,
+                }], function(res) {
+                    // open the browsersync.json
+                    var file = json.read("./config.json");
+
+                    // update the browsersync settings in config.json
+                    file.set("browsersync.proxy", res.proxy);
+                    file.set("browsersync.port", res.port);
+                    file.set("browsersync.open", res.open);
+                    file.set("browsersync.notify", res.notify);
+
+                    // write the updated file contents
+                    file.writeSync();
+
+                    // read browsersync settings from browsersync.json
+                    bsProxy = res.proxy,
+                    bsPort = res.port,
+                    bsOpen = res.open,
+                    bsNotify = res.notify;
+
+                    cb();
+                }));
+        } else {
+            cb();
+        }
+    }
 });
 
-// configure FTP credentials in ftp.json, depends on ftp-init
-gulp.task("ftp-config", ["ftp-init"], function(cb) {
-    // read FTP credentials from ftp.json
-    ftpHost = json.read("./ftp.json").get("dev.host"),
-    ftpUser = json.read("./ftp.json").get("dev.user"),
-    ftpPass = json.read("./ftp.json").get("dev.pass"),
-    ftpPath = json.read("./ftp.json").get("dev.path");
-
-    // read dist FTP credentials from ftp.json (if --dist is passed)
-    if (argv.dist) {
-        ftpHost = json.read("./ftp.json").get("dist.host"),
-        ftpUser = json.read("./ftp.json").get("dist.user"),
-        ftpPass = json.read("./ftp.json").get("dist.pass"),
-        ftpPath = json.read("./ftp.json").get("dist.path");
-    }
-
-    if (ftpHost === "" || ftpUser === "" || ftpPass === "" || ftpPath === "" || argv.config) {
-        // reconfigure ftp.json if a field is empty or if --config is passed
-        gulp.src("./ftp.json")
-            .pipe(prompt.prompt([{
-                // prompt for the hostname
-                type: "input",
-                name: "host",
-                message: "host:",
-                default: host,
-            },
-            {
-                // prompt for the username
-                type: "input",
-                name: "user",
-                message: "username:",
-                default: user,
-            },
-            {
-                // prompt for the password
-                type: "password",
-                name: "pass",
-                message: "password:",
-                default: pass,
-            },
-            {
-                // prompt for the remote path
-                type: "input",
-                name: "path",
-                message: "remote path:",
-                default: path,
-            }], function(res) {
-                // open the ftp.json
-                var file = json.read("./ftp.json");
-
-                // set connection to dev
-                var connection = "dev";
-
-                // set connection to dist (if --dist is passed)
-                if (argv.dist) {
-                    connection = "dist";
-                }
-
-                // update the file contents
-                file.set(connection + ".host", res.host);
-                file.set(connection + ".user", res.user);
-                file.set(connection + ".pass", res.pass);
-                file.set(connection + ".path", res.path);
-
-                // write the updated file contents
-                file.writeSync();
-
-                // read FTP credentials from ftp.json
-                ftpHost = res.host,
-                ftpUser = res.user,
-                ftpPass = res.pass,
-                ftpPath = res.path;
-
-                cb(null);
-            }));
-    } else {
-        // otherwise return
-        cb(null);
-    }
-})
-
-// upload to FTP environment, depends on ftp-config, ftp-init
-gulp.task("ftp-upload", ["ftp-config", "ftp-init"], function(cb) {
+// upload to FTP environment, depends on config
+gulp.task("ftp", ["config"], function(cb) {
     // development FTP directory
     var ftpDirectory = dev;
 
@@ -383,95 +445,11 @@ gulp.task("ftp-upload", ["ftp-config", "ftp-init"], function(cb) {
         .pipe(notify({message: "FTP task complete!", onLast: true}));
 
     // return
-    cb(null);
+    cb();;
 });
 
-// combine FTP tasks
-gulp.task("ftp", ["ftp-upload", "ftp-config", "ftp-init"]);
-
-// initialize the browsersync.json
-gulp.task("browsersync-init", function(cb) {
-    // check if the browsersync.json exists
-    fs.stat("./browsersync.json", function (err, stats) {
-        if (err != null) {
-            // if it doesn't, create it
-            fs.writeFile("./browsersync.json", "{\"proxy\": \"\",\"port\": \"\",\"open\": \"\",\"notify\": \"\"}", function (err) {
-                cb(err);
-            });
-        } else {
-            // otherwise return
-            cb(err);
-        }
-    });
-});
-
-// set values in browsersync.json, depends on browsersync-init
-gulp.task("browsersync-config", ["browsersync-init"], function(cb) {
-    // read browsersync settings from browsersync.json
-    bsProxy = json.read("./browsersync.json").get("proxy"),
-    bsPort = json.read("./browsersync.json").get("port"),
-    bsOpen = json.read("./browsersync.json").get("open"),
-    bsNotify = json.read("./browsersync.json").get("notify");
-
-    if (bsProxy === "" || bsPort === "" || bsOpen === "" || bsNotify === "" || argv.config) {
-        // reconfigure browsersync settings in browsersync.json if a field is empty or if --config is passed
-        gulp.src("./browsersync.json")
-            .pipe(prompt.prompt([{
-                // prompt for the proxy
-                type: "input",
-                name: "bsProxy",
-                message: "proxy:",
-                default: proxy,
-            },
-            {
-                // prompt for the port
-                type: "input",
-                name: "bsPort",
-                message: "port:",
-                default: port,
-            },
-            {
-                // prompt for how to open
-                type: "input",
-                name: "bsOpen",
-                message: "open:",
-                default: open,
-            },
-            {
-                // prompt for whether to notify
-                type: "input",
-                name: "bsNotify",
-                message: "notify:",
-                default: notify,
-            }], function(res) {
-                // open the browsersync.json
-                var file = json.read("./browsersync.json");
-
-                // update the file contents
-                file.set("proxy", res.proxy);
-                file.set("port", res.port);
-                file.set("open", res.open);
-                file.set("notify", res.notify);
-
-                // write the updated file contents
-                file.writeSync();
-
-                // read browsersync settings from browsersync.json
-                bsProxy = res.proxy,
-                bsPort = res.port,
-                bsOpen = res.open,
-                bsNotify = res.notify;
-
-                cb(null);
-            }));
-    } else {
-        // otherwise return
-        cb(null);
-    }
-});
-
-// set up a browserSync server, depends on browsersync-config and browsersync-init
-gulp.task("browsersync-serve", ["browsersync-config", "browsersync-init"], function(cb) {
+// set up a browserSync server, depends on config
+gulp.task("sync", ["config"], function(cb) {
     browserSync({
         proxy: bsProxy,
         port: bsPort,
@@ -479,9 +457,6 @@ gulp.task("browsersync-serve", ["browsersync-config", "browsersync-init"], funct
         notify: bsNotify,
     });
 });
-
-// combine browsersync tasks
-gulp.task("browsersync", ["browsersync-serve", "browsersync-config", "browsersync-init"]);
 
 // default task, runs through everything but dist
 gulp.task("default", function () {
@@ -500,17 +475,12 @@ gulp.task("watch", function () {
 
     // set up a browserSync server, if --sync is passed
     if (argv.sync) {
-        runSequence("browsersync");
+        runSequence("sync");
     }
 
     // watch for any changes
     watch("./src/**/*", function () {
         // run through all tasks, then ftp, if --ftp is passed
-        if (argv.ftp) {
-            runSequence(["media", "scripts", "styles", "html"], "ftp");
-        // run through all tasks
-        } else {
-            runSequence(["media", "scripts", "styles", "html"]);
-        }
+        runSequence("default");
     });
 });
