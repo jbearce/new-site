@@ -328,12 +328,12 @@ gulp.task("config", function (cb) {
                         file.set("ftp.dev.host", res.host);
                         file.set("ftp.dev.user", res.user);
                         file.set("ftp.dev.pass", res.pass);
-                        file.set("ftp.dev.port", res.port);
+                        file.set("ftp.dev.path", res.path);
                     } else {
                         file.set("ftp.dist.host", res.host);
                         file.set("ftp.dist.user", res.user);
                         file.set("ftp.dist.pass", res.pass);
-                        file.set("ftp.dist.port", res.port);
+                        file.set("ftp.dist.path", res.path);
                     }
 
                     // write the updated file contents
@@ -345,13 +345,12 @@ gulp.task("config", function (cb) {
                     ftpPass = res.pass,
                     ftpPath = res.path;
 
-                    cb();
+                    configureBrowsersync();
                 }));
         } else {
-            cb();
+            configureBrowsersync();
         }
     }
-
 
     function configureBrowsersync() {
         // read browsersync settings from config.json
@@ -431,7 +430,7 @@ gulp.task("ftp", ["config"], function(cb) {
     var conn = ftp.create({
         host: ftpHost,
         user: ftpUser,
-        path: ftpPath,
+        pass: ftpPass,
         path: ftpPath,
     })
 
@@ -441,6 +440,8 @@ gulp.task("ftp", ["config"], function(cb) {
         .pipe(conn.newer(ftpPath))
         // upload changed files
         .pipe(conn.dest(ftpPath))
+        // reload the files
+        .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete
         .pipe(notify({message: "FTP task complete!", onLast: true}));
 
