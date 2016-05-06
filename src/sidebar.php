@@ -6,7 +6,7 @@
 
         // display the sidebar field
         if ($sidebar) {
-            echo "<div class='widget-card'><div class='content'><div class='user-content'>{$sidebar}</div></div></div>";
+            echo "<div class='widget'><div class='widget__content content user-content'>{$sidebar}</div></div>";
         }
     }
     ?>
@@ -15,33 +15,33 @@
         // get the term
         $term = get_queried_object();
 
-        // open a widget card
-        echo "<div class='widget-card'>";
+        // open a widget
+        echo "<div class='widget'>";
 
         // get the title
-        $widget_title = get_the_time("F, Y") . " " . __("Archive", "new-site");
         if (is_category()) {
             $widget_title = single_cat_title("", false);
         } elseif (is_tag()) {
             $widget_title = single_tag_title("", false);
         } elseif (is_tax() && $term->name) {
             $widget_title = $term->name;
+        } else {
+            $widget_title = get_the_time("F, Y") . " " . __("Archive", "new-site");
         }
 
         // display the title
-        echo "<div class='title'><h6>{$widget_title}</h6></div>";
+        echo "<div class='widget__header header'><h6 class='widget__title title'>{$widget_title}</h6></div>";
 
         // display the category list
-        echo "<div class='content'><nav class='menu-wrapper'><ul class='menu-list -subnav -vertical'>";
+        echo "<div class='widget__content content'><nav class='widget__menu-container menu-container'><ul class='wigget__menu-list menu-list --vertical'>";
         wp_list_categories("orderby=name");
         echo "</ul></nav></div>";
 
-        // close the widget card
+        // close the widget
         echo "</div>";
     }
     ?>
     <?php
-    /*
     if (is_page()) {
         // get the submenu
         $sub_menu = wp_nav_menu(array(
@@ -49,26 +49,23 @@
             "depth"          => 2,
             "direct_parent"  => true,
             "echo"           => false,
-            "items_wrap"	 => "<nav class='menu-wrapper -subnav -vertical'><ul class='menu-list'>%3\$s</ul></nav>",
+            "items_wrap"	 => "<nav class='widget__menu-container menu-container'><ul class='widget__menu-list menu-list --vertical'>%3\$s</ul></nav>",
             "show_parent"    => true,
             "sub_menu"		 => true,
             "theme_location" => "primary",
-            "walker"         => new RSCSSwalker(),
+            "walker"         => new weblinxWalker(),
         ));
 
         // display the submenu
         if ($sub_menu != "") {
-            echo "<div class='widget-card'><div class='widget-card-content'>{$sub_menu}</div></div>";
+            echo "<div class='widget'><div class='widget__content content'>{$sub_menu}</div></div>";
         }
     }
-    */
     ?>
     <?php
-    /*
     // display the widgetized sidebar
     if (is_active_sidebar("sidebar")) {
         dynamic_sidebar("sidebar");
     }
-    */
     ?>
 </div><!--/.sidebar-->

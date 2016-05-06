@@ -7,9 +7,7 @@ $not_skeleton = !apply_filters("tribe_events_single_event_the_meta_skeleton", fa
 // Do we want to group venue meta separately?
 $set_venue_apart = apply_filters("tribe_events_single_event_the_meta_group_venue", false, get_the_ID());
 
-if ($not_skeleton) {
-	echo "<div class='article-card-meta-group'>";
-}
+echo "<div class='article-row row --padded'>";
 
 do_action("tribe_events_single_event_meta_primary_section_start");
 
@@ -23,13 +21,9 @@ if (tribe_has_organizer()) {
 
 do_action("tribe_events_single_event_meta_primary_section_end");
 
-if ($not_skeleton) {
-	echo "</div>";
-}
+echo "</div>";
 
-if ($not_skeleton) {
-	echo "<div class='article-card-meta-group'>";
-}
+echo "<div class='article-row row --padded'>";
 
 do_action("tribe_events_single_event_meta_secondary_section_start");
 
@@ -38,8 +32,6 @@ tribe_get_template_part("modules/meta/map");
 
 do_action("tribe_events_single_event_meta_secondary_section_end");
 
-if ($not_skeleton) {
-	echo "</div>";
-}
+echo "</div>";
 
 do_action("tribe_events_single_meta_after");

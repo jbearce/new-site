@@ -2,7 +2,7 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-jQuery(".banner-wrapper").each(function() {
+jQuery(".banner-block").each(function() {
     // get the name of the cookie
     var cookieName = jQuery(this).data("banner");
 
@@ -16,9 +16,9 @@ jQuery(".banner-wrapper").each(function() {
     }
 
     // handle button clicks
-    jQuery(this).find(".banner > .button").click(function(e) {
+    jQuery(this).find(".banner__button").click(function(e) {
         // hide the notification banner
-        jQuery(this).closest(".banner-wrapper").slideUp(250, function() {
+        jQuery(this).closest(".banner-block").slideUp(250, function() {
             // set the cookie after the animation completes
             document.cookie = cookieName + "=yes";
 

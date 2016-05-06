@@ -7,20 +7,17 @@ global $more, $post, $wp_query;
 $more = false;
 $current_timeslot = null;
 
-// open an article-list
-echo "<ul class='article-list'>";
-
 while (have_posts()) {
     the_post();
 
-    // open an article-item and an article-card
-    echo "<li class='article-item'><article class='article-card'>";
+    // open an article
+    echo "<article class='article'>";
 
     // Tribe hook
     do_action("tribe_events_inside_before_loop");
 
     // open a content
-    echo "<div class='content'>";
+    echo "<div class='article__content content'>";
 
     // get the single day template
     tribe_get_template_part("day/single", "event");
@@ -31,8 +28,8 @@ while (have_posts()) {
     // Tribe hook
     do_action("tribe_events_inside_after_loop");
 
-    // close the article-card and article-item
-    echo "</article></li>";
+    // close the article
+    echo "</article>";
 }
 
 // close the article-list

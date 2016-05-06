@@ -1,81 +1,105 @@
 <?php get_header(); ?>
-            <div class="content-wrapper">
-                <main class="content-block">
+            <div class="content-block">
+                <main class="content__inner">
                     <div class="post">
                         <?php
                         // display the breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb-list'><p class='text'>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb__text text'>", "</p></nav>");
                         }
                         ?>
-                        <div class="article-card">
+                        <div class="article">
                             <?php
                             // get the page title
                             $home_title = get_option("show_on_front") == "page" ? (get_option("page_for_posts") ? get_the_title(get_option("page_for_posts")) : "Blog") : "Blog";
 
                             // display the page title
-                            echo "<header class='header'><h1 class='title'>{$home_title}</h1></header>";
+                            echo "<header class='article__header header'><h1 class='article__title title'>{$home_title}</h1></header>";
                             ?>
                             <?php
                             // check if posts exist
                             if (have_posts()) {
                                 // open a content
-                                echo "<div class='content'>";
-                                
+                                echo "<div class='article__content content'>";
+
                                 // loop through each post
                                 while (have_posts()) {
                                     // iterate the post index
                                     the_post();
 
-                                    // open an article card
-                                    echo "<article class='article-card -excerpt'>";
+                                    // open an article
+                                    echo "<article class='article --excerpt'>";
 
                                     // display the image
                                     if (has_post_thumbnail()) {
-                                        echo "<figure class='image'><a href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium") . "</a></figure>";
+                                        echo "<figure class='article__figure figure'><a class='article__link link' href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium", array("class" => "article__image image")) . "</a></figure>";
                                     }
 
                                     // open a header
-                                    echo "<header class='header'>";
+                                    echo "<header class='article__header header'>";
 
                                     // display the title
-                                    echo "<h2 class='title'><a href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                    echo "<h2 class='article__title title --sub'><a class='article__link link' href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
 
                                     // display the meta information
                                     if (get_post_type() == "post") {
                                         // open a menu-wrapper and menu-list
-                                        echo "<nav class='menu-wrapper -icons'><ul class='menu-list'>";
+                                        echo "<nav class='article__menu-container menu-container'><ul class='article__menu-list menu-list --meta'>";
 
                                         // display the date posted
-                                        echo "<li class='menu-item'><a href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
+                                        echo "<li class='article__menu-list__item menu-list__item'><a class='menu-list__link link' href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
+
+                                        // get the category list
+                                        $category_list = false;
+                                        ob_start();
+                                        get_the_category_list(", ");
+                                        $category_list = ob_get_contents();
+                                        ob_end_clean();
 
                                         // display the category list
-                                        if (get_the_category_list()) {
-                                            echo "<li class='menu-item'><i class='fa fa-folder'></i> " . get_the_category_list(", ") . "</li>";
+                                        if ($category_list) {
+                                            echo "<li class='article__menu-list__item menu-list__item'><i class='fa fa-folder'></i> " . preg_replace("/<a/im", "<a class='menu-list__link link'", $category_list) . "</li>";
                                         }
 
+                                        // get the tag list
+                                        $tag_list = false;
+                                        ob_start();
+                                        the_tags("<li class='article__menu-list__item menu-list__item'><i class='fa fa-tags'></i> ", ", ", "</li>");
+                                        $tag_list = ob_get_contents();
+                                        ob_end_clean();
+
                                         // display the tag list
-                                        the_tags("<li class='menu-item'><i class='fa fa-tags'></i> ", ", ", "</li>");
+                                        if ($tag_list) {
+                                            echo preg_replace("/<a/im", "<a class='menu-list__link link'", $tag_list);
+                                        }
 
                                         // display the comment count
                                         if (comments_open() || get_comments_number() > 0) {
-                                            echo "<li class='menu-item'>";
+                                            // get the comments link
+                                            $comments_link = false;
+                                            ob_start();
                                             comments_popup_link("<i class='fa fa-comment-o'></i> No Comments", "<i class='fa fa-comment'></i> 1 Comment", "<i class='fa fa-comments'></i> % Comments");
-                                            echo "</li>";
+                                            $comments_link = ob_get_contents();
+                                            ob_end_clean();
+
+                                            // display the comments link
+                                            if ($comments_link) {
+                                                echo "<li class='article__menu-list__item menu-list__item'>" . preg_replace("/<a/im", "<a class='menu-list__link link'", $comments_link) . "</li>";
+                                            }
                                         }
 
-                                        // close the menu-list and menu-wrapper
+                                        // close the article__menu-list and article__menu-container
                                         echo "</ul></nav>";
                                     }
 
-                                    // close the header
+                                    // close the article__header
                                     echo "</header>";
 
                                     // display the post excerpt
                                     $post_excerpt = $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55) . " [...]";
-                                    echo "<div class='content'><p class='excerpt text'>{$post_excerpt}</p></div>";
+                                    echo "<div class='article__content content'><p class='article__text text'>{$post_excerpt}</p></div>";
 
-                                    // close the article card
+                                    // close the article
                                     echo "</article>";
                                 }
 
@@ -86,7 +110,7 @@
                             <?php
                             // display the pagination links
                             if (get_adjacent_post(false, "", false) || get_adjacent_post(false, "", true)) {
-                                echo "<footer class='pagination-block'><p class='pagination text'>";
+                                echo "<footer class='pagination-block'><p class='pagination__text text'>";
                                 if (get_adjacent_post(false, "", false)) {
                                     previous_posts_link("<i class='fa fa-caret-left'></i> Previous Page");
                                 }
@@ -96,9 +120,9 @@
                                 echo "</p></footer>";
                             }
                             ?>
-                        </div><!--/.article-card-->
+                        </div><!--/.article-->
                     </div><!--/.post-->
                     <?php get_sidebar(); ?>
-                </main><!--/.content-block-->
-            </div><!--/.content-wrapper-->
+                </main><!--/.content__inner-->
+            </div><!--/.content-block-->
 <?php get_footer(); ?>

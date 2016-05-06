@@ -4,24 +4,28 @@
  * Banner                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.banner-wrapper {
+.banner-block {
     & {
         background: $warning;
     }
 
-    &.-notice {
+    &.--notice {
         background: lighten(desaturate(adjust-hue($warning, 23.4783), 16.3636), 25.6863);
     }
+}
 
-    > .banner {
+.banner__inner {
+    & {
         margin: 0 auto;
         max-width: $site-width + px;
         max-width: remify($site-width);
         min-height: remify(80, 16);
         position: relative;
     }
+}
 
-    > .banner > .title {
+.banner__title {
+    & {
         align-items: center;
         border-bottom: remify(2) solid transparentize($dark, 0.9);
         color: $light;
@@ -36,7 +40,7 @@
         text-transform: uppercase;
     }
 
-    > .banner > .title > .fa {
+    > .fa {
         color: $light;
         font-size: remify(42, 24);
         left: remify(30, 42);
@@ -45,33 +49,14 @@
         transform: translateY(-50%);
         top: 50%;
     }
+}
 
-    > .banner > .excerpt {
-        color: $light;
-        flex: 1 1 auto;
-        font-family: $body-font;
-        font-size: remify(15, 16);
-        line-height: remify(24, 15);
-        margin: 0;
-        padding: remify(24 30, 15);
+.banner__content {
+    & {
+        padding: remify(24 30, 16);
     }
 
-    > .banner > .excerpt > a {
-        color: $light;
-        opacity: 0.5;
-        text-decoration: none;
-        transition: opacity 0.15s;
-    }
-
-    > .banner > .excerpt > a:hover {
-        opacity: 0.75;
-    }
-
-    > .banner > .content {
-        padding: remify(24 30, 15);
-    }
-
-    > .banner > .content.user-content {
+    &.user-content {
         ol,
         p,
         table,
@@ -97,8 +82,33 @@
             opacity: 0.75;
         }
     }
+}
 
-    > .banner > .button {
+.banner__text {
+    & {
+        color: $light;
+        flex: 1 1 auto;
+        font-family: $body-font;
+        font-size: remify(15, 16);
+        line-height: remify(24, 15);
+        margin: 0;
+        padding: remify(24 30, 15);
+    }
+
+    > .banner__link {
+        color: $light;
+        opacity: 0.5;
+        text-decoration: none;
+        transition: opacity 0.15s;
+    }
+
+    > .banner__link:hover {
+        opacity: 0.75;
+    }
+}
+
+.banner__button {
+    & {
         background: none;
         border: 0;
         font-size: remify(24, 16);
@@ -110,7 +120,7 @@
         width: remify(104, 24);
     }
 
-    > .banner > .button > .fa {
+    > .fa {
         color: $light;
         font-size: remify(42, 24);
         left: 50%;
@@ -121,7 +131,7 @@
         top: 50%;
     }
 
-    > .banner > .button > .fa:hover {
+    > .fa:hover {
         opacity: 0.75;
     }
 }

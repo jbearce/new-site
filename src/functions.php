@@ -76,22 +76,27 @@ add_action("init", "register_menus");
 // add slideshow image size
 add_image_size("slideshow", 1600, 900, true);
 
-// RSCSS walker
-class RSCSSwalker extends Walker_Nav_Menu {
+// Weblinx Walker
+class weblinxWalker extends Walker_Nav_Menu {
     static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
-        $item_id = $item->ID;
-        $aria_haspopup = in_array("menu-item-has-children", $classes) ? " aria-haspopup='true'" : "";
+
+        if (!in_array("menu-list__item", $classes)) {
+            array_push($classes, "menu-list__item");
+        }
+
+        if (in_array("menu-list__item-has-children", $classes)) {
+            array_push($classes, "--parent");
+        }
+
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
-        $target = "";
-        if ($item->target) {
-            $target = " target='_blank'";
-        }
+        $target = $item->target ? " target='{$item->target}'" : "";
+        $aria_haspopup = in_array("menu-list__item-has-children", $classes) ? " aria-haspopup='true'" : "";
+
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a class='menu-link' href='%s'%s%s>%s</a>",
-            $item_id,
+            "<li%s><a class='menu-list__link link' href='%s'%s%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -100,8 +105,8 @@ class RSCSSwalker extends Walker_Nav_Menu {
         );
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $flyout_class = $depth > 0 ? " -flyout" : "";
-        $output .= "<ul class='menu-list -submenu{$flyout_class}'>";
+        $flyout_class = $depth > 0 ? "flyout" : "dropdown";
+        $output .= "<ul class='menu-list --vertical --{$flyout_class}'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= "</ul>";
@@ -111,21 +116,26 @@ class RSCSSwalker extends Walker_Nav_Menu {
     }
 }
 
-// mobile RSCSS walker
-class mobileRSCSSwalker extends Walker_Nav_Menu {
+// mobile Weblinx walker
+class mobileWeblinxWalker extends Walker_Nav_Menu {
     static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
-        $item_id = $item->ID;
+
+        if (!in_array("menu-list__item", $classes)) {
+            array_push($classes, "menu-list__item");
+        }
+
+        if (in_array("menu-list__item-has-children", $classes)) {
+            array_push($classes, "--parent");
+        }
+
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
-        $target = "";
-        if ($item->target) {
-            $target = " target='_blank'";
-        }
+        $target = $item->target ? " target='{$item->target}'" : "";
+
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a class='menu-link' href='%s'%s>%s</a>",
-            $item_id,
+            "<li%s><a class='menu-list__link link' href='%s'%s%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -133,9 +143,8 @@ class mobileRSCSSwalker extends Walker_Nav_Menu {
         );
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $flyout_class = $depth > 0 ? " -flyout" : "";
-        $output .= "<button class='menu-toggle'><span class='_visuallyhidden'>" . __("Show More") . "</span></button>";
-        $output .= "<ul class='menu-list -submenu{$flyout_class}'>";
+        $output .= "<button class='menu-list-toggle'><span class='__visuallyhidden'>" . __("Show More") . "</span></button>";
+        $output .= "<ul class='menu-list --vertical --accordion'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= "</ul>";
@@ -145,44 +154,19 @@ class mobileRSCSSwalker extends Walker_Nav_Menu {
     }
 }
 
-// hide acf from menu
-/*
-function remove_acf_menu() {
-    // provide a list of usernames who can edit custom field definitions here
-    $admins = array();
-    // get the current user
-    $current_user = wp_get_current_user();
-    // match and remove if needed
-    if (!in_array($current_user->user_login, $admins)) {
-        remove_menu_page("edit.php?post_type=acf");
-    }
-}
-add_action("admin_menu", "remove_acf_menu", 999);
-*/
-
-// enable editor style
-/*
-function weblinx_add_editor_styles() {
-    add_editor_style("assets/css/text.css");
-}
-add_action("after_setup_theme", "weblinx_add_editor_styles");
-*/
-
 // enable sidebar
-/*
 if (function_exists("register_sidebar")) {
 	register_sidebar(array(
 		"id"			=> "sidebar",
 		"name" 			=> "Sidebar",
 		"before_widget" => "<div class='widget'>",
-		"before_title" 	=> "<header class='widget-header'><h6 class='widget-title'>",
+		"before_title" 	=> "<header class='widget__header header'><h6 class='widget__title title'>",
 		"after_title" 	=> "</h6></header>",
 		"after_widget" 	=> "</div>",
 	));
 }
 
 // add sub_menu options to wp_nav_menu
-/*
 add_filter("wp_nav_menu_objects", "my_wp_nav_menu_objects_sub_menu", 10, 2);
 function my_wp_nav_menu_objects_sub_menu($sorted_menu_items, $args) {
 	if (isset($args->sub_menu)) {
@@ -238,7 +222,6 @@ function my_wp_nav_menu_objects_sub_menu($sorted_menu_items, $args) {
 		return $sorted_menu_items;
 	}
 }
-*/
 
 /***** MEGA MENU *****/
 /*
@@ -267,7 +250,7 @@ class megaMenuWalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
+            "<li id='menu-list__item-%s'%s><a href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,

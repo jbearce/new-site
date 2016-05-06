@@ -1,38 +1,39 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Helpers                                                                  *
-\* ------------------------------------------------------------------------ */
-
-/* ------------------------------------------------------------------------ *\
  * Base                                                                     *
 \* ------------------------------------------------------------------------ */
 
 @import "../base/normalize/_normalize";
-@import "../base/grid/_grid";
-@import "../base/content/_content";
-@import "../base/user-content/_user-content";
+
+/* ------------------------------------------------------------------------ *\
+ * Objects                                                                  *
+\* ------------------------------------------------------------------------ */
+
+@import "../objects/button/_button";
+@import "../objects/grid/_grid";
+@import "../objects/iframe/_iframe";
+@import "../objects/input/_input";
+@import "../objects/link/_link";
+@import "../objects/logo/_logo";
+@import "../objects/menu-button/_menu-button";
+@import "../objects/menu-list/_menu-list";
+@import "../objects/search-form/_search-form";
+@import "../objects/swiper/_swiper";
+@import "../objects/text/_text";
+@import "../objects/title/_title";
+@import "../objects/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
  * Components                                                               *
 \* ------------------------------------------------------------------------ */
 
 @import "../components/banner/_banner";
-@import "../components/iframe/_iframe";
-@import "../components/logo/_logo";
-@import "../components/menu-button/_menu-button";
-@import "../components/menu-list/_menu-list";
-@import "../components/search-form/_search-form";
-@import "../components/swiper/_swiper";
-
-/* ------------------------------------------------------------------------ *\
- * Layouts                                                                   *
-\* ------------------------------------------------------------------------ */
-
-@import "../layouts/page/_page";
-@import "../layouts/header/_header";
-@import "../layouts/nav/_nav";
-@import "../layouts/nav-mobile/_nav-mobile";
-@import "../layouts/slideshow/_slideshow";
-@import "../layouts/content/_content";
-@import "../layouts/footer/_footer";
+@import "../components/page/_page";
+@import "../components/header/_header";
+@import "../components/nav/_nav";
+@import "../components/nav-mobile/_nav-mobile";
+@import "../components/slideshow/_slideshow";
+@import "../components/content/_content";
+@import "../components/comments/_comments";
+@import "../components/footer/_footer";

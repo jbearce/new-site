@@ -11,17 +11,17 @@ if (have_posts()) {
         // display Tribe notices
     	tribe_the_notices();
 
-        // open an article-card
-        echo "<article class='article-card'>";
+        // open an article
+        echo "<article class='article'>";
 
-        // open a post-header
-        echo "<header class='header'>";
+        // open a header
+        echo "<header class='article__header header'>";
 
         // display the title
-        the_title("<h1 class='title'>", "</h1>");
+        the_title("<h1 class='article__title title'>", "</h1>");
 
         // display the event meta
-        echo "<h2 class='title -sub'>";
+        echo "<h2 class='article__title title --sub'>";
         echo tribe_events_event_schedule_details($event_id, "", "");
         if (tribe_get_cost()) {
             echo " | ";
@@ -35,17 +35,17 @@ if (have_posts()) {
         // check if a featured image exists
         if (has_post_thumbnail()) {
             // display the featured image
-            echo "<figure class='image'>" . get_the_post_thumbnail($event_id, "large") . "</figure>";
+            echo "<figure class='article__figure figure'>" . get_the_post_thumbnail($event_id, "large", array("class" => "article__image image")) . "</figure>";
         }
 
         // open a content
-        echo "<div class='content'>";
+        echo "<div class='article__content content'>";
 
         // Tribe hook
         do_action("tribe_events_single_event_before_the_content");
 
         // display the content
-        echo "<div class='user-content'>";
+        echo "<div class='article__user-content user-content'>";
         the_content();
         echo "</div>";
 
@@ -69,7 +69,7 @@ if (have_posts()) {
         // Tribe hook
         do_action("tribe_events_single_event_after_the_meta");
 
-        // close the article-card
+        // close the article
         echo "</article>";
     }
 }
@@ -80,7 +80,7 @@ printf("<i class='fa fa-caret-left'></i> " . esc_html__("Back to All %s", "new-s
 echo "</a>";
 
 // display the pagination
-echo "<footer class='pagination-block'><p class='pagination text'>";
+echo "<footer class='pagination-block'><p class='pagination__text text'>";
 tribe_the_prev_event_link("<span class='link -prev'><i class='fa fa-caret-left'></i> %title%</span>");
 tribe_the_next_event_link("<span class='link -next'>%title% <i class='fa fa-caret-right'></i></span>");
 echo "</p></footer>";

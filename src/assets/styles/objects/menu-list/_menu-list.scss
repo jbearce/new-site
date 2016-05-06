@@ -1,0 +1,53 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Menu List                                                                *
+\* ------------------------------------------------------------------------ */
+
+.menu-container {
+    & {
+        @extend %clearfix;
+    }
+}
+
+.menu-list {
+    & {
+        @extend %clearfix;
+        
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.menu-list__item {
+    & {
+        float: left;
+    }
+}
+
+.menu-list__link {
+    & {
+        display: block;
+    }
+
+    &:hover {
+    }
+}
+
+/* vertical variant */
+
+.menu-list.--vertical {
+    .menu-list__item {
+        float: none;
+    }
+}
+
+/* meta variant */
+
+.menu-list.--meta {
+    .menu-list__item > .fa {
+        margin-left: remify(8, 16);
+        margin-right: remify(4, 16);
+    }
+}

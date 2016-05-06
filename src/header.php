@@ -36,66 +36,66 @@
         </noscript>
 	</head>
     <body <?php body_class(); ?>>
-        <div class="page-wrapper">
-			<div class="mobile-nav-wrapper _mobile">
-				<div class="mobile-nav-block">
+        <div class="page-block">
+			<div class="mobile-nav-block __mobile">
+				<div class="mobile-nav__inner">
 					<?php
 					wp_nav_menu(array(
 						"container"		 => false,
 						"depth"          => 3,
-						"items_wrap"	 => "<nav class='menu-wrapper'><ul class='menu-list -vertical title'>%3\$s</ul></nav>",
+						"items_wrap"	 => "<nav class='menu-container'><ul class='menu-list --vertical title'>%3\$s</ul></nav>",
 						"theme_location" => "primary",
-						"walker"         => new mobileRSCSSwalker(),
+						"walker"         => new mobileWeblinxWalker(),
 					));
 					?>
 				</div><!--/.mobile-nav-block-->
 			</div><!--/.mobile-nav-wrapper-->
             <!--[if lt IE 10]>
-            <div class="banner-wrapper" data-banner="old-browser" hidden>
-                <div class="banner">
-                    <h6 class="title"><i class="fa fa-internet-explorer"></i> <?php _e("Old<br /> Browser", "new-site"); ?></h6>
-                    <p class="excerpt"><?php _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new-site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><?php _e("Click here to learn about upgrading.", "new-site"); ?></a></p>
-                    <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
+            <div class="banner-block" data-banner="old-browser" hidden>
+                <div class="banner__inner">
+                    <h6 class="banner__title title"><i class="fa fa-internet-explorer"></i> <?php _e("Old<br /> Browser", "villa-park-library"); ?></h6>
+                    <p class="banner__text text"><?php _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "villa-park-library"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><?php _e("Click here to learn about upgrading.", "villa-park-library"); ?></a></p>
+                    <button class="banner__button button"><i class="fa fa-times-circle"></i> <span class="__visuallyhidden"><?php _e("Hide Notice", "villa-park-library"); ?></span></button>
                 </div>
             </div>
             <![endif]-->
             <?php if (WP_DEBUG): ?>
-            <div class="banner-wrapper -notice" data-banner="under-construction" hidden>
-                <div class="banner">
-                    <h6 class="title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "new-site"); ?></h6>
-                    <p class="excerpt"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-site"); ?></p>
-                    <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
-                </div><!--/.banner-->
-            </div><!--/.banner-wrapper-->
+            <div class="banner-block --notice" data-banner="under-construction" hidden>
+                <div class="banner__inner">
+                    <h6 class="banner__title title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "villa-park-library"); ?></h6>
+                    <p class="banner__text text"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "villa-park-library"); ?></p>
+                    <button class="banner__button button"><i class="fa fa-times-circle"></i> <span class="__visuallyhidden"><?php _e("Hide Notice", "villa-park-library"); ?></span></button>
+                </div><!--/.banner__inner-->
+            </div><!--/.banner-block-->
             <?php endif; ?>
             <noscript>
-                <div class="banner-wrapper -notice" data-banner="noscript" hidden>
-                    <div class="banner">
-                        <h6 class="title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "new-site"); ?></h6>
-                        <p class="excerpt"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "new-site"); ?></p>
-                        <button class="button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
+                <div class="banner-block --notice" data-banner="noscript" hidden>
+                    <div class="banner__inner">
+                        <h6 class="banner__title title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "villa-park-library"); ?></h6>
+                        <p class="banner__text text"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "villa-park-library"); ?></p>
+                        <button class="banner__button button"><i class="fa fa-times-circle"></i> <span class="__visuallyhidden"><?php _e("Hide Notice", "villa-park-library"); ?></span></button>
                     </div><!--/.banner-->
                 </div><!--/.banner-wrapper-->
             </noscript>
-            <div class="header-wrapper">
-                <header class="header-block">
-                    <a class="logo" href="<?php echo home_url(); ?>">
-                        <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<?php bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
+            <div class="header-block">
+                <header class="header__inner">
+                    <a class="header__logo logo" href="<?php echo home_url(); ?>">
+                        <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" class="image" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<?php bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
                     </a><!--/.logo-->
                     <?php get_search_form(); ?>
-                    <button class="menu-button _mobile"><?php _e("Menu", "new-site"); ?></button>
-                </header><!--/.header-block-->
-            </div><!--/.header-wrapper-->
-            <div class="nav-wrapper _tabletdesktop">
-                <div class="nav-block">
+                    <button class="header__menu-button menu-button __mobile"><?php _e("Menu", "villa-park-library"); ?></button>
+                </header><!--/.header__inner-->
+            </div><!--/.header-block-->
+            <div class="nav-block __tablet __desktop">
+                <div class="nav__inner">
                     <?php
                     wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
-                        "items_wrap"	 => "<nav class='menu-wrapper'><ul class='menu-list title'>%3\$s</ul></nav>",
+                        "items_wrap"	 => "<nav class='header__menu-container menu-container'><ul class='header__menu-list menu-list title'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
-                        "walker"         => new RSCSSwalker(),
+                        "walker"         => new weblinxWalker(),
                     ));
                     ?>
-                </div><!--/.nav-block-->
-            </div><!--/.nav-wrapper-->
+                </div><!--/.nav__inner-->
+            </div><!--/.nav-block-->

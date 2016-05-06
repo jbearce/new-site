@@ -13,81 +13,82 @@
 // generic helpers
 
 %clearfix {
-    *zoom: 1 !important;
-
-    &:before,
     &:after {
-        content: "\0020" !important;
-        display: table !important;
-    }
-
-    &:after {
+        content: "" !important;
         clear: both !important;
+        display: table !important;
     }
 }
 
-._center {
+.__bold {
+    font-weight: 700 !important;
+}
+
+.__italic {
+    font-style: italic !important;
+}
+
+.__center {
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
-._left {
+.__left {
     float: left !important;
 }
 
-._right {
+.__right {
     float: right !important;
 }
 
-._textcenter {
+.__textcenter {
     text-align: center !important;
 }
 
-._textleft {
+.__textleft {
     text-align: left !important;
 }
 
-._textright {
+.__textright {
     text-align: right !important;
 }
 
-._nomargin {
+.__nomargin {
     margin: 0 !important;
 }
 
-._nopadding {
+.__nopadding {
     padding: 0 !important;
 }
 
-._visuallyhidden {
+.__visuallyhidden {
     left: -999em !important;
     position: absolute !important;
     top: -999em !important;
 }
 
 /* visibility classes */
-// ideal: https://www.w3.org/TR/css-display-3/#propdef-box-suppress
 
 @media screen and (min-width: $s-break) {
-    ._mobile {
+    .__mobile {
         display: none !important;
     }
 }
 
 @media screen and (max-width: ($s-break - 1 / 16)) and (min-width: $xl-break) {
-    ._tablet {
+    .__tablet {
         display: none !important;
     }
 }
 
 @media screen and (max-width: ($s-break - 1 / 16)) {
-    ._tablet._desktop {
+    .__tablet.__desktop {
         display: none !important;
     }
 }
 
 @media screen and (max-width: ($xl-break - 1 / 16)) {
-    ._desktop:not(._tablet) {
+    .__desktop:not(.__tablet) {
         display: none !important;
     }
 }

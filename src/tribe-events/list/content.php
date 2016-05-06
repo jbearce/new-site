@@ -4,13 +4,13 @@ if (!defined("ABSPATH")) {
 }
 
 // open a header
-echo "<header class='header'>";
+echo "<header class='article__header header'>";
 
 // Tribe hook
 do_action("tribe_events_before_the_title");
 
 // display the title
-echo "<h1 class='title'>" . tribe_get_events_title() . "</h1>";
+echo "<h1 class='article__title title'>" . tribe_get_events_title() . "</h1>";
 
 // Tribe hook
 do_action("tribe_events_after_the_title");

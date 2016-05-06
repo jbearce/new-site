@@ -44,7 +44,7 @@ html {
 // Remove arrows on numbers and date fields in Webkit
 
 ::-webkit-outer-spin-button,
-::-webkit-inner-spin-button,
+::-webkit__inner-spin-button,
 ::-webkit-calendar-picker-indicator {
     appearance: none;
 	display: none;

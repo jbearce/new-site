@@ -6,11 +6,13 @@ if (empty($map)) {
 }
 ?>
 
-<div class="meta">
-	<?php
-	// Display the map.
-	do_action("tribe_events_single_meta_map_section_start");
-	echo $map;
-	do_action("tribe_events_single_meta_map_section_end");
-	?>
+<div class="article-col col --half">
+	<div class="article-map map">
+		<?php
+		// Display the map.
+		do_action("tribe_events_single_meta_map_section_start");
+		echo $map;
+		do_action("tribe_events_single_meta_map_section_end");
+		?>
+	</div>
 </div>
