@@ -13,7 +13,7 @@
 .menu-list {
     & {
         @extend %clearfix;
-        
+
         list-style: none;
         margin: 0;
         padding: 0;
@@ -23,6 +23,7 @@
 .menu-list__item {
     & {
         float: left;
+        position: relative;
     }
 }
 
@@ -43,11 +44,52 @@
     }
 }
 
+/* dropdown variant */
+
+.menu-list.--dropdown {
+    & {
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        transform: translateY(-10%);
+        top: -999em;
+        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, transform 0.15s;
+    }
+
+    .menu-list__item.--parent:hover > & {
+        left: 0;
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.15s, transform 0.15s;
+        top: 100%;
+    }
+}
+
+/* flyout variant */
+
+.menu-list.--flyout {
+    & {
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        transform: translateX(-10%);
+        top: -999em;
+        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, transform 0.15s;
+    }
+
+    .menu-list__item.--parent:hover > & {
+        left: 100%;
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 0.15s, transform 0.15s;
+        top: 0;
+    }
+}
+
 /* meta variant */
 
 .menu-list.--meta {
-    .menu-list__item > .fa {
-        margin-left: remify(8, 16);
-        margin-right: remify(4, 16);
+    .menu-list__item:not(:last-child) {
+        margin-right: remify(16, 16);
     }
 }
