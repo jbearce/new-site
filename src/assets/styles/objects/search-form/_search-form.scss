@@ -20,7 +20,7 @@
     }
 }
 
-.search-from__input {
+.search-form__input {
     & {
         background: none;
         border: 0;
@@ -37,7 +37,7 @@
     }
 }
 
-.search-from__button{
+.search-form__button{
     & {
         background: none;
         border: 0;
@@ -50,6 +50,7 @@
     }
 
     &:hover {
+        background: none;
         color: $accent_alt;
     }
 }

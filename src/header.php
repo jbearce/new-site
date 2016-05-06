@@ -80,7 +80,7 @@
             <div class="header-block">
                 <header class="header__inner">
                     <a class="header__logo logo" href="<?php echo home_url(); ?>">
-                        <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" class="image" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<?php bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
+                        <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" class="logo__image image" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.png@@if (context.version) {?v=@@version}" srcset="<?php bloginfo("template_directory"); ?>/assets/media/logo@2x.png@@if (context.version) {?v=@@version} 2x" />
                     </a><!--/.logo-->
                     <?php get_search_form(); ?>
                     <button class="header__menu-button menu-button __mobile"><?php _e("Menu", "villa-park-library"); ?></button>

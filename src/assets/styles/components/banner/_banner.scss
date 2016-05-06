@@ -120,6 +120,10 @@
         width: remify(104, 24);
     }
 
+    &:hover {
+        background: none;
+    }
+
     > .fa {
         color: $light;
         font-size: remify(42, 24);
@@ -131,7 +135,7 @@
         top: 50%;
     }
 
-    > .fa:hover {
+    &:hover > .fa {
         opacity: 0.75;
     }
 }

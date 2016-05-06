@@ -86,7 +86,7 @@ class weblinxWalker extends Walker_Nav_Menu {
             array_push($classes, "menu-list__item");
         }
 
-        if (in_array("menu-list__item-has-children", $classes)) {
+        if (in_array("menu-item-has-children", $classes)) {
             array_push($classes, "--parent");
         }
 
@@ -135,7 +135,7 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
         $target = $item->target ? " target='{$item->target}'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-list__link link' href='%s'%s%s>%s</a>",
+            "<li%s><a class='menu-list__link link' href='%s'%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -143,7 +143,7 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
         );
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "<button class='menu-list-toggle'><span class='__visuallyhidden'>" . __("Show More") . "</span></button>";
+        $output .= "<button class='menu-list__toggle'><i class='fa fa-chevron-down'></i><span class='__visuallyhidden'>" . __("Show More") . "</span></button>";
         $output .= "<ul class='menu-list --vertical --accordion'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
