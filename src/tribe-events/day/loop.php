@@ -17,7 +17,7 @@ while (have_posts()) {
     do_action("tribe_events_inside_before_loop");
 
     // open a content
-    echo "<div class='article_content content'>";
+    echo "<div class='article-content'>";
 
     // get the single day template
     tribe_get_template_part("day/single", "event");

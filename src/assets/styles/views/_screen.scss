@@ -7,33 +7,33 @@
 @import "../base/normalize/_normalize";
 
 /* ------------------------------------------------------------------------ *\
- * Elements                                                                 *
+ * Module                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../elements/button/_button";
-@import "../elements/grid/_grid";
-@import "../elements/iframe/_iframe";
-@import "../elements/input/_input";
-@import "../elements/link/_link";
-@import "../elements/logo/_logo";
-@import "../elements/menu-button/_menu-button";
-@import "../elements/menu-list/_menu-list";
-@import "../elements/search-form/_search-form";
-@import "../elements/swiper/_swiper";
-@import "../elements/text/_text";
-@import "../elements/title/_title";
-@import "../elements/user-content/_user-content";
+@import "../module/button/_button";
+@import "../module/grid/_grid";
+@import "../module/iframe/_iframe";
+@import "../module/input/_input";
+@import "../module/link/_link";
+@import "../module/logo/_logo";
+@import "../module/menu-button/_menu-button";
+@import "../module/menu-list/_menu-list";
+@import "../module/search-form/_search-form";
+@import "../module/swiper/_swiper";
+@import "../module/text/_text";
+@import "../module/title/_title";
+@import "../module/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
- * Blocks                                                                   *
+ * Layout                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../blocks/banner/_banner";
-@import "../blocks/page/_page";
-@import "../blocks/header/_header";
-@import "../blocks/nav/_nav";
-@import "../blocks/nav-mobile/_nav-mobile";
-@import "../blocks/slideshow/_slideshow";
-@import "../blocks/content/_content";
-@import "../blocks/comments/_comments";
-@import "../blocks/footer/_footer";
+@import "../layout/banner/_banner";
+@import "../layout/page/_page";
+@import "../layout/header/_header";
+@import "../layout/nav/_nav";
+@import "../layout/nav-mobile/_nav-mobile";
+@import "../layout/slideshow/_slideshow";
+@import "../layout/content/_content";
+@import "../layout/comments/_comments";
+@import "../layout/footer/_footer";

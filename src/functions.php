@@ -81,13 +81,8 @@ add_image_size("slideshow", 1600, 900, true);
 
 // Weblinx Walker
 class weblinxWalker extends Walker_Nav_Menu {
-    static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
-
-        if (!in_array("menu-list_item", $classes)) {
-            array_push($classes, "menu-list_item");
-        }
 
         if (in_array("menu-item-has-children", $classes)) {
             array_push($classes, "-parent");
@@ -96,10 +91,10 @@ class weblinxWalker extends Walker_Nav_Menu {
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
         $target = $item->target ? " target='{$item->target}'" : "";
-        $aria_haspopup = in_array("menu-list_item-has-children", $classes) ? " aria-haspopup='true'" : "";
+        $aria_haspopup = in_array("menu-item-has-children", $classes) ? " aria-haspopup='true'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-list_link link' href='%s'%s%s>%s</a>",
+            "<li%s><a class='menu-link link' href='%s'%s%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -125,11 +120,7 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
 
-        if (!in_array("menu-list_item", $classes)) {
-            array_push($classes, "menu-list_item");
-        }
-
-        if (in_array("menu-list_item-has-children", $classes)) {
+        if (in_array("menu-item-has-children", $classes)) {
             array_push($classes, "-parent");
         }
 
@@ -138,7 +129,7 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
         $target = $item->target ? " target='{$item->target}'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-list_link link' href='%s'%s>%s</a>",
+            "<li%s><a class='menu-link link' href='%s'%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -146,7 +137,7 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
         );
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Show More") . "</span></button>";
+        $output .= "<button class='menu-toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Show More") . "</span></button>";
         $output .= "<ul class='menu-list -vertical -accordion'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
@@ -163,7 +154,7 @@ if (function_exists("register_sidebar")) {
 		"id"			=> "sidebar",
 		"name" 			=> "Sidebar",
 		"before_widget" => "<div class='widget'>",
-		"before_title" 	=> "<header class='widget_header header'><h6 class='widget_title title'>",
+		"before_title" 	=> "<header class='widget-header'><h6 class='widget-title title'>",
 		"after_title" 	=> "</h6></header>",
 		"after_widget" 	=> "</div>",
 	));
@@ -253,7 +244,7 @@ class megaMenuWalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-list_item-%s'%s><a href='%s'%s>%s</a>",
+            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,

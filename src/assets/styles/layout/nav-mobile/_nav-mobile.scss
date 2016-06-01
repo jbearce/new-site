@@ -6,7 +6,7 @@
 
 // wrapper
 
-.mobile-nav-container {
+.l-mobile-nav-container {
     & {
         background: $background;
         bottom: 999em;
@@ -21,7 +21,7 @@
         z-index: 999;
     }
 
-    .-navactive & {
+    .is-navactive & {
         bottom: 0;
         left: remify(80, 16);
         right: 0;

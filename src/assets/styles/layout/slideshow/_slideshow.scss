@@ -1,18 +1,20 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Content                                                                  *
+ * Slideshow                                                                *
 \* ------------------------------------------------------------------------ */
 
-.content-container {
+.l-slideshow-container {
     & {
-        @include layer("content");
+        @include layer("slideshow");
 
         font-size: remify(16, 16);
         padding: remify(0 20, 16);
     }
+}
 
-    > .content-block {
+.l-slideshow-block {
+    & {
         @extend %clearfix;
 
         margin: 0 auto;

@@ -4,13 +4,13 @@ if (!defined("ABSPATH")) {
 }
 
 // open a header
-echo "<header class='article_header header'>";
+echo "<header class='article-header'>";
 
 // Tribe hook
 do_action("tribe_events_before_the_title");
 
 // display the title
-echo "<h1 class='article_title title'>" . tribe_get_events_title() . "</h1>";
+echo "<h1 class='article-title title'>" . tribe_get_events_title() . "</h1>";
 // tribe_events_title();
 
 // Tribe hook
@@ -32,7 +32,7 @@ tribe_get_template_part("month/loop", "grid");
 do_action("tribe_events_before_footer");
 
 // display the pagination
-echo "<footer class='pagination-container'>";
+echo "<footer class='pagination-menu'>";
 tribe_get_template_part("month/nav");
 echo "</footer>";
 

@@ -15,7 +15,7 @@ $has_venue_address = (!empty($venue_details["address"])) ? " location" : "";
 do_action("tribe_events_before_the_event_title");
 
 // display the title
-echo "<h2 class='article_title title -sub'><a class='article_link link' href='{$permalink}'>" . get_the_title() . "</a></h2>";
+echo "<h2 class='article-title title -sub'><a class='article-link link' href='{$permalink}'>" . get_the_title() . "</a></h2>";
 
 // Tribe hoook
 do_action("tribe_events_after_the_event_title");
@@ -24,7 +24,7 @@ do_action("tribe_events_after_the_event_title");
 do_action("tribe_events_before_the_meta");
 
 // display the date
-echo " <h3 class='article_title title -sub'><a class='article_link link' href='{$permalink}'>" . tribe_events_event_schedule_details() . "</a></h3>";
+echo " <h3 class='article-title title -sub'><a class='article-link link' href='{$permalink}'>" . tribe_events_event_schedule_details() . "</a></h3>";
 
 /*
 // display the venue
@@ -45,7 +45,7 @@ do_action("tribe_events_after_the_meta");
 do_action("tribe_events_before_the_content");
 
 // display the excerpt
-echo "<div class='article_content content'><p class='article_text text'><a href='{$permalink}'>" . strip_tags(tribe_events_get_the_excerpt()) . "</a></p></div>";
+echo "<div class='article-content'><p class='article-text text'><a href='{$permalink}'>" . strip_tags(tribe_events_get_the_excerpt()) . "</a></p></div>";
 
 // Tribe hook
 do_action("tribe_events_after_the_content");

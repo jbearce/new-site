@@ -38,8 +38,8 @@
         width: remify(24, 16);
     }
 
-    .-navactive &:before,
-    .-navactive &:after {
+    .is-navactive &:before,
+    .is-navactive &:after {
         transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
     }
 
@@ -48,7 +48,7 @@
         top: remify(-16, 16);
     }
 
-    .-navactive &:before {
+    .is-navactive &:before {
         box-shadow: 0 0 0 0 transparent;
         transform: rotate(45deg);
         top: 0;
@@ -58,7 +58,7 @@
         top: remify(16, 16);
     }
 
-    .-navactive &:after {
+    .is-navactive &:after {
         transform: rotate(-45deg);
         top: 0;
     }

@@ -5,15 +5,15 @@
 \* ------------------------------------------------------------------------ */
 
 /* ------------------------------------------------------------------------ *\
- * Elements                                                                 *
+ * Module                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../elements/grid/_grid_s";
-@import "../elements/user-content/_user-content_s";
+@import "../module/grid/_grid_s";
+@import "../module/user-content/_user-content_s";
 
 /* ------------------------------------------------------------------------ *\
- * Blocks                                                                   *
+ * Layout                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../blocks/banner/_banner_s";
-@import "../blocks/page/_page_s";
+@import "../layout/banner/_banner_s";
+@import "../layout/page/_page_s";

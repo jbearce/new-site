@@ -7,25 +7,25 @@ jQuery(".menu-button").click(function (e) {
     e.preventDefault();
 
     // mark the mobile nav as open
-    jQuery("html").toggleClass("-navactive");
+    jQuery("html").toggleClass("is-navactive");
 });
 
 // page-wrapper (when nav is active)
-jQuery(".page-container").click(function(e) {
+jQuery(".l-page-container").click(function(e) {
     // skip clicks on children
     if (e.target != this) return;
 
     // remove the class
-    jQuery("html").removeClass("-navactive");
+    jQuery("html").removeClass("is-navactive");
 });
 
 // mobile drop down buttons
-jQuery(".menu-list_toggle").click(function (e) {
+jQuery(".menu-toggle").click(function (e) {
     e.preventDefault();
 
     // mark thsi button as active
-    jQuery(this).toggleClass("-active");
+    jQuery(this).toggleClass("is-active");
 
     // mark the next drop down as active
-    jQuery(this).next(".menu-list.-accordion").toggleClass("-active");
+    jQuery(this).next(".menu-list.-accordion").toggleClass("is-active");
 });

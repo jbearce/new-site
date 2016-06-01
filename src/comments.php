@@ -27,7 +27,7 @@
 
         // display the comment pagination
         if ($comment_nav) {
-            echo "<nav class='comments-pagination-container pagination-container'>{$comment_nav}</nav>";
+            echo "<nav class='comments-pagination-menu pagination-menu'>{$comment_nav}</nav>";
         }
     } elseif (!comments_open()) {
         // inform the user the comments are closed

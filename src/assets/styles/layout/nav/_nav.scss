@@ -1,18 +1,20 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Footer                                                                   *
+ * Navigation                                                               *
 \* ------------------------------------------------------------------------ */
 
-.footer-container {
+.l-nav-container {
     & {
-        @include layer("footer");
+        @include layer("navigation");
 
         font-size: remify(16, 16);
         padding: remify(0 20, 16);
     }
+}
 
-    > .footer-block {
+.l-nav-block {
+    & {
         @extend %clearfix;
 
         margin: 0 auto;

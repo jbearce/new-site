@@ -7,7 +7,7 @@ if (!defined("ABSPATH")) {
 do_action("tribe_events_before_nav");
 
 // open a pagination
-echo "<p class='pagination_text text'>";
+echo "<p class='pagination-text text'>";
 
 // check if a previous link exists
 $prev_url = tribe_get_previous_month_link();
@@ -15,7 +15,7 @@ $prev_text = tribe_get_previous_month_text();
 
 // display the previous link
 if ($prev_url) {
-    echo "<a class='pagination_link link _left' href='{$prev_url}' rel='prev'><i class='fa fa-caret-left'></i> {$prev_text}</a>";
+    echo "<a class='pagination-link link _left' href='{$prev_url}' rel='prev'><i class='fa fa-caret-left'></i> {$prev_text}</a>";
 }
 
 // check if a next link exists
@@ -24,7 +24,7 @@ $next_text = tribe_get_next_month_text();
 
 // display the next link
 if ($next_url) {
-    echo "<a class='pagination_link link _right' href='{$next_url}' rel='next'>{$next_text} <i class='fa fa-caret-right'></i></a>";
+    echo "<a class='pagination-link link _right' href='{$next_url}' rel='next'>{$next_text} <i class='fa fa-caret-right'></i></a>";
 }
 
 // close the pagination

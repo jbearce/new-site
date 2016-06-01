@@ -4,7 +4,7 @@
  * Banner                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.banner-container {
+.l-banner-container {
     & {
         background: $warning;
     }
@@ -14,7 +14,7 @@
     }
 }
 
-.banner-block {
+.l-banner-block {
     & {
         margin: 0 auto;
         max-width: $site-width + px;
@@ -24,7 +24,7 @@
     }
 }
 
-.banner_title {
+.banner-title {
     & {
         align-items: center;
         border-bottom: remify(2) solid transparentize($dark, 0.9);
@@ -51,7 +51,7 @@
     }
 }
 
-.banner_content {
+.banner-content {
     & {
         padding: remify(24 30, 16);
     }
@@ -84,7 +84,7 @@
     }
 }
 
-.banner_text {
+.banner-text {
     & {
         color: $light;
         flex: 1 1 auto;
@@ -95,19 +95,19 @@
         padding: remify(24 30, 15);
     }
 
-    > .banner_link {
+    > .banner-link {
         color: $light;
         opacity: 0.5;
         text-decoration: none;
         transition: opacity 0.15s;
     }
 
-    > .banner_link:hover {
+    > .banner-link:hover {
         opacity: 0.75;
     }
 }
 
-.banner_button {
+.banner-toggle {
     & {
         background: none;
         border: 0;

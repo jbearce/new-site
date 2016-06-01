@@ -15,13 +15,13 @@ if (have_posts()) {
         echo "<article class='article'>";
 
         // open a header
-        echo "<header class='article_header header'>";
+        echo "<header class='article-header'>";
 
         // display the title
-        the_title("<h1 class='article_title title'>", "</h1>");
+        the_title("<h1 class='article-title title'>", "</h1>");
 
         // display the event meta
-        echo "<h2 class='article_title title -sub'>";
+        echo "<h2 class='article-title title -sub'>";
         echo tribe_events_event_schedule_details($event_id, "", "");
         if (tribe_get_cost()) {
             echo " | ";
@@ -35,17 +35,17 @@ if (have_posts()) {
         // check if a featured image exists
         if (has_post_thumbnail()) {
             // display the featured image
-            echo "<figure class='article_figure figure'>" . get_the_post_thumbnail($event_id, "large", array("class" => "article_image image")) . "</figure>";
+            echo "<figure class='article-figure'>" . get_the_post_thumbnail($event_id, "large", array("class" => "article-image")) . "</figure>";
         }
 
         // open a content
-        echo "<div class='article_content content'>";
+        echo "<div class='article-content'>";
 
         // Tribe hook
         do_action("tribe_events_single_event_before_the_content");
 
         // display the content
-        echo "<div class='article_user-content user-content'>";
+        echo "<div class='article-user-content user-content'>";
         the_content();
         echo "</div>";
 
@@ -80,7 +80,7 @@ printf("<i class='fa fa-caret-left'></i> " . esc_html__("Back to All %s", "new-s
 echo "</a>";
 
 // display the pagination
-echo "<footer class='pagination-container'><p class='pagination_text text'>";
+echo "<footer class='pagination-menu'><p class='pagination-text text'>";
 tribe_the_prev_event_link("<span class='link -prev'><i class='fa fa-caret-left'></i> %title%</span>");
 tribe_the_next_event_link("<span class='link -next'>%title% <i class='fa fa-caret-right'></i></span>");
 echo "</p></footer>";

@@ -4,7 +4,7 @@
  * Header                                                                   *
 \* ------------------------------------------------------------------------ */
 
-.header-container {
+.l-header-container {
     & {
         @include layer("header");
 
@@ -13,12 +13,14 @@
     }
 
     @media screen and (max-width: ($s-break - (1 / 16))) {
-        .-navactive & {
+        .is-navactive & {
             position: static;
         }
     }
+}
 
-    > .header-block {
+.l-header-block {
+    & {
         @extend %clearfix;
 
         margin: 0 auto;
