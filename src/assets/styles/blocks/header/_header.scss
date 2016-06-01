@@ -1,0 +1,27 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Header                                                                   *
+\* ------------------------------------------------------------------------ */
+
+.header-container {
+    & {
+        @include layer("header");
+
+        font-size: remify(16, 16);
+        padding: remify(0 20, 16);
+    }
+
+    @media screen and (max-width: ($s-break - (1 / 16))) {
+        .-navactive & {
+            position: static;
+        }
+    }
+
+    > .header-block {
+        @extend %clearfix;
+
+        margin: 0 auto;
+        max-width: remify($site-width, 16);
+    }
+}

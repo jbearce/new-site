@@ -6,7 +6,7 @@
 
         // display the sidebar field
         if ($sidebar) {
-            echo "<div class='widget'><div class='widget__content content user-content'>{$sidebar}</div></div>";
+            echo "<div class='widget'><div class='widget_content content user-content'>{$sidebar}</div></div>";
         }
     }
     ?>
@@ -30,10 +30,10 @@
         }
 
         // display the title
-        echo "<div class='widget__header header'><h6 class='widget__title title'>{$widget_title}</h6></div>";
+        echo "<div class='widget_header header'><h6 class='widget_title title'>{$widget_title}</h6></div>";
 
         // display the category list
-        echo "<div class='widget__content content'><nav class='widget__menu-container menu-container'><ul class='wigget__menu-list menu-list --vertical'>";
+        echo "<div class='widget_content content'><nav class='widget_menu-container menu-container'><ul class='wigget_menu-list menu-list -vertical'>";
         wp_list_categories("orderby=name");
         echo "</ul></nav></div>";
 
@@ -49,7 +49,7 @@
             "depth"          => 2,
             "direct_parent"  => true,
             "echo"           => false,
-            "items_wrap"	 => "<nav class='widget__menu-container menu-container'><ul class='widget__menu-list menu-list --vertical'>%3\$s</ul></nav>",
+            "items_wrap"	 => "<nav class='widget_menu-container menu-container'><ul class='widget_menu-list menu-list -vertical'>%3\$s</ul></nav>",
             "show_parent"    => true,
             "sub_menu"		 => true,
             "theme_location" => "primary",
@@ -58,7 +58,7 @@
 
         // display the submenu
         if ($sub_menu != "") {
-            echo "<div class='widget'><div class='widget__content content'>{$sub_menu}</div></div>";
+            echo "<div class='widget'><div class='widget_content content'>{$sub_menu}</div></div>";
         }
     }
     ?>

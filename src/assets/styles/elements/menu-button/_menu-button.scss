@@ -1,0 +1,65 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Menu Buton                                                               *
+\* ------------------------------------------------------------------------ */
+
+.menu-button {
+    & {
+        background: none;
+        border: 0;
+        color: $accent;
+        display: block;
+        font-size: 16px;
+        font-size: remify(16);
+        height: remify(48, 16);
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-indent: -999em;
+        transition: background-color 0.15s;
+        width: remify(48, 16);
+        z-index: 998;
+    }
+
+    &:before,
+    &:after {
+        background: currentColor;
+        bottom: 0;
+        content: "\0020";
+        display: block;
+        height: remify(6, 16);
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transition: box-shadow 0.15s 0.15s, top 0.15s 0.15s, transform 0.15s;
+        width: remify(24, 16);
+    }
+
+    .-navactive &:before,
+    .-navactive &:after {
+        transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
+    }
+
+    &:before {
+        box-shadow: remify(0 8 0 0, 16) currentColor;
+        top: remify(-16, 16);
+    }
+
+    .-navactive &:before {
+        box-shadow: 0 0 0 0 transparent;
+        transform: rotate(45deg);
+        top: 0;
+    }
+
+    &:after {
+        top: remify(16, 16);
+    }
+
+    .-navactive &:after {
+        transform: rotate(-45deg);
+        top: 0;
+    }
+}

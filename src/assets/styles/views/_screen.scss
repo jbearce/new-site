@@ -7,33 +7,33 @@
 @import "../base/normalize/_normalize";
 
 /* ------------------------------------------------------------------------ *\
- * Objects                                                                  *
+ * Elements                                                                 *
 \* ------------------------------------------------------------------------ */
 
-@import "../objects/button/_button";
-@import "../objects/grid/_grid";
-@import "../objects/iframe/_iframe";
-@import "../objects/input/_input";
-@import "../objects/link/_link";
-@import "../objects/logo/_logo";
-@import "../objects/menu-button/_menu-button";
-@import "../objects/menu-list/_menu-list";
-@import "../objects/search-form/_search-form";
-@import "../objects/swiper/_swiper";
-@import "../objects/text/_text";
-@import "../objects/title/_title";
-@import "../objects/user-content/_user-content";
+@import "../elements/button/_button";
+@import "../elements/grid/_grid";
+@import "../elements/iframe/_iframe";
+@import "../elements/input/_input";
+@import "../elements/link/_link";
+@import "../elements/logo/_logo";
+@import "../elements/menu-button/_menu-button";
+@import "../elements/menu-list/_menu-list";
+@import "../elements/search-form/_search-form";
+@import "../elements/swiper/_swiper";
+@import "../elements/text/_text";
+@import "../elements/title/_title";
+@import "../elements/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
- * Components                                                               *
+ * Blocks                                                                   *
 \* ------------------------------------------------------------------------ */
 
-@import "../components/banner/_banner";
-@import "../components/page/_page";
-@import "../components/header/_header";
-@import "../components/nav/_nav";
-@import "../components/nav-mobile/_nav-mobile";
-@import "../components/slideshow/_slideshow";
-@import "../components/content/_content";
-@import "../components/comments/_comments";
-@import "../components/footer/_footer";
+@import "../blocks/banner/_banner";
+@import "../blocks/page/_page";
+@import "../blocks/header/_header";
+@import "../blocks/nav/_nav";
+@import "../blocks/nav-mobile/_nav-mobile";
+@import "../blocks/slideshow/_slideshow";
+@import "../blocks/content/_content";
+@import "../blocks/comments/_comments";
+@import "../blocks/footer/_footer";

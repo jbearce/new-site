@@ -19,7 +19,7 @@ $current_url = tribe_events_get_current_filter_url();
 		<!-- Views -->
 		<?php if (count($views) > 1) { ?>
 			<div id="tribe-bar-views">
-				<div class="tribe-bar-views__inner tribe-clearfix">
+				<div class="tribe-bar-views-block tribe-clearfix">
 					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e("Event Views Navigation", "new-site"); ?></h3>
 					<label><?php esc_html_e("View As", "new-site"); ?></label>
 					<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
@@ -30,13 +30,13 @@ $current_url = tribe_events_get_current_filter_url();
 						<?php endforeach; ?>
 					</select>
 				</div>
-				<!-- .tribe-bar-views__inner -->
+				<!-- .tribe-bar-views-block -->
 			</div><!-- .tribe-bar-views -->
 		<?php } // if (count($views) > 1) ?>
 
 		<?php if (!empty($filters)) { ?>
 			<div class="tribe-bar-filters">
-				<div class="tribe-bar-filters__inner tribe-clearfix">
+				<div class="tribe-bar-filters-block tribe-clearfix">
 					<?php foreach ($filters as $filter): ?>
 						<div class="<?php esc_attr_e($filter["name"]); ?>-filter">
 							<label class="label-<?php esc_attr_e($filter["name"]); ?>" for="<?php esc_attr_e($filter["name"]); ?>"><?php echo $filter["caption"]; ?></label>
@@ -48,7 +48,7 @@ $current_url = tribe_events_get_current_filter_url();
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>
-				<!-- .tribe-bar-filters__inner -->
+				<!-- .tribe-bar-filters-block -->
 			</div><!-- .tribe-bar-filters -->
 		<?php } // if (!empty($filters)) ?>
 

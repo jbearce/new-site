@@ -24,6 +24,7 @@ function new_site_register_scripts() {
         wp_register_script("flexibility", get_bloginfo("template_directory") . "/assets/scripts/fallback/flexibility.js", array(), "1.0.6");
         wp_register_script("nwmatcher", get_bloginfo("template_directory") . "/assets/scripts/fallback/nwmatcher-1.3.4.min.js", array(), "1.3.4");
         wp_register_script("selectivizr", get_bloginfo("template_directory") . "/assets/scripts/fallback/selectivizr-1.0.2.min.js", array("nwmatcher"), "1.0.2");
+        wp_register_script("placeholders", get_bloginfo("template_directory") . "/assets/scripts/fallback/placeholders.js", array("nwmatcher"), "1.0.2");
 
         // add IE8 or lower condition to IE8 styles & scripts
         $GLOBALS["wp_styles"]->add_data("new-site-legacy", "conditional", "lte IE 8");
@@ -31,6 +32,7 @@ function new_site_register_scripts() {
         $GLOBALS["wp_scripts"]->add_data("nwmatcher", "conditional", "lte IE 8");
         $GLOBALS["wp_scripts"]->add_data("selectivizr", "conditional", "lte IE 8");
         $GLOBALS["wp_scripts"]->add_data("flexibility", "conditional", "lte IE 8");
+        $GLOBALS["wp_scripts"]->add_data("placeholders", "conditional", "lte IE 8");
     }
 }
 add_action("init", "new_site_register_scripts");
@@ -53,6 +55,7 @@ function new_site_enqueue_scripts() {
         wp_enqueue_script("nwmatcher");
         wp_enqueue_script("selectivizr");
         wp_enqueue_script("flexibility");
+        wp_enqueue_script("placeholders");
     }
 }
 add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");
@@ -82,21 +85,21 @@ class weblinxWalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
 
-        if (!in_array("menu-list__item", $classes)) {
-            array_push($classes, "menu-list__item");
+        if (!in_array("menu-list_item", $classes)) {
+            array_push($classes, "menu-list_item");
         }
 
         if (in_array("menu-item-has-children", $classes)) {
-            array_push($classes, "--parent");
+            array_push($classes, "-parent");
         }
 
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
         $target = $item->target ? " target='{$item->target}'" : "";
-        $aria_haspopup = in_array("menu-list__item-has-children", $classes) ? " aria-haspopup='true'" : "";
+        $aria_haspopup = in_array("menu-list_item-has-children", $classes) ? " aria-haspopup='true'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-list__link link' href='%s'%s%s>%s</a>",
+            "<li%s><a class='menu-list_link link' href='%s'%s%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -106,7 +109,7 @@ class weblinxWalker extends Walker_Nav_Menu {
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
         $flyout_class = $depth > 0 ? "flyout" : "dropdown";
-        $output .= "<ul class='menu-list --vertical --{$flyout_class}'>";
+        $output .= "<ul class='menu-list -vertical -{$flyout_class}'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= "</ul>";
@@ -122,12 +125,12 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
 
-        if (!in_array("menu-list__item", $classes)) {
-            array_push($classes, "menu-list__item");
+        if (!in_array("menu-list_item", $classes)) {
+            array_push($classes, "menu-list_item");
         }
 
-        if (in_array("menu-list__item-has-children", $classes)) {
-            array_push($classes, "--parent");
+        if (in_array("menu-list_item-has-children", $classes)) {
+            array_push($classes, "-parent");
         }
 
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
@@ -135,7 +138,7 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
         $target = $item->target ? " target='{$item->target}'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-list__link link' href='%s'%s>%s</a>",
+            "<li%s><a class='menu-list_link link' href='%s'%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -143,8 +146,8 @@ class mobileWeblinxWalker extends Walker_Nav_Menu {
         );
     }
     function start_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "<button class='menu-list__toggle'><i class='fa fa-chevron-down'></i><span class='__visuallyhidden'>" . __("Show More") . "</span></button>";
-        $output .= "<ul class='menu-list --vertical --accordion'>";
+        $output .= "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Show More") . "</span></button>";
+        $output .= "<ul class='menu-list -vertical -accordion'>";
     }
     function end_lvl(&$output, $depth = 0, $args = array()) {
         $output .= "</ul>";
@@ -160,7 +163,7 @@ if (function_exists("register_sidebar")) {
 		"id"			=> "sidebar",
 		"name" 			=> "Sidebar",
 		"before_widget" => "<div class='widget'>",
-		"before_title" 	=> "<header class='widget__header header'><h6 class='widget__title title'>",
+		"before_title" 	=> "<header class='widget_header header'><h6 class='widget_title title'>",
 		"after_title" 	=> "</h6></header>",
 		"after_widget" 	=> "</div>",
 	));
@@ -250,7 +253,7 @@ class megaMenuWalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-list__item-%s'%s><a href='%s'%s>%s</a>",
+            "<li id='menu-list_item-%s'%s><a href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,

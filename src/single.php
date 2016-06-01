@@ -1,11 +1,11 @@
 <?php get_header(); ?>
-            <div class="content-block">
-                <main class="content__inner">
+            <div class="content-container">
+                <main class="content-block">
                     <div class="post">
                         <?php
                         // display breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb__text text'>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb_text text'>", "</p></nav>");
                         }
                         ?>
                         <?php
@@ -21,18 +21,18 @@
                                 echo "<article class='article'>";
 
                                 // open a header
-                                echo "<header class='article__header header'>";
+                                echo "<header class='article_header header'>";
 
                                 // display the title
-                                the_title("<h1 class='article__title title'>", "</h1>");
+                                the_title("<h1 class='article_title title'>", "</h1>");
 
                                 // display the meta information
                                 if (get_post_type() == "post") {
                                     // open a menu-wrapper and menu-list
-                                    echo "<nav class='article__menu-container menu-container'><ul class='article__menu-list menu-list --meta'>";
+                                    echo "<nav class='article_menu-container menu-container'><ul class='article_menu-list menu-list -meta'>";
 
                                     // display the date posted
-                                    echo "<li class='article__menu-list__item menu-list__item'><a class='menu-list__link link' href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
+                                    echo "<li class='article_menu-list_item menu-list_item'><a class='menu-list_link link' href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
 
                                     // get the category list
                                     $category_list = false;
@@ -43,19 +43,19 @@
 
                                     // display the category list
                                     if ($category_list) {
-                                        echo "<li class='article__menu-list__item menu-list__item'><i class='fa fa-folder'></i> " . preg_replace("/<a/im", "<a class='menu-list__link link'", $category_list) . "</li>";
+                                        echo "<li class='article_menu-list_item menu-list_item'><i class='fa fa-folder'></i> " . preg_replace("/<a/im", "<a class='menu-list_link link'", $category_list) . "</li>";
                                     }
 
                                     // get the tag list
                                     $tag_list = false;
                                     ob_start();
-                                    the_tags("<li class='article__menu-list__item menu-list__item'><i class='fa fa-tags'></i> ", ", ", "</li>");
+                                    the_tags("<li class='article_menu-list_item menu-list_item'><i class='fa fa-tags'></i> ", ", ", "</li>");
                                     $tag_list = ob_get_contents();
                                     ob_end_clean();
 
                                     // display the tag list
                                     if ($tag_list) {
-                                        echo preg_replace("/<a/im", "<a class='menu-list__link link'", $tag_list);
+                                        echo preg_replace("/<a/im", "<a class='menu-list_link link'", $tag_list);
                                     }
 
                                     // display the comment count
@@ -69,11 +69,11 @@
 
                                         // display the comments link
                                         if ($comments_link) {
-                                            echo "<li class='article__menu-list__item menu-list__item'>" . preg_replace("/<a/im", "<a class='menu-list__link link'", $comments_link) . "</li>";
+                                            echo "<li class='article_menu-list_item menu-list_item'>" . preg_replace("/<a/im", "<a class='menu-list_link link'", $comments_link) . "</li>";
                                         }
                                     }
 
-                                    // close the article__menu-list and article__menu-container
+                                    // close the article_menu-list and article_menu-container
                                     echo "</ul></nav>";
                                 }
 
@@ -82,11 +82,11 @@
 
                                 // display the featured image
                                 if (has_post_thumbnail()) {
-                                    echo "<figure class='article__figure figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article__image image")) . "</figure>";
+                                    echo "<figure class='article_figure figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article_image image")) . "</figure>";
                                 }
 
                                 // display the content
-                                echo "<div class='article__content content user-content'>";
+                                echo "<div class='article_content content user-content'>";
                                 the_content();
                                 echo "</div>";
 
@@ -102,6 +102,6 @@
                         ?>
                     </div><!--/.post-->
                     <?php get_sidebar(); ?>
-                </main><!--/.content__inner-->
-            </div><!--/.content-block-->
+                </main><!--/.content-block-->
+            </div><!--/.content-container-->
 <?php get_footer(); ?>

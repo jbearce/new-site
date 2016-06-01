@@ -7,13 +7,13 @@ if (!defined("ABSPATH")) {
 do_action("tribe_events_before_nav");
 
 // open a pagination
-echo "<p class='pagination__text text'>";
+echo "<p class='pagination_text text'>";
 
 // display the previous link
-tribe_the_day_link("previous day", "<span class='pagination__link link __left'><i class='fa fa-caret-left'></i> Previous Day</span>");
+tribe_the_day_link("previous day", "<span class='pagination_link link _left'><i class='fa fa-caret-left'></i> Previous Day</span>");
 
 // display the next link
-tribe_the_day_link("next day", "<span class='pagination__link link __right'>Next Day <i class='fa fa-caret-right'></i></span>");
+tribe_the_day_link("next day", "<span class='pagination_link link _right'>Next Day <i class='fa fa-caret-right'></i></span>");
 
 // close the pagination
 echo "</p>";

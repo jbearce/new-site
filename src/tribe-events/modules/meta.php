@@ -7,7 +7,7 @@ $not_skeleton = !apply_filters("tribe_events_single_event_the_meta_skeleton", fa
 // Do we want to group venue meta separately?
 $set_venue_apart = apply_filters("tribe_events_single_event_the_meta_group_venue", false, get_the_ID());
 
-echo "<div class='article-row row --padded'>";
+echo "<div class='article-row row -padded'>";
 
 do_action("tribe_events_single_event_meta_primary_section_start");
 
@@ -23,7 +23,7 @@ do_action("tribe_events_single_event_meta_primary_section_end");
 
 echo "</div>";
 
-echo "<div class='article-row row --padded'>";
+echo "<div class='article-row row -padded'>";
 
 do_action("tribe_events_single_event_meta_secondary_section_start");
 

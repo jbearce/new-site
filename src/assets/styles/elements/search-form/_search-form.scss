@@ -1,0 +1,56 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Search Form                                                              *
+\* ------------------------------------------------------------------------ */
+
+.search-form {
+    & {
+        background: $background;
+        border: remify(4, 16) solid $accent;
+        display: flex;
+        font-size: remify(16, 16);
+        margin: remify(0 0 16, 16);
+        width: 100%;
+    }
+
+    @include placeholder {
+        color: $foreground;
+        opacity: 1; // for Firefox
+    }
+}
+
+.search-form_input {
+    & {
+        background: none;
+        border: 0;
+        color: $foreground;
+        flex: 1 1 auto;
+        font-family: $body-font;
+        font-size: 1em;
+        font-weight: 400;
+        line-height: normal;
+        margin: 0;
+        padding: remify(8 12, 16);
+        text-overflow: ellipsis;
+        width: 0;
+    }
+}
+
+.search-form_button{
+    & {
+        background: none;
+        border: 0;
+        color: $accent;
+        flex: none;
+        font-size: remify(16, 16);
+        margin: 0;
+        padding: remify(10 12, 16);
+        transition: color 0.15s;
+    }
+
+    &:hover {
+        background: none;
+        color: $accent_alt;
+    }
+}

@@ -1,0 +1,123 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Menu List                                                                *
+\* ------------------------------------------------------------------------ */
+
+.menu-container {
+    & {
+        @extend %clearfix;
+    }
+}
+
+.menu-list {
+    & {
+        @extend %clearfix;
+
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.menu-list_item {
+    & {
+        float: left;
+        position: relative;
+    }
+}
+
+.menu-list_link {
+    & {
+        display: block;
+    }
+
+    &:hover {
+    }
+}
+
+.menu-list_toggle {
+    & {
+        display: block;
+    }
+
+    &:hover {
+    }
+}
+
+/* vertical variant */
+
+.menu-list.-vertical {
+    .menu-list_item {
+        float: none;
+    }
+
+    .menu-list_item.-parent {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .menu-list_item.-parent > .menu-item_link {
+        flex: 1 1 auto;
+    }
+
+    .menu-list_item.-parent > .menu-item_toggle {
+        flex: none;
+    }
+
+    .menu-list_item.-parent > .menu-list.-submenu {
+        width: 100%;
+    }
+}
+
+/* dropdown variant */
+
+.menu-list.-dropdown {
+    & {
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        transform: translateY(-10%);
+        top: -999em;
+        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, transform 0.15s;
+    }
+
+    .menu-list_item.-parent:hover > &,
+    .menu-list_item.-parent.-active > & {
+        left: 0;
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.15s, transform 0.15s;
+        top: 100%;
+    }
+}
+
+/* flyout variant */
+
+.menu-list.-flyout {
+    & {
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        transform: translateX(-10%);
+        top: -999em;
+        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, transform 0.15s;
+    }
+
+    .menu-list_item.-parent:hover > &,
+    .menu-list_item.-parent.-active > & {
+        left: 100%;
+        opacity: 1;
+        transform: translateX(0);
+        transition: opacity 0.15s, transform 0.15s;
+        top: 0;
+    }
+}
+
+/* meta variant */
+
+.menu-list.-meta {
+    .menu-list_item:not(:last-child) {
+        margin-right: remify(16, 16);
+    }
+}

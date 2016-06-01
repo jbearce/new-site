@@ -6,7 +6,7 @@ if (empty($map)) {
 }
 ?>
 
-<div class="article-col col --half">
+<div class="article-col col -half">
 	<div class="article-map map">
 		<?php
 		// Display the map.

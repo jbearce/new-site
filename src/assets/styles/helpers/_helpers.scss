@@ -20,48 +20,48 @@
     }
 }
 
-.__bold {
+._bold {
     font-weight: 700 !important;
 }
 
-.__italic {
+._italic {
     font-style: italic !important;
 }
 
-.__center {
+._center {
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
-.__left {
+._left {
     float: left !important;
 }
 
-.__right {
+._right {
     float: right !important;
 }
 
-.__textcenter {
+._textcenter {
     text-align: center !important;
 }
 
-.__textleft {
+._textleft {
     text-align: left !important;
 }
 
-.__textright {
+._textright {
     text-align: right !important;
 }
 
-.__nomargin {
+._nomargin {
     margin: 0 !important;
 }
 
-.__nopadding {
+._nopadding {
     padding: 0 !important;
 }
 
-.__visuallyhidden {
+._visuallyhidden {
     left: -999em !important;
     position: absolute !important;
     top: -999em !important;
@@ -69,26 +69,38 @@
 
 /* visibility classes */
 
+// when screen is > 640
 @media screen and (min-width: $s-break) {
-    .__mobile {
+    ._mobile:not(._tablet):not(._desktop) {
         display: none !important;
     }
 }
 
+// when screen is < 768 and > 1024
 @media screen and (max-width: ($s-break - 1 / 16)) and (min-width: $xl-break) {
-    .__tablet {
+    ._mobile._desktop,
+    ._tablet {
         display: none !important;
     }
 }
 
+// when screen is < 768
 @media screen and (max-width: ($s-break - 1 / 16)) {
-    .__tablet.__desktop {
+    ._tablet._desktop:not(._mobile) {
         display: none !important;
     }
 }
 
+// when screen is < 1024
 @media screen and (max-width: ($xl-break - 1 / 16)) {
-    .__desktop:not(.__tablet) {
+    ._desktop:not(._tablet):not(._mobile) {
+        display: none !important;
+    }
+}
+
+// when screen is > 1024
+@media screen and (min-width: $xl-break) {
+    ._mobile._tablet:not(._desktop) {
         display: none !important;
     }
 }

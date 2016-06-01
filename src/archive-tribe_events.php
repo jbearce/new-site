@@ -1,11 +1,11 @@
 <?php get_header(); ?>
-            <div class="content-block">
-                <main class="content__inner">
+            <div class="content-container">
+                <main class="content-block">
                     <div class="post">
                         <?php
                         // display the breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb__text text'>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb_text text'>", "</p></nav>");
                         }
                         ?>
                         <?php
@@ -23,6 +23,6 @@
                         ?>
                     </div><!--/.post-->
                     <?php get_sidebar(); ?>
-                </main><!--/.content__inner-->
-            </div><!--/.content-block-->
+                </main><!--/.content-block-->
+            </div><!--/.content-container-->
 <?php get_footer(); ?>

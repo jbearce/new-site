@@ -41,54 +41,54 @@ $cost = tribe_get_formatted_cost();
 $website = tribe_get_event_website_link();
 ?>
 
-<div class="article-col col --half">
-	<div class="article__menu-container menu-container">
-		<h3 class="article__title title --sub"><?php esc_html_e("Details", "new-site"); ?></h3>
-		<ul class="article__menu-list menu-list --meta --vertical">
+<div class="article-col col -half">
+	<div class="article_menu-container menu-container">
+		<h3 class="article_title title -sub"><?php esc_html_e("Details", "new-site"); ?></h3>
+		<ul class="article_menu-list menu-list -meta -vertical">
 			<?php
 			do_action("tribe_events_single_meta_details_section_start");
 
 			// All day (multiday) events
 			if (tribe_event_is_all_day() && tribe_event_is_multiday()):
 				?>
-	            <li class="article__menu-list__item menu-list__item">
-	    			<strong class="__bold"><?php esc_html_e("Start:", "new-site"); ?></strong>
+	            <li class="article_menu-list_item menu-list_item">
+	    			<strong class="_bold"><?php esc_html_e("Start:", "new-site"); ?></strong>
 	    			<?php esc_html_e($start_date) ?>
 	            </li>
-	            <li class="article__menu-list__item menu-list__item">
-				    <strong class="__bold"><?php esc_html_e("End:", "new-site"); ?></strong>
+	            <li class="article_menu-list_item menu-list_item">
+				    <strong class="_bold"><?php esc_html_e("End:", "new-site"); ?></strong>
 					<?php esc_html_e($end_date); ?>
 	            </li>
 			<?php
 			// All day (single day) events
 			elseif ( tribe_event_is_all_day() ):
 				?>
-				<li class="article__menu-list__item menu-list__item">
-	                <strong class="__bold"><?php esc_html_e("Date:", "new-site"); ?></strong>
+				<li class="article_menu-list_item menu-list_item">
+	                <strong class="_bold"><?php esc_html_e("Date:", "new-site"); ?></strong>
 					<?php esc_html_e($start_date); ?>
 				</li>
 			<?php
 			// Multiday events
 			elseif ( tribe_event_is_multiday() ) :
 				?>
-	            <li class="article__menu-list__item menu-list__item">
-	    			<strong class="__bold"><?php esc_html_e("Start:", "new-site"); ?></dt>
+	            <li class="article_menu-list_item menu-list_item">
+	    			<strong class="_bold"><?php esc_html_e("Start:", "new-site"); ?></dt>
 	    			<?php esc_html_e($start_datetime); ?>
 	            </li>
-	            <li class="article__menu-list__item menu-list__item">
-	    			<strong class="__bold"><?php esc_html_e("End:", "new-site"); ?></strong>
+	            <li class="article_menu-list_item menu-list_item">
+	    			<strong class="_bold"><?php esc_html_e("End:", "new-site"); ?></strong>
 	    			<?php esc_html_e($end_datetime); ?>
 	            </li>
 			<?php
 			// Single day events
 			else :
 				?>
-	            <li class="article__menu-list__item menu-list__item">
-	    			<strong class="__bold"><?php esc_html_e("Date:", "new-site"); ?></strong>
+	            <li class="article_menu-list_item menu-list_item">
+	    			<strong class="_bold"><?php esc_html_e("Date:", "new-site"); ?></strong>
 	    			<?php esc_html_e($start_date); ?>
 	            </li>
-	            <li class="article__menu-list__item menu-list__item">
-				    <strong class="__bold"><?php echo esc_html($time_title); ?></strong>
+	            <li class="article_menu-list_item menu-list_item">
+				    <strong class="_bold"><?php echo esc_html($time_title); ?></strong>
 					<?php echo $time_formatted; ?>
 				</li>
 			<?php endif; ?>
@@ -96,13 +96,13 @@ $website = tribe_get_event_website_link();
 			<?php
 			// Event Cost
 			if (!empty($cost)): ?>
-				<li class="article__menu-list__item menu-list__item">
-	                <strong class="__bold"><?php esc_html_e("Cost:", "new-site"); ?></strong>
+				<li class="article_menu-list_item menu-list_item">
+	                <strong class="_bold"><?php esc_html_e("Cost:", "new-site"); ?></strong>
 				    <?php esc_html_e($cost); ?>
 	            </li>
 			<?php endif; ?>
 
-	        <li class="article__menu-list__item menu-list__item">
+	        <li class="article_menu-list_item menu-list_item">
 	    		<?php
 	    		echo tribe_get_event_categories(
 	    			get_the_id(), array(
@@ -119,16 +119,16 @@ $website = tribe_get_event_website_link();
 	    		?>
 	        </li>
 
-	        <li class="article__menu-list__item menu-list__item">
-	            <strong class="__bold"><?php _e("Event Tags", "new-site"); ?></strong>
+	        <li class="article_menu-list_item menu-list_item">
+	            <strong class="_bold"><?php _e("Event Tags", "new-site"); ?></strong>
 	            <?php the_tags("", ", ", ""); ?>
 	        </li>
 
 			<?php
 			// Event Website
 			if (!empty($website)): ?>
-	            <li class="article__menu-list__item menu-list__item">
-	    			<strong class="__bold"><?php esc_html_e("Website:", "new-site"); ?></strong>
+	            <li class="article_menu-list_item menu-list_item">
+	    			<strong class="_bold"><?php esc_html_e("Website:", "new-site"); ?></strong>
 	    			<?php echo $website; ?>
 	            </li>
 			<?php endif; ?>

@@ -1,11 +1,11 @@
 <?php get_header(); ?>
-            <div class="content-block">
-                <main class="content__inner">
+            <div class="content-container">
+                <main class="content-block">
                     <div class="post">
                         <?php
                         // display the breadcrumbs
                         if (function_exists("yoast_breadcrumb")) {
-                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb__text text'>", "</p></nav>");
+                            yoast_breadcrumb("<nav class='breadcrumb'><p class='breadcrumb_text text'>", "</p></nav>");
                         }
                         ?>
                         <?php
@@ -20,15 +20,15 @@
                                 echo "<article class='article'>";
 
                                 // display the title
-                                the_title("<header class='article__header header'><h1 class='article__title title'>", "</h1></header>");
+                                the_title("<header class='article_header header'><h1 class='article_title title'>", "</h1></header>");
 
                                 // display the featured image
                                 if (has_post_thumbnail()) {
-                                    echo "<figure class='article__figure figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article__image image")) . "</figure>";
+                                    echo "<figure class='article_figure figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article_image image")) . "</figure>";
                                 }
 
                                 // display the content
-                                echo "<div class='article__content content user-content'>";
+                                echo "<div class='article_content content user-content'>";
                                 the_content();
                                 echo "</div>";
 
@@ -44,6 +44,6 @@
                         ?>
                     </div><!--/.post-->
                     <?php get_sidebar(); ?>
-                </main><!--/.content__inner-->
-            </div><!--/.content-block-->
+                </main><!--/.content-block-->
+            </div><!--/.content-container-->
 <?php get_footer(); ?>
