@@ -54,7 +54,7 @@
                 "show_parent"    => true,
                 "sub_menu"		 => true,
                 "theme_location" => "primary",
-                "walker"         => new weblinxWalker(),
+                "walker"         => new newsiteWalker(),
             ));
 
             // display the submenu

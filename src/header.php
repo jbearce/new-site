@@ -45,7 +45,7 @@
 						"depth"          => 3,
 						"items_wrap"	 => "<nav class='menu-container'><ul class='menu-list -vertical -nav'>%3\$s</ul></nav>",
 						"theme_location" => "primary",
-						"walker"         => new mobileWeblinxWalker(),
+						"walker"         => new mobileNewsiteWalker(),
 					));
 					?>
 				</div><!--/.l-mobile-nav-block-->
@@ -94,7 +94,7 @@
                         "depth"          => 3,
                         "items_wrap"	 => "<nav class='header-menu-container menu-container'><ul class='header-menu-list menu-list -nav'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
-                        "walker"         => new weblinxWalker(),
+                        "walker"         => new newsiteWalker(),
                     ));
                     ?>
                 </div><!--/.l-nav-block-->

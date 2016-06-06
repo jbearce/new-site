@@ -79,8 +79,8 @@ add_action("init", "register_menus");
 // add slideshow image size
 add_image_size("slideshow", 1600, 900, true);
 
-// Weblinx Walker
-class weblinxWalker extends Walker_Nav_Menu {
+// New Site Walker
+class newsiteWalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
 
@@ -114,8 +114,8 @@ class weblinxWalker extends Walker_Nav_Menu {
     }
 }
 
-// mobile Weblinx walker
-class mobileWeblinxWalker extends Walker_Nav_Menu {
+// mobile New Site walker
+class mobileNewsiteWalker extends Walker_Nav_Menu {
     static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
