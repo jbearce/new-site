@@ -200,7 +200,7 @@ gulp.task("styles", function () {
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
-        //.pipe(newer(cssDirectory + "/modern.css")) // doens't work due to imports
+        .pipe(newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]}))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
