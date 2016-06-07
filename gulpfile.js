@@ -54,7 +54,9 @@ var gulp = require("gulp"),                      // gulp
     // set up environment paths
     src = "./src",   // source directory
     dev = "./dev",   // development directory
-    dist = "./dist"; // production directory
+    dist = "./dist", // production directory
+
+    ranTasks = []; // store which tasks where ran
 
 // Error handling
 var onError = function(err) {
@@ -118,8 +120,12 @@ gulp.task("media", function () {
     return merge(media, screenshot)
         // reload the files
         .pipe(browserSync.reload({stream: true}))
-        // notify that the task is complete
-        .pipe(notify({message: "Media task complete!", onLast: true}));
+        // notify that the task is complete, if not part of default or watch
+        .pipe(gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), notify({message: "Media task complete!", onLast: true})))
+        // push the task to the ranTasks array
+        .on("data", function() {
+            if (ranTasks.indexOf("media") < 0) ranTasks.push("media");
+        });
 });
 
 // scripts task, concatenates & lints JS
@@ -130,14 +136,10 @@ gulp.task("scripts", function () {
     var jsDirectory = dev + "/assets/scripts";
 
     // production JS directory (if --dist is passed)
-    if (argv.dist) {
-        jsDirectory = dist + "/assets/scripts";
-    }
+    if (argv.dist) jsDirectory = dist + "/assets/scripts";
 
     // clean directory if --clean is passed
-    if (argv.clean) {
-        del(jsDirectory + "/**/*");
-    }
+    if (argv.clean) del(jsDirectory + "/**/*");
 
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
@@ -174,8 +176,12 @@ gulp.task("scripts", function () {
     return merge(linted, concated, copied)
         // reload the files
         .pipe(browserSync.reload({stream: true}))
-        // notify that the task is complete
-        .pipe(notify({message: "Scripts task complete!", onLast: true}));
+        // notify that the task is complete, if not part of default or watch
+        .pipe(gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), notify({message: "Scripts task complete!", onLast: true})))
+        // push the task to the ranTasks array
+        .on("data", function() {
+            if (ranTasks.indexOf("scripts") < 0) ranTasks.push("scripts");
+        });
 });
 
 // styles task, compiles & prefixes SCSS
@@ -186,14 +192,10 @@ gulp.task("styles", function () {
     var cssDirectory = dev + "/assets/styles";
 
     // production CSS directory (if --dist is passed)
-    if (argv.dist) {
-        cssDirectory = dist + "/assets/styles";
-    }
+    if (argv.dist) cssDirectory = dist + "/assets/styles";
 
     // clean directory if --clean is passed
-    if (argv.clean) {
-        del(cssDirectory + "/**/*");
-    }
+    if (argv.clean) del(cssDirectory + "/**/*");
 
     // compile all SCSS in the root styles directory
     return gulp.src(src + "/assets/styles/*.scss")
@@ -213,8 +215,12 @@ gulp.task("styles", function () {
         .pipe(gulp.dest(cssDirectory))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
-        // notify that the task is complete
-        .pipe(notify({message: "Styles task complete!", onLast: true}));
+        // notify that the task is complete, if not part of default or watch
+        .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({message: "Styles task complete!", onLast: true})))
+        // push the task to the ranTasks array
+        .on("data", function() {
+            if (ranTasks.indexOf("styles") < 0) ranTasks.push("styles");
+        });
 });
 
 // styles task, compiles & prefixes SCSS
@@ -225,14 +231,10 @@ gulp.task("html", function () {
     var htmlDirectory = dev;
 
     // production HTML directory (if --dist is passed)
-    if (argv.dist) {
-        htmlDirectory = dist;
-    }
+    if (argv.dist) htmlDirectory = dist;
 
     // clean directory if --clean is passed
-    if (argv.clean) {
-        del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
-    }
+    if (argv.clean) del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
 
     // import HTML files and replace their variables
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
@@ -254,8 +256,12 @@ gulp.task("html", function () {
         .pipe(gulp.dest(htmlDirectory))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
-        // notify that the task is complete
-        .pipe(notify({message: "HTML task complete!", onLast: true}));
+        // notify that the task is complete, if not part of default or watch
+        .pipe(gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), notify({message: "HTML task complete!", onLast: true})))
+        // push the task to the ranTasks array
+        .on("data", function() {
+            if (ranTasks.indexOf("html") < 0) ranTasks.push("html");
+        });
 });
 
 gulp.task("config", function (cb) {
@@ -422,9 +428,7 @@ gulp.task("ftp", ["config"], function(cb) {
     var ftpDirectory = dev;
 
     // production FTP directory (if --dist is passed)
-    if (argv.dist) {
-        ftpDirectory = dist;
-    }
+    if (argv.dist) ftpDirectory = dist;
 
     // create the FTP connection
     var conn = ftp.create({
@@ -460,14 +464,16 @@ gulp.task("sync", ["config"], function(cb) {
 });
 
 // default task, runs through everything but dist
-gulp.task("default", function () {
+gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     "use strict";
 
-    if (argv.ftp) {
-        runSequence(["media", "scripts", "styles", "html"], "ftp");
-    } else {
-        runSequence(["media", "scripts", "styles", "html"]);
-    }
+    // notify that the task is complete
+    gulp.src("gulpfile.js")
+        .pipe(gulpif(ranTasks.length, notify({message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})))
+        .on("end", function() {
+            // trigger FTP task if FTP flag is passed
+            if (argv.ftp) runSequence("ftp");
+        });
 });
 
 // watch task, runs through everything but dist, triggers when a file is saved
@@ -475,9 +481,7 @@ gulp.task("watch", function () {
     "use strict";
 
     // set up a browserSync server, if --sync is passed
-    if (argv.sync) {
-        runSequence("sync");
-    }
+    if (argv.sync) runSequence("sync");
 
     // watch for any changes
     watch("./src/**/*", function () {
