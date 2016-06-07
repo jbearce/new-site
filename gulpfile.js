@@ -121,7 +121,7 @@ gulp.task("media", function () {
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), notify({message: "Media task complete!", onLast: true})))
+        .pipe(gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Media task complete!", onLast: true})))
         // push the task to the ranTasks array
         .on("data", function() {
             if (ranTasks.indexOf("media") < 0) ranTasks.push("media");
@@ -177,7 +177,7 @@ gulp.task("scripts", function () {
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), notify({message: "Scripts task complete!", onLast: true})))
+        .pipe(gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
         // push the task to the ranTasks array
         .on("data", function() {
             if (ranTasks.indexOf("scripts") < 0) ranTasks.push("scripts");
@@ -216,7 +216,7 @@ gulp.task("styles", function () {
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({message: "Styles task complete!", onLast: true})))
+        .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Styles task complete!", onLast: true})))
         // push the task to the ranTasks array
         .on("data", function() {
             if (ranTasks.indexOf("styles") < 0) ranTasks.push("styles");
@@ -257,7 +257,7 @@ gulp.task("html", function () {
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), notify({message: "HTML task complete!", onLast: true})))
+        .pipe(gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "HTML task complete!", onLast: true})))
         // push the task to the ranTasks array
         .on("data", function() {
             if (ranTasks.indexOf("html") < 0) ranTasks.push("html");
@@ -447,7 +447,7 @@ gulp.task("ftp", ["config"], function(cb) {
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete
-        .pipe(notify({message: "FTP task complete!", onLast: true}));
+        .pipe(notify({title: "Success!", message: "FTP task complete!", onLast: true}));
 
     // return
     cb();;
@@ -469,7 +469,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // notify that the task is complete
     gulp.src("gulpfile.js")
-        .pipe(gulpif(ranTasks.length, notify({message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})))
+        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})))
         .on("end", function() {
             // trigger FTP task if FTP flag is passed
             if (argv.ftp) runSequence("ftp");
