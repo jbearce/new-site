@@ -469,11 +469,13 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // notify that the task is complete
     gulp.src("gulpfile.js")
-        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})))
-        .on("end", function() {
-            // trigger FTP task if FTP flag is passed
-            if (argv.ftp) runSequence("ftp");
-        });
+        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})));
+
+    // trigger FTP task if FTP flag is passed
+    if (argv.ftp) runSequence("ftp");
+
+    // reset the ranTasks array
+    ranTasks.length = 0;
 });
 
 // watch task, runs through everything but dist, triggers when a file is saved
