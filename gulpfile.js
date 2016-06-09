@@ -93,7 +93,7 @@ gulp.task("media", function () {
     // compress images, copy media
     var media = gulp.src(src + "/assets/media/**/*")
         // check if source is newer than destination
-        .pipe(newer(mediaDirectory))
+        .pipe(gulpif(!argv.force, newer(mediaDirectory)))
         // compress images
         .pipe(imagemin({
             progressive: true,
@@ -106,7 +106,7 @@ gulp.task("media", function () {
     // compress screenshot
     var screenshot = gulp.src(src + "/screenshot.png")
         // check if source is newer than destination
-        .pipe(newer(screenshotDirectory))
+        .pipe(gulpif(!argv.force, newer(screenshotDirectory)))
         // compress screenshot
         .pipe(imagemin({
             progressive: true,
@@ -144,7 +144,7 @@ gulp.task("scripts", function () {
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
         // check if source is newer than destination
-        .pipe(newer(jsDirectory + "/all.js"))
+        .pipe(gulpif(!argv.force, newer(jsDirectory)))
         // lint all non-vendor scripts
         .pipe(jshint())
         // print lint errors
@@ -153,7 +153,7 @@ gulp.task("scripts", function () {
     // concatenate scripts
     var concated = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
         // check if source is newer than destination
-        .pipe(newer(jsDirectory + "/all.js"))
+        .pipe(gulpif(!argv.force, newer(jsDirectory + "/all.js")))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // concatenate to all.js
@@ -168,7 +168,7 @@ gulp.task("scripts", function () {
     // copy fallback scripts
     var copied = gulp.src([src + "/assets/scripts/fallback/**/*"])
         // check if source is newer than destination
-        .pipe(newer(jsDirectory + "/fallback"))
+        .pipe(gulpif(!argv.force, newer(jsDirectory + "/fallback")))
         // output to the compiled directory
         .pipe(gulp.dest(jsDirectory + "/fallback"));
 
@@ -202,7 +202,7 @@ gulp.task("styles", function () {
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
-        .pipe(newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]}))
+        .pipe(gulpif(!argv.force, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
@@ -239,7 +239,7 @@ gulp.task("html", function () {
     // import HTML files and replace their variables
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
         // check if source is newer than destination
-        .pipe(newer(htmlDirectory))
+        .pipe(gulpif(!argv.force, newer(htmlDirectory)))
         // insert variables
         .pipe(fileinclude({
             prefix: "@@",
@@ -441,7 +441,7 @@ gulp.task("ftp", ["config"], function(cb) {
     // upload the changed files
     return gulp.src(ftpDirectory + "/**/*")
         // check if files are newer
-        .pipe(conn.newer(ftpPath))
+        .pipe(gulpif(!argv.force, conn.newer(ftpPath)))
         // upload changed files
         .pipe(conn.dest(ftpPath))
         // reload the files
