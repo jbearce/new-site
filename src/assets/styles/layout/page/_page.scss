@@ -1,0 +1,30 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Page
+\* ------------------------------------------------------------------------ */
+
+html,
+body {
+    & {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+body {
+    & {
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch; // iOS momentum scrolling
+    }
+}
+
+.page-container {
+    & {
+        min-height: 100%;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+    }
+}

@@ -1,0 +1,34 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Page
+\* ------------------------------------------------------------------------ */
+
+.overlay-closer {
+    & {
+        background: transparentize($dark, 0.25);
+        border: 0;
+        bottom: 999em;
+        content: "\0020";
+        display: block;
+        left: -999em;
+        margin: 0;
+        opacity: 0;
+        padding: 0;
+        position: absolute;
+        right: 999em;
+        transition: bottom 0s 0.15s, left 0s 0.15s, opacity 0.15s, right 0s 0.15s, top 0s 0.15s;
+        top: -999em;
+        width: 100%;
+        z-index: 998;
+    }
+
+    &.is-active {
+        bottom: 0;
+        left: 0;
+        opacity: 1;
+        right: 0;
+        transition: opacity 0.15s;
+        top: 0;
+    }
+}
