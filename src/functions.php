@@ -96,10 +96,18 @@ class new_site_walker extends Walker_Nav_Menu {
         $toggle = in_array("buttons", $params) ? "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Show Children", "new_site") . "</span></button>" : "";
 
         // add a -tier class indicting the depth
-        $variant = $depth < 1 ? "-tier{$depth}" : "-tier1 -tier{$depth}";
+        $variant = "-tier1";
 
-        // add a -collapsible class if the collapsible parameter is passed
-        $variant .= in_array("collapsible", $params) ? " -collapsible" : "";
+        if ($depth > 0) {
+            if ($depth > 1) {
+                $variant = "-tier" . ($depth + 1);
+            } else {
+                $variant = "-tier2";
+            }
+        }
+
+        // add a -accordion class if the accordion parameter is passed
+        $variant .= in_array("accordion", $params) ? " -accordion" : " -overlay";
 
         // construct the menu list
         $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'>";

@@ -40,7 +40,7 @@
 	                    "echo"           => false,
 	                    "items_wrap"	 => "%3\$s",
 	                    "theme_location" => "primary",
-	                    "walker"         => new new_site_walker("collapsible"),
+	                    "walker"         => new new_site_walker("accordion"),
 	                ));
 	                ?>
 	                <?php if ($menu): ?>
