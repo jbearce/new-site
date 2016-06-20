@@ -1,0 +1,61 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Search Form
+\* ------------------------------------------------------------------------ */
+
+.search-form {
+    & {
+        align-items: flex-start;
+        background: $background;
+        border: remify(1) solid $background_alt;
+        display: flex;
+        transition: border-color 0.15s;
+    }
+
+    // !& > .search-form_input:focus,  // Selectors Level 4
+    // !& > .search-form_button:focus, // "if child is focused"
+    &:focus,
+    &:hover {
+        border-color: $accent;
+    }
+}
+
+.search-form_label {
+    & {
+
+    }
+}
+
+.search-form_input {
+    & {
+        border: 0;
+        color: $foreground;
+        flex: 1 1 auto;
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        margin: 0;
+        outline: none;
+        padding: remify(8 0 8 12, 16);
+        text-overflow: ellipsis;
+    }
+}
+
+.search-form_button {
+    & {
+        background: none;
+        border: 0;
+        color: $foreground;
+        flex: none;
+        font-size: remify(16, 16);
+        margin: 0;
+        outline: none;
+        padding: remify(10 12, 16);
+        transition: color 0.15s;
+    }
+
+    &:focus,
+    &:hover {
+        color: $accent;
+    }
+}

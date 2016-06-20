@@ -64,9 +64,9 @@
 	                        <button class="header_menu-toggle menu-toggle -labeled _mobile" data-menu="mobile-nav">
 	                            <?php _e("View Menu", "new_site"); ?>
 	                        </button><!--/.header_menu-toggle.menu-toggle._mobile-->
-	                        <div class="header_serach-container search-form-container _mobile">
+	                        <div class="header_serach-container search-form-container _tablet _desktop">
 	                            <?php get_search_form(); ?>
-	                        </div><!--/.header_serach-container.search-form-container._mobile-->
+	                        </div><!--/.header_serach-container.search-form-container._tablet._desktop-->
 	                        <?php
 	                        $menu = wp_nav_menu(array(
 	                            "container"		 => false,
