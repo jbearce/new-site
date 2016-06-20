@@ -6,38 +6,32 @@
 
 .search-form {
     & {
-        align-items: flex-start;
-        background: $background;
-        border: remify(1) solid $background_alt;
-        display: flex;
-        transition: border-color 0.15s;
-    }
-
-    // !& > .search-form_input:focus,  // Selectors Level 4
-    // !& > .search-form_button:focus, // "if child is focused"
-    &:focus,
-    &:hover {
-        border-color: $accent;
+        position: relative;
     }
 }
 
 .search-form_label {
     & {
-
     }
 }
 
 .search-form_input {
     & {
-        border: 0;
+        background: $background;
+        border: remify(1) solid $background_alt;
         color: $foreground;
-        flex: 1 1 auto;
         font-family: $body-font;
         font-size: remify(16, 16);
         margin: 0;
         outline: none;
-        padding: remify(8 0 8 12, 16);
-        text-overflow: ellipsis;
+        padding: remify(8 38 8 12, 16);
+        transition: border-color 0.15s;
+        width: 100%;
+    }
+
+    &:focus,
+    &:hover {
+        border-color: $accent;
     }
 }
 
@@ -45,12 +39,16 @@
     & {
         background: none;
         border: 0;
+        bottom: remify(1);
         color: $foreground;
-        flex: none;
+        cursor: pointer;
         font-size: remify(16, 16);
         margin: 0;
         outline: none;
         padding: remify(10 12, 16);
+        position: absolute;
+        right: remify(1);
+        top: remify(1);
         transition: color 0.15s;
     }
 

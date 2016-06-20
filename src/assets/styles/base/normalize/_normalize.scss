@@ -9,3 +9,9 @@
 @import "../../vendor/_normalize";
 
 // Custom
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
