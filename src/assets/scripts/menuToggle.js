@@ -8,7 +8,7 @@ document.body.onclick = function (event) {
 
     if (elem.classList.contains("menu-toggle")) {
         // get the target menu
-        var target_menu = target.dataset.menu;
+        var target_menu = elem.dataset.menu;
         // get all elements related to the target menu
         var matched_elements = document.querySelectorAll("[data-menu=" + target_menu + "]");
 
