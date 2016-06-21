@@ -93,7 +93,7 @@ class new_site_walker extends Walker_Nav_Menu {
         $params = explode(" ", $this->params);
 
         // add a toggle button if the buttons paramater is passed
-        $toggle = in_array("buttons", $params) ? "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Show Children", "new_site") . "</span></button>" : "";
+        $toggle = in_array("buttons", $params) ? "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Click to view children", "new_site") . "</span></button>" : "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to view children", "new_site") . "</button>";
 
         // add a -tier class indicting the depth
         $variant = "-tier1";
@@ -110,7 +110,7 @@ class new_site_walker extends Walker_Nav_Menu {
         $variant .= in_array("accordion", $params) ? " -accordion" : " -overlay";
 
         // construct the menu list
-        $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'>";
+        $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}' aria-hidden='true'>";
     }
 
     public function end_lvl(&$output, $depth = 0, $args = array()) {
