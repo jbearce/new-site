@@ -8,6 +8,9 @@
     & {
         @extend %clearfix;
 
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-weight: 400;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -27,14 +30,25 @@
     & {
         color: $accent;
         display: block;
+        padding: remify(8 12, 16);
         text-decoration: none;
-        transition: backgorund-color 0.15s, color 0.15s;
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    .menu-list_item > &:focus,
+    .menu-list_item:hover > & {
+        background: $accent;
+        color: $light;
     }
 }
 
 // tier variant
 
 .menu-list[class*="-tier"] {
+    & {
+        min-width: 100%;
+    }
+
     // accordion variant
 
     &.-accordion {
@@ -80,6 +94,19 @@
 // tier1 variant
 
 .menu-list.-tier1 {
+    & {
+        background: $accent;
+    }
+
+    .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list_link:focus,
+    .menu-list_item:hover > .menu-list_link {
+        background: lighten($accent, 10);
+    }
+
     // overlay variant
 
     .menu-list_item.-parent:hover > &,
@@ -105,6 +132,19 @@
 // tier2 variant
 
 .menu-list.-tier2 {
+    & {
+        background: lighten($accent, 10);
+    }
+
+    .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list_link:focus,
+    .menu-list_item:hover > .menu-list_link {
+        background: lighten(lighten($accent, 10), 10);
+    }
+
     // overlay variant
 
     .menu-list_item.-parent:hover > &.-overlay,
