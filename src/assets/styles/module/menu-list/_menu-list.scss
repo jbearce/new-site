@@ -36,7 +36,8 @@
     }
 
     .menu-list_item > &:focus,
-    .menu-list_item:hover > & {
+    .menu-list_item:hover > &,
+    .menu-list_item.is-active > & {
         background: $accent;
         color: $light;
     }
@@ -76,7 +77,7 @@
     }
 
     .menu-list_item.-parent:hover > &.-overlay,
-    &.-overlay.is-active {
+    .menu-list_item.-parent.is-active > &.-overlay {
         opacity: 1;
         transition: opacity 0.15s;
         visibility: visible;
@@ -89,7 +90,7 @@
     }
 
     .menu-list_item.-parent:hover > &.-overlay.-reverse,
-    &.-overlay.-reverse.is-active {
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
         left: auto;
         right: 0;
         transition: opacity 0.15s;
@@ -114,8 +115,8 @@
 
     // overlay variant
 
-    .menu-list_item.-parent:hover > &,
-    &.-overlay.is-active {
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
         left: 0;
         top: 100%;
     }
@@ -128,7 +129,7 @@
     }
 
     .menu-list_item.-parent:hover > &.-overlay.-reverse,
-    &.-overlay.-reverse.is-active {
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
         left: auto;
         right: 0;
     }
@@ -153,7 +154,7 @@
     // overlay variant
 
     .menu-list_item.-parent:hover > &.-overlay,
-    &.-overlay.is-active {
+    .menu-list_item.-parent.is-active > &.-overlay {
         left: 100%;
         top: 0;
     }
@@ -166,7 +167,7 @@
     }
 
     .menu-list_item.-parent:hover > &.-overlay.-reverse,
-    &.-overlay.-reverse.is-active {
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
         left: auto;
         right: 100%;
     }
