@@ -20,7 +20,8 @@
 
 .menu-list_item {
     & {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
         float: left;
         position: relative;
     }
@@ -30,16 +31,47 @@
     & {
         color: $accent;
         display: block;
+        flex: 1 1 auto;
         padding: remify(8 12, 16);
         text-decoration: none;
         transition: background-color 0.15s, color 0.15s;
     }
 
-    .menu-list_item > &:focus,
+    &:focus,
+    &:hover,
     .menu-list_item:hover > &,
     .menu-list_item.is-active > & {
         background: $accent;
         color: $light;
+    }
+}
+
+.menu-list_toggle {
+    & {
+        background: none;
+        border: 0;
+        color: $accent;
+        cursor: pointer;
+        display: block;
+        font-size: 1em;
+        margin: 0;
+        padding: remify(8 12, 16);
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    &:focus,
+    &:hover,
+    .menu-list_item.is-active > & {
+        background: $accent;
+        color: $light;
+    }
+
+    > .fa {
+        transition: transform 0.15s;
+    }
+
+    .menu-list_item.is-active > & > .fa {
+        transform: rotate(-180deg);
     }
 }
 
@@ -59,7 +91,7 @@
         visibility: hidden;
     }
 
-    &.-accordion.is-active {
+    .menu-list_item.-parent.is-active > &.-accordion {
         max-height: remify(500, 16);
         transition: max-height 0.25s;
         visibility: visible;
@@ -108,8 +140,18 @@
         color: $light;
     }
 
+
     .menu-list_link:focus,
     .menu-list_item:hover > .menu-list_link {
+        background: lighten($accent, 10);
+    }
+
+    .menu-list_toggle {
+        color: $light;
+    }
+
+    .menu-list_toggle:hover,
+    .menu-list_toggle:focus {
         background: lighten($accent, 10);
     }
 
