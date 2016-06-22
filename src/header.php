@@ -30,8 +30,8 @@
         <?php wp_head(); ?>
         <noscript>
             <style type="text/javascript">
-                .banner-wrapper {display: block !important;}
-                .banner-wrapper > .banner > .button {display: none !important;}
+                .banner_wrapper {display: block !important;}
+                .banner_wrapper > .banner > .button {display: none !important;}
             </style>
         </noscript>
 	</head>
@@ -45,45 +45,45 @@
 						"depth"          => 3,
 						"items_wrap"	 => "<nav class='menu-container'><ul class='menu-list -vertical -nav'>%3\$s</ul></nav>",
 						"theme_location" => "primary",
-						"walker"         => new mobilenew_siteWalker(),
+						"walker"         => new mobile_new_site_walker(),
 					));
 					?>
 				</div><!--/.mobile-nav-block-->
 			</div><!--/.mobile-nav-container-->
             <!--[if lt IE 10]>
-            <div class="banner-container" data-banner="old-browser" hidden>
-                <div class="banner-block">
-                    <h6 class="banner-title title"><i class="fa fa-internet-explorer"></i> <?php _e("Old<br /> Browser", "new_site"); ?></h6>
-                    <p class="banner-text text"><?php _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new_site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><?php _e("Click here to learn about upgrading.", "new_site"); ?></a></p>
-                    <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
+            <div class="banner_container" data-banner="old-browser" hidden>
+                <div class="banner_block">
+                    <h6 class="banner_title title"><i class="fa fa-internet-explorer"></i> <?php _e("Old<br /> Browser", "new_site"); ?></h6>
+                    <p class="banner_text text"><?php _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new_site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><?php _e("Click here to learn about upgrading.", "new_site"); ?></a></p>
+                    <button class="banner_toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
                 </div>
             </div>
             <![endif]-->
             <?php if (WP_DEBUG): ?>
-            <div class="banner-container -notice" data-banner="under-construction" hidden>
-                <div class="banner-block">
-                    <h6 class="banner-title title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "new_site"); ?></h6>
-                    <p class="banner-text text"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new_site"); ?></p>
-                    <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
-                </div><!--/.banner-block-->
-            </div><!--/.banner-container-->
+            <div class="banner_container -notice" data-banner="under-construction" hidden>
+                <div class="banner_block">
+                    <h6 class="banner_title title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "new_site"); ?></h6>
+                    <p class="banner_text text"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new_site"); ?></p>
+                    <button class="banner_toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
+                </div><!--/.banner_block-->
+            </div><!--/.banner_container-->
             <?php endif; ?>
             <noscript>
-                <div class="banner-container -notice" data-banner="noscript" hidden>
-                    <div class="banner-block">
-                        <h6 class="banner-title title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "new_site"); ?></h6>
-                        <p class="banner-text text"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "new_site"); ?></p>
-                        <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
-                    </div><!--/.banner-->
-                </div><!--/.banner-wrapper-->
+                <div class="banner_container -notice" data-banner="noscript" hidden>
+                    <div class="banner_block">
+                        <h6 class="banner_title title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "new_site"); ?></h6>
+                        <p class="banner_text text"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "new_site"); ?></p>
+                        <button class="banner_toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
+                    </div><!--/.banner_->
+                </div><!--/.banner_wrapper-->
             </noscript>
             <div class="header-container">
                 <header class="header-block">
-                    <a class="header-logo logo" href="<?php echo home_url(); ?>">
-                        <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" class="logo_image image" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg@@if (context.version) {?v=@@version}" />
+                    <a class="header_logo logo" href="<?php echo home_url(); ?>">
+                        <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" class="logo_image" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg@@if (context.version) {?v=@@version}" />
                     </a><!--/.logo-->
                     <?php get_search_form(); ?>
-                    <button class="header-menu-button menu-button _mobile"><?php _e("Menu", "new_site"); ?></button>
+                    <button class="header_menu-button menu-button _mobile"><?php _e("Menu", "new_site"); ?></button>
                 </header><!--/.header-block-->
             </div><!--/.header-container-->
             <div class="nav-container _tablet _desktop">
@@ -92,9 +92,9 @@
                     wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
-                        "items_wrap"	 => "<nav class='header-menu-container menu-container'><ul class='header-menu-list menu-list -nav'>%3\$s</ul></nav>",
+                        "items_wrap"	 => "<nav class='nav_menu-container menu-container'><ul class='menu-list -nav'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
-                        "walker"         => new new_siteWalker(),
+                        "walker"         => new new_site_walker(),
                     ));
                     ?>
                 </div><!--/.nav-block-->

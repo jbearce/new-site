@@ -12,7 +12,7 @@ function new_site_register_scripts() {
 
     // register styles & scripts
     wp_register_style("font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", array(), "4.5.0");
-    wp_register_style("open-sans", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
+    wp_register_style("google-fonts", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
     wp_register_style("new_site-modern", get_bloginfo("template_directory") . "/assets/styles/modern.css"@@if (context.version) {, array(), "@@version"});
     wp_register_script("new_site-scripts", get_bloginfo("template_directory") . "/assets/scripts/all.js", array("jquery")@@if (context.version) {, "@@version"}@@if (!context.version) {, false}, true);
 
@@ -44,7 +44,7 @@ function new_site_enqueue_scripts() {
 
     // enqueue styles
     wp_enqueue_style("font-awesome");
-    wp_enqueue_style("open-sans");
+    wp_enqueue_style("google_fonts");
     wp_enqueue_style("new_site-modern");
     wp_enqueue_script("new_site-scripts");
 
@@ -80,7 +80,7 @@ add_action("init", "register_menus");
 add_image_size("slideshow", 1600, 900, true);
 
 // New Site Walker
-class new_siteWalker extends Walker_Nav_Menu {
+class new_site_walker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
 
@@ -115,7 +115,7 @@ class new_siteWalker extends Walker_Nav_Menu {
 }
 
 // mobile New Site walker
-class mobilenew_siteWalker extends Walker_Nav_Menu {
+class mobile_new_site_walker extends Walker_Nav_Menu {
     static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;

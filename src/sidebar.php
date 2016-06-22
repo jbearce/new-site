@@ -54,7 +54,7 @@
                 "show_parent"    => true,
                 "sub_menu"		 => true,
                 "theme_location" => "primary",
-                "walker"         => new new_siteWalker(),
+                "walker"         => new new_site_walker(),
             ));
 
             // display the submenu
