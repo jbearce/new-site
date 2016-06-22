@@ -9,7 +9,7 @@ $website = tribe_get_organizer_website_link();
 
 <div class="article-col col -half">
 	<div class="article-menu-container menu-container">
-		<h3 class="article-title title -sub"><?php echo tribe_get_organizer_label(!$multiple); ?></h3>
+		<h3 class="article_title title -sub"><?php echo tribe_get_organizer_label(!$multiple); ?></h3>
 		<ul class="article-menu-list menu-list -meta -vertical">
 			<?php
 			do_action("tribe_events_single_meta_organizer_section_start");
@@ -30,7 +30,7 @@ $website = tribe_get_organizer_website_link();
 				if (!empty($phone)) {
 					?>
 	                <li class="article-menu-item menu-item">
-	    				<strong class="_bold"><?php esc_html_e("Phone:", "new-site"); ?></strong>
+	    				<strong class="_bold"><?php esc_html_e("Phone:", "new_site"); ?></strong>
 	    				<?php echo esc_html($phone); ?>
 	                </li>
 					<?php
@@ -39,7 +39,7 @@ $website = tribe_get_organizer_website_link();
 				if (!empty($email)) {
 					?>
 	                <li class="article-menu-item menu-item">
-	    				<strong class="_bold"><?php esc_html_e("Email:", "new-site"); ?></strong>
+	    				<strong class="_bold"><?php esc_html_e("Email:", "new_site"); ?></strong>
 	    				<?php echo esc_html($email); ?>
 	                </li>
 					<?php
@@ -48,7 +48,7 @@ $website = tribe_get_organizer_website_link();
 				if (!empty($website)) {
 					?>
 	                <li class="article-menu-item menu-item">
-	    				<strong class="_bold"><?php esc_html_e("Website:", "new-site") ?></strong>
+	    				<strong class="_bold"><?php esc_html_e("Website:", "new_site") ?></strong>
 	    				<?php echo $website; ?>
 	                </li>
 					<?php

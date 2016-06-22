@@ -36,66 +36,66 @@
         </noscript>
 	</head>
     <body <?php body_class(); ?>>
-        <div class="l-page-container">
-			<div class="l-mobile-nav-container _mobile">
-				<div class="l-mobile-nav-block">
+        <div class="page-container">
+			<div class="mobile-nav-container _mobile">
+				<div class="mobile-nav-block">
 					<?php
 					wp_nav_menu(array(
 						"container"		 => false,
 						"depth"          => 3,
 						"items_wrap"	 => "<nav class='menu-container'><ul class='menu-list -vertical -nav'>%3\$s</ul></nav>",
 						"theme_location" => "primary",
-						"walker"         => new mobileNewsiteWalker(),
+						"walker"         => new mobilenew_siteWalker(),
 					));
 					?>
-				</div><!--/.l-mobile-nav-block-->
-			</div><!--/.l-mobile-nav-container-->
+				</div><!--/.mobile-nav-block-->
+			</div><!--/.mobile-nav-container-->
             <!--[if lt IE 10]>
-            <div class="l-banner-container" data-banner="old-browser" hidden>
-                <div class="l-banner-block">
-                    <h6 class="banner-title title"><i class="fa fa-internet-explorer"></i> <?php _e("Old<br /> Browser", "new-site"); ?></h6>
-                    <p class="banner-text text"><?php _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new-site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><?php _e("Click here to learn about upgrading.", "new-site"); ?></a></p>
-                    <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
+            <div class="banner-container" data-banner="old-browser" hidden>
+                <div class="banner-block">
+                    <h6 class="banner-title title"><i class="fa fa-internet-explorer"></i> <?php _e("Old<br /> Browser", "new_site"); ?></h6>
+                    <p class="banner-text text"><?php _e("It looks like you're using an old version of Internet Explorer. For the best experience, this site requires Internet Explorer 10 or higher.", "new_site"); ?> <a href="http://windows.microsoft.com/en-US/internet-explorer/download-ie" target="_blank"><?php _e("Click here to learn about upgrading.", "new_site"); ?></a></p>
+                    <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
                 </div>
             </div>
             <![endif]-->
             <?php if (WP_DEBUG): ?>
-            <div class="l-banner-container -notice" data-banner="under-construction" hidden>
-                <div class="l-banner-block">
-                    <h6 class="banner-title title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "new-site"); ?></h6>
-                    <p class="banner-text text"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new-site"); ?></p>
-                    <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
-                </div><!--/.l-banner-block-->
-            </div><!--/.l-banner-container-->
+            <div class="banner-container -notice" data-banner="under-construction" hidden>
+                <div class="banner-block">
+                    <h6 class="banner-title title"><i class="fa fa-info-circle"></i> <?php _e("Under<br /> Construction", "new_site"); ?></h6>
+                    <p class="banner-text text"><?php _e("Pardon our dust! If you're seeing this, it means we're working on an update to the site. You may experience some errors during this time. Please check back later if you're having trouble.", "new_site"); ?></p>
+                    <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
+                </div><!--/.banner-block-->
+            </div><!--/.banner-container-->
             <?php endif; ?>
             <noscript>
-                <div class="l-banner-container -notice" data-banner="noscript" hidden>
-                    <div class="l-banner-block">
-                        <h6 class="banner-title title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "new-site"); ?></h6>
-                        <p class="banner-text text"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "new-site"); ?></p>
-                        <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new-site"); ?></span></button>
+                <div class="banner-container -notice" data-banner="noscript" hidden>
+                    <div class="banner-block">
+                        <h6 class="banner-title title"><i class="fa fa-info-circle"></i> <?php _e("Enable<br /> JavaScript", "new_site"); ?></h6>
+                        <p class="banner-text text"><?php _e("Uh oh! It looks like you have JavaScript turned off. While most of our site should function with out, we recommend turning it back on for a better experience.", "new_site"); ?></p>
+                        <button class="banner-toggle button"><i class="fa fa-times-circle"></i> <span class="_visuallyhidden"><?php _e("Hide Notice", "new_site"); ?></span></button>
                     </div><!--/.banner-->
                 </div><!--/.banner-wrapper-->
             </noscript>
-            <div class="l-header-container">
-                <header class="l-header-block">
+            <div class="header-container">
+                <header class="header-block">
                     <a class="header-logo logo" href="<?php echo home_url(); ?>">
                         <img alt="<?php bloginfo("name"); ?> | <?php bloginfo("description"); ?>" class="logo_image image" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg@@if (context.version) {?v=@@version}" />
                     </a><!--/.logo-->
                     <?php get_search_form(); ?>
-                    <button class="header-menu-button menu-button _mobile"><?php _e("Menu", "new-site"); ?></button>
-                </header><!--/.l-header-block-->
-            </div><!--/.l-header-container-->
-            <div class="l-nav-container _tablet _desktop">
-                <div class="l-nav-block">
+                    <button class="header-menu-button menu-button _mobile"><?php _e("Menu", "new_site"); ?></button>
+                </header><!--/.header-block-->
+            </div><!--/.header-container-->
+            <div class="nav-container _tablet _desktop">
+                <div class="nav-block">
                     <?php
                     wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
                         "items_wrap"	 => "<nav class='header-menu-container menu-container'><ul class='header-menu-list menu-list -nav'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
-                        "walker"         => new newsiteWalker(),
+                        "walker"         => new new_siteWalker(),
                     ));
                     ?>
-                </div><!--/.l-nav-block-->
-            </div><!--/.l-nav-container-->
+                </div><!--/.nav-block-->
+            </div><!--/.nav-container-->

@@ -8,8 +8,8 @@ if (get_option("show_on_front") != "page") {
 <?php get_header(); ?>
             <?php
             if (have_rows("slideshow")) {
-                // open the slideshow and swiper wrappers
-                echo "<div class='l-slideshow-container'><div class='l-slideshow-block'><div class='swiper-container'><div class='swiper-wrapper'>";
+                // open the hero and swiper wrappers
+                echo "<div class='hero-container'><div class='hero-block'><div class='swiper-container'><div class='swiper-wrapper'>";
 
                 // display the slides
                 while (have_rows("slideshow")) {
@@ -18,19 +18,19 @@ if (get_option("show_on_front") != "page") {
                     if ($img) {
                         $img_alt = $img["alt"] == "" ? "" : " alt='{$img["alt"]}'";
                         $img_src = $img["sizes"]["slideshow"];
-                        echo "<figure class='swiper-slide'><img{$img_alt} src='{$img_src}@@if (context.version) {?v=@@version}' /></figure>";
+                        echo "<figure class='swiper-slide'><img{$img_alt} src='{$img_src}' /></figure>";
                     }
                 }
 
-                // close the slideshow and swiper wrappers
+                // close the hero and swiper wrappers
                 echo "</div></div></div></div>";
             }
             ?>
             <div class="content-container">
-                <main class="l-content-block">
+                <main class="content-block">
                     <div class="row">
                         <div class="col">
-                            <div class="content-post">
+                            <div class="content_post">
                                 <article class="article">
                                     <?php
                                     // check if posts exist
@@ -42,15 +42,15 @@ if (get_option("show_on_front") != "page") {
 
                                             // display the title
                                             $tagline = get_bloginfo("description") ? get_bloginfo("description") : $post->post_title;
-                                            echo "<header class='article-header'><h1 class='article-title title'>{$tagline}</h1></header>";
+                                            echo "<header class='article_header'><h1 class='article_title title'>{$tagline}</h1></header>";
 
                                             // display the featured image
                                             if (has_post_thumbnail()) {
-                                                echo "<figure class='article-figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article-image")) . "</figure>";
+                                                echo "<figure class='article_figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article_image")) . "</figure>";
                                             }
 
                                             // display the content
-                                            echo "<div class='article-content user-content'>";
+                                            echo "<div class='article_content user-content'>";
                                             the_content();
                                             echo "</div>";
 
@@ -62,10 +62,10 @@ if (get_option("show_on_front") != "page") {
                                     }
                                     ?>
                                 </aricle><!--/.article-->
-                            </div><!--/.content-post-->
+                            </div><!--/.content_post-->
                         </div><!--/.col-->
                         <?php get_sidebar(); ?>
                     </div><!--/.row-->
-                </main><!--/.l-content-block-->
+                </main><!--/.content-block-->
             </div><!--/.content-container-->
 <?php get_footer(); ?>

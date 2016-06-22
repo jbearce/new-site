@@ -1,5 +1,5 @@
 <div class="col -third">
-    <div class="content-sidebar">
+    <div class="content_sidebar">
         <?php
         if (is_page() || is_single()) {
             // get the sidebar field
@@ -21,17 +21,17 @@
 
             // get the title
             if (is_category()) {
-                $widget-title = single_cat_title("", false);
+                $widget_title = single_cat_title("", false);
             } elseif (is_tag()) {
-                $widget-title = single_tag_title("", false);
+                $widget_title = single_tag_title("", false);
             } elseif (is_tax() && $term->name) {
-                $widget-title = $term->name;
+                $widget_title = $term->name;
             } else {
-                $widget-title = get_the_time("F, Y") . " " . __("Archive", "new-site");
+                $widget_title = get_the_time("F, Y") . " " . __("Archive", "new_site");
             }
 
             // display the title
-            echo "<div class='widget-header'><h6 class='widget-title title'>{$widget-title}</h6></div>";
+            echo "<div class='widget-header'><h6 class='widget-title title'>{$widget_title}</h6></div>";
 
             // display the category list
             echo "<div class='widget-content'><nav class='widget-menu-container menu-container'><ul class='widget-menu-list menu-list -vertical'>";
@@ -54,7 +54,7 @@
                 "show_parent"    => true,
                 "sub_menu"		 => true,
                 "theme_location" => "primary",
-                "walker"         => new newsiteWalker(),
+                "walker"         => new new_siteWalker(),
             ));
 
             // display the submenu
@@ -69,5 +69,5 @@
             dynamic_sidebar("sidebar");
         }
         ?>
-    </div><!--/.content-sidebar-->
+    </div><!--/.content_sidebar-->
 </div><!--/.col.-third-->

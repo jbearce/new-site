@@ -1,9 +1,9 @@
 <?php get_header(); ?>
             <div class="content-container">
-                <main class="l-content-block">
+                <main class="content-block">
                     <div class="row">
                         <div class="col">
-                            <div class="content-post">
+                            <div class="content_post">
                                 <?php
                                 // display breadcrumbs
                                 if (function_exists("yoast_breadcrumb")) {
@@ -23,20 +23,20 @@
                                     } elseif (is_tax() && $term->name) {
                                         $term_title = $term->name;
                                     } else {
-                                        $term_title = get_the_time("F, Y") . " " . __("Archive", "new-site");
+                                        $term_title = get_the_time("F, Y") . " " . __("Archive", "new_site");
                                     }
 
                                     // display the term title
-                                    echo "<header class='article-header'><h1 class='article-title title'>{$term_title}</h1></header>";
+                                    echo "<header class='article_header'><h1 class='article_title title'>{$term_title}</h1></header>";
                                     ?>
                                     <?php
                                     if ($term->description || have_posts()) {
                                         // open a content
-                                        echo "<div class='article-content'>";
+                                        echo "<div class='article_content'>";
 
                                         // display the terms description
                                         if ($term->description) {
-                                            echo "<div class='article-user-content user-content'>" . wpautop($term->description) . "</div>";
+                                            echo "<div class='article_user-content user-content'>" . wpautop($term->description) . "</div>";
                                         }
 
                                         // check if posts exist
@@ -51,14 +51,14 @@
 
                                                 // display the image
                                                 if (has_post_thumbnail()) {
-                                                    echo "<figure class='article-figure'><a class='article-link link' href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium", array("class" => "article-image")) . "</a></figure>";
+                                                    echo "<figure class='article_figure'><a class='article_link link' href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium", array("class" => "article_image")) . "</a></figure>";
                                                 }
 
                                                 // open a header
-                                                echo "<header class='article-header'>";
+                                                echo "<header class='article_header'>";
 
                                                 // display the title
-                                                echo "<h2 class='article-title title -sub'><a class='article-link link' href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                                echo "<h2 class='article_title title -sub'><a class='article_link link' href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
 
                                                 // display the meta information
                                                 if (get_post_type() == "post") {
@@ -111,12 +111,12 @@
                                                     echo "</ul></nav>";
                                                 }
 
-                                                // close the article-header
+                                                // close the article_header
                                                 echo "</header>";
 
                                                 // display the post excerpt
                                                 $post_excerpt = $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55) . " [...]";
-                                                echo "<div class='article-content'><p class='article-text text'>{$post_excerpt}</p></div>";
+                                                echo "<div class='article_content'><p class='article-text text'>{$post_excerpt}</p></div>";
 
                                                 // close the article
                                                 echo "</article>";
@@ -141,10 +141,10 @@
                                     }
                                     ?>
                                 </div><!--/.article-->
-                            </div><!--/.content-post-->
+                            </div><!--/.content_post-->
                         </div><!--/.col-->
                         <?php get_sidebar(); ?>
                     </div><!--/.row-->
-                </main><!--/.l-content-block-->
+                </main><!--/.content-block-->
             </div><!--/.content-container-->
 <?php get_footer(); ?>

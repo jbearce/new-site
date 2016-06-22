@@ -13,13 +13,13 @@ function new_site_register_scripts() {
     // register styles & scripts
     wp_register_style("font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", array(), "4.5.0");
     wp_register_style("open-sans", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
-    wp_register_style("new-site-modern", get_bloginfo("template_directory") . "/assets/styles/modern.css"@@if (context.version) {, array(), "@@version"});
-    wp_register_script("new-site-scripts", get_bloginfo("template_directory") . "/assets/scripts/all.js", array("jquery")@@if (context.version) {, "@@version"}@@if (!context.version) {, false}, true);
+    wp_register_style("new_site-modern", get_bloginfo("template_directory") . "/assets/styles/modern.css"@@if (context.version) {, array(), "@@version"});
+    wp_register_script("new_site-scripts", get_bloginfo("template_directory") . "/assets/scripts/all.js", array("jquery")@@if (context.version) {, "@@version"}@@if (!context.version) {, false}, true);
 
     // enqueue IE specific styles & scripts
     if ($is_IE ) {
         // register IE8 styles & scripts
-        wp_register_style("new-site-legacy", get_bloginfo("template_directory") . "/assets/styles/legacy.css"@@if (context.version) {, array("new-site-modern"), "@@version"});
+        wp_register_style("new_site-legacy", get_bloginfo("template_directory") . "/assets/styles/legacy.css"@@if (context.version) {, array("new_site-modern"), "@@version"});
         wp_register_script("html5shiv", get_bloginfo("template_directory") . "/assets/scripts/fallback/html5shiv.js", array(), "3.6.2");
         wp_register_script("flexibility", get_bloginfo("template_directory") . "/assets/scripts/fallback/flexibility.js", array(), "1.0.6");
         wp_register_script("nwmatcher", get_bloginfo("template_directory") . "/assets/scripts/fallback/nwmatcher-1.3.4.min.js", array(), "1.3.4");
@@ -27,7 +27,7 @@ function new_site_register_scripts() {
         wp_register_script("placeholders", get_bloginfo("template_directory") . "/assets/scripts/fallback/placeholders.js", array("nwmatcher"), "1.0.2");
 
         // add IE8 or lower condition to IE8 styles & scripts
-        $GLOBALS["wp_styles"]->add_data("new-site-legacy", "conditional", "lte IE 8");
+        $GLOBALS["wp_styles"]->add_data("new_site-legacy", "conditional", "lte IE 8");
         $GLOBALS["wp_scripts"]->add_data("html5shiv", "conditional", "lte IE 8");
         $GLOBALS["wp_scripts"]->add_data("nwmatcher", "conditional", "lte IE 8");
         $GLOBALS["wp_scripts"]->add_data("selectivizr", "conditional", "lte IE 8");
@@ -45,12 +45,12 @@ function new_site_enqueue_scripts() {
     // enqueue styles
     wp_enqueue_style("font-awesome");
     wp_enqueue_style("open-sans");
-    wp_enqueue_style("new-site-modern");
-    wp_enqueue_script("new-site-scripts");
+    wp_enqueue_style("new_site-modern");
+    wp_enqueue_script("new_site-scripts");
 
     // enqueue IE specific styles & scripts
     if ($is_IE ) {
-        wp_enqueue_style("new-site-legacy");
+        wp_enqueue_style("new_site-legacy");
         wp_enqueue_script("html5shiv");
         wp_enqueue_script("nwmatcher");
         wp_enqueue_script("selectivizr");
@@ -80,7 +80,7 @@ add_action("init", "register_menus");
 add_image_size("slideshow", 1600, 900, true);
 
 // New Site Walker
-class newsiteWalker extends Walker_Nav_Menu {
+class new_siteWalker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
 
@@ -115,7 +115,7 @@ class newsiteWalker extends Walker_Nav_Menu {
 }
 
 // mobile New Site walker
-class mobileNewsiteWalker extends Walker_Nav_Menu {
+class mobilenew_siteWalker extends Walker_Nav_Menu {
     static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;

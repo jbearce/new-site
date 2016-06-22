@@ -34,13 +34,13 @@ if ($posts) {
 	echo "</ol>";
 
 	echo "<p class='footer'><a href='" . esc_url(tribe_get_events_link()) . "' rel='bookmark'>";
-    printf(esc_html__("View All %s", "new-site"), $events_label_plural);
+    printf(esc_html__("View All %s", "new_site"), $events_label_plural);
     echo "</a></p>";
 
 // No events were found.
 } else {
 	echo "<p class='footer'>";
-    printf(esc_html__("There are no upcoming %s at this time.", "new-site"), strtolower($events_label_plural));
+    printf(esc_html__("There are no upcoming %s at this time.", "new_site"), strtolower($events_label_plural));
     echo "</p>";
 }
 ?>

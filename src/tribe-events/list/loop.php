@@ -20,12 +20,12 @@ while (have_posts()) {
     tribe_events_list_the_date_headers();
 
     // open a content
-    echo "<div class='article-content'>";
+    echo "<div class='article_content'>";
 
     // get the single list template
     tribe_get_template_part("list/single", "event");
 
-    // close the article-content
+    // close the article_content
     echo "</div>";
 
     // Tribe hook

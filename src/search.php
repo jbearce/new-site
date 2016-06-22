@@ -1,9 +1,9 @@
 <?php get_header(); ?>
             <div class="content-container">
-                <main class="l-content-block">
+                <main class="content-block">
                     <div class="row">
                         <div class="col">
-                            <div class="content-post">
+                            <div class="content_post">
                                 <?php
                                 // display breadcrumbs
                                 if (function_exists("yoast_breadcrumb")) {
@@ -11,10 +11,10 @@
                                 }
                                 ?>
                                 <div class="article">
-                                    <header class="article-header">
+                                    <header class="article_header">
                                         <?php get_search_form(); ?>
                                     </header><!--/.header-->
-                                    <div class="article-content">
+                                    <div class="article_content">
                                         <?php
                                         // check if posts exist
                                         if (have_posts()) {
@@ -28,14 +28,14 @@
 
                                                 // display the image
                                                 if (has_post_thumbnail()) {
-                                                    echo "<figure class='article-figure'><a class='article-link link' href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium", array("class" => "article-image")) . "</a></figure>";
+                                                    echo "<figure class='article_figure'><a class='article_link link' href='" . get_permalink() . "'>" . get_the_post_thumbnail($post->ID, "medium", array("class" => "article_image")) . "</a></figure>";
                                                 }
 
                                                 // open a header
-                                                echo "<header class='article-header'>";
+                                                echo "<header class='article_header'>";
 
                                                 // display the title
-                                                echo "<h2 class='article-title title -sub'><a class='article-link link' href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
+                                                echo "<h2 class='article_title title -sub'><a class='article_link link' href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
 
                                                 // display the meta information
                                                 if (get_post_type() == "post") {
@@ -88,19 +88,19 @@
                                                     echo "</ul></nav>";
                                                 }
 
-                                                // close the article-header
+                                                // close the article_header
                                                 echo "</header>";
 
                                                 // display the post excerpt
                                                 $post_excerpt = $post->post_excerpt ? $post->post_excerpt : wp_trim_words($post->post_content, 55) . " [...]";
-                                                echo "<div class='article-content'><p class='article-text text'>{$post_excerpt}</p></div>";
+                                                echo "<div class='article_content'><p class='article-text text'>{$post_excerpt}</p></div>";
 
                                                 // close the article
                                                 echo "</article>";
                                             }
 
                                         } else {
-                                            echo "<p class='search-text text'>" . __("No results found for ", "new-site") . "<strong>" . get_search_query() . "</strong>.</p>";
+                                            echo "<p class='search-text text'>" . __("No results found for ", "new_site") . "<strong>" . get_search_query() . "</strong>.</p>";
                                         }
                                         ?>
                                     </div><!--/.content-->
@@ -118,10 +118,10 @@
                                     }
                                     ?>
                                 </div><!--/.article-->
-                            </div><!--/.content-post-->
+                            </div><!--/.content_post-->
                         </div><!--/.col-->
                         <?php get_sidebar(); ?>
                     </div><!--/.row-->
-                </main><!--/.l-content-block-->
+                </main><!--/.content-block-->
             </div><!--/.content-container-->
 <?php get_footer(); ?>

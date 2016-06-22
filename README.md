@@ -1,4 +1,4 @@
-# new-site
+# new_site
 
 These are the basic starting files we use for WordPress development at [Weblinx, Inc.](http://www.weblinxinc.com/).
 

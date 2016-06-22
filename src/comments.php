@@ -1,14 +1,14 @@
 <div class="comments" id="comments">
     <?php
     if (post_password_required()) {
-        echo "<p class='comments-text text'>" . __("This post is password protected. Enter the password to view comments.", "new-site") . "</p>";
+        echo "<p class='comments-text text'>" . __("This post is password protected. Enter the password to view comments.", "new_site") . "</p>";
         return;
     }
     ?>
     <?php
     if (have_comments()) {
         // display the comment list title
-        echo "<h3 class='comments-title title -sub'>" . __("Comments", "new-site") . "</h3>";
+        echo "<h3 class='comments-title title -sub'>" . __("Comments", "new_site") . "</h3>";
 
         // display the comment list
         echo "<ol class='comments-list'>";
@@ -31,7 +31,7 @@
         }
     } elseif (!comments_open()) {
         // inform the user the comments are closed
-        echo "<p class='comments-text text'>" . __("Comments are closed.", "new-site") . "</p>";
+        echo "<p class='comments-text text'>" . __("Comments are closed.", "new_site") . "</p>";
     }
     ?>
     <?php
@@ -41,7 +41,7 @@
 
         // display the comment form title
         echo "<h3 class='comments-title title -sub'>";
-        comment_form_title(__("Leave a Comment", "new-site"), __("Leave a Reply to %s", "new-site"));
+        comment_form_title(__("Leave a Comment", "new_site"), __("Leave a Reply to %s", "new_site"));
         echo "</h3>";
 
         // get the cancel link
@@ -58,14 +58,14 @@
 
         if (get_option("comment_registration") && !is_user_logged_in()) {
             // inform the user they must be logged in
-            echo "<p class='comments-text text'>" . __("You must be", "new-site") . " <a class='comments-link link' href='" . wp_login_url(get_permalink()) . "'>" . __("logged in", "new-site") . "</a> " . __("to post a comment.", "new-site") . "</p>";
+            echo "<p class='comments-text text'>" . __("You must be", "new_site") . " <a class='comments-link link' href='" . wp_login_url(get_permalink()) . "'>" . __("logged in", "new_site") . "</a> " . __("to post a comment.", "new_site") . "</p>";
         } else {
             // open the comment form
             echo "<form class='comments-form form' action='" . site_url() . "/wp-comments-post.php' method='post' id='commentform'>";
 
             if (is_user_logged_in()) {
                 // show the logged in username
-                echo "<p class='comments-text text'>" . __("Logged in as", "new-site") . " <a class='comments-link link' href='" . get_edit_user_link() . "'>{$user_identity}</a>. <a class='comments-link link' href='" . wp_logout_url(get_permalink()) . "' title='" . __("Log out of this account", "new-site") . "'>" . __("Log out", "new-site") . " &raquo;</a></p>";
+                echo "<p class='comments-text text'>" . __("Logged in as", "new_site") . " <a class='comments-link link' href='" . get_edit_user_link() . "'>{$user_identity}</a>. <a class='comments-link link' href='" . wp_logout_url(get_permalink()) . "' title='" . __("Log out of this account", "new_site") . "'>" . __("Log out", "new_site") . " &raquo;</a></p>";
             } else {
                 // open a row
                 echo "<div class='comments-row row -padded'>";
@@ -74,16 +74,16 @@
                 $required = $req ? " (required)" : "";
                 $required_aria = $req ? " aria-required='true'" : "";
                 echo "<div class='comments-col col -half'>";
-                echo "<label class='_visuallyhidden' for='author'>" . __("Your Name", "new-site") . "{$required}</label>";
-                echo "<input class='comments-input input' id='author' name='author' placeholder='" . __("Your Name", "new-site") . "' tabindex='1' type='text' value='{$comment_author}'{$required_aria} />";
+                echo "<label class='_visuallyhidden' for='author'>" . __("Your Name", "new_site") . "{$required}</label>";
+                echo "<input class='comments-input input' id='author' name='author' placeholder='" . __("Your Name", "new_site") . "' tabindex='1' type='text' value='{$comment_author}'{$required_aria} />";
                 echo "</div>";
 
                 // display the email field
-                $required = $req ? " " . __("required", "new-site") : "";
+                $required = $req ? " " . __("required", "new_site") : "";
                 $required_aria = $req ? " aria-required='true'" : "";
                 echo "<div class='comments-col col -half'>";
-                echo "<label class='_visuallyhidden' for='email'>" . __("Email Address (will not be published)", "new-site") . "{$required}</label>";
-                echo "<input class='comments-input input -email' id='email' name='email' placeholder='" . __("Email Address", "new-site") . "' tabindex='2' type='email' value='{$comment_author_email}'{$required_aria} />";
+                echo "<label class='_visuallyhidden' for='email'>" . __("Email Address (will not be published)", "new_site") . "{$required}</label>";
+                echo "<input class='comments-input input -email' id='email' name='email' placeholder='" . __("Email Address", "new_site") . "' tabindex='2' type='email' value='{$comment_author_email}'{$required_aria} />";
                 echo "</div>";
 
                 // close the row
@@ -91,10 +91,10 @@
             }
 
             // display comment field
-            echo "<textarea class='comments-input input -textarea' id='comment' name='comment' placeholder='" . __("Comment", "new-site") . "' tabindex='4'></textarea>";
+            echo "<textarea class='comments-input input -textarea' id='comment' name='comment' placeholder='" . __("Comment", "new_site") . "' tabindex='4'></textarea>";
 
             // display submit button
-            echo"<input class='comments-button button -submit' name='submit' type='submit' id='submit' tabindex='5' value='" . __("Submit", "new-site") . "' />";
+            echo"<input class='comments-button button -submit' name='submit' type='submit' id='submit' tabindex='5' value='" . __("Submit", "new_site") . "' />";
 
             // display hidden fields
             comment_id_fields();

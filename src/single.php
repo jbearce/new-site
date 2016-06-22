@@ -1,9 +1,9 @@
 <?php get_header(); ?>
             <div class="content-container">
-                <main class="l-content-block">
+                <main class="content-block">
                     <div class="row">
                         <div class="col">
-                            <div class="content-post">
+                            <div class="content_post">
                                 <?php
                                 // display breadcrumbs
                                 if (function_exists("yoast_breadcrumb")) {
@@ -23,10 +23,10 @@
                                         echo "<article class='article'>";
 
                                         // open a header
-                                        echo "<header class='article-header'>";
+                                        echo "<header class='article_header'>";
 
                                         // display the title
-                                        the_title("<h1 class='article-title title'>", "</h1>");
+                                        the_title("<h1 class='article_title title'>", "</h1>");
 
                                         // display the meta information
                                         if (get_post_type() == "post") {
@@ -84,11 +84,11 @@
 
                                         // display the featured image
                                         if (has_post_thumbnail()) {
-                                            echo "<figure class='article-figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article-image")) . "</figure>";
+                                            echo "<figure class='article_figure'>" . get_the_post_thumbnail($post->ID, "large", array("class" => "article_image")) . "</figure>";
                                         }
 
                                         // display the content
-                                        echo "<div class='article-content user-content'>";
+                                        echo "<div class='article_content user-content'>";
                                         the_content();
                                         echo "</div>";
 
@@ -102,10 +102,10 @@
                                     }
                                 }
                                 ?>
-                            </div><!--/.content-post-->
+                            </div><!--/.content_post-->
                         </div><!--/.col-->
                         <?php get_sidebar(); ?>
                     </div><!--/.row-->
-                </main><!--/.l-content-block-->
+                </main><!--/.content-block-->
             </div><!--/.content-container-->
 <?php get_footer(); ?>

@@ -1,16 +1,16 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Banner                                                                   *
+ * Banner
 \* ------------------------------------------------------------------------ */
 
-.l-banner-container {
+.banner-container {
     & {
         padding: remify(0 20, 16);
     }
 }
 
-.l-banner-block {
+.banner-block {
     & {
         display: flex;
         min-height: remify(86, 16);

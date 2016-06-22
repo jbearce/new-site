@@ -1,10 +1,10 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Navigation                                                               *
+ * Navigation
 \* ------------------------------------------------------------------------ */
 
-.l-nav-container {
+.nav-container {
     & {
         @include layer("navigation");
 
@@ -13,7 +13,7 @@
     }
 }
 
-.l-nav-block {
+.nav-block {
     & {
         @extend %clearfix;
 

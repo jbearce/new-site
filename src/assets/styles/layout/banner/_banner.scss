@@ -1,10 +1,10 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Banner                                                                   *
+ * Banner
 \* ------------------------------------------------------------------------ */
 
-.l-banner-container {
+.banner-container {
     & {
         background: $warning;
     }
@@ -14,7 +14,7 @@
     }
 }
 
-.l-banner-block {
+.banner-block {
     & {
         margin: 0 auto;
         max-width: $site-width + px;

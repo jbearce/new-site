@@ -1,9 +1,9 @@
 <?php get_header(); ?>
             <div class="content-container">
-                <main class="l-content-block">
+                <main class="content-block">
                     <div class="row">
                         <div class="col">
-                            <div class="content-post">
+                            <div class="content_post">
                                 <?php
                                 // display the breadcrumbs
                                 if (function_exists("yoast_breadcrumb")) {
@@ -23,10 +23,10 @@
                                     }
                                 }
                                 ?>
-                            </div><!--/.content-post-->
+                            </div><!--/.content_post-->
                         </div><!--/.col-->
                         <?php get_sidebar(); ?>
                     </div><!--/.row-->
-                </main><!--/.l-content-block-->
+                </main><!--/.content-block-->
             </div><!--/.content-container-->
 <?php get_footer(); ?>

@@ -13,15 +13,15 @@ $current_url = tribe_events_get_current_filter_url();
 		<!-- Mobile Filters Toggle -->
 
 		<div id="tribe-bar-collapse-toggle" <?php if (count($views) == 1): ?> class="tribe-bar-collapse-toggle-full-width"<?php endif; ?>>
-			<?php printf(esc_html__("Find %s", "new-site"), tribe_get_event_label_plural()); ?><span class="tribe-bar-toggle-arrow"></span>
+			<?php printf(esc_html__("Find %s", "new_site"), tribe_get_event_label_plural()); ?><span class="tribe-bar-toggle-arrow"></span>
 		</div>
 
 		<!-- Views -->
 		<?php if (count($views) > 1) { ?>
 			<div id="tribe-bar-views">
 				<div class="tribe-bar-views-block tribe-clearfix">
-					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e("Event Views Navigation", "new-site"); ?></h3>
-					<label><?php esc_html_e("View As", "new-site"); ?></label>
+					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e("Event Views Navigation", "new_site"); ?></h3>
+					<label><?php esc_html_e("View As", "new_site"); ?></label>
 					<select class="tribe-bar-views-select tribe-no-param" name="tribe-bar-view">
 						<?php foreach ($views as $view): ?>
 							<option <?php echo tribe_is_view($view["displaying"]) ? "selected" : "tribe-inactive" ?> value="<?php esc_attr_e($view["url"]); ?>" data-view="<?php esc_attr_e($view["displaying"]); ?>">
@@ -44,7 +44,7 @@ $current_url = tribe_events_get_current_filter_url();
 						</div>
 					<?php endforeach; ?>
 					<div class="tribe-bar-submit">
-						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php printf(esc_attr__("Find %s", "new-site"), tribe_get_event_label_plural()); ?>" />
+						<input class="tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php printf(esc_attr__("Find %s", "new_site"), tribe_get_event_label_plural()); ?>" />
 					</div>
 					<!-- .tribe-bar-submit -->
 				</div>

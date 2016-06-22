@@ -1,13 +1,13 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Base                                                                     *
+ * Base
 \* ------------------------------------------------------------------------ */
 
 @import "../base/normalize/_normalize";
 
 /* ------------------------------------------------------------------------ *\
- * Module                                                                   *
+ * Module
 \* ------------------------------------------------------------------------ */
 
 @import "../module/button/_button";
@@ -25,7 +25,7 @@
 @import "../module/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
- * Layout                                                                   *
+ * Layout
 \* ------------------------------------------------------------------------ */
 
 @import "../layout/banner/_banner";
@@ -33,7 +33,7 @@
 @import "../layout/header/_header";
 @import "../layout/nav/_nav";
 @import "../layout/nav-mobile/_nav-mobile";
-@import "../layout/slideshow/_slideshow";
+@import "../layout/hero/_hero";
 @import "../layout/content/_content";
 @import "../layout/comments/_comments";
 @import "../layout/footer/_footer";

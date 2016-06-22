@@ -11,7 +11,7 @@ jQuery(".menu-button").click(function (e) {
 });
 
 // page-wrapper (when nav is active)
-jQuery(".l-page-container").click(function(e) {
+jQuery(".page-container").click(function(e) {
     // skip clicks on children
     if (e.target != this) return;
 

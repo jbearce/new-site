@@ -1,10 +1,10 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Header                                                                   *
+ * Header
 \* ------------------------------------------------------------------------ */
 
-.l-header-container {
+.header-container {
     & {
         @include layer("header");
 
@@ -19,7 +19,7 @@
     }
 }
 
-.l-header-block {
+.header-block {
     & {
         @extend %clearfix;
 
