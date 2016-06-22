@@ -60,7 +60,7 @@
 	                            <img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
 	                        </a><!--/.header_logo.logo-->
 	                    </div><!--/.header_col.col-->
-	                    <div class="header_col col">
+	                    <div class="header_col col -none">
 	                        <button class="header_menu-toggle menu-toggle -labeled _mobile" data-menu="mobile-nav">
 	                            <?php _e("View Menu", "new_site"); ?>
 	                        </button><!--/.header_menu-toggle.menu-toggle._mobile-->
@@ -84,7 +84,7 @@
 	                            </ul><!--/.menu-list.-navigation-->
 	                        </nav><!--/.header_menu-container.menu-container._tablet._desktop-->
 	                        <?php endif; ?>
-	                    </div><!--/.header_col.col-->
+	                    </div><!--/.header_col.col.-none-->
 	                </div><!--/.header_row.row.-between.-mobile-->
 	            </div><!--/.header-block-->
 	        </div><!--/.header-container-->

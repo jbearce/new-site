@@ -1,0 +1,50 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Gridly (adapted from https://github.com/IonicaBizau/gridly)
+\* ------------------------------------------------------------------------ */
+
+.row {
+    & {
+        display: flex;
+    }
+}
+
+.col {
+    & {
+        flex: 1 1 auto;
+    }
+
+    &.-tenth {
+        flex: 0 0 10%;
+        width: 10%;
+    }
+
+    &.-fifth {
+        flex: 0 0 20%;
+        width: 20%;
+    }
+
+    &.-quarter {
+        flex: 0 0 25%;
+        width: 25%;
+    }
+
+    &.-third {
+        flex: 0 0 33.3333334%;
+        width: 33.3333334%;
+    }
+
+    &.-half {
+        flex: 0 0 50%;
+        width: 50%;
+    }
+
+    &.-equal {
+        width: 0;
+    }
+
+    &.-none {
+        flex: 0 0 auto;
+    }
+}
