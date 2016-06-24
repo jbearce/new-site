@@ -40,11 +40,16 @@ jQuery(".menu-list_item.-parent").hover(function () {
 
 // WIP: handle keyboard navigation
 jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
-    var target_menu = jQuery(this).next(".menu-list[aria-hidden]");
     var parent_item = jQuery(this).closest(".menu-list_item.-parent");
+    var target_menu = parent_item.children(".menu-list[aria-hidden]");
 
-    // doesn't work because a child element will always not have focus
-    if (!parent_item.find(":focus").length) {
-        console.log("unfocused the entire group");
+    if (parent_item.length) {
+        // timeout required for the next element to get focus
+        setTimeout(function() {
+            if (!parent_item.find(":focus").length) {
+                parent_item.removeClass("is-active");
+                target_menu.attr("aria-hidden", "true");
+            }
+        }, 10);
     }
 });
