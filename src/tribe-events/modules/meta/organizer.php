@@ -20,7 +20,7 @@ $website = tribe_get_organizer_website_link();
 				}
 
 				?>
-				<li class="article-menu-item menu-item">
+				<li class="article-menu-list_item menu-list_item">
 					<?php echo tribe_get_organizer_link($organizer); ?>
 				</li>
 				<?php
@@ -29,7 +29,7 @@ $website = tribe_get_organizer_website_link();
 			if (!$multiple) { // only show organizer details if there is one
 				if (!empty($phone)) {
 					?>
-	                <li class="article-menu-item menu-item">
+	                <li class="article-menu-list_item menu-list_item">
 	    				<strong class="_bold"><?php esc_html_e("Phone:", "new_site"); ?></strong>
 	    				<?php echo esc_html($phone); ?>
 	                </li>
@@ -38,7 +38,7 @@ $website = tribe_get_organizer_website_link();
 
 				if (!empty($email)) {
 					?>
-	                <li class="article-menu-item menu-item">
+	                <li class="article-menu-list_item menu-list_item">
 	    				<strong class="_bold"><?php esc_html_e("Email:", "new_site"); ?></strong>
 	    				<?php echo esc_html($email); ?>
 	                </li>
@@ -47,7 +47,7 @@ $website = tribe_get_organizer_website_link();
 
 				if (!empty($website)) {
 					?>
-	                <li class="article-menu-item menu-item">
+	                <li class="article-menu-list_item menu-list_item">
 	    				<strong class="_bold"><?php esc_html_e("Website:", "new_site") ?></strong>
 	    				<?php echo $website; ?>
 	                </li>

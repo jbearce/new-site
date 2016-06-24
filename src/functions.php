@@ -79,10 +79,12 @@ add_action("init", "register_menus");
 // add slideshow image size
 add_image_size("slideshow", 1600, 900, true);
 
-// New Site Walker
+// new_site Walker
 class new_site_walker extends Walker_Nav_Menu {
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
+
+        array_push($classes, "menu-list_item");
 
         if (in_array("menu-item-has-children", $classes)) {
             array_push($classes, "-parent");
@@ -91,10 +93,10 @@ class new_site_walker extends Walker_Nav_Menu {
         $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
         $class_names = " class='" . esc_attr($class_names) . "'";
         $target = $item->target ? " target='{$item->target}'" : "";
-        $aria_haspopup = in_array("menu-item-has-children", $classes) ? " aria-haspopup='true'" : "";
+        $aria_haspopup = in_array("menu-list_item-has-children", $classes) ? " aria-haspopup='true'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-link link' href='%s'%s%s>%s</a>",
+            "<li%s><a class='menu-list_link link' href='%s'%s%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -114,11 +116,13 @@ class new_site_walker extends Walker_Nav_Menu {
     }
 }
 
-// mobile New Site walker
+// mobile new_site walker
 class mobile_new_site_walker extends Walker_Nav_Menu {
     static $li_count = 0;
     function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $classes = empty($item->classes) ? array() : (array) $item->classes;
+
+        array_push($classes, "menu-list_item");
 
         if (in_array("menu-item-has-children", $classes)) {
             array_push($classes, "-parent");
@@ -129,7 +133,7 @@ class mobile_new_site_walker extends Walker_Nav_Menu {
         $target = $item->target ? " target='{$item->target}'" : "";
 
         $output .= sprintf(
-            "<li%s><a class='menu-link link' href='%s'%s>%s</a>",
+            "<li%s><a class='menu-list_link link' href='%s'%s>%s</a>",
             $class_names,
             $item->url,
             $target,
@@ -244,7 +248,7 @@ class megaMenuWalker extends Walker_Nav_Menu {
             $target = " target='_blank'";
         }
         $output .= sprintf(
-            "<li id='menu-item-%s'%s><a href='%s'%s>%s</a>",
+            "<li id='menu-list_item-%s'%s><a href='%s'%s>%s</a>",
             $item_id,
             $class_names,
             $item->url,

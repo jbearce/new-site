@@ -34,7 +34,7 @@
                                             echo "<nav class='article-menu-container menu-container'><ul class='article-menu-list menu-list -meta'>";
 
                                             // display the date posted
-                                            echo "<li class='article-menu-item menu-item'><a class='article-menu-link menu-link link' href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
+                                            echo "<li class='article-menu-list_item menu-list_item'><a class='article-menu-list_link menu-list_link link' href='" . get_the_permalink() . "'><i class='fa fa-clock-o'></i> " . get_the_date() . "</a></li>";
 
                                             // get the category list
                                             $category_list = false;
@@ -45,19 +45,19 @@
 
                                             // display the category list
                                             if ($category_list) {
-                                                echo "<li class='article-menu-item menu-item'><i class='fa fa-folder'></i> " . preg_replace("/<a/im", "<a class='menu-link link'", $category_list) . "</li>";
+                                                echo "<li class='article-menu-list_item menu-list_item'><i class='fa fa-folder'></i> " . preg_replace("/<a/im", "<a class='menu-list_link link'", $category_list) . "</li>";
                                             }
 
                                             // get the tag list
                                             $tag_list = false;
                                             ob_start();
-                                            the_tags("<li class='article-menu-item menu-item'><i class='fa fa-tags'></i> ", ", ", "</li>");
+                                            the_tags("<li class='article-menu-list_item menu-list_item'><i class='fa fa-tags'></i> ", ", ", "</li>");
                                             $tag_list = ob_get_contents();
                                             ob_end_clean();
 
                                             // display the tag list
                                             if ($tag_list) {
-                                                echo preg_replace("/<a/im", "<a class='menu-link link'", $tag_list);
+                                                echo preg_replace("/<a/im", "<a class='menu-list_link link'", $tag_list);
                                             }
 
                                             // display the comment count
@@ -71,7 +71,7 @@
 
                                                 // display the comments link
                                                 if ($comments_link) {
-                                                    echo "<li class='article-menu-item menu-item'>" . preg_replace("/<a/im", "<a class='menu-link link'", $comments_link) . "</li>";
+                                                    echo "<li class='article-menu-list_item menu-list_item'>" . preg_replace("/<a/im", "<a class='menu-list_link link'", $comments_link) . "</li>";
                                                 }
                                             }
 
