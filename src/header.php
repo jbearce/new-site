@@ -85,9 +85,9 @@
 	        <div class="navigation_container _tablet _desktop" role="navigation">
 	            <div class="navigation-block">
 	                <nav class="navigation_menu-list_container menu-list_container">
-	                    <ul class="menu-list -navigation -center">
+	                    <ul class="menu-list -navigation -flex">
 	                        <?php echo $menu; ?>
-	                    </ul><!--/.menu-list.-navigation-->
+	                    </ul><!--/.menu-list.-navigation.-flex-->
 	                </nav><!--/.navigation_menu-list_container.menu-list_container-->
 	            </div><!--/.navigation-block._tablet._desktop-->
 	        </div><!--/.navigation_container._tablet._desktop-->

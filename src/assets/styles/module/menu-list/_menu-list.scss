@@ -20,6 +20,7 @@
         list-style: none;
         margin: 0;
         padding: 0;
+        text-align: center;
         white-space: nowrap;
     }
 }
@@ -89,8 +90,38 @@
         position: relative;
         right: 50%;
     }
+
     > .menu-list_item {
         left: 50%;
+    }
+}
+
+// flex variant
+
+.menu-list.-flex {
+    & {
+        display: flex;
+    }
+
+    > .menu-list_item {
+        flex: 1 1 auto;
+        width: 0;
+    }
+}
+
+// vertical variant
+
+.menu-list.-vertical {
+    & {
+        text-align: left;
+    }
+
+    &.-right {
+        text-align: right;
+    }
+
+    > .menu-list_item {
+        float: none;
     }
 }
 
@@ -231,13 +262,5 @@
     .menu-list_item.-parent.is-active > &.-overlay.-reverse {
         left: auto;
         right: 100%;
-    }
-}
-
-// vertical variant
-
-.menu-list.-vertical {
-    > .menu-list_item {
-        float: none;
     }
 }
