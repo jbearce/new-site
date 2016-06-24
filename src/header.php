@@ -26,13 +26,13 @@
         <?php wp_head(); ?>
 	</head>
     <body <?php body_class(); ?>>
-		<div class="page-container">
-			<button class="overlay-closer"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
-	        <div class="navigation-container -flyout -right _mobile" data-menu="mobile-nav" aria-hidden="true">
+		<div class="page_container">
+			<button class="overlay-closer" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
+	        <div class="navigation_container -flyout _mobile" data-overlay="mobile-nav" aria-hidden="true" role="navigation">
 	            <div class="navigation-block">
-	                <div class="navigation_search-form-container search-form-container">
+	                <div class="navigation_search-form_container search-form_container">
 	                    <?php get_search_form(); ?>
-	                </div><!--/.navigation_search-form-container.-search-form-container-->
+	                </div><!--/.navigation_search-form_container.-search-form_container-->
 	                <?php
 	                $menu = wp_nav_menu(array(
 	                    "container"		 => false,
@@ -44,50 +44,33 @@
 	                ));
 	                ?>
 	                <?php if ($menu): ?>
-	                <nav class="navigation_menu-container menu-container">
-	                    <ul class="menu-list -navigation -vertical">
+	                <nav class="navigation_menu-list_container menu-list_container">
+	                    <ul class="menu-list -navigation -accordion -vertical">
 	                        <?php echo $menu; ?>
-	                    </ul><!--/.menu-list.-navigation.-vertical-->
-	                </nav><!--/.navigation_menu-container.menu-container-->
+	                    </ul><!--/.menu-list.-navigation.-accordion.-vertical-->
+	                </nav><!--/.navigation_menu-list_container.menu-list_container-->
 	                <?php endif; ?>
-	            </div><!--/.navigation-container.-flyout._mobile-->
-	        </div><!--/.navigation-container.-flyout.-right._mobile-->
-	        <div class="header-container">
+	            </div><!--/.navigation-block.-flyout._mobile-->
+	        </div><!--/.navigation_container.-flyout.-right._mobile-->
+	        <div class="header_container" role="banner">
 	            <div class="header-block">
-	                <div class="header_row row -between -mobile">
+	                <div class="header_row row -between -center -mobile">
 	                    <div class="header_col col">
 	                        <a class="header_logo logo" href="<?php echo home_url(); ?>">
 	                            <img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
 	                        </a><!--/.header_logo.logo-->
 	                    </div><!--/.header_col.col-->
 	                    <div class="header_col col -none">
-	                        <button class="header_menu-toggle menu-toggle -labeled _mobile" data-menu="mobile-nav">
+	                        <button class="header_menu-toggle menu-toggle -rounded _mobile" data-overlay="mobile-nav">
 	                            <?php _e("View Menu", "new_site"); ?>
-	                        </button><!--/.header_menu-toggle.menu-toggle._mobile-->
-	                        <div class="header_serach-container search-form-container _tablet _desktop">
+	                        </button><!--/.header_menu-toggle.menu-toggle.-rounded._mobile-->
+	                        <div class="header_serach_container search-form_container _tablet _desktop" role="search">
 	                            <?php get_search_form(); ?>
-	                        </div><!--/.header_serach-container.search-form-container._tablet._desktop-->
-	                        <?php
-	                        $menu = wp_nav_menu(array(
-	                            "container"		 => false,
-	                            "depth"          => 3,
-	                            "echo"           => false,
-	                            "items_wrap"	 => "%3\$s",
-	                            "theme_location" => "primary",
-	                            "walker"         => new new_site_walker(),
-	                        ));
-	                        ?>
-	                        <?php if ($menu): ?>
-	                        <nav class="header_menu-container menu-container _tablet _desktop">
-	                            <ul class="menu-list -navigation">
-	                                <?php echo $menu; ?>
-	                            </ul><!--/.menu-list.-navigation-->
-	                        </nav><!--/.header_menu-container.menu-container._tablet._desktop-->
-	                        <?php endif; ?>
+	                        </div><!--/.header_serach_container.search-form_container._tablet._desktop-->
 	                    </div><!--/.header_col.col.-none-->
-	                </div><!--/.header_row.row.-between.-mobile-->
+	                </div><!--/.header_row.row.-between.-center.-mobile-->
 	            </div><!--/.header-block-->
-	        </div><!--/.header-container-->
+	        </div><!--/.header_container-->
 	        <?php
 	        $menu = wp_nav_menu(array(
 	            "container"		 => false,
@@ -99,13 +82,13 @@
 	        ));
 	        ?>
 	        <?php if ($menu): ?>
-	        <div class="navigation-container _tablet _desktop">
+	        <div class="navigation_container _tablet _desktop" role="navigation">
 	            <div class="navigation-block">
-	                <nav class="navigation_menu-container menu-container">
-	                    <ul class="menu-list -navigation">
+	                <nav class="navigation_menu-list_container menu-list_container">
+	                    <ul class="menu-list -navigation -center">
 	                        <?php echo $menu; ?>
 	                    </ul><!--/.menu-list.-navigation-->
-	                </nav><!--/.navigation_menu-container.menu-container-->
-	            </div><!--/.navigation-container._tablet._desktop-->
-	        </div><!--/.navigation-container._tablet._desktop-->
+	                </nav><!--/.navigation_menu-list_container.menu-list_container-->
+	            </div><!--/.navigation-block._tablet._desktop-->
+	        </div><!--/.navigation_container._tablet._desktop-->
 	        <?php endif; ?>

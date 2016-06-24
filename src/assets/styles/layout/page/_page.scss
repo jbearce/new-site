@@ -14,13 +14,14 @@ body {
 
 body {
     & {
+        background: $page_background;
         overflow-x: hidden;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch; // iOS momentum scrolling
     }
 }
 
-.page-container {
+.page_container {
     & {
         min-height: 100%;
         overflow: hidden;

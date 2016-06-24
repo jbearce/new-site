@@ -11,6 +11,7 @@
  * Module                                                                   *
 \* ------------------------------------------------------------------------ */
 
+@import "../module/logo/_logo";
 @import "../module/menu-list/_menu-list";
 @import "../module/menu-toggle/_menu-toggle";
 @import "../module/overlay-closer/_overlay-closer";
@@ -22,3 +23,4 @@
 
 @import "../layout/page/_page";
 @import "../layout/navigation/_navigation";
+@import "../layout/header/_header";

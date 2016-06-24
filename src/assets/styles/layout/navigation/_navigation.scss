@@ -4,20 +4,27 @@
  * Navigation
 \* ------------------------------------------------------------------------ */
 
-.navigation-container {
+.navigation_container {
     & {
-        background: $background_alt;
+        padding: remify(0 25);
+    }
+
+    &.-fullbleed {
+        background: $background;
     }
 
     &.-flyout {
+        background: $background;
         bottom: 999em;
         left: -999em;
         overflow: auto;
+        padding: 0;
         position: absolute;
         right: 999em;
         top: -999em;;
         transform: translateX(-100%);
-        transition: bottom 0s 0.15s, left 0s 0.15s, right 0s 0.15s, top 0s 0.15s, transform 0.15s;
+        transition: bottom 0s 0.15s, left 0s 0.15s, right 0s 0.15s, top 0s 0.15s, transform 0.15s, visibility 0s 0.15s;
+        visibility: hidden;
         z-index: 999;
     }
 
@@ -34,6 +41,7 @@
         transition: transform 0.15s;
         transform: translateX(0);
         top: 0;
+        visibility: visible;
     }
 
     &.-flyout.-right.is-active {
@@ -43,5 +51,20 @@
 }
 
 .navigation-block {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(0 10);
+    }
 
+    .navigation_container.-flyout > & {
+        background: none;
+        max-width: none;
+        padding: 0;
+    }
+
+    .navigation_container.-fullbleed > & {
+        background: none;
+    }
 }

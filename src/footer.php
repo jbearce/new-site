@@ -1,4 +1,4 @@
 <?php
 // WIP ?>
-</div><!--/.page-container-->
+</div><!--/.page_container-->
 <?php wp_footer(); ?>

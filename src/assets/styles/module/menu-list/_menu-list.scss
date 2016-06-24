@@ -4,6 +4,12 @@
  * Menu List
 \* ------------------------------------------------------------------------ */
 
+.menu-list_container {
+    & {
+        @extend %clearfix;
+    }
+}
+
 .menu-list {
     & {
         @extend %clearfix;
@@ -32,7 +38,7 @@
         color: $accent;
         display: block;
         flex: 1 1 auto;
-        padding: remify(8 12, 16);
+        padding: remify(10 14, 16);
         text-decoration: none;
         transition: background-color 0.15s, color 0.15s;
     }
@@ -72,6 +78,19 @@
 
     .menu-list_item.is-active > & > .fa {
         transform: rotate(-180deg);
+    }
+}
+
+// center variant
+
+.menu-list.-center {
+    & {
+        float: right;
+        position: relative;
+        right: 50%;
+    }
+    > .menu-list_item {
+        left: 50%;
     }
 }
 

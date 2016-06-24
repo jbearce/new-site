@@ -1,0 +1,36 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Header
+\* ------------------------------------------------------------------------ */
+
+.header_container {
+    & {
+        padding: remify(0 25);
+    }
+
+    &.-fullbleed {
+        background: $background;
+    }
+}
+
+.header-block {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
+
+    .header_container.-fullbleed > & {
+        background: none;
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.header_logo {
+    & {
+        max-width: remify(200);
+    }
+}
