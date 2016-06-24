@@ -239,7 +239,7 @@ gulp.task("html", function () {
     // import HTML files and replace their variables
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer(htmlDirectory)))
+        .pipe(gulpif(!argv.force, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
         // insert variables
         .pipe(fileinclude({
             prefix: "@@",
