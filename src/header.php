@@ -82,7 +82,7 @@
 	        ));
 	        ?>
 	        <?php if ($menu): ?>
-	        <div class="navigation_container _tablet _desktop" role="navigation">
+	        <div class="navigation_container -sticky _tablet _desktop" role="navigation">
 	            <div class="navigation-block">
 	                <nav class="navigation_menu-list_container menu-list_container">
 	                    <ul class="menu-list -navigation -flex">
@@ -92,3 +92,84 @@
 	            </div><!--/.navigation-block._tablet._desktop-->
 	        </div><!--/.navigation_container._tablet._desktop-->
 	        <?php endif; ?>
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

@@ -48,6 +48,32 @@
         left: remify(80);
         right: 0;
     }
+
+    &.-sticky {
+        position: sticky;
+        top: 0;
+        width: 100% !important; // polyfill miscalculates, should always be 100%
+    }
+
+    /*
+     * Below is some special stuff to make sure a sticky nav doesn't get covered
+     * by the WordPress Admin Bar. Unfortunately, this doesn't work, becuase
+     * apparently the poly fill doesn't see later height declerations for the
+     * element. Or, perhaps it does, but doesn't see it when it's a slightly
+     * different class (i.e. `.admin-bar &.-sticky` instead of just `&.-sticky`)
+     */
+
+    @media screen and (min-width: 601px) {
+        .admin-bar &.-sticky {
+            top: 46px;
+        }
+    }
+
+    @media screen and (min-width: 783px) {
+        .admin-bar &.-sticky {
+            top: 32px;
+        }
+    }
 }
 
 .navigation-block {
