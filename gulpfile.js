@@ -27,6 +27,7 @@ var gulp = require("gulp"),                      // gulp
     // CSS stuff
     sass = require("gulp-sass"),                 // SCSS compiler
     autoprefixer = require("gulp-autoprefixer"), // autoprefix CSS
+    shorthand = require("gulp-shorthand"),       // concatenate CSS properties
 
     // FTP stuff
     ftp = require("vinyl-ftp"),                  // FTP client
@@ -209,6 +210,8 @@ gulp.task("styles", function () {
         .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
         // prefix CSS
         .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
+        // concatenate properties
+        .pipe(shorthand())
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to the compiled directory
