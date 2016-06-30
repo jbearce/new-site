@@ -211,7 +211,7 @@ gulp.task("styles", function () {
         // prefix CSS
         .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
         // concatenate properties
-        .pipe(shorthand())
+        //.pipe(shorthand()) // too overzealous :(
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to the compiled directory
