@@ -10,12 +10,16 @@ jQuery(".menu-list_toggle").click(function (e) {
     var parent_item = jQuery(this).closest(".menu-list_item.-parent");
 
     if (target_menu.attr("aria-hidden") === "true") {
+        // mark siblings as inactive
         parent_item.siblings(".menu-list_item.-parent").removeClass("is-active");
         parent_item.siblings(".menu-list_item.-parent").find(".menu-list_item.-parent.is-active").removeClass("is-active");
         parent_item.siblings(".menu-list_item.-parent").find(".menu-list[aria-hidden]").attr("aria-hidden", "true");
         parent_item.addClass("is-active");
+        // mark target as active
         target_menu.attr("aria-hidden", "false");
+        target_menu.find(".menu-list_link").first().focus(); // easy hack for "close on click away"
     } else {
+        // mark all as inactive
         parent_item.find(".menu-list_item.-parent.is-active").removeClass("is-active");
         parent_item.find(".menu-list[aria-hidden]").attr("aria-hidden", "true");
         parent_item.removeClass("is-active");
