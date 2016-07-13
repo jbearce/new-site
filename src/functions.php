@@ -136,43 +136,8 @@ class new_site_walker extends Walker_Nav_Menu {
  * Styles & Scripts
 \* ------------------------------------------------------------------------ */
 
-// register styles & scripts
-function new_site_register_scripts() {
-    // get the is_IE value
-    global $is_IE;
-
-    wp_register_style("new_site-font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css", array());
-    wp_register_style("new_site-open-sans", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
-    wp_register_style("new_site-modern-styles", get_bloginfo("template_directory") . "/assets/styles/modern.css");
-    wp_register_script("new_site-modern-scripts", get_bloginfo("template_directory") . "/assets/scripts/modern.js", array("jquery"), false, true);
-
-    // enqueue IE specific styles & scripts
-    if ($is_IE ) {
-        // register IE8 styles & scripts
-        wp_register_style("new_site-legacy-styles", get_bloginfo("template_directory") . "/assets/styles/legacy.css", array("new_site-modern-styles"));
-        wp_register_script("new_site-legacy-scripts", get_bloginfo("template_directory") . "/assets/scripts/legacy.js", false, true);
-
-        // add IE8 or lower condition to IE8 styles & scripts
-        $GLOBALS["wp_styles"]->add_data("new_site-legacy-styles", "conditional", "lte IE 10");
-        $GLOBALS["wp_scripts"]->add_data("new_site-legacy-scripts", "conditional", "lte IE 10");
-    }
-}
-add_action("init", "new_site_register_scripts");
-
 // enqueue styles & scripts
 function new_site_enqueue_scripts() {
-    // get the is_IE value
-    global $is_IE;
-
-    wp_enqueue_style("new_site-font-awesome");
-    wp_enqueue_style("new_site-open-sans");
-    wp_enqueue_style("new_site-modern-styles");
-    wp_enqueue_script("new_site-modern-scripts");
-
-    // enqueue IE specific styles & scripts
-    if ($is_IE ) {
-        wp_enqueue_style("new_site-legacy-styles");
-        wp_enqueue_script("new_site-legacy-scripts");
-    }
+    wp_enqueue_script("jquery");
 }
 add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");

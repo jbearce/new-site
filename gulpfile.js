@@ -28,7 +28,6 @@ var gulp = require("gulp"),                       // gulp
     sass = require("gulp-sass"),                  // SCSS compiler
     postcss = require("gulp-postcss"),            // postcss
     autoprefixer = require("gulp-autoprefixer"),  // autoprefix CSS
-    shorthand = require("gulp-shorthand"),        // concatenate CSS properties
     flexibility = require("postcss-flexibility"), // flexibility
 
     // FTP stuff
@@ -153,6 +152,21 @@ gulp.task("scripts", function () {
         // print lint errors
         .pipe(jshint.reporter("default"));
 
+    // concatenate critical scripts
+    var critical = gulp.src([src + "/assets/scripts/critical/loadCSS.js", src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"])
+        // check if source is newer than destination
+        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/critical.js")))
+        // initialize sourcemap
+        .pipe(sourcemaps.init())
+        // concatenate to all.js
+        .pipe(concat("critical.js"))
+        // uglify (if --dist is passed)
+        .pipe(gulpif(argv.dist, uglify()))
+        // write the sourcemap (if --dist isn't passed)
+        .pipe(gulpif(!argv.dist, sourcemaps.write()))
+        // output to the compiled directory
+        .pipe(gulp.dest(jsDirectory));
+
     // concatenate modern scripts
     var modern = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
         // check if source is newer than destination
@@ -183,8 +197,8 @@ gulp.task("scripts", function () {
         // output to the compiled directory
         .pipe(gulp.dest(jsDirectory));
 
-    // merge all three steams back in to one
-    return merge(linted, modern, legacy)
+    // merge all four steams back in to one
+    return merge(linted, critical, modern, legacy)
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -220,8 +234,6 @@ gulp.task("styles", function () {
         .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
         // prefix CSS
         .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
-        // concatenate properties
-        //.pipe(shorthand()) // too overzealous :(
         // insert -js-display: flex; for flexbility
         .pipe(postcss([flexibility()]))
         // write the sourcemap (if --dist isn't passed)

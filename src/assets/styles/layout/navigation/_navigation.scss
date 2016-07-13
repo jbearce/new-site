@@ -16,6 +16,7 @@
     &.-flyout {
         background: $background;
         bottom: 999em;
+        display: block;
         left: -999em;
         overflow: auto;
         padding: 0;

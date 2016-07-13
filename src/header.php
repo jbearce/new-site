@@ -1,6 +1,8 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 	<head>
+		<!-- WordPress -->
+		<?php wp_head(); ?>
         <!-- Android -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-favicon.png" rel="shortcut icon" />
         <meta name="theme-color" content="#17AAEC">
@@ -22,13 +24,26 @@
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <!-- SEO -->
         <title><?php wp_title("|", true, "right"); ?></title>
-        <!-- WordPress -->
-        <?php wp_head(); ?>
+		<!-- styles -->
+		<style><?php include(get_template_directory() . "/assets/styles/critical.css"); ?></style>
+		<link rel="preload" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" as="style" onload="this.rel='stylesheet'" />
+		<link rel="preload" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" as="style" onload="this.rel='stylesheet'" />
+		<link rel="preload" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" as="style" onload="this.rel='stylesheet'" />
+		<noscript>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" />
+		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" />
+		<link rel="stylesheet" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" />
+		</noscript>
+		<!-- fallback -->
+		<!--[if lte IE 9]>
+		<link rel="stylesheet" href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" />
+        <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>
+		<![endif]-->
 	</head>
     <body <?php body_class(); ?>>
 		<div class="page_container">
-			<button class="overlay-closer" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
-	        <div class="navigation_container -flyout _mobile" data-overlay="mobile-nav" aria-hidden="true" role="navigation">
+			<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
+	        <div class="navigation_container -flyout _mobile _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation">
 	            <div class="navigation-block">
 	                <div class="navigation_search-form_container search-form_container">
 	                    <?php get_search_form(); ?>
@@ -51,7 +66,7 @@
 	                </nav><!--/.navigation_menu-list_container.menu-list_container-->
 	                <?php endif; ?>
 	            </div><!--/.navigation-block.-flyout._mobile-->
-	        </div><!--/.navigation_container.-flyout.-right._mobile-->
+	        </div><!--/.navigation_container.-flyout.-right._mobile._noncritical-->
 	        <div class="header_container" role="banner">
 	            <div class="header-block">
 	                <div class="header_row row -between -center -mobile">
