@@ -17,6 +17,7 @@
     "gulp-newer": "^1.2.0",
     "gulp-notify": "^2.2.0",
     "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.1.1",
     "gulp-prompt": "^0.1.2",
     "gulp-sass": "^2.1.1",
     "gulp-sourcemaps": "^1.6.0",
@@ -26,6 +27,7 @@
     "jshint": "^2.9.1",
     "json-file": "^0.1.0",
     "merge-stream": "^1.0.0",
+    "postcss-flexibility": "^1.1.0",
     "run-sequence": "^1.1.5",
     "vinyl-ftp": "^0.4.5",
     "yargs": "^3.32.0"
