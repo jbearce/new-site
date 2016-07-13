@@ -96,6 +96,10 @@
         order: 10;
     }
 
+    &[data-order] {
+        order: attr(data-order);
+    }
+
     .row.-mobile > & {
         flex: 1 1 auto;
     }
