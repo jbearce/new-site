@@ -85,8 +85,8 @@ gulp.task("media", function () {
         screenshotDirectory = dist;
     }
 
-    // clean directory if --clean is passed
-    if (argv.clean) {
+    // clean directory if --dist is passed
+    if (argv.dist) {
         del(mediaDirectory + "/**/*");
         del(screenshotDirectory + "/screenshot.png");
     }
@@ -94,7 +94,7 @@ gulp.task("media", function () {
     // compress images, copy media
     var media = gulp.src(src + "/assets/media/**/*")
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer(mediaDirectory)))
+        .pipe(gulpif(!argv.dist, newer(mediaDirectory)))
         // compress images
         .pipe(imagemin({
             progressive: true,
@@ -107,7 +107,7 @@ gulp.task("media", function () {
     // compress screenshot
     var screenshot = gulp.src(src + "/screenshot.png")
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer(screenshotDirectory)))
+        .pipe(gulpif(!argv.dist, newer(screenshotDirectory)))
         // compress screenshot
         .pipe(imagemin({
             progressive: true,
@@ -139,13 +139,13 @@ gulp.task("scripts", function () {
     // production JS directory (if --dist is passed)
     if (argv.dist) jsDirectory = dist + "/assets/scripts";
 
-    // clean directory if --clean is passed
-    if (argv.clean) del(jsDirectory + "/**/*");
+    // clean directory if --dist is passed
+    if (argv.dist) del(jsDirectory + "/**/*");
 
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer(jsDirectory + "/all.js")))
+        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/all.js")))
         // lint all non-vendor scripts
         .pipe(jshint())
         // print lint errors
@@ -154,7 +154,7 @@ gulp.task("scripts", function () {
     // concatenate scripts
     var concated = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer(jsDirectory + "/all.js")))
+        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/all.js")))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // concatenate to all.js
@@ -169,7 +169,7 @@ gulp.task("scripts", function () {
     // copy fallback scripts
     var copied = gulp.src([src + "/assets/scripts/fallback/**/*"])
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer(jsDirectory + "/fallback")))
+        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/fallback")))
         // output to the compiled directory
         .pipe(gulp.dest(jsDirectory + "/fallback"));
 
@@ -195,15 +195,15 @@ gulp.task("styles", function () {
     // production CSS directory (if --dist is passed)
     if (argv.dist) cssDirectory = dist + "/assets/styles";
 
-    // clean directory if --clean is passed
-    if (argv.clean) del(cssDirectory + "/**/*");
+    // clean directory if --dist is passed
+    if (argv.dist) del(cssDirectory + "/**/*");
 
     // compile all SCSS in the root styles directory
     return gulp.src(src + "/assets/styles/*.scss")
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
@@ -236,13 +236,13 @@ gulp.task("html", function () {
     // production HTML directory (if --dist is passed)
     if (argv.dist) htmlDirectory = dist;
 
-    // clean directory if --clean is passed
-    if (argv.clean) del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
+    // clean directory if --dist is passed
+    if (argv.dist) del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
 
     // import HTML files and replace their variables
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
         // check if source is newer than destination
-        .pipe(gulpif(!argv.force, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
+        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
         // insert variables
         .pipe(fileinclude({
             prefix: "@@",
@@ -444,7 +444,7 @@ gulp.task("ftp", ["config"], function(cb) {
     // upload the changed files
     return gulp.src(ftpDirectory + "/**/*")
         // check if files are newer
-        .pipe(gulpif(!argv.force, conn.newer(ftpPath)))
+        .pipe(gulpif(!argv.dist, conn.newer(ftpPath)))
         // upload changed files
         .pipe(conn.dest(ftpPath))
         // reload the files
