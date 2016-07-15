@@ -8,6 +8,7 @@
 // base
 @import "base/normalize/_normalize";
 @import "base/grid/_grid";
+@import "base/title/_title";
 
 // module
 @import "module/logo/_logo";
@@ -16,3 +17,4 @@
 // layout
 @import "layout/page/_page";
 @import "layout/header/_header";
+@import "layout/hero/_hero";

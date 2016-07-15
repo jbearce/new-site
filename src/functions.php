@@ -183,3 +183,82 @@ function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
 
     return $excerpt;
 }
+
+/* ------------------------------------------------------------------------ *\
+ * Advanced custom Fields
+\* ------------------------------------------------------------------------ */
+
+// Start Front Page Slideshow
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_5788edcaf258b',
+	'title' => 'Front Page Slideshow',
+	'fields' => array (
+		array (
+			'key' => 'field_5788edcf43a44',
+			'label' => 'Slideshow',
+			'name' => 'slideshow',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => '',
+			'min' => '',
+			'max' => '',
+			'layout' => 'block',
+			'button_label' => 'Add Image',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_5788edd543a45',
+					'label' => 'Image',
+					'name' => 'image',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 1,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'return_format' => 'array',
+					'preview_size' => 'hero_medium',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => '',
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'page_type',
+				'operator' => '==',
+				'value' => 'front_page',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'acf_after_title',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+// End Front Page Slideshow

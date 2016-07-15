@@ -9,7 +9,9 @@ if ($slideshow || $featured_image || $title) {
 
     if ($slideshow) {
         echo "<div class='hero_swiper-container swiper-container'>";
-        echo "<div clas='swiper-wrapper'>";
+        echo "<div class='swiper-wrapper'>";
+
+        $i = 0;
 
         while (have_rows("slideshow")) {
             the_row();
@@ -17,17 +19,20 @@ if ($slideshow || $featured_image || $title) {
             $image = get_sub_field("image");
 
             if ($image) {
+                $i++;
+
                 $img_alt = $image["alt"] ? " alt='{$image["alt"]}'" : "";
-                $img_src_mobile = $image["sizes"]["hero"] ? " src='{$image["sizes"]["hero"]}'" : "";
-                $img_src_tablet = $image["sizes"]["hero"] ? " src='{$image["sizes"]["hero_medium"]}'" : "";
-                $img_src_desktop = $image["sizes"]["hero"] ? " src='{$image["sizes"]["hero_large"]}'" : "";
+                $img_src_mobile = $image["sizes"]["hero"] ? $image["sizes"]["hero"]: "";
+                $img_src_tablet = $image["sizes"]["hero"] ? $image["sizes"]["hero_medium"] : "";
+                $img_src_desktop = $image["sizes"]["hero"] ? $image["sizes"]["hero_large"] : "";
                 $img_title = $image["title"];
                 $img_caption = $image["caption"];
+                $helper = $i > 1 ? "_noncrtical" : "";
 
-                echo "<figure class='hero_figure swiper-slide'>";
+                echo "<figure class='hero_figure swiper-slide{$helper}'>";
 
                 if ($img_src_mobile) {
-                    echo "<picture class='hero_picutre'>";
+                    echo "<picture class='hero_picutre swiper-picture'>";
 
                     if ($img_src_tablet) {
                         echo "<source srcset='{$img_src_tablet}' media='(min-width: 40em)' />";
@@ -37,7 +42,7 @@ if ($slideshow || $featured_image || $title) {
                         echo "<source srcset='{$img_src_desktop}' media='(min-width: 64em)' />";
                     }
 
-                    echo "<img class='hero_image swiper-image'{$img_alt}{$img_src_mobile} />";
+                    echo "<img class='hero_image swiper-image'{$img_alt} src='{$img_src_mobile}' />";
 
                     // close hero_picture
                     echo "</picture>";
@@ -57,6 +62,13 @@ if ($slideshow || $featured_image || $title) {
 
         // close swiper-wrapper
         echo "</div>";
+
+        if ($i > 1) {
+            echo "<div class='swiper-pagination'></div>";
+            echo "<div class='swiper-button-prev'><i class='fa fa-caret-left'></i><span class='_visuallyhidden'>" . __("Previous Slide", "new_site") . "</span></div>";
+            echo "<div class='swiper-button-next'><i class='fa fa-caret-right'></i><span class='_visuallyhidden'>" . __("Next Slide", "new_site") . "</span></div>";
+        }
+
         // close hero_swiper-container swiper-container
         echo "</div>";
     } elseif ($featured_image) {
