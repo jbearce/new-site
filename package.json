@@ -1,9 +1,22 @@
 {
   "name": "new-site",
-  "description": "A basic framework for a WordPress template",
   "version": "0.0.1",
-  "repository": "https://github.com/revxx14/new-site",
+  "description": "A basic framework for a WordPress template",
+  "homepage": "https://www.example.com/",
+  "bugs": {
+    "url": "https://github.com/revxx14/new-site/issues",
+    "email": "YOUREMAIL"
+  },
   "license": "UNLICENSED",
+  "author": {
+    "name": "YOURNAME",
+    "email": "YOUREMAIL",
+    "url": "https://www.YOURCOMPANY.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/revxx14/new-site.git"
+  },
   "devDependencies": {
     "browser-sync": "^2.12.5",
     "del": "^2.2.0",
@@ -31,5 +44,6 @@
     "run-sequence": "^1.1.5",
     "vinyl-ftp": "^0.4.5",
     "yargs": "^3.32.0"
-  }
+  },
+  "private": true
 }
