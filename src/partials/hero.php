@@ -27,9 +27,8 @@ if ($slideshow || $featured_image || $title) {
                 $img_src_desktop = $image["sizes"]["hero"] ? $image["sizes"]["hero_large"] : "";
                 $img_title = $image["title"];
                 $img_caption = $image["caption"];
-                $helper = $i > 1 ? "_noncrtical" : "";
 
-                echo "<figure class='hero_figure swiper-slide{$helper}'>";
+                echo "<figure class='hero_figure swiper-slide'>";
 
                 if ($img_src_mobile) {
                     echo "<picture class='hero_picutre swiper-picture'>";
