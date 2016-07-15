@@ -67,7 +67,7 @@
 	                <?php endif; ?>
 	            </div><!--/.navigation-block.-flyout._mobile-->
 	        </div><!--/.navigation_container.-flyout.-right._mobile._noncritical-->
-	        <div class="header_container" role="banner">
+	        <div class="header_container -fullbleed" role="banner">
 	            <div class="header-block">
 	                <div class="header_row row -between -center -mobile">
 	                    <div class="header_col col">
@@ -85,7 +85,7 @@
 	                    </div><!--/.header_col.col.-none-->
 	                </div><!--/.header_row.row.-between.-center.-mobile-->
 	            </div><!--/.header-block-->
-	        </div><!--/.header_container-->
+	        </div><!--/.header_container.-fullbleed-->
 	        <?php
 	        $menu = wp_nav_menu(array(
 	            "container"		 => false,
@@ -97,7 +97,7 @@
 	        ));
 	        ?>
 	        <?php if ($menu): ?>
-	        <div class="navigation_container -sticky _tablet _desktop" role="navigation">
+	        <div class="navigation_container -sticky -fullbleed _tablet _desktop" role="navigation">
 	            <div class="navigation-block">
 	                <nav class="navigation_menu-list_container menu-list_container">
 	                    <ul class="menu-list -navigation -flex">
@@ -105,5 +105,5 @@
 	                    </ul><!--/.menu-list.-navigation.-flex-->
 	                </nav><!--/.navigation_menu-list_container.menu-list_container-->
 	            </div><!--/.navigation-block._tablet._desktop-->
-	        </div><!--/.navigation_container._tablet._desktop-->
+	        </div><!--/.navigation_container.-sticky.-fullbleed._tablet._desktop-->
 	        <?php endif; ?>
