@@ -1,0 +1,65 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Hero
+\* ------------------------------------------------------------------------ */
+
+.hero_container {
+    &.-fullbleed {
+        background: $background;
+    }
+}
+
+.hero-block {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+    }
+
+    .hero_container.-fullbleed & {
+        background: none;
+        max-width: 100%;
+    }
+}
+
+.hero_figure {
+    & {
+        margin: 0;
+        position: relative;
+    }
+}
+
+.hero_image {
+    & {
+        display: block;
+        width: 100%;
+    }
+}
+
+.hero_header {
+    & {
+        background: transparentize($dark, 0.2);
+    }
+
+    .hero_figure > & {
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+        z-index: 2;
+    }
+}
+
+.hero_title {
+    & {
+        color: $light;
+        margin: 0;
+        padding: remify(15 25, 24);
+    }
+
+    .hero_container.-fullbleed & {
+        margin: 0 auto;
+        max-width: remify($site-width);
+    }
+}

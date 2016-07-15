@@ -6,6 +6,7 @@
 
 @import "../base/normalize/_normalize";
 @import "../base/grid/_grid";
+@import "../base/title/_title";
 
 /* ------------------------------------------------------------------------ *\
  * Module                                                                   *
@@ -17,6 +18,7 @@
 @import "../module/menu-toggle/_menu-toggle";
 @import "../module/overlay-closer/_overlay-closer";
 @import "../module/search-form/_search-form";
+@import "../module/swiper/_swiper";
 
 /* ------------------------------------------------------------------------ *\
  * Layout                                                                   *
@@ -25,3 +27,4 @@
 @import "../layout/page/_page";
 @import "../layout/navigation/_navigation";
 @import "../layout/header/_header";
+@import "../layout/hero/_hero";

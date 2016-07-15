@@ -1,0 +1,16 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Title
+\* ------------------------------------------------------------------------ */
+
+.title {
+    & {
+        color: $primary;
+        font-family: $heading-font;
+        font-size: remify(24, 16);
+        font-weight: 700;
+        line-height: remify(28, 24);
+        margin: remify(0 0 12, 24);
+    }
+}

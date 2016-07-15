@@ -24,6 +24,12 @@ remove_action("wp_head", "print_emoji_detection_script", 7);
 remove_action("wp_print_styles", "print_emoji_styles");
 
 /* ------------------------------------------------------------------------ *\
+ * Theme Features
+\* ------------------------------------------------------------------------ */
+
+add_theme_support("post-thumbnails");
+
+/* ------------------------------------------------------------------------ *\
  * Menus
 \* ------------------------------------------------------------------------ */
 
@@ -141,6 +147,24 @@ function new_site_enqueue_scripts() {
     wp_enqueue_script("jquery");
 }
 add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");
+
+/* ------------------------------------------------------------------------ *\
+ * Image Sizes
+\* ------------------------------------------------------------------------ */
+
+add_image_size("hero", 700, 400, true);
+add_image_size("hero_medium", 1200, 400, true);
+add_image_size("hero_large", 2000, 400, true);
+
+/* ------------------------------------------------------------------------ *\
+ * Filters
+\* ------------------------------------------------------------------------ */
+
+function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
+    $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
+    return $html;
+}
+add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
 
 /* ------------------------------------------------------------------------ *\
  * Custom Functions
