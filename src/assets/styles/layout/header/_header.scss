@@ -4,13 +4,13 @@
  * Header
 \* ------------------------------------------------------------------------ */
 
-.header_container {
+.header-block {
     &.-fullbleed {
         background: $background;
     }
 }
 
-.header-block {
+.header_inner {
     & {
         background: $background;
         margin: 0 auto;
@@ -18,7 +18,7 @@
         padding: remify(25);
     }
 
-    .header_container.-fullbleed > & {
+    .header-block.-fullbleed > & {
         background: none;
     }
 }

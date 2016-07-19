@@ -4,20 +4,20 @@
  * Hero
 \* ------------------------------------------------------------------------ */
 
-.hero_container {
+.hero-block {
     &.-fullbleed {
         background: $background;
     }
 }
 
-.hero-block {
+.hero_inner {
     & {
         background: $background;
         margin: 0 auto;
         max-width: remify($site-width);
     }
 
-    .hero_container.-fullbleed & {
+    .hero-block.-fullbleed & {
         background: none;
         max-width: 100%;
     }

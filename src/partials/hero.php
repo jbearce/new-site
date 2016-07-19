@@ -5,7 +5,7 @@ $featured_image = is_singular() ? get_the_post_thumbnail($post->ID, "hero", arra
 $title = is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false));
 
 if ($slideshow || $featured_image || $title) {
-    echo "<div class='hero_container -fullbleed' role='banner'><div class='hero-block'>";
+    echo "<div class='hero-block -fullbleed' role='banner'><div class='hero_inner'>";
 
     if ($slideshow) {
         echo "<div class='hero_swiper-container swiper-container'>";
@@ -102,7 +102,7 @@ if ($slideshow || $featured_image || $title) {
         echo "<header class='hero_header'><h1 class='hero_title title' role='heading'>{$title}</h1></header>";
     }
 
-    // close hero-block, hero_container
+    // close hero_inner, hero-block
     echo "</div></div>";
 }
 ?>

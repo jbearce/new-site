@@ -4,7 +4,7 @@
  * Navigation
 \* ------------------------------------------------------------------------ */
 
-.navigation_container {
+.navigation-block {
     &.-fullbleed {
         background: $background;
     }
@@ -73,7 +73,7 @@
     }
 }
 
-.navigation-block {
+.navigation_inner {
     & {
         background: $background;
         margin: 0 auto;
@@ -81,13 +81,13 @@
         padding: remify(0 10);
     }
 
-    .navigation_container.-flyout > & {
+    .navigation-block.-flyout > & {
         background: none;
         max-width: none;
         padding: 0;
     }
 
-    .navigation_container.-fullbleed > & {
+    .navigation-block.-fullbleed > & {
         background: none;
     }
 }
