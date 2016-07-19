@@ -22,3 +22,12 @@
         width: 100%;
     }
 }
+
+// 'cause apparently you can't add a class to the_custom_logo() -_-
+
+.custom-logo {
+    & {
+        @extend .logo_image;
+        height: auto !important;
+    }
+}

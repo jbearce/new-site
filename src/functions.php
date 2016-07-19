@@ -27,10 +27,28 @@ remove_action("wp_print_styles", "print_emoji_styles");
  * Theme Features
 \* ------------------------------------------------------------------------ */
 
-add_theme_support("post-thumbnails");
-add_theme_support("automatic-feed-links");
-add_theme_support("html5", array("comment-list", "comment-form", "search-form", "gallery", "caption"));
+add_theme_support("html5", array(
+    "comment-list",
+    "comment-form",
+    "search-form",
+    "gallery",
+    "caption"
+));
+
+add_theme_support("custom-logo", array(
+    "height"      => 45,
+    "width"       => 200,
+    "flex-height" => true,
+    "flex-width"  => true,
+    "header-text" => array("site-title", "site-description"),
+));
+
 add_theme_support("title-tag");
+
+add_theme_support("automatic-feed-links");
+
+add_theme_support("post-thumbnails");
+
 
 /* ------------------------------------------------------------------------ *\
  * Menus
