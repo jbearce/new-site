@@ -1,12 +1,12 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Header
+ * Content
 \* ------------------------------------------------------------------------ */
 
-.header-block {
+.content-block {
     & {
-        @include layer("header");
+        @include layer("content");
     }
     
     &.-fullbleed {
@@ -14,7 +14,7 @@
     }
 }
 
-.header_inner {
+.content_inner {
     & {
         background: $background;
         margin: 0 auto;
@@ -22,13 +22,7 @@
         padding: remify(25);
     }
 
-    .header-block.-fullbleed > & {
+    .content-block.-fullbleed > & {
         background: none;
-    }
-}
-
-.header_logo {
-    & {
-        max-width: remify(200);
     }
 }

@@ -14,9 +14,6 @@
     & {
         @extend %clearfix;
 
-        font-family: $body-font;
-        font-size: remify(16, 16);
-        font-weight: 400;
         list-style: none;
         margin: 0;
         padding: 0;
@@ -36,20 +33,9 @@
 
 .menu-list_link {
     & {
-        color: $accent;
         display: block;
         flex: 1 1 auto;
-        padding: remify(10 14, 16);
         text-decoration: none;
-        transition: background-color 0.15s, color 0.15s;
-    }
-
-    &:focus,
-    &:hover,
-    .menu-list_item:hover > &,
-    .menu-list_item.is-active > & {
-        background: $accent;
-        color: $light;
     }
 }
 
@@ -57,20 +43,9 @@
     & {
         background: none;
         border: 0;
-        color: $accent;
         cursor: pointer;
         display: block;
-        font-size: 1em;
         margin: 0;
-        padding: remify(8 12, 16);
-        transition: background-color 0.15s, color 0.15s;
-    }
-
-    &:focus,
-    &:hover,
-    .menu-list_item.is-active > & {
-        background: $accent;
-        color: $light;
     }
 
     > .fa {
@@ -182,29 +157,6 @@
 // tier1 variant
 
 .menu-list.-tier1 {
-    & {
-        background: $accent;
-    }
-
-    .menu-list_link {
-        color: $light;
-    }
-
-
-    .menu-list_link:focus,
-    .menu-list_item:hover > .menu-list_link {
-        background: lighten($accent, 10);
-    }
-
-    .menu-list_toggle {
-        color: $light;
-    }
-
-    .menu-list_toggle:hover,
-    .menu-list_toggle:focus {
-        background: lighten($accent, 10);
-    }
-
     // overlay variant
 
     .menu-list_item.-parent:hover > &.-overlay,
@@ -230,19 +182,6 @@
 // tier2 variant
 
 .menu-list.-tier2 {
-    & {
-        background: lighten($accent, 10);
-    }
-
-    .menu-list_link {
-        color: $light;
-    }
-
-    .menu-list_link:focus,
-    .menu-list_item:hover > .menu-list_link {
-        background: lighten(lighten($accent, 10), 10);
-    }
-
     // overlay variant
 
     .menu-list_item.-parent:hover > &.-overlay,
@@ -262,5 +201,78 @@
     .menu-list_item.-parent.is-active > &.-overlay.-reverse {
         left: auto;
         right: 100%;
+    }
+}
+
+// navigation variant
+
+.menu-list.-navigation {
+    & {
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-weight: 400;
+    }
+
+    .menu-list_link {
+        color: $accent;
+        padding: remify(10 14, 16);
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    .menu-list_link:focus,
+    .menu-list_link:hover,
+    .menu-list_item:hover > .menu-list_link,
+    .menu-list_item.is-active > .menu-list_link {
+        background: $accent;
+        color: $light;
+    }
+
+    .menu-list_toggle {
+        color: $accent;
+        font-size: 1em;
+        padding: remify(8 12, 16);
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    .menu-list_toggle:focus,
+    .menu-list_toggle:hover,
+    .menu-list_item.is-active > .menu-list_toggle {
+        background: $accent;
+        color: $light;
+    }
+
+    .menu-list.-tier1 {
+        background: $accent;
+    }
+
+    .menu-list.-tier1 .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list.-tier1 .menu-list_link:focus,
+    .menu-list.-tier1 .menu-list_item:hover > .menu-list_link {
+        background: lighten($accent, 10);
+    }
+
+    .menu-list.-tier1 .menu-list_toggle {
+        color: $light;
+    }
+
+    .menu-list.-tier1 .menu-list_toggle:hover,
+    .menu-list.-tier1 .menu-list_toggle:focus {
+        background: lighten($accent, 10);
+    }
+
+    .menu-list.-tier2 {
+        background: lighten($accent, 10);
+    }
+
+    .menu-list.-tier2 .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list.-tier2 .menu-list_link:focus,
+    .menu-list.-tier2 .menu-list_item:hover > .menu-list_link {
+        background: lighten(lighten($accent, 10), 10);
     }
 }

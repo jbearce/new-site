@@ -5,6 +5,10 @@
 \* ------------------------------------------------------------------------ */
 
 .hero-block {
+    & {
+        @include layer("hero");
+    }
+    
     &.-fullbleed {
         background: $background;
     }
@@ -54,7 +58,8 @@
 .hero_title {
     & {
         color: $light;
-        margin: 0;
+        margin: 0 auto;
+        max-width: remify($site-width);
         padding: remify(15 25, 24);
     }
 
