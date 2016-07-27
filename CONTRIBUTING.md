@@ -52,7 +52,7 @@ This is the main task you need to be aware of. It compiles any changed files in 
 
 ### `gulp watch`
 
-This task simply runs `gulp` every time a change is made in `./src`. If you followed the [Advanced setup instructions](#advanced), you can also use the flag `--sync` in order to automatically refresh the page every time a change is detected.
+This task simply runs `gulp` every time a change is made in `./src`. If you followed the [Advanced setup instructions](#advanced), you may also use the flag `--sync` in order to automatically refresh the page every time a change is detected (i.e. `gulp watch --sync`).
 
 ### `gulp ftp`
 
