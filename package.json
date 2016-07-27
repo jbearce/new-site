@@ -4,7 +4,7 @@
   "description": "A basic framework for a WordPress template",
   "homepage": "https://www.example.com/",
   "bugs": {
-    "url": "https://github.com/revxx14/new-site/issues",
+    "url": "https://github.com/JacobDB/new-site/issues",
     "email": "YOUREMAIL"
   },
   "license": "UNLICENSED",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/revxx14/new-site.git"
+    "url": "https://github.com/JacobDB/new-site.git"
   },
   "devDependencies": {
     "browser-sync": "^2.12.5",
