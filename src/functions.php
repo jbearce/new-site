@@ -11,28 +11,20 @@ function new_site_register_scripts() {
     global $is_IE;
 
     // register styles & scripts
-    wp_register_style("font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", array(), "4.5.0");
-    wp_register_style("google-fonts", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
-    wp_register_style("new_site-modern", get_bloginfo("template_directory") . "/assets/styles/modern.css"@@if (context.version) {, array(), "@@version"});
-    wp_register_script("new_site-scripts", get_bloginfo("template_directory") . "/assets/scripts/all.js", array("jquery")@@if (context.version) {, "@@version"}@@if (!context.version) {, false}, true);
+    wp_register_style("new_site-font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", array(), "4.5.0");
+    wp_register_style("new_site-google-fonts", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
+    wp_register_style("new_site-modern-styles", get_bloginfo("template_directory") . "/assets/styles/modern.css"@@if (context.version) {, array(), "@@version"});
+    wp_register_script("new_site-modern-scripts", get_bloginfo("template_directory") . "/assets/scripts/modern.js", array("jquery")@@if (context.version) {, "@@version"}@@if (!context.version) {, false}, true);
 
     // enqueue IE specific styles & scripts
     if ($is_IE ) {
         // register IE8 styles & scripts
-        wp_register_style("new_site-legacy", get_bloginfo("template_directory") . "/assets/styles/legacy.css"@@if (context.version) {, array("new_site-modern"), "@@version"});
-        wp_register_script("html5shiv", get_bloginfo("template_directory") . "/assets/scripts/fallback/html5shiv.js", array(), "3.6.2");
-        wp_register_script("flexibility", get_bloginfo("template_directory") . "/assets/scripts/fallback/flexibility.js", array(), "1.0.6");
-        wp_register_script("nwmatcher", get_bloginfo("template_directory") . "/assets/scripts/fallback/nwmatcher-1.3.4.min.js", array(), "1.3.4");
-        wp_register_script("selectivizr", get_bloginfo("template_directory") . "/assets/scripts/fallback/selectivizr-1.0.2.min.js", array("nwmatcher"), "1.0.2");
-        wp_register_script("placeholders", get_bloginfo("template_directory") . "/assets/scripts/fallback/placeholders.js", array("nwmatcher"), "1.0.2");
+        wp_register_style("new_site-legacy-styles", get_bloginfo("template_directory") . "/assets/styles/legacy.css"@@if (context.version) {, array("new_site-modern-styles"), "@@version"});
+        wp_register_script("new_site-legacy-scripts", get_bloginfo("template_directory") . "/assets/scripts/legacy.js", array("jquery", "new_site-modern-scripts")@@if (context.version) {, "@@version"});
 
         // add IE8 or lower condition to IE8 styles & scripts
-        $GLOBALS["wp_styles"]->add_data("new_site-legacy", "conditional", "lte IE 8");
-        $GLOBALS["wp_scripts"]->add_data("html5shiv", "conditional", "lte IE 8");
-        $GLOBALS["wp_scripts"]->add_data("nwmatcher", "conditional", "lte IE 8");
-        $GLOBALS["wp_scripts"]->add_data("selectivizr", "conditional", "lte IE 8");
-        $GLOBALS["wp_scripts"]->add_data("flexibility", "conditional", "lte IE 8");
-        $GLOBALS["wp_scripts"]->add_data("placeholders", "conditional", "lte IE 8");
+        $GLOBALS["wp_styles"]->add_data("new_site-legacy-styles", "conditional", "lte IE 8");
+        $GLOBALS["wp_scripts"]->add_data("placeholders-scripts", "conditional", "lte IE 8");
     }
 }
 add_action("init", "new_site_register_scripts");
@@ -43,19 +35,15 @@ function new_site_enqueue_scripts() {
     global $is_IE;
 
     // enqueue styles
-    wp_enqueue_style("font-awesome");
-    wp_enqueue_style("google_fonts");
-    wp_enqueue_style("new_site-modern");
-    wp_enqueue_script("new_site-scripts");
+    wp_enqueue_style("new_site-font-awesome");
+    wp_enqueue_style("new_site-google_fonts");
+    wp_enqueue_style("new_site-modern-styles");
+    wp_enqueue_script("new_site-modern-scripts");
 
     // enqueue IE specific styles & scripts
     if ($is_IE ) {
-        wp_enqueue_style("new_site-legacy");
-        wp_enqueue_script("html5shiv");
-        wp_enqueue_script("nwmatcher");
-        wp_enqueue_script("selectivizr");
-        wp_enqueue_script("flexibility");
-        wp_enqueue_script("placeholders");
+        wp_enqueue_style("new_site-legacy-styles");
+        wp_enqueue_script("new_site-legacy-scripts");
     }
 }
 add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");
