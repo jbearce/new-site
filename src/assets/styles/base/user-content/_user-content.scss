@@ -77,8 +77,8 @@
         font-family: $body-font;
         font-size: remify(14, 16);
         font-weight: 400;
-        line-height: remify(21, 14);
-        margin: remify(0 0 21, 14);
+        line-height: remify(20, 14);
+        margin: remify(0 0 20, 14);
     }
 
     ol,
@@ -186,5 +186,16 @@
 
     blockquote > :last-child {
         margin-bottom: 0 !important;
+    }
+
+    // horizontal rule
+
+    hr {
+        background: darken($background_alt, 10);
+        border: 0;
+        clear: both;
+        height: remify(1);
+        margin: remify(0 0 20, 16);
+        width: 100%;
     }
 }

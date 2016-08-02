@@ -197,6 +197,13 @@ function new_site_responsive_tables($content) {
 add_filter("the_content", "new_site_responsive_tables", 10, 2);
 add_filter("acf_the_content", "new_site_responsive_tables", 10, 2);
 
+// disable Ninja Forms styles
+function new_site_dequeue_nf_display() {
+    wp_dequeue_style("nf-display");
+}
+add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
+
+
 /* ------------------------------------------------------------------------ *\
  * Custom Functions
 \* ------------------------------------------------------------------------ */

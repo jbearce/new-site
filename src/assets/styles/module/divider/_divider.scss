@@ -1,0 +1,16 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * divider
+\* ------------------------------------------------------------------------ */
+
+.divider {
+    & {
+        background: darken($background_alt, 10);
+        border: 0;
+        clear: both;
+        height: remify(1);
+        margin: remify(0 0 20, 16);
+        width: 100%;
+    }
+}

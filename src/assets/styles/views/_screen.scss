@@ -7,6 +7,9 @@
 @import "../base/normalize/_normalize";
 @import "../base/grid/_grid";
 @import "../base/title/_title";
+@import "../base/text/_text";
+@import "../base/input/_input";
+@import "../base/button/_button";
 @import "../base/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
@@ -17,8 +20,10 @@
 @import "../module/logo/_logo";
 @import "../module/menu-list/_menu-list";
 @import "../module/menu-toggle/_menu-toggle";
+@import "../module/ninja-forms/_ninja-forms";
 @import "../module/overlay-closer/_overlay-closer";
 @import "../module/search-form/_search-form";
+@import "../module/divider/_divider";
 @import "../module/swiper/_swiper";
 
 /* ------------------------------------------------------------------------ *\
