@@ -9,10 +9,10 @@
         color: $foreground;
         display: block;
         font-family: $body-font;
-        font-size: remify(14, 16);
+        font-size: remify(16, 16);
         font-weight: 400;
-        line-height: remify(20, 14);
-        margin: remify(0 0 20, 14);
+        line-height: remify(24, 16);
+        margin: remify(0 0 24, 16);
     }
 }
 
@@ -21,6 +21,5 @@
 .text.-label {
     & {
         cursor: pointer;
-        margin-bottom: remify(4, 14);
     }
 }

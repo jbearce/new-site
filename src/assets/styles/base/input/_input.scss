@@ -3,10 +3,11 @@
 /* ------------------------------------------------------------------------ *\
  * Input
 \* ------------------------------------------------------------------------ */
-
 .input {
     &,
-    & > .input_inner {
+    & > .input_inner,
+    &.-checkbox + .text.-checkbox:before,
+    &.-radiobutton + .text.-radiobutton:before {
         background: $background;
         border: remify(1) solid darken($background_alt, 10);
         color: $foreground;
@@ -14,18 +15,22 @@
         font-family: $body-font;
         font-size: remify(16, 16);
         font-weight: 400;
-        line-height: remify(20, 16);
-        margin: remify(0 0 20, 16);
+        line-height: remify(24, 16);
+        margin: remify(0 0 24, 16);
         outline: 0;
         padding: remify(8 12, 16);
-        transition: border-color 0.15s;
+        transition: border-color 0.15s, color 0.15s;
         width: 100%;
     }
 
     &:focus,
     &:hover,
     & > .input_inner:focus,
-    & > .input_inner:hover {
+    & > .input_inner:hover,
+    &.-checkbox:focus + .text.-checkbox:before,
+    &.-checkbox + .text.-checkbox:hover:before,
+    &.-radiobutton:focus + .text.-radiobutton:before,
+    &.-radiobutton + .text.-radiobutton:hover:before {
         border-color: $accent;
     }
 }
@@ -90,50 +95,37 @@
         position: absolute;
     }
 
-    + .text.-checkbox,
-    + .text.-radiobutton {
+    + .text.-label.-checkbox,
+    + .text.-label.-radiobutton {
         padding-left: remify(32, 16);
         position: relative;
     }
 
-    + .text.-checkbox:before,
-    + .text.-radiobutton:before {
-        border: remify(1) solid darken($background_alt, 10);
+    + .text.-label.-checkbox:before,
+    + .text.-label.-radiobutton:before {
         content: "\0020";
-        display: block;
         font-size: remify(8, 16);
         height: remify(16, 8);
         left: 0;
         line-height: remify(16, 8);
+        margin: 0;
+        padding: 0;
         position: absolute;
         text-align: center;
         transform: translateY(-50%);
-        transition: border-color 0.15s, color 0.15s;
         top: 50%;
         width: remify(16, 8);
     }
 
-    + .text.-radiobutton:before {
+    + .text.-label.-radiobutton:before {
         border-radius: 50%;
     }
 
-    &:checked + .text.-checkbox:before {
+    &:checked + .text.-label.-checkbox:before {
         @include icon("check");
     }
 
-    &:checked + .text.-radiobutton:before {
+    &:checked + .text.-label.-radiobutton:before {
         @include icon("circle");
-    }
-
-    &:focus + .text.-checkbox:before,
-    .text.-checkbox:hover:before,
-    + .text.-checkbox:focus:before,
-    + .text.-checkbox:hover:before,
-    &:focus + .text.-radiobutton:before,
-    .text.-radiobutton:hover:before,
-    + .text.-radiobutton:focus:before,
-    + .text.-radiobutton:hover:before {
-        border-color: $accent;
-        color: $accent;
     }
 }
