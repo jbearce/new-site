@@ -297,3 +297,140 @@ acf_add_local_field_group(array (
 
 endif;
 // End Front Page Slideshow
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+add_action( 'init', array( 'XTeam_Nav_Menu_Item_Custom_Fields', 'setup' ) );
+
+class XTeam_Nav_Menu_Item_Custom_Fields {
+
+	static $options = array();
+
+	static function setup() {
+		// @todo we can do some merging of provided options from WP options for from config
+		self::$options['fields'] = array(
+			'column' =>array(
+				'name'				=> 'column',
+				'label'				=> __('Start a new column here', 'new_site'),
+				'container_class'	=> 'column',
+				'input_type' 		=> 'checkbox'
+			)
+		);
+
+		add_filter( 'wp_edit_nav_menu_walker', function () {
+			return 'XTeam_Walker_Nav_Menu_Edit';
+		});
+		add_filter( 'xteam_nav_menu_item_additional_fields', array( __CLASS__, '_add_fields' ), 10, 5 );
+		add_action( 'save_post', array( __CLASS__, '_save_post' ) );
+	}
+
+	static function get_fields_schema() {
+		$schema = array();
+		foreach(self::$options['fields'] as $name => $field) {
+			if (empty($field['name'])) {
+				$field['name'] = $name;
+			}
+			$schema[] = $field;
+		}
+		return $schema;
+	}
+
+	static function get_menu_item_postmeta_key($name) {
+		return '_menu_item_' . $name;
+	}
+
+	/**
+	 * Inject the
+	 * @hook {action} save_post
+	 */
+	static function _add_fields($new_fields, $item_output, $item, $depth, $args) {
+
+		$schema = self::get_fields_schema($item->ID);
+
+		$new_fields = '';
+
+		foreach($schema as $field) {
+
+			$field['value'] = get_post_meta($item->ID, self::get_menu_item_postmeta_key($field['name']), true);
+			$field['id'] = $item->ID;
+
+			$new_fields .= '<p class="field-'.$field['name'].' description"><label for="edit-menu-item-'.$field['name'].'-'.$field['id'].'">';
+			$new_fields .= '<input type="'.$field['input_type'].'" ';
+			$new_fields .= 'id="edit-menu-item-'.$field['name'].'-'.$field['id'].'"';
+			$new_fields .= 'class="widefat code edit-menu-item-'.$field['name'].'"';
+			$new_fields .= 'name="menu-item-'.$field['name'].'['.$field['id'].']"';
+			if( $field['input_type'] == 'checkbox'){
+
+				$new_fields .= 'value="1" '. checked( $field['value'], 1, false) .'';
+
+			}else{
+				$new_fields .= 'value="'.$field['value'].'" ';
+			}
+
+			$new_fields .= ' />'.$field['label'].'</label></p>';
+
+		}
+		return $new_fields;
+	}
+
+	/**
+	 * Save the newly submitted fields
+	 * @hook {action} save_post
+	 */
+	static function _save_post($post_id) {
+		if (get_post_type($post_id) !== 'nav_menu_item') {
+			return;
+		}
+		$fields_schema = self::get_fields_schema($post_id);
+		foreach($fields_schema as $field_schema) {
+			$form_field_name = 'menu-item-' . $field_schema['name'];
+			$key = self::get_menu_item_postmeta_key($field_schema['name']);
+			$value = isset( $_POST[$form_field_name][$post_id] ) ? stripslashes($_POST[$form_field_name][$post_id]) : '';
+			update_post_meta($post_id, $key, $value);
+		}
+	}
+
+}
+
+require_once ABSPATH . 'wp-admin/includes/nav-menu.php';
+class XTeam_Walker_Nav_Menu_Edit extends Walker_Nav_Menu_Edit {
+	function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+		$item_output = '';
+		parent::start_el($item_output, $item, $depth, $args);
+		$new_fields = apply_filters( 'xteam_nav_menu_item_additional_fields', '', $item_output, $item, $depth, $args );
+		// Inject $new_fields before: <div class="menu-item-actions description-wide submitbox">
+		if ($new_fields) {
+			$item_output = preg_replace('/(?=<p[^>]+class="[^"]*field-css-classes)/', $new_fields, $item_output);
+		}
+		$output .= $item_output;
+	}
+}
+
+
+
+
+
+
+// hide the checkbox except on depth 1
+function new_site_hide_column_checkbox_except_on_depth_1() {
+    if (is_admin()) {
+        $current_screen = get_current_screen();
+
+        if ($current_screen->base === "nav-menus") {
+            echo "<style>.menu-item:not(.menu-item-depth-1) .field-column {display:none;}</style>";
+        }
+    }
+}
+add_action("admin_head", "new_site_hide_column_checkbox_except_on_depth_1");
