@@ -165,7 +165,7 @@ if (is_admin()) {
     // require nav-menu.php so we can hook Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
-    class new_site_mega_menu_column_checkbox_inject extends Walker_Nav_Menu_Edit {
+    class new_site_mega_menu_column_checkbox_setup extends Walker_Nav_Menu_Edit {
         static $field = array("name" => "column");
 
         // add a new checkbox to each menu item
@@ -206,7 +206,7 @@ if (is_admin()) {
     }
     add_action("init", array("new_site_mega_menu_column_checkbox_inject", "setup"));
     add_filter("wp_edit_nav_menu_walker", function () {
-        return "new_site_mega_menu_column_checkbox_inject";
+        return "new_site_mega_menu_column_checkbox_setup";
     });
 
     // hide the checkbox except on depth 1
