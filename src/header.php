@@ -103,7 +103,7 @@
 	        ));
 	        ?>
 	        <?php if ($menu): ?>
-	        <div class="navigation-block -sticky -fullbleed _tablet _desktop" role="navigation">
+	        <div class="navigation-block -sticky -fullbleed _tablet _desktop sticky" role="navigation">
 	            <div class="navigation_inner">
 	                <nav class="navigation_menu-list_container menu-list_container">
 	                    <ul class="menu-list -navigation -flex">

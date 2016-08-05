@@ -56,7 +56,7 @@
         width: 100% !important; // polyfill miscalculates, should always be 100%
     }
 
-    &.-sticky.fixedsticky-on {
+    &.-sticky.is-sticky {
         border-bottom: remify(1) solid darken($background_alt, 10);
     }
 
@@ -72,16 +72,28 @@
      */
 
     @media screen and (min-width: 601px) {
-        .admin-bar &.-sticky.fixedsticky-on {
+        .admin-bar &.-sticky.is-sticky {
             transform: translateY(46px);
         }
     }
 
     @media screen and (min-width: 783px) {
-        .admin-bar &.-sticky.fixedsticky-on {
+        .admin-bar &.-sticky.is-sticky {
             transform: translateY(32px);
         }
     }
+
+    // @media screen and (min-width: 601px) {
+    //     .admin-bar &.-sticky.is-sticky {
+    //         top: 46px;
+    //     }
+    // }
+    //
+    // @media screen and (min-width: 783px) {
+    //     .admin-bar &.-sticky.is-sticky {
+    //         top: 32px;
+    //     }
+    // }
 }
 
 .navigation_inner {
