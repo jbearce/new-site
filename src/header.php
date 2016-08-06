@@ -99,7 +99,7 @@
 	            "echo"           => false,
 	            "items_wrap"	 => "%3\$s",
 	            "theme_location" => "primary",
-	            "walker"         => new new_site_walker(),
+	            "walker"         => new new_site_walker("mega"),
 	        ));
 	        ?>
 	        <?php if ($menu): ?>

@@ -69,7 +69,38 @@ class new_site_walker extends Walker_Nav_Menu {
         $this->params = $params;
     }
 
+    // set up mega menu classes
+	private $column_limit = 3;
+	private $column_count = 0;
+    static $li_count = 0;
+
+    function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
+        if (isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
+            $i = 0;
+
+            foreach ($children_elements[$element->ID] as $child) {
+                $has_columns = get_post_meta($child->ID, "_menu_item_column");
+                $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
+
+                $i++;
+
+                if ($i > 1) {
+                    if (intval($has_columns[0]) === 1 && intval($parent_id[0]) === $element->ID) {
+                        array_push($element->classes, "-mega");
+                        break;
+                    }
+                }
+            }
+
+        }
+
+        return parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
+    }
+
     public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
         // get the current classes
         $classes = $item->classes ? $item->classes : array();
 
@@ -121,6 +152,29 @@ class new_site_walker extends Walker_Nav_Menu {
             $title,
             $description
         );
+
+        /* mega menu stuff */
+
+        if (in_array("mega", $params)) {
+            if (in_array("-mega", $classes)) {
+                $output .= "<div class='menu-container -mega'>";
+            }
+
+            if ($depth === 0) {
+    			self::$li_count = 0;
+    		}
+
+    		if ($depth === 1 && self::$li_count === 1) {
+    			$this->column_count++;
+    		}
+
+            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
+                $output .= "</ul><ul class='menu-list -vertical -child -tier1' aria-hidden='true'>";
+    			$this->column_count++;
+            }
+
+            self::$li_count++;
+        }
     }
 
     public function start_lvl(&$output, $depth = 0, $args = array()) {
@@ -154,6 +208,20 @@ class new_site_walker extends Walker_Nav_Menu {
     }
 
     public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
+        /* mega menu stuff */
+
+        if (in_array("mega", $params)) {
+            // get the current classes
+            $classes = $item->classes ? $item->classes : array();
+
+            if (in_array("-mega", $classes)) {
+                $output .= "</div>";
+            }
+        }
+
         // close the menu item
         $output .= "</li>";
     }
@@ -204,7 +272,7 @@ if (is_admin()) {
             add_action("save_post", array(__CLASS__, "_save_post"));
         }
     }
-    add_action("init", array("new_site_mega_menu_column_checkbox_inject", "setup"));
+    add_action("init", array("new_site_mega_menu_column_checkbox_setup", "setup"));
     add_filter("wp_edit_nav_menu_walker", function () {
         return "new_site_mega_menu_column_checkbox_setup";
     });
@@ -214,7 +282,7 @@ if (is_admin()) {
         $current_screen = get_current_screen();
 
         if ($current_screen->base === "nav-menus") {
-            echo "<style>.menu-item:not(.menu-item-depth-1) .field-column {display:none;}</style>";
+            echo "<style>.menu-item:not(.menu-item-depth-1) .field-column, .menu-item.menu-item-depth-0 + .menu-item.menu-item-depth-1 .field-column {display:none;}</style>";
         }
     }
     add_action("admin_head", "new_site_hide_column_checkbox_except_on_depth_1");
