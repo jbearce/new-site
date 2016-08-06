@@ -256,9 +256,8 @@
 
     .menu-list_link:focus,
     .menu-list_link:hover,
-    .menu-list_item:hover > .menu-list_link,
-    .menu-list_item.is-active > .menu-list_link {
-        background: $accent;
+    > .menu-list_item.-parent:hover > .menu-list_link {
+        background-color: $accent;
         color: $light;
     }
 
@@ -271,18 +270,15 @@
 
     .menu-list_toggle:focus,
     .menu-list_toggle:hover,
-    .menu-list_item.is-active > .menu-list_toggle {
-        background: $accent;
+    .menu-list_item.-parent:hover >.menu-list_toggle {
+        background-color: $accent;
         color: $light;
     }
 
     .menu-list_container.-mega,
-    .menu-list.-tier1 {
-        background: $accent;
-    }
-
-    .menu-list_container.-mega .menu-list.-tier1 {
-        background: none;
+    .menu-list.-tier1.-accordion,
+    .menu-list.-tier1.-overlay {
+        background-color: $accent;
     }
 
     .menu-list.-tier1 .menu-list_link {
@@ -291,38 +287,38 @@
 
     .menu-list.-tier1 .menu-list_link:focus,
     .menu-list.-tier1 .menu-list_link:hover,
-    .menu-list_item:not(.-mega) .menu-list.-tier1 .menu-list_item:hover > .menu-list_link {
-        background: lighten($accent, 10);
+    .menu-list.-tier1.-overlay .menu-list_item.-parent:hover > .menu-list_link {
+        background-color: lighten($accent, 5);
     }
 
     .menu-list.-tier1 .menu-list_toggle {
         color: $light;
     }
 
+    .menu-list.-tier1 .menu-list_toggle:focus,
     .menu-list.-tier1 .menu-list_toggle:hover,
-    .menu-list.-tier1 .menu-list_toggle:focus {
-        background: lighten($accent, 10);
+    .menu-list.-tier1 .menu-list_item.-parent:hover >.menu-list_toggle {
+        background-color: lighten($accent, 5);
     }
 
-    .menu-list.-tier2 {
-        background: lighten($accent, 10);
-    }
-
-    .menu-list_container.-mega .menu-list.-tier2 {
-        background: none;
+    .menu-list.-tier2.-accordion,
+    .menu-list.-tier2.-overlay {
+        background-color: lighten($accent, 10);
     }
 
     .menu-list.-tier2 .menu-list_link {
         color: $light;
     }
 
-    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
-        content: "\002D\0020\0020";
+    .menu-list.-tier2.-accordion .menu-list_link:focus,
+    .menu-list.-tier2.-accordion .menu-list_link:hover,
+    .menu-list.-tier2.-overlay .menu-list_link:focus,
+    .menu-list.-tier2.-overlay .menu-list_link:hover,
+    .menu-list.-tier2.-overlay .menu-list_item.-parent:hover > .menu-list_link {
+        background-color: lighten(lighten($accent, 10), 5);
     }
 
-    .menu-list.-tier2 .menu-list_link:focus,
-    .menu-list.-tier2 .menu-list_link:hover,
-    .menu-list_item:not(.-mega) .menu-list.-tier2 .menu-list_item:hover > .menu-list_link {
-        background: lighten(lighten($accent, 10), 10);
+    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
+        content: "\002D\0020\0020";
     }
 }
