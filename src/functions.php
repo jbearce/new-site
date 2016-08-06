@@ -69,10 +69,11 @@ class new_site_walker extends Walker_Nav_Menu {
         $this->params = $params;
     }
 
-    // set up mega menu classes
+    // set up mega menu variables
 	private $column_limit = 3;
 	private $column_count = 0;
     static $li_count = 0;
+    private $is_mega = false;
 
     function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
         if (isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
@@ -157,6 +158,8 @@ class new_site_walker extends Walker_Nav_Menu {
 
         if (in_array("mega", $params)) {
             if (in_array("-mega", $classes)) {
+                $this->is_mega = true;
+
                 $output .= "<div class='menu-container -mega'>";
             }
 
@@ -196,7 +199,7 @@ class new_site_walker extends Walker_Nav_Menu {
         }
 
         // add a -accordion class if the accordion parameter is passed
-        $variant .= in_array("accordion", $params) ? " -accordion" : " -overlay";
+        $variant .= in_array("accordion", $params) ? " -accordion" : !$this->is_mega ? " -overlay" : "";
 
         // construct the menu list
         $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}' aria-hidden='true'>";
@@ -218,6 +221,8 @@ class new_site_walker extends Walker_Nav_Menu {
             $classes = $item->classes ? $item->classes : array();
 
             if (in_array("-mega", $classes)) {
+                $this->is_mega = false;
+
                 $output .= "</div>";
             }
         }
