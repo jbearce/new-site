@@ -142,6 +142,25 @@ class new_site_walker extends Walker_Nav_Menu {
         // retrieve and sanitize the description
         $description = $item->description ? " <span class='menu-item_description'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
 
+        /* mega menu stuff */
+
+        if (in_array("mega", $params)) {
+            if ($depth === 0) {
+    			self::$li_count = 0;
+    		}
+
+    		if ($depth === 1 && self::$li_count === 1) {
+    			$this->column_count++;
+    		}
+
+            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
+                $output .= "</ul><ul class='menu-list -vertical -child -tier1'>";
+    			$this->column_count++;
+            }
+
+            self::$li_count++;
+        }
+
         // construct the menu item
         $output .= sprintf(
             "<li%s><a class='menu-list_link' href='%s'%s%s%s>%s</a>",
@@ -160,23 +179,9 @@ class new_site_walker extends Walker_Nav_Menu {
             if (in_array("-mega", $classes)) {
                 $this->is_mega = true;
 
-                $output .= "<div class='menu-container -mega'>";
+                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to toggle children", "new_site") . "</button>";
+                $output .= "<div class='menu-list_container -mega' aria-hidden='true'>";
             }
-
-            if ($depth === 0) {
-    			self::$li_count = 0;
-    		}
-
-    		if ($depth === 1 && self::$li_count === 1) {
-    			$this->column_count++;
-    		}
-
-            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
-                $output .= "</ul><ul class='menu-list -vertical -child -tier1' aria-hidden='true'>";
-    			$this->column_count++;
-            }
-
-            self::$li_count++;
         }
     }
 
@@ -185,7 +190,7 @@ class new_site_walker extends Walker_Nav_Menu {
         $params = explode(" ", $this->params);
 
         // add a toggle button if the buttons paramater is passed
-        $toggle = in_array("accordion", $params) ? "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Click to toggle children", "new_site") . "</span></button>" : "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to toggle children", "new_site") . "</button>";
+        $toggle = in_array("accordion", $params) ? "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Click to toggle children", "new_site") . "</span></button>" : ($this->is_mega && $depth >= 0 ? "" : "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to toggle children", "new_site") . "</button>");
 
         // add a -tier class indicting the depth
         $variant = "-tier1";
@@ -199,10 +204,13 @@ class new_site_walker extends Walker_Nav_Menu {
         }
 
         // add a -accordion class if the accordion parameter is passed
-        $variant .= in_array("accordion", $params) ? " -accordion" : !$this->is_mega ? " -overlay" : "";
+        $variant .= in_array("accordion", $params) ? " -accordion" : (!$this->is_mega ? " -overlay" : "");
+
+        // add aria attribute if the mega parameter is not passed
+        $aria = !$this->is_mega ? " aria-hidden='true'" : "";
 
         // construct the menu list
-        $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}' aria-hidden='true'>";
+        $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$aria}>";
     }
 
     public function end_lvl(&$output, $depth = 0, $args = array()) {
@@ -213,6 +221,9 @@ class new_site_walker extends Walker_Nav_Menu {
     public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         // convert the params in to an array
         $params = explode(" ", $this->params);
+
+        // reset the column counter
+        $this->column_count = 0;
 
         /* mega menu stuff */
 

@@ -17,6 +17,7 @@
         list-style: none;
         margin: 0;
         padding: 0;
+        position: relative;
         text-align: center;
         white-space: nowrap;
     }
@@ -28,6 +29,10 @@
         flex-wrap: wrap;
         float: left;
         position: relative;
+    }
+
+    &.-mega {
+        position: static;
     }
 }
 
@@ -204,6 +209,36 @@
     }
 }
 
+// mega variant
+
+.menu-list_container.-mega {
+    & {
+        display: flex;
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        right: 999em;
+        top: -999em;
+        transition: left 0s 0.15s, opacity 0.15s, right 0s 0.15s, top 0s 0.15s, visibility 0s 0.15s;
+        visibility: hidden;
+    }
+
+    .menu-list_item.-mega.-parent:hover > &,
+    .menu-list_item.-mega.-parent.is-active > & {
+        left: 0;
+        opacity: 1;
+        top: 100%;
+        transition: opacity 0.15s;
+        right: 0;
+        visibility: visible;
+    }
+
+    > .menu-list.-tier1 {
+        flex: 1 1 auto;
+        min-width: 0;
+    }
+}
+
 // navigation variant
 
 .menu-list.-navigation {
@@ -241,8 +276,13 @@
         color: $light;
     }
 
+    .menu-list_container.-mega,
     .menu-list.-tier1 {
         background: $accent;
+    }
+
+    .menu-list_container.-mega .menu-list.-tier1 {
+        background: none;
     }
 
     .menu-list.-tier1 .menu-list_link {
@@ -250,7 +290,8 @@
     }
 
     .menu-list.-tier1 .menu-list_link:focus,
-    .menu-list.-tier1 .menu-list_item:hover > .menu-list_link {
+    .menu-list.-tier1 .menu-list_link:hover,
+    .menu-list_item:not(.-mega) .menu-list.-tier1 .menu-list_item:hover > .menu-list_link {
         background: lighten($accent, 10);
     }
 
@@ -267,12 +308,21 @@
         background: lighten($accent, 10);
     }
 
+    .menu-list_container.-mega .menu-list.-tier2 {
+        background: none;
+    }
+
     .menu-list.-tier2 .menu-list_link {
         color: $light;
     }
 
+    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
+        content: "\002D\0020\0020";
+    }
+
     .menu-list.-tier2 .menu-list_link:focus,
-    .menu-list.-tier2 .menu-list_item:hover > .menu-list_link {
+    .menu-list.-tier2 .menu-list_link:hover,
+    .menu-list_item:not(.-mega) .menu-list.-tier2 .menu-list_item:hover > .menu-list_link {
         background: lighten(lighten($accent, 10), 10);
     }
 }

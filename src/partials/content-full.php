@@ -14,7 +14,7 @@ if (have_posts()) {
             $tags = get_the_terms($post->ID, "post_tag");
             $comments = get_comments_number();
 
-            echo "<nav class='menu-container'><ul class='menu-list -meta'>";
+            echo "<nav class='menu-list_container'><ul class='menu-list -meta'>";
 
             echo "<li class='menu-list_item'><a class='menu-list_link link' href='" . get_permalink() . "'><i class='fa fa-clock-o'></i> <time datetime='" . get_the_date("c") . "'>" . get_the_date() . "</time></a></li>";
 
@@ -62,7 +62,7 @@ if (have_posts()) {
                 echo "<li class='menu-list_item'><a class='menu-list_link link' href='#comments'><i class='fa fa-comment'></i> {$comments} " . __("Comments", "new_site") . "</a></li>";
             }
 
-            // close menu-list -meta, menu-container
+            // close menu-list -meta, menu-list_container
             echo "</ul></nav>";
         }
 
