@@ -38,6 +38,15 @@ var gulp = require("gulp"),                       // gulp
     ftpPass = "",                                 // FTP password (leave blank)
     ftpPath = "",                                 // FTP path (leave blank)
 
+    // SFTP stuff
+    sftp = require("gulp-sftp")                   // SFTP client
+
+    sftpHost = "",                                // SFTP hostname (leave blank)
+    sftpPort = "",                                // SFTP port (leave blank)
+    sftpUser = "",                                // SFTP username (leave blank)
+    sftpPass = "",                                // SFTP password (leave blank)
+    sftpPath = "",                                // SFTP path (leave blank)
+
     // browser-sync stuff
     browserSync = require("browser-sync"),        // browser-sync
 
@@ -296,14 +305,16 @@ gulp.task("config", function (cb) {
 
     fs.stat("./config.json", function (err, stats) {
         if (err != null) {
-            fs.writeFile("./config.json", "{\"ftp\": {\"dev\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"},\"dist\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"}},\"browsersync\": {\"proxy\": \"\",\"port\": \"\",\"open\": \"\",\"notify\": \"\"}}", function (err) {
+            fs.writeFile("./config.json", "{\"ftp\": {\"dev\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"},\"dist\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"}},\"sftp\": {\"dev\": {\"host\": \"\",\"port\": \"22\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"},\"dist\": {\"host\": \"\",\"port\": \"22\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"}},\"browsersync\": {\"proxy\": \"\",\"port\": \"\",\"open\": \"\",\"notify\": \"\"}}", function (err) {
                 configureFTP(function() {
                     configureBrowsersync();
                 });
             });
         } else {
             configureFTP(function() {
-                configureBrowsersync();
+              configureSFTP(function() {
+                  configureBrowsersync();
+              });
             });
         }
     });
@@ -372,11 +383,100 @@ gulp.task("config", function (cb) {
                     // write the updated file contents
                     file.writeSync();
 
-                    // read browsersync settings from browsersync.json
+                    // read FTP settings from config.json
                     ftpHost = res.host,
                     ftpUser = res.user,
                     ftpPass = res.pass,
                     ftpPath = res.path;
+
+                    configureSFTP();
+                }));
+        } else {
+            configureSFTP();
+        }
+    }
+
+    function configureSFTP(cb) {
+        // read FTP settingss from config.json
+        if (!argv.dist) {
+            sftpHost = json.read("./config.json").get("sftp.dev.host"),
+            sftpPort = json.read("./config.json").get("sftp.dev.port"),
+            sftpUser = json.read("./config.json").get("sftp.dev.user"),
+            sftpPass = json.read("./config.json").get("sftp.dev.pass"),
+            sftpPath = json.read("./config.json").get("sftp.dev.path");
+        } else {
+            sftpHost = json.read("./config.json").get("sftp.dist.host"),
+            sftpPort = json.read("./config.json").get("sftp.dist.port"),
+            sftpUser = json.read("./config.json").get("sftp.dist.user"),
+            sftpPass = json.read("./config.json").get("sftp.dist.pass"),
+            sftpPath = json.read("./config.json").get("sftp.dist.path");
+        }
+
+        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("sftp") || argv.sftp) && (argv.config || sftpHost === "" || sftpUser === "" || sftpPass === "" || sftpPath === "")) {
+            // reconfigure settings in config.json if a field is empty or if --config is passed
+            gulp.src("./config.json")
+                .pipe(prompt.prompt([{
+                    // prompt for the host
+                    type: "input",
+                    name: "host",
+                    message: "SFTP hostname:",
+                    default: sftpHost,
+                },
+                {
+                    // prompt for the port
+                    type: "input",
+                    name: "user",
+                    message: "SFTP port:",
+                    default: sftpPort,
+                },
+                {
+                    // prompt for the user
+                    type: "input",
+                    name: "user",
+                    message: "SFTP username:",
+                    default: sftpUser,
+                },
+                {
+                    // prompt for the host
+                    type: "password",
+                    name: "pass",
+                    message: "SFTP password:",
+                    default: sftpPass,
+                },
+                {
+                    // prompt for the path
+                    type: "input",
+                    name: "path",
+                    message: "SFTP remote path:",
+                    default: sftpPath,
+                }], function(res) {
+                    // open the browsersync.json
+                    var file = json.read("./config.json");
+
+                    // update the ftp settings in config.json
+                    if (!argv.dist) {
+                        file.set("sftp.dev.host", res.host);
+                        file.set("sftp.dev.port", res.port);
+                        file.set("sftp.dev.user", res.user);
+                        file.set("sftp.dev.pass", res.pass);
+                        file.set("sftp.dev.path", res.path);
+                    } else {
+                        file.set("sftp.dist.host", res.host);
+                        file.set("sftp.dist.port", res.port);
+                        file.set("sftp.dist.user", res.user);
+                        file.set("sftp.dist.pass", res.pass);
+                        file.set("sftp.dist.path", res.path);
+                    }
+
+                    // write the updated file contents
+                    file.writeSync();
+
+                    // read SFTP settings from config.json
+                    sftpHost = res.host,
+                    sftpPort = res.port,
+                    sftpUser = res.user,
+                    sftpPass = res.pass,
+                    sftpPath = res.path;
 
                     configureBrowsersync();
                 }));
@@ -435,7 +535,7 @@ gulp.task("config", function (cb) {
                     // write the updated file contents
                     file.writeSync();
 
-                    // read browsersync settings from browsersync.json
+                    // read browsersync settings from config.json
                     bsProxy = res.proxy,
                     bsPort = res.port,
                     bsOpen = res.open,
@@ -480,6 +580,35 @@ gulp.task("ftp", ["config"], function(cb) {
     cb();;
 });
 
+// upload to SFTP environment, depends on config
+gulp.task("sftp", ["config"], function(cb) {
+    // development SFTP directory
+    var sftpDirectory = dev;
+
+    // production FTP directory (if --dist is passed)
+    if (argv.dist) sftpDirectory = dist;
+
+    // upload the changed files
+    return gulp.src(sftpDirectory + "/**/*")
+        // check if files are newer
+        .pipe(gulpif(!argv.dist, newer({dest: src, extra: [sftpDirectory + "/**/*"]})))
+        // upload changed files
+        .pipe(sftp({
+            host: sftpHost,
+            port: sftpPort,
+            username: sftpUser,
+            password: sftpPass,
+            remotePath: sftpPath
+        }))
+        // reload the files
+        .pipe(browserSync.reload({stream: true}))
+        // notify that the task is complete
+        .pipe(notify({title: "Success!", message: "SFTP task complete!", onLast: true}));
+
+    // return
+    cb();;
+});
+
 // set up a browserSync server, depends on config
 gulp.task("sync", ["config"], function(cb) {
     browserSync({
@@ -500,6 +629,9 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // trigger FTP task if FTP flag is passed
     if (argv.ftp) runSequence("ftp");
+
+    // trigger SFTP task if SFTP flag is passed
+    if (argv.sftp) runSequence("sftp");
 
     // reset the ranTasks array
     ranTasks.length = 0;
