@@ -256,7 +256,8 @@
 
     .menu-list_link:focus,
     .menu-list_link:hover,
-    > .menu-list_item.-parent:hover > .menu-list_link {
+    > .menu-list_item.-parent:hover > .menu-list_link,
+    > .menu-list_item.-parent.is-active > .menu-list_link {
         background-color: $accent;
         color: $light;
     }
@@ -270,7 +271,8 @@
 
     .menu-list_toggle:focus,
     .menu-list_toggle:hover,
-    .menu-list_item.-parent:hover >.menu-list_toggle {
+    .menu-list_item.-parent:hover >.menu-list_toggle,
+    .menu-list_item.-parent.is-active >.menu-list_toggle {
         background-color: $accent;
         color: $light;
     }
@@ -287,7 +289,8 @@
 
     .menu-list.-tier1 .menu-list_link:focus,
     .menu-list.-tier1 .menu-list_link:hover,
-    .menu-list.-tier1.-overlay .menu-list_item.-parent:hover > .menu-list_link {
+    .menu-list.-tier1.-overlay .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier1.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
         background-color: lighten($accent, 5);
     }
 
@@ -297,7 +300,8 @@
 
     .menu-list.-tier1 .menu-list_toggle:focus,
     .menu-list.-tier1 .menu-list_toggle:hover,
-    .menu-list.-tier1 .menu-list_item.-parent:hover >.menu-list_toggle {
+    .menu-list.-tier1 .menu-list_item.-parent:hover >.menu-list_toggle,
+    .menu-list.-tier1 .menu-list_item.-parent.is-active >.menu-list_toggle {
         background-color: lighten($accent, 5);
     }
 
@@ -314,7 +318,8 @@
     .menu-list.-tier2.-accordion .menu-list_link:hover,
     .menu-list.-tier2.-overlay .menu-list_link:focus,
     .menu-list.-tier2.-overlay .menu-list_link:hover,
-    .menu-list.-tier2.-overlay .menu-list_item.-parent:hover > .menu-list_link {
+    .menu-list.-tier2.-overlay .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier2.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
         background-color: lighten(lighten($accent, 10), 5);
     }
 

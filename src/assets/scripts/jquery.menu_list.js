@@ -2,57 +2,59 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-// open on button click
-jQuery(".menu-list_toggle").click(function (e) {
+
+// mark all menu items as inative
+function mark_all_inactive(elem) {
+    elem.find(".is-active").removeClass("is-active");
+    elem.find("[aria-hidden=false]").attr("aria-hidden", "true");
+}
+
+// mark element as active
+function mark_active(elem) {
+    elem.closest(".menu-list_item").addClass("is-active");
+    elem.siblings("[aria-hidden]").attr("aria-hidden", "false");
+    elem.siblings("[aria-hidden]").find(".menu-list_link").first().focus(); // easy hack for "close on click away"
+}
+
+// mark menu as active when toggle is clicked
+jQuery(".menu-list_toggle").click(function(e) {
     e.preventDefault();
 
-    var target_menu = jQuery(this).next(".menu-list[aria-hidden], .menu-list_container[aria-hidden]");
-    var parent_item = jQuery(this).closest(".menu-list_item.-parent");
-
-    if (target_menu.attr("aria-hidden") === "true") {
-        // mark siblings as inactive
-        parent_item.siblings(".menu-list_item.-parent").removeClass("is-active");
-        parent_item.siblings(".menu-list_item.-parent").find(".menu-list_item.-parent.is-active").removeClass("is-active");
-        parent_item.siblings(".menu-list_item.-parent").find(".menu-list[aria-hidden], .menu-list_container[aria-hidden]").attr("aria-hidden", "true");
-        parent_item.addClass("is-active");
-        // mark target as active
-        target_menu.attr("aria-hidden", "false");
-        target_menu.find(".menu-list_link").first().focus(); // easy hack for "close on click away"
+    if (jQuery(this).next("[aria-hidden=true]").length) {
+        mark_all_inactive(jQuery(this).closest(".menu-list"));
+        mark_active(jQuery(this));
     } else {
-        // mark all as inactive
-        parent_item.find(".menu-list_item.-parent.is-active").removeClass("is-active");
-        parent_item.find(".menu-list[aria-hidden], .menu-list_container[aria-hidden]").attr("aria-hidden", "true");
-        parent_item.removeClass("is-active");
-        target_menu.attr("aria-hidden", "true");
+        mark_all_inactive(jQuery(this).closest(".menu-list"));
     }
 });
 
 // open on hover
-jQuery(".menu-list_item.-parent").hover(function () {
-    var target_menu = jQuery(this).children(".menu-list[aria-hidden], .menu-list_container[aria-hidden]");
-
-    if (!target_menu.closest(".-accordion").length) {
-        target_menu.attr("aria-hidden", "false");
-    }
+jQuery(".menu-list_item.-parent").not(".menu-list.-accordion .menu-list_item.-parent, .menu-list_item.-mega .menu-list_item.-parent").hover(function() {
+    mark_all_inactive(jQuery(this).closest(".menu-list"));
+    mark_active(jQuery(this).children(".menu-list_link"));
 }, function () {
-    var target_menu = jQuery(this).children(".menu-list[aria-hidden], .menu-list_container[aria-hidden]");
+    mark_all_inactive(jQuery(this).closest(".menu-list"));
+});
 
-    if (!target_menu.closest(".-accordion").length) {
-        target_menu.attr("aria-hidden", "true");
+// open on touchstart
+jQuery(".menu-list_item.-parent").not(".menu-list_item.-mega .menu-list_item.-parent").on("touchstart", function(e) {
+    if (!jQuery(this).hasClass("is-active")) {
+        e.preventDefault();
+        mark_all_inactive(jQuery(this).closest(".menu-list"));
+        mark_active(jQuery(this).children(".menu-list_link"));
     }
 });
 
-// WIP: handle keyboard navigation
+// hide on focusout
 jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
     var parent_item = jQuery(this).closest(".menu-list_item.-parent");
-    var target_menu = parent_item.children(".menu-list[aria-hidden], .menu-list_container[aria-hidden]");
 
     if (parent_item.length) {
         // timeout required for the next element to get focus
         setTimeout(function() {
             if (!parent_item.find(":focus").length) {
                 parent_item.removeClass("is-active");
-                target_menu.attr("aria-hidden", "true");
+                parent_item.children("[aria-hidden]").attr("aria-hidden", "true");
             }
         }, 10);
     }
