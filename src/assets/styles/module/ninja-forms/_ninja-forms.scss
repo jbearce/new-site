@@ -138,6 +138,14 @@
     }
 }
 
+// reCAPTCHA fix
+
+.nf-field-container {
+    .g-recaptcha {
+        margin-bottom: remify(24, 16);
+    }
+}
+
 // label alignment
 
 .nf-field-container {
