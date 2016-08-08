@@ -197,7 +197,7 @@ class new_site_walker extends Walker_Nav_Menu {
 
         if ($depth > 0) {
             if ($depth > 1) {
-                $variant = "-tier" . ($depth + 1);
+                $variant = "-tier2 -tier" . ($depth + 1);
             } else {
                 $variant = "-tier2";
             }

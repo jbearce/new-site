@@ -2,7 +2,6 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-
 // mark all menu items as inative
 function mark_all_inactive(elem) {
     elem.find(".is-active").removeClass("is-active");
@@ -47,7 +46,7 @@ jQuery(".menu-list_item.-parent").not(".menu-list_item.-mega .menu-list_item.-pa
 
 // hide on focusout
 jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
-    var parent_item = jQuery(this).closest(".menu-list_item.-parent");
+    var parent_item = jQuery(this).closest(".menu-list_item.-parent.is-active");
 
     if (parent_item.length) {
         // timeout required for the next element to get focus
@@ -55,6 +54,8 @@ jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
             if (!parent_item.find(":focus").length) {
                 parent_item.removeClass("is-active");
                 parent_item.children("[aria-hidden]").attr("aria-hidden", "true");
+                parent_item.closest(".menu-list_item.-parent.is-active").find(".menu-list_link").first().trigger("focusout");
+                // parent_item.closest(".menu-list_item.-parent.is-active").find(".menu-list_link").first().focus(); // easy hack for "close on click away"
             }
         }, 10);
     }
