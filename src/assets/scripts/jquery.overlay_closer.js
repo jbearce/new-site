@@ -4,8 +4,11 @@
 
 // close the overlay and any associated elements when overlay-closer is clicked
 jQuery(".overlay-closer").click(function(e) {
+    var closing_overlay = jQuery("[data-overlay][aria-hidden=false]").data("overlay");
+
+    jQuery("[data-overlay=" + closing_overlay + "]").not("[aria-hidden]").focus();
     jQuery("[data-overlay]").removeClass("is-active");
-    jQuery("[data-overlay]").attr("aria-hidden", "true");
+    jQuery("[data-overlay][aria-hidden]").attr("aria-hidden", "true");
     jQuery(this).removeClass("is-active");
     jQuery(this).attr("aria-hidden", "true");
 });

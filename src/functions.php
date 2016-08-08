@@ -76,7 +76,10 @@ class new_site_walker extends Walker_Nav_Menu {
     private $is_mega = false;
 
     function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
-        if (isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
+        if (in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
             $i = 0;
 
             foreach ($children_elements[$element->ID] as $child) {

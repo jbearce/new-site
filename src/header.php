@@ -43,7 +43,7 @@
     <body <?php body_class(); ?>>
 		<div class="page_container">
 			<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
-	        <div class="navigation-block -flyout _mobile _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation">
+	        <div class="navigation-block -flyout _mobile _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
 	            <div class="navigation_inner">
 	                <div class="navigation_search-form_container search-form_container">
 	                    <?php get_search_form(); ?>
