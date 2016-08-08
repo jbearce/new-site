@@ -37,7 +37,7 @@ jQuery(".menu-list_item.-parent").not(".menu-list.-accordion .menu-list_item.-pa
 
 // open on touchstart
 jQuery(".menu-list_item.-parent").not(".menu-list_item.-mega .menu-list_item.-parent").on("touchstart", function(e) {
-    if (!jQuery(this).hasClass("is-active")) {
+    if (!jQuery(this).hasClass("is-active") && jQuery(this).children("[aria-hidden]").length) {
         e.preventDefault();
         mark_all_inactive(jQuery(this).closest(".menu-list"));
         mark_active(jQuery(this).children(".menu-list_link"));
