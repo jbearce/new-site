@@ -26,6 +26,8 @@
 
 input,
 textarea,
-select {
+select,
+[type="search"] {
     border-radius: 0;
+    -webkit-appearance: none;
 }
