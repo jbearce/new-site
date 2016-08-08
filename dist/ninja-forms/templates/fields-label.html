@@ -1,5 +1,0 @@
-<script id="nf-tmpl-field-label" type="text/template">
-	<% if (renderWrapClass() !== "field-wrap checkbox-wrap") { %>
-	<div class="nf-field-label"><label for="nf-field-<%= id %>" class="<%= renderLabelClasses() %> text -label"><%= label %> <%= ( 'undefined' != typeof required && 1 == required ) ? '<span class="ninja-forms-req-symbol _warning">*</span>' : '' %> <%= maybeRenderHelp() %></label></div>
-	<% } %>
-</script>
