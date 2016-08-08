@@ -12,7 +12,23 @@
 
 .swiper-slide {
     & {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+        height: auto;
+    }
+}
+
+.swiper-picture,
+.swiper-picture {
+    & {
+        flex: none;
+    }
+}
+
+.swiper-caption {
+    & {
+        flex: 1 1 auto;
     }
 }
 

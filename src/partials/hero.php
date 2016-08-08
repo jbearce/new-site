@@ -51,7 +51,7 @@ if ($slideshow || $featured_image || $title) {
                     echo "<figcaption class='hero_header swiper-caption'>";
 
                     if ($img_title) echo "<h6 class='hero_title swiper-title title'>{$img_title}</h6>";
-                    if ($img_caption) echo "<div class='swiper-user-content user-content'>" . wpautop($img_caption) . "</div>";
+                    if ($img_caption) echo "<div class='hero_user-content swiper-user-content user-content'>" . wpautop($img_caption) . "</div>";
 
                     // close hero_header swiper-caption
                     echo "</figcaption>";

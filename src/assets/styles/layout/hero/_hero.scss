@@ -8,7 +8,7 @@
     & {
         @include layer("hero");
     }
-    
+
     &.-fullbleed {
         background: $background;
     }
@@ -43,15 +43,7 @@
 
 .hero_header {
     & {
-        background: transparentize($dark, 0.2);
-    }
-
-    .hero_figure > & {
-        bottom: 0;
-        left: 0;
-        position: absolute;
-        right: 0;
-        z-index: 2;
+        background: $dark;
     }
 }
 
@@ -66,5 +58,27 @@
     .hero_container.-fullbleed & {
         margin: 0 auto;
         max-width: remify($site-width);
+    }
+}
+
+.hero_user-content {
+    & {
+        margin: 0 auto;
+        max-width: remify($site-width);
+        overflow: hidden;
+        padding: remify(0 25, 16);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ol,
+    p,
+    table,
+    ul {
+        color: $light;
     }
 }
