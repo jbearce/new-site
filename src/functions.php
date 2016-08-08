@@ -23,6 +23,17 @@ add_action("init", "speed_stop_loading_wp_embed");
 remove_action("wp_head", "print_emoji_detection_script", 7);
 remove_action("wp_print_styles", "print_emoji_styles");
 
+// load scripts asynchronously
+function make_scripts_async($tag, $handle, $src) {
+    // if ($handle === "jquery-core" || $handle === "jquery-migrate") {
+    if ($handle === "jquery-core" || $handle === "jquery-migrate") {
+        return str_replace("<script", "<script async='async'", $tag);
+    }
+
+    return $tag;
+}
+add_filter("script_loader_tag", "make_scripts_async", 10, 3);
+
 /* ------------------------------------------------------------------------ *\
  * Theme Features
 \* ------------------------------------------------------------------------ */
@@ -48,7 +59,6 @@ add_theme_support("title-tag");
 add_theme_support("automatic-feed-links");
 
 add_theme_support("post-thumbnails");
-
 
 /* ------------------------------------------------------------------------ *\
  * Menus
