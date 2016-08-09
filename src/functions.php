@@ -25,12 +25,7 @@ remove_action("wp_print_styles", "print_emoji_styles");
 
 // load scripts asynchronously
 function make_scripts_async($tag, $handle, $src) {
-    // if ($handle === "jquery-core" || $handle === "jquery-migrate") {
-    if ($handle === "jquery-core" || $handle === "jquery-migrate") {
-        return str_replace("<script", "<script async='async'", $tag);
-    }
-
-    return $tag;
+    return str_replace("<script", "<script defer='defer'", $tag);
 }
 add_filter("script_loader_tag", "make_scripts_async", 10, 3);
 
