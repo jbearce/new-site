@@ -59,3 +59,11 @@ jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
         }, 10);
     }
 });
+
+// hide on touch away
+jQuery(document).on("touchstart", function(e) {
+    if (!jQuery(e.target).closest(".menu-list_item.-parent.is-active").length) {
+        jQuery(".menu-list_item.-parent.is-active").children("[aria-hidden]").attr("aria-hidden", "true");
+        jQuery(".menu-list_item.-parent.is-active").removeClass("is-active");
+    }
+});
