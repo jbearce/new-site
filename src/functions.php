@@ -25,7 +25,12 @@ remove_action("wp_print_styles", "print_emoji_styles");
 
 // load scripts asynchronously
 function make_scripts_async($tag, $handle, $src) {
-    return str_replace("<script", "<script defer='defer'", $tag);
+    if (!is_admin()) {
+        return str_replace("<script", "<script defer='defer'", $tag);
+        exit;
+    }
+
+    return $tag;
 }
 add_filter("script_loader_tag", "make_scripts_async", 10, 3);
 
