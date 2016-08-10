@@ -12,6 +12,7 @@ if (get_option("show_on_front") != "page") {
 <div class="content-block">
     <div class="content_inner">
         <?php get_template_part("partials/content", "full"); ?>
+        <?php get_template_part("partials/callout", "grid"); ?>
     </div><!--/.content_inner-->
 </div><!--/.content-block-->
 <?php get_footer(); ?>

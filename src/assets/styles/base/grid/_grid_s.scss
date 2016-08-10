@@ -8,6 +8,10 @@
     & {
         display: flex;
     }
+
+    &.-padded {
+        width: calc(100% + #{remify(25, 16)});
+    }
 }
 
 .col {
@@ -46,5 +50,18 @@
 
     &.-none {
         flex: 0 0 auto;
+    }
+
+    .row.-padded > & {
+        padding-right: remify(25, 16);
+    }
+
+    .row.-equalheight > & {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .row.-equalheight > & > * {
+        flex: 1 1 auto;
     }
 }
