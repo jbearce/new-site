@@ -12,8 +12,8 @@ jQuery("[data-overlay]:not([aria-hidden])").click(function (e) {
         jQuery("[data-overlay]").removeClass("is-active");
         jQuery("[data-overlay=" + target_overlay + "]").addClass("is-active");
         jQuery("[data-overlay=" + target_overlay + "][aria-hidden]").attr("aria-hidden", "false");
-        // jQuery("[data-overlay=" + target_overlay + "][aria-hidden]").find("a, input").first().focus();
         jQuery("[data-overlay=" + target_overlay + "][aria-hidden]").focus();
+        jQuery("[data-overlay=" + target_overlay + "][aria-hidden], .overlay-closer").trap();
         jQuery(".overlay-closer").addClass("is-active");
         jQuery(".overlay-closer").attr("aria-hidden", "false");
     } else {
@@ -21,6 +21,7 @@ jQuery("[data-overlay]:not([aria-hidden])").click(function (e) {
 
         jQuery("[data-overlay=" + closing_overlay + "]").not("[aria-hidden]").focus();
         jQuery("[data-overlay]").removeClass("is-active");
+        jQuery("[data-overlay]").untrap();
         jQuery("[data-overlay][aria-hidden]").attr("aria-hidden", "true");
         jQuery(".overlay-closer").removeClass("is-active");
         jQuery(".overlay-closer").attr("aria-hidden", "true");
