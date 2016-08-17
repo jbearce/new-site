@@ -346,15 +346,6 @@ function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
 }
 add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
 
-// add data attributes to tables
-function new_site_responsive_tables($content) {
-    // @TODO write filter :)
-
-    return $content;
-}
-add_filter("the_content", "new_site_responsive_tables", 10, 2);
-add_filter("acf_the_content", "new_site_responsive_tables", 10, 2);
-
 // disable Ninja Forms styles
 function new_site_dequeue_nf_display() {
     wp_dequeue_style("nf-display");
