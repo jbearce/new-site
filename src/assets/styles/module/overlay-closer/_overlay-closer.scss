@@ -6,7 +6,7 @@
 
 .overlay-closer {
     & {
-        background: transparentize($dark, 0.25);
+        background: transparentize($background, 0.15);
         border: 0;
         bottom: 999em;
         content: "\0020";

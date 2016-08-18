@@ -15,6 +15,7 @@
 
     &.-flyout {
         background: $background;
+        border-right: remify(1) solid darken($background_alt, 10);
         bottom: 999em;
         display: block;
         left: -999em;
@@ -30,6 +31,8 @@
     }
 
     &.-flyout.-right {
+        border-left: remify(1) solid darken($background_alt, 10);
+        border-right: 0;
         left: 999em;
         right: -999em;
         transform: translateX(100%);
@@ -59,41 +62,18 @@
     &.-sticky.is-sticky {
         border-bottom: remify(1) solid darken($background_alt, 10);
     }
-
-    /*
-     * Below is a trick to prevent the sticky nav from being overlain by the
-     * admin bar when stuck. Transform is used instead of to or margin-top
-     * because the fixedsticky script doesn't take transforms in to account
-     * when calculating the height, thus evading a bug where the fixedsticky-on
-     * class wouldn't be removed appropriately. This still behaves a little
-     * strangely, in that it does get briefly overlain while scrolling. This
-     * fix is better than no fix, though, so it'll do for now, until sticky
-     * is more widely supported.
-     */
-
+    
     @media screen and (min-width: 601px) {
         .admin-bar &.-sticky.is-sticky {
-            transform: translateY(46px);
+            top: 46px;
         }
     }
 
     @media screen and (min-width: 783px) {
         .admin-bar &.-sticky.is-sticky {
-            transform: translateY(32px);
+            top: 32px;
         }
     }
-
-    // @media screen and (min-width: 601px) {
-    //     .admin-bar &.-sticky.is-sticky {
-    //         top: 46px;
-    //     }
-    // }
-    //
-    // @media screen and (min-width: 783px) {
-    //     .admin-bar &.-sticky.is-sticky {
-    //         top: 32px;
-    //     }
-    // }
 }
 
 .navigation_inner {
