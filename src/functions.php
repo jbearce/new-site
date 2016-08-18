@@ -548,7 +548,7 @@ acf_add_local_field_group(array (
 			'label' => 'Modals',
 			'name' => 'modals',
 			'type' => 'repeater',
-			'instructions' => 'To link to a modal, create a link with the URL set to #, then switch to code view, then add <code>data-overlay="modal#"</code> to the link\'s opening tag. For example, <code>&lt;a href="#" data-overlay="1"&gt;</code>',
+			'instructions' => 'To link to a modal, create a link with the URL set to #, then switch to code view, then add <code>data-overlay="modal[modal-number]"</code> to the link\'s opening tag. For example, <code>&lt;a href="#" data-overlay="modal1"&gt;</code>',
 			'required' => 0,
 			'conditional_logic' => 0,
 			'wrapper' => array (
