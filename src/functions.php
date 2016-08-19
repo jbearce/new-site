@@ -34,6 +34,17 @@ function make_scripts_async($tag, $handle, $src) {
 }
 add_filter("script_loader_tag", "make_scripts_async", 10, 3);
 
+// load styles asynchronously
+function make_styles_async($tag, $handle, $src) {
+    if (!is_admin()) {
+        return str_replace("<link", "<link as='style' onload=\"this.rel='stylesheet'\"", str_replace("rel='stylesheet'", "rel='preload'", $tag)) . "<noscript>{$tag}</noscript>";
+        exit;
+    }
+
+    return $tag;
+}
+add_filter("style_loader_tag", "make_styles_async", 10, 3);
+
 /* ------------------------------------------------------------------------ *\
  * Theme Features
 \* ------------------------------------------------------------------------ */
