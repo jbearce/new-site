@@ -1,0 +1,28 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Footer
+\* ------------------------------------------------------------------------ */
+
+.footer-block {
+    & {
+        @include layer("footer");
+    }
+
+    &.-fullbleed {
+        background: $background;
+    }
+}
+
+.footer_inner {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
+
+    .footer-block.-fullbleed > & {
+        background: none;
+    }
+}

@@ -1,5 +1,11 @@
-<?php
-// WIP ?>
+            <div class="footer-block" role="footer">
+                <div class="footer_inner">
+                    <p class="footer_text text _textcenter _nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
+                    <?php if (is_front_page()): ?>
+                    <p class="footer_text text _textcenter _nomargin"><a class="footer_link link" href="http://www.weblinxinc.com/" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer_link link" href="http://www.weblinxinc.com/" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
+                    <?php endif; ?>
+                </div><!--/.footer_inner-->
+            </div><!--/.footer_inner-->
         </div><!--/.page_container-->
         <?php
         $modals = get_field("modals");
