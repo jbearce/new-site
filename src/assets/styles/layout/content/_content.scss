@@ -8,7 +8,11 @@
     & {
         @include layer("content");
     }
-    
+
+    .is-fluidboxactive & {
+        position: static;
+    }
+
     &.-fullbleed {
         background: $background;
     }
