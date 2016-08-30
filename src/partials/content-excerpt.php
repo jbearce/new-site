@@ -7,7 +7,12 @@ if (have_posts()) {
 
         echo "<header class='article_header'>";
 
-        the_title("<h2 class='article_title title'>", "</h2>");
+        echo "<h2 class='article_title title'><a class='article_link link' href='" . get_permalink() . "'>";
+
+        the_title();
+
+        // close article_link link, article_title title
+        echo "</a></h2>";
 
         if (get_post_type() === "post") {
             $categories = get_the_terms($post->ID, "category");

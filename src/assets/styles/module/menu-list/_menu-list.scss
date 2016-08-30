@@ -25,10 +25,13 @@
 
 .menu-list_item {
     & {
-        display: flex;
-        flex-wrap: wrap;
         float: left;
         position: relative;
+    }
+
+    &.-parent {
+        display: flex;
+        flex-wrap: wrap;
     }
 
     &.-mega {
@@ -325,5 +328,49 @@
 
     .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
         content: "\002D\0020\0020";
+    }
+}
+
+// meta variant
+
+.menu-list.-meta {
+    & {
+        color: $foreground_alt;
+        font-family: $heading-font;
+        font-size: remify(14, 16);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .menu-list_item:not(:last-child) {
+        margin-right: remify(20, 14);
+    }
+
+    .menu-list_link {
+        color: $foreground_alt;
+        display: inline-block;
+    }
+
+    .menu-list_link:hover {
+        color: lighten($foreground_alt, 10);
+    }
+}
+
+// pagination variant
+
+.menu-list.-pagination {
+    & {
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        font-weight: 400;
+    }
+
+    .menu-list_item:not(:last-child) {
+        margin-right: remify(8, 14);
+    }
+
+    .menu-list_link.-current {
+        color: $foreground;
+        cursor: auto;
     }
 }

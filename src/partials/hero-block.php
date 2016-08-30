@@ -4,6 +4,11 @@ $slideshow = get_field("slideshow");
 $featured_image = is_singular() ? get_the_post_thumbnail($post->ID, "hero", array("class" => "hero_image")) : (is_archive() ? get_field("featured_image", $queried_object) : false);
 $title = is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false));
 
+if (is_home() && !$title) {
+    $posts_page = get_post(get_option("page_for_posts"));
+    $title = get_the_title($posts_page->ID) ? get_the_title($posts_page->ID) : __("Latest Posts", "new_site");
+}
+
 if ($slideshow || $featured_image || $title) {
     echo "<div class='hero-block -fullbleed' role='banner'><div class='hero_inner'>";
 

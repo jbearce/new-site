@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<?php get_template_part("partials/hero", "hero"); ?>
+<?php get_template_part("partials/hero", "block"); ?>
 <div class="content-block">
     <div class="content_inner">
         <?php get_template_part("partials/content", "full"); ?>
