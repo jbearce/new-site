@@ -1,51 +1,25 @@
 # new-site
 
-I'm rethinking how my build process should work. I want things it to be more like a web app, with versioning, distributions, etc. This is the start of that project.
+An awesome new WordPress theme built just for new-site!
 
-## Features
+---
 
-**Modules!**
+## Using This project
 
-A number of pre-built modules are included, including:
+If you choose to use this repository as a basis for a new project, please be sure to update all the instances of `YOURNAME @ YOURCOMPANY`, as well as any references to Weblinx, Inc. or my Jacob Bearce anywhere else in the project.
 
- - A very nice mobile menu, with a one element menu button
- - [Swiper](https://github.com/nolimits4web/Swiper) integration
- - A simple column system
+I'd love to see what gets built with this, so feel free to tweet your site @revxx14 :)
 
-**Gulp tasks!**
+## License
 
- - Compiles, prefixes, and compresses SCSS
- - Concatenates, and uglifies JS
- - Losslessly compresses images
- - Syncs name, version, license, etc between package.json and style.css
- - Automatically FTPs up to either a develoment or production server
+The LICENSE.md included with this project, as well as the LICENSE field in `./package.json` are intended for new projects, not for this project itself. This project is licensed under MIT.
 
-**SMACSS!**
+### The MIT License (MIT)
 
-Clearly organized code following a set of guidelines means anyone can jump in!
+Copyright (c) 2016 Jacob Bearce @ Weblinx, Inc.
 
-*PS: I'm not SMACSS expert, but it's as close as I can get for now&hellip;*
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-**Fast!**
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-Lots of compression, efficient code, and FontAwesome integration means a lightweight, lean framework.
-
-**Documented!**
-
-Check out [CONTRIBUTING.md](CONTRIBUTING.md) for information on setting up, organziation, etc. I still need to add in proper documentation throughout my code.
-
-## Planned
-
-**More Modules**
-
-I need to add in more modules, things like:
-
- - Breadcrumb navigation
- - Improved responsive tables
- - Light windows
- - Social media icons
- - More stuff as it comes up
-
-**More use of the grid system**
-
-Right now nothing's using the grid system by default. I should really try to avoid using custom grids wherever possible, and instead rely on the grid system.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

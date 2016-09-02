@@ -1,7 +1,246 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * User Content                                                             *
+ * User Content
 \* ------------------------------------------------------------------------ */
 
+.user-content {
+    // links
 
+    a:not(.button) {
+        color: $accent;
+        text-decoration: none;
+        transition: color 0.15s;
+    }
+
+    a:not(.button):hover {
+        color: $accent_alt;
+    }
+
+    // titles
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: $primary;
+        font-family: $heading-font;
+        font-weight: 700;
+    }
+
+    h1 {
+        font-size: remify(24, 16);
+        line-height: remify(36, 24);
+        margin: remify(0 0 12, 24);
+    }
+
+    h2 {
+        font-size: remify(22, 16);
+        line-height: remify(33, 22);
+        margin: remify(0 0 11, 22);
+    }
+
+    h3 {
+        font-size: remify(20, 16);
+        line-height: remify(30, 20);
+        margin: remify(0 0 10, 20);
+    }
+
+    h4 {
+        font-size: remify(18, 16);
+        line-height: remify(27, 18);
+        margin: remify(0 0 9, 18);
+    }
+
+    h5 {
+        font-size: remify(16, 16);
+        line-height: remify(24, 16);
+        margin: remify(0 0 8, 16);
+    }
+
+    h6 {
+        font-size: remify(14, 16);
+        line-height: remify(21, 14);
+        margin: remify(0 0 7, 14);
+    }
+
+    // text
+
+    blockquote,
+    p,
+    ol,
+    ul,
+    table {
+        color: $foreground;
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-weight: 400;
+        line-height: remify(24, 16);
+        margin: remify(0 0 24, 16);
+    }
+
+    ol,
+    ul {
+        padding-left: remify(18, 14);
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table td,
+    table th {
+        border: remify(1) solid darken($background_alt, 10);
+        padding: remify(7.5 15, 14);
+        text-align: left;
+        vertical-align: top;
+    }
+
+    table tbody th,
+    table > tr > th,
+    table[data-stacked="true"] tbody td:before {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    table thead td,
+    table thead th {
+        background: $dark_alt;
+        border-color: lighten($dark_alt, 10);
+        color: $light;
+        font-size: remify(18, 14);
+        font-weight: 400;
+        padding: remify(10 15, 18);
+    }
+
+    table > tr:nth-child(even) td,
+    table > tr:nth-child(even) th,
+    table tbody tr:nth-child(even) td,
+    table tbody tr:nth-child(even) th {
+        background: $background_alt;
+    }
+
+    // stacked responsive tables
+    // https://techblog.livingsocial.com/blog/2015/04/06/responsive-tables-in-pure-css/
+
+    @media screen and (max-width: ($s-break - 1 / 16)) {
+        table[data-stacked="true"] thead {
+            left: -999em;
+            position: absolute;
+            top: -999em;
+        }
+
+        table[data-stacked="true"] tbody tr {
+            display: block;
+        }
+
+        table[data-stacked="true"] tbody tr:not(:last-child) {
+            margin-bottom: remify(10, 14);
+        }
+
+        table[data-stacked="true"] tbody td {
+            display: flex;
+        }
+
+        table[data-stacked="true"] tbody td + td {
+            border-top: 0;
+        }
+
+        table[data-stacked="true"] tbody td:before {
+            content: attr(data-label);
+            flex: 1 1 auto;
+            text-align: left;
+            width: 50%;
+        }
+
+        table[data-stacked="true"] tbody td span.-cell {
+            flex: 1 1 auto;
+            text-align: right;
+            width: 50%;
+        }
+    }
+
+    // blockquote
+
+    blockquote {
+        border: remify(1) solid darken($background_alt, 10);
+        border-left: 0;
+        border-right: 0;
+        font-style: italic;
+        margin-left: remify(40, 14);
+        margin-right: remify(40, 14);
+        padding: remify(21 0, 14);
+    }
+
+    blockquote blockquote,
+    blockquote p,
+    blockquote ol,
+    blockquote ul,
+    blockquote table {
+        color: lighten($foreground, 50);
+        font-size: remify(18, 14);
+    }
+
+    blockquote > :last-child {
+        margin-bottom: 0 !important;
+    }
+
+    // horizontal rule
+
+    hr {
+        background: darken($background_alt, 10);
+        border: 0;
+        clear: both;
+        height: remify(1);
+        margin: remify(0 0 20, 16);
+        width: 100%;
+    }
+
+    // images
+
+    img {
+        display: block;
+        height: auto;
+        max-width: 100%;
+    }
+
+    // alignment
+
+    .alignfull {
+        display: block;
+        width: 100%;
+    }
+
+    @supports (width: 100vw) {
+        .alignfull {
+            left: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            max-width: none;
+            position: relative;
+            right: 50%;
+            width: 100vw;
+        }
+    }
+
+    .alignleft {
+        float: left;
+        margin-right: remify(25, 16);
+        max-width: (100% / 3);
+    }
+
+    .alignright {
+        float: right;
+        margin-left: remify(25, 16);
+        max-width: (100% / 3);
+    }
+
+    .aligncenter {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}

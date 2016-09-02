@@ -1,0 +1,19 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Link
+\* ------------------------------------------------------------------------ */
+
+.link {
+    & {
+        color: $primary;
+        cursor: pointer;
+        text-decoration: none;
+        transition: color 0.15s;
+    }
+
+    &:focus,
+    &:hover {
+        color: $primary_alt;
+    }
+}

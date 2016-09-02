@@ -1,26 +1,34 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Header                                                                   *
+ * Header
 \* ------------------------------------------------------------------------ */
 
-.header-wrapper {
-    @include layer("header");
-
-    font-size: 16px;
-    font-size: remify(16);
-    padding: 0 20px;
-    padding: remify(0 20);
+.header-block {
+    & {
+        @include layer("header");
+    }
+    
+    &.-fullbleed {
+        background: $background;
+    }
 }
 
-.header {
-    @include clear;
+.header_inner {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
 
-    margin: 0 auto;
-    max-width: $site-width + px;
-    max-width: remify($site-width);
+    .header-block.-fullbleed > & {
+        background: none;
+    }
 }
 
-.header .menu-button {
-    float: right;
+.header_logo {
+    & {
+        max-width: remify(200);
+    }
 }

@@ -1,65 +1,59 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Search Form                                                              *
+ * Search Form
 \* ------------------------------------------------------------------------ */
 
 .search-form {
-    background: $background;
-    border: 1px solid $accent;
-	margin: remify(0 0 16, 16);
-	padding: remify(0 40 0 0, 16);
-    position: relative;
-}
-
-.search-label {
-    left: -999em;
-    position: absolute;
-    top: -999em;
-}
-
-.search-input,
-input.search-input,
-input[type=search].search-input,
-input[type=text].search-input {
-    background: none;
-    border: 0;
-    color: $foreground;
-    font-family: $body-font;
-    font-size: remify(16, 16);
-    font-weight: 400;
-    margin: 0;
-    padding: remify(10 16, 16);
-    width: 100%;
-}
-
-.search-submit {
-    background: none;
-    border: 0;
-    bottom: 0;
-    color: $accent;
-    line-height: remify(40, 16);
-    margin: 0;
-    position: absolute;
-    right: 0;
-    text-indent: -999em;
-    top: 0;
-    transition: color 0.15s;
-    width: remify(40, 16);
-    
-    &:hover {
-        color: $accent_alt;
+    & {
+        position: relative;
     }
-    
-    &:before {
-        @include icon("search");
-        
-        bottom: 0;
-        left: 0;
+}
+
+.search-form_label {
+    & {
+    }
+}
+
+.search-form_input {
+    & {
+        background: $background;
+        border: remify(1) solid $background_alt;
+        color: $foreground;
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        margin: 0;
+        outline: none;
+        padding: remify(8 38 8 12, 16);
+        transition: border-color 0.15s;
+        width: 100%;
+    }
+
+    &:focus,
+    &:hover {
+        border-color: $accent;
+    }
+}
+
+.search-form_button {
+    & {
+        background: none;
+        border: 0;
+        bottom: remify(1);
+        color: $foreground;
+        cursor: pointer;
+        font-size: remify(16, 16);
+        margin: 0;
+        outline: none;
+        padding: remify(10 12, 16);
         position: absolute;
-        right: 0;
-        text-align: center;
-        text-indent: 0;
-        top: 0;
+        right: remify(1);
+        top: remify(1);
+        transition: color 0.15s;
+    }
+
+    &:focus,
+    &:hover {
+        color: $accent;
     }
 }

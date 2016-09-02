@@ -1,100 +1,226 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Ninja Forms                                                              *
+ * Ninja Forms
 \* ------------------------------------------------------------------------ */
 
-.ninja-forms-cont,
-.ninja-forms-required-items {
-    margin: 0 0 10px;
+// honeypot field fix
+
+.nf-form-hp {
+    & {
+        left: -999em;
+        position: absolute;
+        top: -999em;
+    }
 }
 
-.field-wrap {
-    @include clear;
+// date field fix
 
-    margin: 0 0 10px;
-    visibility: visible !important;
-
-    input[type=checkbox],
-    input[type=radio] {
-        left: auto;
-        position: relative;
+.nf-field-container {
+    .pikaday__container {
+        display: block;
     }
+}
 
-    select {
-        width: 100%;
-    }
+// list field fix
 
-    button,
-    input[type=button],
-    input[type=submit],
-    input[type=reset],
-    select {
-        margin-left: 0 !important;
-    }
-
-    input,
-    select,
-    textarea {
-        max-width: 100%;
-        min-width: 0;
-        width: 100%;
-    }
-
-    .ninja-forms-field-description p,
-    &.label-below .ninja-forms-field-description p {
+.nf-field-container {
+    .list-checkbox-wrap ul,
+    .list-radio-wrap ul {
+        font-size: remify(16, 16);
+        list-style: none;
         margin-bottom: 0;
-        margin-top: 15px;
+        padding: 0;
     }
+}
 
-    &.checkbox-wrap {
-        &.label-above {
-            label {
-                margin-bottom: 0;
-            }
-        }
+// label alignment
 
-        &.label-right {
-            label {
-                padding-left: 0;
-            }
-        }
-    }
+.nf-field-container {
+    // combined
 
-    &.label-below {
-        margin-bottom: 20px;
-
-        input,
-        select,
-        textarea {
-            margin-bottom: 0;
-        }
-    }
-
-    &.label-left,
-    &.label-right {
+    &.label-above .field-wrap,
+    &.label-right .field-wrap,
+    &.label-below .field-wrap,
+    &.label-left .field-wrap {
+        align-items: flex-start;
         display: flex;
-
-        label {
-            display: block;
-            line-height: 100%;
-            margin: 0;
-        }
-
-        input,
-        .select,
-        textarea {
-            display: block;
-            flex: 1 1 auto;
-            margin: 0;
-        }
     }
 
-    &.label-left label {
-        padding-right: 6px;
+    &.label-right .field-wrap .nf-field-label,
+    &.label-left .field-wrap .nf-field-label {
+        flex: none;
     }
 
-    &.label-right label {
-        padding-left: 6px;
+    &.label-above .field-wrap .nf-field-element,
+    &.label-below .field-wrap .nf-field-element {
+        width: 100%;
+    }
+
+    &.label-right .field-wrap .nf-field-element,
+    &.label-left .field-wrap .nf-field-element {
+        flex: 1 1 auto;
+    }
+
+    // top
+
+    &.label-above .field-wrap {
+        flex-direction: column;
+    }
+
+    // right
+
+    &.label-right .nf-field-label {
+        order: 2;
+    }
+
+    &.label-right .nf-field-element {
+        order: 1;
+    }
+
+    // below
+
+    &.label-below .field-wrap {
+        flex-direction: column;
+    }
+
+    &.label-below .nf-field-label {
+        order: 2;
+    }
+
+    &.label-below .nf-field-element {
+        order: 1;
+    }
+}
+
+/* ------------------------------------------------------------------------ *\
+ * Opinionated Tweaks
+\* ------------------------------------------------------------------------ */
+
+// list field fix
+
+.nf-field-container {
+    .list-checkbox-wrap ul,
+    .list-radio-wrap ul {
+        font-size: remify(16, 16);
+        margin-bottom: remify(24, 16);
+    }
+
+    .list-checkbox-wrap ul .text.-label,
+    .list-radio-wrap ul .text.-label {
+        margin-bottom: remify(4, 16);
+    }
+}
+
+// stars field fix
+
+.nf-field-container {
+    .stars {
+        margin-bottom: remify(24, 16);
+    }
+}
+
+// description fix
+
+.nf-field-container {
+    .nf-user-content {
+        margin-top: remify(-20, 16);
+    }
+}
+
+// error fix
+
+.nf-field-container {
+    .nf-error-msg {
+        font-size: remify(10, 16);
+        margin-bottom: remify(24, 10);
+        margin-top: remify(-20, 10);
+    }
+}
+
+// reCAPTCHA fix
+
+.nf-field-container {
+    .g-recaptcha {
+        margin-bottom: remify(24, 16);
+    }
+}
+
+// label alignment
+
+.nf-field-container {
+    // above
+
+    &.label-above .nf-field-label > .text.-label {
+        margin-bottom: remify(4, 16);
+    }
+
+    &.checkbox-container.label-above .checkbox-wrap .text.-label {
+        padding-left: 0;
+        padding-top: remify(32, 16);
+    }
+
+    &.checkbox-container.label-above .input.-checkbox + .text.-label.-checkbox:before {
+        transform: none;
+        top: 0;
+    }
+
+    // right
+
+    &.label-right .nf-field-label > .text.-label {
+        margin-left: remify(10, 16);
+    }
+
+    // below
+
+    &.label-below .nf-field-label > .text.-label {
+        margin-top: remify(4, 16);
+    }
+
+    &.label-below .nf-field-element .input,
+    &.label-below .nf-field-element .stars,
+    &.label-below .list-checkbox-wrap ul,
+    &.label-below .list-radio-wrap ul {
+        margin-bottom: 0;
+        order: 1;
+    }
+
+    &.checkbox-container.label-below .checkbox-wrap .text.-label {
+        padding-left: 0;
+        padding-bottom: remify(32, 16);
+    }
+
+    &.checkbox-container.label-below .input.-checkbox + .text.-label.-checkbox:before {
+        transform: none;
+        bottom: 0;
+        top: auto;
+    }
+
+    // left
+
+    &.label-left .nf-field-label > .text.-label {
+        margin-right: remify(10, 16);
+    }
+
+    &.checkbox-container.label-left .checkbox-wrap .text.-label {
+        display: inline-block;
+        padding-left: 0;
+        padding-right: remify(32, 16);
+        width: auto;
+    }
+
+    &.checkbox-container.label-left .input.-checkbox + .text.-label.-checkbox:before {
+        left: auto;
+        right: 0;
+    }
+
+    // hidden
+
+    &.checkbox-container.label-hidden .input.-checkbox + .text.-label.-checkbox {
+        text-indent: -999em;
+    }
+
+    &.checkbox-container.label-hidden .input.-checkbox + .text.-label.-checkbox:before {
+        text-indent: 0;
     }
 }

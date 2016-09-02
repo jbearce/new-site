@@ -1,0 +1,12 @@
+.sticky {
+  position: sticky;
+}
+
+.sticky.sticky-fixed.is-sticky {
+  position: fixed;
+  backface-visibility: hidden;
+}
+
+.sticky.sticky-fixed.is-absolute {
+  position: absolute;
+}

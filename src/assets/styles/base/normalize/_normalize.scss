@@ -1,43 +1,33 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Normalize                                                                *
+ * Normalize
 \* ------------------------------------------------------------------------ */
 
-// import base styles
+// Vendor
 
-@import "_normalize-vendor";
+@import "../../vendor/_normalize";
 
-// custom styles
+// Custom
 
-// Set everything up for box-sizing: border-box!
-// http://css-tricks.com/international-box-sizing-awareness-day/
+/**
+ * Change the box-sizing of all elements
+ */
 
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
 }
 
-// Remove arrows on numbers and date fields in Webkit
+/**
+ * Remove the border-radius on inputs in iOS
+ */
 
-::-webkit-outer-spin-button,
-::-webkit-inner-spin-button,
-::-webkit-calendar-picker-indicator {
-    appearance: none;
-	display: none;
-    margin: 0;
+input,
+textarea,
+select,
+[type="search"] {
+    border-radius: 0;
     -webkit-appearance: none;
-}
-
-// Remove arrows on numbers and date fields in Mozilla
-
-input[type="number"] {
-    -moz-appearance:textfield;
-}
-
-// Reset italics on address
-
-address {
-    font-style: normal;
 }

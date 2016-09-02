@@ -1,51 +1,18 @@
-<?
+<?php
+// WIP ?>
+<?php
+// redirect to the home templmate if no front page is set
 if (get_option("show_on_front") != "page") {
     include(TEMPLATEPATH . "/home.php");
     return;
 }
 ?>
-<? get_header(); ?>
-            <?
-            if (have_rows("slideshow")) {
-                echo "<div class='slideshow-wrapper'><div class='slideshow'><div class='swiper-container'><div class='swiper-wrapper'>";
-                while (have_rows("slideshow")) {
-                    the_row();
-                    $img = get_sub_field("image");
-                    if ($img) {
-                        $img_alt = $img["alt"] == "" ? "" : " alt='{$image["alt"]}'";
-                        $img_src = $img["sizes"]["slideshow"];
-                        echo "<figure class='swiper-slide'><img{$img_alt} src='{$img_src}@@if (context.version) {?v=@@version}' /></figure>";
-                    }
-                }
-                echo "</div></div></div></div>";
-            }
-            ?>
-            <div class="content-wrapper">
-                <main class="content">
-                    <div class="content-post">
-                        <?
-                        if (have_posts()) {
-                            while (have_posts()) {
-                                the_post();
-                                echo "<article>";
-                                if (has_post_thumbnail($id)) {
-                                    echo "<figure>" . get_the_post_thumbnail($id, "large") . "</figure>";
-                                }
-                                echo "<header><h1>". get_bloginfo("description") . "</h1></header>";
-                                echo "<div class='user-content'>";
-                                the_content();
-                                echo "</div>";
-                                if (comments_open() || get_comments_number() > 0) {
-                                    echo "<footer>";
-                                    comments_template();
-                                    echo "</footer>";
-                                }
-                                echo "</article>";
-                            }
-                        }
-                        ?>
-                    </div><!--/.content-post-->
-                    <? get_sidebar(); ?>
-                </main><!--/.content-->
-            </div><!--/.content-wrapper-->
-<? get_footer(); ?>
+<?php get_header(); ?>
+<?php get_template_part("partials/hero", "block"); ?>
+<div class="content-block">
+    <div class="content_inner">
+        <?php get_template_part("partials/content", "full"); ?>
+        <?php get_template_part("partials/callout", "grid"); ?>
+    </div><!--/.content_inner-->
+</div><!--/.content-block-->
+<?php get_footer(); ?>

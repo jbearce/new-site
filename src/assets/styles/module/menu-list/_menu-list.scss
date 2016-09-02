@@ -1,143 +1,376 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Menu List                                                                *
+ * Menu List
 \* ------------------------------------------------------------------------ */
 
-.menu-wrapper {
-    @include clear;
+.menu-list_container {
+    & {
+        @extend %clearfix;
+    }
 }
 
 .menu-list {
-    @include clear;
+    & {
+        @extend %clearfix;
 
-    font-size: 1em;
-    line-height: normal;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    text-align: center;
-
-    .l-center & {
-        float: right;
-        right: 50%;
-    }
-
-    .l-vertical & {
-        text-align: left;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        white-space: nowrap;
     }
 }
 
-.menu-list.sub-menu {
-    float: none;
-    right: auto;
-    left: -999em;
-    opacity: 0;
-    position: absolute;
-    text-align: left;
-    top: -999em;
-    transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s;
-    width: remify($mobile-nav-width, 16);
+.menu-list_item {
+    & {
+        float: left;
+        position: relative;
+    }
 
-    .menu-item:hover > & {
+    &.-parent {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &.-mega {
+        position: static;
+    }
+}
+
+.menu-list_link {
+    & {
+        display: block;
+        flex: 1 1 auto;
+        text-decoration: none;
+    }
+}
+
+.menu-list_toggle {
+    & {
+        background: none;
+        border: 0;
+        cursor: pointer;
+        display: block;
+        margin: 0;
+    }
+
+    > .fa {
+        transition: transform 0.15s;
+    }
+
+    .menu-list_item.is-active > & > .fa {
+        transform: rotate(-180deg);
+    }
+}
+
+// center variant
+
+.menu-list.-center {
+    & {
+        float: right;
+        position: relative;
+        right: 50%;
+    }
+
+    > .menu-list_item {
+        left: 50%;
+    }
+}
+
+// flex variant
+
+.menu-list.-flex {
+    & {
+        display: flex;
+    }
+
+    > .menu-list_item {
+        flex: 1 1 auto;
+        width: 0;
+    }
+}
+
+// vertical variant
+
+.menu-list.-vertical {
+    & {
+        text-align: left;
+    }
+
+    &.-right {
+        text-align: right;
+    }
+
+    > .menu-list_item {
+        float: none;
+    }
+}
+
+// tier variant
+
+.menu-list[class*="-tier"] {
+    & {
+        min-width: 100%;
+    }
+
+    // accordion variant
+
+    &.-accordion {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s, visibility 0s 0.25s;
+        visibility: hidden;
+    }
+
+    .menu-list_item.-parent.is-active > &.-accordion {
+        max-height: remify(500, 16);
+        transition: max-height 0.25s;
+        visibility: visible;
+    }
+
+    // overlay variant
+
+    &.-overlay {
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, visibility 0s 0.15s;
+        top: -999em;
+        visibility: hidden;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
+        opacity: 1;
+        transition: opacity 0.15s;
+        visibility: visible;
+    }
+
+    // overlay, reverse variant
+
+    &.-overlay.-reverse {
+        transition: opacity 0.15s, right 0s 0.15s, top 0s 0.15s;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay.-reverse,
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
+        left: auto;
+        right: 0;
+        transition: opacity 0.15s;
+    }
+}
+
+// tier1 variant
+
+.menu-list.-tier1 {
+    // overlay variant
+
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
+        left: 0;
+        top: 100%;
+    }
+
+    // overlay, reverse variant
+
+    &.-overlay.-reverse {
+        left: auto;
+        right: 999em;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay.-reverse,
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
+        left: auto;
+        right: 0;
+    }
+}
+
+// tier2 variant
+
+.menu-list.-tier2 {
+    // overlay variant
+
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
+        left: 100%;
+        top: 0;
+    }
+
+    // overlay, reverse variant
+
+    &.-overlay.-reverse {
+        left: auto;
+        right: 999em;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay.-reverse,
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
+        left: auto;
+        right: 100%;
+    }
+}
+
+// mega variant
+
+.menu-list_container.-mega {
+    & {
+        display: flex;
+        left: -999em;
+        opacity: 0;
+        position: absolute;
+        right: 999em;
+        top: -999em;
+        transition: left 0s 0.15s, opacity 0.15s, right 0s 0.15s, top 0s 0.15s, visibility 0s 0.15s;
+        visibility: hidden;
+    }
+
+    .menu-list_item.-mega.-parent:hover > &,
+    .menu-list_item.-mega.-parent.is-active > & {
         left: 0;
         opacity: 1;
         top: 100%;
         transition: opacity 0.15s;
+        right: 0;
+        visibility: visible;
     }
 
-    .l-vertical &,
-    .l-vertical .menu-item:hover > & {
-        left: auto;
-        max-height: 0;
-        opacity: 1;
-        overflow: hidden;
-        position: static;
-        top: auto;
-        transition: max-height 0.5s;
-        width: auto;
-    }
-    
-    .l-vertical .menu-item.is-open > &,
-    .l-vertical .menu-item.is-open:hover > & {
-        max-height: remify(1000, 16);
-        transition: max-height 1s;
+    > .menu-list.-tier1 {
+        flex: 1 1 auto;
+        min-width: 0;
     }
 }
 
-.menu-list.sub-menu .menu-item:hover > .menu-list.sub-menu {
-    left: 100%;
-    top: 0;
-}
+// navigation variant
 
-.menu-item {
-    float: left;
-    position: relative;
-
-    .l-center & {
-        left: 50%;
+.menu-list.-navigation {
+    & {
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-weight: 400;
     }
 
-    .l-vertical & {
-        float: none;
-    }
-
-    .sub-menu & {
-        float: none;
-        left: auto;
-    }
-}
-
-.menu-item a {
-    display: block;
-    padding: remify(10 20, 16);
-}
-
-.menu-toggle {
-    background: none;
-    color: $accent;
-    height: 2.6875em;
-    margin: 0;
-    padding: 0;
-    position: absolute;
-    right: 0;
-    text-indent: -999em;
-    top: 0;
-    width: 2.6875em;
-
-    &:hover {
-        background: none;
+    .menu-list_link {
         color: $accent;
+        padding: remify(10 14, 16);
+        transition: background-color 0.15s, color 0.15s;
     }
 
-    &:before,
-    &:after {
-        background: currentColor;
-        content: "\0020";
-        display: block;
-        height: remify(4, 16);
-        position: absolute;
-        top: remify(20, 16);
-        transition: transform 0.15s;
-        width: remify(10, 16);
+    .menu-list_link:focus,
+    .menu-list_link:hover,
+    > .menu-list_item.-parent:hover > .menu-list_link,
+    > .menu-list_item.-parent.is-active > .menu-list_link {
+        background-color: $accent;
+        color: $light;
     }
 
-    &:before {
-        left: remify(14, 16);
-        transform: rotate(45deg);
-        
-        .menu-item.is-open > & {
-            transform: rotate(-45deg);
-        }
+    .menu-list_toggle {
+        color: $accent;
+        font-size: 1em;
+        padding: remify(8 12, 16);
+        transition: background-color 0.15s, color 0.15s;
     }
 
-    &:after {
-        right: remify(14, 16);
-        transform: rotate(-45deg);
-        
-        .menu-item.is-open > & {
-            transform: rotate(45deg);
-        }
+    .menu-list_toggle:focus,
+    .menu-list_toggle:hover,
+    .menu-list_item.-parent:hover >.menu-list_toggle,
+    .menu-list_item.-parent.is-active >.menu-list_toggle {
+        background-color: $accent;
+        color: $light;
+    }
+
+    .menu-list_container.-mega,
+    .menu-list.-tier1.-accordion,
+    .menu-list.-tier1.-overlay {
+        background-color: $accent;
+    }
+
+    .menu-list.-tier1 .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list.-tier1 .menu-list_link:focus,
+    .menu-list.-tier1 .menu-list_link:hover,
+    .menu-list.-tier1.-overlay .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier1.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
+        background-color: lighten($accent, 5);
+    }
+
+    .menu-list.-tier1 .menu-list_toggle {
+        color: $light;
+    }
+
+    .menu-list.-tier1 .menu-list_toggle:focus,
+    .menu-list.-tier1 .menu-list_toggle:hover,
+    .menu-list.-tier1 .menu-list_item.-parent:hover >.menu-list_toggle,
+    .menu-list.-tier1 .menu-list_item.-parent.is-active >.menu-list_toggle {
+        background-color: lighten($accent, 5);
+    }
+
+    .menu-list.-tier2.-accordion,
+    .menu-list.-tier2.-overlay {
+        background-color: lighten($accent, 10);
+    }
+
+    .menu-list.-tier2 .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list.-tier2.-accordion .menu-list_link:focus,
+    .menu-list.-tier2.-accordion .menu-list_link:hover,
+    .menu-list.-tier2.-overlay .menu-list_link:focus,
+    .menu-list.-tier2.-overlay .menu-list_link:hover,
+    .menu-list.-tier2.-overlay .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier2.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
+        background-color: lighten(lighten($accent, 10), 5);
+    }
+
+    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
+        content: "\002D\0020\0020";
+    }
+}
+
+// meta variant
+
+.menu-list.-meta {
+    & {
+        color: $foreground_alt;
+        font-family: $heading-font;
+        font-size: remify(14, 16);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
+    .menu-list_item:not(:last-child) {
+        margin-right: remify(20, 14);
+    }
+
+    .menu-list_link {
+        color: $foreground_alt;
+        display: inline-block;
+    }
+
+    .menu-list_link:hover {
+        color: lighten($foreground_alt, 10);
+    }
+}
+
+// pagination variant
+
+.menu-list.-pagination {
+    & {
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        font-weight: 400;
+    }
+
+    .menu-list_item:not(:last-child) {
+        margin-right: remify(8, 14);
+    }
+
+    .menu-list_link.-current {
+        color: $foreground;
+        cursor: auto;
     }
 }

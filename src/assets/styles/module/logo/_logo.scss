@@ -1,14 +1,33 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Logo                                                                     *
+ * Logo
 \* ------------------------------------------------------------------------ */
 
 .logo {
-    display: block;
+    & {
+        display: block;
+        text-decoration: none;
+        transition: opacity 0.15s;
+    }
+
+    &:not(.-nohover):hover {
+        opacity: 0.9;
+    }
 }
 
-.logo img {
-    display: block;
-    width: 100%;
+.logo_image {
+    & {
+        display: block;
+        width: 100%;
+    }
+}
+
+// 'cause apparently you can't add a class to the_custom_logo() -_-
+
+.custom-logo {
+    & {
+        @extend .logo_image;
+        height: auto !important;
+    }
 }

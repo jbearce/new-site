@@ -1,0 +1,96 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Navigation
+\* ------------------------------------------------------------------------ */
+
+.navigation-block {
+    & {
+        @include layer("navigation");
+    }
+
+    &.-fullbleed {
+        background: $background;
+    }
+
+    &.-flyout {
+        background: $background;
+        border-right: remify(1) solid darken($background_alt, 10);
+        bottom: 999em;
+        display: block;
+        left: -999em;
+        overflow: auto;
+        padding: 0;
+        position: absolute;
+        right: 999em;
+        top: -999em;;
+        transform: translateX(-100%);
+        transition: bottom 0s 0.15s, left 0s 0.15s, right 0s 0.15s, top 0s 0.15s, transform 0.15s, visibility 0s 0.15s;
+        visibility: hidden;
+        z-index: 999;
+    }
+
+    &.-flyout.-right {
+        border-left: remify(1) solid darken($background_alt, 10);
+        border-right: 0;
+        left: 999em;
+        right: -999em;
+        transform: translateX(100%);
+    }
+
+    &.-flyout.is-active {
+        bottom: 0;
+        left: 0;
+        right: remify(80);
+        transition: transform 0.15s;
+        transform: translateX(0);
+        top: 0;
+        visibility: visible;
+    }
+
+    &.-flyout.-right.is-active {
+        left: remify(80);
+        right: 0;
+    }
+
+    &.-sticky {
+        position: sticky;
+        top: 0;
+        width: 100% !important; // polyfill miscalculates, should always be 100%
+    }
+
+    &.-sticky.is-sticky {
+        border-bottom: remify(1) solid darken($background_alt, 10);
+    }
+    
+    @media screen and (min-width: 601px) {
+        .admin-bar &.-sticky.is-sticky {
+            top: 46px;
+        }
+    }
+
+    @media screen and (min-width: 783px) {
+        .admin-bar &.-sticky.is-sticky {
+            top: 32px;
+        }
+    }
+}
+
+.navigation_inner {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(0 10);
+    }
+
+    .navigation-block.-flyout > & {
+        background: none;
+        max-width: none;
+        padding: 0;
+    }
+
+    .navigation-block.-fullbleed > & {
+        background: none;
+    }
+}

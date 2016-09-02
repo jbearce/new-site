@@ -203,7 +203,6 @@ $RECYCLE.BIN/
 # Packages
 *.egg
 *.egg-info
-dist/
 build/
 eggs/
 parts/
@@ -236,5 +235,5 @@ prepros.cfg
 slicers/
 slicers/*
 
-#Protect FTP credentials
-ftp.json
+#Configuration settings
+config.json

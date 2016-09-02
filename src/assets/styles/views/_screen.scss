@@ -1,4 +1,4 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
  * Base                                                                     *
@@ -6,37 +6,38 @@
 
 @import "../base/normalize/_normalize";
 @import "../base/grid/_grid";
-@import "../base/content/_content";
+@import "../base/link/_link";
+@import "../base/title/_title";
+@import "../base/text/_text";
+@import "../base/input/_input";
+@import "../base/button/_button";
 @import "../base/user-content/_user-content";
+
+/* ------------------------------------------------------------------------ *\
+ * Module                                                                   *
+\* ------------------------------------------------------------------------ */
+
+@import "../module/article/_article";
+@import "../module/divider/_divider";
+@import "../module/fluidbox/_fluidbox";
+@import "../module/logo/_logo";
+@import "../module/menu-list/_menu-list";
+@import "../module/menu-toggle/_menu-toggle";
+@import "../module/modal/_modal";
+@import "../module/ninja-forms/_ninja-forms";
+@import "../module/overlay-closer/_overlay-closer";
+@import "../module/search-form/_search-form";
+@import "../module/sticky-state/_sticky-state";
+@import "../module/swiper/_swiper";
+@import "../module/widget/_widget";
 
 /* ------------------------------------------------------------------------ *\
  * Layout                                                                   *
 \* ------------------------------------------------------------------------ */
 
 @import "../layout/page/_page";
+@import "../layout/navigation/_navigation";
 @import "../layout/header/_header";
-@import "../layout/nav/_nav";
-@import "../layout/nav-mobile/_nav-mobile";
-@import "../layout/slideshow/_slideshow";
+@import "../layout/hero/_hero";
 @import "../layout/content/_content";
 @import "../layout/footer/_footer";
-
-/* ------------------------------------------------------------------------ *\
- * Module                                                                   *
-\* ------------------------------------------------------------------------ */
-
-@import "../module/align/_align";
-@import "../module/commentlist/_commentlist";
-@import "../module/gallery/_gallery";
-@import "../module/hiders/_hiders";
-@import "../module/notification-banner/_notification-banner";
-@import "../module/iframe/_iframe";
-@import "../module/logo/_logo";
-@import "../module/menu-button/_menu-button";
-@import "../module/menu-list/_menu-list";
-@import "../module/meta-list/_meta-list";
-@import "../module/ninja-forms/_ninja-forms";
-@import "../module/search-form/_search-form";
-@import "../module/swiper/_swiper";
-@import "../module/widget/_widget";
-@import "../module/wp-caption/_wp-caption";

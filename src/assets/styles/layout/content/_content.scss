@@ -1,22 +1,32 @@
-// Styles written by Jacob Bearce | jacob@bearce.me
+// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Content                                                                  *
+ * Content
 \* ------------------------------------------------------------------------ */
 
-.content-wrapper {
-    @include layer("content");
+.content-block {
+    & {
+        @include layer("content");
+    }
 
-    font-size: 16px;
-    font-size: remify(16);
-    padding: 0 20px;
-    padding: remify(0 20);
+    .is-fluidboxactive & {
+        position: static;
+    }
+
+    &.-fullbleed {
+        background: $background;
+    }
 }
 
-.content {
-    @include clear;
+.content_inner {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
 
-    margin: 0 auto;
-    max-width: $site-width + px;
-    max-width: remify($site-width);
+    .content-block.-fullbleed > & {
+        background: none;
+    }
 }

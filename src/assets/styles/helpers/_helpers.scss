@@ -1,0 +1,112 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Helpers                                                                  *
+\* ------------------------------------------------------------------------ */
+
+// imports
+
+@import "_variables";
+@import "_functions";
+@import "_mixins";
+
+// generic helpers
+
+%clearfix {
+    &:after {
+        content: "" !important;
+        clear: both !important;
+        display: table !important;
+    }
+}
+
+._bold {
+    font-weight: 700 !important;
+}
+
+._italic {
+    font-style: italic !important;
+}
+
+._center {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+._left {
+    float: left !important;
+}
+
+._right {
+    float: right !important;
+}
+
+._textcenter {
+    text-align: center !important;
+}
+
+._textleft {
+    text-align: left !important;
+}
+
+._textright {
+    text-align: right !important;
+}
+
+._nomargin {
+    margin: 0 !important;
+}
+
+._nopadding {
+    padding: 0 !important;
+}
+
+._visuallyhidden {
+    left: -999em !important; // fallback if vw isn't supported
+    left: -100vw !important;
+    position: absolute !important;
+    top: -999em !important; // fallback if vh isn't supported
+    top: -100vh !important;
+}
+
+._warning {
+    color: $warning !important;
+}
+
+/* visibility classes */
+
+// when screen is > 640
+@media screen and (min-width: $s-break) {
+    ._mobile:not(._tablet):not(._desktop) {
+        display: none !important;
+    }
+}
+
+// when screen is < 768 and > 1024
+@media screen and (max-width: ($s-break - 1 / 16)) and (min-width: $xl-break) {
+    ._mobile._desktop,
+    ._tablet {
+        display: none !important;
+    }
+}
+
+// when screen is < 768
+@media screen and (max-width: ($s-break - 1 / 16)) {
+    ._tablet._desktop:not(._mobile) {
+        display: none !important;
+    }
+}
+
+// when screen is < 1024
+@media screen and (max-width: ($xl-break - 1 / 16)) {
+    ._desktop:not(._tablet):not(._mobile) {
+        display: none !important;
+    }
+}
+
+// when screen is > 1024
+@media screen and (min-width: $xl-break) {
+    ._mobile._tablet:not(._desktop) {
+        display: none !important;
+    }
+}

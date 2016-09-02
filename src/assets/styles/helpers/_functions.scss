@@ -1,0 +1,46 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Functions                                                                *
+\* ------------------------------------------------------------------------ */
+
+// Remove the unit of a length
+
+@function strip-unit($number) {
+    @if type-of($number) == 'number' and not unitless($number) {
+        @return $number / ($number * 0 + 1);
+    }
+    @return $number;
+}
+
+// Remify
+
+@function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
+    $value-rem: null;
+    @if $base == null {
+        $base: 16;
+        @if $unit == null {
+            $unit: rem;
+        }
+    } @else {
+        @if $unit == null {
+            $unit: em;
+        }
+    }
+    @each $size in $sizes {
+        @if $value-rem == null {
+            @if type-of($size) == "number" {
+                $value-rem: (strip-unit($size) / strip-unit($base)) + $unit;
+            } @else {
+                $value-rem: $size;
+            }
+        } @else {
+            @if type-of($size) == "number" {
+                $value-rem: $value-rem + " " + ((strip-unit($size) / strip-unit($base)) + $unit);
+            } @else {
+                $value-rem: $value-rem + " " + $size;
+            }
+        }
+    }
+    @return $value-rem;
+}

@@ -1,27 +1,50 @@
 {
   "name": "new-site",
+  "version": "0.0.1",
   "description": "A basic framework for a WordPress template",
-  "version": "0.1.4",
-  "repository": "https://github.com/revxx14/new-site",
-  "license": "MIT",
+  "homepage": "https://www.example.com/",
+  "bugs": {
+    "url": "https://github.com/JacobDB/new-site/issues",
+    "email": "YOUREMAIL"
+  },
+  "license": "UNLICENSED",
+  "author": {
+    "name": "YOURNAME",
+    "email": "YOUREMAIL",
+    "url": "https://www.YOURCOMPANY.com/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JacobDB/new-site.git"
+  },
   "devDependencies": {
-    "del": "^2.0.2",
+    "browser-sync": "^2.12.5",
+    "del": "^2.2.0",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
-    "gulp-batch": "^1.0.5",
     "gulp-concat": "^2.6.0",
     "gulp-file-include": "^0.13.7",
-    "gulp-imagemin": "^2.3.0",
-    "gulp-jshint": "^1.11.2",
-    "gulp-sass": "^2.1.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-newer": "^1.2.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-prompt": "^0.1.2",
+    "gulp-sass": "^2.1.1",
+    "gulp-sftp": "^0.1.5",
     "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.4.2",
+    "gulp-uglify": "^1.5.1",
     "gulp-watch": "^4.3.5",
     "imagemin-pngquant": "^4.2.0",
+    "jshint": "^2.9.1",
     "json-file": "^0.1.0",
     "merge-stream": "^1.0.0",
-    "run-sequence": "^1.1.4",
+    "postcss-flexibility": "^1.1.0",
+    "run-sequence": "^1.1.5",
     "vinyl-ftp": "^0.4.5",
-    "yargs": "^3.29.0"
-  }
+    "yargs": "^3.32.0"
+  },
+  "private": true
 }
