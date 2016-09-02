@@ -5,7 +5,7 @@ var gulp = require("gulp"),                       // gulp
     plumber = require("gulp-plumber"),            // prevent pipe breaking
     runSequence = require("run-sequence"),        // allow tasks to be ran in sequence
     json = require("json-file"),                  // read/write JSON files
-    prompt = require("gulp-prompt")               // allow user input
+    prompt = require("gulp-prompt"),              // allow user input
     argv = require("yargs").argv,                 // --flags
     del = require("del"),                         // delete files & folders
     newer = require("gulp-newer"),                // checks if files are newer
@@ -39,7 +39,7 @@ var gulp = require("gulp"),                       // gulp
     ftpPath = "",                                 // FTP path (leave blank)
 
     // SFTP stuff
-    sftp = require("gulp-sftp")                   // SFTP client
+    sftp = require("gulp-sftp"),                  // SFTP client
 
     sftpHost = "",                                // SFTP hostname (leave blank)
     sftpPort = "",                                // SFTP port (leave blank)
@@ -304,7 +304,7 @@ gulp.task("config", function (cb) {
     "use strict";
 
     fs.stat("./config.json", function (err, stats) {
-        if (err != null) {
+        if (err !== null) {
             fs.writeFile("./config.json", "{\"ftp\": {\"dev\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"},\"dist\": {\"host\": \"\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"}},\"sftp\": {\"dev\": {\"host\": \"\",\"port\": \"22\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"},\"dist\": {\"host\": \"\",\"port\": \"22\",\"user\": \"\",\"pass\": \"\",\"path\": \"\"}},\"browsersync\": {\"proxy\": \"\",\"port\": \"\",\"open\": \"\",\"notify\": \"\"}}", function (err) {
                 configureFTP(function() {
                     configureBrowsersync();
@@ -322,14 +322,14 @@ gulp.task("config", function (cb) {
     function configureFTP(cb) {
         // read FTP settingss from config.json
         if (!argv.dist) {
-            ftpHost = json.read("./config.json").get("ftp.dev.host"),
-            ftpUser = json.read("./config.json").get("ftp.dev.user"),
-            ftpPass = json.read("./config.json").get("ftp.dev.pass"),
+            ftpHost = json.read("./config.json").get("ftp.dev.host");
+            ftpUser = json.read("./config.json").get("ftp.dev.user");
+            ftpPass = json.read("./config.json").get("ftp.dev.pass");
             ftpPath = json.read("./config.json").get("ftp.dev.path");
         } else {
-            ftpHost = json.read("./config.json").get("ftp.dist.host"),
-            ftpUser = json.read("./config.json").get("ftp.dist.user"),
-            ftpPass = json.read("./config.json").get("ftp.dist.pass"),
+            ftpHost = json.read("./config.json").get("ftp.dist.host");
+            ftpUser = json.read("./config.json").get("ftp.dist.user");
+            ftpPass = json.read("./config.json").get("ftp.dist.pass");
             ftpPath = json.read("./config.json").get("ftp.dist.path");
         }
 
@@ -384,9 +384,9 @@ gulp.task("config", function (cb) {
                     file.writeSync();
 
                     // read FTP settings from config.json
-                    ftpHost = res.host,
-                    ftpUser = res.user,
-                    ftpPass = res.pass,
+                    ftpHost = res.host;
+                    ftpUser = res.user;
+                    ftpPass = res.pass;
                     ftpPath = res.path;
 
                     configureSFTP();
@@ -399,16 +399,16 @@ gulp.task("config", function (cb) {
     function configureSFTP(cb) {
         // read FTP settingss from config.json
         if (!argv.dist) {
-            sftpHost = json.read("./config.json").get("sftp.dev.host"),
-            sftpPort = json.read("./config.json").get("sftp.dev.port"),
-            sftpUser = json.read("./config.json").get("sftp.dev.user"),
-            sftpPass = json.read("./config.json").get("sftp.dev.pass"),
+            sftpHost = json.read("./config.json").get("sftp.dev.host");
+            sftpPort = json.read("./config.json").get("sftp.dev.port");
+            sftpUser = json.read("./config.json").get("sftp.dev.user");
+            sftpPass = json.read("./config.json").get("sftp.dev.pass");
             sftpPath = json.read("./config.json").get("sftp.dev.path");
         } else {
-            sftpHost = json.read("./config.json").get("sftp.dist.host"),
-            sftpPort = json.read("./config.json").get("sftp.dist.port"),
-            sftpUser = json.read("./config.json").get("sftp.dist.user"),
-            sftpPass = json.read("./config.json").get("sftp.dist.pass"),
+            sftpHost = json.read("./config.json").get("sftp.dist.host");
+            sftpPort = json.read("./config.json").get("sftp.dist.port");
+            sftpUser = json.read("./config.json").get("sftp.dist.user");
+            sftpPass = json.read("./config.json").get("sftp.dist.pass");
             sftpPath = json.read("./config.json").get("sftp.dist.path");
         }
 
@@ -472,10 +472,10 @@ gulp.task("config", function (cb) {
                     file.writeSync();
 
                     // read SFTP settings from config.json
-                    sftpHost = res.host,
-                    sftpPort = res.port,
-                    sftpUser = res.user,
-                    sftpPass = res.pass,
+                    sftpHost = res.host;
+                    sftpPort = res.port;
+                    sftpUser = res.user;
+                    sftpPass = res.pass;
                     sftpPath = res.path;
 
                     configureBrowsersync();
@@ -487,9 +487,9 @@ gulp.task("config", function (cb) {
 
     function configureBrowsersync() {
         // read browsersync settings from config.json
-        bsProxy = json.read("./config.json").get("browsersync.proxy"),
-        bsPort = json.read("./config.json").get("browsersync.port"),
-        bsOpen = json.read("./config.json").get("browsersync.open"),
+        bsProxy = json.read("./config.json").get("browsersync.proxy");
+        bsPort = json.read("./config.json").get("browsersync.port");
+        bsOpen = json.read("./config.json").get("browsersync.open");
         bsNotify = json.read("./config.json").get("browsersync.notify");
 
         if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("sync") || argv.sync) && (argv.config || bsProxy === "" || bsPort === "" || bsOpen === "" || bsNotify === "")) {
@@ -536,9 +536,9 @@ gulp.task("config", function (cb) {
                     file.writeSync();
 
                     // read browsersync settings from config.json
-                    bsProxy = res.proxy,
-                    bsPort = res.port,
-                    bsOpen = res.open,
+                    bsProxy = res.proxy;
+                    bsPort = res.port;
+                    bsOpen = res.open;
                     bsNotify = res.notify;
 
                     cb();
@@ -550,7 +550,7 @@ gulp.task("config", function (cb) {
 });
 
 // upload to FTP environment, depends on config
-gulp.task("ftp", ["config"], function(cb) {
+gulp.task("ftp", ["config"], function() {
     // development FTP directory
     var ftpDirectory = dev;
 
@@ -563,7 +563,7 @@ gulp.task("ftp", ["config"], function(cb) {
         user: ftpUser,
         pass: ftpPass,
         path: ftpPath,
-    })
+    });
 
     // upload the changed files
     return gulp.src(ftpDirectory + "/**/*")
@@ -575,13 +575,10 @@ gulp.task("ftp", ["config"], function(cb) {
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete
         .pipe(notify({title: "Success!", message: "FTP task complete!", onLast: true}));
-
-    // return
-    cb();;
 });
 
 // upload to SFTP environment, depends on config
-gulp.task("sftp", ["config"], function(cb) {
+gulp.task("sftp", ["config"], function() {
     // development SFTP directory
     var sftpDirectory = dev;
 
@@ -604,9 +601,6 @@ gulp.task("sftp", ["config"], function(cb) {
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete
         .pipe(notify({title: "Success!", message: "SFTP task complete!", onLast: true}));
-
-    // return
-    cb();;
 });
 
 // set up a browserSync server, depends on config
