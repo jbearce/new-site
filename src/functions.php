@@ -363,6 +363,26 @@ function new_site_dequeue_nf_display() {
 }
 add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
 
+// enable image lazy loading
+function new_site_lazy_load($content) {
+    // don't filter for feeds or previews
+	if (is_feed() || is_preview())
+		return $content;
+
+	// don't filter if it's already been filtered
+	if (strpos($content, "data-normal") !== false)
+		return $content;
+
+    // replace src with data-normal and srcset with data-srcset
+	$content = preg_replace('#<img([^>]+?)src=[\'"]?([^\'"\s>]+)[\'"]?([^>]*)srcset=[\'"]?([^\'">]+)[\'"]?([^>]*)>#', '<img${1} data-normal="${2}"${3}data-srcset="${4}"${5}><noscript><img${1}src="${2}"${3}srcset="${4}"${5}></noscript>', $content);
+
+    // return the filtered image
+	return $content;
+}
+add_filter("the_content", "new_site_lazy_load", 99);
+add_filter("post_thumbnail_html", "new_site_lazy_load", 11);
+add_filter("get_avatar", "new_site_lazy_load", 11);
+
 /* ------------------------------------------------------------------------ *\
  * Custom Functions
 \* ------------------------------------------------------------------------ */
