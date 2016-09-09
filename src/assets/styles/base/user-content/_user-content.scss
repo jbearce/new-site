@@ -203,8 +203,36 @@
 
     img {
         display: block;
-        height: auto;
+        height: auto !important;
         max-width: 100%;
+        min-height: remify(50, 16);
+        position: relative;
+    }
+
+    img:before {
+        background: $background_alt;
+        border: remify(1) dotted darken($background_alt, 10);
+        border-radius: remiefy(5, 16);
+        content: "\0020";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+    img:after {
+        color: lighten($foreground, 20);
+        content: "\F127\0020" attr(alt);
+        display: block;
+        font-family: "FontAwesome";
+        font-size: remify(16, 16);
+        font-style: normal;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: remify(5, 16);
+        width: 100%;
     }
 
     // alignment
