@@ -3,6 +3,7 @@
 /* ------------------------------------------------------------------------ *\
  * Input
 \* ------------------------------------------------------------------------ */
+
 .input {
     &,
     & > .input_inner,
@@ -47,6 +48,7 @@
 
     .input_inner {
         margin-bottom: 0;
+        padding: remify(8 12 13, 16);
         position: relative;
         z-index: 1;
         // remove Firefox default styles & arrow
@@ -68,8 +70,10 @@
         border-color: $accent;
     }
 
-    .input_arrow {
+    &:after {
+        @include icon("sort");
         color: inherit;
+        display: block;
         font-size: remify(16, 16);
         pointer-events: none;
         position: absolute;
@@ -80,8 +84,10 @@
         z-index: 2;
     }
 
-    .input_inner:focus + .input_arrow,
-    .input_inner:hover + .input_arrow {
+    // doesn't work, sadly
+
+    .input_inner:focus + &:after,
+    .input_inner:hover + &:after {
         color: $accent;
     }
 }
