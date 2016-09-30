@@ -3,9 +3,6 @@
         <select id="nf-field-<%= id %>" name="nf-field-<%= id %>" class="<%= renderClasses() %> nf-element input_inner" <%= renderOtherAttributes() %>>
             <%= renderOptions() %>
         </select>
-        <% if (renderWrapClass() !== "field-wrap listmultiselect-wrap list-multiselect-wrap") { %>
-        <i class="input_arrow fa fa-caret-down"></i>
-        <% } %>
     </div>
     <div for="nf-field-<%= id %>"></div>
 </script>
