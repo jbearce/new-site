@@ -53,6 +53,10 @@
     &.-column.-reverse {
         flex-direction: column-reverse;
     }
+
+    &.-padded {
+        width: calc(100% + #{remify(25, 16)});
+    }
 }
 
 .col {
@@ -96,44 +100,40 @@
         order: 10;
     }
 
+    // doesn't work yet, should in Level 4! https://drafts.csswg.org/css-values/
     &[data-order] {
         order: attr(data-order);
     }
 
     .row.-mobile > & {
-        flex: 1 1 auto;
+        flex: 1 1 0;
     }
 
     .row.-mobile > &.-tenth {
         flex: 0 0 10%;
-        width: 10%;
     }
 
     .row.-mobile > &.-fifth {
         flex: 0 0 20%;
-        width: 20%;
     }
 
     .row.-mobile > &.-quarter {
         flex: 0 0 25%;
-        width: 25%;
     }
 
     .row.-mobile > &.-third {
         flex: 0 0 33.3333334%;
-        width: 33.3333334%;
     }
 
     .row.-mobile > &.-half {
         flex: 0 0 50%;
-        width: 50%;
-    }
-
-    .row.-mobile > &.-equal {
-        width: 0;
     }
 
     .row.-mobile > &.-none {
         flex: 0 0 auto;
+    }
+
+    .row.-padded > & {
+        padding-right: remify(25, 16);
     }
 }
