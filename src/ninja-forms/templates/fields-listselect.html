@@ -1,12 +1,15 @@
-<script id="nf-tmpl-field-listselect" type="text/template">
-    <div class="input -select <% if (renderWrapClass() !== "field-wrap listmultiselect-wrap list-multiselect-wrap") { %> -arrow<% } %>">
-        <select id="nf-field-<%= id %>" name="nf-field-<%= id %>" class="<%= renderClasses() %> nf-element input_inner" <%= renderOtherAttributes() %>>
-            <%= renderOptions() %>
+<script id="tmpl-nf-field-listselect" type="text/template">
+    <div class="input -select <# if ( data.renderWrapClass() !== "field-wrap listmultiselect-wrap list-multiselect-wrap" ) { #> -arrow<# } #>">
+        <select id="nf-field-{{{ data.id }}}" name="nf-field-{{{ data.id }}}" class="{{{ data.renderClasses() }}} nf-element input_inner" {{{ data.renderOtherAttributes() }}}>
+            {{{ data.renderOptions() }}}
         </select>
+        <# if ( data.renderWrapClass() !== "field-wrap listmultiselect-wrap list-multiselect-wrap" ) { #>
+        <i class="input_arrow fa fa-caret-down"></i>
+        <# } #>
     </div>
-    <div for="nf-field-<%= id %>"></div>
+    <div for="nf-field-{{{ data.id }}}"></div>
 </script>
 
-<script id="nf-tmpl-field-listselect-option" type="text/template">
-	<option value="<%= value %>" <%= ( 1 == selected ) ? 'selected="selected"' : '' %>><%= label %></option>
+<script id="tmpl-nf-field-listselect-option" type="text/template">
+	<option value="{{{ data.value }}}" {{{ ( 1 == data.selected ) ? 'selected="selected"' : '' }}}>{{{ data.label }}}</option>
 </script>
