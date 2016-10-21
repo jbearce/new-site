@@ -123,6 +123,16 @@
         background: $background_alt;
     }
 
+    // scrolling responisve tables
+
+    @media screen and (max-width: $s-break - (1 / 16)) {
+        table:not([data-stacked="true"]) {
+            display: block;
+            overflow: auto;
+            padding-bottom: 1px;
+        }
+    }
+
     // stacked responsive tables
     // https://techblog.livingsocial.com/blog/2015/04/06/responsive-tables-in-pure-css/
 
