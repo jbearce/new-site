@@ -4,20 +4,81 @@
  * Hero
 \* ------------------------------------------------------------------------ */
 
-.hero-container {
+.hero-block {
     & {
         @include layer("hero");
+    }
 
-        font-size: remify(16, 16);
-        padding: remify(0 20, 16);
+    &.-fullbleed {
+        background: $background;
     }
 }
 
-.hero-block {
+.hero_inner {
     & {
-        @extend %clearfix;
-
+        background: $background;
         margin: 0 auto;
-        max-width: remify($site-width, 16);
+        max-width: remify($site-width);
+    }
+
+    .hero-block.-fullbleed & {
+        background: none;
+        max-width: 100%;
+    }
+}
+
+.hero_figure {
+    & {
+        margin: 0;
+        position: relative;
+    }
+}
+
+.hero_image {
+    & {
+        display: block;
+        width: 100%;
+    }
+}
+
+.hero_header {
+    & {
+        background: $dark;
+    }
+}
+
+.hero_title {
+    & {
+        color: $light;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(15 25, 24);
+    }
+
+    .hero_container.-fullbleed & {
+        margin: 0 auto;
+        max-width: remify($site-width);
+    }
+}
+
+.hero_user-content {
+    & {
+        margin: 0 auto;
+        max-width: remify($site-width);
+        overflow: hidden;
+        padding: remify(0 25, 16);
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ol,
+    p,
+    table,
+    ul {
+        color: $light;
     }
 }

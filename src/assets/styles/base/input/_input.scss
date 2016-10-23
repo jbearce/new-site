@@ -5,14 +5,133 @@
 \* ------------------------------------------------------------------------ */
 
 .input {
-    & {
-        border: remify(2, 16) solid $accent;
+    &,
+    & > .input_inner,
+    &.-checkbox + .text.-checkbox:before,
+    &.-radiobutton + .text.-radiobutton:before {
+        background: $background;
+        border: remify(1) solid darken($background_alt, 10);
         color: $foreground;
+        display: block;
         font-family: $body-font;
         font-size: remify(16, 16);
         font-weight: 400;
-        line-height: remify(18, 16);
+        line-height: remify(24, 16);
+        margin: remify(0 0 24, 16);
+        outline: 0;
         padding: remify(8 12, 16);
-        margin: remify(0 0 12, 16);
+        transition: border-color 0.15s, color 0.15s;
+        width: 100%;
+    }
+
+    &:focus,
+    &:hover,
+    & > .input_inner:focus,
+    & > .input_inner:hover,
+    &.-checkbox:focus + .text.-checkbox:before,
+    &.-checkbox + .text.-checkbox:hover:before,
+    &.-radiobutton:focus + .text.-radiobutton:before,
+    &.-radiobutton + .text.-radiobutton:hover:before {
+        border-color: $accent;
+    }
+}
+
+// select variant
+
+.input.-select {
+    & {
+        background: none;
+        border: 0;
+        padding: 0;
+        position: relative;
+    }
+
+    .input_inner {
+        margin-bottom: 0;
+        padding: remify(8 12 13, 16);
+        position: relative;
+        z-index: 1;
+        // remove Firefox default styles & arrow
+        text-indent: 0.01px;
+        text-overflow: "";
+        -moz-appearance: none;
+        // remove Chrome/Safari default styles & arrow
+        -webkit-appearance: none;
+        // remove IE default styles & arrow
+        &::-ms-expand {display: none;}
+    }
+
+    &.-arrow .input_inner {
+        padding-right: remify(48, 16);
+    }
+
+    .input_inner:focus,
+    .input_inner:hover {
+        border-color: $accent;
+    }
+
+    &:after {
+        @include icon("sort");
+        color: inherit;
+        display: block;
+        font-size: remify(16, 16);
+        pointer-events: none;
+        position: absolute;
+        right: remify(16, 16);
+        transform: translateY(-50%);
+        transition: color 0.15s;
+        top: 50%;
+        z-index: 2;
+    }
+
+    // doesn't work, sadly
+
+    .input_inner:focus + &:after,
+    .input_inner:hover + &:after {
+        color: $accent;
+    }
+}
+
+// checkbox & radiobutton variants
+
+.input.-checkbox,
+.input.-radiobutton {
+    & {
+        left: -999em;
+        position: absolute;
+    }
+
+    + .text.-label.-checkbox,
+    + .text.-label.-radiobutton {
+        padding-left: remify(32, 16);
+        position: relative;
+    }
+
+    + .text.-label.-checkbox:before,
+    + .text.-label.-radiobutton:before {
+        content: "\0020";
+        font-size: remify(8, 16);
+        height: remify(16, 8);
+        left: 0;
+        line-height: remify(15, 8);
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        text-align: center;
+        transform: translateY(-50%);
+        top: 50%;
+        width: remify(16, 8);
+    }
+
+    + .text.-label.-radiobutton:before {
+        border-radius: 50%;
+    }
+
+    &:checked + .text.-label.-checkbox:before {
+        @include icon("check");
+    }
+
+    &:checked + .text.-label.-radiobutton:before {
+        @include icon("circle");
     }
 }

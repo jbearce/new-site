@@ -4,7 +4,7 @@
  * Menu List
 \* ------------------------------------------------------------------------ */
 
-.menu-container {
+.menu-list_container {
     & {
         @extend %clearfix;
     }
@@ -17,6 +17,9 @@
         list-style: none;
         margin: 0;
         padding: 0;
+        position: relative;
+        text-align: center;
+        white-space: nowrap;
     }
 }
 
@@ -25,99 +28,349 @@
         float: left;
         position: relative;
     }
+
+    &.-parent {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    &.-mega {
+        position: static;
+    }
 }
 
 .menu-list_link {
     & {
         display: block;
-    }
-
-    &:hover {
+        flex: 1 1 auto;
+        text-decoration: none;
     }
 }
 
-.menu-toggle {
+.menu-list_toggle {
     & {
+        background: none;
+        border: 0;
+        cursor: pointer;
         display: block;
+        margin: 0;
     }
 
-    &:hover {
+    > .fa {
+        transition: transform 0.15s;
+    }
+
+    .menu-list_item.is-active > & > .fa {
+        transform: rotate(-180deg);
     }
 }
 
-/* vertical variant */
+// center variant
+
+.menu-list.-center {
+    & {
+        float: right;
+        position: relative;
+        right: 50%;
+    }
+
+    > .menu-list_item {
+        left: 50%;
+    }
+}
+
+// flex variant
+
+.menu-list.-flex {
+    & {
+        display: flex;
+    }
+
+    > .menu-list_item {
+        flex: 1 1 auto;
+        width: 0;
+    }
+}
+
+// vertical variant
 
 .menu-list.-vertical {
-    .menu-list_item {
+    & {
+        text-align: left;
+    }
+
+    &.-right {
+        text-align: right;
+    }
+
+    > .menu-list_item {
         float: none;
     }
-
-    .menu-list_item.-parent {
-        display: flex;
-        flex-wrap: wrap;
-    }
-
-    .menu-list_item.-parent > .menu-list_link {
-        flex: 1 1 auto;
-    }
-
-    .menu-list_item.-parent > .menu-toggle {
-        flex: none;
-    }
-
-    .menu-list_item.-parent > .menu-list.-submenu {
-        width: 100%;
-    }
 }
 
-/* dropdown variant */
+// tier variant
 
-.menu-list.-dropdown {
+.menu-list[class*="-tier"] {
     & {
+        min-width: 100%;
+    }
+
+    // accordion variant
+
+    &.-accordion {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.25s, visibility 0s 0.25s;
+        visibility: hidden;
+    }
+
+    .menu-list_item.-parent.is-active > &.-accordion {
+        max-height: remify(500, 16);
+        transition: max-height 0.25s;
+        visibility: visible;
+    }
+
+    // overlay variant
+
+    &.-overlay {
         left: -999em;
         opacity: 0;
         position: absolute;
-        transform: translateY(-10%);
+        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, visibility 0s 0.15s;
         top: -999em;
-        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, transform 0.15s;
+        visibility: hidden;
     }
 
-    .menu-list_item.-parent:hover > &,
-    .menu-list_item.-parent.is-active > & {
-        left: 0;
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
         opacity: 1;
-        transform: translateY(0);
-        transition: opacity 0.15s, transform 0.15s;
+        transition: opacity 0.15s;
+        visibility: visible;
+    }
+
+    // overlay, reverse variant
+
+    &.-overlay.-reverse {
+        transition: opacity 0.15s, right 0s 0.15s, top 0s 0.15s;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay.-reverse,
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
+        left: auto;
+        right: 0;
+        transition: opacity 0.15s;
+    }
+}
+
+// tier1 variant
+
+.menu-list.-tier1 {
+    // overlay variant
+
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
+        left: 0;
         top: 100%;
     }
+
+    // overlay, reverse variant
+
+    &.-overlay.-reverse {
+        left: auto;
+        right: 999em;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay.-reverse,
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
+        left: auto;
+        right: 0;
+    }
 }
 
-/* flyout variant */
+// tier2 variant
 
-.menu-list.-flyout {
+.menu-list.-tier2 {
+    // overlay variant
+
+    .menu-list_item.-parent:hover > &.-overlay,
+    .menu-list_item.-parent.is-active > &.-overlay {
+        left: 100%;
+        top: 0;
+    }
+
+    // overlay, reverse variant
+
+    &.-overlay.-reverse {
+        left: auto;
+        right: 999em;
+    }
+
+    .menu-list_item.-parent:hover > &.-overlay.-reverse,
+    .menu-list_item.-parent.is-active > &.-overlay.-reverse {
+        left: auto;
+        right: 100%;
+    }
+}
+
+// mega variant
+
+.menu-list_container.-mega {
     & {
+        display: flex;
         left: -999em;
         opacity: 0;
         position: absolute;
-        transform: translateX(-10%);
+        right: 999em;
         top: -999em;
-        transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, transform 0.15s;
+        transition: left 0s 0.15s, opacity 0.15s, right 0s 0.15s, top 0s 0.15s, visibility 0s 0.15s;
+        visibility: hidden;
     }
 
-    .menu-list_item.-parent:hover > &,
-    .menu-list_item.-parent.is-active > & {
-        left: 100%;
+    .menu-list_item.-mega.-parent:hover > &,
+    .menu-list_item.-mega.-parent.is-active > & {
+        left: 0;
         opacity: 1;
-        transform: translateX(0);
-        transition: opacity 0.15s, transform 0.15s;
-        top: 0;
+        top: 100%;
+        transition: opacity 0.15s;
+        right: 0;
+        visibility: visible;
+    }
+
+    > .menu-list.-tier1 {
+        flex: 1 1 auto;
+        min-width: 0;
     }
 }
 
-/* meta variant */
+// navigation variant
+
+.menu-list.-navigation {
+    & {
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-weight: 400;
+    }
+
+    .menu-list_link {
+        color: $accent;
+        padding: remify(10 14, 16);
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    .menu-list_link:focus,
+    .menu-list_link:hover,
+    > .menu-list_item.-parent:hover > .menu-list_link,
+    > .menu-list_item.-parent.is-active > .menu-list_link {
+        background-color: $accent;
+        color: $light;
+    }
+
+    .menu-list_toggle {
+        color: $accent;
+        font-size: 1em;
+        padding: remify(8 12, 16);
+        transition: background-color 0.15s, color 0.15s;
+    }
+
+    .menu-list_toggle:focus,
+    .menu-list_toggle:hover,
+    .menu-list_item.-parent:hover >.menu-list_toggle,
+    .menu-list_item.-parent.is-active >.menu-list_toggle {
+        background-color: $accent;
+        color: $light;
+    }
+
+    .menu-list_container.-mega,
+    .menu-list.-tier1.-accordion,
+    .menu-list.-tier1.-overlay {
+        background-color: $accent;
+    }
+
+    .menu-list.-tier1 .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list.-tier1 .menu-list_link:focus,
+    .menu-list.-tier1 .menu-list_link:hover,
+    .menu-list.-tier1.-overlay .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier1.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
+        background-color: lighten($accent, 5);
+    }
+
+    .menu-list.-tier1 .menu-list_toggle {
+        color: $light;
+    }
+
+    .menu-list.-tier1 .menu-list_toggle:focus,
+    .menu-list.-tier1 .menu-list_toggle:hover,
+    .menu-list.-tier1 .menu-list_item.-parent:hover >.menu-list_toggle,
+    .menu-list.-tier1 .menu-list_item.-parent.is-active >.menu-list_toggle {
+        background-color: lighten($accent, 5);
+    }
+
+    .menu-list.-tier2.-accordion,
+    .menu-list.-tier2.-overlay {
+        background-color: lighten($accent, 10);
+    }
+
+    .menu-list.-tier2 .menu-list_link {
+        color: $light;
+    }
+
+    .menu-list.-tier2.-accordion .menu-list_link:focus,
+    .menu-list.-tier2.-accordion .menu-list_link:hover,
+    .menu-list.-tier2.-overlay .menu-list_link:focus,
+    .menu-list.-tier2.-overlay .menu-list_link:hover,
+    .menu-list.-tier2.-overlay .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier2.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
+        background-color: lighten(lighten($accent, 10), 5);
+    }
+
+    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
+        content: "\002D\0020\0020";
+    }
+}
+
+// meta variant
 
 .menu-list.-meta {
+    & {
+        color: $foreground_alt;
+        font-family: $heading-font;
+        font-size: remify(14, 16);
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+
     .menu-list_item:not(:last-child) {
-        margin-right: remify(16, 16);
+        margin-right: remify(20, 14);
+    }
+
+    .menu-list_link {
+        color: $foreground_alt;
+        display: inline-block;
+    }
+
+    .menu-list_link:hover {
+        color: lighten($foreground_alt, 10);
+    }
+}
+
+// pagination variant
+
+.menu-list.-pagination {
+    & {
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        font-weight: 400;
+    }
+
+    .menu-list_item:not(:last-child) {
+        margin-right: remify(8, 14);
+    }
+
+    .menu-list_link.-current {
+        color: $foreground;
+        cursor: auto;
     }
 }

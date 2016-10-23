@@ -1,269 +1,680 @@
 <?php
-// enable featured images
+/* ------------------------------------------------------------------------ *\
+ * Page Speed
+\* ------------------------------------------------------------------------ */
+
+// remove version strings
+function new_site_remove_script_version($src) {
+    $parts = explode("?ver", $src);
+    return $parts[0];
+}
+add_filter("script_loader_src", "new_site_remove_script_version", 15, 1);
+add_filter("style_loader_src", "new_site_remove_script_version", 15, 1);
+
+// disable oEmbed
+function speed_stop_loading_wp_embed() {
+    if (!is_admin()) {
+        wp_deregister_script("wp-embed");
+    }
+}
+add_action("init", "speed_stop_loading_wp_embed");
+
+// disable Emoji
+remove_action("wp_head", "print_emoji_detection_script", 7);
+remove_action("wp_print_styles", "print_emoji_styles");
+
+// load scripts asynchronously
+function make_scripts_async($tag, $handle, $src) {
+    if (!is_admin()) {
+        return str_replace("<script", "<script defer='defer'", $tag);
+        exit;
+    }
+
+    return $tag;
+}
+add_filter("script_loader_tag", "make_scripts_async", 10, 3);
+
+// load styles asynchronously
+function make_styles_async($tag, $handle, $src) {
+    if (!is_admin()) {
+        return str_replace("rel='stylesheet'", "rel='preload' as='style' onload=\"this.rel='stylesheet'\"", $tag) . "<noscript>{$tag}</noscript>";
+        exit;
+    }
+
+    return $tag;
+}
+add_filter("style_loader_tag", "make_styles_async", 10, 3);
+
+/* ------------------------------------------------------------------------ *\
+ * Theme Features
+\* ------------------------------------------------------------------------ */
+
+add_theme_support("html5", array(
+    "comment-list",
+    "comment-form",
+    "search-form",
+    "gallery",
+    "caption"
+));
+
+add_theme_support("custom-logo", array(
+    "height"      => 45,
+    "width"       => 200,
+    "flex-height" => true,
+    "flex-width"  => true,
+    "header-text" => array("site-title", "site-description"),
+));
+
+add_theme_support("title-tag");
+
+add_theme_support("automatic-feed-links");
+
 add_theme_support("post-thumbnails");
 
-// enable HTML5
-add_theme_support("html5");
+/* ------------------------------------------------------------------------ *\
+ * Menus
+\* ------------------------------------------------------------------------ */
 
-// register styles & scripts
-function new_site_register_scripts() {
-    // get the is_IE value
-    global $is_IE;
+// register the menus
+register_nav_menus(array(
+	"primary" => "Navigation",
+));
 
-    // register styles & scripts
-    wp_register_style("new_site-font-awesome", "//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css", array(), "4.5.0");
-    wp_register_style("new_site-google-fonts", "//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
-    wp_register_style("new_site-modern-styles", get_bloginfo("template_directory") . "/assets/styles/modern.css"@@if (context.version) {, array(), "@@version"});
-    wp_register_script("new_site-modern-scripts", get_bloginfo("template_directory") . "/assets/scripts/modern.js", array("jquery")@@if (context.version) {, "@@version"}@@if (!context.version) {, false}, true);
-
-    // enqueue IE specific styles & scripts
-    if ($is_IE ) {
-        // register IE8 styles & scripts
-        wp_register_style("new_site-legacy-styles", get_bloginfo("template_directory") . "/assets/styles/legacy.css"@@if (context.version) {, array("new_site-modern-styles"), "@@version"});
-        wp_register_script("new_site-legacy-scripts", get_bloginfo("template_directory") . "/assets/scripts/legacy.js", array("jquery", "new_site-modern-scripts")@@if (context.version) {, "@@version"});
-
-        // add IE8 or lower condition to IE8 styles & scripts
-        $GLOBALS["wp_styles"]->add_data("new_site-legacy-styles", "conditional", "lte IE 8");
-        $GLOBALS["wp_scripts"]->add_data("placeholders-scripts", "conditional", "lte IE 8");
-    }
-}
-add_action("init", "new_site_register_scripts");
-
-// enqueue styles & scripts
-function new_site_enqueue_scripts() {
-    // get the is_IE value
-    global $is_IE;
-
-    // enqueue styles
-    wp_enqueue_style("new_site-font-awesome");
-    wp_enqueue_style("new_site-google_fonts");
-    wp_enqueue_style("new_site-modern-styles");
-    wp_enqueue_script("new_site-modern-scripts");
-
-    // enqueue IE specific styles & scripts
-    if ($is_IE ) {
-        wp_enqueue_style("new_site-legacy-styles");
-        wp_enqueue_script("new_site-legacy-scripts");
-    }
-}
-add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");
-
-// remove height attributes from images
-function remove_img_height_attribute($html) {
-    $html = preg_replace("/(height)=\"\d*\"\s/", "", $html);
-    return $html;
-}
-add_filter("image_send_to_editor", "remove_img_height_attribute", 10);
-add_filter("post_thumbnail_html", "remove_img_height_attribute", 10);
-
-// enable menus
-function register_menus() {
-	register_nav_menus(array(
-		"primary" => "Navigation",
-	));
-}
-add_action("init", "register_menus");
-
-// add slideshow image size
-add_image_size("slideshow", 1600, 900, true);
-
-// new_site Walker
+// menu walker
 class new_site_walker extends Walker_Nav_Menu {
-    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $classes = empty($item->classes) ? array() : (array) $item->classes;
+    // set up a variable to hold the parameters passed to the walker
+    private $params;
 
-        array_push($classes, "menu-list_item");
-
-        if (in_array("menu-item-has-children", $classes)) {
-            array_push($classes, "-parent");
-        }
-
-        $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
-        $class_names = " class='" . esc_attr($class_names) . "'";
-        $target = $item->target ? " target='{$item->target}'" : "";
-        $aria_haspopup = in_array("menu-list_item-has-children", $classes) ? " aria-haspopup='true'" : "";
-
-        $output .= sprintf(
-            "<li%s><a class='menu-list_link link' href='%s'%s%s>%s</a>",
-            $class_names,
-            $item->url,
-            $target,
-            $aria_haspopup,
-            $item->title
-        );
+    // store the paramters in an accessible way
+    public function __construct($params = "") {
+        $this->params = $params;
     }
-    function start_lvl(&$output, $depth = 0, $args = array()) {
-        $flyout_class = $depth > 0 ? "flyout" : "dropdown";
-        $output .= "<ul class='menu-list -vertical -{$flyout_class}'>";
-    }
-    function end_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "</ul>";
-    }
-    function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $output .= "</li>";
-    }
-}
 
-// mobile new_site walker
-class mobile_new_site_walker extends Walker_Nav_Menu {
-    static $li_count = 0;
-    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $classes = empty($item->classes) ? array() : (array) $item->classes;
-
-        array_push($classes, "menu-list_item");
-
-        if (in_array("menu-item-has-children", $classes)) {
-            array_push($classes, "-parent");
-        }
-
-        $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item));
-        $class_names = " class='" . esc_attr($class_names) . "'";
-        $target = $item->target ? " target='{$item->target}'" : "";
-
-        $output .= sprintf(
-            "<li%s><a class='menu-list_link link' href='%s'%s>%s</a>",
-            $class_names,
-            $item->url,
-            $target,
-            $item->title
-        );
-    }
-    function start_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "<button class='menu-toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Show More") . "</span></button>";
-        $output .= "<ul class='menu-list -vertical -accordion'>";
-    }
-    function end_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "</ul>";
-    }
-    function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $output .= "</li>";
-    }
-}
-
-// enable sidebar
-if (function_exists("register_sidebar")) {
-	register_sidebar(array(
-		"id"			=> "sidebar",
-		"name" 			=> "Sidebar",
-		"before_widget" => "<div class='widget'>",
-		"before_title" 	=> "<header class='widget-header'><h6 class='widget-title title'>",
-		"after_title" 	=> "</h6></header>",
-		"after_widget" 	=> "</div>",
-	));
-}
-
-// add sub_menu options to wp_nav_menu
-add_filter("wp_nav_menu_objects", "my_wp_nav_menu_objects_sub_menu", 10, 2);
-function my_wp_nav_menu_objects_sub_menu($sorted_menu_items, $args) {
-	if (isset($args->sub_menu)) {
-		$root_id = 0;
-		foreach ($sorted_menu_items as $menu_item) {
-			if ($menu_item->current) {
-				$root_id = ($menu_item->menu_item_parent) ? $menu_item->menu_item_parent : $menu_item->ID;
-				break;
-			}
-		}
-		if (!isset($args->direct_parent)) {
-			$prev_root_id = $root_id;
-			while ($prev_root_id != 0) {
-				foreach ($sorted_menu_items as $menu_item) {
-					if ($menu_item->ID == $prev_root_id) {
-						$prev_root_id = $menu_item->menu_item_parent;
-						if ($prev_root_id != 0) $root_id = $menu_item->menu_item_parent;
-						break;
-					}
-				}
-			}
-		}
-        // new code
-        if (isset($args->parent_id)) {
-            $_parent = 0;
-            $_sorted_copy = $sorted_menu_items;
-            foreach($_sorted_copy as $key=>$item) {
-                if ($item->object_id == $args->parent_id) {
-                    $_parent = $item->ID;
-                    break;
-                }
-            }
-            // breaks depth argument because technically the parent isn't right
-            foreach($_sorted_copy as $key=>$item) {
-                if ($item->menu_item_parent != $_parent) {
-                    unset($_sorted_copy[$key]);
-                }
-            }
-            return $_sorted_copy;
-        }
-        // end new code
-		$menu_item_parents = array();
-		foreach ($sorted_menu_items as $key => $item) {
-			if ($item->ID == $root_id) $menu_item_parents[] = $item->ID;
-			if (in_array($item->menu_item_parent, $menu_item_parents)) {
-				$menu_item_parents[] = $item->ID;
-			} else if (!(isset($args->show_parent) && in_array($item->ID, $menu_item_parents))) {
-				unset($sorted_menu_items[$key]);
-			}
-		}
-		return $sorted_menu_items;
-	} else {
-		return $sorted_menu_items;
-	}
-}
-
-/***** MEGA MENU *****/
-/*
-// mega menu walker
-class megaMenuWalker extends Walker_Nav_Menu {
+    // set up mega menu variables
 	private $column_limit = 3;
 	private $column_count = 0;
     static $li_count = 0;
-    function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $classes = empty($item->classes) ? array() : (array) $item->classes;
-        $item_id = $item->ID;
-        if ($depth == 0) {
-			self::$li_count = 0;
-		}
-		if ($depth == 1 && self::$li_count == 1) {
-			$this->column_count++;
-		}
-        if ($depth == 1 && in_array("break", $classes) && self::$li_count != 1 && $this->column_count < $this->column_limit) {
-            $output .= "</ul><ul class='menu-list -submenu'>";
-			$this->column_count++;
+    private $is_mega = false;
+
+    function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
+        if (in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
+            $i = 0;
+
+            foreach ($children_elements[$element->ID] as $child) {
+                $has_columns = get_post_meta($child->ID, "_menu_item_column");
+                $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
+
+                $i++;
+
+                if ($i > 1) {
+                    if (intval($has_columns[0]) === 1 && intval($parent_id[0]) === $element->ID) {
+                        array_push($element->classes, "-mega");
+                        break;
+                    }
+                }
+            }
+
         }
-        $class_names = join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item)); // set up the classes array to be added as classes to each li
-        $class_names = " class='" . esc_attr($class_names) . "'";
-        $target = "";
-        if ($item->target) {
-            $target = " target='_blank'";
+
+        return parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
+    }
+
+    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
+        // get the current classes
+        $classes = $item->classes ? $item->classes : array();
+
+        // add the menu-list_item class if the classes array contains menu-item
+        if (in_array("menu-item", $classes))
+            array_push($classes, "menu-list_item");
+
+        // add the is-viewed class if the page is currently be viewed
+        if (in_array("current_page_item", $classes))
+            array_push($classes, "is-viewed");
+
+        // add the is-viewed class if the page is currently be viewed
+        if (in_array("current_page_item", $classes))
+            array_push($classes, "is-viewed");
+
+        // add a the -parent class if the page has children
+        if (in_array("menu-item-has-children", $classes))
+            array_push($classes, "-parent");
+
+        // convert the clean_classes array in to usable string
+        $class_names = " class='" . esc_attr(join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item))) . "'";
+
+        // retrieve the URL
+        $url = $item->url;
+
+        // retrieve and sanitize the title attribute
+        $attr_title = $item->attr_title ? " title='" . htmlentities($item->attr_title, ENT_QUOTES) . "'" : "";
+
+        // retrieve the target
+        $target = $item->target ? " target='{$item->target}'" : "";
+
+        // retrieve and sanitize the rel attribute
+        $xfn = $item->xfn ? " rel='" . htmlentities($item->xfn, ENT_QUOTES) . "'" : "";
+
+        // retrieve the title
+        $title = $item->title;
+
+        // retrieve and sanitize the description
+        $description = $item->description ? " <span class='menu-item_description'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
+
+        /* mega menu stuff */
+
+        if (in_array("mega", $params)) {
+            if ($depth === 0) {
+    			self::$li_count = 0;
+    		}
+
+    		if ($depth === 1 && self::$li_count === 1) {
+    			$this->column_count++;
+    		}
+
+            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
+                $output .= "</ul><ul class='menu-list -vertical -child -tier1'>";
+    			$this->column_count++;
+            }
+
+            self::$li_count++;
         }
+
+        // construct the menu item
         $output .= sprintf(
-            "<li id='menu-list_item-%s'%s><a href='%s'%s>%s</a>",
-            $item_id,
+            "<li%s><a class='menu-list_link' href='%s'%s%s%s>%s</a>",
             $class_names,
-            $item->url,
+            $url,
+            $attr_title,
             $target,
-            $item->title
+            $xfn,
+            $title,
+            $description
         );
-        self::$li_count++;
-    }
-    function start_lvl(&$output, $depth = 0, $args = array()) {
-        if ($depth == 0) {
-			$output .= "<div class='mega-menu'>";
+
+        /* mega menu stuff */
+
+        if (in_array("mega", $params)) {
+            if (in_array("-mega", $classes)) {
+                $this->is_mega = true;
+
+                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to toggle children", "new_site") . "</button>";
+                $output .= "<div class='menu-list_container -mega' aria-hidden='true'>";
+            }
         }
-        $output .= "<ul class='menu-list -submenu'>";
     }
-    function end_lvl(&$output, $depth = 0, $args = array()) {
+
+    public function start_lvl(&$output, $depth = 0, $args = array()) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
+        // add a toggle button if the buttons paramater is passed
+        $toggle = in_array("accordion", $params) ? "<button class='menu-list_toggle'><i class='fa fa-chevron-down'></i><span class='_visuallyhidden'>" . __("Click to toggle children", "new_site") . "</span></button>" : ($this->is_mega && $depth >= 0 ? "" : "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to toggle children", "new_site") . "</button>");
+
+        // add a -tier class indicting the depth
+        $variant = "-tier1";
+
+        if ($depth > 0) {
+            if ($depth > 1) {
+                $variant = "-tier2 -tier" . ($depth + 1);
+            } else {
+                $variant = "-tier2";
+            }
+        }
+
+        // add a -accordion class if the accordion parameter is passed
+        $variant .= in_array("accordion", $params) ? " -accordion" : (!$this->is_mega ? " -overlay" : "");
+
+        // add aria attribute if the mega parameter is not passed
+        $aria = !$this->is_mega ? " aria-hidden='true'" : "";
+
+        // construct the menu list
+        $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$aria}>";
+    }
+
+    public function end_lvl(&$output, $depth = 0, $args = array()) {
+        // close the menu list
         $output .= "</ul>";
-        if ($depth == 0) {
-            $output .= "</div>";
-        }
     }
-    function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-		if ($depth == 0 && $this->column_count > 0) {
-			$this->column_count = 0;
-		}
+
+    public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+        // convert the params in to an array
+        $params = explode(" ", $this->params);
+
+        // reset the column counter
+        $this->column_count = 0;
+
+        /* mega menu stuff */
+
+        if (in_array("mega", $params)) {
+            // get the current classes
+            $classes = $item->classes ? $item->classes : array();
+
+            if (in_array("-mega", $classes)) {
+                $this->is_mega = false;
+
+                $output .= "</div>";
+            }
+        }
+
+        // close the menu item
         $output .= "</li>";
     }
 }
-*/
-/***** END MEGA MENU *****/
-?>
+
+// add "Start New Column" checkboxes to the editor for a mega menu
+if (is_admin()) {
+    // @TODO figure out how to only do this on the menu editor page
+    // require nav-menu.php so we can hook Walker_Nav_Menu_Edit
+    require_once ABSPATH . "wp-admin/includes/nav-menu.php";
+
+    class new_site_mega_menu_column_checkbox_setup extends Walker_Nav_Menu_Edit {
+        static $field = array("name" => "column");
+
+        // add a new checkbox to each menu item
+        function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+            $item_output = "";
+
+            // get the parent item
+            parent::start_el($item_output, $item, $depth, $args);
+
+            self::$field["value"] = get_post_meta($item->ID, "_menu_item_" . self::$field["name"], true);
+            self::$field["checked"] = "value='1' " . checked(self::$field["value"], 1, false);
+
+            $new_field = "<p class='field-" . self::$field["name"] . " description'><label for='edit-menu-item-" . self::$field["name"] . "-{$item->ID}'>";
+            $new_field .= "<input type='checkbox' id='edit-menu-item-" . self::$field["name"] . "-{$item->ID}' class='widefat code edit-menu-item-" . self::$field["name"] . "' name='menu-item-" . self::$field["name"] . "[{$item->ID}]'" . self::$field["checked"] . " />";
+            $new_field .= __("Start new column here", "new_site");
+            $new_field .= "</label></p>";
+
+            $output .= preg_replace("/(?=<p[^>]+class=\"[^\"]*field-css-classes)/", $new_field, $item_output);
+        }
+
+        // function to save the new field
+        static function _save_post($post_id) {
+            if (get_post_type($post_id) !== "nav_menu_item") {
+                return;
+            }
+
+            $form_field_name = "menu-item-" . self::$field["name"];
+            $key = "_menu_item_" . self::$field["name"];
+            $value = isset($_POST[$form_field_name][$post_id]) ? stripslashes($_POST[$form_field_name][$post_id]) : "";
+
+            update_post_meta($post_id, $key, $value);
+        }
+
+        // add the save function to the save_post action
+        static function setup() {
+            add_action("save_post", array(__CLASS__, "_save_post"));
+        }
+    }
+    add_action("init", array("new_site_mega_menu_column_checkbox_setup", "setup"));
+    add_filter("wp_edit_nav_menu_walker", function () {
+        return "new_site_mega_menu_column_checkbox_setup";
+    });
+
+    // hide the checkbox except on depth 1
+    function new_site_hide_column_checkbox_except_on_depth_1() {
+        $current_screen = get_current_screen();
+
+        if ($current_screen->base === "nav-menus") {
+            echo "<style>.menu-item:not(.menu-item-depth-1) .field-column, .menu-item.menu-item-depth-0 + .menu-item.menu-item-depth-1 .field-column {display:none;}</style>";
+        }
+    }
+    add_action("admin_head", "new_site_hide_column_checkbox_except_on_depth_1");
+}
+
+/* ------------------------------------------------------------------------ *\
+ * Styles & Scripts
+\* ------------------------------------------------------------------------ */
+
+// enqueue styles & scripts
+function new_site_enqueue_scripts() {
+    wp_enqueue_script("jquery");
+}
+add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");
+
+/* ------------------------------------------------------------------------ *\
+ * Image Sizes
+\* ------------------------------------------------------------------------ */
+
+add_image_size("hero", 700, 400, true);
+add_image_size("hero_medium", 1200, 400, true);
+add_image_size("hero_large", 2000, 400, true);
+
+/* ------------------------------------------------------------------------ *\
+ * Filters
+\* ------------------------------------------------------------------------ */
+
+// remove dimensions from thumbnails
+function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
+    $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
+    return $html;
+}
+add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
+
+// disable Ninja Forms styles
+function new_site_dequeue_nf_display() {
+    wp_dequeue_style("nf-display");
+}
+add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
+
+/* ------------------------------------------------------------------------ *\
+ * Shortcodes
+\* ------------------------------------------------------------------------ */
+
+// fix shortcode formatting
+function new_site_fix_shortcodes($content) {
+	$array = array (
+		"<p>["         => "[",
+		"]</p>"        => "]",
+		"]<br />"      => "]",
+        "<p>&#91;"     => "[",
+        "&#93;</p>"    => "]",
+        "&#93;<br />"  => "]",
+	);
+	$content = strtr($content, $array);
+
+    return $content;
+}
+add_filter("the_content", "new_site_fix_shortcodes");
+add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
+
+// add row shortcode
+function new_site_row_shortcode($atts , $content = null) {
+    extract(shortcode_atts(
+		array(
+			"alt" => "",
+		), $atts)
+	);
+
+    $class = $alt ? " -alt" : "";
+
+    // return the tab wrapper with the menu
+    return "<div class='row -padded{$class}'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
+}
+add_shortcode("row", "new_site_row_shortcode");
+
+// add col shortcode
+function new_site_col_shortcode($atts , $content = null) {
+    extract(shortcode_atts(
+		array(
+			"width" => "",
+		), $atts)
+	);
+
+    $class = $width ? " -{$width}" : "";
+
+    // return the tab wrapper with the menu
+    return "<div class='col{$class} -shortcode'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
+}
+add_shortcode("col", "new_site_col_shortcode");
+
+/* ------------------------------------------------------------------------ *\
+ * Custom Functions
+\* ------------------------------------------------------------------------ */
+
+// get a nicer excerpt based on post ID
+function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
+    global $post;
+
+    $post_id = $id ? $id : $post->ID;
+    $post_object = get_post($post_id);
+    $excerpt = $post_object->post_excerpt ? $post_object->post_excerpt : wp_trim_words(strip_shortcodes($post_object->post_content), $length, $more);
+
+    return $excerpt;
+}
+
+/* ------------------------------------------------------------------------ *\
+ * Advanced custom Fields
+\* ------------------------------------------------------------------------ */
+
+// Start Front Page Slideshow
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_5788edcaf258b',
+	'title' => 'Front Page Slideshow',
+	'fields' => array (
+		array (
+			'key' => 'field_5788edcf43a44',
+			'label' => 'Slideshow',
+			'name' => 'slideshow',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => '',
+			'min' => '',
+			'max' => '',
+			'layout' => 'block',
+			'button_label' => 'Add Image',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_5788edd543a45',
+					'label' => 'Image',
+					'name' => 'image',
+					'type' => 'image',
+					'instructions' => '',
+					'required' => 1,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'return_format' => 'array',
+					'preview_size' => 'hero_medium',
+					'library' => 'all',
+					'min_width' => '',
+					'min_height' => '',
+					'min_size' => '',
+					'max_width' => '',
+					'max_height' => '',
+					'max_size' => '',
+					'mime_types' => '',
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'page_type',
+				'operator' => '==',
+				'value' => 'front_page',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'acf_after_title',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+// End Front Page Slideshow
+
+// Start Front Page Callouts
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_57ab2d68b4101',
+	'title' => 'Front Page Callouts',
+	'fields' => array (
+		array (
+			'key' => 'field_57ab2d6cb53bc',
+			'label' => 'Callouts',
+			'name' => 'callouts',
+			'type' => 'repeater',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => '',
+			'min' => '',
+			'max' => '',
+			'layout' => 'block',
+			'button_label' => 'Add Callout',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_57ab2d85b53bd',
+					'label' => 'Title',
+					'name' => 'title',
+					'type' => 'text',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'placeholder' => '',
+					'prepend' => '',
+					'append' => '',
+					'maxlength' => '',
+					'readonly' => 0,
+					'disabled' => 0,
+				),
+				array (
+					'key' => 'field_57ab2d8bb53be',
+					'label' => 'Content',
+					'name' => 'content',
+					'type' => 'wysiwyg',
+					'instructions' => '',
+					'required' => 0,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'tabs' => 'all',
+					'toolbar' => 'full',
+					'media_upload' => 1,
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'page_type',
+				'operator' => '==',
+				'value' => 'front_page',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+// End Front Page Callouts
+
+// Stat Modals
+if( function_exists('acf_add_local_field_group') ):
+
+acf_add_local_field_group(array (
+	'key' => 'group_57b5c86c01a1a',
+	'title' => 'Modals',
+	'fields' => array (
+		array (
+			'key' => 'field_57b5c87b24a5f',
+			'label' => 'Modals',
+			'name' => 'modals',
+			'type' => 'repeater',
+			'instructions' => 'To link to a modal, create a link with the URL set to #, then switch to code view, then add <code>data-overlay="modal[modal-number]"</code> to the link\'s opening tag. For example, <code>&lt;a href="#" data-overlay="modal1"&gt;</code>',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array (
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'collapsed' => '',
+			'min' => '',
+			'max' => '',
+			'layout' => 'block',
+			'button_label' => 'Add Modal',
+			'sub_fields' => array (
+				array (
+					'key' => 'field_57b5c88224a60',
+					'label' => 'Content',
+					'name' => 'content',
+					'type' => 'wysiwyg',
+					'instructions' => '',
+					'required' => 1,
+					'conditional_logic' => 0,
+					'wrapper' => array (
+						'width' => '',
+						'class' => '',
+						'id' => '',
+					),
+					'default_value' => '',
+					'tabs' => 'all',
+					'toolbar' => 'full',
+					'media_upload' => 1,
+				),
+			),
+		),
+	),
+	'location' => array (
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'post',
+			),
+		),
+		array (
+			array (
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'page',
+			),
+			array (
+				'param' => 'page_type',
+				'operator' => '!=',
+				'value' => 'posts_page',
+			),
+		),
+	),
+	'menu_order' => 999,
+	'position' => 'normal',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+// End Modals

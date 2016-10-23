@@ -4,54 +4,95 @@
  * Mixins
 \* ------------------------------------------------------------------------ */
 
+// vendor
+
+@import "../vendor/_angled-edges";
+
+
 // placeholders
 
 @mixin placeholder {
     ::-webkit-input-placeholder {@content}
     :-moz-placeholder {@content}
-    ::-moz-placeholder {@content}
     :-ms-input-placeholder {@content}
     .placeholder {@content}
 }
 
-// quantity queries
+// nth-child: https://paulund.co.uk/nth-child-sass-mixins
 
-@mixin quantity-query($number, $comparison: "equal") {
-    $nth: "";
-
-    @if index(("greater" "more" ">"), $comparison) {
-        $nth: "n + #{$number}";
-    } @else if index( ('less' 'fewer' '<'), $comparison) {
-        $nth: "-n + #{$number}";
-    } @else if index(("equal" "same" "="), $comparison) {
-        $nth: $number;
-    } @else {
-        @warn "Sorry, that's an invalid $comparison value."
-    }
-
-    &:nth-last-child(#{$nth}):first-child {
-        &, & ~ * {
-            @content;
-        }
-    }
-}
-
-@mixin qq-equal($number) {
-  @include quantity-query($number, equal) {
-      @content;
+@mixin first-child() {
+  &:first-of-type {
+    @content
   }
 }
 
-@mixin qq-greater($number) {
-    @include quantity-query($number, greater) {
-        @content;
-    }
+@mixin last-child() {
+  &:last-of-type {
+    @content
+  }
 }
 
-@mixin qq-less($number) {
-    @include quantity-query($number, less) {
-        @content;
+@mixin even(){
+  &:nth-child(even) {
+    @content
+  }
+}
+
+@mixin odd(){
+  &:nth-child(odd) {
+    @content
+  }
+}
+
+@mixin first($num) {
+
+  @if $num == 1 {
+    &:first-child {
+      @content;
     }
+  }
+
+  @else {
+    &:nth-child(-n + #{$num}) {
+      @content;
+    }
+  }
+}
+
+@mixin last($num) {
+   &:nth-last-child(-n + #{$num}) {
+    @content;
+  }
+}
+
+@mixin after($num) {
+  &:nth-child(n+#{$num + 1}) {
+    @content
+   }
+}
+
+@mixin from-end($num) {
+  &:nth-last-child(#{$num}) {
+   @content
+  }
+}
+
+@mixin between($first,$last) {
+  &:nth-child(n+#{$first}):nth-child(-n+#{$last}) {
+    @content
+  }
+}
+
+@mixin all-but($num) {
+  &:not(:nth-child(#{$num})) {
+    @content
+  }
+}
+
+@mixin each($num) {
+  &:nth-child(#{$num}n) {
+    @content
+  }
 }
 
 // layers

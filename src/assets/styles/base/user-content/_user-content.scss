@@ -5,23 +5,19 @@
 \* ------------------------------------------------------------------------ */
 
 .user-content {
-    /* -------------- *\
-     * Universal      *
-    \* -------------- */
+    // links
 
-    a {
+    a:not(.button) {
         color: $accent;
         text-decoration: none;
         transition: color 0.15s;
-
-        &:hover {
-            color: $accent_alt;
-        }
     }
 
-    /* -------------- *\
-     * Headers        *
-    \* -------------- */
+    a:not(.button):hover {
+        color: $accent_alt;
+    }
+
+    // titles
 
     h1,
     h2,
@@ -29,408 +25,260 @@
     h4,
     h5,
     h6 {
-        color: $accent;
+        color: $primary;
         font-family: $heading-font;
+        font-weight: 700;
     }
 
     h1 {
-        font-size: 28px;
-        font-size: remify(28);
-        margin: remify(0 0 16, 28);
+        font-size: remify(24, 16);
+        line-height: remify(36, 24);
+        margin: remify(0 0 12, 24);
     }
 
     h2 {
-        font-size: 26px;
-        font-size: remify(26);
-        margin: remify(0 0 16, 26);
+        font-size: remify(22, 16);
+        line-height: remify(33, 22);
+        margin: remify(0 0 11, 22);
     }
 
     h3 {
-        font-size: 24px;
-        font-size: remify(24);
-        margin: remify(0 0 16, 24);
+        font-size: remify(20, 16);
+        line-height: remify(30, 20);
+        margin: remify(0 0 10, 20);
     }
 
     h4 {
-        font-size: 22px;
-        font-size: remify(22);
-        margin: remify(0 0 16, 22);
+        font-size: remify(18, 16);
+        line-height: remify(27, 18);
+        margin: remify(0 0 9, 18);
     }
 
     h5 {
-        font-size: 20px;
-        font-size: remify(20);
-        margin: remify(0 0 16, 20);
+        font-size: remify(16, 16);
+        line-height: remify(24, 16);
+        margin: remify(0 0 8, 16);
     }
 
     h6 {
-        font-size: 18px;
-        font-size: remify(18);
-        margin: remify(0 0 8, 18);
+        font-size: remify(14, 16);
+        line-height: remify(21, 14);
+        margin: remify(0 0 7, 14);
     }
 
-    /* -------------- *\
-     * General Text   *
-    \* -------------- */
+    // text
 
-    menu,
-    ol,
+    blockquote,
     p,
-    table,
-    ul {
+    ol,
+    ul,
+    table {
         color: $foreground;
         font-family: $body-font;
-        font-size: 16px;
-        font-size: remify(16);
+        font-size: remify(16, 16);
+        font-weight: 400;
         line-height: remify(24, 16);
         margin: remify(0 0 24, 16);
     }
 
-    /* -------------- *\
-     * Lists          *
-    \* -------------- */
-
-    menu,
     ol,
     ul {
-        padding: remify(0 0 0 24, 16);
-
-        menu,
-        ol,
-        ul {
-    		margin-bottom: 0;
-        }
+        padding-left: remify(18, 14);
     }
-
-    /* -------------- *\
-     * Tables         *
-    \* -------------- */
 
     table {
-        table-layout: fixed;
+        border-collapse: collapse;
         width: 100%;
-        // iOS fix
-        -webkit-overflow-scrolling: touch;
-    }
-
-    @media screen and (max-width: $s-break - (1 / 16)) {
-        table {
-            display: block;
-            overflow: auto;
-            padding-bottom: 1px;
-            padding-bottom: remify(1, 16);
-        }
     }
 
     table td,
     table th {
-        padding: remify(4 6, 16);
+        border: remify(1) solid darken($background_alt, 10);
+        padding: remify(7.5 15, 14);
+        text-align: left;
         vertical-align: top;
     }
 
-
-    table thead td,
-    table th {
+    table tbody th,
+    table > tr > th,
+    table[data-stacked="true"] tbody td:before {
         font-weight: 700;
-        text-align: left;
+        text-transform: uppercase;
     }
 
     table thead td,
     table thead th {
-        background: $accent;
-        color: #FFF;
+        background: $dark_alt;
+        border-color: lighten($dark_alt, 10);
+        color: $light;
+        font-size: remify(18, 14);
+        font-weight: 400;
+        padding: remify(10 15, 18);
     }
 
-    table tfoot td,
-    table tfoot th {
-        font-style: italic;
-    }
-
-    table tr:nth-child(even) td,
-    table tr:nth-child(even) th {
+    table > tr:nth-child(even) td,
+    table > tr:nth-child(even) th,
+    table tbody tr:nth-child(even) td,
+    table tbody tr:nth-child(even) th {
         background: $background_alt;
     }
 
-    /* -------------- *\
-     * Blocks of Text *
-    \* -------------- */
+    // scrolling responisve tables
 
-    pre {
-        background: $foreground_alt;
-        border: 1px solid $foreground;
-        color: $background;
-        display: block;
-        font-family: monospace;
-        font-size: 16px;
-        font-size: remify(16);
-        margin: remify(0 0 24, 16);
-        padding: remify(20 24, 16);
+    @media screen and (max-width: $s-break - (1 / 16)) {
+        table:not([data-stacked="true"]) {
+            display: block;
+            overflow: auto;
+            padding-bottom: 1px;
+        }
+    }
+
+    // stacked responsive tables
+    // https://techblog.livingsocial.com/blog/2015/04/06/responsive-tables-in-pure-css/
+
+    @media screen and (max-width: ($s-break - 1 / 16)) {
+        table[data-stacked="true"] thead {
+            left: -999em;
+            position: absolute;
+            top: -999em;
+        }
+
+        table[data-stacked="true"] tbody tr {
+            display: block;
+        }
+
+        table[data-stacked="true"] tbody tr:not(:last-child) {
+            margin-bottom: remify(10, 14);
+        }
+
+        table[data-stacked="true"] tbody td {
+            display: flex;
+        }
+
+        table[data-stacked="true"] tbody td + td {
+            border-top: 0;
+        }
+
+        table[data-stacked="true"] tbody td:before {
+            content: attr(data-label);
+            flex: 1 1 auto;
+            text-align: left;
+            width: 50%;
+        }
+
+        table[data-stacked="true"] tbody td span.-cell {
+            flex: 1 1 auto;
+            text-align: right;
+            width: 50%;
+        }
+    }
+
+    // blockquote
+
+    blockquote {
+        border: remify(1) solid darken($background_alt, 10);
+        border-left: 0;
+        border-right: 0;
+        font-style: italic;
+        margin-left: remify(40, 14);
+        margin-right: remify(40, 14);
+        padding: remify(21 0, 14);
+    }
+
+    blockquote blockquote,
+    blockquote p,
+    blockquote ol,
+    blockquote ul,
+    blockquote table {
+        color: lighten($foreground, 50);
+        font-size: remify(18, 14);
+    }
+
+    blockquote > :last-child {
+        margin-bottom: 0 !important;
+    }
+
+    // horizontal rule
+
+    hr {
+        background: darken($background_alt, 10);
+        border: 0;
+        clear: both;
+        height: remify(1);
+        margin: remify(0 0 20, 16);
         width: 100%;
     }
 
-    blockquote {
-        border-left: 5px solid $accent;
-        margin: 0 0 24px;
-        margin-bottom: remify(24);
-        padding: 0 0 0 24px;
-        padding-left: remify(24);
-    }
-
-    /* -------------- *\
-     * HRs            *
-    \* -------------- */
-
-    hr {
-        border: 0;
-        border-bottom: 1px solid $accent;
-        margin: 0 0 24px;
-        margin-bottom: remify(24);
-    }
-
-    /* -------------- *\
-     * Images         *
-    \* -------------- */
+    // images
 
     img {
+        display: block;
         height: auto !important;
         max-width: 100%;
-    }
-
-    /* -------------- *\
-     * General Forms  *
-    \* -------------- */
-
-    input,
-    .select,
-    select,
-    textarea {
-        color: $foreground;
-        font-family: $body-font;
-        font-size: 16px;
-        font-size: remify(16);
-        line-height: remify(24, 16);
-    }
-
-    /* -------------- *\
-     * Buttons        *
-    \* -------------- */
-
-    button,
-    input[type=button],
-    input[type=reset],
-    input[type=submit] {
-    	background: $accent;
-    	border: 0;
-        color: $background;
-    	display: inline-block;
-        font-family: $body-font;
-        font-size: 16px;
-        font-size: remify(16);
-        font-weight: 700;
-        margin: remify(0 0 10, 16);
-        padding: remify(6 10, 16);
-        text-transform: uppercase;
-    	transition: background 0.15s, color 0.15s;
-
-        &:hover {
-            background: $accent_alt;
-            color: $background;
-        }
-    }
-
-    /* -------------- *\
-     * Checkbox/Radio *
-    \* -------------- */
-
-    input[type=checkbox],
-    input[type=radio] {
-    	left: -999em;
-    	position: absolute;
-
-        & + label {
-            position: relative;
-            padding: remify(9 0 11 52, 16);
-
-            &:before {
-                background: $background;
-                border: 1px solid $accent;
-                border-width: remify(1);
-                color: $accent;
-                content: "\0020";
-                display: block;
-                float: left;
-                font-size: remify(25, 16);
-                height: remify(44, 25);
-                left: 0;
-                line-height: remify(41, 25);
-                position: absolute;
-                text-align: center;
-                top: 0;
-                width: remify(44, 25);
-
-                // webkit focus rings to emulate checkbox/radio
-                .-webkit- &:active,
-                .-webkit- &:focus {
-                    outline: -webkit-focus-ring-color auto 5px;
-                }
-
-                // trident focus rings to emulate checkbox/radio
-                .-ms- &:active,
-                .-ms- &:focus {
-                    outline: #808080 dashed 1px;
-                }
-            }
-        }
-
-        &:focus + label:before,
-        &:focus + label:before {
-            outline: -webkit-focus-ring-color auto 5px;
-        }
-
-        &[disabled] + label:before {
-            background: $background_alt;
-        }
-    }
-
-    input[type=radio] + label:before {
-        border-radius: 50%;
-    }
-
-    input[type=checkbox]:checked + label:before {
-        @include icon("check");
-    }
-
-    input[type=radio]:checked + label:before {
-        @include icon("circle");
-    }
-
-    /* -------------- *\
-     * Inputs         *
-    \* -------------- */
-
-    input[type=color],
-    input[type=date],
-    input[type=datetime],
-    input[type=datetime-local],
-    input[type=email],
-    input[type=month],
-    input[type=number],
-    input[type=password],
-    input[type=range],
-    input[type=search],
-    input[type=tel],
-    input[type=text],
-    input[type=time],
-    input[type=url],
-    input[type=week],
-    .select,
-    textarea {
-    	background: $background;
-        border: 1px solid $accent;
-    	box-sizing: border-box;
-    	display: block;
-        margin: remify(0 0 10, 16);
-    	outline: none;
-        padding: remify(8 16, 16);
-    	text-overflow: ellipsis;
-    	width: 100%;
-    }
-
-    /* -------------- *\
-     * Selects        *
-    \* -------------- */
-
-    .select {
-    	padding: 0;
+        min-height: remify(50, 16);
         position: relative;
     }
 
-    .select:before {
-        @include icon("sort");
-
-        color: $background;
-        display: block;
-        font-size: remify(24, 16);
-        line-height: normal;
-        pointer-events: none;
-        position: absolute;
-        right: 0;
-        text-align: center;
-        top: 50%;
-        transform: translateY(-50%);
-        width: remify(42, 24);
-        z-index: 2;
-    }
-
-    .select:after {
-        background: $accent;
-        bottom: 0;
+    img:before {
+        background: $background_alt;
+        border: remify(1) dotted darken($background_alt, 10);
+        border-radius: remiefy(5, 16);
         content: "\0020";
         display: block;
-        font-size: remify(24, 16);
-        pointer-events: none;
+        height: 100%;
+        left: 0;
         position: absolute;
-        right: 0;
-        top: 0;
-        width: remify(42, 24);
-        z-index: 1;
-    }
-
-    .select select {
-        background: none;
-        border: 0;
-        display: block;
-        margin: 0;
-        outline: none;
-        padding: remify(9 54 11 12, 16);
         width: 100%;
-        // gecko fix
-        text-indent: 0.01px;
-        text-overflow: "";
-        -moz-appearance: none;
-        // webkit fix
-        -webkit-appearance: none;
-        // trident fix
-        &::-ms-expand {
-            display: none;
-        }
+    }
 
-        &:hover {
-            cursor: pointer;
+    img:after {
+        color: lighten($foreground, 20);
+        content: "\F127\0020" attr(alt);
+        display: block;
+        font-family: "FontAwesome";
+        font-size: remify(16, 16);
+        font-style: normal;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: remify(5, 16);
+        width: 100%;
+    }
+
+    // alignment
+
+    .alignfull {
+        display: block;
+        width: 100%;
+    }
+
+    @supports (width: 100vw) {
+        .alignfull {
+            left: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            max-width: none;
+            position: relative;
+            right: 50%;
+            width: 100vw;
         }
     }
 
-    // fix for inconsistancies accross browsers
-
-    .select option {
-        background: #FFF;
-        color: #000;
-
-        &:hover {
-            background: #DDD;
-        }
+    .alignleft {
+        float: left;
+        margin-right: remify(25, 16);
+        max-width: (100% / 3);
     }
 
-    /* -------------- *\
-     * Textareas      *
-    \* -------------- */
-
-    textarea {
-    	max-width: 100%;
-        min-height: remify(100, 16);
-    	min-width: 100%;
-    }
-
-    /* -------------- *\
-     * Alignment      *
-    \* -------------- */
-
-    .aligncenter,
-    .alignleft,
     .alignright {
-        & {
-            display: block;
-            margin: 0 auto remify(30, 16);
-        }
+        float: right;
+        margin-left: remify(25, 16);
+        max-width: (100% / 3);
+    }
+
+    .aligncenter {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

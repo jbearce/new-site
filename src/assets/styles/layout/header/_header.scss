@@ -4,26 +4,31 @@
  * Header
 \* ------------------------------------------------------------------------ */
 
-.header-container {
+.header-block {
     & {
         @include layer("header");
-
-        font-size: remify(16, 16);
-        padding: remify(0 20, 16);
     }
-
-    @media screen and (max-width: ($s-break - (1 / 16))) {
-        .is-navactive & {
-            position: static;
-        }
+    
+    &.-fullbleed {
+        background: $background;
     }
 }
 
-.header-block {
+.header_inner {
     & {
-        @extend %clearfix;
-
+        background: $background;
         margin: 0 auto;
-        max-width: remify($site-width, 16);
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
+
+    .header-block.-fullbleed > & {
+        background: none;
+    }
+}
+
+.header_logo {
+    & {
+        max-width: remify(200);
     }
 }

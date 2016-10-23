@@ -1,26 +1,19 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Gridly (adapted from https://github.com/IonicaBizau/gridly) 
+ * Gridly (adapted from https://github.com/IonicaBizau/gridly)
 \* ------------------------------------------------------------------------ */
 
 .row {
     & {
-        flex-direction: row;
-    }
-
-    &.-center {
-        align-items: center;
-    }
-
-    &.-spacebetween {
-        justify-content: space-between;
+        display: flex;
     }
 }
 
 .col {
     & {
-        flex: 1;
+        flex: 1 1 0%;
+        min-width: 0; // fixes weird overflow issues
     }
 
     &.-tenth {
@@ -43,11 +36,7 @@
         flex: 0 0 50%;
     }
 
-    &.-equal {
-        flex: 1 1 0%;
-    }
-
     &.-none {
-        flex: none;
+        flex: 0 0 auto;
     }
 }

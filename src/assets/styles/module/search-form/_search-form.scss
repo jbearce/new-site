@@ -6,34 +6,32 @@
 
 .search-form {
     & {
-        background: $background;
-        border: remify(4, 16) solid $accent;
-        display: flex;
-        font-size: remify(16, 16);
-        margin: remify(0 0 16, 16);
-        width: 100%;
+        position: relative;
     }
+}
 
-    @include placeholder {
-        color: $foreground;
-        opacity: 1; // for Firefox
+.search-form_label {
+    & {
     }
 }
 
 .search-form_input {
     & {
-        background: none;
-        border: 0;
+        background: $background;
+        border: remify(1) solid $background_alt;
         color: $foreground;
-        flex: 1 1 auto;
         font-family: $body-font;
-        font-size: 1em;
-        font-weight: 400;
-        line-height: normal;
+        font-size: remify(16, 16);
         margin: 0;
-        padding: remify(8 12, 16);
-        text-overflow: ellipsis;
-        width: 0;
+        outline: none;
+        padding: remify(8 38 8 12, 16);
+        transition: border-color 0.15s;
+        width: 100%;
+    }
+
+    &:focus,
+    &:hover {
+        border-color: $accent;
     }
 }
 
@@ -41,16 +39,21 @@
     & {
         background: none;
         border: 0;
-        color: $accent;
-        flex: none;
+        bottom: remify(1);
+        color: $foreground;
+        cursor: pointer;
         font-size: remify(16, 16);
         margin: 0;
+        outline: none;
         padding: remify(10 12, 16);
+        position: absolute;
+        right: remify(1);
+        top: remify(1);
         transition: color 0.15s;
     }
 
+    &:focus,
     &:hover {
-        background: none;
-        color: $accent_alt;
+        color: $accent;
     }
 }

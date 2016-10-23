@@ -62,9 +62,15 @@
 }
 
 ._visuallyhidden {
-    left: -999em !important;
+    left: -999em !important; // fallback if vw isn't supported
+    left: -100vw !important;
     position: absolute !important;
-    top: -999em !important;
+    top: -999em !important; // fallback if vh isn't supported
+    top: -100vh !important;
+}
+
+._warning {
+    color: $warning !important;
 }
 
 /* visibility classes */

@@ -4,20 +4,29 @@
  * Content
 \* ------------------------------------------------------------------------ */
 
-.content-container {
+.content-block {
     & {
         @include layer("content");
+    }
 
-        font-size: remify(16, 16);
-        padding: remify(0 20, 16);
+    .is-fluidboxactive & {
+        position: static;
+    }
+
+    &.-fullbleed {
+        background: $background;
     }
 }
 
-.content-block {
+.content_inner {
     & {
-        @extend %clearfix;
-
+        background: $background;
         margin: 0 auto;
-        max-width: remify($site-width, 16);
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
+
+    .content-block.-fullbleed > & {
+        background: none;
     }
 }

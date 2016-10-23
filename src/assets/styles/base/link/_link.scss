@@ -6,12 +6,14 @@
 
 .link {
     & {
-        color: $accent;
+        color: $primary;
+        cursor: pointer;
         text-decoration: none;
         transition: color 0.15s;
     }
 
+    &:focus,
     &:hover {
-        color: $accent_alt;
+        color: $primary_alt;
     }
 }

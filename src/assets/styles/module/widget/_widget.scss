@@ -1,0 +1,33 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Widget
+\* ------------------------------------------------------------------------ */
+
+.widget {
+    & {
+        border: remify(1) solid darken($background_alt, 10);
+        margin: remify(0 0 25, 16);
+    }
+}
+
+.widget_title {
+    & {
+        background: $dark_alt;
+        color: $light;
+        font-size: remify(18, 14);
+        font-weight: 400;
+        margin-bottom: 0;
+        padding: remify(10 15, 18);
+    }
+}
+
+.widget_content {
+    & {
+        padding: remify(10 15, 16);
+    }
+
+    > :last-child {
+        margin-bottom: 0 !important;
+    }
+}

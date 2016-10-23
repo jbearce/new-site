@@ -4,20 +4,25 @@
  * Footer
 \* ------------------------------------------------------------------------ */
 
-.footer-container {
+.footer-block {
     & {
         @include layer("footer");
+    }
 
-        font-size: remify(16, 16);
-        padding: remify(0 20, 16);
+    &.-fullbleed {
+        background: $background;
     }
 }
 
-.footer-block {
+.footer_inner {
     & {
-        @extend %clearfix;
-
+        background: $background;
         margin: 0 auto;
-        max-width: remify($site-width, 16);
+        max-width: remify($site-width);
+        padding: remify(25);
+    }
+
+    .footer-block.-fullbleed > & {
+        background: none;
     }
 }
