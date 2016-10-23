@@ -155,7 +155,7 @@ gulp.task("scripts", function () {
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/all.js")))
+        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
         // lint all non-vendor scripts
         .pipe(jshint())
         // print lint errors
