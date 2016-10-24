@@ -8,7 +8,6 @@
             </div><!--/.footer_inner-->
         </div><!--/.page_container-->
         <?php
-
         if ($modals) {
             $i = 0;
 
