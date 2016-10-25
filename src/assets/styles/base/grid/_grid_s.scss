@@ -12,28 +12,28 @@
 
 .col {
     & {
-        flex: 1 1 0%;
+        flex: 1 1 100%;
         min-width: 0; // fixes weird overflow issues
     }
 
     &.-tenth {
-        flex: 0 0 10%;
+        flex: 1 0 10%;
     }
 
     &.-fifth {
-        flex: 0 0 20%;
+        flex: 1 0 20%;
     }
 
     &.-quarter {
-        flex: 0 0 25%;
+        flex: 1 0 25%;
     }
 
     &.-third {
-        flex: 0 0 33.3333334%;
+        flex: 1 0 33.3333334%;
     }
 
     &.-half {
-        flex: 0 0 50%;
+        flex: 1 0 50%;
     }
 
     &.-none {

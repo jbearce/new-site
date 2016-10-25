@@ -106,27 +106,27 @@
     }
 
     .row.-mobile > & {
-        flex: 1 1 0%;
+        flex: 1 1 100%;
     }
 
     .row.-mobile > &.-tenth {
-        flex: 0 0 10%;
+        flex: 1 0 10%;
     }
 
     .row.-mobile > &.-fifth {
-        flex: 0 0 20%;
+        flex: 1 0 20%;
     }
 
     .row.-mobile > &.-quarter {
-        flex: 0 0 25%;
+        flex: 1 0 25%;
     }
 
     .row.-mobile > &.-third {
-        flex: 0 0 33.3333334%;
+        flex: 1 0 33.3333334%;
     }
 
     .row.-mobile > &.-half {
-        flex: 0 0 50%;
+        flex: 1 0 50%;
     }
 
     .row.-mobile > &.-none {
