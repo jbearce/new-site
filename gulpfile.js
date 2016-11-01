@@ -1,59 +1,60 @@
     // general stuff
-var gulp = require("gulp"),                       // gulp
-    fs = require("fs"),                           // the file system
-    notify = require("gulp-notify"),              // notifications
-    plumber = require("gulp-plumber"),            // prevent pipe breaking
-    runSequence = require("run-sequence"),        // allow tasks to be ran in sequence
-    json = require("json-file"),                  // read/write JSON files
-    prompt = require("gulp-prompt"),              // allow user input
-    argv = require("yargs").argv,                 // --flags
-    del = require("del"),                         // delete files & folders
-    newer = require("gulp-newer"),                // checks if files are newer
-    merge = require("merge-stream"),              // merge streams
-    gulpif = require("gulp-if"),                  // if statements in pipes
-    watch = require("gulp-watch"),                // watch for file changes
-    sourcemaps = require("gulp-sourcemaps"),      // sourcemaps
-    concat = require("gulp-concat"),              // concatenater
-    fileinclude = require("gulp-file-include"),   // file includer, variable replacer
+var gulp = require("gulp"),                     // gulp
+    fs = require("fs"),                         // the file system
+    notify = require("gulp-notify"),            // notifications
+    plumber = require("gulp-plumber"),          // prevent pipe breaking
+    runSequence = require("run-sequence"),      // allow tasks to be ran in sequence
+    json = require("json-file"),                // read/write JSON files
+    prompt = require("gulp-prompt"),            // allow user input
+    argv = require("yargs").argv,               // --flags
+    del = require("del"),                       // delete files & folders
+    newer = require("gulp-newer"),              // checks if files are newer
+    merge = require("merge-stream"),            // merge streams
+    gulpif = require("gulp-if"),                // if statements in pipes
+    watch = require("gulp-watch"),              // watch for file changes
+    sourcemaps = require("gulp-sourcemaps"),    // sourcemaps
+    concat = require("gulp-concat"),            // concatenater
+    fileinclude = require("gulp-file-include"), // file includer, variable replacer
 
     // media stuff
-    imagemin = require("gulp-imagemin"),          // image compressor
-    pngquant = require("imagemin-pngquant"),      // image compressor for PNGs
+    imagemin = require("gulp-imagemin"),     // image compressor
+    pngquant = require("imagemin-pngquant"), // image compressor for PNGs
 
     // JS stuff
-    jshint = require("gulp-jshint"),              // linter
-    uglify = require("gulp-uglify"),              // concatenater
+    jshint = require("gulp-jshint"), // linter
+    uglify = require("gulp-uglify"), // concatenater
 
     // CSS stuff
-    sass = require("gulp-sass"),                  // SCSS compiler
-    postcss = require("gulp-postcss"),            // postcss
-    autoprefixer = require("gulp-autoprefixer"),  // autoprefix CSS
-    flexibility = require("postcss-flexibility"), // flexibility
+    sass = require("gulp-sass"),                                 // SCSS compiler
+    postcss = require("gulp-postcss"),                           // postcss
+    autoprefixer = require("gulp-autoprefixer"),                 // autoprefix CSS
+    flexibility = require("postcss-flexibility"),                // flexibility
+    cssBackgroundRemove = require("gulp-css-background-remove"), // remove backgrounds to prevent 404s
 
     // FTP stuff
-    ftp = require("vinyl-ftp"),                   // FTP client
+    ftp = require("vinyl-ftp"), // FTP client
 
-    ftpHost = "",                                 // FTP hostname (leave blank)
-    ftpUser = "",                                 // FTP username (leave blank)
-    ftpPass = "",                                 // FTP password (leave blank)
-    ftpPath = "",                                 // FTP path (leave blank)
+    ftpHost = "",               // FTP hostname (leave blank)
+    ftpUser = "",               // FTP username (leave blank)
+    ftpPass = "",               // FTP password (leave blank)
+    ftpPath = "",               // FTP path (leave blank)
 
     // SFTP stuff
-    sftp = require("gulp-sftp"),                  // SFTP client
+    sftp = require("gulp-sftp"), // SFTP client
 
-    sftpHost = "",                                // SFTP hostname (leave blank)
-    sftpPort = "",                                // SFTP port (leave blank)
-    sftpUser = "",                                // SFTP username (leave blank)
-    sftpPass = "",                                // SFTP password (leave blank)
-    sftpPath = "",                                // SFTP path (leave blank)
+    sftpHost = "",               // SFTP hostname (leave blank)
+    sftpPort = "",               // SFTP port (leave blank)
+    sftpUser = "",               // SFTP username (leave blank)
+    sftpPass = "",               // SFTP password (leave blank)
+    sftpPath = "",               // SFTP path (leave blank)
 
     // browser-sync stuff
-    browserSync = require("browser-sync"),        // browser-sync
+    browserSync = require("browser-sync"), // browser-sync
 
-    bsProxy = "",                                 // browser-sync proxy (leave blank)
-    bsPort = "",                                  // browser-sync port (leave blank)
-    bsOpen = "",                                  // browser-sync open (leave blank)
-    bsNotify = "",                                // browser-sync notify (leave blank)
+    bsProxy = "",                          // browser-sync proxy (leave blank)
+    bsPort = "",                           // browser-sync port (leave blank)
+    bsOpen = "",                           // browser-sync open (leave blank)
+    bsNotify = "",                         // browser-sync notify (leave blank)
 
     // read data from package.json
     name = json.read("./package.json").get("name"),
@@ -231,8 +232,27 @@ gulp.task("styles", function () {
     // clean directory if --dist is passed
     if (argv.dist) del(cssDirectory + "/**/*");
 
+    // compile critical SCSS
+    var critical = gulp.src(src + "/assets/styles/critical.scss")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
+        // check if source is newer than destination
+        .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/critical.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        // compile SCSS
+        .pipe(sass({outputStyle: "compressed"}))
+        // remove background images to prevent 404s
+        .pipe(cssBackgroundRemove({writeImagesFile: false}))
+        // compile SCSS (again, to recompress)
+        .pipe(sass({outputStyle: "compressed"}))
+        // prefix CSS
+        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
+        // insert -js-display: flex; for flexbility
+        .pipe(postcss([flexibility()]))
+        // output to the compiled directory
+        .pipe(gulp.dest(cssDirectory));
+
     // compile all SCSS in the root styles directory
-    return gulp.src(src + "/assets/styles/*.scss")
+    var standard = gulp.src([src + "/assets/styles/*.scss", "!" + src + "/assets/styles/critical.scss"])
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
@@ -248,7 +268,10 @@ gulp.task("styles", function () {
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to the compiled directory
-        .pipe(gulp.dest(cssDirectory))
+        .pipe(gulp.dest(cssDirectory));
+
+    // merge both steams back in to one
+    return merge(critical, standard)
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -259,7 +282,7 @@ gulp.task("styles", function () {
         });
 });
 
-// styles task, compiles & prefixes SCSS
+// html task, compiles HTML
 gulp.task("html", function () {
     "use strict";
 
@@ -300,6 +323,7 @@ gulp.task("html", function () {
         });
 });
 
+// config task, generated configuration file for FTP & BrowserSync
 gulp.task("config", function (cb) {
     "use strict";
 
@@ -549,7 +573,7 @@ gulp.task("config", function (cb) {
     }
 });
 
-// upload to FTP environment, depends on config
+// ftp task, upload to FTP environment, depends on config
 gulp.task("ftp", ["config"], function() {
     // development FTP directory
     var ftpDirectory = dev;
@@ -603,7 +627,7 @@ gulp.task("sftp", ["config"], function() {
         .pipe(notify({title: "Success!", message: "SFTP task complete!", onLast: true}));
 });
 
-// set up a browserSync server, depends on config
+// sync task, set up a browserSync server, depends on config
 gulp.task("sync", ["config"], function(cb) {
     browserSync({
         proxy: bsProxy,
