@@ -68,7 +68,6 @@
 
     // text
 
-    blockquote,
     p,
     ol,
     ul,
@@ -180,18 +179,17 @@
         border-left: 0;
         border-right: 0;
         font-style: italic;
-        margin-left: remify(40, 14);
-        margin-right: remify(40, 14);
-        padding: remify(21 0, 14);
+        margin-left: remify(40, 16);
+        margin-right: remify(40, 16);
+        padding: remify(21 0, 16);
     }
 
-    blockquote blockquote,
     blockquote p,
     blockquote ol,
     blockquote ul,
     blockquote table {
         color: lighten($foreground, 50);
-        font-size: remify(18, 14);
+        font-size: remify(18, 16);
     }
 
     blockquote > :last-child {
