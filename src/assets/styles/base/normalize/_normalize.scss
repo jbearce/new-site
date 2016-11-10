@@ -10,24 +10,15 @@
 
 // Custom
 
-/**
- * Change the box-sizing of all elements
- */
+//  Change the box-sizing of all elements
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
     box-sizing: border-box;
 }
 
-/**
- * Remove the border-radius on inputs in iOS
- */
+// Remove the border-radius and other odd styles on inputs in iOS
 
-input,
-textarea,
-select,
-[type="search"] {
+input, textarea, select, [type="search"] {
     border-radius: 0;
     -webkit-appearance: none;
 }
