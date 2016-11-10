@@ -125,50 +125,10 @@
     // scrolling responisve tables
 
     @media screen and (max-width: $s-break - (1 / 16)) {
-        table:not([data-stacked="true"]) {
+        table {
             display: block;
             overflow: auto;
             padding-bottom: 1px;
-        }
-    }
-
-    // stacked responsive tables
-    // https://techblog.livingsocial.com/blog/2015/04/06/responsive-tables-in-pure-css/
-
-    @media screen and (max-width: ($s-break - 1 / 16)) {
-        table[data-stacked="true"] thead {
-            left: -999em;
-            position: absolute;
-            top: -999em;
-        }
-
-        table[data-stacked="true"] tbody tr {
-            display: block;
-        }
-
-        table[data-stacked="true"] tbody tr:not(:last-child) {
-            margin-bottom: remify(10, 14);
-        }
-
-        table[data-stacked="true"] tbody td {
-            display: flex;
-        }
-
-        table[data-stacked="true"] tbody td + td {
-            border-top: 0;
-        }
-
-        table[data-stacked="true"] tbody td:before {
-            content: attr(data-label);
-            flex: 1 1 auto;
-            text-align: left;
-            width: 50%;
-        }
-
-        table[data-stacked="true"] tbody td span.-cell {
-            flex: 1 1 auto;
-            text-align: right;
-            width: 50%;
         }
     }
 
