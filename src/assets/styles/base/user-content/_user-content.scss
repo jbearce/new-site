@@ -239,4 +239,19 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    // dark variant
+
+    &.-dark h1,
+    &.-dark h2,
+    &.-dark h3,
+    &.-dark h4,
+    &.-dark h5,
+    &.-dark h6,
+    &.-dark ol,
+    &.-dark p,
+    &.-dark table,
+    &.-dark ul {
+        color: $light;
+    }
 }
