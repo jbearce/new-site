@@ -1,20 +1,7 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Base                                                                     *
-\* ------------------------------------------------------------------------ */
-
-@import "../base/normalize/_normalize";
-@import "../base/grid/_grid";
-@import "../base/link/_link";
-@import "../base/title/_title";
-@import "../base/text/_text";
-@import "../base/input/_input";
-@import "../base/button/_button";
-@import "../base/user-content/_user-content";
-
-/* ------------------------------------------------------------------------ *\
- * Module                                                                   *
+ * Module
 \* ------------------------------------------------------------------------ */
 
 @import "../module/article/_article";
@@ -32,7 +19,7 @@
 @import "../module/widget/_widget";
 
 /* ------------------------------------------------------------------------ *\
- * Layout                                                                   *
+ * Layout
 \* ------------------------------------------------------------------------ */
 
 @import "../layout/page/_page";

@@ -68,7 +68,6 @@
 
     // text
 
-    blockquote,
     p,
     ol,
     ul,
@@ -123,43 +122,13 @@
         background: $background_alt;
     }
 
-    // stacked responsive tables
-    // https://techblog.livingsocial.com/blog/2015/04/06/responsive-tables-in-pure-css/
+    // scrolling responisve tables
 
-    @media screen and (max-width: ($s-break - 1 / 16)) {
-        table[data-stacked="true"] thead {
-            left: -999em;
-            position: absolute;
-            top: -999em;
-        }
-
-        table[data-stacked="true"] tbody tr {
+    @media screen and (max-width: $s-break - (1 / 16)) {
+        table {
             display: block;
-        }
-
-        table[data-stacked="true"] tbody tr:not(:last-child) {
-            margin-bottom: remify(10, 14);
-        }
-
-        table[data-stacked="true"] tbody td {
-            display: flex;
-        }
-
-        table[data-stacked="true"] tbody td + td {
-            border-top: 0;
-        }
-
-        table[data-stacked="true"] tbody td:before {
-            content: attr(data-label);
-            flex: 1 1 auto;
-            text-align: left;
-            width: 50%;
-        }
-
-        table[data-stacked="true"] tbody td span.-cell {
-            flex: 1 1 auto;
-            text-align: right;
-            width: 50%;
+            overflow: auto;
+            padding-bottom: 1px;
         }
     }
 
@@ -170,18 +139,17 @@
         border-left: 0;
         border-right: 0;
         font-style: italic;
-        margin-left: remify(40, 14);
-        margin-right: remify(40, 14);
-        padding: remify(21 0, 14);
+        margin-left: remify(40, 16);
+        margin-right: remify(40, 16);
+        padding: remify(21 0, 16);
     }
 
-    blockquote blockquote,
     blockquote p,
     blockquote ol,
     blockquote ul,
     blockquote table {
         color: lighten($foreground, 50);
-        font-size: remify(18, 14);
+        font-size: remify(18, 16);
     }
 
     blockquote > :last-child {
@@ -203,8 +171,36 @@
 
     img {
         display: block;
-        height: auto;
+        height: auto !important;
         max-width: 100%;
+        min-height: remify(50, 16);
+        position: relative;
+    }
+
+    img:before {
+        background: $background_alt;
+        border: remify(1) dotted darken($background_alt, 10);
+        border-radius: remiefy(5, 16);
+        content: "\0020";
+        display: block;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+    img:after {
+        color: lighten($foreground, 20);
+        content: "\F127\0020" attr(alt);
+        display: block;
+        font-family: "FontAwesome";
+        font-size: remify(16, 16);
+        font-style: normal;
+        left: 0;
+        position: absolute;
+        text-align: center;
+        top: remify(5, 16);
+        width: 100%;
     }
 
     // alignment
@@ -242,5 +238,20 @@
         display: block;
         margin-left: auto;
         margin-right: auto;
+    }
+
+    // dark variant
+
+    &.-dark h1,
+    &.-dark h2,
+    &.-dark h3,
+    &.-dark h4,
+    &.-dark h5,
+    &.-dark h6,
+    &.-dark ol,
+    &.-dark p,
+    &.-dark table,
+    &.-dark ul {
+        color: $light;
     }
 }

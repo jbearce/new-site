@@ -2,5 +2,5 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-// init swiper
+// init stickystate
 StickyState.apply(document.querySelectorAll(".sticky"));

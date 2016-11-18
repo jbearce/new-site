@@ -53,6 +53,28 @@
         right: 0;
     }
 
+    &.-pulldown {
+        background: $background;
+        border-right: remify(1) solid darken($background_alt, 10);
+        display: block;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: -999em;
+        transform: translateY(-100%);
+        transition: top 0s 0.15s, transform 0.15s, visibility 0s 0.15s;
+        visibility: hidden;
+        width: 100%;
+        z-index: 999;
+    }
+
+    &.-pulldown.is-active {
+        top: 0;
+        transform: translateY(0);
+        transition: transform 0.15s;
+        visibility: visible;
+    }
+
     &.-sticky {
         position: sticky;
         top: 0;
@@ -62,7 +84,7 @@
     &.-sticky.is-sticky {
         border-bottom: remify(1) solid darken($background_alt, 10);
     }
-    
+
     @media screen and (min-width: 601px) {
         .admin-bar &.-sticky.is-sticky {
             top: 46px;
@@ -84,7 +106,8 @@
         padding: remify(0 10);
     }
 
-    .navigation-block.-flyout > & {
+    .navigation-block.-flyout > &,
+    .navigation-block.-pulldown > & {
         background: none;
         max-width: none;
         padding: 0;

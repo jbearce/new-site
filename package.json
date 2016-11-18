@@ -1,21 +1,21 @@
 {
   "name": "new-site",
   "version": "0.0.1",
-  "description": "A basic framework for a WordPress template",
-  "homepage": "https://www.example.com/",
+  "description": "A brand new WordPress theme built just for new-site!",
+  "homepage": "SITEDOMAIN",
   "bugs": {
-    "url": "https://github.com/JacobDB/new-site/issues",
+    "url": "SITEREPOSITORY/issues",
     "email": "YOUREMAIL"
   },
   "license": "UNLICENSED",
   "author": {
     "name": "YOURNAME",
     "email": "YOUREMAIL",
-    "url": "https://www.YOURCOMPANY.com/"
+    "url": "YOURDOMAIN"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JacobDB/new-site.git"
+    "url": "SITEREPOSITORY.git"
   },
   "devDependencies": {
     "browser-sync": "^2.12.5",
@@ -23,6 +23,7 @@
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",
+    "gulp-css-background-remove": "^1.2.2",
     "gulp-file-include": "^0.13.7",
     "gulp-if": "^2.0.0",
     "gulp-imagemin": "^2.4.0",

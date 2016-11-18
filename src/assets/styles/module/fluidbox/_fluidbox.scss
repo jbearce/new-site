@@ -9,3 +9,9 @@
 @import "../../vendor/_fluidbox";
 
 // Custom
+
+.fluidbox__overlay {
+    & {
+        background-color: transparentize($dark, 0.25);
+    }
+}
