@@ -5,7 +5,7 @@
                     <p class="footer_text text _textcenter _nomargin"><a class="footer_link link" href="https://www.weblinxinc.com/" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer_link link" href="https://www.weblinxinc.com/" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
                 </div><!--/.footer_inner-->
-            </div><!--/.footer_inner-->
+            </div><!--/.footer-block-->
         </div><!--/.page_container-->
         <?php
         if ($modals) {
