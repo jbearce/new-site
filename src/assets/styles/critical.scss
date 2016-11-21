@@ -2,6 +2,8 @@
 
 @import "helpers/_helpers";
 
+$assets_path: "<?php bloginfo('template_directory'); ?>/assets";
+
 // hide non-critical elements
 ._noncritical {display:none;}
 

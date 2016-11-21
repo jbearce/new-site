@@ -241,7 +241,7 @@ gulp.task("styles", function () {
         // compile SCSS
         .pipe(sass({outputStyle: "compressed"}))
         // remove background images to prevent 404s
-        .pipe(cssBackgroundRemove({writeImagesFile: false}))
+        // .pipe(cssBackgroundRemove({writeImagesFile: false})) // overzealous
         // compile SCSS (again, to recompress)
         .pipe(sass({outputStyle: "compressed"}))
         // prefix CSS
@@ -299,7 +299,7 @@ gulp.task("html", function () {
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
-        // insert variables
+        // replace variables
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
