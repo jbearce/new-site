@@ -27,9 +27,9 @@ var gulp = require("gulp"),                     // gulp
     // CSS stuff
     sass = require("gulp-sass"),                                 // SCSS compiler
     postcss = require("gulp-postcss"),                           // postcss
+    bgImage = require("postcss-bgimage"),                        // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                 // autoprefix CSS
     flexibility = require("postcss-flexibility"),                // flexibility
-    cssBackgroundRemove = require("gulp-css-background-remove"), // remove backgrounds to prevent 404s
 
     // FTP stuff
     ftp = require("vinyl-ftp"), // FTP client
@@ -241,7 +241,7 @@ gulp.task("styles", function () {
         // compile SCSS
         .pipe(sass({outputStyle: "compressed"}))
         // remove background images to prevent 404s
-        // .pipe(cssBackgroundRemove({writeImagesFile: false})) // overzealous
+        .pipe(postcss([bgImage({mode: "cutter"})]))
         // compile SCSS (again, to recompress)
         .pipe(sass({outputStyle: "compressed"}))
         // prefix CSS
