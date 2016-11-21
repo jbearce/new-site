@@ -1,0 +1,50 @@
+// Styles written by Jacob Bearce @ Weblinx, Inc.
+
+/* ------------------------------------------------------------------------ *\
+ * Login Form
+\* ------------------------------------------------------------------------ */
+
+.login-form {
+    & {
+        @extend %clearfix;
+    }
+}
+
+.login-form_input-container {
+    & {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        margin: remify(0 0 10, 16);
+    }
+
+    .login-form_text.-small {
+        font-size: remify(12, 16);
+    }
+
+    .login-form_text.-label {
+        flex: none;
+        margin: remify(0 10 0 0, 16);
+    }
+
+    .login-form_input {
+        flex: 1 1 auto;
+        margin-bottom: 0;
+        width: auto;
+    }
+
+    .login-form_input + .login-form_text {
+        flex: none;
+        margin-top: remify(10, 12);
+        width: 100%;
+    }
+}
+
+// register variant
+
+.login-form.-register {
+    .login-form_title {
+        font-size: remify(20, 16);
+        margin-bottom: remify(20, 20);
+    }
+}
