@@ -27,13 +27,12 @@ if ($callouts) {
                 echo "<div class='widget_content user-content'>{$content}</div>";
             }
 
-            echo "</div></div>";
+            echo "</div></div>"; // .widget, .col.-third
 
             if ($i === count($callouts) || $i % 3 === 0) {
-                // close row -padded
-                echo "</div>";
+                echo "</div>"; // .row.-padded
             }
-        }
-    }
-}
+        } // if ($titile || $content)
+    } // while (have_rows("callouts"))
+} // if ($callouts)
 ?>

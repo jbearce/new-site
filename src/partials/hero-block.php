@@ -48,8 +48,7 @@ if ($slideshow || $featured_image || $title) {
 
                     echo "<img class='hero_image swiper-image'{$img_alt} src='{$img_src_mobile}' />";
 
-                    // close hero_picture
-                    echo "</picture>";
+                    echo "</picture>"; // .hero_picture
                 }
 
                 if ($img_title || $img_caption) {
@@ -58,17 +57,15 @@ if ($slideshow || $featured_image || $title) {
                     if ($img_title) echo "<h6 class='hero_title swiper-title title'>{$img_title}</h6>";
                     if ($img_caption) echo "<div class='hero_user-content swiper-user-content user-content -dark'>" . wpautop($img_caption) . "</div>";
 
-                    // close hero_header swiper-caption
-                    echo "</figcaption>";
-                }
+                    echo "</figcaption>"; // .hero_header.swiper-caption
+                } // if ($img_title || $img_caption)
 
                 // close swiper-slide
                 echo "</figure>";
-            }
-        }
+            } // if ($image)
+        } // while (have_rows("slideshow"))
 
-        // close swiper-wrapper
-        echo "</div>";
+        echo "</div>"; // .swiper-wrapper
 
         if ($i > 1) {
             echo "<div class='swiper-pagination'></div>";
@@ -76,9 +73,9 @@ if ($slideshow || $featured_image || $title) {
             echo "<button class='swiper-button-next'><i class='fa fa-caret-right'></i><span class='_visuallyhidden'>" . __("Next Slide", "new_site") . "</span></button>";
         }
 
-        // close hero_swiper-container swiper-container
-        echo "</div>";
-    } elseif ($featured_image) {
+        echo "</div>"; // .hero_swiper-container.swiper-container
+    } // if ($slideshow)
+    elseif ($featured_image) {
         $img_src_tablet = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_medium");
 
         $img_src_desktop = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_large");
@@ -97,20 +94,18 @@ if ($slideshow || $featured_image || $title) {
 
         echo $featured_image;
 
-        // close hero_picture
-        echo "</picture>";
+        echo "</picture>"; // .hero_picture
 
         if ($title) {
             echo "<header class='hero_header'><h1 class='hero_title title' role='heading'>{$title}</h1></header>";
         }
 
-        // close hero_figure
-        echo "</figure>";
-    } elseif ($title) {
+        echo "</figure>"; // .hero_figure
+    } // if ($slideshow) elseif ($featured_image)
+    elseif ($title) {
         echo "<header class='hero_header'><h1 class='hero_title title' role='heading'>{$title}</h1></header>";
-    }
+    } // if ($slideshow) elseif ($featured_image) elseif ($title)
 
-    // close hero_inner, hero-block
-    echo "</div></div>";
-}
+    echo "</div></div>"; // .hero_inner, .hero-block
+} // if ($slideshow || $featured_image || $title)
 ?>

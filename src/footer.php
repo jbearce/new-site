@@ -25,12 +25,11 @@
 
                     echo "<button class='modal_menu-toggle menu-toggle' data-overlay='modal{$i}'>" . __("Close Modal", "new_site") . "</button>";
 
-                    // close modal _noncritical
-                    echo "</div>";
-                }
+                    echo "</div>"; // .modal._noncritical
+                } // if ($content)
 
-            }
-        }
+            } // while (have_rows("modals"))
+        } // if ($modals)
         ?>
         <?php wp_footer(); ?>
         <script defer="defer" src="<?php bloginfo("template_directory"); ?>/assets/scripts/modern.js"></script>

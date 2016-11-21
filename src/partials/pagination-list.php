@@ -2,7 +2,7 @@
 $pagination_links = paginate_links(array("type" => "array"));
 
 if ($pagination_links) {
-    echo "<nav class=content_menu-list_container menu-list_container'><ul class='menu-list -pagination -center'>";
+    echo "<nav class='content_menu-list_container menu-list_container'><ul class='menu-list -pagination -center'>";
 
     foreach ($pagination_links as $link) {
         // replace double quote with single quote for consistancy
@@ -15,8 +15,8 @@ if ($pagination_links) {
         $link = preg_replace("/current/", "-current", $link);
 
         echo "<li class='menu-list_item'>{$link}</li>";
-    }
+    } // foreach ($pagination_links as $link)
 
-    echo "</ul></nav>";
-}
+    echo "</ul></nav>"; // .menu-list.-pagination.-center, .content_menu-list_container.menu-list_container
+} // if ($pagination_links)
 ?>

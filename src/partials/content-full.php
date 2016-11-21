@@ -33,10 +33,10 @@ if (have_posts()) {
                     if ($i < count($categories)) {
                         echo ", ";
                     }
-                }
+                } // foreach ($categories as $category)
 
-                echo "</li>";
-            }
+                echo "</li>"; // .menu-list_item
+            } // if ($categories)
 
             if ($tags) {
                 echo "<li class='menu-list_item'>";
@@ -53,33 +53,30 @@ if (have_posts()) {
                     if ($i < count($tags)) {
                         echo ", ";
                     }
-                }
+                } // foreach ($tags as $tag)
 
-                echo "</li>";
-            }
+                echo "</li>"; // .menu-list_item
+            } // if ($tags)
 
             if ($comments) {
                 echo "<li class='menu-list_item'><a class='menu-list_link link' href='#comments'><i class='fa fa-comment'></i> {$comments} " . __("Comments", "new_site") . "</a></li>";
             }
 
-            // close menu-list -meta, menu-list_container
-            echo "</ul></nav>";
-        }
+            echo "</ul></nav>"; // .menu-list.-meta, .menu-list_container
+        } // if (get_post_type() === "post")
 
-        // close article_header
-        echo "</header>";
+        echo "</header>"; // .article_header
 
         echo "<div class='article_content'><div class='article_user-content user-content'>";
 
         the_content();
 
-        // close article_user-content user-content, article_content
-        echo "</div></div>";
+        echo "</div></div>"; // .article_user-content.user-content, .article_content
 
-        // close content_article article -full
-        echo "</article>";
-    }
-} else {
+        echo "</article>"; // .content_article.article.-full
+    } // while (have_posts())
+} // if (have_posts())
+else {
     $post_type = get_post_type() ? get_post_type() : __("post", "new_site");
 
     echo "<article class='content_article article -full'>";
@@ -88,10 +85,8 @@ if (have_posts()) {
 
     echo "<p class='article_text text'>" . __("Sorry, no {$post_type} could be found matching this criteria.", "new_site") . "</p>";
 
-    // close article_content
-    echo "</div>";
+    echo "</div>"; // .article_content
 
-    // close content_article article -full
-    echo "</article>";
-}
+    echo "</article>"; // .content_article.article.-full
+} // if (have_posts()) else
 ?>

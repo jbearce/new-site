@@ -16,9 +16,8 @@
                 echo "<div class='article_content'><div class='article_user-content user-content'>" . wpautop($term->description) . "</div></div>";
             }
 
-            // close content_article article.-introduction
-            echo "</article>";
-        }
+            echo "</article>"; // .content_article article.-introduction
+        } // if (get_the_archive_title() || $term->description)
         ?>
         <?php get_template_part("partials/content", "excerpt"); ?>
         <?php get_template_part("partials/pagination", "list"); ?>
