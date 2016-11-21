@@ -67,6 +67,8 @@ add_theme_support("post-thumbnails");
  * Menus
 \* ------------------------------------------------------------------------ */
 
+$mega_menu = false;
+
 // register the menus
 register_nav_menus(array(
 	"primary" => "Navigation",
@@ -92,7 +94,7 @@ class new_site_walker extends Walker_Nav_Menu {
         // convert the params in to an array
         $params = explode(" ", $this->params);
 
-        if (in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
+        if ($mega_menu && in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
             $i = 0;
 
             foreach ($children_elements[$element->ID] as $child) {
@@ -160,7 +162,7 @@ class new_site_walker extends Walker_Nav_Menu {
 
         /* mega menu stuff */
 
-        if (in_array("mega", $params)) {
+        if ($mega_menu && in_array("mega", $params)) {
             if ($depth === 0) {
     			self::$li_count = 0;
     		}
@@ -191,7 +193,7 @@ class new_site_walker extends Walker_Nav_Menu {
 
         /* mega menu stuff */
 
-        if (in_array("mega", $params)) {
+        if ($mega_menu && in_array("mega", $params)) {
             if (in_array("-mega", $classes)) {
                 $this->is_mega = true;
 
@@ -243,7 +245,7 @@ class new_site_walker extends Walker_Nav_Menu {
 
         /* mega menu stuff */
 
-        if (in_array("mega", $params)) {
+        if ($mega_menu && in_array("mega", $params)) {
             // get the current classes
             $classes = $item->classes ? $item->classes : array();
 
@@ -260,7 +262,7 @@ class new_site_walker extends Walker_Nav_Menu {
 }
 
 // add "Start New Column" checkboxes to the editor for a mega menu
-if (is_admin()) {
+if ($mega_menu && is_admin()) {
     // @TODO figure out how to only do this on the menu editor page
     // require nav-menu.php so we can hook Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
