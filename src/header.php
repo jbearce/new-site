@@ -75,6 +75,7 @@
                         </div><!--/._textcenter-->
                     </form><!--/.login_login-form.login-form-->
 
+                    <?php if (get_option("users_can_register")): ?>
                     <div class="login_login-form login-form -register">
                         <h6 class="login-form_title title _textcenter"><?php _e("Interested in Signing Up?", "new_site"); ?></h6>
 
@@ -82,6 +83,7 @@
                             <a class="login-form_button button" href="<?php echo wp_registration_url(); ?>"><i class="fa fa-arrow-right"></i> <?php _e("Create your account", "new_site"); ?></a>
                         </div><!--/._textcenter-->
                     </div><!--/.login-form_login-form.login-form.-register-->
+                    <?php endif; ?>
 
                     <button class="login_button button -close" data-overlay="login"><span class="_visuallyhidden"><?php _e("Close the sign in form", "new_site"); ?></span></button>
                 </div><!--/.login_inner-->
