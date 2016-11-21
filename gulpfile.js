@@ -1,60 +1,60 @@
     // general stuff
-var gulp = require("gulp"),                     // gulp
-    fs = require("fs"),                         // the file system
-    notify = require("gulp-notify"),            // notifications
-    plumber = require("gulp-plumber"),          // prevent pipe breaking
-    runSequence = require("run-sequence"),      // allow tasks to be ran in sequence
-    json = require("json-file"),                // read/write JSON files
-    prompt = require("gulp-prompt"),            // allow user input
-    argv = require("yargs").argv,               // --flags
-    del = require("del"),                       // delete files & folders
-    newer = require("gulp-newer"),              // checks if files are newer
-    merge = require("merge-stream"),            // merge streams
-    gulpif = require("gulp-if"),                // if statements in pipes
-    watch = require("gulp-watch"),              // watch for file changes
-    sourcemaps = require("gulp-sourcemaps"),    // sourcemaps
-    concat = require("gulp-concat"),            // concatenater
-    fileinclude = require("gulp-file-include"), // file includer, variable replacer
+var gulp = require("gulp"),                                                     // gulp
+    fs = require("fs"),                                                         // the file system
+    notify = require("gulp-notify"),                                            // notifications
+    plumber = require("gulp-plumber"),                                          // prevent pipe breaking
+    runSequence = require("run-sequence"),                                      // allow tasks to be ran in sequence
+    json = require("json-file"),                                                // read/write JSON files
+    prompt = require("gulp-prompt"),                                            // allow user input
+    argv = require("yargs").argv,                                               // --flags
+    del = require("del"),                                                       // delete files & folders
+    newer = require("gulp-newer"),                                              // checks if files are newer
+    merge = require("merge-stream"),                                            // merge streams
+    gulpif = require("gulp-if"),                                                // if statements in pipes
+    watch = require("gulp-watch"),                                              // watch for file changes
+    sourcemaps = require("gulp-sourcemaps"),                                    // sourcemaps
+    concat = require("gulp-concat"),                                            // concatenater
+    fileinclude = require("gulp-file-include"),                                 // file includer, variable replacer
 
     // media stuff
-    imagemin = require("gulp-imagemin"),     // image compressor
-    pngquant = require("imagemin-pngquant"), // image compressor for PNGs
+    imagemin = require("gulp-imagemin"),                                        // image compressor
+    pngquant = require("imagemin-pngquant"),                                    // image compressor for PNGs
 
     // JS stuff
-    jshint = require("gulp-jshint"), // linter
-    uglify = require("gulp-uglify"), // uglifier
+    jshint = require("gulp-jshint"),                                            // linter
+    uglify = require("gulp-uglify"),                                            // uglifier
 
     // CSS stuff
-    sass = require("gulp-sass"),                                 // SCSS compiler
-    postcss = require("gulp-postcss"),                           // postcss
-    bgImage = require("postcss-bgimage"),                        // remove backgrond images to improve Critical CSS
-    autoprefixer = require("gulp-autoprefixer"),                 // autoprefix CSS
-    flexibility = require("postcss-flexibility"),                // flexibility
+    sass = require("gulp-sass"),                                                // SCSS compiler
+    postcss = require("gulp-postcss"),                                          // postcss
+    bgImage = require("postcss-bgimage"),                                       // remove backgrond images to improve Critical CSS
+    autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
+    flexibility = require("postcss-flexibility"),                               // flexibility
 
     // FTP stuff
-    ftp = require("vinyl-ftp"), // FTP client
+    ftp = require("vinyl-ftp"),                                                 // FTP client
 
-    ftpHost = "",               // FTP hostname (leave blank)
-    ftpUser = "",               // FTP username (leave blank)
-    ftpPass = "",               // FTP password (leave blank)
-    ftpPath = "",               // FTP path (leave blank)
+    ftpHost = "",                                                               // FTP hostname (leave blank)
+    ftpUser = "",                                                               // FTP username (leave blank)
+    ftpPass = "",                                                               // FTP password (leave blank)
+    ftpPath = "",                                                               // FTP path (leave blank)
 
     // SFTP stuff
-    sftp = require("gulp-sftp"), // SFTP client
+    sftp = require("gulp-sftp"),                                                // SFTP client
 
-    sftpHost = "",               // SFTP hostname (leave blank)
-    sftpPort = "",               // SFTP port (leave blank)
-    sftpUser = "",               // SFTP username (leave blank)
-    sftpPass = "",               // SFTP password (leave blank)
-    sftpPath = "",               // SFTP path (leave blank)
+    sftpHost = "",                                                              // SFTP hostname (leave blank)
+    sftpPort = "",                                                              // SFTP port (leave blank)
+    sftpUser = "",                                                              // SFTP username (leave blank)
+    sftpPass = "",                                                              // SFTP password (leave blank)
+    sftpPath = "",                                                              // SFTP path (leave blank)
 
     // browser-sync stuff
-    browserSync = require("browser-sync"), // browser-sync
+    browserSync = require("browser-sync"),                                      // browser-sync
 
-    bsProxy = "",                          // browser-sync proxy (leave blank)
-    bsPort = "",                           // browser-sync port (leave blank)
-    bsOpen = "",                           // browser-sync open (leave blank)
-    bsNotify = "",                         // browser-sync notify (leave blank)
+    bsProxy = "",                                                               // browser-sync proxy (leave blank)
+    bsPort = "",                                                                // browser-sync port (leave blank)
+    bsOpen = "",                                                                // browser-sync open (leave blank)
+    bsNotify = "",                                                              // browser-sync notify (leave blank)
 
     // read data from package.json
     name = json.read("./package.json").get("name"),
@@ -64,11 +64,11 @@ var gulp = require("gulp"),                     // gulp
     license = json.read("./package.json").get("license"),
 
     // set up environment paths
-    src = "./src",   // source directory
-    dev = "./dev",   // development directory
-    dist = "./dist", // production directory
+    src = "./src",                                                              // source directory
+    dev = "./dev",                                                              // development directory
+    dist = "./dist",                                                            // production directory
 
-    ranTasks = []; // store which tasks where ran
+    ranTasks = [];                                                              // store which tasks where ran
 
 // Error handling
 var onError = function(err) {
