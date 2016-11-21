@@ -8,6 +8,8 @@
             </div><!--/.footer-block-->
         </div><!--/.page_container-->
         <?php
+        $modals = get_field("modals");
+        
         if ($modals) {
             $i = 0;
 
