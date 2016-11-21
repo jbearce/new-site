@@ -104,6 +104,8 @@ gulp.task("media", function () {
 
     // compress images, copy other media
     var media = gulp.src(src + "/assets/media/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(mediaDirectory)))
         // compress images
@@ -117,6 +119,8 @@ gulp.task("media", function () {
 
     // compress screenshot
     var screenshot = gulp.src(src + "/screenshot.png")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(screenshotDirectory)))
         // compress screenshot
@@ -130,6 +134,8 @@ gulp.task("media", function () {
 
     // merge both steams back in to one
     return merge(media, screenshot)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -155,6 +161,8 @@ gulp.task("scripts", function () {
 
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
         // lint all non-vendor scripts
@@ -164,6 +172,8 @@ gulp.task("scripts", function () {
 
     // process critical scripts
     var critical = gulp.src([src + "/assets/scripts/critical/loadCSS.js", src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/critical.js")))
         // initialize sourcemap
@@ -179,6 +189,8 @@ gulp.task("scripts", function () {
 
     // process modern scripts
     var modern = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
         // initialize sourcemap
@@ -194,6 +206,8 @@ gulp.task("scripts", function () {
 
     // process legacy scripts
     var legacy = gulp.src([src + "/assets/scripts/legacy/**/*"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/legacy.js")))
         // initialize sourcemap
@@ -209,6 +223,8 @@ gulp.task("scripts", function () {
 
     // merge all four steams back in to one
     return merge(linted, critical, modern, legacy)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -272,6 +288,8 @@ gulp.task("styles", function () {
 
     // merge both steams back in to one
     return merge(critical, standard)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -297,6 +315,8 @@ gulp.task("html", function () {
 
     // process HTML
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
         // replace variables
@@ -597,6 +617,8 @@ gulp.task("ftp", ["config"], function() {
 
     // upload the changed files
     return gulp.src(ftpDirectory + "/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if files are newer
         .pipe(gulpif(!argv.dist, conn.newer(ftpPath)))
         // upload changed files
@@ -617,6 +639,8 @@ gulp.task("sftp", ["config"], function() {
 
     // upload the changed files
     return gulp.src(sftpDirectory + "/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if files are newer
         .pipe(gulpif(!argv.dist, newer({dest: src, extra: [sftpDirectory + "/**/*"]})))
         // upload changed files
