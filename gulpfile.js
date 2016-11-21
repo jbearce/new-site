@@ -673,7 +673,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // notify that the task is complete
     gulp.src("gulpfile.js")
-        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})));
+        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: ranTasks.length + " task" + (ranTasks.length > 1 ? "s" : "") + " complete! [" + ranTasks.join(", ") + "]", onLast: true})));
 
     // trigger FTP task if FTP flag is passed
     if (argv.ftp) runSequence("ftp");
