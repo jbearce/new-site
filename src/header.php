@@ -75,13 +75,7 @@
 	                <div class="header_row row -between -center -mobile">
 	                    <div class="header_col col">
 	                        <a class="header_logo logo" href="<?php echo home_url(); ?>">
-								<?php
-								if (get_custom_logo()) {
-									the_custom_logo();
-								} else {
-									echo "<img class='logo_image' alt='" . get_bloginfo("name") . "' src='" . get_bloginfo("template_directory") . "/assets/media/logo.svg' />";
-								}
-								?>
+								<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
 	                        </a><!--/.header_logo.logo-->
 	                    </div><!--/.header_col.col-->
 	                    <div class="header_col col -none">
