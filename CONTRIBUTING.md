@@ -11,7 +11,7 @@ This is only a brief guide to get you up and running with development. For a mor
 
 ## Required
 
-1. [Node JS](https://nodejs.org/en/) &ndash; recommend latest Current relase)
+1. [Node JS](https://nodejs.org/en/) &ndash; I recommend the latest current release.
 2. [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md)
 
 ## Recommended
@@ -33,7 +33,7 @@ This is only a brief guide to get you up and running with development. For a mor
 ### Advanced
 
 6. [Install WordPress locally with MAMP](https://codex.wordpress.org/Installing_WordPress_Locally_on_Your_Mac_With_MAMP).
-7. Create a [symlink](http://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/) to `./dev` at `/Applications/MAMP/htdocs/wp-content/themes/dev` on Mac, or `C:\MAMP\htdocs\wp-content\themes\dev` on Windows. Note if you did not install MAMP to it's default directory, you should instead create the symlink where you installed it.
+7. Create a [symlink](http://www.howtogeek.com/howto/16226/complete-guide-to-symbolic-links-symlinks-on-windows-or-linux/) to `./dev` at `/Applications/MAMP/htdocs/wp-content/themes` on Mac, or `C:\MAMP\htdocs\wp-content\themes` on Windows. Note if you did not install MAMP to it's default directory, you should instead create the symlink where you installed it.
 8. Make sure your MAMP server is running, and you have your dev theme activated.
 9. Open a terminal, and navigate to the cloned repository's root. Run `gulp watch --sync` and enter the matching values when prompted. This will typically be the following:
 
@@ -48,7 +48,7 @@ This is only a brief guide to get you up and running with development. For a mor
 
 ### `gulp`
 
-This is the main task you need to be aware of. It compiles any changed files in `./src` in to `./dev`. You may also use the `--force` flag to recompile even if no changes have been made (i.e. `gulp --force`
+This is the main task you need to be aware of. It compiles any changed files in `./src` in to `./dev`. If you're not seeing changes take effect, try deleting the `/.dev` folder and recompiling from scratch.
 
 ### `gulp watch`
 
@@ -61,3 +61,41 @@ This task allows you to upload changed files from the terminal. On first run, it
 ## Releasing a Package
 
 **IMPORTANT NOTE:** Only a trained developer should create a build package. If you have not been so trained, **speak with a senior developer to go over this process!**
+
+## CSS Structure
+
+This project uses a custom CSS architecture designed to be modular and flexible. It can be a little daunting trying to understand it at first, but with this guide, you should get the hang of it in no time.
+
+Opening up `./src/assets/styles`, you'll see 3 files and 6 folders. Their purposes are:
+
+- **base** &ndash; Extremely *generic* styles that apply across the entire site. These are used for various generic elements, like titles, inputs, text paragraphs, etc. This is essentially the highest level CSS, that's shared across any number of elements.
+- **helpers** &ndash; Extremely *specific* styles that apply across the entire site. These include functions, helper classes, mixins, and variables, each of which is described in more detail below.
+  - *Functions* are typically used to convert one value to another. By default, there are two functions set up:
+    - `strip-unit`, as it's name implies, will remove units like `px`, `em`, `rem`, `%`, etc from a given number. It's used in the format `strip-unit(65px)`. This function will almost never need to be used; it's mostly there for the `remify` function.
+    - `remify` converts a number given in pixels in to it's equivalent value in either `em` or `rem` units. It's format is `remify($top $right $bottom $left, $font-size, $unit)`. **This should be used in place of `px` units wherever possible.** This function can take some getting used to, but if you're [familiar with `em` and `rem` units](https://webdesign.tutsplus.com/tutorials/comprehensive-guide-when-to-use-em-vs-rem--cms-23984), it should be relatively clear. If you omit the `$font-size` variable, units will be in `rem`, otherwise they'll be in `em`. You can override this functionality by specifying `"rem"` as the third variable. The calculation takes the values from the first parameter (`$top $right $bottom $left`) and divides them by the second (`$font-size`, `16` by default). This is best shown through an example:
+
+          .example {
+              border-width: remify(5, 20, "rem"); /* compiles to 0.25rem */
+              font-size: remify(15); /* compiles to 1rem */
+              margin: remify(15 30, 15); /* compiles to 1em 2em; */
+              padding: remify(10 20); /* compiles to 0.5rem 1rem */
+          }
+
+  - *Helpers* are the most specific classes in the entire project. They cannot be overridden, and as such, should be used very sparingly. Helpers are always prefixed with an underscore (i.e. `_helper`). They're almost always a single rule, suffixed with `!important`. An example would be:
+
+        .\_bold {
+            font-weight: 700 !important;
+        }
+
+      Helpers also include some of the most useful classes in the entire project: visibility classes. These are `_mobile`, `_tablet`, and `_desktop`. As their names imply, they make things visible on mobile devices, tablets, or desktops respectively. You can mix and match them in any combination to get elements to show and hide at different screen widths.
+
+  - *Mixins* are tools that are reused throughout the site. They're fairly similar to functions, except that they can contain things besides a simple value. Most mixins included with this project don't get used, but you may see the use of `@icon` or `@placeholder`. I recommend taking a look at the source code for those mixins to understand how they're used. In a few works, `@placeholder` is used to style placeholders on inputs, and `@icon` is used to insert a FontAwesome icon.
+
+  - *Varaibles* are global tools that contain a value to be reused throughout the site. These should be named extremely generically, for maintainability. For example, if you needed to set up a variable that represents the color red, you would  set up something like `$accent: #FF0000;`. You *would not* set up `$red: #FF0000;`. The reason being that if we need to change the accent color from red to blue in the future, the variable name would become confusing. Yes, you could simply find-and-replace `$red` for `$blue`, but then what was the point of using the variable in the first place? If you really need to mark what color a variable represents, do it in a comment next to the value. For example, `$accent: #FF0000; // red`.
+- **module** &ndash; Fairly *generic* blocks of styles that can be reused across the entire site. These include things like `.widget`, `.logo`, `.menu-list`, `.search-form`, etc. They represent hunks of HTML that can be taken from one spot on a site and placed in another, without change. Modules often contain minor modifications to the basic elements found in the `base` folder, typically with names like `.widget_title`, `.search-form_input`, `.menu-list_link`, etc. In the HTML, these would be represented as `<h4 class='widget_title title'> ... </h4>`, `<a class='menu-list_link link' href='#'> ... </a>`, etc. *Most styles reside in modules.*
+- **layout** &ndash; Fairly *specific* blocks of styles that represent different layout areas on a page. These include things like `.header-block`, `.hero-block`, `.content-block`, and `.footer-block`. The top level class for a layout will always be suffixed with `-block`. Layouts often contain minor modifications to the modules found in the `module` folder, typically with names like `.header_logo`, `.content_search-form`, `.navigation_menu-list`, etc. In HTML, these would be represented as `<a class='header_logo logo' href='#'> ... </a>`, `<form class='content_search-form search-form'> ... </form>`, `<ul class='navigation_menu-list menu-list'>`, etc.
+- **vendor** &ndash; Styles that are pulled directly from third party libraries. **Vendor styles should never be directly edited.** Instead, find their related module, which the vendor styles are imported in (typically with the same folder name name), and add in override styles there. This is to ensure updatability.
+- **views** &ndash; Simply imports all helpers, layout, and module styles to their appropriate viewports. For example, `layout/content/_content_s.scss` would be imported in `views/_screen_s.scss`.
+- **critical.scss** &ndash; Imports all **base** styles, along with all files required to render the above-the-folder content.
+- **legacy.scss** &ndash; Imports all views, without media queries, in order to render the desktop site in older browsers.
+- **modern.scss** &ndash; Imports all views, in their related media queries, in order to render the site in all viewports.
