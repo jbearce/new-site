@@ -69,14 +69,12 @@
         position: absolute;
     }
 
-    + .text.-label.-checkbox,
-    + .text.-label.-radiobutton {
+    + .text.-label {
         padding-left: remify(32, 16);
         position: relative;
     }
 
-    + .text.-label.-checkbox:before,
-    + .text.-label.-radiobutton:before {
+    + .text.-label:before {
         content: "\0020";
         font-size: remify(8, 16);
         height: remify(16, 8);
@@ -91,15 +89,15 @@
         width: remify(16, 8);
     }
 
-    + .text.-label.-radiobutton:before {
+    &.-radiobutton + .text.-label:before {
         border-radius: 50%;
     }
 
-    &:checked + .text.-label.-checkbox:before {
+    &.-checkbox:checked + .text.-label:before {
         @include icon("check");
     }
 
-    &:checked + .text.-label.-radiobutton:before {
+    &.-radiobutton:checked + .text.-label:before {
         @include icon("circle");
     }
 }
