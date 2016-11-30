@@ -15,10 +15,3 @@
 *, *:before, *:after {
     box-sizing: border-box;
 }
-
-// Remove the border-radius and other odd styles on inputs in iOS
-
-input, textarea, select, [type="search"] {
-    border-radius: 0;
-    -webkit-appearance: none;
-}

@@ -27,6 +27,7 @@ var gulp = require("gulp"),                                                     
     // CSS stuff
     sass = require("gulp-sass"),                                                // SCSS compiler
     postcss = require("gulp-postcss"),                                          // postcss
+    postscss = require("postcss-scss"),                                          // postcss SCSS parser
     bgImage = require("postcss-bgimage"),                                       // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
     flexibility = require("postcss-flexibility"),                               // flexibility
@@ -254,10 +255,10 @@ gulp.task("styles", function () {
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/critical.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        // remove background images to prevent 404s
+        .pipe(postcss([bgImage({mode: "cutter"})], {syntax: postscss}))
         // compile SCSS
         .pipe(sass({outputStyle: "compressed"}))
-        // remove background images to prevent 404s
-        .pipe(postcss([bgImage({mode: "cutter"})]))
         // compile SCSS (again, to recompress)
         .pipe(sass({outputStyle: "compressed"}))
         // prefix CSS

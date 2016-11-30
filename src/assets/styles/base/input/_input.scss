@@ -6,10 +6,10 @@
 
 .input {
     &,
-    & > .input_inner,
     &.-checkbox + .text.-checkbox:before,
     &.-radiobutton + .text.-radiobutton:before {
         background: $background;
+        border-radius: 0;
         border: remify(1) solid darken($background_alt, 10);
         color: $foreground;
         display: block;
@@ -22,12 +22,14 @@
         padding: remify(8 12, 16);
         transition: border-color 0.15s, color 0.15s;
         width: 100%;
+        /* remove weird user agent styles */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
     }
 
     &:focus,
     &:hover,
-    & > .input_inner:focus,
-    & > .input_inner:hover,
     &.-checkbox:focus + .text.-checkbox:before,
     &.-checkbox + .text.-checkbox:hover:before,
     &.-radiobutton:focus + .text.-radiobutton:before,
@@ -40,55 +42,21 @@
 
 .input.-select {
     & {
-        background: none;
-        border: 0;
-        padding: 0;
-        position: relative;
-    }
-
-    .input_inner {
-        margin-bottom: 0;
-        padding: remify(8 12 13, 16);
-        position: relative;
-        z-index: 1;
+        cursor: pointer;
         // remove Firefox default styles & arrow
         text-indent: 0.01px;
         text-overflow: "";
-        -moz-appearance: none;
-        // remove Chrome/Safari default styles & arrow
-        -webkit-appearance: none;
         // remove IE default styles & arrow
         &::-ms-expand {display: none;}
     }
 
-    &.-arrow .input_inner {
-        padding-right: remify(48, 16);
-    }
-
-    .input_inner:focus,
-    .input_inner:hover {
-        border-color: $accent;
-    }
-
-    &:after {
-        @include icon("sort");
-        color: inherit;
-        display: block;
-        font-size: remify(16, 16);
-        pointer-events: none;
-        position: absolute;
-        right: remify(16, 16);
-        transform: translateY(-50%);
-        transition: color 0.15s;
-        top: 50%;
-        z-index: 2;
-    }
-
-    // doesn't work, sadly
-
-    .input_inner:focus + &:after,
-    .input_inner:hover + &:after {
-        color: $accent;
+    &.-arrow {
+        /* bgImage: ignore */
+        background: url('data:image/svg+xml;utf8,<svg width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1408 1088q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45zm0-384q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z"/></svg>');
+        background-position: center right remify(12, 16);
+        background-repeat: no-repeat;
+        background-size: remify(16 16, 16);
+        padding-right: remify(40, 16);
     }
 }
 
