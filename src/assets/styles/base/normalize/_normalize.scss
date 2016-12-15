@@ -15,3 +15,10 @@
 *, *:before, *:after {
     box-sizing: border-box;
 }
+
+// Set max-height and max-width to 100% on SVGs to fix a bug in Safari (http://stackoverflow.com/a/12631326/654480)
+
+svg {
+    max-height: 100%;
+    max-width: 100%;
+}
