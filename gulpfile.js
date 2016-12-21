@@ -15,6 +15,7 @@ var gulp = require("gulp"),                                                     
     sourcemaps = require("gulp-sourcemaps"),                                    // sourcemaps
     concat = require("gulp-concat"),                                            // concatenater
     fileinclude = require("gulp-file-include"),                                 // file includer, variable replacer
+    replace = require("gulp-replace"),                                          // replace regular expressions
 
     // media stuff
     imagemin = require("gulp-imagemin"),                                        // image compressor
@@ -332,6 +333,8 @@ gulp.task("html", function () {
                 license: license,
             }
         }))
+        // replace FontAwesome placeholders
+        .pipe(replace(/(?:<icon:)([^>]+)(?:>)/g, "<i class='fa fa-$1' aria-hidden='true'><\/i>"))
         // output to the compiled directory
         .pipe(gulp.dest(htmlDirectory))
         // reload the files

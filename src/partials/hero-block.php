@@ -69,8 +69,8 @@ if ($slideshow || $featured_image || $title) {
 
         if ($i > 1) {
             echo "<div class='swiper-pagination'></div>";
-            echo "<button class='swiper-button-prev'><i class='fa fa-caret-left'></i><span class='_visuallyhidden'>" . __("Previous Slide", "new_site") . "</span></button>";
-            echo "<button class='swiper-button-next'><i class='fa fa-caret-right'></i><span class='_visuallyhidden'>" . __("Next Slide", "new_site") . "</span></button>";
+            echo "<button class='swiper-button-prev'><icon:caret-left><span class='_visuallyhidden'>" . __("Previous Slide", "new_site") . "</span></button>";
+            echo "<button class='swiper-button-next'><icon:caret-right><span class='_visuallyhidden'>" . __("Next Slide", "new_site") . "</span></button>";
         }
 
         echo "</div>"; // .hero_swiper-container.swiper-container
