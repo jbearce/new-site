@@ -115,7 +115,7 @@ class new_site_walker extends Walker_Nav_Menu {
 
         // construct the menu item
         $output .= sprintf(
-            "<li%s><a class='menu-list_link' href='%s'%s%s%s>%s</a>",
+            "<li%s><a class='menu-list_link link' href='%s'%s%s%s>%s</a>",
             $class_names,
             $url,
             $attr_title,
