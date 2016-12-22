@@ -248,3 +248,11 @@ acf_add_local_field_group(array (
 
 endif;
 // End Modals
+
+// Start Options
+if( function_exists('acf_add_options_page') ):
+
+acf_add_options_page();
+
+endif;
+// End Options
