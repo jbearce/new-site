@@ -8,9 +8,19 @@
     & {
         color: $primary;
         font-family: $heading-font;
-        font-size: remify(24, 16);
+        font-size: remify(20, 16);
         font-weight: 700;
-        line-height: remify(36, 24);
-        margin: remify(0 0 12, 24);
+        line-height: remify(30, 20);
+        margin: remify(0 0 10, 20);
+    }
+}
+
+// Desktop variant
+
+@media screen and (min-width: $s-break) {
+    .title {
+        & {
+            font-size: remify(24, 16);
+        }
     }
 }

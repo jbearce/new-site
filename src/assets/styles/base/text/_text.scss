@@ -9,10 +9,20 @@
         color: $foreground;
         display: block;
         font-family: $body-font;
-        font-size: remify(16, 16);
+        font-size: remify(12, 16);
         font-weight: 400;
-        line-height: remify(24, 16);
-        margin: remify(0 0 24, 16);
+        line-height: remify(18, 12);
+        margin: remify(0 0 18, 12);
+    }
+}
+
+// Desktop variant
+
+@media screen and (min-width: $s-break) {
+    .text {
+        & {
+            font-size: remify(16, 16);
+        }
     }
 }
 

@@ -30,40 +30,31 @@
         font-weight: 700;
     }
 
-    h1 {
-        font-size: remify(24, 16);
-        line-height: remify(36, 24);
-        margin: remify(0 0 12, 24);
-    }
-
+    h1,
     h2 {
-        font-size: remify(22, 16);
-        line-height: remify(33, 22);
-        margin: remify(0 0 11, 22);
-    }
-
-    h3 {
         font-size: remify(20, 16);
         line-height: remify(30, 20);
         margin: remify(0 0 10, 20);
     }
 
+    h3,
     h4 {
         font-size: remify(18, 16);
-        line-height: remify(27, 18);
-        margin: remify(0 0 9, 18);
+        line-height: remify(26, 18);
+        margin: remify(0 0 8, 18);
     }
 
-    h5 {
+    h5,
+    h6 {
         font-size: remify(16, 16);
         line-height: remify(24, 16);
         margin: remify(0 0 8, 16);
     }
 
+    h2,
+    h4,
     h6 {
-        font-size: remify(14, 16);
-        line-height: remify(21, 14);
-        margin: remify(0 0 7, 14);
+        color: $foreground;
     }
 
     // text
@@ -74,15 +65,15 @@
     table {
         color: $foreground;
         font-family: $body-font;
-        font-size: remify(16, 16);
+        font-size: remify(12, 16);
         font-weight: 400;
-        line-height: remify(24, 16);
-        margin: remify(0 0 24, 16);
+        line-height: remify(18, 12);
+        margin: remify(0 0 18, 12);
     }
 
     ol,
     ul {
-        padding-left: remify(18, 14);
+        padding-left: remify(18, 12);
     }
 
     table {
@@ -93,7 +84,7 @@
     table td,
     table th {
         border: remify(1) solid darken($background_alt, 10);
-        padding: remify(7.5 15, 14);
+        padding: remify(6 8, 12);
         text-align: left;
         vertical-align: top;
     }
@@ -110,9 +101,9 @@
         background: $dark_alt;
         border-color: lighten($dark_alt, 10);
         color: $light;
-        font-size: remify(18, 14);
+        font-size: remify(16, 12);
         font-weight: 400;
-        padding: remify(10 15, 18);
+        padding: remify(6 8, 16);
     }
 
     table > tr:nth-child(even) td,
@@ -149,7 +140,7 @@
     blockquote ul,
     blockquote table {
         color: lighten($foreground, 50);
-        font-size: remify(18, 16);
+        font-size: remify(14, 16);
     }
 
     blockquote > :last-child {
@@ -239,19 +230,56 @@
         margin-left: auto;
         margin-right: auto;
     }
+}
 
-    // dark variant
+// Desktop variant
 
-    &.-dark h1,
-    &.-dark h2,
-    &.-dark h3,
-    &.-dark h4,
-    &.-dark h5,
-    &.-dark h6,
-    &.-dark ol,
-    &.-dark p,
-    &.-dark table,
-    &.-dark ul {
+@media screen and (min-width: $s-break) {
+    .user-content {
+        h1,
+        h2 {
+            font-size: remify(24, 16);
+        }
+
+        h3,
+        h4 {
+            font-size: remify(21.6, 16);
+        }
+
+        h5,
+        h6 {
+            font-size: remify(19.2, 16);
+        }
+
+        p,
+        ol,
+        ul,
+        table {
+            font-size: remify(16, 16);
+        }
+
+        blockquote p,
+        blockquote ol,
+        blockquote ul,
+        blockquote table {
+            font-size: remify(18, 16);
+        }
+    }
+}
+
+// dark variant
+
+.user-content.-dark {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    ol,
+    p,
+    table,
+    ul {
         color: $light;
     }
 }

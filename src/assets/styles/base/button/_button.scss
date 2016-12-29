@@ -26,3 +26,11 @@
         background: $primary_alt;
     }
 }
+
+// Desktop variant
+
+@media screen and (min-width: $s-break) {
+    .button {
+        font-size: remify(18, 16);
+    }
+}
