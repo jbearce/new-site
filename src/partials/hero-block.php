@@ -38,12 +38,12 @@ if ($slideshow || $featured_image || $title) {
                 if ($img_src_mobile) {
                     echo "<picture class='hero_picutre swiper-picture'>";
 
-                    if ($img_src_tablet) {
-                        echo "<source srcset='{$img_src_tablet}' media='(min-width: 40em)' />";
-                    }
-
                     if ($img_src_desktop) {
                         echo "<source srcset='{$img_src_desktop}' media='(min-width: 64em)' />";
+                    }
+
+                    if ($img_src_tablet) {
+                        echo "<source srcset='{$img_src_tablet}' media='(min-width: 40em)' />";
                     }
 
                     echo "<img class='hero_image swiper-image'{$img_alt} src='{$img_src_mobile}' />";
@@ -83,13 +83,13 @@ if ($slideshow || $featured_image || $title) {
         echo "<figure class='hero_figure'>";
 
         echo "<picture class='hero_picture'>";
+        
+        if ($img_src_desktop) {
+            echo "<source srcset='{$img_src_desktop[0]}' media='(min-width: 64em)' />";
+        }
 
         if ($img_src_tablet) {
             echo "<source srcset='{$img_src_tablet[0]}' media='(min-width: 40em) and (max-width: 63.9375em)' />";
-        }
-
-        if ($img_src_desktop) {
-            echo "<source srcset='{$img_src_desktop[0]}' media='(min-width: 64em)' />";
         }
 
         echo $featured_image;
