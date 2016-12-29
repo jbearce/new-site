@@ -7,8 +7,6 @@ if (have_posts()) {
 
         echo "<header class='article_header'>";
 
-        the_title("<h1 class='article_title title'>", "</h1>");
-
         if (get_post_type() === "post") {
             $categories = get_the_terms($post->ID, "category");
             $tags = get_the_terms($post->ID, "post_tag");
