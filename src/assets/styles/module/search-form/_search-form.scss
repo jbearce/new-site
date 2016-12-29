@@ -4,6 +4,12 @@
  * Search Form
 \* ------------------------------------------------------------------------ */
 
+.search-form_container {
+    & {
+        margin: remify(0 0 20, 16);
+    }
+}
+
 .search-form {
     & {
         position: relative;

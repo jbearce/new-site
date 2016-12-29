@@ -46,9 +46,9 @@
             <?php get_template_part("partials/login", "overlay"); ?>
 	        <div class="navigation-block -flyout _mobile _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
 	            <div class="navigation_inner">
-	                <div class="navigation_search-form_container search-form_container">
+	                <div class="navigation_search-form_container search-form_container _nomargin">
 	                    <?php get_search_form(); ?>
-	                </div><!--/.navigation_search-form_container.-search-form_container-->
+	                </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
 	                <?php
 	                $menu = wp_nav_menu(array(
 	                    "container"		 => false,
@@ -83,9 +83,9 @@
 	                        <button class="header_menu-toggle menu-toggle -rounded _mobile" data-overlay="mobile-nav">
 	                            <?php _e("View Menu", "new_site"); ?>
 	                        </button><!--/.header_menu-toggle.menu-toggle.-rounded._mobile-->
-	                        <div class="header_serach_container search-form_container _tablet _desktop" role="search">
+	                        <div class="header_serach_container search-form_container _nomargin _tablet _desktop" role="search">
 	                            <?php get_search_form(); ?>
-	                        </div><!--/.header_serach_container.search-form_container._tablet._desktop-->
+	                        </div><!--/.header_serach_container.search-form_container._nomargin._tablet._desktop-->
 	                    </div><!--/.header_col.col.-none-->
 	                </div><!--/.header_row.row.-between.-center.-mobile-->
 	            </div><!--/.header_inner-->
