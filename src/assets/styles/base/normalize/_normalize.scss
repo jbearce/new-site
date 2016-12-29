@@ -16,9 +16,9 @@
     box-sizing: border-box;
 }
 
-// Remove the border-radius and other odd styles on inputs in iOS
+// Set max-height and max-width to 100% on SVGs to fix a bug in Safari (http://stackoverflow.com/a/12631326/654480)
 
-input, textarea, select, [type="search"] {
-    border-radius: 0;
-    -webkit-appearance: none;
+svg {
+    max-height: 100%;
+    max-width: 100%;
 }

@@ -3,7 +3,14 @@
 <div class="content-block">
     <div class="content_inner">
         <div class="content_post">
-            <?php get_template_part("partials/content", "full"); ?>
+            <?php
+            if (have_posts()) {
+                while (have_posts()) {
+                    the_post();
+                    the_content();
+                }
+            }
+            ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
 </div><!--/.content-block-->

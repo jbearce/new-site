@@ -1,60 +1,62 @@
     // general stuff
-var gulp = require("gulp"),                     // gulp
-    fs = require("fs"),                         // the file system
-    notify = require("gulp-notify"),            // notifications
-    plumber = require("gulp-plumber"),          // prevent pipe breaking
-    runSequence = require("run-sequence"),      // allow tasks to be ran in sequence
-    json = require("json-file"),                // read/write JSON files
-    prompt = require("gulp-prompt"),            // allow user input
-    argv = require("yargs").argv,               // --flags
-    del = require("del"),                       // delete files & folders
-    newer = require("gulp-newer"),              // checks if files are newer
-    merge = require("merge-stream"),            // merge streams
-    gulpif = require("gulp-if"),                // if statements in pipes
-    watch = require("gulp-watch"),              // watch for file changes
-    sourcemaps = require("gulp-sourcemaps"),    // sourcemaps
-    concat = require("gulp-concat"),            // concatenater
-    fileinclude = require("gulp-file-include"), // file includer, variable replacer
+var gulp = require("gulp"),                                                     // gulp
+    fs = require("fs"),                                                         // the file system
+    notify = require("gulp-notify"),                                            // notifications
+    plumber = require("gulp-plumber"),                                          // prevent pipe breaking
+    runSequence = require("run-sequence"),                                      // allow tasks to be ran in sequence
+    json = require("json-file"),                                                // read/write JSON files
+    prompt = require("gulp-prompt"),                                            // allow user input
+    argv = require("yargs").argv,                                               // --flags
+    del = require("del"),                                                       // delete files & folders
+    newer = require("gulp-newer"),                                              // checks if files are newer
+    merge = require("merge-stream"),                                            // merge streams
+    gulpif = require("gulp-if"),                                                // if statements in pipes
+    watch = require("gulp-watch"),                                              // watch for file changes
+    sourcemaps = require("gulp-sourcemaps"),                                    // sourcemaps
+    concat = require("gulp-concat"),                                            // concatenater
+    fileinclude = require("gulp-file-include"),                                 // file includer, variable replacer
+    replace = require("gulp-replace"),                                          // replace regular expressions
 
     // media stuff
-    imagemin = require("gulp-imagemin"),     // image compressor
-    pngquant = require("imagemin-pngquant"), // image compressor for PNGs
+    imagemin = require("gulp-imagemin"),                                        // image compressor
+    pngquant = require("imagemin-pngquant"),                                    // image compressor for PNGs
 
     // JS stuff
-    jshint = require("gulp-jshint"), // linter
-    uglify = require("gulp-uglify"), // uglifier
+    jshint = require("gulp-jshint"),                                            // linter
+    uglify = require("gulp-uglify"),                                            // uglifier
 
     // CSS stuff
-    sass = require("gulp-sass"),                                 // SCSS compiler
-    postcss = require("gulp-postcss"),                           // postcss
-    autoprefixer = require("gulp-autoprefixer"),                 // autoprefix CSS
-    flexibility = require("postcss-flexibility"),                // flexibility
-    cssBackgroundRemove = require("gulp-css-background-remove"), // remove backgrounds to prevent 404s
+    sass = require("gulp-sass"),                                                // SCSS compiler
+    postcss = require("gulp-postcss"),                                          // postcss
+    postscss = require("postcss-scss"),                                          // postcss SCSS parser
+    bgImage = require("postcss-bgimage"),                                       // remove backgrond images to improve Critical CSS
+    autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
+    flexibility = require("postcss-flexibility"),                               // flexibility
 
     // FTP stuff
-    ftp = require("vinyl-ftp"), // FTP client
+    ftp = require("vinyl-ftp"),                                                 // FTP client
 
-    ftpHost = "",               // FTP hostname (leave blank)
-    ftpUser = "",               // FTP username (leave blank)
-    ftpPass = "",               // FTP password (leave blank)
-    ftpPath = "",               // FTP path (leave blank)
+    ftpHost = "",                                                               // FTP hostname (leave blank)
+    ftpUser = "",                                                               // FTP username (leave blank)
+    ftpPass = "",                                                               // FTP password (leave blank)
+    ftpPath = "",                                                               // FTP path (leave blank)
 
     // SFTP stuff
-    sftp = require("gulp-sftp"), // SFTP client
+    sftp = require("gulp-sftp"),                                                // SFTP client
 
-    sftpHost = "",               // SFTP hostname (leave blank)
-    sftpPort = "",               // SFTP port (leave blank)
-    sftpUser = "",               // SFTP username (leave blank)
-    sftpPass = "",               // SFTP password (leave blank)
-    sftpPath = "",               // SFTP path (leave blank)
+    sftpHost = "",                                                              // SFTP hostname (leave blank)
+    sftpPort = "",                                                              // SFTP port (leave blank)
+    sftpUser = "",                                                              // SFTP username (leave blank)
+    sftpPass = "",                                                              // SFTP password (leave blank)
+    sftpPath = "",                                                              // SFTP path (leave blank)
 
     // browser-sync stuff
-    browserSync = require("browser-sync"), // browser-sync
+    browserSync = require("browser-sync"),                                      // browser-sync
 
-    bsProxy = "",                          // browser-sync proxy (leave blank)
-    bsPort = "",                           // browser-sync port (leave blank)
-    bsOpen = "",                           // browser-sync open (leave blank)
-    bsNotify = "",                         // browser-sync notify (leave blank)
+    bsProxy = "",                                                               // browser-sync proxy (leave blank)
+    bsPort = "",                                                                // browser-sync port (leave blank)
+    bsOpen = "",                                                                // browser-sync open (leave blank)
+    bsNotify = "",                                                              // browser-sync notify (leave blank)
 
     // read data from package.json
     name = json.read("./package.json").get("name"),
@@ -64,11 +66,11 @@ var gulp = require("gulp"),                     // gulp
     license = json.read("./package.json").get("license"),
 
     // set up environment paths
-    src = "./src",   // source directory
-    dev = "./dev",   // development directory
-    dist = "./dist", // production directory
+    src = "./src",                                                              // source directory
+    dev = "./dev",                                                              // development directory
+    dist = "./dist",                                                            // production directory
 
-    ranTasks = []; // store which tasks where ran
+    ranTasks = [];                                                              // store which tasks where ran
 
 // Error handling
 var onError = function(err) {
@@ -104,6 +106,8 @@ gulp.task("media", function () {
 
     // compress images, copy other media
     var media = gulp.src(src + "/assets/media/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(mediaDirectory)))
         // compress images
@@ -117,6 +121,8 @@ gulp.task("media", function () {
 
     // compress screenshot
     var screenshot = gulp.src(src + "/screenshot.png")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(screenshotDirectory)))
         // compress screenshot
@@ -130,6 +136,8 @@ gulp.task("media", function () {
 
     // merge both steams back in to one
     return merge(media, screenshot)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -155,6 +163,8 @@ gulp.task("scripts", function () {
 
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
         // lint all non-vendor scripts
@@ -164,6 +174,8 @@ gulp.task("scripts", function () {
 
     // process critical scripts
     var critical = gulp.src([src + "/assets/scripts/critical/loadCSS.js", src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/critical.js")))
         // initialize sourcemap
@@ -179,6 +191,8 @@ gulp.task("scripts", function () {
 
     // process modern scripts
     var modern = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
         // initialize sourcemap
@@ -194,6 +208,8 @@ gulp.task("scripts", function () {
 
     // process legacy scripts
     var legacy = gulp.src([src + "/assets/scripts/legacy/**/*"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(jsDirectory + "/legacy.js")))
         // initialize sourcemap
@@ -209,6 +225,8 @@ gulp.task("scripts", function () {
 
     // merge all four steams back in to one
     return merge(linted, critical, modern, legacy)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -238,10 +256,10 @@ gulp.task("styles", function () {
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/critical.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        // remove background images to prevent 404s
+        .pipe(postcss([bgImage({mode: "cutter"})], {syntax: postscss}))
         // compile SCSS
         .pipe(sass({outputStyle: "compressed"}))
-        // remove background images to prevent 404s
-        .pipe(cssBackgroundRemove({writeImagesFile: false}))
         // compile SCSS (again, to recompress)
         .pipe(sass({outputStyle: "compressed"}))
         // prefix CSS
@@ -272,6 +290,8 @@ gulp.task("styles", function () {
 
     // merge both steams back in to one
     return merge(critical, standard)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
@@ -297,9 +317,11 @@ gulp.task("html", function () {
 
     // process HTML
     return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
-        // insert variables
+        // replace variables
         .pipe(fileinclude({
             prefix: "@@",
             basepath: "@file",
@@ -311,6 +333,8 @@ gulp.task("html", function () {
                 license: license,
             }
         }))
+        // replace FontAwesome placeholders
+        .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_]+)[^>]*(?:>)/g, "<i class='fa fa-$1' aria-hidden='true'><\/i>"))
         // output to the compiled directory
         .pipe(gulp.dest(htmlDirectory))
         // reload the files
@@ -597,6 +621,8 @@ gulp.task("ftp", ["config"], function() {
 
     // upload the changed files
     return gulp.src(ftpDirectory + "/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if files are newer
         .pipe(gulpif(!argv.dist, conn.newer(ftpPath)))
         // upload changed files
@@ -617,6 +643,8 @@ gulp.task("sftp", ["config"], function() {
 
     // upload the changed files
     return gulp.src(sftpDirectory + "/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // check if files are newer
         .pipe(gulpif(!argv.dist, newer({dest: src, extra: [sftpDirectory + "/**/*"]})))
         // upload changed files
@@ -649,7 +677,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // notify that the task is complete
     gulp.src("gulpfile.js")
-        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: "Task(s) complete! [" + ranTasks.join(", ") + "]", onLast: true})));
+        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: ranTasks.length + " task" + (ranTasks.length > 1 ? "s" : "") + " complete! [" + ranTasks.join(", ") + "]", onLast: true})));
 
     // trigger FTP task if FTP flag is passed
     if (argv.ftp) runSequence("ftp");
