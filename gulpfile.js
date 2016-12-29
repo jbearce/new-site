@@ -334,7 +334,7 @@ gulp.task("html", function () {
             }
         }))
         // replace FontAwesome placeholders
-        .pipe(replace(/(?:<icon:)([^>]+)(?:>)/g, "<i class='fa fa-$1' aria-hidden='true'><\/i>"))
+        .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_]+)[^>]*(?:>)/g, "<i class='fa fa-$1' aria-hidden='true'><\/i>"))
         // output to the compiled directory
         .pipe(gulp.dest(htmlDirectory))
         // reload the files
