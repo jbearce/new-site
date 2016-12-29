@@ -126,13 +126,20 @@
     // blockquote
 
     blockquote {
-        border: remify(1) solid darken($background_alt, 10);
-        border-left: 0;
-        border-right: 0;
         font-style: italic;
-        margin-left: remify(40, 16);
-        margin-right: remify(40, 16);
-        padding: remify(21 0, 16);
+        margin: 0;
+        padding: remify(0 0 0 28, 16);
+        position: relative;
+    }
+
+    blockquote:before {
+        @include icon("quote-left");
+        color: $accent;
+        display: block;
+        font-size: remify(18, 16);
+        left: 0;
+        position: absolute;
+        top: 0;
     }
 
     blockquote p,
@@ -141,10 +148,6 @@
     blockquote table {
         color: lighten($foreground, 50);
         font-size: remify(14, 16);
-    }
-
-    blockquote > :last-child {
-        margin-bottom: 0 !important;
     }
 
     // horizontal rule
@@ -164,54 +167,9 @@
         display: block;
         height: auto !important;
         max-width: 100%;
-        min-height: remify(50, 16);
-        position: relative;
-    }
-
-    img:before {
-        background: $background_alt;
-        border: remify(1) dotted darken($background_alt, 10);
-        border-radius: remiefy(5, 16);
-        content: "\0020";
-        display: block;
-        height: 100%;
-        left: 0;
-        position: absolute;
-        width: 100%;
-    }
-
-    img:after {
-        color: lighten($foreground, 20);
-        content: "\F127\0020" attr(alt);
-        display: block;
-        font-family: "FontAwesome";
-        font-size: remify(16, 16);
-        font-style: normal;
-        left: 0;
-        position: absolute;
-        text-align: center;
-        top: remify(5, 16);
-        width: 100%;
     }
 
     // alignment
-
-    .alignfull {
-        display: block;
-        width: 100%;
-    }
-
-    @supports (width: 100vw) {
-        .alignfull {
-            left: 50%;
-            margin-left: -50vw;
-            margin-right: -50vw;
-            max-width: none;
-            position: relative;
-            right: 50%;
-            width: 100vw;
-        }
-    }
 
     .alignleft {
         float: left;
@@ -256,6 +214,14 @@
         ul,
         table {
             font-size: remify(16, 16);
+        }
+
+        blockquote {
+            padding-left: remify(36, 16);
+        }
+
+        blockquote:before {
+            font-size: remify(24, 16);
         }
 
         blockquote p,
