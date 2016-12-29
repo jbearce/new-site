@@ -33,10 +33,10 @@ if ($slideshow || $featured_image || $title) {
                 $img_title = $image["title"];
                 $img_caption = $image["caption"];
 
-                echo "<figure class='hero_figure swiper-slide'>";
+                echo "<figure class='swiper-slide'>";
 
                 if ($img_src_mobile) {
-                    echo "<picture class='hero_picutre swiper-picture'>";
+                    echo "<picture class='swiper-picture'>";
 
                     if ($img_src_desktop) {
                         echo "<source srcset='{$img_src_desktop}' media='(min-width: 64em)' />";
@@ -46,22 +46,21 @@ if ($slideshow || $featured_image || $title) {
                         echo "<source srcset='{$img_src_tablet}' media='(min-width: 40em)' />";
                     }
 
-                    echo "<img class='hero_image swiper-image'{$img_alt} src='{$img_src_mobile}' />";
+                    echo "<img class='swiper-image'{$img_alt} src='{$img_src_mobile}' />";
 
-                    echo "</picture>"; // .hero_picture
+                    echo "</picture>"; // .swiper-picture
                 }
 
                 if ($img_title || $img_caption) {
-                    echo "<figcaption class='hero_header swiper-caption'>";
+                    echo "<figcaption class='swiper-caption'>";
 
-                    if ($img_title) echo "<h6 class='hero_title swiper-title title'>{$img_title}</h6>";
-                    if ($img_caption) echo "<div class='hero_user-content swiper-user-content user-content -dark'>" . wpautop($img_caption) . "</div>";
+                    if ($img_title) echo "<h6 class='swiper-title title'>{$img_title}</h6>";
+                    if ($img_caption) echo "<div class='swiper-user-content user-content -dark'>" . wpautop($img_caption) . "</div>";
 
-                    echo "</figcaption>"; // .hero_header.swiper-caption
+                    echo "</figcaption>"; // .swiper-caption
                 } // if ($img_title || $img_caption)
 
-                // close swiper-slide
-                echo "</figure>";
+                echo "</figure>"; // .swiper-slide
             } // if ($image)
         } // while (have_rows("slideshow"))
 
@@ -83,7 +82,7 @@ if ($slideshow || $featured_image || $title) {
         echo "<figure class='hero_figure'>";
 
         echo "<picture class='hero_picture'>";
-        
+
         if ($img_src_desktop) {
             echo "<source srcset='{$img_src_desktop[0]}' media='(min-width: 64em)' />";
         }
