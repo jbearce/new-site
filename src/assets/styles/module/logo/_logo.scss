@@ -11,7 +11,7 @@
         transition: opacity 0.15s;
     }
 
-    &:not(.-nohover):hover {
+    &:hover {
         opacity: 0.9;
     }
 }
@@ -20,14 +20,5 @@
     & {
         display: block;
         width: 100%;
-    }
-}
-
-// 'cause apparently you can't add a class to the_custom_logo() -_-
-
-.custom-logo {
-    & {
-        @extend .logo_image;
-        height: auto !important;
     }
 }
