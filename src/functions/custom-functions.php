@@ -74,7 +74,7 @@ function get_map_link($address) {
     $address_url = "";
 
     if ($address) {
-        $address_base_url = preg_match("/iPod|iPhone|iPad/", $_SERVER["HTTP_USER_AGENT"]) ? "http://maps.apple.com/?q=" : "https://www.google.com/maps?q=";
+        $address_base_url = preg_match("/iPod|iPhone|iPad/", $_SERVER["HTTP_USER_AGENT"]) ? "https://maps.apple.com/?q=" : "https://maps.google.com/?q=";
         $address_url = $address_base_url . urlencode($address);
     }
 
