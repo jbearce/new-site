@@ -15,7 +15,7 @@ function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
 }
 
 // format an address
-function format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 0) {
+function format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
     $address = "";
 
     if ($address_1 || $address_2 || $city || $state || $zip_code) {
@@ -23,7 +23,7 @@ function format_address($address_1, $address_2, $city, $state, $zip_code, $break
             $address .= $address_1;
 
             if ($address_2 || $city || $state || $zip_code) {
-                if ($break_mode !== 0 && !($address_2 && $break_mode === 1)) {
+                if ($break_mode !== 1 && !($address_2 && $break_mode === 2)) {
                     $address .= "<br />";
                 } else {
                     $address .= ", ";
@@ -35,7 +35,7 @@ function format_address($address_1, $address_2, $city, $state, $zip_code, $break
             $address .= $address_2;
 
             if ($city || $state || $zip_code) {
-                if ($break_mode !== 0) {
+                if ($break_mode !== 1) {
                     $address .= "<br />";
                 } else {
                     $address .= ", ";
