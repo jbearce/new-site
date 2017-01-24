@@ -82,16 +82,9 @@
     }
 }
 
-// when screen is < 768 and > 1024
-@media screen and (max-width: ($s-break - 1 / 16)) and (min-width: $xl-break) {
-    ._tablet {
-        display: none !important;
-    }
-}
-
 // when screen is < 768
 @media screen and (max-width: ($s-break - 1 / 16)) {
-    ._tablet._desktop:not(._mobile) {
+    ._tablet:not(._mobile) {
         display: none !important;
     }
 }
@@ -105,7 +98,8 @@
 
 // when screen is > 1024
 @media screen and (min-width: $xl-break) {
-    ._mobile._tablet:not(._desktop) {
+    ._mobile:not(._desktop),
+    ._tablet:not(._desktop) {
         display: none !important;
     }
 }
