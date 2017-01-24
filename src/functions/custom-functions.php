@@ -70,12 +70,16 @@ function format_address($address_1, $address_2, $city, $state, $zip_code, $break
 }
 
 // get a map link
-function get_map_link($address) {
+function get_map_link($address, $embed = false) {
     $address_url = "";
 
     if ($address) {
-        $address_base_url = preg_match("/iPod|iPhone|iPad/", $_SERVER["HTTP_USER_AGENT"]) ? "https://maps.apple.com/?q=" : "https://maps.google.com/?q=";
-        $address_url = $address_base_url . urlencode($address);
+        $apple_url = "http://maps.apple.com/?q=";
+        $google_url = "https://maps.google.com/?q=";
+
+        $address_url = preg_match("/iPod|iPhone|iPad/", $_SERVER["HTTP_USER_AGENT"]) && $embed !== true ? $apple_url . urlencode($address) : $google_url . urlencode($address);
+
+        if ($embed === true) $address_url .= "&output=embed";
     }
 
     return $address_url;
