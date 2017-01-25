@@ -7,12 +7,7 @@ if (have_posts()) {
 
         echo "<header class='article_header'>";
 
-        echo "<h2 class='article_title title'><a class='article_link link' href='" . get_permalink() . "'>";
-
-        the_title();
-
-        // close article_link link, article_title title
-        echo "</a></h2>";
+        echo "<h2 class='article_title title'><a class='article_link link' href='" . get_permalink() . "'>" . get_the_title() . "</a></h2>";
 
         if (get_post_type() === "post") {
             $categories = get_the_terms($post->ID, "category");
@@ -35,9 +30,7 @@ if (have_posts()) {
 
                     echo "<a class='menu-list_link link' href='" . get_term_link($category) . "'>{$category->name}</a>";
 
-                    if ($i < count($categories)) {
-                        echo ", ";
-                    }
+                    if ($i < count($categories)) echo ", ";
                 }
 
                 echo "</li>"; // .menu-list_item
@@ -55,9 +48,7 @@ if (have_posts()) {
 
                     echo "<a class='menu-list_link link' href='" . get_term_link($tag) . "'>{$tag->name}</a>";
 
-                    if ($i < count($tags)) {
-                        echo ", ";
-                    }
+                    if ($i < count($tags)) echo ", ";
                 }
 
                 echo "</li>"; // .menu-list_item
@@ -73,9 +64,7 @@ if (have_posts()) {
         echo "</header>"; // .article_header
 
         echo "<div class='article_content'>";
-
         echo "<p class='article_text text'>" . get_better_excerpt($post->ID, 55, "&hellip; <a class='article_link link' href='" . get_permalink() . "'>" . __("Read More", "new_site") . "</a>") . "</p>";
-
         echo "</div>"; // .article_content
 
         echo "</article>"; // .content_article.article.-full
@@ -88,13 +77,9 @@ else {
     $error_message = is_archive() ? __("Sorry, no {$post_type}s could be found in this {$term->taxonomy}.", "new_site") : (is_search() ? (get_search_query() ? __("Sorry, no {$post_type} could be found for the search phrase &ldquo;" . get_search_query() . "&rdquo;.", "new_site") : __("No search query was entered.", "new_site")) : __("Sorry, no {$post_type}s could be found matching this criteria.", "new_site"));
 
     echo "<article class='content_article article -full'>";
-
     echo "<div class='article_content'>";
-
     echo "<p class='article_text text'>{$error_message}</p>";
-
     echo "</div>"; // .article_content
-
     echo "</article>"; // .content_article.article.-full
 } // if (have_posts()) else
 ?>
