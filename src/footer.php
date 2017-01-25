@@ -8,31 +8,35 @@
             </div><!--/.footer-block-->
         </div><!--/.page_container-->
         <?php
+        $i = 0;
         $modals = get_field("modals");
-        
-        if ($modals) {
-            $i = 0;
-
-            while (have_rows("modals")) {
-                the_row();
-
-                $i++;
-
-                $content = get_sub_field("content");
-
-                if ($content) {
-                    echo "<div class='modal _noncritical' data-overlay='modal{$i}' aria-hidden='true' tabindex='1'>";
-
-                    echo "<div class='user-content'>{$content}</div>";
-
-                    echo "<button class='modal_menu-toggle menu-toggle' data-overlay='modal{$i}'>" . __("Close Modal", "new_site") . "</button>";
-
-                    echo "</div>"; // .modal._noncritical
-                } // if ($content)
-
-            } // while (have_rows("modals"))
-        } // if ($modals)
         ?>
+
+        <?php if ($modals): ?>
+            <?php while (have_rows("modals")): ?>
+                <?php the_row(); ?>
+
+                <?php
+                $i++;
+                $content = get_sub_field("content");
+                ?>
+
+                <?php if ($content): ?>
+                    <div class="modal _noncritical" data-overlay="modal<?php echo $i; ?>" aria-hidden="true" tabindex="1">
+
+                        <div class="user-content">
+                            <?php echo $content; ?>
+                        </div><!--/.user-content-->
+
+                        <button class="modal_menu-toggle menu-toggle" data-overlay="modal<?php echo $i; ?>">
+                            <?php _e("Close Modal", "new_site"); ?>
+                        </button><!--/.modal_menu-toggle.menu-toggle-->
+
+                    </div><!--/.modal._noncritical
+                <?php endif; // if ($content) ?>
+
+            <?php endwhile; // while (have_rows("modals")) ?>
+        <?php endif; // if ($modals) ?>
         <?php wp_footer(); ?>
         <script defer="defer" src="<?php bloginfo("template_directory"); ?>/assets/scripts/modern.js"></script>
         <script><?php include(get_template_directory() . "/assets/scripts/critical.js"); ?></script>
