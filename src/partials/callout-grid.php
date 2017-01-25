@@ -1,38 +1,32 @@
 <?php
+$i = 0;
 $callouts = get_field("callouts");
+?>
 
-if ($callouts) {
-    $i = 0;
+<?php if ($callouts): ?>
+    <?php while (have_rows("callouts")): ?>
+        <?php the_row(); ?>
 
-    while (have_rows("callouts")) {
-        the_row();
-
+        <?php
         $title = get_sub_field("title");
         $content = get_sub_field("content");
+        ?>
 
-        if ($title || $content) {
-            $i++;
+        <?php if ($title || $content): ?>
+            <?php $i++; ?>
 
-            if ($i === 1 || ($i - 1) % 3 === 0) {
-                echo "<div class='row -padded -equalheight'>";
-            }
+            <?php if ($i === 1 || ($i - 1) % 3 === 0) ?><div class="row -padded -equalheight">
 
-            echo "<div class='col -third'><div class='widget'>";
+            <div class="col -third">
+                <div class="widget">
 
-            if ($title) {
-                echo "<h6 class='widget_title title'>{$title}</h6>";
-            }
+                    <?php if ($title) ?><h6 class="widget_title title"><?php echo $title; ?></h6>
+                    <?php if ($content) ?><div class="widget_content user-content"><?php echo $content; ?></div>
 
-            if ($content) {
-                echo "<div class='widget_content user-content'>{$content}</div>";
-            }
+                </div><!--/.widget-->
+            </div><!--/.col.-third-->
 
-            echo "</div></div>"; // .widget, .col.-third
-
-            if ($i === count($callouts) || $i % 3 === 0) {
-                echo "</div>"; // .row.-padded
-            }
-        } // if ($titile || $content)
-    } // while (have_rows("callouts"))
-} // if ($callouts)
-?>
+            <?php if ($i === count($callouts) || $i % 3 === 0) ?></div><!--/.row.-padded-->
+        <?php endif; // if ($titile || $content) ?>
+    <?php endwhile; // while (have_rows("callouts")) ?>
+<?php endif; // if ($callouts) ?>
