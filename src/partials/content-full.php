@@ -2,9 +2,9 @@
     <?php while (have_posts()): ?>
         <?php the_post(); ?>
 
-        <article class='content_article article'>
+        <article class="content_article article">
 
-            <header class='article_header'>
+            <header class="article_header">
                 <?php if (!is_front_page() && !has_post_thumbnail()) the_title("<h1 class='article_title title'>", "</h1>"); ?>
 
                 <?php if (get_post_type() === "post"): ?>
