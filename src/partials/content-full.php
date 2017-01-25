@@ -7,7 +7,7 @@ if (have_posts()) {
 
         echo "<header class='article_header'>";
 
-        if (!is_front_page()) the_title("<h1 class='article_title title'>", "</h1>");
+        if (!is_front_page() && !has_post_thumbnail()) the_title("<h1 class='article_title title'>", "</h1>");
 
         if (get_post_type() === "post") {
             $categories = get_the_terms($post->ID, "category");
