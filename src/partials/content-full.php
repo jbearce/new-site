@@ -1,82 +1,86 @@
-<?php
-if (have_posts()) {
-    while (have_posts()) {
-        the_post();
+<?php if (have_posts()): ?>
+    <?php while (have_posts()): ?>
+        <?php the_post(); ?>
 
-        echo "<article class='content_article article'>";
+        <article class='content_article article'>
 
-        echo "<header class='article_header'>";
+            <header class='article_header'>
+                <?php if (!is_front_page() && !has_post_thumbnail()) the_title("<h1 class='article_title title'>", "</h1>"); ?>
 
-        if (!is_front_page() && !has_post_thumbnail()) the_title("<h1 class='article_title title'>", "</h1>");
+                <?php if (get_post_type() === "post"): ?>
+                    <?php
+                    $categories = get_the_terms($post->ID, "category");
+                    $tags = get_the_terms($post->ID, "post_tag");
+                    $comments = get_comments_number();
+                    ?>
 
-        if (get_post_type() === "post") {
-            $categories = get_the_terms($post->ID, "category");
-            $tags = get_the_terms($post->ID, "post_tag");
-            $comments = get_comments_number();
+                    <nav class="menu-list_container">
+                        <ul class="menu-list -meta">
 
-            echo "<nav class='menu-list_container'><ul class='menu-list -meta'>";
+                            <li class="menu-list_item">
+                                <a class="menu-list_link link" href="<?php the_permalink(); ?>"><icon:clock-o> <time datetime="<?php the_date("c"); ?>"><?php the_date(); ?></time></a>
+                            </li>
 
-            echo "<li class='menu-list_item'><a class='menu-list_link link' href='" . get_permalink() . "'><icon:clock-o> <time datetime='" . get_the_date("c") . "'>" . get_the_date() . "</time></a></li>";
+                            <?php if ($categories): ?>
+                                <?php $i = 0; ?>
+                                <li class="menu-list_item">
+                                    <icon:folder>
 
-            if ($categories) {
-                echo "<li class='menu-list_item'>";
+                                    <?php foreach ($categories as $category): ?>
+                                        <?php $i++; ?>
 
-                echo "<icon:folder> ";
+                                        <a class="menu-list_link link" href="<?php get_term_link($category); ?>"><?php echo $category->name; ?></a>
 
-                $i = 0;
+                                        <?php if ($i < count($categories)) ?>,
+                                    <?php endforeach; // foreach ($categories as $category) ?>
 
-                foreach ($categories as $category) {
-                    $i++;
+                                </li><!--/.menu-list_item-->
+                            <?php endif; // if ($categories) ?>
 
-                    echo "<a class='menu-list_link link' href='" . get_term_link($category) . "'>{$category->name}</a>";
+                            <?php if ($tags): ?>
+                                <?php $i = 0; ?>
+                                <li class="menu-list_item">
+                                    <icon:tag>
 
-                    if ($i < count($categories)) echo ", ";
-                } // foreach ($categories as $category)
+                                    <?php foreach ($tags as $tag): ?>
+                                        <?php $i++; ?>
 
-                echo "</li>"; // .menu-list_item
-            } // if ($categories)
+                                        <a class="menu-list_link link" href="<?php echo get_term_link($tag); ?>"><?php echo $tag->name; ?></a>
 
-            if ($tags) {
-                echo "<li class='menu-list_item'>";
+                                        <?php if ($i < count($tags)) ?>,
+                                    <?php endforeach; // foreach ($tags as $tag) ?>
 
-                echo "<icon:tag> ";
+                                </li><!--/.menu-list_item-->
+                            <?php endif; // if ($tags) ?>
 
-                $i = 0;
+                            <?php if ($comments): ?>
+                                <li class="menu-list_item">
+                                    <a class="menu-list_link link" href="#comments">
+                                        <icon:comment> <?php echo $comments; ?> <?php _e("Comments", "new_site"); ?>
+                                    </a><!--/.menu-list_link.link-->
+                                </li><!--/.menu-list_item-->
+                            <?php endif; ?>
 
-                foreach ($tags as $tag) {
-                    $i++;
+                        </ul><!--/.menu-list.-meta-->
+                    </nav><!--/.menu-list_container-->
+                <?php endif; // if (get_post_type() === "post") ?>
 
-                    echo "<a class='menu-list_link link' href='" . get_term_link($tag) . "'>{$tag->name}</a>";
+            </header><!--/.article_header-->
 
-                    if ($i < count($tags)) echo ", ";
-                } // foreach ($tags as $tag)
+            <div class="article_content">
+                <div class="article_user-content user-content">
+                    <?php the_content(); ?>
+                </div><!--/.article_user-content.user-content-->
+            </div><!--/.article_content-->
 
-                echo "</li>"; // .menu-list_item
-            } // if ($tags)
+        </article><!--/.content_article.article.-full-->
+    <?php endwhile; // while (have_posts()) ?>
+<?php else: ?>
+    <?php $post_type = get_post_type() ? get_post_type() : __("post", "new_site"); ?>
 
-            if ($comments) {
-                echo "<li class='menu-list_item'><a class='menu-list_link link' href='#comments'><icon:comment> {$comments} " . __("Comments", "new_site") . "</a></li>";
-            }
-
-            echo "</ul></nav>"; // .menu-list.-meta, .menu-list_container
-        } // if (get_post_type() === "post")
-
-        echo "</header>"; // .article_header
-
-        echo "<div class='article_content'><div class='article_user-content user-content'>";
-        the_content();
-        echo "</div></div>"; // .article_user-content.user-content, .article_content
-
-        echo "</article>"; // .content_article.article.-full
-    } // while (have_posts())
-} // if (have_posts())
-else {
-    $post_type = get_post_type() ? get_post_type() : __("post", "new_site");
-
-    echo "<article class='content_article article -full'>";
-    echo "<div class='article_content'>";
-    echo "<p class='article_text text'>" . __("Sorry, no {$post_type} could be found matching this criteria.", "new_site") . "</p>";
-    echo "</div>"; // .article_content
-    echo "</article>"; // .content_article.article.-full
-} // if (have_posts()) else
-?>
+    <article class="content_article article -full">
+        <div class="article_content">
+            <p class="article_text text"><?php _e("Sorry, no {$post_type} could be found matching this criteria.", "new_site"); ?></p>
+        </div><!--/.article_content-->
+    </article><!--/.content_article.article.-full-->
+<?php endif; // if (have_posts()) ?>
