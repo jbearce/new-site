@@ -304,7 +304,7 @@ gulp.task("styles", function () {
         });
 });
 
-// html task, converts includes & variables in HTML, copies binaries
+// html task, copies binaries, converts includes & variables in HTML
 gulp.task("html", function () {
     "use strict";
 
@@ -316,6 +316,26 @@ gulp.task("html", function () {
 
     // clean directory if --dist is passed
     if (argv.dist) del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
+
+    // copy binaries
+    var binaries = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
+        // check if source is newer than destination
+        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "/**/*", "!" + src + "{/assets,/assets/**}"]})))
+        // check if a file is a binary
+        .pipe(isBinary())
+        // skip the file if it's not a binary
+        .pipe(through.obj(function(file, enc, next) {
+            if (!file.isBinary()) {
+                next();
+                return;
+            }
+
+            next(null, file);
+        }))
+        // output to the compiled directory
+        .pipe(gulp.dest(htmlDirectory));
 
     // process HTML
     var html = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
@@ -346,33 +366,13 @@ gulp.task("html", function () {
                 license: license,
             }
         }))
-        // replace FontAwesome placeholders
-        .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_]+)[^>]*(?:>)/g, "<i class='fa fa-$1' aria-hidden='true'><\/i>"))
-        // output to the compiled directory
-        .pipe(gulp.dest(htmlDirectory));
-
-    // copy binaries
-    var binaries = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
-        // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
-        // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "/**/*", "!" + src + "{/assets,/assets/**}"]})))
-        // check if a file is a binary
-        .pipe(isBinary())
-        // skip the file if it's not a binary
-        .pipe(through.obj(function(file, enc, next) {
-            if (file.isNull()) {
-                next();
-                return;
-            }
-
-            next(null, file);
-        }))
+        // replace icon placeholders
+        .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_][^:>]+)(?:\:([A-Za-z0-9\-\_\ ][^:>]*))?(?:>)/g, "<i class='icon'><svg class='icon_svg $2' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
         // output to the compiled directory
         .pipe(gulp.dest(htmlDirectory));
 
     // merge both steams back in to one
-    return merge(html, binaries)
+    return merge(binaries, html)
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // reload the files

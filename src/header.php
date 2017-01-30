@@ -41,7 +41,8 @@
 		<![endif]-->
 	</head>
     <body <?php body_class(); ?>>
-		<div class="page_container">
+        <?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?>
+        <div class="page_container">
 			<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
             <?php get_template_part("partials/login", "overlay"); ?>
 	        <div class="navigation-block -flyout _mobile _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
@@ -111,3 +112,4 @@
 	            </div><!--/.navigation_inner._tablet._desktop-->
 	        </div><!--/.navigation-block.-sticky.-fullbleed._tablet._desktop-->
 	        <?php endif; ?>
+            

@@ -1,0 +1,24 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Icon
+\* ------------------------------------------------------------------------ */
+
+.icon {
+    & {
+        align-self: center;
+        display: inline-flex;
+        height: 1em;
+        position: relative;
+        width: 1em;
+    }
+}
+
+.icon_svg {
+    & {
+        bottom: -0.125em;
+        height: 1em;
+        position: absolute;
+        width:  1em;
+    }
+}

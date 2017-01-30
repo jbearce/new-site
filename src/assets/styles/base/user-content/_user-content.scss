@@ -132,16 +132,6 @@
         position: relative;
     }
 
-    blockquote:before {
-        @include icon("quote-left");
-        color: $accent;
-        display: block;
-        font-size: remify(18, 16);
-        left: 0;
-        position: absolute;
-        top: 0;
-    }
-
     blockquote p,
     blockquote ol,
     blockquote ul,

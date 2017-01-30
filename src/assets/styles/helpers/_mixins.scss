@@ -100,10 +100,3 @@
     position: relative;
     z-index: map-get($layers, $layer-name);
 }
-
-// icons
-
-@mixin icon($icon: null) {
-    content: map-get($fa-icons, $icon);
-    font-family: "fontawesome";
-}

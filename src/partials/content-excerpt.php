@@ -22,7 +22,7 @@
                         <ul class="menu-list -meta">
 
                             <li class="menu-list_item">
-                                <a class="menu-list_link link" href="<?php the_permalink(); ?>"><icon:clock-o> <time datetime="<?php the_date("c"); ?>"><?php the_date(); ?></time></a>
+                                <a class="menu-list_link link" href="<?php the_permalink(); ?>"><icon:clock> <time datetime="<?php echo get_the_date("c"); ?>"><?php the_date(); ?></time></a>
                             </li>
 
                             <?php if ($categories): ?>

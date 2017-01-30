@@ -5,9 +5,7 @@
 \* ------------------------------------------------------------------------ */
 
 .input {
-    &,
-    &.-checkbox + .text.-checkbox:before,
-    &.-radiobutton + .text.-radiobutton:before {
+    & {
         background: $background;
         border-radius: 0;
         border: remify(1) solid darken($background_alt, 10);
@@ -29,11 +27,7 @@
     }
 
     &:focus,
-    &:hover,
-    &.-checkbox:focus + .text.-checkbox:before,
-    &.-checkbox + .text.-checkbox:hover:before,
-    &.-radiobutton:focus + .text.-radiobutton:before,
-    &.-radiobutton + .text.-radiobutton:hover:before {
+    &:hover {
         border-color: $accent;
     }
 }
@@ -42,11 +36,7 @@
 
 @media screen and (min-width: $s-break) {
     .input {
-        &,
-        &.-checkbox + .text.-checkbox:before,
-        &.-radiobutton + .text.-radiobutton:before {
-            font-size: remify(16, 16);
-        }
+        font-size: remify(16, 16);
     }
 }
 
@@ -77,39 +67,36 @@
 .input.-checkbox,
 .input.-radiobutton {
     & {
-        left: -999em;
-        position: absolute;
-    }
-
-    + .text.-label {
-        padding-left: remify(32, 16);
-        position: relative;
-    }
-
-    + .text.-label:before {
-        content: "\0020";
-        font-size: remify(6, 12);
-        height: remify(12, 6);
-        left: 0;
-        line-height: remify(11, 6);
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: remify(6, 12);
+        display: inline-block;
+        height: remify(12, 12);
+        margin: remify(0 0 8, 12);
         margin: 0;
         padding: 0;
-        position: absolute;
-        text-align: center;
-        transform: translateY(-50%);
-        top: 50%;
-        width: remify(12, 6);
+        width: remify(12, 12);
+        // remove styles where possible
+        -webkit-appearance: none;
+        appearance: none;
     }
 
-    &.-radiobutton + .text.-label:before {
+    &.-radiobutton {
         border-radius: 50%;
     }
 
-    &.-checkbox:checked + .text.-label:before {
-        @include icon("check");
+    &.-checkbox:checked {
+        /* bgImage: ignore */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32'%3E%3Cpath d='M32,8.5c0,0.5-0.2,1-0.6,1.4L16.5,24.9l-2.8,2.8c-0.4,0.4-0.9,0.6-1.4,0.6c-0.5,0-1-0.2-1.4-0.6l-2.8-2.8l-7.5-7.5,C0.2,17,0,16.6,0,16c0-0.6,0.2-1,0.6-1.4l2.8-2.8c0.4-0.4,0.9-0.6,1.4-0.6c0.5,0,1,0.2,1.4,0.6l6.1,6.1L25.8,4.3,c0.4-0.4,0.9-0.6,1.4-0.6c0.6,0,1,0.2,1.4,0.6l2.8,2.8C31.8,7.5,32,8,32,8.5z' /%3E%3C/svg%3E");
     }
 
-    &.-radiobutton:checked + .text.-label:before {
-        @include icon("circle");
+    &.-radiobutton:checked {
+        /* bgImage: ignore */
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32'%3E%3Cpath d='M29.9,8c1.4,2.5,2.1,5.1,2.1,8s-0.7,5.6-2.1,8s-3.4,4.4-5.8,5.8S18.9,32,16,32c-2.9,0-5.6-0.7-8-2.1S3.6,26.5,2.1,24,C0.7,21.6,0,18.9,0,16s0.7-5.6,2.1-8C3.6,5.5,5.5,3.6,8,2.1S13.1,0,16,0c2.9,0,5.6,0.7,8,2.1S28.4,5.5,29.9,8z' /%3E%3C/svg%3E");
+    }
+
+    & > .text.-label,
+    & + .text.-label {
+        display: inline-block;
     }
 }
