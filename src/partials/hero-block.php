@@ -14,7 +14,7 @@ if (is_home() && !$title) {
     <div class='hero_inner'>
         <div class="hero_swiper-container swiper-container">
 
-            <div class="swiper-wrapper">";
+            <div class="swiper-wrapper">
                 <?php if ($slideshow): ?>
 
                     <?php while (have_rows("slideshow")): ?>
@@ -43,24 +43,36 @@ if (is_home() && !$title) {
 
                             <figure class="swiper-slide">
 
-                                <?php if ($link_href) ?><a class="swiper-link link" href="<?php echo $link_href; ?>"<?php echo $link_target . $link_title; ?>>
+                                <?php if ($link_href): ?>
+                                <a class="swiper-link link" href="<?php echo $link_href; ?>"<?php echo $link_target . $link_title; ?>>
+                                <?php endif; ?>
 
                                 <?php if ($img_src_mobile): ?>
                                 <picture class="swiper-picture">
-                                    <?php if ($img_src_desktop) ?><source srcset="<?php echo $img_src_desktop; ?>" media="(min-width: 64em)" />
-                                    <?php if ($img_src_tablet) ?><source srcset="<?php echo $img_src_tablet; ?>" media="(min-width: 40em)" />
+                                    <?php if ($img_src_desktop): ?>
+                                    <source srcset="<?php echo $img_src_desktop; ?>" media="(min-width: 64em)" />
+                                    <?php endif; ?>
+                                    <?php if ($img_src_tablet): ?>
+                                    <source srcset="<?php echo $img_src_tablet; ?>" media="(min-width: 40em)" />
+                                    <?php endif; ?>
                                     <img class="swiper-image"<?php echo $img_alt; ?> src="<?php echo $img_src_mobile; ?>" />
                                 </picture><!--/.swiper-picture-->
                                 <?php endif; // if ($img_src_mobile) ?>
 
                                 <?php if ($img_title || $img_caption): ?>
                                 <figcaption class="swiper-caption">
-                                    <?php if ($img_title) ?><h6 class="swiper-title title"><?php echo $img_title; ?></h6>
-                                    <?php if ($img_caption) ?><div class="swiper-user-content user-content -dark"><?php echo wpautop($img_caption); ?></div>
+                                    <?php if ($img_title): ?>
+                                    <h6 class="swiper-title title"><?php echo $img_title; ?></h6>
+                                    <?php endif; ?>
+                                    <?php if ($img_caption): ?>
+                                    <div class="swiper-user-content user-content -dark"><?php echo wpautop($img_caption); ?></div>
+                                    <?php endif; ?>
                                 </figcaption><!--/.swiper-caption-->
                                 <?php endif; // if ($img_title || $img_caption) ?>
 
-                                <?php if ($link_href) ?></a><!--/.swiper-link.link-->
+                                <?php if ($link_href): ?>
+                                </a><!--/.swiper-link.link-->
+                                <?php endif; ?>
 
                             </figure><!--/.swiper-slide-->
                         <?php endif; // if ($image) ?>
@@ -74,8 +86,12 @@ if (is_home() && !$title) {
                     <figure class="swiper-slide">
 
                         <picture class="swiper-picture">
-                            <?php if ($img_src_desktop) ?><source srcset="<?php echo $img_src_desktop[0]; ?>" media="(min-width: 64em)" />
-                            <?php if ($img_src_tablet) ?><source srcset="<?php echo $img_src_tablet[0]; ?>" media="(min-width: 40em)" />
+                            <?php if ($img_src_desktop): ?>
+                            <source srcset="<?php echo $img_src_desktop[0]; ?>" media="(min-width: 64em)" />
+                            <?php endif; ?>
+                            <?php if ($img_src_tablet): ?>
+                            <source srcset="<?php echo $img_src_tablet[0]; ?>" media="(min-width: 40em)" />
+                            <?php endif; ?>
                             <?php echo $featured_image; ?>
                         </picture><!--/.swiper-picture-->
 

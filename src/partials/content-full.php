@@ -31,7 +31,7 @@
 
                                         <a class="menu-list_link link" href="<?php get_term_link($category); ?>"><?php echo $category->name; ?></a>
 
-                                        <?php if ($i < count($categories)) ?>,
+                                        <?php if ($i < count($categories)): ?>, <?php endif;?>
                                     <?php endforeach; // foreach ($categories as $category) ?>
 
                                 </li><!--/.menu-list_item-->
@@ -47,7 +47,7 @@
 
                                         <a class="menu-list_link link" href="<?php echo get_term_link($tag); ?>"><?php echo $tag->name; ?></a>
 
-                                        <?php if ($i < count($tags)) ?>,
+                                        <?php if ($i < count($tags)): ?>, <?php endif; ?>
                                     <?php endforeach; // foreach ($tags as $tag) ?>
 
                                 </li><!--/.menu-list_item-->

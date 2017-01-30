@@ -16,7 +16,7 @@
                 </label><!--./login-form_text.text.-label-->
                 <input class="login-form_input input" type="password" id="pwd" name="pwd" />
                 <p class="login-form_text text -small _textright">
-                    <?php if (!empty($_GET["issue"])):?>
+                    <?php if (!empty($_GET["issue"])): ?>
                     <strong class="_bold"><?php _e("Incorrect password. Please try again.", "new_site"); ?></strong><br />
                     <?php endif; ?>
                     <a class="login-form_link link" href="<?php echo wp_lostpassword_url(); ?> "><?php _e("Forgot your password?", "new_site"); ?></a>
@@ -38,7 +38,7 @@
                 <a class="login-form_button button" href="<?php echo wp_registration_url(); ?>"><icon:arrow-right> <?php _e("Create your account", "new_site"); ?></a>
             </div><!--/._textcenter-->
         </div><!--/.login-form_login-form.login-form.-register-->
-        <?php endif; ?>
+        <?php endif; // if (get_option("users_can_register")) ?>
 
         <button class="login_button button -close" data-overlay="login"><span class="_visuallyhidden"><?php _e("Close the sign in form", "new_site"); ?></span></button>
     </div><!--/.login_inner-->
