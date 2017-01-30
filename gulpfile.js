@@ -322,7 +322,7 @@ gulp.task("html", function () {
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
+        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "/**/*", "!" + src + "{/assets,/assets/**}"]})))
         // check if a file is a binary
         .pipe(isBinary())
         // skip the file if it's a binary
@@ -356,7 +356,7 @@ gulp.task("html", function () {
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
+        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "/**/*", "!" + src + "{/assets,/assets/**}"]})))
         // check if a file is a binary
         .pipe(isBinary())
         // skip the file if it's not a binary
