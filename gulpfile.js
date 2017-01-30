@@ -16,6 +16,8 @@ var gulp = require("gulp"),                                                     
     concat = require("gulp-concat"),                                            // concatenater
     fileinclude = require("gulp-file-include"),                                 // file includer, variable replacer
     replace = require("gulp-replace"),                                          // replace regular expressions
+    through = require("through2"),                                              // transform the stream
+    isBinary = require("gulp-is-binary"),                                       // detect if a file is a binary
 
     // media stuff
     imagemin = require("gulp-imagemin"),                                        // image compressor
@@ -302,7 +304,7 @@ gulp.task("styles", function () {
         });
 });
 
-// html task, converts includes & variables in HTML
+// html task, converts includes & variables in HTML, copies binaries
 gulp.task("html", function () {
     "use strict";
 
@@ -316,11 +318,22 @@ gulp.task("html", function () {
     if (argv.dist) del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
 
     // process HTML
-    return gulp.src([src + "/**/*", "!" + src + "/screenshot.png", "!" + src + "{/assets,/assets/**}"])
+    var html = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
+        // check if a file is a binary
+        .pipe(isBinary())
+        // skip the file if it's a binary
+        .pipe(through.obj(function(file, enc, next) {
+            if (file.isBinary()) {
+                next();
+                return;
+            }
+
+            next(null, file);
+        }))
         // replace variables
         .pipe(fileinclude({
             prefix: "@@",
@@ -336,7 +349,32 @@ gulp.task("html", function () {
         // replace FontAwesome placeholders
         .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_]+)[^>]*(?:>)/g, "<i class='fa fa-$1' aria-hidden='true'><\/i>"))
         // output to the compiled directory
-        .pipe(gulp.dest(htmlDirectory))
+        .pipe(gulp.dest(htmlDirectory));
+
+    // copy binaries
+    var binaries = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
+        // check if source is newer than destination
+        .pipe(gulpif(!argv.dist, newer({dest: htmlDirectory, extra: [src + "{/partials,/partials/**}"]})))
+        // check if a file is a binary
+        .pipe(isBinary())
+        // skip the file if it's not a binary
+        .pipe(through.obj(function(file, enc, next) {
+            if (file.isNull()) {
+                next();
+                return;
+            }
+
+            next(null, file);
+        }))
+        // output to the compiled directory
+        .pipe(gulp.dest(htmlDirectory));
+
+    // merge both steams back in to one
+    return merge(html, binaries)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
