@@ -5,46 +5,61 @@
 \* ------------------------------------------------------------------------ */
 
 // vendor
-
 @import "../vendor/_inline-svg-function";
 
 // Remove the unit of a length
-
 @function strip-unit($number) {
-    @if type-of($number) == 'number' and not unitless($number) {
-        @return $number / ($number * 0 + 1);
+    $output: $number;
+
+    @if type-of($number) == "number" and not unitless($number) {
+        $output: $number / 1;
     }
-    @return $number;
+
+    @return unquote($output);
 }
 
 // Remify
-
+// @param  {Number}  $size - Array of up to four sizes in PX units
+// @param  {Number}  $base - Font size to base calculations off of
+// @param  {String}  $base - Either "em" or "rem"
 @function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
-    $value-rem: null;
-    @if $base == null {
-        $base: 16;
-        @if $unit == null {
-            $unit: rem;
-        }
-    } @else {
-        @if $unit == null {
-            $unit: em;
-        }
-    }
+    $base: if($base == null, 16, strip-unit($base));
+    $unit: if($base == null, rem, em);
+    $output: null;
+
     @each $size in $sizes {
-        @if $value-rem == null {
-            @if type-of($size) == "number" {
-                $value-rem: (strip-unit($size) / strip-unit($base)) + $unit;
-            } @else {
-                $value-rem: $size;
-            }
+        $size: strip-unit($size);
+
+        @if type-of($size) == "number" {
+            // add as space if $output already has a value
+            $output: if($output == null, "", $output + " ");
+            // calculate, append value to $output
+            $output: $output + ((strip-unit($size) / strip-unit($base)) + $unit);
         } @else {
-            @if type-of($size) == "number" {
-                $value-rem: $value-rem + " " + ((strip-unit($size) / strip-unit($base)) + $unit);
-            } @else {
-                $value-rem: $value-rem + " " + $size;
-            }
+            // pass the value through unchagned if $size is not a number
+            $output: $output + " " + $size;
         }
     }
-    @return $value-rem;
+
+    @return unquote($output);
+}
+
+// Photoshop Leading => CSS Line Height Conversion
+// @param  {Number}  $size - Value of Leading in Photoshop's Character Panel
+// @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
+@function line-height($size, $base: null) {
+    $base: if($base == null, 16, strip-unit($base));
+    $output: $base + (strip-unit($size) / 2);
+
+    @return unquote($output);
+}
+
+// Photoshop Tracking => CSS Letter Spacing Conversion
+// @param  {Number}  $size - Value of Tracking in Photoshop's Character Panel
+// @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
+@function letter-spacing($size, $base: null) {
+    $base: if($base == null, 16, strip-unit($base));
+    $output: ($size / 1000) * strip-unit($base);
+
+    @return unquote($output);
 }
