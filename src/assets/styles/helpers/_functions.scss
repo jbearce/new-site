@@ -16,7 +16,7 @@
         $output: $number / 1;
     }
 
-    @return unquote($output);
+    @return $output;
 }
 
 // Remify
