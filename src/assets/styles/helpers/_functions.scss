@@ -22,7 +22,7 @@
 // Remify
 // @param  {Number}  $size - Array of up to four sizes in PX units
 // @param  {Number}  $base - Font size to base calculations off of
-// @param  {String}  $base - Either "em" or "rem"
+// @param  {String}  $unit - Either "em" or "rem"
 @function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
     $base: if($base == null, 16, strip-unit($base));
     $unit: if($base == null, rem, em);
