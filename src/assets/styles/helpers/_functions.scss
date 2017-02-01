@@ -8,6 +8,7 @@
 @import "../vendor/_inline-svg-function";
 
 // Remove the unit of a length
+// @param  {Number}  $number
 @function strip-unit($number) {
     $output: $number;
 
@@ -47,7 +48,7 @@
 // Photoshop Leading => CSS Line Height Conversion
 // @param  {Number}  $size - Value of Leading in Photoshop's Character Panel
 // @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
-@function line-height($size, $base: null) {
+@function leading($size, $base: null) {
     $base: if($base == null, 16, strip-unit($base));
     $output: $base + (strip-unit($size) / 2);
 
@@ -57,7 +58,7 @@
 // Photoshop Tracking => CSS Letter Spacing Conversion
 // @param  {Number}  $size - Value of Tracking in Photoshop's Character Panel
 // @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
-@function letter-spacing($size, $base: null) {
+@function tracking($size, $base: null) {
     $base: if($base == null, 16, strip-unit($base));
     $output: ($size / 1000) * strip-unit($base);
 
