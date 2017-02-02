@@ -37,10 +37,12 @@ This is only a brief guide to get you up and running with development. For a mor
 8. Make sure your MAMP server is running, and you have your dev theme activated.
 9. Open a terminal, and navigate to the cloned repository's root. Run `gulp watch --sync` and enter the matching values when prompted. This will typically be the following:
 
-        Browsersync proxy: localhost:8888
-        Browsersync port: 8080
-        Browsersync open: external
-        Browsersync notify: false
+    ```
+    Browsersync proxy: localhost:8888
+    Browsersync port: 8080
+    Browsersync open: external
+    Browsersync notify: false
+    ```
 
     This will open your MAMP server in your default browser. You can now make edits in `./src`, and the page will automatically reload.
 
@@ -70,31 +72,35 @@ Opening up `./src/assets/styles`, you'll see 3 files and 6 folders. Their purpos
 
 - **base** &ndash; Extremely *generic* styles that apply across the entire site. These are used for various generic elements, like titles, inputs, text paragraphs, etc. This is essentially the highest level CSS, that's shared across any number of elements.
 - **helpers** &ndash; Extremely *specific* styles that apply across the entire site. These include functions, helper classes, mixins, and variables, each of which is described in more detail below.
-  - *Functions* are typically used to convert one value to another. By default, there are two functions set up:
-    - `strip-unit`, as it's name implies, will remove units like `px`, `em`, `rem`, `%`, etc from a given number. It's used in the format `strip-unit(65px)`. This function will almost never need to be used; it's mostly there for the `remify` function.
-    - `remify` converts a number given in pixels in to it's equivalent value in either `em` or `rem` units. It's format is `remify($top $right $bottom $left, $font-size, $unit)`. **This should be used in place of `px` units wherever possible.** This function can take some getting used to, but if you're [familiar with `em` and `rem` units](https://webdesign.tutsplus.com/tutorials/comprehensive-guide-when-to-use-em-vs-rem--cms-23984), it should be relatively clear. If you omit the `$font-size` variable, units will be in `rem`, otherwise they'll be in `em`. You can override this functionality by specifying `"rem"` as the third variable. The calculation takes the values from the first parameter (`$top $right $bottom $left`) and divides them by the second (`$font-size`, `16` by default). This is best shown through an example:
+    - *Functions* are typically used to convert one value to another. By default, there are two functions set up:
+        - `strip-unit`, as it's name implies, will remove units like `px`, `em`, `rem`, `%`, etc from a given number. It's used in the format `strip-unit(65px)`. This function will almost never need to be used; it's mostly there for the `remify` function.
+        - `remify` converts a number given in pixels in to it's equivalent value in either `em` or `rem` units. It's format is `remify($top $right $bottom $left, $font-size, $unit)`. **This should be used in place of `px` units wherever possible.** This function can take some getting used to, but if you're [familiar with `em` and `rem` units](https://webdesign.tutsplus.com/tutorials/comprehensive-guide-when-to-use-em-vs-rem--cms-23984), it should be relatively clear. If you omit the `$font-size` variable, units will be in `rem`, otherwise they'll be in `em`. You can override this functionality by specifying `"rem"` as the third variable. The calculation takes the values from the first parameter (`$top $right $bottom $left`) and divides them by the second (`$font-size`, `16` by default). This is best shown through an example:
 
-          .example {
-              border-width: remify(5, 20, "rem"); /* compiles to 0.25rem */
-              font-size: remify(15); /* compiles to 1rem */
-              margin: remify(15 30, 15); /* compiles to 1em 2em; */
-              padding: remify(10 20); /* compiles to 0.5rem 1rem */
-          }
+            ```
+            .example {
+                border-width: remify(5, 20, "rem"); /* compiles to 0.25rem */
+                font-size: remify(15); /* compiles to 1rem */
+                margin: remify(15 30, 15); /* compiles to 1em 2em; */
+                padding: remify(10 20); /* compiles to 0.5rem 1rem */
+            }
+            ```
 
-    - `leading` converts the "Leading" value from Photoshop's Character Panel in to a usable `line-height` value. It's format is `leading($leading, $font-size)`. This function follows the formula `$font-size + ($leading / 2)`. This should be used in conjunction with `remify`, like so: `line-height: remify(leading(24, 16), 16);`.
-    - `kerning` converts the "Kerning" value from Photoshop's Character Panel in to a usable `letter-spacing` value. It's format is `kerning($kerning, $font-size)`. This function follows the formula `($kerning / 1000) * $font-size`. This should be used in conjunction with `remify`, like so: `letter-spacing: remify(kerning(20, 16), 16);`.
+        - `leading` converts the "Leading" value from Photoshop's Character Panel in to a usable `line-height` value. It's format is `leading($leading, $font-size)`. This function follows the formula `$font-size + ($leading / 2)`. This should be used in conjunction with `remify`, like so: `line-height: remify(leading(24, 16), 16);`.
+        - `kerning` converts the "Kerning" value from Photoshop's Character Panel in to a usable `letter-spacing` value. It's format is `kerning($kerning, $font-size)`. This function follows the formula `($kerning / 1000) * $font-size`. This should be used in conjunction with `remify`, like so: `letter-spacing: remify(kerning(20, 16), 16);`.
 
-  - *Helpers* are the most specific classes in the entire project. They cannot be overridden, and as such, should be used very sparingly. Helpers are always prefixed with an underscore (i.e. `_helper`). They're almost always a single rule, suffixed with `!important`. An example would be:
+    - *Helpers* are the most specific classes in the entire project. They cannot be overridden, and as such, should be used very sparingly. Helpers are always prefixed with an underscore (i.e. `_helper`). They're almost always a single rule, suffixed with `!important`. An example would be:
 
-          ._bold {
-              font-weight: 700 !important;
-          }
+        ```
+        ._bold {
+            font-weight: 700 !important;
+        }
+        ```
 
-      Helpers also include some of the most useful classes in the entire project: visibility classes. These are `_mobile`, `_tablet`, and `_desktop`. As their names imply, they make things visible on mobile devices, tablets, or desktops respectively. You can mix and match them in any combination to get elements to show and hide at different screen widths.
+    Helpers also include some of the most useful classes in the entire project: visibility classes. These are `_mobile`, `_tablet`, and `_desktop`. As their names imply, they make things visible on mobile devices, tablets, or desktops respectively. You can mix and match them in any combination to get elements to show and hide at different screen widths.
 
-  - *Mixins* are tools that are reused throughout the site. They're fairly similar to functions, except that they can contain things besides a simple value. Most mixins included with this project don't get used, but you may see the use of `@icon` or `@placeholder`. I recommend taking a look at the source code for those mixins to understand how they're used. In a few works, `@placeholder` is used to style placeholders on inputs, and `@icon` is used to insert a FontAwesome icon.
+    - *Mixins* are tools that are reused throughout the site. They're fairly similar to functions, except that they can contain things besides a simple value. Most mixins included with this project don't get used, but you may see the use of `@icon` or `@placeholder`. I recommend taking a look at the source code for those mixins to understand how they're used. In a few works, `@placeholder` is used to style placeholders on inputs, and `@icon` is used to insert a FontAwesome icon.
 
-  - *Varaibles* are global tools that contain a value to be reused throughout the site. These should be named extremely generically, for maintainability. For example, if you needed to set up a variable that represents the color red, you would  set up something like `$accent: #FF0000;`. You *would not* set up `$red: #FF0000;`. The reason being that if we need to change the accent color from red to blue in the future, the variable name would become confusing. Yes, you could simply find-and-replace `$red` for `$blue`, but then what was the point of using the variable in the first place? If you really need to mark what color a variable represents, do it in a comment next to the value. For example, `$accent: #FF0000; // red`.
+    - *Varaibles* are global tools that contain a value to be reused throughout the site. These should be named extremely generically, for maintainability. For example, if you needed to set up a variable that represents the color red, you would  set up something like `$accent: #FF0000;`. You *would not* set up `$red: #FF0000;`. The reason being that if we need to change the accent color from red to blue in the future, the variable name would become confusing. Yes, you could simply find-and-replace `$red` for `$blue`, but then what was the point of using the variable in the first place? If you really need to mark what color a variable represents, do it in a comment next to the value. For example, `$accent: #FF0000; // red`.
 - **module** &ndash; Fairly *generic* blocks of styles that can be reused across the entire site. These include things like `.widget`, `.logo`, `.menu-list`, `.search-form`, etc. They represent hunks of HTML that can be taken from one spot on a site and placed in another, without change. Modules often contain minor modifications to the basic elements found in the `base` folder, typically with names like `.widget_title`, `.search-form_input`, `.menu-list_link`, etc. In the HTML, these would be represented as `<h4 class='widget_title title'> ... </h4>`, `<a class='menu-list_link link' href='#'> ... </a>`, etc. Sometimes, there may need to be a module within a module. For example, putting a logo within a slideshow. In that case, you would name the sub-module as `.parent-module_sub-module`, represented in HTML as `<div class='parent-module_sub-module sub-module'> ... </div>`. *Most styles reside in modules.*
 - **layout** &ndash; Fairly *specific* blocks of styles that represent different layout areas on a page. These include things like `.header-block`, `.hero-block`, `.content-block`, and `.footer-block`. The top level class for a layout will always be suffixed with `-block`. Layouts often contain minor modifications to the modules found in the `module` folder, typically with names like `.header_logo`, `.content_search-form`, `.navigation_menu-list`, etc. In HTML, these would be represented as `<a class='header_logo logo' href='#'> ... </a>`, `<form class='content_search-form search-form'> ... </form>`, `<ul class='navigation_menu-list menu-list'>`, etc.
 - **vendor** &ndash; Styles that are pulled directly from third party libraries. **Vendor styles should never be directly edited.** Instead, find their related module, which the vendor styles are imported in (typically with the same folder name name), and add in override styles there. This is to ensure updatability.
