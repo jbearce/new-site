@@ -81,11 +81,14 @@ Opening up `./src/assets/styles`, you'll see 3 files and 6 folders. Their purpos
               padding: remify(10 20); /* compiles to 0.5rem 1rem */
           }
 
+    - `leading` converts the "Leading" value from Photoshop's Character Panel in to a usable `line-height` value. It's format is `leading($leading, $font-size)`. This function follows the formula `$font-size + ($leading / 2)`. This should be used in conjunction with `remify`, like so: `line-height: remify(leading(24, 16), 16);`.
+    - `kerning` converts the "Kerning" value from Photoshop's Character Panel in to a usable `letter-spacing` value. It's format is `kerning($kerning, $font-size)`. This function follows the formula `($kerning / 1000) * $font-size`. This should be used in conjunction with `remify`, like so: `letter-spacing: remify(kerning(20, 16), 16);`.
+
   - *Helpers* are the most specific classes in the entire project. They cannot be overridden, and as such, should be used very sparingly. Helpers are always prefixed with an underscore (i.e. `_helper`). They're almost always a single rule, suffixed with `!important`. An example would be:
 
-        .\_bold {
-            font-weight: 700 !important;
-        }
+          ._bold {
+              font-weight: 700 !important;
+          }
 
       Helpers also include some of the most useful classes in the entire project: visibility classes. These are `_mobile`, `_tablet`, and `_desktop`. As their names imply, they make things visible on mobile devices, tablets, or desktops respectively. You can mix and match them in any combination to get elements to show and hide at different screen widths.
 
