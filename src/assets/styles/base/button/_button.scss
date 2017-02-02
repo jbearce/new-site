@@ -29,7 +29,7 @@
 
 // Desktop variant
 
-@media screen and (min-width: $s-break) {
+@media screen and (min-width: $xs-break) {
     .button {
         font-size: remify(18, 16);
     }

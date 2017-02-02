@@ -115,7 +115,7 @@
 
     // scrolling responisve tables
 
-    @media screen and (max-width: $s-break - (1 / 16)) {
+    @media screen and (max-width: $xs-break - (1 / 16)) {
         table {
             display: block;
             overflow: auto;
@@ -180,9 +180,9 @@
     }
 }
 
-// Desktop variant
+// Tablet variant
 
-@media screen and (min-width: $s-break) {
+@media screen and (min-width: $xs-break) {
     .user-content {
         h1,
         h2 {

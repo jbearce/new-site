@@ -15,9 +15,9 @@
     }
 }
 
-// Desktop variant
+// Tablet variant
 
-@media screen and (min-width: $s-break) {
+@media screen and (min-width: $xs-break) {
     .title {
         & {
             font-size: remify(24, 16);

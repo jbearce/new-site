@@ -76,28 +76,28 @@
 /* visibility classes */
 
 // when screen is > 640
-@media screen and (min-width: $s-break) {
+@media screen and (min-width: $xs-break) {
     ._mobile:not(._tablet):not(._desktop) {
         display: none !important;
     }
 }
 
 // when screen is < 768
-@media screen and (max-width: ($s-break - 1 / 16)) {
+@media screen and (max-width: ($xs-break - 1 / 16)) {
     ._tablet:not(._mobile) {
         display: none !important;
     }
 }
 
 // when screen is < 1024
-@media screen and (max-width: ($xl-break - 1 / 16)) {
+@media screen and (max-width: ($l-break - 1 / 16)) {
     ._desktop:not(._tablet):not(._mobile) {
         display: none !important;
     }
 }
 
 // when screen is > 1024
-@media screen and (min-width: $xl-break) {
+@media screen and (min-width: $l-break) {
     ._mobile:not(._desktop),
     ._tablet:not(._desktop) {
         display: none !important;
@@ -105,7 +105,7 @@
 }
 
 // when screen is > 768 and < 1024
-@media screen and (min-width: $s-break) and (max-width: ($xl-break - 1 / 16)) {
+@media screen and (min-width: $xs-break) and (max-width: ($l-break - 1 / 16)) {
     ._mobile._desktop {
         display: none !important;
     }
