@@ -26,11 +26,9 @@
         <title><?php wp_title("|", true, "right"); ?></title>
 		<!-- styles -->
 		<style><?php include(get_template_directory() . "/assets/styles/critical.css"); ?></style>
-		<link rel="preload" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" as="style" onload="this.rel='stylesheet'" />
 		<link rel="preload" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" as="style" onload="this.rel='stylesheet'" />
 		<link rel="preload" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" as="style" onload="this.rel='stylesheet'" />
 		<noscript>
-		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" />
 		<link rel="stylesheet" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" />
 		</noscript>
