@@ -12,11 +12,10 @@ overlay_closer.addEventListener("click", function (e) {
 });
 
 // listen for esc key press
-document.onkeyup = function(e) {
-    if (e.keyCode === 27) {
+document.addEventListener("keyup", function(e) {
+    if (e.keyCode === 27)
         close_overlay_closer();
-    }
-};
+});
 
 // function to close the overlay closer
 function close_overlay_closer() {
