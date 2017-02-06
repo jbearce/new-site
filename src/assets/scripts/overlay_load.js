@@ -3,14 +3,14 @@
 // Scripts written by YOURNAME @ YOURCOMPANY
 
 // open an overlay when the page finishes loading
-window.onload = function() {
+window.addEventListener("load", function() {
     overlay_loader(window.location.hash.substring(1));
-};
+});
 
 // open an overlay when the hash changes
-window.onhashchange = function() {
+window.addEventListener("hashchange", function() {
     overlay_loader(window.location.hash.substring(1));
-};
+});
 
 // function to open an overlay
 function overlay_loader(target_overlay) {
