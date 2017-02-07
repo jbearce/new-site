@@ -96,7 +96,7 @@ Opening up `./src/assets/styles`, you'll see 3 files and 6 folders. Their purpos
         }
         ```
 
-    Helpers also include some of the most useful classes in the entire project: visibility classes. These are `_mobile`, `_tablet`, and `_desktop`. As their names imply, they make things visible on mobile devices, tablets, or desktops respectively. You can mix and match them in any combination to get elements to show and hide at different screen widths.
+        Helpers also include some of the most useful classes in the entire project: visibility classes. These are `_mobile`, `_tablet`, and `_desktop`. As their names imply, they make things visible on mobile devices, tablets, or desktops respectively. You can mix and match them in any combination to get elements to show and hide at different screen widths.
 
     - *Mixins* are tools that are reused throughout the site. They're fairly similar to functions, except that they can contain things besides a simple value. Most mixins included with this project don't get used, but you may see the use of `@icon` or `@placeholder`. I recommend taking a look at the source code for those mixins to understand how they're used. In a few works, `@placeholder` is used to style placeholders on inputs, and `@icon` is used to insert a FontAwesome icon.
 
