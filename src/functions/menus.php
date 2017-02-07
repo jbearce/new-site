@@ -255,3 +255,99 @@ if (is_admin()) {
     }
     add_action("admin_head", "new_site_hide_column_checkbox_except_on_depth_1");
 }
+
+// add sub_menu options to wp_nav_menu
+// @param  {Boolean}  sub_menu - Make a menu behave as a sub menu
+// @param  {Boolean}  direct_parent - Only show the parent of the currently viewed page, not any further ancestors
+// @param  {Number}   parent_id - Post ID to use as the parent
+function new_site_nav_menu_sub_menu($menu_items, $args) {
+    $root_id = 0;
+    $menu_item_parents = array();
+
+    // check if the submenu argument is set
+	if (isset($args->sub_menu)) {
+        // if a parent exists, store the current item's parent as the root id, otherwise, store the current menu item instead
+        foreach ($menu_items as $menu_item) {
+			if ($menu_item->current) {
+				$root_id = ($menu_item->menu_item_parent) ? $menu_item->menu_item_parent : $menu_item->ID;
+				break;
+			}
+		}
+
+        // if direct_parent is set, show all links from the top level down, otherwise only display the closest parent
+		if (!isset($args->direct_parent)) {
+			$prev_root_id = $root_id;
+
+			while ($prev_root_id != 0) {
+				foreach ($menu_items as $menu_item) {
+					if ($menu_item->ID == $prev_root_id) {
+						$prev_root_id = $menu_item->menu_item_parent;
+
+                        // change the root id if the top of the menu has not been reached
+                        $root_id = $prev_root_id != 0 ? $prev_root_id : $root_id;
+
+						break;
+					} // if ($menu_item->ID == $prev_root_id)
+				} // foreach ($menu_items as $menu_item)
+			} // while ($prev_root_id != 0)
+		} // if (!isset($args->direct_parent))
+
+        // display a specific section of links if parent_id is set
+        if (isset($args->parent_id)) {
+            $parent_id = 0;
+            $menu_items_copy = $menu_items;
+
+            // find the matching menu item
+            foreach ($menu_items_copy as $key => $item) {
+                if ($item->object_id == $args->parent_id) {
+                    $parent_id = $item->ID;
+                    break;
+                }
+            }
+
+            // check each menu item
+            foreach ($menu_items_copy as $key => $item) {
+                // store the current menu item parents
+                $current_menu_item_parent = $item->menu_item_parent;
+                $current_menu_item_parents = array($current_menu_item_parent);
+
+                while ($current_menu_item_parent != $parent_id && $current_menu_item_parent != 0) {
+                    // loop through menu items (not menu items copy, because stuff gets removed from copy before the loop finishes!)
+                    foreach ($menu_items as $key2 => $item2) {
+                        // update the current menu item parents
+                        if ($current_menu_item_parent == $item2->ID) {
+                            $current_menu_item_parent = $item2->menu_item_parent;
+                            array_push($current_menu_item_parents, $current_menu_item_parent);
+                        // stop the loop when we reach the top level
+                        } elseif ($current_menu_item_parent == $parent_id || $current_menu_item_parent == 0) {
+                            break;
+                        }
+                    } // foreach ($menu_items as $key2 => $item2)
+                } // while ($current_menu_item_parent != $parent_id && $current_menu_item_parent != 0)
+
+                // remove menu items that aren't children of the specified parent
+                if (!in_array($parent_id, $current_menu_item_parents) && !(isset($args->show_parent) && $parent_id == $item->ID)) {
+                    unset($menu_items_copy[$key]);
+                }
+            } // foreach ($menu_items_copy as $key => $item)
+
+            $menu_items = $menu_items_copy;
+        } else { // if (isset($args->parent_id))
+            foreach ($menu_items as $key => $item) {
+                // store the top level menu item in the array
+                if ($item->ID == $root_id) array_push($menu_item_parents, $item->ID);
+
+                // store each subsequent level of menu items in the array
+                if (in_array($item->menu_item_parent, $menu_item_parents)) {
+                    array_push($menu_item_parents, $item->ID);
+                    // remove the menu item if it's not a child
+                } else if (!(isset($args->show_parent) && in_array($item->ID, $menu_item_parents))) {
+                    unset($menu_items[$key]);
+                }
+            }
+        } // if (isset($args->parent_id)) else
+	} // if (isset($args->sub_menu))
+
+    return $menu_items;
+}
+add_filter("wp_nav_menu_objects", "new_site_nav_menu_sub_menu", 10, 2);
