@@ -13,7 +13,7 @@ window.addEventListener("hashchange", function() {
 });
 
 // function to open an overlay
-// @param  {Element}  elem - An element to mark as active
+// @param  {String}  target_overlay - Name of the overlay to mark active
 function load_overlay(target_overlay) {
     if ((typeof target_overlay === "string")) {
         var overlays        = document.querySelectorAll("[data-overlay]"),
