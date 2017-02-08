@@ -16,7 +16,7 @@ window.addEventListener("hashchange", function() {
 // @param  {Element}  elem - An element to mark as active
 function load_overlay(target_overlay) {
     if ((typeof target_overlay === "string")) {
-        var overlays = document.querySelectorAll("[data-overlay]"),
+        var overlays        = document.querySelectorAll("[data-overlay]"),
             overlay_closers = document.querySelectorAll(".overlay-closer");
 
         // make sure overlays exist
