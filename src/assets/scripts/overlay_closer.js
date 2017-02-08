@@ -2,7 +2,7 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-var overlays = document.querySelectorAll("[data-overlay]"),
+var overlays       = document.querySelectorAll("[data-overlay]"),
     overlay_closer = document.querySelector(".overlay-closer");
 
 // listen for clicks on the overlay closer
