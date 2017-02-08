@@ -95,14 +95,14 @@
             "echo"           => false,
             "items_wrap"	 => "%3\$s",
             "theme_location" => "primary",
-            "walker"         => new new_site_walker("mega"),
+            "walker"         => new new_site_walker("mega hover touch"),
         ));
         ?>
         <?php if ($menu): ?>
         <div class="navigation-block -sticky -fullbleed _tablet _desktop" role="navigation">
             <div class="navigation_inner">
                 <nav class="navigation_menu-list_container menu-list_container">
-                    <ul class="menu-list -navigation">
+                    <ul class="menu-list -navigation" data-hover="true" data-touch="true">
                         <?php echo $menu; ?>
                     </ul><!--/.menu-list.-navigation.-flex-->
                 </nav><!--/.navigation_menu-list_container.menu-list_container-->

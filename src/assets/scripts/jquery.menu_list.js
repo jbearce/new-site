@@ -2,49 +2,56 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-// mark all menu items as inative
-function mark_all_inactive(elem) {
-    elem.find(".is-active").removeClass("is-active");
-    elem.find("[aria-hidden=false]").attr("aria-hidden", "true");
-}
+/* jshint -W083 */
 
-// mark element as active
-function mark_active(elem) {
-    elem.closest(".menu-list_item").addClass("is-active");
-    elem.siblings("[aria-hidden]").attr("aria-hidden", "false");
-}
+var menus        = document.querySelectorAll(".menu-list"),
+    menu_items   = document.querySelectorAll(".menu-list_item"),
+    menu_toggles = document.querySelectorAll(".menu-list_toggle");
 
-// mark menu as active when toggle is clicked
-jQuery(".menu-list_toggle").click(function(e) {
-    e.preventDefault();
+// handle touch away from menu-list elements
+// @TODO make sure the touched menu-list is active
+document.addEventListener("touchstart", function(e) {
+    var parent_class_list = e.target.parentNode.classList;
 
-    if (jQuery(this).next("[aria-hidden=true]").length) {
-        mark_all_inactive(jQuery(this).closest(".menu-list"));
-        mark_active(jQuery(this));
-        jQuery(this).siblings("[aria-hidden]").find(".menu-list_link").first().focus(); // easy hack for "close on click away"
-    } else {
-        mark_all_inactive(jQuery(this).closest(".menu-list"));
+    if (!(parent_class_list.contains("menu-list_item") && parent_class_list.contains("-parent") && parent_class_list.contains("is-active"))) {
+        for (var i = 0; i < menu_items.length; i++) {
+            mark_inactive(menu_items[i]);
+        }
     }
 });
 
-// open on hover
-jQuery(".menu-list_item").not(".menu-list.-accordion .menu-list_item, .menu-list_item.-mega .menu-list_item.-parent").hover(function() {
-    mark_all_inactive(jQuery(this).closest(".menu-list"));
-    mark_active(jQuery(this).children(".menu-list_link"));
-}, function () {
-    mark_all_inactive(jQuery(this).closest(".menu-list"));
-});
+// handle interactions with menu-list_item elements
+for (var i = 0; i < menu_items.length; i++) {
+    // check if the menu is hoverable
+    if (menu_items[i].parentElement.dataset.hover === "true") {
+        // open on mouseover
+        menu_items[i].addEventListener("mouseover", function() {
+            mark_siblings_inactive(this);
+            mark_active(this);
+        });
 
-// open on touchstart
-jQuery(".menu-list_item").not(".menu-list_item.-mega .menu-list_item.-parent").on("touchstart", function(e) {
-    if (!jQuery(this).hasClass("is-active") && jQuery(this).children("[aria-hidden]").length) {
-        e.preventDefault();
-        mark_all_inactive(jQuery(this).closest(".menu-list"));
-        mark_active(jQuery(this).children(".menu-list_link"));
+        // close on mouseout
+        menu_items[i].addEventListener("mouseout", function() {
+            mark_inactive(this);
+        });
     }
-});
+
+    // check if the menu is touchable
+    if (menu_items[i].parentElement.dataset.touch === "true") {
+        // mark active on touch
+        menu_items[i].addEventListener("touchstart", function(e) {
+            // check if the element is already active
+            if (this.classList.contains("-parent") && !this.classList.contains("is-active")) {
+                e.preventDefault();
+                mark_siblings_inactive(this);
+                mark_active(this);
+            }
+        });
+    }
+}
 
 // hide on focusout
+// @TODO convert to vanilla JS
 jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
     var parent_item = jQuery(this).closest(".menu-list_item.-parent.is-active");
 
@@ -60,10 +67,55 @@ jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
     }
 });
 
-// hide on touch away
-jQuery(document).on("touchstart", function(e) {
-    if (!jQuery(e.target).closest(".menu-list_item.-parent.is-active").length) {
-        jQuery(".menu-list_item.-parent.is-active").children("[aria-hidden]").attr("aria-hidden", "true");
-        jQuery(".menu-list_item.-parent.is-active").removeClass("is-active");
+// hanlde click on menu-list_toggle elements
+for (var i = 0; i < menu_toggles.length; i++) {
+    // mark active on click
+    menu_toggles[i].addEventListener("click", function(e) {
+        e.preventDefault();
+
+        if (this.parentNode.classList.contains("is-active")) {
+            mark_inactive(this.parentNode);
+        } else {
+            mark_active(this.parentNode);
+        }
+    });
+}
+
+// function to mark elements as inactive
+// @param  {Element}  elem - An element node to hide
+function mark_inactive(elem) {
+    var children = elem.childNodes;
+
+    elem.classList.remove("is-active");
+
+    for (var i = 0; i < children.length; i++) {
+        if (children[i].nodeType === 1 && children[i].hasAttribute("aria-hidden")) {
+            children[i].setAttribute("aria-hidden", "true");
+        }
     }
-});
+}
+
+// function to mark sibling elements as inactive
+// @param  {Element}  elem - An element node to mark siblings inactive
+function mark_siblings_inactive(elem) {
+    var siblings = elem.parentNode.childNodes;
+
+    // mark all siblings as inactive
+    for (var i = 0; i < siblings.length; i++) {
+        if (siblings[i].nodeType === 1) mark_inactive(siblings[i]);
+    }
+}
+
+// function to mark elements as active
+// @param  {Element}  elem - An element node to makr as active
+function mark_active(elem) {
+    var children = elem.childNodes;
+
+    elem.classList.add("is-active");
+
+    for (var i = 0; i < children.length; i++) {
+        if (children[i].nodeType === 1 && children[i].hasAttribute("aria-hidden")) {
+            children[i].setAttribute("aria-hidden", "false");
+        }
+    }
+}
