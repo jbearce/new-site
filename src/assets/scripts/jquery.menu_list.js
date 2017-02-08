@@ -26,7 +26,7 @@ for (var i = 0; i < menu_items.length; i++) {
     if (menu_items[i].parentElement.dataset.hover === "true") {
         // open on mouseover
         menu_items[i].addEventListener("mouseover", function() {
-            mark_siblings_inactive(this);
+            mark_menu_item_siblings_inactive(this);
             mark_menu_item_active(this);
         });
 
@@ -43,7 +43,7 @@ for (var i = 0; i < menu_items.length; i++) {
             // check if the element is already active
             if (this.classList.contains("-parent") && !this.classList.contains("is-active")) {
                 e.preventDefault();
-                mark_siblings_inactive(this);
+                mark_menu_item_siblings_inactive(this);
                 mark_menu_item_active(this);
             }
         });
@@ -83,6 +83,7 @@ for (var i = 0; i < menu_toggles.length; i++) {
 
 // function to mark elements as inactive
 // @param  {Element}  elem - An element to mark as inactive
+// @TODO figure out how to close all children of each menu
 function mark_menu_item_inactive(elem) {
     var children = elem.childNodes;
 
@@ -97,7 +98,7 @@ function mark_menu_item_inactive(elem) {
 
 // function to mark sibling elements as inactive
 // @param  {Element}  elem - An element to mark siblings inactive
-function mark_siblings_inactive(elem) {
+function mark_menu_item_siblings_inactive(elem) {
     var siblings = elem.parentNode.childNodes;
 
     // mark all siblings as inactive
