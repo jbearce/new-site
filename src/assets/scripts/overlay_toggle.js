@@ -24,6 +24,7 @@ for (i = 0; i < overlay_buttons.length; i++) {
 }
 
 // function to open an overlay
+// @param  {String}  target_overlay - Name of the overlay to mark active
 function mark_overlay_active(target_overlay) {
     target_overlay  = (typeof target_overlay !== "undefined") ? target_overlay : false;
 
@@ -61,6 +62,7 @@ function mark_overlay_active(target_overlay) {
 }
 
 // function to close an overlay
+// @param  {String}  target_overlay - Name of the overlay to mark inactive
 function mark_overlay_inactive(target_overlay) {
     target_overlay = (typeof target_overlay !== "undefined") ? closing_overlay : false;
 
