@@ -4,16 +4,17 @@
 
 // open an overlay when the page finishes loading
 window.addEventListener("load", function() {
-    overlay_loader(window.location.hash.substring(1));
+    load_overlay(window.location.hash.substring(1));
 });
 
 // open an overlay when the hash changes
 window.addEventListener("hashchange", function() {
-    overlay_loader(window.location.hash.substring(1));
+    load_overlay(window.location.hash.substring(1));
 });
 
 // function to open an overlay
-function overlay_loader(target_overlay) {
+// @param  {Element}  elem - An element to mark as active
+function load_overlay(target_overlay) {
     if ((typeof target_overlay === "string")) {
         var overlays = document.querySelectorAll("[data-overlay]"),
             overlay_closers = document.querySelectorAll(".overlay-closer");

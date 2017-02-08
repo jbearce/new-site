@@ -15,7 +15,7 @@ document.addEventListener("touchstart", function(e) {
 
     if (!(parent_class_list.contains("menu-list_item") && parent_class_list.contains("-parent") && parent_class_list.contains("is-active"))) {
         for (var i = 0; i < menu_items.length; i++) {
-            mark_inactive(menu_items[i]);
+            mark_menu_item_inactive(menu_items[i]);
         }
     }
 });
@@ -27,12 +27,12 @@ for (var i = 0; i < menu_items.length; i++) {
         // open on mouseover
         menu_items[i].addEventListener("mouseover", function() {
             mark_siblings_inactive(this);
-            mark_active(this);
+            mark_menu_item_active(this);
         });
 
         // close on mouseout
         menu_items[i].addEventListener("mouseout", function() {
-            mark_inactive(this);
+            mark_menu_item_inactive(this);
         });
     }
 
@@ -44,7 +44,7 @@ for (var i = 0; i < menu_items.length; i++) {
             if (this.classList.contains("-parent") && !this.classList.contains("is-active")) {
                 e.preventDefault();
                 mark_siblings_inactive(this);
-                mark_active(this);
+                mark_menu_item_active(this);
             }
         });
     }
@@ -74,16 +74,16 @@ for (var i = 0; i < menu_toggles.length; i++) {
         e.preventDefault();
 
         if (this.parentNode.classList.contains("is-active")) {
-            mark_inactive(this.parentNode);
+            mark_menu_item_inactive(this.parentNode);
         } else {
-            mark_active(this.parentNode);
+            mark_menu_item_active(this.parentNode);
         }
     });
 }
 
 // function to mark elements as inactive
-// @param  {Element}  elem - An element node to hide
-function mark_inactive(elem) {
+// @param  {Element}  elem - An element to mark as inactive
+function mark_menu_item_inactive(elem) {
     var children = elem.childNodes;
 
     elem.classList.remove("is-active");
@@ -96,19 +96,19 @@ function mark_inactive(elem) {
 }
 
 // function to mark sibling elements as inactive
-// @param  {Element}  elem - An element node to mark siblings inactive
+// @param  {Element}  elem - An element to mark siblings inactive
 function mark_siblings_inactive(elem) {
     var siblings = elem.parentNode.childNodes;
 
     // mark all siblings as inactive
     for (var i = 0; i < siblings.length; i++) {
-        if (siblings[i].nodeType === 1) mark_inactive(siblings[i]);
+        if (siblings[i].nodeType === 1) mark_menu_item_inactive(siblings[i]);
     }
 }
 
 // function to mark elements as active
-// @param  {Element}  elem - An element node to makr as active
-function mark_active(elem) {
+// @param  {Element}  elem - An element to mark as active
+function mark_menu_item_active(elem) {
     var children = elem.childNodes;
 
     elem.classList.add("is-active");

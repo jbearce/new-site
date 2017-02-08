@@ -6,19 +6,19 @@ var overlays = document.querySelectorAll("[data-overlay]"),
     overlay_closer = document.querySelector(".overlay-closer");
 
 // listen for clicks on the overlay closer
-overlay_closer.addEventListener("click", function (e) {
+overlay_closer.addEventListener("click", function(e) {
     e.preventDefault();
-    close_overlay_closer();
+    mark_overlay_closer_inactive();
 });
 
 // listen for esc key press
 document.addEventListener("keyup", function(e) {
     if (e.keyCode === 27)
-        close_overlay_closer();
+        mark_overlay_closer_inactive();
 });
 
 // function to close the overlay closer
-function close_overlay_closer() {
+function mark_overlay_closer_inactive() {
     // make sure the overlay closer exists
     if ((typeof overlay_closer === "object")) {
         overlay_closer.classList.remove("is-active");

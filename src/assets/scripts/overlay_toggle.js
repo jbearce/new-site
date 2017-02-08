@@ -16,15 +16,15 @@ for (i = 0; i < overlay_elems.length; i++) {
         e.preventDefault();
 
         if (!this.classList.contains("is-active")) {
-            open_overlay(this.dataset.overlay);
+            mark_overlay_active(this.dataset.overlay);
         } else {
-            close_overlay(this.dataset.overlay);
+            mark_overlay_inactive(this.dataset.overlay);
         }
     });
 }
 
 // function to open an overlay
-function open_overlay(target_overlay) {
+function mark_overlay_active(target_overlay) {
     target_overlay  = (typeof target_overlay !== "undefined") ? target_overlay : false;
 
     // make a target overlay was set
@@ -61,7 +61,7 @@ function open_overlay(target_overlay) {
 }
 
 // function to close an overlay
-function close_overlay(target_overlay) {
+function mark_overlay_inactive(target_overlay) {
     target_overlay = (typeof target_overlay !== "undefined") ? closing_overlay : false;
 
     // make sure a target overlay was set
