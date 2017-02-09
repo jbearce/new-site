@@ -68,7 +68,7 @@
 			<button class="menu-toggle _visuallyhidden" data-overlay="mobile-nav">
 				<?php _e("Close Menu", "new_site"); ?>
 			</button><!--/.menu-toggle._visuallyhidden-->
-        </div><!--/.navigation-block.-flyout.-right._mobile._noncritical-->
+        </div><!--/.navigation-block.-flyout._mobile._noncritical-->
         <div class="header-block -fullbleed" role="banner">
             <div class="header_inner">
                 <div class="header_row row -between -center -mobile">
@@ -81,9 +81,9 @@
                         <button class="header_menu-toggle menu-toggle -rounded _mobile" data-overlay="mobile-nav">
                             <?php _e("View Menu", "new_site"); ?>
                         </button><!--/.header_menu-toggle.menu-toggle.-rounded._mobile-->
-                        <div class="header_serach_container search-form_container _nomargin _tablet _desktop" role="search">
+                        <div class="header_search_container search-form_container _nomargin _tablet _desktop" role="search">
                             <?php get_search_form(); ?>
-                        </div><!--/.header_serach_container.search-form_container._nomargin._tablet._desktop-->
+                        </div><!--/.header_search_container.search-form_container._nomargin._tablet._desktop-->
                     </div><!--/.header_col.col.-none-->
                 </div><!--/.header_row.row.-between.-center.-mobile-->
             </div><!--/.header_inner-->
