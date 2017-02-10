@@ -91,7 +91,7 @@
         <?php
         $menu = wp_nav_menu(array(
             "container"		 => false,
-            "depth"          => 3,
+            "depth"          => 4,
             "echo"           => false,
             "items_wrap"	 => "%3\$s",
             "theme_location" => "primary",

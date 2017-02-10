@@ -6,6 +6,7 @@
 
 var menus        = document.querySelectorAll(".menu-list"),
     menu_items   = document.querySelectorAll(".menu-list_item"),
+    menu_links   = document.querySelectorAll(".menu-list_link"),
     menu_toggles = document.querySelectorAll(".menu-list_toggle");
 
 // handle touch away from menu-list elements
@@ -50,24 +51,15 @@ for (var i = 0; i < menu_items.length; i++) {
     }
 }
 
-// hide on focusout
-// @TODO convert to vanilla JS
-jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
-    var parent_item = jQuery(this).closest(".menu-list_item.-parent.is-active");
+// handle interactions with menu-list_link elements
+for (var i = 0; i < menu_links.length; i++) {
+    // mark inactive on blur (only if no other siblings or children are focused)
+    menu_links[i].addEventListener("blur", function() {
+        mark_menu_item_parent_inactive(this);
+    });
+}
 
-    if (parent_item.length) {
-        // timeout required for the next element to get focus
-        setTimeout(function() {
-            if (!parent_item.find(":focus").length) {
-                parent_item.removeClass("is-active");
-                parent_item.children("[aria-hidden]").attr("aria-hidden", "true");
-                parent_item.closest(".menu-list_item.-parent.is-active").find(".menu-list_link").first().trigger("focusout");
-            }
-        }, 10);
-    }
-});
-
-// handle click on menu-list_toggle elements
+// handle interactions with menu-list_toggle elements
 for (var i = 0; i < menu_toggles.length; i++) {
     // mark active on click
     menu_toggles[i].addEventListener("click", function(e) {
@@ -78,6 +70,11 @@ for (var i = 0; i < menu_toggles.length; i++) {
         } else {
             mark_menu_item_active(this.parentNode);
         }
+    });
+
+    // mark inactive on blur (only if no other siblings or children are focused)
+    menu_toggles[i].addEventListener("blur", function() {
+        mark_menu_item_parent_inactive(this);
     });
 }
 
@@ -94,6 +91,22 @@ function mark_menu_item_inactive(elem) {
             children[i].setAttribute("aria-hidden", "true");
         }
     }
+}
+
+// function to mark parent elements as inactive
+// @param  {Element}  elem - An element to mark parents inactive
+function mark_menu_item_parent_inactive(elem) {
+    var parent = elem.parentNode;
+
+    setTimeout(function() {
+        while (parent && parent.nodeType === 1 && !parent.classList.contains("menu-list_container")) {
+            if (parent.classList.contains("is-active") && !parent.contains(document.activeElement)) {
+                mark_menu_item_inactive(parent);
+            }
+
+            parent = parent.parentNode;
+        }
+    }, 10);
 }
 
 // function to mark sibling elements as inactive
