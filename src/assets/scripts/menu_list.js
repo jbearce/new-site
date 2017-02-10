@@ -55,7 +55,7 @@ for (var i = 0; i < menu_items.length; i++) {
 for (var i = 0; i < menu_links.length; i++) {
     // mark inactive on blur (only if no other siblings or children are focused)
     menu_links[i].addEventListener("blur", function() {
-        mark_menu_item_parent_inactive(this);
+        mark_menu_item_parents_inactive(this);
     });
 }
 
@@ -74,28 +74,31 @@ for (var i = 0; i < menu_toggles.length; i++) {
 
     // mark inactive on blur (only if no other siblings or children are focused)
     menu_toggles[i].addEventListener("blur", function() {
-        mark_menu_item_parent_inactive(this);
+        mark_menu_item_parents_inactive(this);
     });
 }
 
 // function to mark elements as inactive
 // @param  {Element}  elem - An element to mark as inactive
-// @TODO figure out how to close all children of each menu
 function mark_menu_item_inactive(elem) {
-    var children = elem.childNodes;
+    var children = elem.getElementsByTagName("*");
 
     elem.classList.remove("is-active");
 
     for (var i = 0; i < children.length; i++) {
-        if (children[i].nodeType === 1 && children[i].hasAttribute("aria-hidden")) {
-            children[i].setAttribute("aria-hidden", "true");
+        if (children[i].nodeType === 1) {
+            children[i].classList.remove("is-active");
+
+            if (children[i].hasAttribute("aria-hidden")) {
+                children[i].setAttribute("aria-hidden", "true");
+            }
         }
     }
 }
 
 // function to mark parent elements as inactive
 // @param  {Element}  elem - An element to mark parents inactive
-function mark_menu_item_parent_inactive(elem) {
+function mark_menu_item_parents_inactive(elem) {
     var parent = elem.parentNode;
 
     setTimeout(function() {
@@ -116,7 +119,9 @@ function mark_menu_item_siblings_inactive(elem) {
 
     // mark all siblings as inactive
     for (var i = 0; i < siblings.length; i++) {
-        if (siblings[i].nodeType === 1) mark_menu_item_inactive(siblings[i]);
+        if (siblings[i].nodeType === 1 && siblings[i] !== elem) {
+            mark_menu_item_inactive(siblings[i]);
+        }
     }
 }
 
