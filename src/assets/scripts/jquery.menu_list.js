@@ -67,7 +67,7 @@ jQuery(".menu-list").on("focusout", ".menu-list_link", function() {
     }
 });
 
-// hanlde click on menu-list_toggle elements
+// handle click on menu-list_toggle elements
 for (var i = 0; i < menu_toggles.length; i++) {
     // mark active on click
     menu_toggles[i].addEventListener("click", function(e) {
