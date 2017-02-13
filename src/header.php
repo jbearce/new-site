@@ -66,9 +66,9 @@
                     </nav><!--/.navigation_menu-list_container.menu-list_container-->
                     <?php endif; ?>
                 </div><!--/.navigation_inner.-flyout-->
-    			<button class="menu-toggle _visuallyhidden" data-overlay="mobile-nav">
+    			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
     				<?php _e("Close Menu", "new_site"); ?>
-    			</button><!--/.menu-toggle._visuallyhidden-->
+    			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
             </div><!--/.navigation-block.-flyout._phone._noncritical-->
             <div class="header-block -fullbleed" role="banner">
                 <div class="header_inner">

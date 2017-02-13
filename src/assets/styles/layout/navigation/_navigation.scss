@@ -117,3 +117,13 @@
         padding: 0;
     }
 }
+
+.navigation_menu-toggle {
+    .navigation-block.-flyout > &._visuallyhidden:focus,
+    .navigation-block.-pulldown > &._visuallyhidden:focus {
+        background: $background;
+        left: auto !important;
+        right: 0 !important;
+        top: 0 !important;
+    }
+}
