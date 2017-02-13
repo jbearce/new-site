@@ -20,7 +20,7 @@ $callouts = get_field("callouts");
             <?php endif; ?>
 
             <div class="col-tablet-6of12 col-notebook-4of12 col-desktop-4of12 -grow _flex">
-                <div class="widget">
+                <div class="widget" style="min-height:100%;">
 
                     <?php if ($title): ?>
                     <h6 class="widget_title title"><?php echo $title; ?></h6>
