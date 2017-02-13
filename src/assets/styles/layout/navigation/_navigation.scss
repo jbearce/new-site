@@ -11,6 +11,7 @@
 
     &.-fullbleed {
         background: $background;
+        padding: remify(0 25);
     }
 
     &.-flyout {
@@ -20,7 +21,6 @@
         display: block;
         left: -999em;
         overflow: auto;
-        padding: 0;
         position: absolute;
         right: 999em;
         top: -999em;;
@@ -102,7 +102,12 @@
         background: $background;
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(0 10);
+        padding: remify(0 25);
+    }
+
+    .navigation-block.-fullbleed > & {
+        background: none;
+        padding: 0;
     }
 
     .navigation-block.-flyout > &,
@@ -110,9 +115,5 @@
         background: none;
         max-width: none;
         padding: 0;
-    }
-
-    .navigation-block.-fullbleed > & {
-        background: none;
     }
 }
