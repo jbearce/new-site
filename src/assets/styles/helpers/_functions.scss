@@ -24,8 +24,8 @@
 // @param  {Number}  $base - Font size to base calculations off of
 // @param  {String}  $unit - Either "em" or "rem"
 @function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
+    $unit: if($unit == null, if($base == null, rem, em), $unit);
     $base: if($base == null, 16, strip-unit($base));
-    $unit: if($base == null, rem, em);
     $output: null;
 
     @each $size in $sizes {
