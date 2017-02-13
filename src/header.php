@@ -26,15 +26,15 @@
         <title><?php wp_title("|", true, "right"); ?></title>
 		<!-- styles -->
 		<style><?php include(get_template_directory() . "/assets/styles/critical.css"); ?></style>
-		<link rel="preload" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" as="style" onload="this.rel='stylesheet'" />
-		<link rel="preload" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" as="style" onload="this.rel='stylesheet'" />
+		<link as="style" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
+		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
 		<noscript>
-		<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" />
-		<link rel="stylesheet" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" />
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
+		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" rel="stylesheet" />
 		</noscript>
 		<!-- fallback -->
 		<!--[if lte IE 9]>
-		<link rel="stylesheet" href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" />
+		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
         <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>
 		<![endif]-->
 	</head>

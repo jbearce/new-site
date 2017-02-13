@@ -11,7 +11,7 @@ if (is_home() && !$title) {
 ?>
 <?php if ($slideshow || $featured_image): ?>
 <div class="hero-block -fullbleed" role="banner">
-    <div class='hero_inner'>
+    <div class="hero_inner">
         <div class="hero_swiper-container swiper-container">
 
             <div class="swiper-wrapper">
