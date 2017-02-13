@@ -75,38 +75,65 @@
 
 /* visibility classes */
 
-// when screen is > 640
-@media screen and (min-width: $xs-break) {
-    ._mobile:not(._tablet):not(._desktop) {
-        display: none !important;
-    }
-}
-
 // when screen is < 768
 @media screen and (max-width: ($xs-break - 1 / 16)) {
-    ._tablet:not(._mobile) {
+    ._tablet:not(._phone) {
         display: none !important;
     }
 }
 
 // when screen is < 1024
 @media screen and (max-width: ($l-break - 1 / 16)) {
-    ._desktop:not(._tablet):not(._mobile) {
+    ._notebook:not(._tablet):not(._phone) {
         display: none !important;
     }
 }
 
-// when screen is > 1024
-@media screen and (min-width: $l-break) {
-    ._mobile:not(._desktop),
-    ._tablet:not(._desktop) {
+// when screen is < 1280
+@media screen and (max-width: ($l-break - 1 / 16)) {
+    ._desktop:not(._notebook):not(._tablet):not(._phone) {
         display: none !important;
     }
 }
 
-// when screen is > 768 and < 1024
+// when screen is >= 768
+@media screen and (min-width: $xs-break) {
+    ._phone:not(._tablet):not(._notebook):not(._desktop) {
+        display: none !important;
+    }
+}
+
+// when screen is >= 768 and < 1024
 @media screen and (min-width: $xs-break) and (max-width: ($l-break - 1 / 16)) {
-    ._mobile._desktop {
+    ._phone:not(._tablet),
+    ._notebook:not(._tablet),
+    ._desktop:not(._tablet) {
+        display: none !important;
+    }
+}
+
+// when screen is >= 1024
+@media screen and (min-width: $l-break) {
+    ._phone:not(._notebook):not(.-desktop),
+    ._tablet:not(._notebook):not(.-desktop) {
+        display: none !important;
+    }
+}
+
+// when screen is >= 1024 and < 1280
+@media screen and (min-width: $xs-break) and (max-width: ($l-break - 1 / 16)) {
+    ._phone:not(._notebook),
+    ._tablet:not(._notebook),
+    ._desktop:not(._notebook) {
+        display: none !important;
+    }
+}
+
+// when screen is >= 1280
+@media screen and (min-width: $xl-break) {
+    ._phone:not(.-desktop),
+    ._tablet:not(.-desktop),
+    ._notebook:not(.-desktop) {
         display: none !important;
     }
 }

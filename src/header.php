@@ -42,7 +42,7 @@
         <?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?>
 		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
         <?php get_template_part("partials/login", "overlay"); ?>
-        <div class="navigation-block -flyout _mobile _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
+        <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
             <div class="navigation_inner">
                 <div class="navigation_search-form_container search-form_container _nomargin">
                     <?php get_search_form(); ?>
@@ -64,11 +64,11 @@
                     </ul><!--/.menu-list.-navigation.-accordion.-vertical-->
                 </nav><!--/.navigation_menu-list_container.menu-list_container-->
                 <?php endif; ?>
-            </div><!--/.navigation_inner.-flyout._mobile-->
+            </div><!--/.navigation_inner.-flyout-->
 			<button class="menu-toggle _visuallyhidden" data-overlay="mobile-nav">
 				<?php _e("Close Menu", "new_site"); ?>
 			</button><!--/.menu-toggle._visuallyhidden-->
-        </div><!--/.navigation-block.-flyout._mobile._noncritical-->
+        </div><!--/.navigation-block.-flyout._phone._noncritical-->
         <div class="header-block -fullbleed" role="banner">
             <div class="header_inner">
                 <div class="header_row row -between -vcenter">
@@ -78,12 +78,12 @@
                         </a><!--/.header_logo.logo-->
                     </div><!--/.header_col.col-->
                     <div class="header_col col -none">
-                        <button class="header_menu-toggle menu-toggle -rounded _mobile" data-overlay="mobile-nav">
+                        <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
                             <?php _e("View Menu", "new_site"); ?>
-                        </button><!--/.header_menu-toggle.menu-toggle.-rounded._mobile-->
-                        <div class="header_search_container search-form_container _nomargin _tablet _desktop" role="search">
+                        </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
+                        <div class="header_search_container search-form_container _nomargin _tablet _notebook" role="search">
                             <?php get_search_form(); ?>
-                        </div><!--/.header_search_container.search-form_container._nomargin._tablet._desktop-->
+                        </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook-->
                     </div><!--/.header_col.col.-none-->
                 </div><!--/.header_row.row.-between.-vcenter-->
             </div><!--/.header_inner-->
@@ -99,13 +99,13 @@
         ));
         ?>
         <?php if ($menu): ?>
-        <div class="navigation-block -sticky -fullbleed _tablet _desktop" role="navigation">
+        <div class="navigation-block -sticky -fullbleed _tablet _notebook" role="navigation">
             <div class="navigation_inner">
                 <nav class="navigation_menu-list_container menu-list_container">
                     <ul class="menu-list -navigation" data-hover="true" data-touch="true">
                         <?php echo $menu; ?>
                     </ul><!--/.menu-list.-navigation.-flex-->
                 </nav><!--/.navigation_menu-list_container.menu-list_container-->
-            </div><!--/.navigation_inner._tablet._desktop-->
-        </div><!--/.navigation-block.-sticky.-fullbleed._tablet._desktop-->
+            </div><!--/.navigation_inner._tablet-->
+        </div><!--/.navigation-block.-sticky.-fullbleed._tablet._notebook-->
         <?php endif; ?>

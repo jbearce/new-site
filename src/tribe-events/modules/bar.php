@@ -8,9 +8,9 @@ $current_url = tribe_events_get_current_filter_url();
 <form class="tribe-events-bar" id="tribe-bar-form" name="tribe-bar-form" method="post" action="<?php echo esc_attr( $current_url ); ?>">
 
 	<!-- Mobile Filters Toggle -->
-    <button class="tribe-events-bar_toggle _mobile" id="tribe-bar-collapse-toggle">
+    <button class="tribe-events-bar_toggle _phone" id="tribe-bar-collapse-toggle">
         <?php printf(esc_html__("Find %s", "the-events-calendar"), tribe_get_event_label_plural()); ?>
-    </button><!--/.tribe-events-bar_toggle._mobile-->
+    </button><!--/.tribe-events-bar_toggle._phone-->
 
 	<!-- Views -->
 	<?php if (count($views) > 1): ?>
@@ -38,7 +38,7 @@ $current_url = tribe_events_get_current_filter_url();
             </div><!--/.col-->
             <?php endforeach; // foreach ($filters as $filter) ?>
             <div class="col">
-                <div class="tribe-events-bar_text text -label _tablet _desktop">&nbsp;</div>
+                <div class="tribe-events-bar_text text -label _tablet _notebook">&nbsp;</div>
                 <input class="tribe-events-bar_button button" type="submit" name="submit-bar" value="<?php printf(esc_attr__("Find %s", "the-events-calendar"), tribe_get_event_label_plural()); ?>" />
             </div><!--/.col-->
         </div><!--/.tribe-events-bar_row.row.-padded-->

@@ -34,9 +34,9 @@ if (is_home() && !$title) {
                             $link_title = $link["title"] ? " title='{$link["title"]}'" : "";
 
                             $img_alt = $image["alt"] ? " alt='{$image["alt"]}'" : "";
-                            $img_src_mobile = $image["sizes"]["hero"];
+                            $img_src_phone = $image["sizes"]["hero"];
                             $img_src_tablet = $image["sizes"]["hero_medium"];
-                            $img_src_desktop = $image["sizes"]["hero_large"];
+                            $img_src_notebook = $image["sizes"]["hero_large"];
                             $img_title = $image["title"];
                             $img_caption = $image["caption"];
                             ?>
@@ -47,17 +47,17 @@ if (is_home() && !$title) {
                                 <a class="swiper-link link" href="<?php echo $link_href; ?>"<?php echo $link_target . $link_title; ?>>
                                 <?php endif; ?>
 
-                                <?php if ($img_src_mobile): ?>
+                                <?php if ($img_src_phone): ?>
                                 <picture class="swiper-picture">
-                                    <?php if ($img_src_desktop): ?>
-                                    <source srcset="<?php echo $img_src_desktop; ?>" media="(min-width: 64em)" />
+                                    <?php if ($img_src_notebook): ?>
+                                    <source srcset="<?php echo $img_src_notebook; ?>" media="(min-width: 64em)" />
                                     <?php endif; ?>
                                     <?php if ($img_src_tablet): ?>
                                     <source srcset="<?php echo $img_src_tablet; ?>" media="(min-width: 40em)" />
                                     <?php endif; ?>
-                                    <img class="swiper-image"<?php echo $img_alt; ?> src="<?php echo $img_src_mobile; ?>" />
+                                    <img class="swiper-image"<?php echo $img_alt; ?> src="<?php echo $img_src_phone; ?>" />
                                 </picture><!--/.swiper-picture-->
-                                <?php endif; // if ($img_src_mobile) ?>
+                                <?php endif; // if ($img_src_phone) ?>
 
                                 <?php if ($img_title || $img_caption): ?>
                                 <figcaption class="swiper-caption">
@@ -80,14 +80,14 @@ if (is_home() && !$title) {
                 <?php elseif ($featured_image): ?>
                     <?php
                     $img_src_tablet = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_medium");
-                    $img_src_desktop = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_large");
+                    $img_src_notebook = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_large");
                     ?>
 
                     <figure class="swiper-slide">
 
                         <picture class="swiper-picture">
-                            <?php if ($img_src_desktop): ?>
-                            <source srcset="<?php echo $img_src_desktop[0]; ?>" media="(min-width: 64em)" />
+                            <?php if ($img_src_notebook): ?>
+                            <source srcset="<?php echo $img_src_notebook[0]; ?>" media="(min-width: 64em)" />
                             <?php endif; ?>
                             <?php if ($img_src_tablet): ?>
                             <source srcset="<?php echo $img_src_tablet[0]; ?>" media="(min-width: 40em)" />
