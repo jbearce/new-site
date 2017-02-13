@@ -55,11 +55,11 @@
         margin: 0;
     }
 
-    > .fa {
+    > .icon {
         transition: transform 0.15s;
     }
 
-    .menu-list_item.is-active > & > .fa {
+    .menu-list_item.is-active > & > .icon {
         transform: rotate(-180deg);
     }
 }
