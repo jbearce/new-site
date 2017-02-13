@@ -71,7 +71,7 @@
         </div><!--/.navigation-block.-flyout._mobile._noncritical-->
         <div class="header-block -fullbleed" role="banner">
             <div class="header_inner">
-                <div class="header_row row -between -center -mobile">
+                <div class="header_row row -between -vcenter">
                     <div class="header_col col">
                         <a class="header_logo logo" href="<?php echo home_url(); ?>">
 							<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
@@ -85,7 +85,7 @@
                             <?php get_search_form(); ?>
                         </div><!--/.header_search_container.search-form_container._nomargin._tablet._desktop-->
                     </div><!--/.header_col.col.-none-->
-                </div><!--/.header_row.row.-between.-center.-mobile-->
+                </div><!--/.header_row.row.-between.-vcenter-->
             </div><!--/.header_inner-->
         </div><!--/.header-block.-fullbleed-->
         <?php

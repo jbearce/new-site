@@ -1,12 +1,16 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Gridly (adapted from https://github.com/IonicaBizau/gridly)
+ * Grid (based loosely on https://v4-alpha.getbootstrap.com/layout/grid/)
 \* ------------------------------------------------------------------------ */
 
 .row {
-    &.-mobile {
+    & {
         display: flex;
+    }
+
+    &.-padded {
+        width: calc(100% + #{remify($column-gap, 16)});
     }
 
     &.-center {
@@ -14,28 +18,28 @@
         justify-content: center;
     }
 
-    &:not(.-column).-vcenter {
-        align-items: center;
-    }
-
     &:not(.-column).-hcenter {
         justify-content: center;
     }
 
-    &.-left {
-        justify-content: flex-start;
+    &:not(.-column).-vcenter {
+        align-items: center;
     }
 
-    &.-right {
-        justify-content: flex-end;
-    }
-
-    &.-top {
+    &:not(.-column).-top {
         align-items: flex-start;
     }
 
-    &.-bottom {
+    &:not(.-column).-right {
+        justify-content: flex-end;
+    }
+
+    &:not(.-column).-bottom {
         align-items: flex-end;
+    }
+
+    &:not(.-column).-left {
+        justify-content: flex-start;
     }
 
     &.-stretch {
@@ -50,7 +54,7 @@
         justify-content: space-between;
     }
 
-    &.-reverse {
+    &:not(.-column).-reverse {
         flex-direction: row-reverse;
     }
 
@@ -62,6 +66,22 @@
         justify-content: center;
     }
 
+    &.-column.-top {
+        justify-content: flex-start;
+    }
+
+    &.-column.-right {
+        align-items: flex-end;
+    }
+
+    &.-column.-bottom {
+        justify-content: flex-end;
+    }
+
+    &.-column.-left {
+        align-items: flex-start;
+    }
+
     &.-column.-hcenter {
         align-items: center;
     }
@@ -69,128 +89,316 @@
     &.-column.-reverse {
         flex-direction: column-reverse;
     }
-
-    &.-padded {
-        width: calc(100% + #{remify(25, 16)});
-    }
 }
 
 .col {
-    &[data-order="1"] {
-        order: 1;
-    }
-
-    &[data-order="2"] {
-        order: 2;
-    }
-
-    &[data-order="3"] {
-        order: 3;
-    }
-
-    &[data-order="4"] {
-        order: 4;
-    }
-
-    &[data-order="5"] {
-        order: 5;
-    }
-
-    &[data-order="6"] {
-        order: 6;
-    }
-
-    &[data-order="7"] {
-        order: 7;
-    }
-
-    &[data-order="8"] {
-        order: 8;
-    }
-
-    &[data-order="9"] {
-        order: 9;
-    }
-
-    &[data-order="10"] {
-        order: 10;
-    }
-
-    // doesn't work yet, should in Level 4! https://drafts.csswg.org/css-values/
-    &[data-order] {
-        order: attr(data-order);
-    }
-
-    .row.-mobile > & {
+    & {
         flex: 1 1 100%;
+        min-width: 0; // fix rare overflow issue
     }
 
-    .row.-mobile > &.-tenth {
-        flex: 1 0 10%;
+    &.-padded {
+        padding-right: remify($column-gap, 16);
     }
 
-    .row.-mobile > &.-fifth {
-        flex: 1 0 20%;
+    &.-grow {
+        flex-grow: 1;
+        flex-shrink: 0;
     }
 
-    .row.-mobile > &.-quarter {
-        flex: 1 0 25%;
+    &.-shrink {
+        flex-grow: 0;
+        flex-shrink: 1;
     }
 
-    .row.-mobile > &.-third {
-        flex: 1 0 33.3333334%;
-    }
-
-    .row.-mobile > &.-half {
-        flex: 1 0 50%;
-    }
-
-    .row.-mobile > &.-none {
+    &.-none {
         flex: 0 0 auto;
     }
 
-    .row.-padded > & {
-        padding-right: remify(25, 16);
+    &.-1of12,
+    &.-twelfth {
+        flex-basis: 8.333333333333333%;
+    }
+
+    &.-2of12,
+    &.-sixth {
+        flex-basis: 16.666666666666667%;
+    }
+
+    &.-3of12,
+    &.-quarter {
+        flex-basis: 25%;
+    }
+
+    &.-4of12,
+    &.-third {
+            flex-basis: 33.333333333333333%;
+    }
+
+    &.-5of12 {
+        flex-basis: 41.666666666666667%;
+    }
+
+    &.-6of12,
+    &.-half {
+        flex-basis: 50%;
+    }
+
+    &.-7of12 {
+        flex-basis: 58.333333333333333%;
+    }
+
+    &.-8of12,
+    &.-twothirds {
+        flex-basis: 66.666666666666667%;
+    }
+
+    &.-9of12,
+    &.-threequarters {
+        flex-basis: 75%;
+    }
+
+    &.-10of12 {
+        flex-basis: 83.333333333333333%;
+    }
+
+    &.-11of12 {
+        flex-basis: 91.666666666666667%;
     }
 }
 
-// Tablet variant
+// phone variant
 
-@media screen and (min-width: $xs-break) {
-    .row {
-        & {
-            display: flex;
-        }
+@media screen and (max-width: $xs-break - 1 / 16) {
+    .col-phone {
+        flex: 1 1 100%;
     }
 
-    .col {
-        & {
-            flex: 1 1 100%;
-            min-width: 0; // fixes weird overflow issues
-        }
+    .col-phone.-1of12,
+    .col-phone.-twelfth {
+        flex-basis: 8.333333333333333%;
+    }
 
-        &.-tenth {
-            flex: 1 0 10%;
-        }
+    .col-phone.-2of12,
+    .col-phone.-sixth {
+        flex-basis: 16.666666666666667%;
+    }
 
-        &.-fifth {
-            flex: 1 0 20%;
-        }
+    .col-phone.-3of12,
+    .col-phone.-quarter {
+        flex-basis: 25%;
+    }
 
-        &.-quarter {
-            flex: 1 0 25%;
-        }
+    .col-phone.-4of12,
+    .col-phone.-third {
+            flex-basis: 33.333333333333333%;
+    }
 
-        &.-third {
-            flex: 1 0 33.3333334%;
-        }
+    .col-phone.-5of12 {
+        flex-basis: 41.666666666666667%;
+    }
 
-        &.-half {
-            flex: 1 0 50%;
-        }
+    .col-phone.-6of12,
+    .col-phone.-half {
+        flex-basis: 50%;
+    }
 
-        &.-none {
-            flex: 0 0 auto;
-        }
+    .col-phone.-7of12 {
+        flex-basis: 58.333333333333333%;
+    }
+
+    .col-phone.-8of12,
+    .col-phone.-twothirds {
+        flex-basis: 66.666666666666667%;
+    }
+
+    .col-phone.-9of12,
+    .col-phone.-threequarters {
+        flex-basis: 75%;
+    }
+
+    .col-phone.-10of12 {
+        flex-basis: 83.333333333333333%;
+    }
+
+    .col-phone.-11of12 {
+        flex-basis: 91.666666666666667%;
+    }
+}
+
+// tablet variant
+
+@media screen and (min-width: $xs-break) and (max-width: $l-break - 1 / 16) {
+    .col-tablet {
+        flex: 1 1 100%;
+    }
+
+    .col-tablet.-1of12,
+    .col-tablet.-twelfth {
+        flex-basis: 8.333333333333333%;
+    }
+
+    .col-tablet.-2of12,
+    .col-tablet.-sixth {
+        flex-basis: 16.666666666666667%;
+    }
+
+    .col-tablet.-3of12,
+    .col-tablet.-quarter {
+        flex-basis: 25%;
+    }
+
+    .col-tablet.-4of12,
+    .col-tablet.-third {
+            flex-basis: 33.333333333333333%;
+    }
+
+    .col-tablet.-5of12 {
+        flex-basis: 41.666666666666667%;
+    }
+
+    .col-tablet.-6of12,
+    .col-tablet.-half {
+        flex-basis: 50%;
+    }
+
+    .col-tablet.-7of12 {
+        flex-basis: 58.333333333333333%;
+    }
+
+    .col-tablet.-8of12,
+    .col-tablet.-twothirds {
+        flex-basis: 66.666666666666667%;
+    }
+
+    .col-tablet.-9of12,
+    .col-tablet.-threequarters {
+        flex-basis: 75%;
+    }
+
+    .col-tablet.-10of12 {
+        flex-basis: 83.333333333333333%;
+    }
+
+    .col-tablet.-11of12 {
+        flex-basis: 91.666666666666667%;
+    }
+}
+
+// notebook variant
+
+@media screen and (min-width: $l-break) and (max-width: $xl-break - 1 / 16) {
+    .col-notebook {
+        flex: 1 1 100%;
+    }
+
+    .col-notebook.-1of12,
+    .col-notebook.-twelfth {
+        flex-basis: 8.333333333333333%;
+    }
+
+    .col-notebook.-2of12,
+    .col-notebook.-sixth {
+        flex-basis: 16.666666666666667%;
+    }
+
+    .col-notebook.-3of12,
+    .col-notebook.-quarter {
+        flex-basis: 25%;
+    }
+
+    .col-notebook.-4of12,
+    .col-notebook.-third {
+            flex-basis: 33.333333333333333%;
+    }
+
+    .col-notebook.-5of12 {
+        flex-basis: 41.666666666666667%;
+    }
+
+    .col-notebook.-6of12,
+    .col-notebook.-half {
+        flex-basis: 50%;
+    }
+
+    .col-notebook.-7of12 {
+        flex-basis: 58.333333333333333%;
+    }
+
+    .col-notebook.-8of12,
+    .col-notebook.-twothirds {
+        flex-basis: 66.666666666666667%;
+    }
+
+    .col-notebook.-9of12,
+    .col-notebook.-threequarters {
+        flex-basis: 75%;
+    }
+
+    .col-notebook.-10of12 {
+        flex-basis: 83.333333333333333%;
+    }
+
+    .col-notebook.-11of12 {
+        flex-basis: 91.666666666666667%;
+    }
+}
+
+// desktop variant
+
+@media screen and (min-width: $xl-break) {
+    .col-desktop {
+        flex: 1 1 100%;
+    }
+
+    .col-desktop.-1of12,
+    .col-desktop.-twelfth {
+        flex-basis: 8.333333333333333%;
+    }
+
+    .col-desktop.-2of12,
+    .col-desktop.-sixth {
+        flex-basis: 16.666666666666667%;
+    }
+
+    .col-desktop.-3of12,
+    .col-desktop.-quarter {
+        flex-basis: 25%;
+    }
+
+    .col-desktop.-4of12,
+    .col-desktop.-third {
+            flex-basis: 33.333333333333333%;
+    }
+
+    .col-desktop.-5of12 {
+        flex-basis: 41.666666666666667%;
+    }
+
+    .col-desktop.-6of12,
+    .col-desktop.-half {
+        flex-basis: 50%;
+    }
+
+    .col-desktop.-7of12 {
+        flex-basis: 58.333333333333333%;
+    }
+
+    .col-desktop.-8of12,
+    .col-desktop.-twothirds {
+        flex-basis: 66.666666666666667%;
+    }
+
+    .col-desktop.-9of12,
+    .col-desktop.-threequarters {
+        flex-basis: 75%;
+    }
+
+    .col-desktop.-10of12 {
+        flex-basis: 83.333333333333333%;
+    }
+
+    .col-desktop.-11of12 {
+        flex-basis: 91.666666666666667%;
     }
 }

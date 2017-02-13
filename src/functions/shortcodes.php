@@ -21,15 +21,7 @@ add_filter("the_content", "new_site_fix_shortcodes");
 add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
 
 // add row shortcode
-function new_site_row_shortcode($atts , $content = null) {
-    extract(shortcode_atts(
-		array(
-			"alt" => "",
-		), $atts)
-	);
-
-    $class = $alt ? " -alt" : "";
-
+function new_site_row_shortcode($content = null) {
     // return the tab wrapper with the menu
     return "<div class='row -padded{$class}'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
 }
@@ -43,7 +35,7 @@ function new_site_col_shortcode($atts , $content = null) {
 		), $atts)
 	);
 
-    $class = $width ? " -{$width}" : "";
+    $class = $width ? "-{$width}" : "";
 
     // return the tab wrapper with the menu
     return "<div class='col{$class} -shortcode'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
