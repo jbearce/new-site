@@ -156,7 +156,7 @@ class new_site_walker extends Walker_Nav_Menu {
         }
 
         // add a -accordion class if the accordion parameter is passed
-        $variant .= in_array("accordion", $params) ? " -accordion" : (!$this->is_mega ? " -overlay" : "");
+        $variant .= in_array("accordion", $params) ? " -accordion" : ($this->is_mega ? "" : " -overlay");
 
         // add data properties for the menu script to interact with
         $data = "";
@@ -164,7 +164,7 @@ class new_site_walker extends Walker_Nav_Menu {
         if (in_array("touch", $params)) $data .= " data-touch='true'";
 
         // add aria attribute if the mega parameter is not passed
-        $aria = !$this->is_mega ? " aria-hidden='true'" : "";
+        $aria = $this->is_mega ? "" : " aria-hidden='true'";
 
         // construct the menu list
         $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$data}{$aria}>";
