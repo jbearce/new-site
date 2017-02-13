@@ -77,28 +77,9 @@
 
 // when screen is < 768
 @media screen and (max-width: ($xs-break - 1 / 16)) {
-    ._tablet:not(._phone) {
-        display: none !important;
-    }
-}
-
-// when screen is < 1024
-@media screen and (max-width: ($l-break - 1 / 16)) {
-    ._notebook:not(._tablet):not(._phone) {
-        display: none !important;
-    }
-}
-
-// when screen is < 1280
-@media screen and (max-width: ($l-break - 1 / 16)) {
-    ._desktop:not(._notebook):not(._tablet):not(._phone) {
-        display: none !important;
-    }
-}
-
-// when screen is >= 768
-@media screen and (min-width: $xs-break) {
-    ._phone:not(._tablet):not(._notebook):not(._desktop) {
+    ._tablet:not(._phone),
+    ._notebook:not(._phone),
+    ._desktop:not(._phone) {
         display: none !important;
     }
 }
@@ -112,16 +93,8 @@
     }
 }
 
-// when screen is >= 1024
-@media screen and (min-width: $l-break) {
-    ._phone:not(._notebook):not(.-desktop),
-    ._tablet:not(._notebook):not(.-desktop) {
-        display: none !important;
-    }
-}
-
 // when screen is >= 1024 and < 1280
-@media screen and (min-width: $xs-break) and (max-width: ($l-break - 1 / 16)) {
+@media screen and (min-width: $l-break) and (max-width: ($xl-break - 1 / 16)) {
     ._phone:not(._notebook),
     ._tablet:not(._notebook),
     ._desktop:not(._notebook) {
@@ -131,9 +104,9 @@
 
 // when screen is >= 1280
 @media screen and (min-width: $xl-break) {
-    ._phone:not(.-desktop),
-    ._tablet:not(.-desktop),
-    ._notebook:not(.-desktop) {
+    ._phone:not(._desktop),
+    ._tablet:not(._desktop),
+    ._notebook:not(._desktop) {
         display: none !important;
     }
 }
