@@ -72,19 +72,19 @@
         <div class="header-block -fullbleed" role="banner">
             <div class="header_inner">
                 <div class="header_row row -between -vcenter">
-                    <div class="header_col col">
+                    <div class="col-auto -grow -shrink">
                         <a class="header_logo logo" href="<?php echo home_url(); ?>">
 							<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
                         </a><!--/.header_logo.logo-->
-                    </div><!--/.header_col.col-->
-                    <div class="header_col col -none">
+                    </div><!--/.col-auto.-grow.-shrink-->
+                    <div class="col-auto">
                         <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
                             <?php _e("View Menu", "new_site"); ?>
                         </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
                         <div class="header_search_container search-form_container _nomargin _tablet _notebook" role="search">
                             <?php get_search_form(); ?>
                         </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook-->
-                    </div><!--/.header_col.col.-none-->
+                    </div><!--/.col-auto-->
                 </div><!--/.header_row.row.-between.-vcenter-->
             </div><!--/.header_inner-->
         </div><!--/.header-block.-fullbleed-->

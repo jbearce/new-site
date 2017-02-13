@@ -119,8 +119,8 @@
     }
 }
 
-[class*="col"]:not([class*="col-phone"]):not([class*="col-tablet"]):not([class*="col-notebook"]):not([class*="col-desktop"]) {
-    &-none {
+.col {
+    &-auto {
         flex-basis: auto;
     }
 
@@ -190,7 +190,7 @@
 // phone variant
 
 @media screen and (max-width: $xs-break - 1 / 16) {
-    .col-phone-none {
+    .col-phone-auto {
         flex-basis: auto;
     }
 
@@ -260,7 +260,7 @@
 // tablet variant
 
 @media screen and (min-width: $xs-break) and (max-width: $l-break - 1 / 16) {
-    .col-tablet-none {
+    .col-tablet-auto {
         flex-basis: auto;
     }
 
@@ -330,7 +330,7 @@
 // notebook variant
 
 @media screen and (min-width: $l-break) and (max-width: $xl-break - 1 / 16) {
-    .col-notebook-none {
+    .col-notebook-auto {
         flex-basis: auto;
     }
 
@@ -400,7 +400,7 @@
 // desktop variant
 
 @media screen and (min-width: $xl-break) {
-    .col-desktop-none {
+    .col-desktop-auto {
         flex-basis: auto;
     }
 
