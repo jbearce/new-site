@@ -81,9 +81,9 @@
                         <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
                             <?php _e("View Menu", "new_site"); ?>
                         </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
-                        <div class="header_search_container search-form_container _nomargin _tablet _notebook" role="search">
+                        <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
                             <?php get_search_form(); ?>
-                        </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook-->
+                        </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook._desktop-->
                     </div><!--/.col-auto-->
                 </div><!--/.header_row.row.-between.-vcenter-->
             </div><!--/.header_inner-->
@@ -99,7 +99,7 @@
         ));
         ?>
         <?php if ($menu): ?>
-        <div class="navigation-block -sticky -fullbleed _tablet _notebook" role="navigation">
+        <div class="navigation-block -sticky -fullbleed _tablet _notebook _desktop" role="navigation">
             <div class="navigation_inner">
                 <nav class="navigation_menu-list_container menu-list_container">
                     <ul class="menu-list -navigation" data-hover="true" data-touch="true">
@@ -107,5 +107,5 @@
                     </ul><!--/.menu-list.-navigation.-flex-->
                 </nav><!--/.navigation_menu-list_container.menu-list_container-->
             </div><!--/.navigation_inner._tablet-->
-        </div><!--/.navigation-block.-sticky.-fullbleed._tablet._notebook-->
+        </div><!--/.navigation-block.-sticky.-fullbleed._tablet._notebook._desktop-->
         <?php endif; ?>
