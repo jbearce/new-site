@@ -19,7 +19,7 @@ $callouts = get_field("callouts");
             <div class="row -padded">
             <?php endif; ?>
 
-            <div class="col-tablet -4of12 _flex">
+            <div class="col-tablet-6of12 col-notebook-4of12 col-desktop-4of12 -grow _flex">
                 <div class="widget">
 
                     <?php if ($title): ?>
@@ -30,7 +30,7 @@ $callouts = get_field("callouts");
                     <?php endif;?>
 
                 </div><!--/.widget-->
-            </div><!--/.col-tablet.-4of12._flex-->
+            </div><!--/.col-tablet-4of12._flex-->
 
             <?php if ($i === count($callouts) || $i % 3 === 0): ?>
             </div><!--/.row.-padded-->
