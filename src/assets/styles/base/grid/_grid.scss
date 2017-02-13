@@ -97,7 +97,7 @@
         min-width: 0; // fix rare overflow issue
     }
 
-    &.-padded {
+    .row.-padded > & {
         padding-right: remify($column-gap, 16);
     }
 
@@ -185,6 +185,10 @@
         flex: 1 1 100%;
     }
 
+    .row.-padded > .col-phone {
+        padding-right: remify($column-gap, 16);
+    }
+
     .col-phone.-1,
     .col-phone.-1of12,
     .col-phone.-twelfth {
@@ -253,6 +257,10 @@
 @media screen and (min-width: $xs-break) and (max-width: $l-break - 1 / 16) {
     .col-tablet {
         flex: 1 1 100%;
+    }
+
+    .row.-padded > .col-tablet {
+        padding-right: remify($column-gap, 16);
     }
 
     .col-tablet.-1,
@@ -325,6 +333,10 @@
         flex: 1 1 100%;
     }
 
+    .row.-padded > .col-notebook {
+        padding-right: remify($column-gap, 16);
+    }
+
     .col-notebook.-1,
     .col-notebook.-1of12,
     .col-notebook.-twelfth {
@@ -393,6 +405,10 @@
 @media screen and (min-width: $xl-break) {
     .col-desktop {
         flex: 1 1 100%;
+    }
+
+    .row.-padded > .col-desktop {
+        padding-right: remify($column-gap, 16);
     }
 
     .col-desktop.-1,
