@@ -183,6 +183,7 @@
 @media screen and (max-width: $xs-break - 1 / 16) {
     .col-phone {
         flex: 1 1 100%;
+        min-width: 0; // fix rare overflow issue
     }
 
     .row.-padded > .col-phone {
@@ -257,6 +258,7 @@
 @media screen and (min-width: $xs-break) and (max-width: $l-break - 1 / 16) {
     .col-tablet {
         flex: 1 1 100%;
+        min-width: 0; // fix rare overflow issue
     }
 
     .row.-padded > .col-tablet {
@@ -331,6 +333,7 @@
 @media screen and (min-width: $l-break) and (max-width: $xl-break - 1 / 16) {
     .col-notebook {
         flex: 1 1 100%;
+        min-width: 0; // fix rare overflow issue
     }
 
     .row.-padded > .col-notebook {
@@ -405,6 +408,7 @@
 @media screen and (min-width: $xl-break) {
     .col-desktop {
         flex: 1 1 100%;
+        min-width: 0; // fix rare overflow issue
     }
 
     .row.-padded > .col-desktop {
