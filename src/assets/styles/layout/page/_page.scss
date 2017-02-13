@@ -4,16 +4,17 @@
  * Page
 \* ------------------------------------------------------------------------ */
 
-html {
+html,
+body {
     & {
+        background: $page_background;
         height: 100%;
         width: 100%;
     }
 }
 
-body {
+.page_container {
     & {
-        background: $page_background;
         min-height: 100%;
         position: relative;
         width: 100%;

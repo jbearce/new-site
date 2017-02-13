@@ -40,72 +40,73 @@
 	</head>
     <body <?php body_class(); ?>>
         <?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?>
-		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
-        <?php get_template_part("partials/login", "overlay"); ?>
-        <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
-            <div class="navigation_inner">
-                <div class="navigation_search-form_container search-form_container _nomargin">
-                    <?php get_search_form(); ?>
-                </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
-                <?php
-                $menu = wp_nav_menu(array(
-                    "container"		 => false,
-                    "depth"          => 3,
-                    "echo"           => false,
-                    "items_wrap"	 => "%3\$s",
-                    "theme_location" => "primary",
-                    "walker"         => new new_site_walker("accordion"),
-                ));
-                ?>
-                <?php if ($menu): ?>
-                <nav class="navigation_menu-list_container menu-list_container">
-                    <ul class="menu-list -navigation -accordion -vertical">
-                        <?php echo $menu; ?>
-                    </ul><!--/.menu-list.-navigation.-accordion.-vertical-->
-                </nav><!--/.navigation_menu-list_container.menu-list_container-->
-                <?php endif; ?>
-            </div><!--/.navigation_inner.-flyout-->
-			<button class="menu-toggle _visuallyhidden" data-overlay="mobile-nav">
-				<?php _e("Close Menu", "new_site"); ?>
-			</button><!--/.menu-toggle._visuallyhidden-->
-        </div><!--/.navigation-block.-flyout._phone._noncritical-->
-        <div class="header-block -fullbleed" role="banner">
-            <div class="header_inner">
-                <div class="header_row row -between -vcenter">
-                    <div class="col-auto -grow -shrink">
-                        <a class="header_logo logo" href="<?php echo home_url(); ?>">
-							<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
-                        </a><!--/.header_logo.logo-->
-                    </div><!--/.col-auto.-grow.-shrink-->
-                    <div class="col-auto">
-                        <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
-                            <?php _e("View Menu", "new_site"); ?>
-                        </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
-                        <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
-                            <?php get_search_form(); ?>
-                        </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook._desktop-->
-                    </div><!--/.col-auto-->
-                </div><!--/.header_row.row.-between.-vcenter-->
-            </div><!--/.header_inner-->
-        </div><!--/.header-block.-fullbleed-->
-        <?php
-        $menu = wp_nav_menu(array(
-            "container"		 => false,
-            "depth"          => 4,
-            "echo"           => false,
-            "items_wrap"	 => "%3\$s",
-            "theme_location" => "primary",
-            "walker"         => new new_site_walker("mega hover touch"),
-        ));
-        ?>
-        <?php if ($menu): ?>
-        <div class="navigation-block -sticky -fullbleed _tablet _notebook _desktop" role="navigation">
-            <div class="navigation_inner">
-                <nav class="navigation_menu-list_container menu-list_container">
-                    <ul class="menu-list -navigation" data-hover="true" data-touch="true">
-                        <?php echo $menu; ?>
-                    </ul><!--/.menu-list.-navigation.-flex-->
-                </nav><!--/.navigation_menu-list_container.menu-list_container-->
-            </div><!--/.navigation_inner._tablet-->
-        </div><!--/.navigation-block.-sticky.-fullbleed._tablet._notebook._desktop-->
-        <?php endif; ?>
+        <div class="page_container">
+    		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
+            <?php get_template_part("partials/login", "overlay"); ?>
+            <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" aria-hidden="true" role="navigation" tabindex="1">
+                <div class="navigation_inner">
+                    <div class="navigation_search-form_container search-form_container _nomargin">
+                        <?php get_search_form(); ?>
+                    </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
+                    <?php
+                    $menu = wp_nav_menu(array(
+                        "container"		 => false,
+                        "depth"          => 3,
+                        "echo"           => false,
+                        "items_wrap"	 => "%3\$s",
+                        "theme_location" => "primary",
+                        "walker"         => new new_site_walker("accordion"),
+                    ));
+                    ?>
+                    <?php if ($menu): ?>
+                    <nav class="navigation_menu-list_container menu-list_container">
+                        <ul class="menu-list -navigation -accordion -vertical">
+                            <?php echo $menu; ?>
+                        </ul><!--/.menu-list.-navigation.-accordion.-vertical-->
+                    </nav><!--/.navigation_menu-list_container.menu-list_container-->
+                    <?php endif; ?>
+                </div><!--/.navigation_inner.-flyout-->
+    			<button class="menu-toggle _visuallyhidden" data-overlay="mobile-nav">
+    				<?php _e("Close Menu", "new_site"); ?>
+    			</button><!--/.menu-toggle._visuallyhidden-->
+            </div><!--/.navigation-block.-flyout._phone._noncritical-->
+            <div class="header-block -fullbleed" role="banner">
+                <div class="header_inner">
+                    <div class="header_row row -between -vcenter">
+                        <div class="col-auto -grow -shrink">
+                            <a class="header_logo logo" href="<?php echo home_url(); ?>">
+    							<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
+                            </a><!--/.header_logo.logo-->
+                        </div><!--/.col-auto.-grow.-shrink-->
+                        <div class="col-auto">
+                            <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
+                                <?php _e("View Menu", "new_site"); ?>
+                            </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
+                            <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
+                                <?php get_search_form(); ?>
+                            </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook._desktop-->
+                        </div><!--/.col-auto-->
+                    </div><!--/.header_row.row.-between.-vcenter-->
+                </div><!--/.header_inner-->
+            </div><!--/.header-block.-fullbleed-->
+            <?php
+            $menu = wp_nav_menu(array(
+                "container"		 => false,
+                "depth"          => 4,
+                "echo"           => false,
+                "items_wrap"	 => "%3\$s",
+                "theme_location" => "primary",
+                "walker"         => new new_site_walker("mega hover touch"),
+            ));
+            ?>
+            <?php if ($menu): ?>
+            <div class="navigation-block -sticky -fullbleed _tablet _notebook _desktop" role="navigation">
+                <div class="navigation_inner">
+                    <nav class="navigation_menu-list_container menu-list_container">
+                        <ul class="menu-list -navigation" data-hover="true" data-touch="true">
+                            <?php echo $menu; ?>
+                        </ul><!--/.menu-list.-navigation.-flex-->
+                    </nav><!--/.navigation_menu-list_container.menu-list_container-->
+                </div><!--/.navigation_inner._tablet-->
+            </div><!--/.navigation-block.-sticky.-fullbleed._tablet._notebook._desktop-->
+            <?php endif; ?>
