@@ -33,7 +33,7 @@
                                     <?php foreach ($categories as $category): ?>
                                         <?php $i++; ?>
 
-                                        <a class="menu-list_link link" href="<?php get_term_link($category); ?>"><?php echo $category->name; ?></a>
+                                        <a class="menu-list_link link" href="<?php echo get_term_link($category); ?>"><?php echo $category->name; ?></a>
 
                                         <?php if ($i < count($categories)): ?>, <?php endif; ?>
                                     <?php endforeach; // foreach ($categories as $category) ?>
