@@ -10,16 +10,28 @@ var menus        = document.querySelectorAll(".menu-list"),
     menu_toggles = document.querySelectorAll(".menu-list_toggle");
 
 // handle touch away from menu-list elements
-// @TODO make sure the touched menu-list is active
 document.addEventListener("touchstart", function(e) {
-    var parent_class_list = e.target.parentNode.classList;
+    var parent_element = e.target.parentElement;
+    var clicked_on_menu = false;
 
-    if (!(parent_class_list.contains("menu-list_item") && parent_class_list.contains("-parent") && parent_class_list.contains("is-active"))) {
+    // loop through all parent elements until it is determiend if a menu was in the stack
+    while (parent_element && clicked_on_menu === false) {
+        if (parent_element.classList.contains("menu-list") || parent_element.dataset.menu === "true" || e.target.dataset.menu === "true") {
+            clicked_on_menu = true;
+        }
+
+        parent_element = parent_element.parentElement;
+    }
+
+    // close all menus if a menu wasn't clicked
+    // @TODO make sure the touched menu-list is active
+    if (clicked_on_menu === false) {
         for (var i = 0; i < menu_items.length; i++) {
             mark_menu_item_inactive(menu_items[i]);
         }
     }
 });
+
 
 // handle interactions with menu-list_item elements
 for (var i = 0; i < menu_items.length; i++) {
