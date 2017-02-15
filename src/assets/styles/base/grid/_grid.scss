@@ -1,4 +1,4 @@
-// Styles written by YOURNAME @ YOURCOMPANY
+// Styles written by Jacob Bearce @ Weblinx, Inc.
 
 /* ------------------------------------------------------------------------ *\
  * Grid (based loosely on https://v4-alpha.getbootstrap.com/layout/grid/)
@@ -10,16 +10,37 @@
         flex-wrap: wrap;
     }
 
+    & > .col,
+    & > [class^="col-"] {
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+
+    & > .col.-nogrow,
+    & > [class^="col-"].-nogrow {
+        flex-grow: 0;
+    }
+
+    & > .col.-noshrink,
+    & > [class^="col-"].-noshrink {
+        flex-shrink: 0;
+    }
+
+    &.-padded {
+        width: calc(100% + #{remify($column-gap, 16)});
+    }
+
+    &.-padded > .col,
+    &.-padded > [class^="col-"] {
+        padding-right: remify($column-gap, 16);
+    }
+
     &.-nowrap {
         flex-wrap: nowrap;
     }
 
     &.-wrapreverse {
         flex-wrap: wrap-reverse;
-    }
-
-    &.-padded {
-        width: calc(100% + #{remify($column-gap, 16)});
     }
 
     &.-center {
@@ -100,369 +121,273 @@
     }
 }
 
-[class*="col"] {
-    & {
-        flex: 0 0 100%;
-        min-width: 0; // fix rare overflow issue
-    }
-
-    .row.-padded > & {
-        padding-right: remify($column-gap, 16);
-    }
-
-    &.-grow {
-        flex-grow: 1;
-    }
-
-    &.-shrink {
-        flex-shrink: 1;
-    }
-}
-
 .col {
-    &-auto {
+    & {
         flex-basis: auto;
     }
 
-    &-1,
-    &-1of12,
-    &-twelfth {
-        flex-basis: 8.333333333333333%;
+    &-0 {
+        flex-basis: (0 / 12) * 100%;
     }
 
-    &-2,
-    &-2of12,
-    &-sixth {
-        flex-basis: 16.666666666666667%;
+    &-1 {
+        flex-basis: (1 / 12) * 100%;
     }
 
-    &-3,
-    &-3of12,
-    &-quarter {
-        flex-basis: 25%;
+    &-2 {
+        flex-basis: (2 / 12) * 100%;
     }
 
-    &-4,
-    &-4of12,
-    &-third {
-            flex-basis: 33.333333333333333%;
+    &-3 {
+        flex-basis: (3 / 12) * 100%;
     }
 
-    &-5,
-    &-5of12 {
-        flex-basis: 41.666666666666667%;
+    &-4 {
+        flex-basis: (4 / 12) * 100%;
     }
 
-    &-6,
-    &-6of12,
-    &-half {
-        flex-basis: 50%;
+    &-5 {
+        flex-basis: (5 / 12) * 100%;
     }
 
-    &-7,
-    &-7of12 {
-        flex-basis: 58.333333333333333%;
+    &-6 {
+        flex-basis: (6 / 12) * 100%;
     }
 
-    &-8,
-    &-8of12,
-    &-twothirds {
-        flex-basis: 66.666666666666667%;
+    &-7 {
+        flex-basis: (7 / 12) * 100%;
     }
 
-    &-9,
-    &-9of12,
-    &-threequarters {
-        flex-basis: 75%;
+    &-8 {
+        flex-basis: (8 / 12) * 100%;
     }
 
-    &-10,
-    &-10of12 {
-        flex-basis: 83.333333333333333%;
+    &-9 {
+        flex-basis: (9 / 12) * 100%;
     }
 
-    &-11,
-    &-11of12 {
-        flex-basis: 91.666666666666667%;
+    &-10 {
+        flex-basis: (10 / 12) * 100%;
+    }
+
+    &-11 {
+        flex-basis: (11 / 12) * 100%;
+    }
+
+    &-12 {
+        flex-basis: (12 / 12) * 100%;
     }
 }
 
-// phone variant
+@media screen and (min-width: $xs-break) {
+    .col-xs {
+        & {
+            flex-basis: auto;
+        }
 
-@media screen and (max-width: $xs-break - 1 / 16) {
-    .col-phone-auto {
-        flex-basis: auto;
-    }
+        &-0 {
+            flex-basis: (0 / 12) * 100%;
+        }
 
-    .col-phone-1,
-    .col-phone-1of12,
-    .col-phone-twelfth {
-        flex-basis: 8.333333333333333%;
-    }
+        &-1 {
+            flex-basis: (1 / 12) * 100%;
+        }
 
-    .col-phone-2,
-    .col-phone-2of12,
-    .col-phone-sixth {
-        flex-basis: 16.666666666666667%;
-    }
+        &-2 {
+            flex-basis: (2 / 12) * 100%;
+        }
 
-    .col-phone-3,
-    .col-phone-3of12,
-    .col-phone-quarter {
-        flex-basis: 25%;
-    }
+        &-3 {
+            flex-basis: (3 / 12) * 100%;
+        }
 
-    .col-phone-4,
-    .col-phone-4of12,
-    .col-phone-third {
-            flex-basis: 33.333333333333333%;
-    }
+        &-4 {
+            flex-basis: (4 / 12) * 100%;
+        }
 
-    .col-phone-5,
-    .col-phone-5of12 {
-        flex-basis: 41.666666666666667%;
-    }
+        &-5 {
+            flex-basis: (5 / 12) * 100%;
+        }
 
-    .col-phone-6,
-    .col-phone-6of12,
-    .col-phone-half {
-        flex-basis: 50%;
-    }
+        &-6 {
+            flex-basis: (6 / 12) * 100%;
+        }
 
-    .col-phone-7,
-    .col-phone-7of12 {
-        flex-basis: 58.333333333333333%;
-    }
+        &-7 {
+            flex-basis: (7 / 12) * 100%;
+        }
 
-    .col-phone-8,
-    .col-phone-8of12,
-    .col-phone-twothirds {
-        flex-basis: 66.666666666666667%;
-    }
+        &-8 {
+            flex-basis: (8 / 12) * 100%;
+        }
 
-    .col-phone-9,
-    .col-phone-9of12,
-    .col-phone-threequarters {
-        flex-basis: 75%;
-    }
+        &-9 {
+            flex-basis: (9 / 12) * 100%;
+        }
 
-    .col-phone-10,
-    .col-phone-10of12 {
-        flex-basis: 83.333333333333333%;
-    }
+        &-10 {
+            flex-basis: (10 / 12) * 100%;
+        }
 
-    .col-phone-11,
-    .col-phone-11of12 {
-        flex-basis: 91.666666666666667%;
+        &-11 {
+            flex-basis: (11 / 12) * 100%;
+        }
+
+        &-12 {
+            flex-basis: (12 / 12) * 100%;
+        }
     }
 }
 
-// tablet variant
+@media screen and (min-width: $l-break) {
+    .col-l {
+        & {
+            flex-basis: auto;
+        }
 
-@media screen and (min-width: $xs-break) and (max-width: $l-break - 1 / 16) {
-    .col-tablet-auto {
-        flex-basis: auto;
-    }
+        &-0 {
+            flex-basis: (0 / 12) * 100%;
+        }
 
-    .col-tablet-1,
-    .col-tablet-1of12,
-    .col-tablet-twelfth {
-        flex-basis: 8.333333333333333%;
-    }
+        &-1 {
+            flex-basis: (1 / 12) * 100%;
+        }
 
-    .col-tablet-2,
-    .col-tablet-2of12,
-    .col-tablet-sixth {
-        flex-basis: 16.666666666666667%;
-    }
+        &-2 {
+            flex-basis: (2 / 12) * 100%;
+        }
 
-    .col-tablet-3,
-    .col-tablet-3of12,
-    .col-tablet-quarter {
-        flex-basis: 25%;
-    }
+        &-3 {
+            flex-basis: (3 / 12) * 100%;
+        }
 
-    .col-tablet-4,
-    .col-tablet-4of12,
-    .col-tablet-third {
-            flex-basis: 33.333333333333333%;
-    }
+        &-4 {
+            flex-basis: (4 / 12) * 100%;
+        }
 
-    .col-tablet-5,
-    .col-tablet-5of12 {
-        flex-basis: 41.666666666666667%;
-    }
+        &-5 {
+            flex-basis: (5 / 12) * 100%;
+        }
 
-    .col-tablet-6,
-    .col-tablet-6of12,
-    .col-tablet-half {
-        flex-basis: 50%;
-    }
+        &-6 {
+            flex-basis: (6 / 12) * 100%;
+        }
 
-    .col-tablet-7,
-    .col-tablet-7of12 {
-        flex-basis: 58.333333333333333%;
-    }
+        &-7 {
+            flex-basis: (7 / 12) * 100%;
+        }
 
-    .col-tablet-8,
-    .col-tablet-8of12,
-    .col-tablet-twothirds {
-        flex-basis: 66.666666666666667%;
-    }
+        &-8 {
+            flex-basis: (8 / 12) * 100%;
+        }
 
-    .col-tablet-9,
-    .col-tablet-9of12,
-    .col-tablet-threequarters {
-        flex-basis: 75%;
-    }
+        &-9 {
+            flex-basis: (9 / 12) * 100%;
+        }
 
-    .col-tablet-10,
-    .col-tablet-10of12 {
-        flex-basis: 83.333333333333333%;
-    }
+        &-10 {
+            flex-basis: (10 / 12) * 100%;
+        }
 
-    .col-tablet-11,
-    .col-tablet-11of12 {
-        flex-basis: 91.666666666666667%;
+        &-11 {
+            flex-basis: (11 / 12) * 100%;
+        }
+
+        &-12 {
+            flex-basis: (12 / 12) * 100%;
+        }
     }
 }
-
-// notebook variant
-
-@media screen and (min-width: $l-break) and (max-width: $xl-break - 1 / 16) {
-    .col-notebook-auto {
-        flex-basis: auto;
-    }
-
-    .col-notebook-1,
-    .col-notebook-1of12,
-    .col-notebook-twelfth {
-        flex-basis: 8.333333333333333%;
-    }
-
-    .col-notebook-2,
-    .col-notebook-2of12,
-    .col-notebook-sixth {
-        flex-basis: 16.666666666666667%;
-    }
-
-    .col-notebook-3,
-    .col-notebook-3of12,
-    .col-notebook-quarter {
-        flex-basis: 25%;
-    }
-
-    .col-notebook-4,
-    .col-notebook-4of12,
-    .col-notebook-third {
-            flex-basis: 33.333333333333333%;
-    }
-
-    .col-notebook-5,
-    .col-notebook-5of12 {
-        flex-basis: 41.666666666666667%;
-    }
-
-    .col-notebook-6,
-    .col-notebook-6of12,
-    .col-notebook-half {
-        flex-basis: 50%;
-    }
-
-    .col-notebook-7,
-    .col-notebook-7of12 {
-        flex-basis: 58.333333333333333%;
-    }
-
-    .col-notebook-8,
-    .col-notebook-8of12,
-    .col-notebook-twothirds {
-        flex-basis: 66.666666666666667%;
-    }
-
-    .col-notebook-9,
-    .col-notebook-9of12,
-    .col-notebook-threequarters {
-        flex-basis: 75%;
-    }
-
-    .col-notebook-10,
-    .col-notebook-10of12 {
-        flex-basis: 83.333333333333333%;
-    }
-
-    .col-notebook-11,
-    .col-notebook-11of12 {
-        flex-basis: 91.666666666666667%;
-    }
-}
-
-// desktop variant
 
 @media screen and (min-width: $xl-break) {
-    .col-desktop-auto {
-        flex-basis: auto;
-    }
+    .col-xl {
+        &,
+        &-1,
+        &-2,
+        &-3,
+        &-4,
+        &-5,
+        &-6,
+        &-7,
+        &-8,
+        &-9,
+        &-10,
+        &-11,
+        &-12 {
+            flex-grow: 1;
+            flex-shrink: 1;
+        }
 
-    .col-desktop-1,
-    .col-desktop-1of12,
-    .col-desktop-twelfth {
-        flex-basis: 8.333333333333333%;
-    }
+        .row.-padded > &,
+        .row.-padded > &-1,
+        .row.-padded > &-2,
+        .row.-padded > &-3,
+        .row.-padded > &-4,
+        .row.-padded > &-5,
+        .row.-padded > &-6,
+        .row.-padded > &-7,
+        .row.-padded > &-8,
+        .row.-padded > &-9,
+        .row.-padded > &-10,
+        .row.-padded > &-11,
+        .row.-padded > &-12 {
+            padding-right: remify($column-gap, 16);
+        }
 
-    .col-desktop-2,
-    .col-desktop-2of12,
-    .col-desktop-sixth {
-        flex-basis: 16.666666666666667%;
-    }
+        & {
+            flex-basis: auto;
+        }
 
-    .col-desktop-3,
-    .col-desktop-3of12,
-    .col-desktop-quarter {
-        flex-basis: 25%;
-    }
+        &-0 {
+            flex-basis: (0 / 12) * 100%;
+        }
 
-    .col-desktop-4,
-    .col-desktop-4of12,
-    .col-desktop-third {
-            flex-basis: 33.333333333333333%;
-    }
+        &-1 {
+            flex-basis: (1 / 12) * 100%;
+        }
 
-    .col-desktop-5,
-    .col-desktop-5of12 {
-        flex-basis: 41.666666666666667%;
-    }
+        &-2 {
+            flex-basis: (2 / 12) * 100%;
+        }
 
-    .col-desktop-6,
-    .col-desktop-6of12,
-    .col-desktop-half {
-        flex-basis: 50%;
-    }
+        &-3 {
+            flex-basis: (3 / 12) * 100%;
+        }
 
-    .col-desktop-7,
-    .col-desktop-7of12 {
-        flex-basis: 58.333333333333333%;
-    }
+        &-4 {
+            flex-basis: (4 / 12) * 100%;
+        }
 
-    .col-desktop-8,
-    .col-desktop-8of12,
-    .col-desktop-twothirds {
-        flex-basis: 66.666666666666667%;
-    }
+        &-5 {
+            flex-basis: (5 / 12) * 100%;
+        }
 
-    .col-desktop-9,
-    .col-desktop-9of12,
-    .col-desktop-threequarters {
-        flex-basis: 75%;
-    }
+        &-6 {
+            flex-basis: (6 / 12) * 100%;
+        }
 
-    .col-desktop-10,
-    .col-desktop-10of12 {
-        flex-basis: 83.333333333333333%;
-    }
+        &-7 {
+            flex-basis: (7 / 12) * 100%;
+        }
 
-    .col-desktop-11,
-    .col-desktop-11of12 {
-        flex-basis: 91.666666666666667%;
+        &-8 {
+            flex-basis: (8 / 12) * 100%;
+        }
+
+        &-9 {
+            flex-basis: (9 / 12) * 100%;
+        }
+
+        &-10 {
+            flex-basis: (10 / 12) * 100%;
+        }
+
+        &-11 {
+            flex-basis: (11 / 12) * 100%;
+        }
+
+        &-12 {
+            flex-basis: (12 / 12) * 100%;
+        }
     }
 }
