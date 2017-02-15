@@ -142,7 +142,7 @@ class new_site_walker extends Walker_Nav_Menu {
         $params = explode(" ", $this->params);
 
         // add a toggle button if the buttons paramater is passed
-        $toggle = in_array("accordion", $params) ? "<button class='menu-list_toggle'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>" : ($this->is_mega && $depth >= 0 ? "" : "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children", "new_site") . "</button>");
+        $toggle = in_array("accordion", $params) ? "<button class='menu-list_toggle'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "daviess_county") . "</span></button>" : (in_array("hover", $params) || in_array("touch", $params) && !($this->is_mega && $depth > 0) ? "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children", "daviess_county") . "</button>" : "");
 
         // add a -tier class indicting the depth
         $variant = "-tier1";
@@ -156,7 +156,7 @@ class new_site_walker extends Walker_Nav_Menu {
         }
 
         // add a -accordion class if the accordion parameter is passed
-        $variant .= in_array("accordion", $params) ? " -accordion" : ($this->is_mega ? "" : " -overlay");
+        $variant .= in_array("accordion", $params) ? " -accordion" : ((in_array("hover", $params) || in_array("touch", $params)) && !$this->is_mega ? " -overlay" : "");
 
         // add data properties for the menu script to interact with
         $data = "";
