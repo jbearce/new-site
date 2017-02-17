@@ -114,7 +114,7 @@
         visibility: hidden;
     }
 
-    > .login_inner {
+    &.is-active > .login_inner {
         left: 50%;
         opacity: 1;
         top: 50%;
