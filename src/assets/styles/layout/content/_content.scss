@@ -12,11 +12,6 @@
     .is-fluidboxactive & {
         position: static;
     }
-
-    &.-fullbleed {
-        background: $background;
-        padding: remify(25);
-    }
 }
 
 .content_inner {
@@ -26,8 +21,17 @@
         max-width: remify($site-width);
         padding: remify(25);
     }
+}
 
-    .content-block.-fullbleed > & {
+// fullbleed variant
+
+.content-block.-fullbleed {
+    & {
+        background: $background;
+        padding: remify(25);
+    }
+
+    > .content_inner {
         background: none;
         padding: 0;
     }

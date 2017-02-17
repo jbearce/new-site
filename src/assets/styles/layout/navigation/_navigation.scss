@@ -8,13 +8,60 @@
     & {
         @include layer("navigation");
     }
+}
 
-    &.-fullbleed {
+.navigation_inner {
+    & {
+        background: $background;
+        margin: 0 auto;
+        max-width: remify($site-width);
+        padding: remify(0 25);
+    }
+}
+
+// fullbleed variant
+
+.navigation-block.-fullbleed {
+    & {
         background: $background;
         padding: remify(0 25);
     }
 
-    &.-flyout {
+    > .navigation_inner {
+        background: none;
+        padding: 0;
+    }
+}
+
+// sticky variant
+
+.navigation-block.-sticky {
+    & {
+        position: sticky;
+        top: 0;
+    }
+
+    @media screen and (min-width: 601px) {
+        @supports (position: -webkit-sticky) or (position: sticky) {
+            .admin-bar & {
+                top: 46px;
+            }
+        }
+    }
+
+    @media screen and (min-width: 783px) {
+        @supports (position: -webkit-sticky) or (position: sticky) {
+            .admin-bar & {
+                top: 32px;
+            }
+        }
+    }
+}
+
+// flyout variant
+
+.navigation-block.-flyout {
+    & {
         background: $background;
         border-right: remify(1) solid darken($background_alt, 10);
         bottom: 999em;
@@ -30,15 +77,7 @@
         z-index: 999;
     }
 
-    &.-flyout.-right {
-        border-left: remify(1) solid darken($background_alt, 10);
-        border-right: 0;
-        left: 999em;
-        right: -999em;
-        transform: translateX(100%);
-    }
-
-    &.-flyout.is-active {
+    &.is-active {
         bottom: 0;
         left: 0;
         right: remify(80);
@@ -48,12 +87,34 @@
         visibility: visible;
     }
 
-    &.-flyout.-right.is-active {
+    > .navigation_inner {
+        background: none;
+        max-width: none;
+        padding: 0;
+    }
+}
+
+// flyout right variant
+
+.navigation-block.-flyout.-right {
+    & {
+        border-left: remify(1) solid darken($background_alt, 10);
+        border-right: 0;
+        left: 999em;
+        right: -999em;
+        transform: translateX(100%);
+    }
+
+    &.is-active {
         left: remify(80);
         right: 0;
     }
+}
 
-    &.-pulldown {
+// pulldown variant
+
+.navigation-block.-pulldown {
+    & {
         background: $background;
         border-right: remify(1) solid darken($background_alt, 10);
         display: block;
@@ -68,62 +129,16 @@
         z-index: 999;
     }
 
-    &.-pulldown.is-active {
+    &.is-active {
         top: 0;
         transform: translateY(0);
         transition: transform 0.15s;
         visibility: visible;
     }
 
-    &.-sticky {
-        position: sticky;
-        top: 0;
-    }
-
-    @media screen and (min-width: 601px) {
-        @supports (position: -webkit-sticky) or (position: sticky) {
-            .admin-bar &.-sticky {
-                top: 46px;
-            }
-        }
-    }
-
-    @media screen and (min-width: 783px) {
-        @supports (position: -webkit-sticky) or (position: sticky) {
-            .admin-bar &.-sticky {
-                top: 32px;
-            }
-        }
-    }
-}
-
-.navigation_inner {
-    & {
-        background: $background;
-        margin: 0 auto;
-        max-width: remify($site-width);
-        padding: remify(0 25);
-    }
-
-    .navigation-block.-fullbleed > & {
-        background: none;
-        padding: 0;
-    }
-
-    .navigation-block.-flyout > &,
-    .navigation-block.-pulldown > & {
+    > .navigation_inner {
         background: none;
         max-width: none;
         padding: 0;
-    }
-}
-
-.navigation_menu-toggle {
-    .navigation-block.-flyout > &._visuallyhidden:focus,
-    .navigation-block.-pulldown > &._visuallyhidden:focus {
-        background: $background;
-        left: auto !important;
-        right: 0 !important;
-        top: 0 !important;
     }
 }

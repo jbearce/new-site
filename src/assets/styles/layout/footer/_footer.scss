@@ -8,11 +8,6 @@
     & {
         @include layer("footer");
     }
-
-    &.-fullbleed {
-        background: $background;
-        padding: remify(25);
-    }
 }
 
 .footer_inner {
@@ -22,8 +17,17 @@
         max-width: remify($site-width);
         padding: remify(25);
     }
+}
 
-    .footer-block.-fullbleed > & {
+// fullbleed variant
+
+.footer-block.-fullbleed {
+    & {
+        background: $background;
+        padding: remify(25);
+    }
+
+    > .footer_inner {
         background: none;
         padding: 0;
     }

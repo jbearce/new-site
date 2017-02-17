@@ -8,10 +8,6 @@
     & {
         @include layer("hero");
     }
-
-    &.-fullbleed {
-        background: $background;
-    }
 }
 
 .hero_inner {
@@ -20,8 +16,16 @@
         margin: 0 auto;
         max-width: remify($site-width);
     }
+}
 
-    .hero-block.-fullbleed & {
+// fullbleed variant
+
+.hero-block.-fullbleed {
+    & {
+        background: $background;
+    }
+
+    > .hero_inner {
         background: none;
         max-width: 100%;
     }

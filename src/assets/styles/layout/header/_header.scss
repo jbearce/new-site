@@ -8,11 +8,6 @@
     & {
         @include layer("header");
     }
-
-    &.-fullbleed {
-        background: $background;
-        padding: remify(25);
-    }
 }
 
 .header_inner {
@@ -22,15 +17,24 @@
         max-width: remify($site-width);
         padding: remify(25);
     }
-
-    .header-block.-fullbleed > & {
-        background: none;
-        padding: 0;
-    }
 }
 
 .header_logo {
     & {
         max-width: remify(200);
+    }
+}
+
+// fullbleed varaint
+
+.header-block.-fullbleed {
+    & {
+        background: $background;
+        padding: remify(25);
+    }
+
+    > .header_inner {
+        background: none;
+        padding: 0;
     }
 }
