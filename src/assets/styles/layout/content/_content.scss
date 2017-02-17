@@ -18,8 +18,7 @@
     & {
         background: $background;
         margin: 0 auto;
-        max-width: remify($site-width);
-        padding: remify(25);
+        padding: remify(($content-padding * 1.25) $content-padding);
     }
 }
 
@@ -28,7 +27,7 @@
 .content-block.-fullbleed {
     & {
         background: $background;
-        padding: remify(25);
+        padding: remify(($content-padding * 1.25) $content-padding);
     }
 
     > .content_inner {

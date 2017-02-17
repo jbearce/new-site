@@ -15,7 +15,7 @@
         background: $background;
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(0 25);
+        padding: remify(($content-padding * 1.25) $content-padding);
     }
 }
 
@@ -24,7 +24,7 @@
 .navigation-block.-fullbleed {
     & {
         background: $background;
-        padding: remify(0 25);
+        padding: remify(($content-padding * 1.25) $content-padding);
     }
 
     > .navigation_inner {

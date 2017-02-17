@@ -15,6 +15,7 @@
         background: $background;
         margin: 0 auto;
         max-width: remify($site-width);
+        padding: remify(($content-padding * 1.25) $content-padding);
     }
 }
 
@@ -81,10 +82,12 @@
 .login-block.-fullbleed {
     & {
         background: $background;
+        padding: remify(($content-padding * 1.25) $content-padding);
     }
 
     > .login_inner {
         background: none;
+        padding: 0;
     }
 }
 
