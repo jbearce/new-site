@@ -36,3 +36,20 @@
         height: remify(15, 16);
     }
 }
+
+
+/* Calendar */
+
+#tribe-events-content table.tribe-events-calendar { // Tribe is stupidly specific with their classes...
+    & {
+        font-size: remify(16, 16);
+    }
+
+    .tribe-events-calendar_cell {
+        height: remify(150, 16);
+    }
+
+    .tribe-events-calendar_cell.mobile-active {
+        background: none;
+    }
+}

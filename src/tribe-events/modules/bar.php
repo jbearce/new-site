@@ -32,7 +32,7 @@ $current_url = tribe_events_get_current_filter_url();
 	<div class="tribe-events-bar_filters tribe-bar-filters">
         <div class="tribe-events-bar_row row -bottom -padded">
             <?php foreach ($filters as $filter): ?>
-            <div class="col-12 col-xs-4 <?php echo esc_attr( $filter["name"]); ?>-filter">
+            <div class="col-12 col-xs-4 <?php echo esc_attr($filter["name"]); ?>-filter">
                 <label class="tribe-events-bar_text text -label" for="<?php echo esc_attr($filter["name"]); ?>"><?php echo $filter["caption"]; ?></label>
                 <?php echo preg_replace("/<input type=\"text\"/", "<input class=\"tribe-events-bar_input input\" type=\"text\"", $filter["html"]); ?>
             </div><!--/.col-->

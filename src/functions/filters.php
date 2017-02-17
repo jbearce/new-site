@@ -22,3 +22,17 @@ function new_site_tinymce_settings($settings) {
 	return $settings;
 }
 add_filter("tiny_mce_before_init", "new_site_tinymce_settings");
+
+// add button class to Tribe Events month links
+function new_site_tribe_events_the_month_link($html) {
+    $html = preg_replace("/(<a)/", "$1 class='tribe_button button _nowrap'", $html);
+    return $html;
+}
+add_filter("tribe_events_the_next_month_link", "new_site_tribe_events_the_month_link");
+add_filter("tribe_events_the_previous_month_link", "new_site_tribe_events_the_month_link");
+
+// diable Tribe Events ical links (since I can't re-style them)
+function new_site_tribe_events_list_show_ical_link() {
+    return false;
+}
+add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");

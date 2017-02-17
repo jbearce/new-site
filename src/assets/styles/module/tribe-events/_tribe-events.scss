@@ -11,6 +11,7 @@
         background: $background_alt;
         display: flex;
         flex-wrap: wrap;
+        margin: remify(0 0 20, 16);
     }
 }
 
@@ -151,5 +152,78 @@
         display: block;
         height: remify(20, 16);
         width: 100%;
+    }
+}
+
+/* Calendar */
+
+#tribe-events-content table.tribe-events-calendar { // Tribe is stupidly specific with their classes...
+    & {
+        border: 0;
+        font-size: remify(12, 16);
+        margin: remify(0 0 20, 16);
+    }
+
+    .tribe-events-calendar_cell {
+        border: remify(1) solid darken($background_alt, 10);
+        font-size: remify(16, 16);
+        height: remify(75, 16);
+        padding: remify(12.5 15, 16);
+    }
+
+    .tribe-events-calendar_cell.-header {
+        background: darken($background_alt, 5);
+        height: auto;
+    }
+
+    .tribe-events-calendar_cell.mobile-active {
+        background: darken($background_alt, 10);
+    }
+
+    .tribe-events-calendar_date {
+        font-size: remify(12, 16);
+        padding: 0;
+    }
+
+    .tribe-events-calendar_link {
+        font-size: 1em;
+    }
+
+    .events-archive.events-gridview & .tribe-events-calendar_event:not(:last-child) {
+        border-bottom: remify(1) solid darken($background_alt, 10);
+        margin-bottom: remify(4, 16);
+        padding-bottom: remify(4, 16);
+    }
+
+    .tribe-events-calendar_mobile-event-indicator {
+        background: $accent;
+        border-radius: 50%;
+        height: remify(12, 16);
+        margin: remify(12 auto, 16);
+        width: remify(12, 16);
+    }
+
+    // reset dumb Tribe shit
+
+    .events-archive.events-gridview & .type-tribe_events {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Content */
+
+#tribe-events-content {
+    & {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+/* Footer */
+
+#tribe-events-footer {
+    & {
+        margin-bottom: 0;
     }
 }
