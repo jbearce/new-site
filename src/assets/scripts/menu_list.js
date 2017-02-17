@@ -32,7 +32,6 @@ document.addEventListener("touchstart", function(e) {
     }
 });
 
-
 // handle interactions with menu-list_item elements
 for (var i = 0; i < menu_items.length; i++) {
     // check if the menu is hoverable
