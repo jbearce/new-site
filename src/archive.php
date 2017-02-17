@@ -23,7 +23,15 @@
 
                 </article><!--/.content_article article.-introduction-->
             <?php endif; // if (get_the_archive_title() || $term->description) ?>
-            <?php get_template_part("partials/content", "excerpt"); ?>
+
+            <?php if (have_posts()): ?>
+                <?php while (have_posts()): the_post(); ?>
+                    <?php get_template_part("partials/content", "excerpt"); ?>
+                <?php endwhile; ?>
+            <?php else: ?>
+                <?php get_template_part("partials/content", "none"); ?>
+            <?php endif; ?>
+
             <?php get_template_part("partials/pagination", "list"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
