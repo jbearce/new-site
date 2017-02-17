@@ -9,7 +9,7 @@ register_nav_menus(array(
 ));
 
 // menu walker
-class new_site_walker extends Walker_Nav_Menu {
+class new_site_menu_walker extends Walker_Nav_Menu {
     // set up a variable to hold the parameters passed to the walker
     private $params;
 

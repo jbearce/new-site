@@ -52,19 +52,11 @@
                     $menu = wp_nav_menu(array(
                         "container"		 => false,
                         "depth"          => 3,
-                        "echo"           => false,
-                        "items_wrap"	 => "%3\$s",
+                        "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
                         "theme_location" => "primary",
-                        "walker"         => new new_site_walker("accordion"),
+                        "walker"         => new new_site_menu_walker("accordion"),
                     ));
                     ?>
-                    <?php if ($menu): ?>
-                    <nav class="navigation_menu-list_container menu-list_container">
-                        <ul class="menu-list -navigation -accordion -vertical">
-                            <?php echo $menu; ?>
-                        </ul><!--/.menu-list.-navigation.-accordion.-vertical-->
-                    </nav><!--/.navigation_menu-list_container.menu-list_container-->
-                    <?php endif; ?>
                 </div><!--/.navigation_inner.-flyout-->
     			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
     				<?php _e("Close Menu", "new_site"); ?>
@@ -89,24 +81,16 @@
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
             </div><!--/.header-block-->
-            <?php
-            $menu = wp_nav_menu(array(
-                "container"		 => false,
-                "depth"          => 4,
-                "echo"           => false,
-                "items_wrap"	 => "%3\$s",
-                "theme_location" => "primary",
-                "walker"         => new new_site_walker("mega hover touch"),
-            ));
-            ?>
-            <?php if ($menu): ?>
             <div class="navigation-block -sticky _tablet _notebook _desktop" role="navigation">
                 <div class="navigation_inner">
-                    <nav class="navigation_menu-list_container menu-list_container">
-                        <ul class="menu-list -navigation" data-hover="true" data-touch="true">
-                            <?php echo $menu; ?>
-                        </ul><!--/.menu-list.-navigation.-flex-->
-                    </nav><!--/.navigation_menu-list_container.menu-list_container-->
+                    <?php
+                    $menu = wp_nav_menu(array(
+                        "container"		 => false,
+                        "depth"          => 3,
+                        "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
+                        "theme_location" => "primary",
+                        "walker"         => new new_site_menu_walker("mega hover touch"),
+                    ));
+                    ?>
                 </div><!--/.navigation_inner._tablet-->
             </div><!--/.navigation-block.-sticky._tablet._notebook._desktop-->
-            <?php endif; ?>
