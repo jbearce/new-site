@@ -69,6 +69,11 @@
     top: -100vh !important;
 }
 
+._visuallyhidden:focus {
+    left: 0 !important;
+    top: 0 !important;
+}
+
 ._warning {
     color: $warning !important;
 }
