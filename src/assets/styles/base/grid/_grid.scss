@@ -11,18 +11,18 @@
     }
 
     & > .col,
-    & > [class^="col-"] {
+    & > [class*="col-"] {
         flex-grow: 1;
         flex-shrink: 1;
     }
 
     & > .col.-nogrow,
-    & > [class^="col-"].-nogrow {
+    & > [class*="col-"].-nogrow {
         flex-grow: 0;
     }
 
     & > .col.-noshrink,
-    & > [class^="col-"].-noshrink {
+    & > [class*="col-"].-noshrink {
         flex-shrink: 0;
     }
 
@@ -31,7 +31,7 @@
     }
 
     &.-padded > .col,
-    &.-padded > [class^="col-"] {
+    &.-padded > [class*="col-"] {
         padding-right: remify($column-gap, 16);
     }
 
@@ -301,39 +301,6 @@
 
 @media screen and (min-width: $xl-break) {
     .col-xl {
-        &,
-        &-1,
-        &-2,
-        &-3,
-        &-4,
-        &-5,
-        &-6,
-        &-7,
-        &-8,
-        &-9,
-        &-10,
-        &-11,
-        &-12 {
-            flex-grow: 1;
-            flex-shrink: 1;
-        }
-
-        .row.-padded > &,
-        .row.-padded > &-1,
-        .row.-padded > &-2,
-        .row.-padded > &-3,
-        .row.-padded > &-4,
-        .row.-padded > &-5,
-        .row.-padded > &-6,
-        .row.-padded > &-7,
-        .row.-padded > &-8,
-        .row.-padded > &-9,
-        .row.-padded > &-10,
-        .row.-padded > &-11,
-        .row.-padded > &-12 {
-            padding-right: remify($column-gap, 16);
-        }
-
         & {
             flex-basis: auto;
         }
