@@ -28,6 +28,18 @@
     font-style: italic !important;
 }
 
+._textcenter {
+    text-align: center !important;
+}
+
+._textleft {
+    text-align: left !important;
+}
+
+._textright {
+    text-align: right !important;
+}
+
 ._center {
     margin-left: auto !important;
     margin-right: auto !important;
@@ -41,24 +53,20 @@
     float: right !important;
 }
 
-._textcenter {
-    text-align: center !important;
-}
-
-._textleft {
-    text-align: left !important;
-}
-
-._textright {
-    text-align: right !important;
-}
-
 ._nomargin {
     margin: 0 !important;
 }
 
 ._nopadding {
     padding: 0 !important;
+}
+
+._block {
+    display: block !important;
+}
+
+._flex {
+    display: flex !important;
 }
 
 ._visuallyhidden {
@@ -72,6 +80,14 @@
 ._visuallyhidden:focus {
     left: 0 !important;
     top: 0 !important;
+}
+
+._primary {
+    color: $primary !important;
+}
+
+._accent {
+    color: $accent !important;
 }
 
 ._warning {
