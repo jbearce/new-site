@@ -70,7 +70,7 @@
     				<?php _e("Close Menu", "new_site"); ?>
     			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
             </div><!--/.navigation-block.-flyout._phone._noncritical-->
-            <div class="header-block -fullbleed" role="banner">
+            <div class="header-block" role="banner">
                 <div class="header_inner">
                     <div class="header_row row -between -vcenter">
                         <div class="col">
@@ -88,7 +88,7 @@
                         </div><!--/.col.-nogrow.-noshrink-->
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
-            </div><!--/.header-block.-fullbleed-->
+            </div><!--/.header-block-->
             <?php
             $menu = wp_nav_menu(array(
                 "container"		 => false,
@@ -100,7 +100,7 @@
             ));
             ?>
             <?php if ($menu): ?>
-            <div class="navigation-block -sticky -fullbleed _tablet _notebook _desktop" role="navigation">
+            <div class="navigation-block -sticky _tablet _notebook _desktop" role="navigation">
                 <div class="navigation_inner">
                     <nav class="navigation_menu-list_container menu-list_container">
                         <ul class="menu-list -navigation" data-hover="true" data-touch="true">
@@ -108,5 +108,5 @@
                         </ul><!--/.menu-list.-navigation.-flex-->
                     </nav><!--/.navigation_menu-list_container.menu-list_container-->
                 </div><!--/.navigation_inner._tablet-->
-            </div><!--/.navigation-block.-sticky.-fullbleed._tablet._notebook._desktop-->
+            </div><!--/.navigation-block.-sticky._tablet._notebook._desktop-->
             <?php endif; ?>

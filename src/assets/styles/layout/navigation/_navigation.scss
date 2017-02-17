@@ -12,7 +12,7 @@
 
 .navigation_inner {
     & {
-        background: $background;
+        background: $dark_alt;
         margin: 0 auto;
         max-width: remify($site-width);
         padding: remify(($content-padding * 1.25) $content-padding);
@@ -23,7 +23,7 @@
 
 .navigation-block.-fullbleed {
     & {
-        background: $background;
+        background: $dark_alt;
         padding: remify(($content-padding * 1.25) $content-padding);
     }
 
@@ -62,8 +62,8 @@
 
 .navigation-block.-flyout {
     & {
-        background: $background;
-        border-right: remify(1) solid darken($background_alt, 10);
+        background: $dark_alt;
+        border-right: remify(1) solid darken($dark_alt, 10);
         bottom: 999em;
         display: block;
         left: -999em;
@@ -98,7 +98,7 @@
 
 .navigation-block.-flyout.-right {
     & {
-        border-left: remify(1) solid darken($background_alt, 10);
+        border-left: remify(1) solid darken($dark_alt, 10);
         border-right: 0;
         left: 999em;
         right: -999em;
@@ -115,8 +115,8 @@
 
 .navigation-block.-pulldown {
     & {
-        background: $background;
-        border-right: remify(1) solid darken($background_alt, 10);
+        background: $dark_alt;
+        border-right: remify(1) solid darken($dark_alt, 10);
         display: block;
         left: 0;
         position: absolute;
