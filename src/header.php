@@ -39,7 +39,7 @@
 		<![endif]-->
 	</head>
     <body <?php body_class(); ?>>
-        <?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?>
+        <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <div class="page_container">
     		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
             <?php get_template_part("partials/login", "overlay"); ?>

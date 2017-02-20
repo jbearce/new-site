@@ -109,7 +109,7 @@ gulp.task("media", function () {
         // compress images
         .pipe(imagemin({
             progressive: true,
-            svgoPlugins: [{removeViewBox: false}],
+            svgoPlugins: [{cleanupIDs: false, removeViewBox: false}],
             use: [pngquant()]
         }))
         // output to the compiled directory
