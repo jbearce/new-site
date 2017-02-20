@@ -30,7 +30,7 @@ var gulp = require("gulp"),                                                     
     // CSS stuff
     sass = require("gulp-sass"),                                                // SCSS compiler
     postcss = require("gulp-postcss"),                                          // postcss
-    postscss = require("postcss-scss"),                                          // postcss SCSS parser
+    postscss = require("postcss-scss"),                                         // postcss SCSS parser
     bgImage = require("postcss-bgimage"),                                       // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
     flexibility = require("postcss-flexibility"),                               // flexibility
