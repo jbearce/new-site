@@ -436,10 +436,11 @@ gulp.task("config", function (cb) {
                 },
                 {
                     // prompt for the mode
-                    type: "input",
+                    type: "list",
                     name: "mode",
                     message: "FTP mode:",
-                    default: ftpMode,
+                    choices: ["ftp", "tls", "sftp"],
+                    default: ftpMode === "ftp" ? 0 : ftpMode === "tls" ? 1 : ftpMode === "sftp" ? 2 : 0,
                 },
                 {
                     // prompt for the user
