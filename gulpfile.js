@@ -516,28 +516,28 @@ gulp.task("config", function (cb) {
                     type: "input",
                     name: "proxy",
                     message: "Browsersync proxy:",
-                    default: "localhost:8888",
+                    default: bsProxy,
                 },
                 {
                     // prompt for the port
                     type: "input",
                     name: "port",
                     message: "Browsersync port:",
-                    default: "8080",
+                    default: bsPort,
                 },
                 {
                     // prompt for how to open
                     type: "input",
                     name: "open",
                     message: "Browsersync open:",
-                    default: "external",
+                    default: bsOpen,
                 },
                 {
                     // prompt for whether to notify
                     type: "input",
                     name: "notify",
                     message: "Browsersync notify:",
-                    default: "false",
+                    default: bsNotify,
                 }], function(res) {
                     // open the config.json
                     var file = json.read("./config.json");
