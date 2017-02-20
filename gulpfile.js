@@ -573,63 +573,39 @@ gulp.task("ftp", ["config"], function() {
     // production FTP directory (if --dist is passed)
     if (argv.dist) ftpDirectory = dist;
 
-    if (ftpMode === "sftp") {
-        console.log("sftp");
+    // Create the SFTP connection
+    var sftpConn = sftp({
+        host: ftpHost,
+        port: ftpPort,
+        username: ftpUser,
+        password: ftpPass,
+        remotePath: ftpPath
+    });
 
-        // upload the changed files
-        return gulp.src(ftpDirectory + "/**/*")
-            // prevent breaking on error
-            .pipe(plumber({errorHandler: onError}))
-            // check if files are newer
-            .pipe(gulpif(!argv.dist, newer({dest: src, extra: [ftpDirectory + "/**/*"]})))
-            // upload changed files
-            .pipe(sftp({
-                host: ftpHost,
-                port: ftpPort,
-                username: ftpUser,
-                password: ftpPass,
-                remotePath: ftpPath,
-            }))
-            // prevent breaking on error
-            .pipe(plumber({errorHandler: onError}))
-            // reload the files
-            .pipe(browserSync.reload({stream: true}))
-            // notify that the task is complete, if not part of default or watch
-            .pipe(gulpif(gulp.seq.indexOf("ftp") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "FTP task complete!", onLast: true})))
-            // push the task to the ranTasks array
-            .on("data", function() {
-                if (ranTasks.indexOf("ftp") < 0) ranTasks.push("ftp");
-            });
-    } else {
-        // create the FTP connection
-        var conn = ftp.create({
-            host: ftpHost,
-            port: ftpPort,
-            secure: ftpMode === "tls" ? true : false,
-            user: ftpUser,
-            pass: ftpPass,
-            path: ftpPath,
-        });
+    // create the FTP connection
+    var ftpConn = ftp.create({
+        host: ftpHost,
+        port: ftpPort,
+        secure: ftpMode === "tls" ? true : false,
+        user: ftpUser,
+        pass: ftpPass,
+        path: ftpPath,
+    });
 
-        // upload the changed files
-        return gulp.src(ftpDirectory + "/**/*")
-            // prevent breaking on error
-            .pipe(plumber({errorHandler: onError}))
-            // check if files are newer
-            .pipe(gulpif(!argv.dist, conn.newer(ftpPath)))
-            // upload changed files
-            .pipe(conn.dest(ftpPath))
-            // prevent breaking on error
-            .pipe(plumber({errorHandler: onError}))
-            // reload the files
-            .pipe(browserSync.reload({stream: true}))
-            // notify that the task is complete, if not part of default or watch
-            .pipe(gulpif(gulp.seq.indexOf("ftp") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "FTP task complete!", onLast: true})))
-            // push the task to the ranTasks array
-            .on("data", function() {
-                if (ranTasks.indexOf("ftp") < 0) ranTasks.push("ftp");
-            });
-    }
+    // upload the changed files
+    return gulp.src(ftpDirectory + "/**/*")
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
+        // check if files are newer
+        .pipe(gulpif(!argv.dist, newer({dest: src, extra: [ftpDirectory + "/**/*"]})))
+        // upload changed files
+        .pipe(gulpif(ftpMode === "sftp", sftpConn, ftpConn.newer(ftpPath)))
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: onError}))
+        // reload the files
+        .pipe(browserSync.reload({stream: true}))
+        // notify that the task is complete, if not part of default or watch
+        .pipe(gulpif(gulp.seq.indexOf("ftp") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "FTP task complete!", onLast: true})));
 });
 
 // sync task, set up a browserSync server, depends on config
