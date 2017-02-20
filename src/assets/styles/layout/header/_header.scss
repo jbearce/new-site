@@ -37,4 +37,8 @@
         background: none;
         padding: 0;
     }
+
+    > .header_inner.-fullbleed {
+        max-width: none;
+    }
 }

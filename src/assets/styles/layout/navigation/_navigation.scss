@@ -31,6 +31,10 @@
         background: none;
         padding: 0;
     }
+
+    > .navigation_inner.-fullbleed {
+        max-width: none;
+    }
 }
 
 // sticky variant

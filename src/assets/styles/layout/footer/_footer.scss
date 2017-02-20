@@ -31,4 +31,8 @@
         background: none;
         padding: 0;
     }
+
+    > .footer_inner.-fullbleed {
+        max-width: none;
+    }
 }
