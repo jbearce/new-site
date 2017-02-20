@@ -1,4 +1,5 @@
 <?php
+require_once(__DIR__ . "/functions/post-types.php");
 require_once(__DIR__ . "/functions/page-speed.php");
 require_once(__DIR__ . "/functions/theme-features.php");
 require_once(__DIR__ . "/functions/menus.php");
