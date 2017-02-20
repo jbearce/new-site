@@ -29,7 +29,10 @@
 
     > .hero_inner {
         background: none;
-        max-width: 100%;
         padding: 0;
+    }
+
+    > .hero_inner.-fullbleed {
+        max-width: none;
     }
 }

@@ -17,6 +17,7 @@
         flex-grow: 1;
         height: auto;
         margin: 0;
+        overflow: hidden;
     }
 }
 
@@ -27,9 +28,31 @@
     }
 }
 
+.swiper-image {
+    & {
+        display: block;
+        width: 100%;
+    }
+
+    .swiper-container.-fixedheight & {
+        left: 50%;
+        min-width: 100%;
+        position: relative;
+        transform: translateX(-50%);
+        width: auto;
+    }
+}
+
 .swiper-caption {
     & {
+        background: $dark;
         flex: 1 1 auto;
+        padding: remify($content-padding);
+    }
+
+    .swiper-container.-fullbleed & .swiper-caption-inner {
+        margin: 0 auto;
+        max-width: remify($site-width, 16);
     }
 }
 

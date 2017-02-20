@@ -1,0 +1,17 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Swiper (http://idangero.us/swiper/)
+\* ------------------------------------------------------------------------ */
+
+// Custom
+
+.swiper-caption {
+    & {
+        background: transparentize($dark, 0.5);
+        bottom: 0;
+        left: 0;
+        position: absolute;
+        right: 0;
+    }
+}

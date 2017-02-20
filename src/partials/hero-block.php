@@ -11,8 +11,8 @@ if (is_home() && !$title) {
 ?>
 <?php if ($slideshow || $featured_image): ?>
 <div class="hero-block -fullbleed _nopadding" role="banner">
-    <div class="hero_inner">
-        <div class="hero_swiper-container swiper-container">
+    <div class="hero_inner -fullbleed">
+        <div class="hero_swiper-container swiper-container -fullbleed">
 
             <div class="swiper-wrapper">
                 <?php if ($slideshow): ?>
@@ -61,12 +61,14 @@ if (is_home() && !$title) {
 
                                 <?php if ($img_title || $img_caption): ?>
                                 <figcaption class="swiper-caption">
-                                    <?php if ($img_title): ?>
-                                    <h6 class="swiper-title title"><?php echo $img_title; ?></h6>
-                                    <?php endif; ?>
-                                    <?php if ($img_caption): ?>
-                                    <div class="swiper-user-content user-content -dark"><?php echo wpautop($img_caption); ?></div>
-                                    <?php endif; ?>
+                                    <div class="swiper-caption-inner">
+                                        <?php if ($img_title): ?>
+                                        <h6 class="swiper-title title"><?php echo $img_title; ?></h6>
+                                        <?php endif; ?>
+                                        <?php if ($img_caption): ?>
+                                        <div class="swiper-user-content user-content -dark"><?php echo wpautop($img_caption); ?></div>
+                                        <?php endif; ?>
+                                    </div><!--/.swiper-caption-inner-->
                                 </figcaption><!--/.swiper-caption-->
                                 <?php endif; // if ($img_title || $img_caption) ?>
 
@@ -97,7 +99,9 @@ if (is_home() && !$title) {
 
                         <?php if ($title): ?>
                         <header class="swiper-caption">
-                            <h1 class="swiper-title title" role="heading"><?php echo $title; ?></h1>
+                            <div class="swiper-caption-inner">
+                                <h1 class="swiper-title title" role="heading"><?php echo $title; ?></h1>
+                            </div><!--/.swiper-caption-inner-->
                         </header>
                         <?php endif; // if ($title) ?>
 
@@ -111,7 +115,7 @@ if (is_home() && !$title) {
             <button class="swiper-button-next"><icon:caret-right><span class="_visuallyhidden"><?php _e("Next Slide", "new_site"); ?></span></button>
             <?php endif; ?>
 
-        </div><!--/.hero_swiper-container.swiper-container-->
-    </div><!--/.hero_inner-->
+        </div><!--/.hero_swiper-container.swiper-container.-fullbleed-->
+    </div><!--/.hero_inner.-fullbleed-->
 </div><!--/.hero-block.-fullbleed._nopadding-->
 <?php endif; // if ($slideshow || $featured_image) ?>
