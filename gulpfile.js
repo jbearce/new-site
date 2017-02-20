@@ -18,6 +18,7 @@ var gulp = require("gulp"),                                                     
     replace = require("gulp-replace"),                                          // replace regular expressions
     through = require("through2"),                                              // transform the stream
     isBinary = require("gulp-is-binary"),                                       // detect if a file is a binary
+    removeCode = require("gulp-remove-code"),                                   // remove code between special comments
 
     // media stuff
     imagemin = require("gulp-imagemin"),                                        // image compressor
@@ -377,6 +378,27 @@ gulp.task("html", function () {
         .on("data", function() {
             if (ranTasks.indexOf("html") < 0) ranTasks.push("html");
         });
+});
+
+gulp.task("init", function () {
+    "use strict";
+
+    return gulp.src(src + "/**/*")
+        // check if a file is a binary
+        .pipe(isBinary())
+        // skip the file if it's a binary
+        .pipe(through.obj(function(file, enc, next) {
+            if (file.isBinary()) {
+                next();
+                return;
+            }
+
+            next(null, file);
+        }))
+        // remove login HTML code if --remove --login is passed
+        .pipe(removeCode({no_login: argv.remove && argv.login ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+        // output to the source directory
+        .pipe(gulp.dest(src));
 });
 
 // config task, generate configuration file for FTP & BrowserSync and prompt dev for input
