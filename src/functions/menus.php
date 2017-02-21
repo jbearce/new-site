@@ -301,6 +301,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
     // display a specific section of links if parent_id is set
     if (isset($args->parent_id)) {
         $parent_id = 0;
+        $items_removed = false;
         $menu_items_copy = $menu_items;
 
         // find the matching menu item
@@ -333,9 +334,15 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
 
             // remove menu items that aren't children of the specified parent
             if (!in_array($parent_id, $current_menu_item_parents) && !(isset($args->show_parent) && $parent_id == $item->ID)) {
+                $items_removed = true;
                 unset($menu_items_copy[$key]);
             }
         } // foreach ($menu_items_copy as $key => $item)
+
+        // show a notice if
+        if ($items_removed === false) {
+            trigger_error("No menu item with an ID matching " . $args->parent_id . " could be found. If refencing post ID, try referencing menu item ID instead.");
+        }
 
         $menu_items = $menu_items_copy;
     } else { // if (isset($args->parent_id))
