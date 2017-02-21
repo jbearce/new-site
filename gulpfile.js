@@ -408,7 +408,7 @@ gulp.task("config", function (cb) {
     // generate the config.json and start the other functions
     fs.stat("./config.json", function (err, stats) {
         if (err !== null) {
-            fs.writeFile("./config.json", "{\"ftp\":{\"dev\":{\"host\":\"\",\"port\":\"21\",\"mode\":\"ftp\",\"user\":\"\",\"pass\":\"\",\"path\":\"\"},\"dist\":{\"host\":\"\",\"port\":\"21\",\"mode\":\"ftp\",\"user\":\"\",\"pass\":\"\",\"path\":\"\"}},\"browsersync\":{\"proxy\":\"localhost:8888\",\"port\":\"8080\",\"open\":\"external\",\"notify\":\"false\"}}", function (err) {
+            fs.writeFile("./config.json", "{\"ftp\":{\"dev\":{\"host\":\"\",\"port\":\"21\",\"mode\":\"ftp\",\"user\":\"\",\"pass\":\"\",\"path\":\"\"},\"dist\":{\"host\":\"\",\"port\":\"21\",\"mode\":\"ftp\",\"user\":\"\",\"pass\":\"\",\"path\":\"\"}},\"browsersync\":{\"proxy\":\"\",\"port\":\"\",\"open\":\"\",\"notify\":\"\"}}", function (err) {
                 configureFTP(function() {
                   configureBrowsersync();
                 });
@@ -539,28 +539,28 @@ gulp.task("config", function (cb) {
                     type: "input",
                     name: "proxy",
                     message: "Browsersync proxy:",
-                    default: bsProxy,
+                    default: bsProxy === "" ? "localhost:8888" : bsProxy,
                 },
                 {
                     // prompt for the port
                     type: "input",
                     name: "port",
                     message: "Browsersync port:",
-                    default: bsPort,
+                    default: bsPort === "" ? "8080" : bsPort,
                 },
                 {
                     // prompt for how to open
                     type: "input",
                     name: "open",
                     message: "Browsersync open:",
-                    default: bsOpen,
+                    default: bsOpen === "" ? "external" : bsOpen,
                 },
                 {
                     // prompt for whether to notify
                     type: "input",
                     name: "notify",
                     message: "Browsersync notify:",
-                    default: bsNotify,
+                    default: bsNotify === "" ? "false" : bsNotify,
                 }], function(res) {
                     // open the config.json
                     var file = json.read("./config.json");
