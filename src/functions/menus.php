@@ -262,10 +262,10 @@ if (is_admin()) {
 }
 
 // add sub_menu options to wp_nav_menu
-// @param  {Boolean}  sub_menu - Make a menu behave as a sub menu
+// @param  {Boolean}  sub_menu - Set to true to make a menu behave as a sub menu
 // @param  {Boolean}  show_parent - Set to false to hide the parent menu item, thus only showing siblings
-// @param  {Boolean}  direct_parent - Only show the parent of the currently viewed page, not any further ancestors
-// @param  {Number}   parent_id - Post ID to use as the parent
+// @param  {Boolean}  direct_parent - Set to true to show the direct parent of the currently viewed page, instea of the top level ancestor
+// @param  {Number}   parent_id - Set to a Post ID to use as the parent
 function new_site_nav_menu_sub_menu($menu_items, $args) {
     $root_id = 0;
     $menu_item_parents = array();
