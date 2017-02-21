@@ -339,9 +339,9 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
             }
         } // foreach ($menu_items_copy as $key => $item)
 
-        // show a notice if
+        // show a notice if no nenu items got removed
         if ($items_removed === false) {
-            trigger_error("No menu item with an ID matching " . $args->parent_id . " could be found. If refencing post ID, try referencing menu item ID instead.");
+            trigger_error("No menu item with an ID matching " . $args->parent_id . " could be found. If refencing a post ID, try referencing a menu item ID instead.");
         }
 
         $menu_items = $menu_items_copy;
