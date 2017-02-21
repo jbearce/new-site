@@ -628,7 +628,7 @@ gulp.task("ftp", ["config"], function() {
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("ftp") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "FTP task complete!", onLast: true})));
+        .pipe(notify({title: "Success!", message: "FTP task complete!", onLast: true}));
 });
 
 // sync task, set up a browserSync server, depends on config
