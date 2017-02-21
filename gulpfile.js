@@ -362,7 +362,7 @@ gulp.task("html", function () {
             }
         }))
         // replace icon placeholders
-        .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_][^:>]+)(?:\:([A-Za-z0-9\-\_\ ][^:>]*))?(?:>)/g, "<i class='icon'><svg class='icon_svg $2' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
+        .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_][^:>]+)(?:\:([A-Za-z0-9\-\_\ ][^:>]*))?(?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
         // output to the compiled directory
         .pipe(gulp.dest(htmlDirectory));
 
