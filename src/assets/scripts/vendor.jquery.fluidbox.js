@@ -89,7 +89,7 @@
 					// Coerce boolean values
 					if (v == 'false') {
 						v = false;
-					} else {
+					} else if (v == 'true') {
 						v = true;
 					}
 					elementData[key] = v;
@@ -368,6 +368,9 @@
 
 					img = new Image();
 					img.onload = function() {
+						// Emit custom event
+						$fb.trigger('imageloaddone.fluidbox');
+
 						// Perform only if the Fluidbox instance is still open
 						if (fb.instanceData.state === 1) {
 							// Set new natural dimensions
@@ -379,7 +382,7 @@
 
 							// Check of URL is properly formatted
 							if(_fun.checkURL(img.src)) {
-								fb.close();
+								fb.close({ error: true });
 								return false;
 							}
 
@@ -392,7 +395,7 @@
 					};
 					img.onerror = function() {
 						// Trigger closing
-						fb.close();
+						fb.close({ error: true });
 
 						// Emit custom event
 						$fb.trigger('imageloadfail.fluidbox');
@@ -403,6 +406,9 @@
 				} else {
 					img = new Image();
 					img.onload = function() {
+
+						// Emit custom event
+						$fb.trigger('imageloaddone.fluidbox');
 
 						// Update classes
 						$fb
@@ -416,7 +422,7 @@
 
 						// Check of URL is properly formatted
 						if(_fun.checkURL(img.src)) {
-							fb.close();
+							fb.close({ error: true });
 							return false;
 						}
 
@@ -443,7 +449,7 @@
 					};
 					img.onerror = function() {
 						// Trigger closing
-						fb.close();
+						fb.close({ error: true });
 
 						// Emit custom event
 						$fb.trigger('imageloadfail.fluidbox');
@@ -519,7 +525,7 @@
 				// Recompute is simply an alias for the compute method
 				this.compute();
 			},
-			close: function() {
+			close: function(d) {
 
 				// Close Fluidbox
 				var fb			= this,
@@ -527,7 +533,10 @@
 					$fbThumb	= $fb.find('img').first(),
 					$fbGhost	= $fb.find('.fluidbox__ghost'),
 					$fbWrap		= $fb.find('.fluidbox__wrap'),
-					$fbOverlay	= $fb.find('.fluidbox__overlay');
+					$fbOverlay	= $fb.find('.fluidbox__overlay'),
+					closeData	= $.extend(null, {
+										error: false
+									}, d);
 
 				// Do not do anything if Fluidbox is not opened/closed, for performance reasons
 				if (fb.instanceData.state === null || typeof fb.instanceData.state === typeof undefined || fb.instanceData.state === 0) return false;
@@ -564,6 +573,10 @@
 					$fbWrap.css({ zIndex: fb.settings.stackIndex - fb.settings.stackIndexDelta });
 					$fb.trigger('closeend.fluidbox');
 				});
+
+				// Manually trigger transitionend if an error is detected
+				// Errors will not trigger any transition changes to the ghost element
+				if(closeData.error) $fbGhost.trigger('transitionend');
 
 				// Fadeout overlay
 				$fbOverlay.css({ opacity: 0 });		
