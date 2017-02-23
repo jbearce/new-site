@@ -6,7 +6,6 @@ var gulp = require("gulp"),                                                     
     runSequence = require("run-sequence"),                                      // allow tasks to be ran in sequence
     json = require("json-file"),                                                // read/write JSON files
     prompt = require("gulp-prompt"),                                            // allow user input
-    argv = require("yargs").argv,                                               // --flags
     del = require("del"),                                                       // delete files & folders
     newer = require("gulp-newer"),                                              // checks if files are newer
     merge = require("merge-stream"),                                            // merge streams
@@ -91,6 +90,9 @@ var onError = function(err) {
 gulp.task("media", function () {
     "use strict";
 
+    // call yargs
+    var argv = require("yargs").argv;
+
     // development media directory
     var mediaDirectory = dev + "/assets/media";
     var screenshotDirectory = dev;
@@ -154,6 +156,9 @@ gulp.task("media", function () {
 // scripts task, lints, concatenates, & compresses JS
 gulp.task("scripts", function () {
     "use strict";
+
+    // call yargs
+    var argv = require("yargs").argv;
 
     // development JS directory
     var jsDirectory = dev + "/assets/scripts";
@@ -244,6 +249,14 @@ gulp.task("scripts", function () {
 gulp.task("styles", function () {
     "use strict";
 
+    // call yargs
+    var argv = require("yargs").options({
+        "e": {
+            alias: "experimental",
+            type: "array",
+        },
+    }).argv;
+
     // check whether or not to generate critical CSS;
     var generateCritical = false;
 
@@ -257,7 +270,7 @@ gulp.task("styles", function () {
     if (argv.dist) del(cssDirectory + "/**/*");
 
     // process all SCSS in the root styles directory
-    return gulp.src([src + "/assets/styles/*.scss"])
+    var styles = gulp.src([src + "/assets/styles/*.scss"])
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
@@ -273,11 +286,11 @@ gulp.task("styles", function () {
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // remove unused CSS
-        .pipe(gulpif(argv.experimental, uncss({
+        .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss"), uncss({
             html: [homepage]
         })))
         // generate critical CSS
-        .pipe(gulpif(argv.experimental, through.obj(function(file, enc, next) {
+        .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
             if (!generateCritical) {
                 generateCritical = true;
 
@@ -309,6 +322,9 @@ gulp.task("styles", function () {
 // html task, copies binaries, converts includes & variables in HTML
 gulp.task("html", function () {
     "use strict";
+
+    // call yargs
+    var argv = require("yargs").argv;
 
     // development HTML directory
     var htmlDirectory = dev;
@@ -393,6 +409,9 @@ gulp.task("html", function () {
 gulp.task("init", function () {
     "use strict";
 
+    // call yargs
+    var argv = require("yargs").argv;
+
     return gulp.src(src + "/**/*")
         // check if a file is a binary
         .pipe(isBinary())
@@ -414,6 +433,9 @@ gulp.task("init", function () {
 // config task, generate configuration file for FTP & BrowserSync and prompt dev for input
 gulp.task("config", function (cb) {
     "use strict";
+
+    // call yargs
+    var argv = require("yargs").argv;
 
     // generate the config.json and start the other functions
     fs.stat("./config.json", function (err, stats) {
@@ -600,6 +622,11 @@ gulp.task("config", function (cb) {
 
 // ftp task, upload to FTP environment, depends on config
 gulp.task("ftp", ["config"], function() {
+    "use strict";
+
+    // call yargs
+    var argv = require("yargs").argv;
+
     // development FTP directory
     var ftpDirectory = dev;
 
@@ -643,6 +670,8 @@ gulp.task("ftp", ["config"], function() {
 
 // sync task, set up a browserSync server, depends on config
 gulp.task("sync", ["config"], function(cb) {
+    "use strict";
+
     browserSync({
         proxy: bsProxy,
         port: bsPort,
@@ -654,6 +683,9 @@ gulp.task("sync", ["config"], function(cb) {
 // default task, runs through everything but dist
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     "use strict";
+
+    // call yargs
+    var argv = require("yargs").argv;
 
     // notify that the task is complete
     gulp.src("gulpfile.js")
@@ -669,6 +701,9 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 // watch task, runs through everything but dist, triggers when a file is saved
 gulp.task("watch", function () {
     "use strict";
+
+    // call yargs
+    var argv = require("yargs").argv;
 
     // set up a browserSync server, if --sync is passed
     if (argv.sync) runSequence("sync");
