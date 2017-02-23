@@ -273,11 +273,11 @@ gulp.task("styles", function () {
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // remove unused CSS
-        .pipe(uncss({
+        .pipe(gulpif(argv.exp, uncss({
             html: [homepage]
-        }))
+        })))
         // generate critical CSS
-        .pipe(through.obj(function(file, enc, next) {
+        .pipe(gulpif(argv.exp, through.obj(function(file, enc, next) {
             if (!generateCritical) {
                 generateCritical = true;
 
@@ -293,7 +293,7 @@ gulp.task("styles", function () {
 
             // go to the nnxt file
             next(null, file);
-        }))
+        })))
         // output to the compiled directory
         .pipe(gulp.dest(cssDirectory))
         // reload the files
