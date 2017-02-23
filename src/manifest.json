@@ -1,0 +1,25 @@
+{
+  "short_name": "@@pwa_short_name",
+  "name": "@@pwa_name",
+  "start_url": "/?utm_source=pwa",
+  "display": "standalone",
+  "background_color": "@@theme_color",
+  "theme_color": "@@theme_color",
+  "icons": [
+    {
+      "src": "/assets/media/logo-pwa-small.png",
+      "type": "image/png",
+      "sizes": "48x48"
+    },
+    {
+      "src": "/assets/media/logo-pwa-medium.png",
+      "type": "image/png",
+      "sizes": "96x96"
+    },
+    {
+      "src": "/assets/media/logo-pwa-large.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    }
+  ]
+}

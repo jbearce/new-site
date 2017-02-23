@@ -57,6 +57,9 @@ var gulp = require("gulp"),                                                     
 
     // read data from package.json
     name = json.read("./package.json").get("name"),
+    pwa_name = json.read("./package.json").get("progressive-web-app.name"),
+    pwa_short_name = json.read("./package.json").get("progressive-web-app.short_name"),
+    theme_color = json.read("./package.json").get("progressive-web-app.theme_color"),
     description = json.read("./package.json").get("description"),
     version = json.read("./package.json").get("version"),
     repository = json.read("./package.json").get("repository"),
@@ -355,6 +358,9 @@ gulp.task("html", function () {
             basepath: "@file",
             context: {
                 name: name,
+                pwa_name: pwa_name,
+                pwa_short_name: pwa_short_name,
+                theme_color: theme_color,
                 description: description,
                 version: version,
                 repository: repository,
