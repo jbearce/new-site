@@ -35,6 +35,7 @@ var gulp = require("gulp"),                                                     
     bgImage = require("postcss-bgimage"),                                       // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
     flexibility = require("postcss-flexibility"),                               // flexibility
+    critical = require("critical"),                                             // critical CSS creator
 
     // FTP stuff
     ftp = require("vinyl-ftp"),                                                 // FTP client
@@ -56,6 +57,7 @@ var gulp = require("gulp"),                                                     
     bsNotify = "",                                                              // browser-sync notify (leave blank)
 
     // read data from package.json
+    homepage = json.read("./package.json").get("homepage"),
     name = json.read("./package.json").get("name"),
     pwa_name = json.read("./package.json").get("progressive-web-app.name"),
     pwa_short_name = json.read("./package.json").get("progressive-web-app.short_name"),
@@ -241,6 +243,9 @@ gulp.task("scripts", function () {
 gulp.task("styles", function () {
     "use strict";
 
+    // check whether or not to generate critical CSS;
+    var generateCritical = false;
+
     // development CSS directory
     var cssDirectory = dev + "/assets/styles";
 
@@ -250,31 +255,30 @@ gulp.task("styles", function () {
     // clean directory if --dist is passed
     if (argv.dist) del(cssDirectory + "/**/*");
 
-    // process critical SCSS
-    var critical = gulp.src(src + "/assets/styles/critical.scss")
-        // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
-        // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/critical.css", extra: [src + "/assets/styles/**/*.scss"]})))
-        // remove background images to prevent 404s
-        .pipe(postcss([bgImage({mode: "cutter"})], {syntax: postscss}))
-        // compile SCSS
-        .pipe(sass({outputStyle: "compressed"}))
-        // compile SCSS (again, to recompress)
-        .pipe(sass({outputStyle: "compressed"}))
-        // prefix CSS
-        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
-        // insert -js-display: flex; for flexbility
-        .pipe(postcss([flexibility()]))
-        // output to the compiled directory
-        .pipe(gulp.dest(cssDirectory));
-
     // process all SCSS in the root styles directory
-    var standard = gulp.src([src + "/assets/styles/*.scss", "!" + src + "/assets/styles/critical.scss"])
+    var styles = gulp.src([src + "/assets/styles/*.scss"])
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        // generate critical CSS
+        .pipe(through.obj(function(file, enc, next) {
+            if (!generateCritical) {
+                generateCritical = true;
+
+                critical.generate({
+                    base: cssDirectory,
+                    src: homepage,
+                    dest: "critical.css",
+                    height: 900,
+                    width: 1280,
+                    minify: true
+                });
+            }
+
+            // go to the nnxt file
+            next(null, file);
+        }))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
@@ -286,12 +290,7 @@ gulp.task("styles", function () {
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to the compiled directory
-        .pipe(gulp.dest(cssDirectory));
-
-    // merge both steams back in to one
-    return merge(critical, standard)
-        // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(gulp.dest(cssDirectory))
         // reload the files
         .pipe(browserSync.reload({stream: true}))
         // notify that the task is complete, if not part of default or watch
