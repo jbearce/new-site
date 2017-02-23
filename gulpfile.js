@@ -273,11 +273,11 @@ gulp.task("styles", function () {
         // write the sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // remove unused CSS
-        .pipe(gulpif(argv.exp, uncss({
+        .pipe(gulpif(argv.experimental, uncss({
             html: [homepage]
         })))
         // generate critical CSS
-        .pipe(gulpif(argv.exp, through.obj(function(file, enc, next) {
+        .pipe(gulpif(argv.experimental, through.obj(function(file, enc, next) {
             if (!generateCritical) {
                 generateCritical = true;
 
