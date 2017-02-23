@@ -29,13 +29,14 @@ var gulp = require("gulp"),                                                     
     uglify = require("gulp-uglify"),                                            // uglifier
 
     // CSS stuff
+    critical = require("critical"),                                             // critical CSS creator
     sass = require("gulp-sass"),                                                // SCSS compiler
     postcss = require("gulp-postcss"),                                          // postcss
     postscss = require("postcss-scss"),                                         // postcss SCSS parser
     bgImage = require("postcss-bgimage"),                                       // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
     flexibility = require("postcss-flexibility"),                               // flexibility
-    critical = require("critical"),                                             // critical CSS creator
+    uncss = require("gulp-uncss"),                                              // remove unused CSS
 
     // FTP stuff
     ftp = require("vinyl-ftp"),                                                 // FTP client
@@ -261,6 +262,20 @@ gulp.task("styles", function () {
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        // initialize sourcemap
+        .pipe(sourcemaps.init())
+        // compile SCSS (compress if --dist is passed)
+        .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
+        // prefix CSS
+        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
+        // insert -js-display: flex; for flexbility
+        .pipe(postcss([flexibility()]))
+        // write the sourcemap (if --dist isn't passed)
+        .pipe(gulpif(!argv.dist, sourcemaps.write()))
+        // remove unused CSS
+        .pipe(uncss({
+            html: [homepage]
+        }))
         // generate critical CSS
         .pipe(through.obj(function(file, enc, next) {
             if (!generateCritical) {
@@ -279,16 +294,6 @@ gulp.task("styles", function () {
             // go to the nnxt file
             next(null, file);
         }))
-        // initialize sourcemap
-        .pipe(sourcemaps.init())
-        // compile SCSS (compress if --dist is passed)
-        .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
-        // prefix CSS
-        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
-        // insert -js-display: flex; for flexbility
-        .pipe(postcss([flexibility()]))
-        // write the sourcemap (if --dist isn't passed)
-        .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to the compiled directory
         .pipe(gulp.dest(cssDirectory))
         // reload the files
