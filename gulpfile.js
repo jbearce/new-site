@@ -257,7 +257,7 @@ gulp.task("styles", function () {
     if (argv.dist) del(cssDirectory + "/**/*");
 
     // process all SCSS in the root styles directory
-    var styles = gulp.src([src + "/assets/styles/*.scss"])
+    return gulp.src([src + "/assets/styles/*.scss"])
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // check if source is newer than destination
