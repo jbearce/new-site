@@ -27,7 +27,9 @@
         <!-- SEO -->
         <title><?php wp_title("|", true, "right"); ?></title>
 		<!-- styles -->
+        <?php if (file_exists (get_template_directory() . "/assets/styles/critical.css")): ?>
 		<style><?php include(get_template_directory() . "/assets/styles/critical.css"); ?></style>
+        <?php endif; ?>
 		<link as="style" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
 		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
 		<noscript>
