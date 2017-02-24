@@ -18,6 +18,8 @@ var gulp = require("gulp"),                                                     
     through = require("through2"),                                              // transform the stream
     isBinary = require("gulp-is-binary"),                                       // detect if a file is a binary
     removeCode = require("gulp-remove-code"),                                   // remove code between special comments
+    request = require("request"),                                               // request remote files
+    EventEmitter = require("events").EventEmitter,                              // emit events
 
     // media stuff
     imagemin = require("gulp-imagemin"),                                        // image compressor
@@ -269,54 +271,77 @@ gulp.task("styles", function () {
     // clean directory if --dist is passed
     if (argv.dist) del(cssDirectory + "/**/*");
 
-    // process all SCSS in the root styles directory
-    var styles = gulp.src([src + "/assets/styles/*.scss"])
-        // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
-        // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
-        // initialize sourcemap
-        .pipe(sourcemaps.init())
-        // compile SCSS (compress if --dist is passed)
-        .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
-        // prefix CSS
-        .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
-        // insert -js-display: flex; for flexbility
-        .pipe(postcss([flexibility()]))
-        // write the sourcemap (if --dist isn't passed)
-        .pipe(gulpif(!argv.dist, sourcemaps.write()))
-        // remove unused CSS
-        .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss"), uncss({
-            html: [homepage]
-        })))
-        // generate critical CSS
-        .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
-            if (!generateCritical) {
-                generateCritical = true;
+    // set up a variable for the sitemap
+    var sitemap = new EventEmitter();
 
-                critical.generate({
-                    base: cssDirectory,
-                    src: homepage,
-                    dest: "critical.css",
-                    height: 900,
-                    width: 1280,
-                    minify: true
-                });
+    // check if a sitemap should be retrieved
+    if (argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss")) {
+        request(homepage + "?sitemap", function(error, response, data) {
+            // attempt to parse the sitemap
+            try {
+                sitemap.data = JSON.parse(data);
+            } catch(e) {
+                sitemap.data = false;
             }
 
-            // go to the nnxt file
-            next(null, file);
-        })))
-        // output to the compiled directory
-        .pipe(gulp.dest(cssDirectory))
-        // reload the files
-        .pipe(browserSync.reload({stream: true}))
-        // notify that the task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Styles task complete!", onLast: true})))
-        // push the task to the ranTasks array
-        .on("data", function() {
-            if (ranTasks.indexOf("styles") < 0) ranTasks.push("styles");
+            // trigger the rest of the task
+            sitemap.emit("update");
         });
+    } else {
+        // trigger the rest of the task
+        sitemap.emit("update");
+    }
+
+    sitemap.on("update", function() {
+        // process all SCSS in the root styles directory
+        return gulp.src([src + "/assets/styles/*.scss"])
+            // prevent breaking on error
+            .pipe(plumber({errorHandler: onError}))
+            // check if source is newer than destination
+            .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
+            // initialize sourcemap
+            .pipe(sourcemaps.init())
+            // compile SCSS (compress if --dist is passed)
+            .pipe(gulpif(argv.dist, sass({outputStyle: "compressed"}), sass()))
+            // prefix CSS
+            .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
+            // insert -js-display: flex; for flexbility
+            .pipe(postcss([flexibility()]))
+            // write the sourcemap (if --dist isn't passed)
+            .pipe(gulpif(!argv.dist, sourcemaps.write()))
+            // remove unused CSS
+            .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss") && sitemap.data !== false, uncss({
+                html: sitemap.data
+            })))
+            // generate critical CSS
+            .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
+                if (!generateCritical) {
+                    generateCritical = true;
+
+                    critical.generate({
+                        base: cssDirectory,
+                        src: homepage,
+                        dest: "critical.css",
+                        height: 900,
+                        width: 1280,
+                        minify: true
+                    });
+                }
+
+                // go to the nnxt file
+                next(null, file);
+            })))
+            // output to the compiled directory
+            .pipe(gulp.dest(cssDirectory))
+            // reload the files
+            .pipe(browserSync.reload({stream: true}))
+            // notify that the task is complete, if not part of default or watch
+            .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Styles task complete!", onLast: true})))
+            // push the task to the ranTasks array
+            .on("data", function() {
+                if (ranTasks.indexOf("styles") < 0) ranTasks.push("styles");
+            });
+    });
 });
 
 // html task, copies binaries, converts includes & variables in HTML

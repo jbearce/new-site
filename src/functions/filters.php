@@ -3,6 +3,26 @@
  * Functions: Filters
 \* ------------------------------------------------------------------------ */
 
+// generate JSON sitemap for uncss & critical
+function new_site_json_sitemap() {
+    if (isset($_GET["sitemap"])) {
+        $sitemap_query = new WP_Query(array(
+            "post_status" => "publish",
+            "post_type"   => "any",
+            "showposts"   => "-1",
+        ));
+        $urls = array();
+
+        while ($sitemap_query->have_posts()) {
+            $sitemap_query->the_post();
+            $urls[] = get_permalink();
+        }
+
+        die(json_encode($urls));
+    }
+}
+add_action("template_redirect", "new_site_json_sitemap");
+
 // remove dimensions from thumbnails
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
