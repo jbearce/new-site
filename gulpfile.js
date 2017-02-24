@@ -1,5 +1,12 @@
     // general stuff
 var gulp = require("gulp"),                                                     // gulp
+    EventEmitter = require("events").EventEmitter,                              // emit events
+    argv = require("yargs").options({                                           // set up yargs
+        "e": {
+            alias: "experimental",
+            type: "array",
+        },
+    }).argv,
     fs = require("fs"),                                                         // the file system
     notify = require("gulp-notify"),                                            // notifications
     plumber = require("gulp-plumber"),                                          // prevent pipe breaking
@@ -19,7 +26,6 @@ var gulp = require("gulp"),                                                     
     isBinary = require("gulp-is-binary"),                                       // detect if a file is a binary
     removeCode = require("gulp-remove-code"),                                   // remove code between special comments
     request = require("request"),                                               // request remote files
-    EventEmitter = require("events").EventEmitter,                              // emit events
 
     // media stuff
     imagemin = require("gulp-imagemin"),                                        // image compressor
@@ -92,9 +98,6 @@ var onError = function(err) {
 gulp.task("media", function () {
     "use strict";
 
-    // call yargs
-    var argv = require("yargs").argv;
-
     // development media directory
     var mediaDirectory = dev + "/assets/media";
     var screenshotDirectory = dev;
@@ -158,9 +161,6 @@ gulp.task("media", function () {
 // scripts task, lints, concatenates, & compresses JS
 gulp.task("scripts", function () {
     "use strict";
-
-    // call yargs
-    var argv = require("yargs").argv;
 
     // development JS directory
     var jsDirectory = dev + "/assets/scripts";
@@ -251,14 +251,6 @@ gulp.task("scripts", function () {
 gulp.task("styles", function () {
     "use strict";
 
-    // call yargs
-    var argv = require("yargs").options({
-        "e": {
-            alias: "experimental",
-            type: "array",
-        },
-    }).argv;
-
     // check whether or not to generate critical CSS;
     var generateCritical = false;
 
@@ -348,9 +340,6 @@ gulp.task("styles", function () {
 gulp.task("html", function () {
     "use strict";
 
-    // call yargs
-    var argv = require("yargs").argv;
-
     // development HTML directory
     var htmlDirectory = dev;
 
@@ -434,9 +423,6 @@ gulp.task("html", function () {
 gulp.task("init", function () {
     "use strict";
 
-    // call yargs
-    var argv = require("yargs").argv;
-
     return gulp.src(src + "/**/*")
         // check if a file is a binary
         .pipe(isBinary())
@@ -458,9 +444,6 @@ gulp.task("init", function () {
 // config task, generate configuration file for FTP & BrowserSync and prompt dev for input
 gulp.task("config", function (cb) {
     "use strict";
-
-    // call yargs
-    var argv = require("yargs").argv;
 
     // generate the config.json and start the other functions
     fs.stat("./config.json", function (err, stats) {
@@ -649,9 +632,6 @@ gulp.task("config", function (cb) {
 gulp.task("ftp", ["config"], function() {
     "use strict";
 
-    // call yargs
-    var argv = require("yargs").argv;
-
     // development FTP directory
     var ftpDirectory = dev;
 
@@ -709,9 +689,6 @@ gulp.task("sync", ["config"], function(cb) {
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     "use strict";
 
-    // call yargs
-    var argv = require("yargs").argv;
-
     // notify that the task is complete
     gulp.src("gulpfile.js")
         .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: ranTasks.length + " task" + (ranTasks.length > 1 ? "s" : "") + " complete! [" + ranTasks.join(", ") + "]", onLast: true})));
@@ -726,9 +703,6 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 // watch task, runs through everything but dist, triggers when a file is saved
 gulp.task("watch", function () {
     "use strict";
-
-    // call yargs
-    var argv = require("yargs").argv;
 
     // set up a browserSync server, if --sync is passed
     if (argv.sync) runSequence("sync");
