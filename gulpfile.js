@@ -266,24 +266,7 @@ gulp.task("styles", function () {
     // set up a variable for the sitemap
     var sitemap = new EventEmitter();
 
-    // check if a sitemap should be retrieved
-    if (argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss")) {
-        request(homepage + "?sitemap", function(error, response, data) {
-            // attempt to parse the sitemap
-            try {
-                sitemap.data = JSON.parse(data);
-            } catch(e) {
-                sitemap.data = false;
-            }
-
-            // trigger the rest of the task
-            sitemap.emit("update");
-        });
-    } else {
-        // trigger the rest of the task
-        sitemap.emit("update");
-    }
-
+    // run the styles task when the sitemap gets updated
     sitemap.on("update", function() {
         // process all SCSS in the root styles directory
         return gulp.src([src + "/assets/styles/*.scss"])
@@ -334,6 +317,25 @@ gulp.task("styles", function () {
                 if (ranTasks.indexOf("styles") < 0) ranTasks.push("styles");
             });
     });
+
+    // check if a sitemap should be retrieved
+    // this must come after sitemap.on so that the listener is listening
+    if (argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss")) {
+        request(homepage + "?sitemap", function(error, response, data) {
+            // attempt to parse the sitemap
+            try {
+                sitemap.data = JSON.parse(data);
+            } catch(e) {
+                sitemap.data = false;
+            }
+
+            // trigger the rest of the task
+            sitemap.emit("update");
+        });
+    } else {
+        // trigger the rest of the task
+        sitemap.emit("update");
+    }
 });
 
 // html task, copies binaries, converts includes & variables in HTML
