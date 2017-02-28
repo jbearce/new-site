@@ -14,7 +14,7 @@ function new_site_json_sitemap() {
 
         /* get one search URL */
 
-        $urls[] = home_url() . "/?s=" . get_bloginfo("name");
+        $urls[] = home_url() . "/?s=" . urlencode(get_bloginfo("name"));
 
         /* get one URL for each post type single */
         /* @TODO get one for each post template, not simply each post type */
