@@ -74,23 +74,32 @@
 }
 
 ._visuallyhidden {
-    background: $background !important;
-    border-radius: remify(5) !important;
-    box-shadow: remify(0 2.5 5, 20) transparentize($dark, 0.25);
-    color: $foreground !important;
+    background: darken($background, 5.4902) !important;
+    border-radius: 0 !important;
+    box-shadow: remify(0 0 2 2, 14) transparentize($dark, 0.4) !important;
+    color: $accent !important;
+    height: auto !important;
+    display: block !important;
     font-family: $body-font !important;
-    font-size: remify(20) !important;
+    font-size: remify(14) !important;
     font-weight: 700 !important;
-    left: remify(-999) !important;
-    padding: remify(15 20, 20) !important;
-    position: fixed !important;
-    top: remify(-999) !important;
+    line-height: normal !important;
+    left: -999em !important;
+    letter-spacing: normal !important;
+    outline: none !important;
+    padding: remify(15 23 14, 14) !important;
+    position: absolute;
+    text-decoration: none !important;
+    text-shadow: none !important;
+    text-transform: none !important;
+    top: -999em !important;
+    width: auto !important;
 }
 
 ._visuallyhidden:focus {
-    left: remify(20) !important;
-    top: remify(20) !important;
-    z-index: 999999 !important;
+    left: remify(6, 14) !important;
+    top: remify(6, 14) !important;
+    z-index: 100000 !important;
 }
 
 ._primary {
