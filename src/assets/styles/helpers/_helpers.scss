@@ -100,6 +100,13 @@
 
 /* visibility classes */
 
+// when printing
+@media print {
+    ._noprint {
+        display: none !important;
+    }
+}
+
 // when screen is < 768
 @media screen and (max-width: ($xs-break - 1 / 16)) {
     ._tablet:not(._phone),

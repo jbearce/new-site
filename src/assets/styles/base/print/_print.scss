@@ -1,0 +1,18 @@
+// Styles written by YOURNAME @ YOURCOMPANY
+
+/* ------------------------------------------------------------------------ *\
+ * Print
+\* ------------------------------------------------------------------------ */
+
+// Vendor
+
+@import "../../vendor/_gutenberg";
+
+// Custom
+
+a[href^="//"] {
+    &:after {
+        content: " (" attr(href) ")";
+        font-size: 80%;
+    }
+}

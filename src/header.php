@@ -32,6 +32,7 @@
         <?php endif; ?>
 		<link as="style" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
 		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
+		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" media="print" rel="stylesheet" />
 		<noscript>
 		<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
 		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" rel="stylesheet" />
@@ -74,18 +75,18 @@
     							<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
                             </a><!--/.header_logo.logo-->
                         </div><!--/.col-->
-                        <div class="col -nogrow -noshrink">
+                        <div class="col -nogrow -noshrink _noprint">
                             <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
                                 <?php _e("View Menu", "new_site"); ?>
                             </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
                             <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
                                 <?php get_search_form(); ?>
                             </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook._desktop-->
-                        </div><!--/.col.-nogrow.-noshrink-->
+                        </div><!--/.col.-nogrow.-noshrink._noprint-->
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
             </div><!--/.header-block-->
-            <div class="navigation-block -sticky _tablet _notebook _desktop" role="navigation">
+            <div class="navigation-block -sticky _tablet _notebook _desktop _noprint" role="navigation">
                 <div class="navigation_inner">
                     <?php
                     $menu = wp_nav_menu(array(
@@ -97,4 +98,4 @@
                     ));
                     ?>
                 </div><!--/.navigation_inner._tablet-->
-            </div><!--/.navigation-block.-sticky._tablet._notebook._desktop-->
+            </div><!--/.navigation-block.-sticky._tablet._notebook._desktop._noprint-->

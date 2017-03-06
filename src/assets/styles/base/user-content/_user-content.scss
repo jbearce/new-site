@@ -127,7 +127,7 @@
 
     blockquote {
         font-style: italic;
-        margin: 0;
+        margin: remify(0 0 18, 16);
         padding: remify(0 0 0 28, 16);
         position: relative;
     }
@@ -138,6 +138,10 @@
     blockquote table {
         color: lighten($foreground, 50);
         font-size: remify(14, 16);
+    }
+
+    blockquote > :last-child {
+        margin-bottom: 0;
     }
 
     // horizontal rule
@@ -207,6 +211,7 @@
         }
 
         blockquote {
+            margin-bottom: remify(24, 16);
             padding-left: remify(36, 16);
         }
 
