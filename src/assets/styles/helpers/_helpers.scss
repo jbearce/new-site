@@ -74,16 +74,23 @@
 }
 
 ._visuallyhidden {
-    left: -999em !important; // fallback if vw isn't supported
-    left: -100vw !important;
-    position: absolute !important;
-    top: -999em !important; // fallback if vh isn't supported
-    top: -100vh !important;
+    background: $background !important;
+    border-radius: remify(5) !important;
+    box-shadow: remify(0 2.5 5, 20) transparentize($dark, 0.25);
+    color: $foreground !important;
+    font-family: $body-font !important;
+    font-size: remify(20) !important;
+    font-weight: 700 !important;
+    left: remify(-999) !important;
+    padding: remify(15 20, 20) !important;
+    position: fixed !important;
+    top: remify(-999) !important;
 }
 
 ._visuallyhidden:focus {
-    left: 0 !important;
-    top: 0 !important;
+    left: remify(20) !important;
+    top: remify(20) !important;
+    z-index: 999999 !important;
 }
 
 ._primary {
