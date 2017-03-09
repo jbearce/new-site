@@ -25,25 +25,25 @@ var gulp         = require("gulp"),                                             
             type:  "boolean",
         },
     }).argv,
-    fs           = require("fs"),                                               // the file system
-    notify       = require("gulp-notify"),                                      // notifications
-    plumber      = require("gulp-plumber"),                                     // prevent pipe breaking
-    runSequence  = require("run-sequence"),                                     // allow tasks to be ran in sequence
-    json         = require("json-file"),                                        // read/write JSON files
-    prompt       = require("gulp-prompt"),                                      // allow user input
-    del          = require("del"),                                              // delete files & folders
-    newer        = require("gulp-newer"),                                       // checks if files are newer
-    merge        = require("merge-stream"),                                     // merge streams
-    gulpif       = require("gulp-if"),                                          // if statements in pipes
-    watch        = require("gulp-watch"),                                       // watch for file changes
-    sourcemaps   = require("gulp-sourcemaps"),                                  // sourcemaps
-    concat       = require("gulp-concat"),                                      // concatenater
-    fileinclude  = require("gulp-file-include"),                                // file includer, variable replacer
-    replace      = require("gulp-replace"),                                     // replace regular expressions
-    through      = require("through2"),                                         // transform the stream
-    isBinary     = require("gulp-is-binary"),                                   // detect if a file is a binary
-    removeCode   = require("gulp-remove-code"),                                 // remove code between special comments
-    request      = require("request"),                                          // request remote files
+    fs            = require("fs"),                                              // the file system
+    notify        = require("gulp-notify"),                                     // notifications
+    plumber       = require("gulp-plumber"),                                    // prevent pipe breaking
+    run_sequence  = require("run-sequence"),                                    // allow tasks to be ran in sequence
+    json          = require("json-file"),                                       // read/write JSON files
+    prompt        = require("gulp-prompt"),                                     // allow user input
+    del           = require("del"),                                             // delete files & folders
+    newer         = require("gulp-newer"),                                      // checks if files are newer
+    merge         = require("merge-stream"),                                    // merge streams
+    gulpif        = require("gulp-if"),                                         // if statements in pipes
+    watch         = require("gulp-watch"),                                      // watch for file changes
+    sourcemaps    = require("gulp-sourcemaps"),                                 // sourcemaps
+    concat        = require("gulp-concat"),                                     // concatenater
+    file_include  = require("gulp-file-include"),                               // file includer, variable replacer
+    replace       = require("gulp-replace"),                                    // replace regular expressions
+    through       = require("through2"),                                        // transform the stream
+    is_binary     = require("gulp-is-binary"),                                  // detect if a file is a binary
+    remove_code   = require("gulp-remove-code"),                                // remove code between special comments
+    request       = require("request"),                                         // request remote files
 
     // media stuff
     imagemin = require("gulp-imagemin"),                                        // image compressor
@@ -58,7 +58,7 @@ var gulp         = require("gulp"),                                             
     sass         = require("gulp-sass"),                                        // SCSS compiler
     postcss      = require("gulp-postcss"),                                     // postcss
     postscss     = require("postcss-scss"),                                     // postcss SCSS parser
-    bgImage      = require("postcss-bgimage"),                                  // remove backgrond images to improve Critical CSS
+    bgimage      = require("postcss-bgimage"),                                  // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
     flexibility  = require("postcss-flexibility"),                              // flexibility
     uncss        = require("gulp-uncss"),                                       // remove unused CSS
@@ -69,20 +69,20 @@ var gulp         = require("gulp"),                                             
 
     /* STOP! These settings should always be blank! */
     /* To configure FTP credentials, run gulp ftp   */
-    ftpHost = "",                                                               // FTP hostname (leave blank)
-    ftpPort = "",                                                               // FTP port (leave blank)
-    ftpMode = "",                                                               // FTP mode (leave blank)
-    ftpUser = "",                                                               // FTP username (leave blank)
-    ftpPass = "",                                                               // FTP password (leave blank)
-    ftpPath = "",                                                               // FTP path (leave blank)
+    ftp_host = "",                                                              // FTP hostname (leave blank)
+    ftp_port = "",                                                              // FTP port (leave blank)
+    ftp_mode = "",                                                              // FTP mode (leave blank)
+    ftp_user = "",                                                              // FTP username (leave blank)
+    ftp_pass = "",                                                              // FTP password (leave blank)
+    ftp_path = "",                                                              // FTP path (leave blank)
 
     // browser-sync stuff
-    browserSync = require("browser-sync"),                                      // browser-sync
+    browser_sync = require("browser-sync"),                                     // browser-sync
 
-    bsProxy  = "",                                                              // browser-sync proxy (leave blank)
-    bsPort   = "",                                                              // browser-sync port (leave blank)
-    bsOpen   = "",                                                              // browser-sync open (leave blank)
-    bsNotify = "",                                                              // browser-sync notify (leave blank)
+    bs_proxy  = "",                                                             // browser-sync proxy (leave blank)
+    bs_port   = "",                                                             // browser-sync port (leave blank)
+    bs_open   = "",                                                             // browser-sync open (leave blank)
+    bs_notify = "",                                                             // browser-sync notify (leave blank)
 
     // read data from package.json
     homepage       = json.read("./package.json").get("homepage"),
@@ -100,10 +100,10 @@ var gulp         = require("gulp"),                                             
     dev  = "./dev",                                                             // development directory
     dist = "./dist",                                                            // production directory
 
-    ranTasks = [];                                                              // store which tasks where ran
+    ran_tasks = [];                                                              // store which tasks where ran
 
 // Error handling
-var onError = function(err) {
+var on_error = function(err) {
     notify.onError({
         title:    "Gulp",
         subtitle: "Error!",
@@ -119,21 +119,21 @@ gulp.task("media", function () {
     "use strict";
 
     // set media directories
-    var mediaDirectory = argv.cist ? dist + "/assets/media" : dev + "/assets/media";
-    var screenshotDirectory = argv.dist ? dist : dev;
+    var media_directory = argv.cist ? dist + "/assets/media" : dev + "/assets/media";
+    var screenshot_directory = argv.dist ? dist : dev;
 
     // clean directories if --dist is passed
     if (argv.dist) {
-        del(mediaDirectory + "/**/*");
-        del(screenshotDirectory + "/screenshot.png");
+        del(media_directory + "/**/*");
+        del(screenshot_directory + "/screenshot.png");
     }
 
     // compress images, copy other media
     var media = gulp.src(src + "/assets/media/**/*")
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(mediaDirectory)))
+        .pipe(gulpif(!argv.dist, newer(media_directory)))
         // compress images
         .pipe(imagemin({
             progressive: true,
@@ -141,14 +141,14 @@ gulp.task("media", function () {
             use:         [pngquant()]
         }))
         // output to compiled directory
-        .pipe(gulp.dest(mediaDirectory));
+        .pipe(gulp.dest(media_directory));
 
     // compress screenshot
     var screenshot = gulp.src(src + "/screenshot.png")
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(screenshotDirectory)))
+        .pipe(gulpif(!argv.dist, newer(screenshot_directory)))
         // compress screenshot
         .pipe(imagemin({
             progressive: true,
@@ -156,19 +156,19 @@ gulp.task("media", function () {
             use:         [pngquant()],
         }))
         // output to compiled directory
-        .pipe(gulp.dest(screenshotDirectory));
+        .pipe(gulp.dest(screenshot_directory));
 
     // merge both steams back in to one
     return merge(media, screenshot)
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // reload files
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browser_sync.reload({stream: true}))
         // notify that task is complete, if not part of default or watch
         .pipe(gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Media task complete!", onLast: true})))
-        // push task to ranTasks array
+        // push task to ran_tasks array
         .on("data", function() {
-            if (ranTasks.indexOf("media") < 0) ranTasks.push("media");
+            if (ran_tasks.indexOf("media") < 0) ran_tasks.push("media");
         });
 });
 
@@ -177,17 +177,17 @@ gulp.task("scripts", function () {
     "use strict";
 
     // set JS directory
-    var jsDirectory = argv.dist ? dist + "/assets/scripts/" : dev + "/assets/scripts";
+    var js_directory = argv.dist ? dist + "/assets/scripts/" : dev + "/assets/scripts";
 
     // clean directory if --dist is passed
-    if (argv.dist) del(jsDirectory + "/**/*");
+    if (argv.dist) del(js_directory + "/**/*");
 
     // lint scripts
     var linted = gulp.src([src + "/assets/scripts/*.js", "!" + src + "/assets/scripts/vendor.*.js"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
+        .pipe(gulpif(!argv.dist, newer(js_directory + "/modern.js")))
         // lint all non-vendor scripts
         .pipe(jshint())
         // print lint errors
@@ -196,9 +196,9 @@ gulp.task("scripts", function () {
     // process critical scripts
     var critical = gulp.src([src + "/assets/scripts/critical/loadCSS.js", src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/critical.js")))
+        .pipe(gulpif(!argv.dist, newer(js_directory + "/critical.js")))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // concatenate to critical.js
@@ -208,14 +208,14 @@ gulp.task("scripts", function () {
         // write sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to compiled directory
-        .pipe(gulp.dest(jsDirectory));
+        .pipe(gulp.dest(js_directory));
 
     // process modern scripts
     var modern = gulp.src([src + "/assets/scripts/vendor.*.js", src + "/assets/scripts/jquery.*.js", src + "/assets/scripts/*.js"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/modern.js")))
+        .pipe(gulpif(!argv.dist, newer(js_directory + "/modern.js")))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // concatenate to modern.js
@@ -225,14 +225,14 @@ gulp.task("scripts", function () {
         // write sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to compiled directory
-        .pipe(gulp.dest(jsDirectory));
+        .pipe(gulp.dest(js_directory));
 
     // process legacy scripts
     var legacy = gulp.src([src + "/assets/scripts/legacy/**/*"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(jsDirectory + "/legacy.js")))
+        .pipe(gulpif(!argv.dist, newer(js_directory + "/legacy.js")))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // concatenate to legacy.js
@@ -242,19 +242,19 @@ gulp.task("scripts", function () {
         // write sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // output to compiled directory
-        .pipe(gulp.dest(jsDirectory));
+        .pipe(gulp.dest(js_directory));
 
     // merge all four steams back in to one
     return merge(linted, critical, modern, legacy)
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // reload files
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browser_sync.reload({stream: true}))
         // notify that task is complete, if not part of default or watch
         .pipe(gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
-        // push task to ranTasks array
+        // push task to ran_tasks array
         .on("data", function() {
-            if (ranTasks.indexOf("scripts") < 0) ranTasks.push("scripts");
+            if (ran_tasks.indexOf("scripts") < 0) ran_tasks.push("scripts");
         });
 });
 
@@ -263,20 +263,20 @@ gulp.task("styles", function () {
     "use strict";
 
     // check whether or not to generate critical CSS;
-    var generateCritical = false;
+    var generate_critical = false;
 
     // set CSS directory
-    var cssDirectory = argv.dist ? dist + "/asets/styles" : dev + "/assets/styles";
+    var css_directory = argv.dist ? dist + "/asets/styles" : dev + "/assets/styles";
 
     // clean directory if --dist is passed
-    if (argv.dist) del(cssDirectory + "/**/*");
+    if (argv.dist) del(css_directory + "/**/*");
 
     // process all SCSS in root styles directory
     return gulp.src([src + "/assets/styles/*.scss"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer({dest: cssDirectory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
+        .pipe(gulpif(!argv.dist, newer({dest: css_directory + "/modern.css", extra: [src + "/assets/styles/**/*.scss"]})))
         // initialize sourcemap
         .pipe(sourcemaps.init())
         // compile SCSS (compress if --dist is passed)
@@ -293,11 +293,11 @@ gulp.task("styles", function () {
         })))
         // generate critical CSS
         .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
-            if (!generateCritical) {
-                generateCritical = true;
+            if (!generate_critical) {
+                generate_critical = true;
 
                 critical.generate({
-                    base:   cssDirectory,
+                    base:   css_directory,
                     src:    homepage,
                     dest:   "critical.css",
                     height: 900,
@@ -310,14 +310,14 @@ gulp.task("styles", function () {
             next(null, file);
         })))
         // output to compiled directory
-        .pipe(gulp.dest(cssDirectory))
+        .pipe(gulp.dest(css_directory))
         // reload files
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browser_sync.reload({stream: true}))
         // notify that task is complete, if not part of default or watch
         .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Styles task complete!", onLast: true})))
-        // push task to ranTasks array
+        // push task to ran_tasks array
         .on("data", function() {
-            if (ranTasks.indexOf("styles") < 0) ranTasks.push("styles");
+            if (ran_tasks.indexOf("styles") < 0) ran_tasks.push("styles");
         });
 });
 
@@ -326,19 +326,19 @@ gulp.task("html", function () {
     "use strict";
 
     // set HTML directory
-    var htmlDirectory = argv.dist ? dist : dev;
+    var html_directory = argv.dist ? dist : dev;
 
     // clean directory if --dist is passed
-    if (argv.dist) del([htmlDirectory + "/**/*", "!" + htmlDirectory + "{/assets,/assets/**}"]);
+    if (argv.dist) del([html_directory + "/**/*", "!" + html_directory + "{/assets,/assets/**}"]);
 
     // copy binaries
     var binaries = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(htmlDirectory)))
+        .pipe(gulpif(!argv.dist, newer(html_directory)))
         // check if a file is a binary
-        .pipe(isBinary())
+        .pipe(is_binary())
         // skip file if it's not a binary
         .pipe(through.obj(function(file, enc, next) {
             if (!file.isBinary()) {
@@ -350,16 +350,16 @@ gulp.task("html", function () {
             next(null, file);
         }))
         // output to compiled directory
-        .pipe(gulp.dest(htmlDirectory));
+        .pipe(gulp.dest(html_directory));
 
     // process HTML
     var html = gulp.src([src + "/**/*", "!" + src + "{/assets,/assets/**}"])
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
-        .pipe(gulpif(!argv.dist, newer(htmlDirectory)))
+        .pipe(gulpif(!argv.dist, newer(html_directory)))
         // check if file is a binary
-        .pipe(isBinary())
+        .pipe(is_binary())
         // skip file if it's a binary
         .pipe(through.obj(function(file, enc, next) {
             if (file.isBinary()) {
@@ -371,7 +371,7 @@ gulp.task("html", function () {
             next(null, file);
         }))
         // replace variables
-        .pipe(fileinclude({
+        .pipe(file_include({
             prefix:   "@@",
             basepath: "@file",
             context: {
@@ -388,19 +388,19 @@ gulp.task("html", function () {
         // replace icon placeholders
         .pipe(replace(/(?:<icon:)([A-Za-z0-9\-\_][^:>]+)(?:\:([A-Za-z0-9\-\_\ ][^:>]*))?(?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
         // output to compiled directory
-        .pipe(gulp.dest(htmlDirectory));
+        .pipe(gulp.dest(html_directory));
 
     // merge both steams back in to one
     return merge(binaries, html)
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // reload files
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browser_sync.reload({stream: true}))
         // notify that task is complete, if not part of default or watch
         .pipe(gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "HTML task complete!", onLast: true})))
-        // push task to ranTasks array
+        // push task to ran_tasks array
         .on("data", function() {
-            if (ranTasks.indexOf("html") < 0) ranTasks.push("html");
+            if (ran_tasks.indexOf("html") < 0) ran_tasks.push("html");
         });
 });
 
@@ -409,7 +409,7 @@ gulp.task("init", function () {
 
     return gulp.src(src + "/**/*")
         // check if a file is a binary
-        .pipe(isBinary())
+        .pipe(is_binary())
         // skip file if it's a binary
         .pipe(through.obj(function(file, enc, next) {
             if (file.isBinary()) {
@@ -421,7 +421,7 @@ gulp.task("init", function () {
             next(null, file);
         }))
         // remove login HTML code if --remove --login is passed
-        .pipe(removeCode({no_login: argv.remove && argv.login ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+        .pipe(remove_code({no_login: argv.remove && argv.login ? true : false, commentStart: "<!--", commentEnd: "-->"}))
         // output to source directory
         .pipe(gulp.dest(src));
 });
@@ -462,37 +462,37 @@ gulp.task("config", function (cb) {
             }`;
 
             fs.writeFile("./config.json", json_data, function (err) {
-                configureFTP(function() {
-                  configureBrowsersync();
+                configure_ftp(function() {
+                  configure_browsersync();
                 });
             });
         } else {
-            configureFTP(function() {
-              configureBrowsersync();
+            configure_ftp(function() {
+              configure_browsersync();
             });
         }
     });
 
     // configure FTP credentials
-    function configureFTP(cb) {
+    function configure_ftp(cb) {
         // read FTP settingss from config.json
         if (!argv.dist) {
-            ftpHost = json.read("./config.json").get("ftp.dev.host");
-            ftpPort = json.read("./config.json").get("ftp.dev.port");
-            ftpMode = json.read("./config.json").get("ftp.dev.mode");
-            ftpUser = json.read("./config.json").get("ftp.dev.user");
-            ftpPass = json.read("./config.json").get("ftp.dev.pass");
-            ftpPath = json.read("./config.json").get("ftp.dev.path");
+            ftp_host = json.read("./config.json").get("ftp.dev.host");
+            ftp_port = json.read("./config.json").get("ftp.dev.port");
+            ftp_mode = json.read("./config.json").get("ftp.dev.mode");
+            ftp_user = json.read("./config.json").get("ftp.dev.user");
+            ftp_pass = json.read("./config.json").get("ftp.dev.pass");
+            ftp_path = json.read("./config.json").get("ftp.dev.path");
         } else {
-            ftpHost = json.read("./config.json").get("ftp.dist.host");
-            ftpPort = json.read("./config.json").get("ftp.dist.port");
-            ftpMode = json.read("./config.json").get("ftp.dist.mode");
-            ftpUser = json.read("./config.json").get("ftp.dist.user");
-            ftpPass = json.read("./config.json").get("ftp.dist.pass");
-            ftpPath = json.read("./config.json").get("ftp.dist.path");
+            ftp_host = json.read("./config.json").get("ftp.dist.host");
+            ftp_port = json.read("./config.json").get("ftp.dist.port");
+            ftp_mode = json.read("./config.json").get("ftp.dist.mode");
+            ftp_user = json.read("./config.json").get("ftp.dist.user");
+            ftp_pass = json.read("./config.json").get("ftp.dist.pass");
+            ftp_path = json.read("./config.json").get("ftp.dist.path");
         }
 
-        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("ftp") || argv.ftp) && (argv.config || ftpHost === "" || ftpUser === "" || ftpPass === "" || ftpPath === "")) {
+        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("ftp") || argv.ftp) && (argv.config || ftp_host === "" || ftp_user === "" || ftp_pass === "" || ftp_path === "")) {
             // reconfigure settings in config.json if a field is empty or if --config is passed
             gulp.src("./config.json")
                 .pipe(prompt.prompt([{
@@ -500,14 +500,14 @@ gulp.task("config", function (cb) {
                     type:    "input",
                     name:    "host",
                     message: "FTP hostname:",
-                    default: ftpHost,
+                    default: ftp_host,
                 },
                 {
                     // prompt for port
                     type:    "input",
                     name:    "port",
                     message: "FTP port:",
-                    default: ftpPort,
+                    default: ftp_port,
                 },
                 {
                     // prompt for mode
@@ -515,28 +515,28 @@ gulp.task("config", function (cb) {
                     name:    "mode",
                     message: "FTP mode:",
                     choices: ["ftp", "tls", "sftp"],
-                    default: ftpMode === "ftp" ? 0 : ftpMode === "tls" ? 1 : ftpMode === "sftp" ? 2 : 0,
+                    default: ftp_mode === "ftp" ? 0 : ftp_mode === "tls" ? 1 : ftp_mode === "sftp" ? 2 : 0,
                 },
                 {
                     // prompt for user
                     type:    "input",
                     name:    "user",
                     message: "FTP username:",
-                    default: ftpUser,
+                    default: ftp_user,
                 },
                 {
                     // prompt for password
                     type:    "password",
                     name:    "pass",
                     message: "FTP password:",
-                    default: ftpPass,
+                    default: ftp_pass,
                 },
                 {
                     // prompt for path
                     type:    "input",
                     name:    "path",
                     message: "FTP remote path:",
-                    default: ftpPath,
+                    default: ftp_path,
                 }], function(res) {
                     // open config.json
                     var file = json.read("./config.json");
@@ -562,29 +562,29 @@ gulp.task("config", function (cb) {
                     file.writeSync();
 
                     // read FTP settings from config.json
-                    ftpHost = res.host;
-                    ftpPort = res.port;
-                    ftpMode = res.mode;
-                    ftpUser = res.user;
-                    ftpPass = res.pass;
-                    ftpPath = res.path;
+                    ftp_host = res.host;
+                    ftp_port = res.port;
+                    ftp_mode = res.mode;
+                    ftp_user = res.user;
+                    ftp_pass = res.pass;
+                    ftp_path = res.path;
 
-                    configureBrowsersync();
+                    configure_browsersync();
                 }));
         } else {
-            configureBrowsersync();
+            configure_browsersync();
         }
     }
 
     // configure BrowserSync settings
-    function configureBrowsersync() {
+    function configure_browsersync() {
         // read browsersync settings from config.json
-        bsProxy  = json.read("./config.json").get("browsersync.proxy");
-        bsPort   = json.read("./config.json").get("browsersync.port");
-        bsOpen   = json.read("./config.json").get("browsersync.open");
-        bsNotify = json.read("./config.json").get("browsersync.notify");
+        bs_proxy  = json.read("./config.json").get("browsersync.proxy");
+        bs_port   = json.read("./config.json").get("browsersync.port");
+        bs_open   = json.read("./config.json").get("browsersync.open");
+        bs_notify = json.read("./config.json").get("browsersync.notify");
 
-        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("sync") || argv.sync) && (argv.config || bsProxy === "" || bsPort === "" || bsOpen === "" || bsNotify === "")) {
+        if (argv.all || (gulp.seq.indexOf("config") < gulp.seq.indexOf("sync") || argv.sync) && (argv.config || bs_proxy === "" || bs_port === "" || bs_open === "" || bs_notify === "")) {
             // reconfigure settings in config.json if a field is empty or if --config is passed
             gulp.src("./config.json")
                 .pipe(prompt.prompt([{
@@ -592,28 +592,28 @@ gulp.task("config", function (cb) {
                     type:    "input",
                     name:    "proxy",
                     message: "Browsersync proxy:",
-                    default: bsProxy === "" ? "localhost:8888" : bsProxy,
+                    default: bs_proxy === "" ? "localhost:8888" : bs_proxy,
                 },
                 {
                     // prompt for port
                     type:    "input",
                     name:    "port",
                     message: "Browsersync port:",
-                    default: bsPort === "" ? "8080" : bsPort,
+                    default: bs_port === "" ? "8080" : bs_port,
                 },
                 {
                     // prompt for how to open
                     type:    "input",
                     name:    "open",
                     message: "Browsersync open:",
-                    default: bsOpen === "" ? "external" : bsOpen,
+                    default: bs_open === "" ? "external" : bs_open,
                 },
                 {
                     // prompt for whether to notify
                     type:    "input",
                     name:    "notify",
                     message: "Browsersync notify:",
-                    default: bsNotify === "" ? "false" : bsNotify,
+                    default: bs_notify === "" ? "false" : bs_notify,
                 }], function(res) {
                     // open config.json
                     var file = json.read("./config.json");
@@ -628,10 +628,10 @@ gulp.task("config", function (cb) {
                     file.writeSync();
 
                     // read browsersync settings from config.json
-                    bsProxy  = res.proxy;
-                    bsPort   = res.port;
-                    bsOpen   = res.open;
-                    bsNotify = res.notify;
+                    bs_proxy  = res.proxy;
+                    bs_port   = res.port;
+                    bs_open   = res.open;
+                    bs_notify = res.notify;
 
                     cb();
                 }));
@@ -646,54 +646,54 @@ gulp.task("ftp", ["config"], function() {
     "use strict";
 
     // set FTP directory
-    var ftpDirectory = argv.dist ? dist : dev;
+    var ftp_directory = argv.dist ? dist : dev;
 
     // create SFTP connection
-    var sftpConn = sftp({
-        host:       ftpHost,
-        port:       ftpPort,
-        username:   ftpUser,
-        password:   ftpPass,
-        remotePath: ftpPath,
+    var sftp_conn = sftp({
+        host:       ftp_host,
+        port:       ftp_port,
+        username:   ftp_user,
+        password:   ftp_pass,
+        remotePath: ftp_path,
     });
 
     // create FTP connection
-    var ftpConn = ftp.create({
-        host:   ftpHost,
-        port:   ftpPort,
-        secure: ftpMode === "tls" ? true : false,
-        user:   ftpUser,
-        pass:   ftpPass,
-        path:   ftpPath,
+    var ftp_conn = ftp.create({
+        host:   ftp_host,
+        port:   ftp_port,
+        secure: ftp_mode === "tls" ? true : false,
+        user:   ftp_user,
+        pass:   ftp_pass,
+        path:   ftp_path,
     });
 
     // upload changed files
-    return gulp.src(ftpDirectory + "/**/*")
+    return gulp.src(ftp_directory + "/**/*")
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // check if files are newer
-        .pipe(gulpif(!argv.dist, newer({dest: src, extra: [ftpDirectory + "/**/*"]})))
+        .pipe(gulpif(!argv.dist, newer({dest: src, extra: [ftp_directory + "/**/*"]})))
         // check if files are newer
-        .pipe(gulpif(ftpMode !== "sftp", ftpConn.newer(ftpPath)))
+        .pipe(gulpif(ftp_mode !== "sftp", ftp_conn.newer(ftp_path)))
         // upload changed files
-        .pipe(gulpif(ftpMode !== "sftp", ftpConn.dest(ftpPath), sftpConn))
+        .pipe(gulpif(ftp_mode !== "sftp", ftp_conn.dest(ftp_path), sftp_conn))
         // prevent breaking on error
-        .pipe(plumber({errorHandler: onError}))
+        .pipe(plumber({errorHandler: on_error}))
         // reload files
-        .pipe(browserSync.reload({stream: true}))
+        .pipe(browser_sync.reload({stream: true}))
         // notify that task is complete, if not part of default or watch
         .pipe(notify({title: "Success!", message: "FTP task complete!", onLast: true}));
 });
 
-// sync task, set up a browserSync server, depends on config
+// sync task, set up a browser_sync server, depends on config
 gulp.task("sync", ["config"], function(cb) {
     "use strict";
 
-    browserSync({
-        proxy:  bsProxy,
-        port:   bsPort,
-        open:   bsOpen,
-        notify: bsNotify,
+    browser_sync({
+        proxy:  bs_proxy,
+        port:   bs_port,
+        open:   bs_open,
+        notify: bs_notify,
     });
 });
 
@@ -703,25 +703,25 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // notify that task is complete
     gulp.src("gulpfile.js")
-        .pipe(gulpif(ranTasks.length, notify({title: "Success!", message: ranTasks.length + " task" + (ranTasks.length > 1 ? "s" : "") + " complete! [" + ranTasks.join(", ") + "]", onLast: true})));
+        .pipe(gulpif(ran_tasks.length, notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
 
     // trigger FTP task if FTP flag is passed
-    if (argv.ftp) runSequence("ftp");
+    if (argv.ftp) run_sequence("ftp");
 
-    // reset ranTasks array
-    ranTasks.length = 0;
+    // reset ran_tasks array
+    ran_tasks.length = 0;
 });
 
 // watch task, runs through everything but dist, triggers when a file is saved
 gulp.task("watch", function () {
     "use strict";
 
-    // set up a browserSync server, if --sync is passed
-    if (argv.sync) runSequence("sync");
+    // set up a browser_sync server, if --sync is passed
+    if (argv.sync) run_sequence("sync");
 
     // watch for any changes
     watch("./src/**/*", function () {
         // run through all tasks, then ftp, if --ftp is passed
-        runSequence("default");
+        run_sequence("default");
     });
 });
