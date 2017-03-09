@@ -434,32 +434,32 @@ gulp.task("config", function (cb) {
     fs.stat("./config.json", function (err, stats) {
         if (err !== null) {
             var json_data =
-`{
-    "ftp": {
-        "dev": {
-            "host": "",
-            "port": "21",
-            "mode": "ftp",
-            "user": "",
-            "pass": "",
-            "path": ""
-        },
-        "dist": {
-            "host": "",
-            "port": "21",
-            "mode": "ftp",
-            "user": "",
-            "pass": "",
-            "path": ""
-        }
-    },
-    "browsersync": {
-        "proxy":  "",
-        "port":   "",
-        "open":   "",
-        "notify": ""
-    }
-}\n`;
+            `{
+                "ftp": {
+                    "dev": {
+                        "host": "",
+                        "port": "21",
+                        "mode": "ftp",
+                        "user": "",
+                        "pass": "",
+                        "path": ""
+                    },
+                    "dist": {
+                        "host": "",
+                        "port": "21",
+                        "mode": "ftp",
+                        "user": "",
+                        "pass": "",
+                        "path": ""
+                    }
+                },
+                "browsersync": {
+                    "proxy":  "",
+                    "port":   "",
+                    "open":   "",
+                    "notify": ""
+                }
+            }`;
 
             fs.writeFile("./config.json", json_data, function (err) {
                 configureFTP(function() {
