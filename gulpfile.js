@@ -609,29 +609,26 @@ gulp.task("config", function (cb) {
 gulp.task("ftp", ["config"], function() {
     "use strict";
 
-    // development FTP directory
-    var ftpDirectory = dev;
+    // set the FTP directory
+    var ftpDirectory = (argv.dist) ? dist : dev;
 
-    // production FTP directory (if --dist is passed)
-    if (argv.dist) ftpDirectory = dist;
-
-    // Create the SFTP connection
+    // create the SFTP connection
     var sftpConn = sftp({
-        host: ftpHost,
-        port: ftpPort,
-        username: ftpUser,
-        password: ftpPass,
+        host:       ftpHost,
+        port:       ftpPort,
+        username:   ftpUser,
+        password:   ftpPass,
         remotePath: ftpPath
     });
 
     // create the FTP connection
     var ftpConn = ftp.create({
-        host: ftpHost,
-        port: ftpPort,
+        host:   ftpHost,
+        port:   ftpPort,
         secure: ftpMode === "tls" ? true : false,
-        user: ftpUser,
-        pass: ftpPass,
-        path: ftpPath,
+        user:   ftpUser,
+        pass:   ftpPass,
+        path:   ftpPath
     });
 
     // upload the changed files
@@ -640,8 +637,10 @@ gulp.task("ftp", ["config"], function() {
         .pipe(plumber({errorHandler: onError}))
         // check if files are newer
         .pipe(gulpif(!argv.dist, newer({dest: src, extra: [ftpDirectory + "/**/*"]})))
+        // check if files are newer
+        .pipe(gulpif(ftpMode !== "sftp", ftpConn.newer(ftpPath)))
         // upload changed files
-        .pipe(gulpif(ftpMode === "sftp", sftpConn, ftpConn.newer(ftpPath)))
+        .pipe(gulpif(ftpMode !== "sftp", ftpConn.dest(ftpPath), sftpConn))
         // prevent breaking on error
         .pipe(plumber({errorHandler: onError}))
         // reload the files
