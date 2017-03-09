@@ -42,7 +42,7 @@
         }
     }
 
-    @return unquote($output);
+    @return if(type-of($output) == "string", unquote($output), $output);
 }
 
 // Photoshop Leading => CSS Line Height Conversion
@@ -52,7 +52,7 @@
     $base: if($base == null, 16, strip-unit($base));
     $output: $base + (strip-unit($size) / 2);
 
-    @return unquote($output);
+    @return $output;
 }
 
 // Photoshop Tracking => CSS Letter Spacing Conversion
@@ -62,5 +62,5 @@
     $base: if($base == null, 16, strip-unit($base));
     $output: ($size / 1000) * strip-unit($base);
 
-    @return unquote($output);
+    @return $output;
 }
