@@ -1,4 +1,10 @@
-    // general stuff
+// JavaScript Document
+
+// Scripts written by YOURNAME @ YOURCOMPANY
+
+/* jshint esversion: 6 */
+
+// general stuff
 var gulp         = require("gulp"),                                             // gulp
     EventEmitter = require("events").EventEmitter,                              // emit events
     argv         = require("yargs").options({                                   // set up yargs
@@ -427,7 +433,35 @@ gulp.task("config", function (cb) {
     // generate config.json and start other functions
     fs.stat("./config.json", function (err, stats) {
         if (err !== null) {
-            fs.writeFile("./config.json", "{\"ftp\":{\"dev\":{\"host\":\"\",\"port\":\"21\",\"mode\":\"ftp\",\"user\":\"\",\"pass\":\"\",\"path\":\"\"},\"dist\":{\"host\":\"\",\"port\":\"21\",\"mode\":\"ftp\",\"user\":\"\",\"pass\":\"\",\"path\":\"\"}},\"browsersync\":{\"proxy\":\"\",\"port\":\"\",\"open\":\"\",\"notify\":\"\"}}", function (err) {
+            var json_data =
+`{
+    "ftp": {
+        "dev": {
+            "host": "",
+            "port": "21",
+            "mode": "ftp",
+            "user": "",
+            "pass": "",
+            "path": ""
+        },
+        "dist": {
+            "host": "",
+            "port": "21",
+            "mode": "ftp",
+            "user": "",
+            "pass": "",
+            "path": ""
+        }
+    },
+    "browsersync": {
+        "proxy":  "",
+        "port":   "",
+        "open":   "",
+        "notify": ""
+    }
+}\n`;
+
+            fs.writeFile("./config.json", json_data, function (err) {
                 configureFTP(function() {
                   configureBrowsersync();
                 });
