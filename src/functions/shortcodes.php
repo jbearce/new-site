@@ -23,7 +23,7 @@ add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
 // add row shortcode
 function new_site_row_shortcode($atts, $content = null) {
     // return the tab wrapper with the menu
-    return "<div class='row -padded{$class}'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
+    return "<div class='user-content_row row -padded'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
 }
 add_shortcode("row", "new_site_row_shortcode");
 
@@ -31,13 +31,21 @@ add_shortcode("row", "new_site_row_shortcode");
 function new_site_col_shortcode($atts , $content = null) {
     extract(shortcode_atts(
 		array(
-			"width" => "",
+			"default_width"  => "",
+			"tablet_width"   => "",
+            "notebook_width" => "",
+			"desktop_width"  => "",
+            "variant"        => "",
 		), $atts)
 	);
 
-    $class = $width ? " {$width}" : "";
+    $class =  $default_width  ? "-{$default_width}" :        "";
+    $class .= $tablet_width   ? " col-xs-{$tablet_width}" :  "";
+    $class .= $notebook_width ? " col-l-{$notebook_width}" : "";
+    $class .= $desktop_width  ? " col-xl-{$desktop_width}" : "";
+    $class .= $variant ? " $variant" : "";
 
     // return the tab wrapper with the menu
-    return "<div class='col{$class} -shortcode'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
+    return "<div class='col{$class}'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
 }
 add_shortcode("col", "new_site_col_shortcode");
