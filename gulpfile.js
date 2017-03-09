@@ -61,6 +61,8 @@ var gulp         = require("gulp"),                                             
     ftp  = require("vinyl-ftp"),                                                // FTP client
     sftp = require("gulp-sftp"),                                                // SFTP client
 
+    /* STOP! These settings should always be blank! */
+    /* To configure FTP credentials, run gulp ftp   */
     ftpHost = "",                                                               // FTP hostname (leave blank)
     ftpPort = "",                                                               // FTP port (leave blank)
     ftpMode = "",                                                               // FTP mode (leave blank)
