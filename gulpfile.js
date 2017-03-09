@@ -116,10 +116,10 @@ var on_error = function(err) {
 
 // media task, compresses images, copies other media
 gulp.task("media", function () {
-    "use strict";
-
-    // set media directories
+    // set media directory
     var media_directory = argv.cist ? dist + "/assets/media" : dev + "/assets/media";
+
+    // set screenshot directory
     var screenshot_directory = argv.dist ? dist : dev;
 
     // clean directories if --dist is passed
@@ -174,8 +174,6 @@ gulp.task("media", function () {
 
 // scripts task, lints, concatenates, & compresses JS
 gulp.task("scripts", function () {
-    "use strict";
-
     // set JS directory
     var js_directory = argv.dist ? dist + "/assets/scripts/" : dev + "/assets/scripts";
 
@@ -260,8 +258,6 @@ gulp.task("scripts", function () {
 
 // styles task, compiles & prefixes SCSS
 gulp.task("styles", function () {
-    "use strict";
-
     // check whether or not to generate critical CSS;
     var generate_critical = false;
 
@@ -323,8 +319,6 @@ gulp.task("styles", function () {
 
 // html task, copies binaries, converts includes & variables in HTML
 gulp.task("html", function () {
-    "use strict";
-
     // set HTML directory
     var html_directory = argv.dist ? dist : dev;
 
@@ -405,8 +399,6 @@ gulp.task("html", function () {
 });
 
 gulp.task("init", function () {
-    "use strict";
-
     return gulp.src(src + "/**/*")
         // check if a file is a binary
         .pipe(is_binary())
@@ -428,8 +420,6 @@ gulp.task("init", function () {
 
 // config task, generate configuration file for FTP & BrowserSync and prompt dev for input
 gulp.task("config", function (cb) {
-    "use strict";
-
     // generate config.json and start other functions
     fs.stat("./config.json", function (err, stats) {
         if (err !== null) {
@@ -643,8 +633,6 @@ gulp.task("config", function (cb) {
 
 // ftp task, upload to FTP environment, depends on config
 gulp.task("ftp", ["config"], function() {
-    "use strict";
-
     // set FTP directory
     var ftp_directory = argv.dist ? dist : dev;
 
@@ -687,8 +675,6 @@ gulp.task("ftp", ["config"], function() {
 
 // sync task, set up a browser_sync server, depends on config
 gulp.task("sync", ["config"], function(cb) {
-    "use strict";
-
     browser_sync({
         proxy:  bs_proxy,
         port:   bs_port,
@@ -699,8 +685,6 @@ gulp.task("sync", ["config"], function(cb) {
 
 // default task, runs through everything but dist
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
-    "use strict";
-
     // notify that task is complete
     gulp.src("gulpfile.js")
         .pipe(gulpif(ran_tasks.length, notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
@@ -714,8 +698,6 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
 // watch task, runs through everything but dist, triggers when a file is saved
 gulp.task("watch", function () {
-    "use strict";
-
     // set up a browser_sync server, if --sync is passed
     if (argv.sync) run_sequence("sync");
 
