@@ -340,6 +340,7 @@ gulp.task("html", function () {
                 return;
             }
 
+            // go to next file
             next(null, file);
         }))
         // output to compiled directory
@@ -360,6 +361,7 @@ gulp.task("html", function () {
                 return;
             }
 
+            // go to next file
             next(null, file);
         }))
         // replace variables
@@ -409,6 +411,7 @@ gulp.task("init", function () {
                 return;
             }
 
+            // go to next file
             next(null, file);
         }))
         // remove login HTML code if --remove --login is passed
