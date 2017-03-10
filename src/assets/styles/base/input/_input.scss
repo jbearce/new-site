@@ -69,13 +69,13 @@
     & {
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: remify(6, 12);
+        background-size: remify(10, 12);
         display: inline-block;
-        height: remify(12, 12);
-        margin: remify(0 0 8, 12);
+        height: remify(16, 12);
         margin: 0;
         padding: 0;
-        width: remify(12, 12);
+        vertical-align: middle;
+        width: remify(16, 12);
         // remove styles where possible
         -webkit-appearance: none;
         appearance: none;
@@ -95,8 +95,18 @@
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewbox='0 0 32 32'%3E%3Cpath d='M29.9,8c1.4,2.5,2.1,5.1,2.1,8s-0.7,5.6-2.1,8s-3.4,4.4-5.8,5.8S18.9,32,16,32c-2.9,0-5.6-0.7-8-2.1S3.6,26.5,2.1,24,C0.7,21.6,0,18.9,0,16s0.7-5.6,2.1-8C3.6,5.5,5.5,3.6,8,2.1S13.1,0,16,0c2.9,0,5.6,0.7,8,2.1S28.4,5.5,29.9,8z' /%3E%3C/svg%3E");
     }
 
-    & > .text.-label,
     & + .text.-label {
         display: inline-block;
+    }
+}
+
+// touch checkbox & radiobutton variants
+
+@media (pointer: coarse) {
+    .input.-checkbox,
+    .input.-radiobutton {
+        & {
+            font-size: remify(24, 16);
+        }
     }
 }

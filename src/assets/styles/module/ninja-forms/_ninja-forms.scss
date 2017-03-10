@@ -112,6 +112,17 @@
     }
 }
 
+// touch list field fix
+
+@media (pointer: coarse) {
+    .nf-field-container {
+        .list-checkbox-wrap ul li:not(:last-child) .text.-label,
+        .list-radio-wrap ul li:not(:last-child) .text.-label {
+            margin-bottom: remify(24, 16);
+        }
+    }
+}
+
 // stars field fix
 
 .nf-field-container {
