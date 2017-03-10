@@ -126,6 +126,23 @@ function new_site_show_template($template) {
 }
 add_action("template_include", "new_site_show_template");
 
+// fix shortcode formatting
+function new_site_fix_shortcodes($content) {
+	$array = array (
+		"<p>["         => "[",
+		"]</p>"        => "]",
+		"]<br />"      => "]",
+        "<p>&#91;"     => "[",
+        "&#93;</p>"    => "]",
+        "&#93;<br />"  => "]",
+	);
+	$content = strtr($content, $array);
+
+    return $content;
+}
+add_filter("the_content", "new_site_fix_shortcodes");
+add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
+
 // remove dimensions from thumbnails
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);

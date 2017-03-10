@@ -3,23 +3,6 @@
  * Functions: Shortcodes
 \* ------------------------------------------------------------------------ */
 
-// fix shortcode formatting
-function new_site_fix_shortcodes($content) {
-	$array = array (
-		"<p>["         => "[",
-		"]</p>"        => "]",
-		"]<br />"      => "]",
-        "<p>&#91;"     => "[",
-        "&#93;</p>"    => "]",
-        "&#93;<br />"  => "]",
-	);
-	$content = strtr($content, $array);
-
-    return $content;
-}
-add_filter("the_content", "new_site_fix_shortcodes");
-add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
-
 // add row shortcode
 function new_site_row_shortcode($atts, $content = null) {
     // return the tab wrapper with the menu
