@@ -125,57 +125,11 @@
     & {
         flex-basis: auto;
     }
+}
 
-    &-0 {
-        flex-basis: (0 / 12) * 100%;
-    }
-
-    &-1 {
-        flex-basis: (1 / 12) * 100%;
-    }
-
-    &-2 {
-        flex-basis: (2 / 12) * 100%;
-    }
-
-    &-3 {
-        flex-basis: (3 / 12) * 100%;
-    }
-
-    &-4 {
-        flex-basis: (4 / 12) * 100%;
-    }
-
-    &-5 {
-        flex-basis: (5 / 12) * 100%;
-    }
-
-    &-6 {
-        flex-basis: (6 / 12) * 100%;
-    }
-
-    &-7 {
-        flex-basis: (7 / 12) * 100%;
-    }
-
-    &-8 {
-        flex-basis: (8 / 12) * 100%;
-    }
-
-    &-9 {
-        flex-basis: (9 / 12) * 100%;
-    }
-
-    &-10 {
-        flex-basis: (10 / 12) * 100%;
-    }
-
-    &-11 {
-        flex-basis: (11 / 12) * 100%;
-    }
-
-    &-12 {
-        flex-basis: (12 / 12) * 100%;
+@for $i from 0 through 12 {
+    .col-#{$i} {
+        flex-basis: ($i / 12) * 100%;
     }
 }
 
@@ -184,57 +138,11 @@
         & {
             flex-basis: auto;
         }
+    }
 
-        &-0 {
-            flex-basis: (0 / 12) * 100%;
-        }
-
-        &-1 {
-            flex-basis: (1 / 12) * 100%;
-        }
-
-        &-2 {
-            flex-basis: (2 / 12) * 100%;
-        }
-
-        &-3 {
-            flex-basis: (3 / 12) * 100%;
-        }
-
-        &-4 {
-            flex-basis: (4 / 12) * 100%;
-        }
-
-        &-5 {
-            flex-basis: (5 / 12) * 100%;
-        }
-
-        &-6 {
-            flex-basis: (6 / 12) * 100%;
-        }
-
-        &-7 {
-            flex-basis: (7 / 12) * 100%;
-        }
-
-        &-8 {
-            flex-basis: (8 / 12) * 100%;
-        }
-
-        &-9 {
-            flex-basis: (9 / 12) * 100%;
-        }
-
-        &-10 {
-            flex-basis: (10 / 12) * 100%;
-        }
-
-        &-11 {
-            flex-basis: (11 / 12) * 100%;
-        }
-
-        &-12 {
-            flex-basis: (12 / 12) * 100%;
+    @for $i from 0 through 12 {
+        .col-xs-#{$i} {
+            flex-basis: ($i / 12) * 100%;
         }
     }
 }
@@ -244,57 +152,11 @@
         & {
             flex-basis: auto;
         }
+    }
 
-        &-0 {
-            flex-basis: (0 / 12) * 100%;
-        }
-
-        &-1 {
-            flex-basis: (1 / 12) * 100%;
-        }
-
-        &-2 {
-            flex-basis: (2 / 12) * 100%;
-        }
-
-        &-3 {
-            flex-basis: (3 / 12) * 100%;
-        }
-
-        &-4 {
-            flex-basis: (4 / 12) * 100%;
-        }
-
-        &-5 {
-            flex-basis: (5 / 12) * 100%;
-        }
-
-        &-6 {
-            flex-basis: (6 / 12) * 100%;
-        }
-
-        &-7 {
-            flex-basis: (7 / 12) * 100%;
-        }
-
-        &-8 {
-            flex-basis: (8 / 12) * 100%;
-        }
-
-        &-9 {
-            flex-basis: (9 / 12) * 100%;
-        }
-
-        &-10 {
-            flex-basis: (10 / 12) * 100%;
-        }
-
-        &-11 {
-            flex-basis: (11 / 12) * 100%;
-        }
-
-        &-12 {
-            flex-basis: (12 / 12) * 100%;
+    @for $i from 0 through 12 {
+        .col-l-#{$i} {
+            flex-basis: ($i / 12) * 100%;
         }
     }
 }
@@ -304,57 +166,11 @@
         & {
             flex-basis: auto;
         }
+    }
 
-        &-0 {
-            flex-basis: (0 / 12) * 100%;
-        }
-
-        &-1 {
-            flex-basis: (1 / 12) * 100%;
-        }
-
-        &-2 {
-            flex-basis: (2 / 12) * 100%;
-        }
-
-        &-3 {
-            flex-basis: (3 / 12) * 100%;
-        }
-
-        &-4 {
-            flex-basis: (4 / 12) * 100%;
-        }
-
-        &-5 {
-            flex-basis: (5 / 12) * 100%;
-        }
-
-        &-6 {
-            flex-basis: (6 / 12) * 100%;
-        }
-
-        &-7 {
-            flex-basis: (7 / 12) * 100%;
-        }
-
-        &-8 {
-            flex-basis: (8 / 12) * 100%;
-        }
-
-        &-9 {
-            flex-basis: (9 / 12) * 100%;
-        }
-
-        &-10 {
-            flex-basis: (10 / 12) * 100%;
-        }
-
-        &-11 {
-            flex-basis: (11 / 12) * 100%;
-        }
-
-        &-12 {
-            flex-basis: (12 / 12) * 100%;
+    @for $i from 0 through 12 {
+        .col-l-#{$i} {
+            flex-basis: ($i / 12) * 100%;
         }
     }
 }
