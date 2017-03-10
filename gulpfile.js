@@ -16,12 +16,12 @@ var gulp         = require("gulp"),                                             
             alias: "experimental",
             type:  "array",
         },
-        "s": {
-            alias: "sync",
+        "f": {
+            alias: "ftp",
             type:  "boolean",
         },
-        "u": {
-            alias: "ftp",
+        "s": {
+            alias: "sync",
             type:  "boolean",
         },
     }).argv,
