@@ -9,12 +9,13 @@ function new_site_json_sitemap() {
         $urls = array();
 
         /* get one 404 URL */
+        /* doesn't play nice with critical */
 
-        $urls[] = home_url() . "/" . uniqid();
+        // $urls["404.php"] = home_url() . "/" . uniqid();
 
         /* get one search URL */
 
-        $urls[] = home_url() . "/?s=" . urlencode(get_bloginfo("name"));
+        $urls["search.php"] = home_url() . "/?s=" . urlencode(get_bloginfo("name"));
 
         /* get one URL for each post template */
 
@@ -59,12 +60,12 @@ function new_site_json_sitemap() {
                 }
 
                 // add the URL to the URLs array
-                $urls[] = $current_post_link;
+                $urls[$current_post_template] = $current_post_link;
 
                 // check if the current post type archive link has already been linked
                 if ($current_post_type_archive_link && !in_array($current_post_type_archive_link, $urls)) {
                     // add the URL to the URLs array
-                    $urls[] = preg_match("/\/$/", $current_post_type_archive_link) ? $current_post_type_archive_link : $current_post_type_archive_link . "/";
+                    $urls["archive-" . $current_post_type . ".php"] = preg_match("/\/$/", $current_post_type_archive_link) ? $current_post_type_archive_link : $current_post_type_archive_link . "/";
                 }
             }
         }
@@ -104,7 +105,7 @@ function new_site_json_sitemap() {
                     }
 
                     // add the URL to the URLs array
-                    $urls[] = $current_taxonomy_link;
+                    $urls[$current_taxonomy_template] = $current_taxonomy_link;
                 }
             }
         }

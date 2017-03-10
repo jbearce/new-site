@@ -116,16 +116,37 @@ var on_error = function(err) {
 
 // function to generate critical CSS
 function generate_critical_css(css_directory) {
-    if (css_directory) {
-        critical.generate({
-            base:   css_directory,
-            src:    homepage + "?critical=false",
-            dest:   "critical.css",
-            height: 1080,
-            width:  1920,
-            minify: true,
-        });
-    }
+    var sitemap = new EventEmitter();
+
+    request(homepage + "?sitemap=true", function(error, response, data) {
+        // attempt to parse the sitemap
+        try {
+            sitemap.data = JSON.parse(data);
+        } catch(e) {
+            sitemap.data = false;
+        }
+
+        // trigger the rest of the task
+        sitemap.emit("update");
+    });
+
+    // wait for the sitemap to download
+    sitemap.on("update", function() {
+        // loop through all the links
+        for (var template in sitemap.data) {
+            // make sure the key isn't a prototype
+            if (sitemap.data.hasOwnProperty(template)) {
+                // generate the critial CSS
+                critical.generate({
+                    base:       css_directory,
+                    dest:       "critical_" + template.replace(/\.php$/i, "") + ".css",
+                    dimensions: [1920, 1080],
+                    minify:     true,
+                    src:        sitemap.data[template] + "?critical=false",
+                });
+            }
+        }
+    });
 }
 
 // media task, compresses images, copies other media
@@ -281,6 +302,10 @@ gulp.task("styles", function () {
     // clean directory if --dist is passed
     if (argv.dist) del(css_directory + "/**/*");
 
+    if (argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical")) {
+        generate_critical_css(css_directory);
+    }
+
     // process all SCSS in root styles directory
     return gulp.src([src + "/assets/styles/*.scss"])
         // prevent breaking on error
@@ -302,12 +327,12 @@ gulp.task("styles", function () {
             html: homepage
         })))
         // generate critical CSS
-        .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
-            generate_critical_css(css_directory);
-
-            // go to next file
-            next(null, file);
-        })))
+        // .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
+        //     generate_critical_css(css_directory);
+        //
+        //     // go to next file
+        //     next(null, file);
+        // })))
         // output to compiled directory
         .pipe(gulp.dest(css_directory))
         // reload files
