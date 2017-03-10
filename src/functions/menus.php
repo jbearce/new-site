@@ -143,6 +143,10 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
         // add a toggle button
         $toggle = "";
+        
+        if (in_array("accordion", $params) && !in_array("hover", $params)) {
+            $toggle .= "<button class='menu-list_toggle'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
+        }
 
         if (in_array("touch", $params) && !($this->is_mega && $depth > 0) && !in_array("accordion", $params)) {
             $toggle .= "<button class='menu-list_toggle _touch'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
@@ -151,11 +155,6 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         if (in_array("hover", $params) && !($this->is_mega && $depth > 0) && !in_array("accordion", $params)) {
             $variant = in_array("touch", $params) ? " _mouse" : "";
             $toggle .= "<button class='menu-list_toggle _visuallyhidden{$variant}'>" . __("Toggle children", "new_site") . "</button>";
-        }
-
-        if (in_array("accordion", $params) && !in_array("hover", $params)) {
-            $variant = in_array("touch", $params) ? " _touch" : "";
-            $toggle .= "<button class='menu-list_toggle{$variant}'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
         // add a -tier class indicting the depth
