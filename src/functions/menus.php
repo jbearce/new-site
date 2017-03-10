@@ -143,8 +143,8 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
         // add a toggle button
         $toggle = "";
-        
-        if (in_array("accordion", $params) && !in_array("hover", $params)) {
+
+        if (in_array("accordion", $params) && !in_array("touch", $params) && !in_array("hover", $params)) {
             $toggle .= "<button class='menu-list_toggle'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
