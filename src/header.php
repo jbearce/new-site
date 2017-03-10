@@ -1,14 +1,24 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
 	<head>
+        <!-- settings -->
+        <meta content="text/html;charset=utf-8" http-equiv="content-type" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+
+        <!-- SEO -->
+        <title><?php wp_title("|", true, "right"); ?></title>
+
 		<!-- WordPress -->
 		<?php wp_head(); ?>
+
         <!-- Android -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-favicon.png" rel="shortcut icon" />
         <meta name="theme-color" content="@@theme_color">
+
         <!-- iOS -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-ios.png" rel="apple-touch-icon" />
         <meta name="apple-mobile-web-app-status-bar-style" content="@@theme_color">
+
         <!-- Windows -->
         <meta content="no" name="msapplication-tap-highlight" />
         <meta name="msapplication-navbutton-color" content="@@theme_color">
@@ -19,25 +29,42 @@
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-wide.png" name="msapplication-wide310x150logo" />
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-large.png" name="msapplication-square310x310logo" />
         <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=5; cycle=1" name="msapplication-notification" />
+
         <!-- PWA -->
         <link href="<?php bloginfo("template_directory"); ?>/manifest.json" rel="manifest" />
-        <!-- settings -->
-        <meta content="text/html;charset=utf-8" http-equiv="content-type" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <!-- SEO -->
-        <title><?php wp_title("|", true, "right"); ?></title>
-		<!-- styles -->
-        <?php if (file_exists (get_template_directory() . "/assets/styles/critical.css")): ?>
+
+        <!-- styles -->
+        <?php $enable_critical_css = !$_GET["critical"] && file_exists (get_template_directory() . "/assets/styles/critical.css") ? true : false; ?>
+
+        <?php if ($enable_critical_css): ?>
 		<style><?php include(get_template_directory() . "/assets/styles/critical.css"); ?></style>
         <?php endif; ?>
-		<link as="style" href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
+
+        <?php if ($enable_critical_css): ?>
+        <link as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
 		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
-		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" media="print" rel="stylesheet" />
-		<noscript>
-		<link href="//fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
-		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" rel="stylesheet" />
-		</noscript>
-		<!-- fallback -->
+		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" onload="this.rel='stylesheet'" rel="preload" media="print" />
+        <?php endif; ?>
+
+        <?php if ($enable_critical_css): ?>
+        <noscript>
+        <?php endif; ?>
+
+            <?php if ($enable_critical_css): ?>
+    		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
+            <?php endif; ?>
+
+            <link href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" rel="stylesheet" />
+
+            <?php if ($enable_critical_css): ?>
+    		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" rel="stylesheet" />
+            <?php endif; ?>
+
+        <?php if ($enable_critical_css): ?>
+        </noscript>
+        <?php endif; ?>
+
+        <!-- fallback -->
 		<!--[if lte IE 9]>
 		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
         <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>

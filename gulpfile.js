@@ -114,6 +114,20 @@ var on_error = function(err) {
     this.emit("end");
 };
 
+// function to generate critical CSS
+function generate_critical_css(css_directory) {
+    if (css_directory) {
+        critical.generate({
+            base:   css_directory,
+            src:    homepage + "?critical=false",
+            dest:   "critical.css",
+            height: 1080,
+            width:  1920,
+            minify: true,
+        });
+    }
+}
+
 // media task, compresses images, copies other media
 gulp.task("media", function () {
     // set media directory
@@ -289,18 +303,7 @@ gulp.task("styles", function () {
         })))
         // generate critical CSS
         .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
-            if (!generate_critical) {
-                generate_critical = true;
-
-                critical.generate({
-                    base:   css_directory,
-                    src:    homepage,
-                    dest:   "critical.css",
-                    height: 900,
-                    width:  1280,
-                    minify: true,
-                });
-            }
+            generate_critical_css(css_directory);
 
             // go to next file
             next(null, file);
