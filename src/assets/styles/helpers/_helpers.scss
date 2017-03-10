@@ -93,6 +93,7 @@
     text-shadow: none !important;
     text-transform: none !important;
     top: -999em !important;
+    white-space: nowrap;
     width: auto !important;
 }
 
@@ -124,7 +125,7 @@
 }
 
 // when pointer is inprecise (touch)
-@media (pointer: fine) {
+@media (pointer: course) {
     ._mouse {
         display: none !important;
     }
