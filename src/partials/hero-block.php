@@ -63,7 +63,7 @@ if (is_home() && !$title) {
                                 <figcaption class="swiper-caption">
                                     <div class="swiper-caption-inner">
                                         <?php if ($img_title): ?>
-                                        <h6 class="swiper-title title"><?php echo $img_title; ?></h6>
+                                        <h6 class="swiper-title title<?php echo !$img_caption ? " _nomargin" : ""; ?>"><?php echo $img_title; ?></h6>
                                         <?php endif; ?>
                                         <?php if ($img_caption): ?>
                                         <div class="swiper-user-content user-content -dark"><?php echo wpautop($img_caption); ?></div>
@@ -100,7 +100,7 @@ if (is_home() && !$title) {
                         <?php if ($title): ?>
                         <header class="swiper-caption">
                             <div class="swiper-caption-inner">
-                                <h1 class="swiper-title title" role="heading"><?php echo $title; ?></h1>
+                                <h1 class="swiper-title title _nomargin" role="heading"><?php echo $title; ?></h1>
                             </div><!--/.swiper-caption-inner-->
                         </header>
                         <?php endif; // if ($title) ?>

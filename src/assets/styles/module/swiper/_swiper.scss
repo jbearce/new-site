@@ -47,7 +47,7 @@
     & {
         background: $dark;
         flex: 1 1 auto;
-        padding: remify($content-padding);
+        padding: remify(($content-padding * 0.5) $content-padding);
     }
 
     .swiper-container.-fullbleed & .swiper-caption-inner {

@@ -15,7 +15,7 @@
         background: $dark_alt;
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(($content-padding * 1.25) $content-padding);
+        padding: remify(($content-padding * 0.5) $content-padding);
     }
 }
 
@@ -24,7 +24,7 @@
 .navigation-block.-fullbleed {
     & {
         background: $dark_alt;
-        padding: remify(($content-padding * 1.25) $content-padding);
+        padding: remify(($content-padding * 0.5) $content-padding);
     }
 
     > .navigation_inner {
