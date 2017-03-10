@@ -116,9 +116,16 @@
 
 /* visibility classes */
 
-// when pointer is precise
+// when pointer is precise (mouse)
 @media (pointer: fine) {
     ._touch {
+        display: none !important;
+    }
+}
+
+// when pointer is inprecise (touch)
+@media (pointer: fine) {
+    ._mouse {
         display: none !important;
     }
 }
