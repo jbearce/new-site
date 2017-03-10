@@ -142,7 +142,8 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         $params = explode(" ", $this->params);
 
         // add a toggle button if the buttons paramater is passed
-        $toggle = in_array("accordion", $params) ? "<button class='menu-list_toggle'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "daviess_county") . "</span></button>" : (in_array("hover", $params) || in_array("touch", $params) && !($this->is_mega && $depth > 0) ? "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children", "daviess_county") . "</button>" : "");
+        $toggle_variant = in_array("touch", $params) ? " _touch" : "";
+        $toggle = "<button class='menu-list_toggle{$toggle_variant}'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "daviess_county") . "</span></button>";
 
         // add a -tier class indicting the depth
         $variant = "-tier1";

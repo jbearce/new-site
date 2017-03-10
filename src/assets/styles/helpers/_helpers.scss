@@ -116,6 +116,13 @@
 
 /* visibility classes */
 
+// when pointer is precise
+@media (pointer: fine) {
+    ._touch {
+        display: none !important;
+    }
+}
+
 // when printing
 @media print {
     ._noprint {
