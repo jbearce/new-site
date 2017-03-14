@@ -36,7 +36,7 @@
         <!-- styles -->
         <?php global $template; ?>
 
-        <?php $enable_critical_css = ($_GET["disable_critical_css"] !== "true" && $_COOKIE["previously_visited"] !== true && file_exists(get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css")) || $_GET["debug"] === "critical_css" ? true : false; ?>
+        <?php $enable_critical_css = ($_GET["disable_critical_css"] !== "true" && $_COOKIE["previously_visited"] !== "true" && file_exists(get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css")) || $_GET["debug"] === "critical_css" ? true : false; ?>
 
         <?php if ($enable_critical_css): ?>
 

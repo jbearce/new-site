@@ -40,12 +40,12 @@
         <?php wp_footer(); ?>
         <script defer="defer" src="<?php bloginfo("template_directory"); ?>/assets/scripts/modern.js"></script>
         <script><?php include(get_template_directory() . "/assets/scripts/critical.js"); ?></script>
-        <?php if ($_COOKIE["previously_visited"] !== true): ?>
+        <?php if ($_COOKIE["previously_visited"] !== "true"): ?>
         <script>
         var httpRequest = new XMLHttpRequest();
         httpRequest.open("GET", "<?php echo home_url(); ?>?cookie=previously_visited&expiration=604800");
         httpRequest.send();
         </script>
-        <?php endif; // if ($_COOKIE["previously_visited"] != true) ?>
+        <?php endif; // if ($_COOKIE["previously_visited"] !== 1) ?>
     </body>
 </html>

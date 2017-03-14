@@ -6,14 +6,15 @@
 // set cookie when a query string gets passed
 function new_site_set_cookie() {
     $cookie = $_GET["cookie"];
-    $expires = $_GET["expiration"] ? time() + $_GET["expires"] : time() + 604800;
+    $expiration = $_GET["expiration"] ? time() + $_GET["expiration"] : time() + 604800;
+
 
     if ($cookie) {
-        setcookie($cookie, true, $expires); // expires in 1 week by default
+        setcookie($cookie, "true", $expiration); // expires in 1 week by default
         exit;
     }
 }
-add_filter("init", "new_site_set_cookie", 10);
+add_action("init", "new_site_set_cookie", 10);
 
 // fix shortcode formatting
 function new_site_fix_shortcodes($content) {
