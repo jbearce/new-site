@@ -3,6 +3,18 @@
   "version": "0.0.1",
   "description": "A brand new WordPress theme built just for new-site!",
   "homepage": "SITEDOMAIN",
+  "template-sitemap": {
+    "404": "TEMPLATEURL404",
+    "archive": "TEMPLATEURLARCHIVE",
+    "front-page": "TEMPLATEURLFRONTPAGE",
+    "home": "TEMPLATEURLHOME",
+    "index": "TEMPLATEURLINDEX",
+    "page": "TEMPLATEURLPAGE",
+    "search": "TEMPLATEURLSEARCH",
+    "single": "TEMPLATEURLSINGLE",
+    "archive-tribe_events": "TEMPLATEURLARCHIVETRIBEEVENTS",
+    "single-tribe_events": "TEMPLATEURLSINGLETRIBEEVENTS"
+  },
   "progressive-web-app": {
     "name": "new-site",
     "short_name": "new-site",
@@ -26,7 +38,6 @@
     "browser-sync": "^2.12.5",
     "critical": "^0.8.3",
     "del": "^2.2.0",
-    "events": "^1.1.1",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-concat": "^2.6.0",

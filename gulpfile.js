@@ -6,7 +6,6 @@
 
 // general stuff
 var gulp         = require("gulp"),                                             // gulp
-    EventEmitter = require("events").EventEmitter,                              // emit events
     argv         = require("yargs").options({                                   // set up yargs
         "d": {
             alias: "dist",
@@ -116,37 +115,24 @@ var on_error = function(err) {
 
 // function to generate critical CSS
 function generate_critical_css(css_directory) {
-    var sitemap = new EventEmitter();
+    var sitemap = json.read("./package.json").get("template-sitemap");
 
-    request(homepage + "?sitemap=true", function(error, response, data) {
-        // attempt to parse the sitemap
-        try {
-            sitemap.data = JSON.parse(data);
-        } catch(e) {
-            sitemap.data = false;
+    console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minutes, go take a coffee break.");
+
+    // loop through all the links
+    for (var template in sitemap) {
+        // make sure the key isn't a prototype
+        if (sitemap.hasOwnProperty(template)) {
+            // generate the critial CSS
+            critical.generate({
+                base:       css_directory,
+                dest:       "critical_" + template + ".css",
+                dimensions: [1920, 1080],
+                minify:     true,
+                src:        sitemap[template] + "?disable_critical_css=true",
+            });
         }
-
-        // trigger the rest of the task
-        sitemap.emit("update");
-    });
-
-    // wait for the sitemap to download
-    sitemap.on("update", function() {
-        // loop through all the links
-        for (var template in sitemap.data) {
-            // make sure the key isn't a prototype
-            if (sitemap.data.hasOwnProperty(template)) {
-                // generate the critial CSS
-                critical.generate({
-                    base:       css_directory,
-                    dest:       "critical_" + template.replace(/\.php$/i, "") + ".css",
-                    dimensions: [1920, 1080],
-                    minify:     true,
-                    src:        sitemap.data[template] + "?critical=false",
-                });
-            }
-        }
-    });
+    }
 }
 
 // media task, compresses images, copies other media
