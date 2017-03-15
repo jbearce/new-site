@@ -14,6 +14,7 @@
     & > [class*="col-"] {
         flex-grow: 1;
         flex-shrink: 1;
+        min-width: 0;
     }
 
     & > .col.-nogrow,
@@ -169,7 +170,7 @@
     }
 
     @for $i from 0 through 12 {
-        .col-l-#{$i} {
+        .col-xl-#{$i} {
             flex-basis: ($i / 12) * 100%;
         }
     }
