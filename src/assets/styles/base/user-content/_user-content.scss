@@ -76,6 +76,11 @@
         padding-left: remify(18, 12);
     }
 
+    .table_container {
+        overflow: auto;
+        width: 100%;
+    }
+
     table {
         border-collapse: collapse;
         width: 100%;

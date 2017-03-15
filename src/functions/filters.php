@@ -33,16 +33,25 @@ function new_site_fix_shortcodes($content) {
 add_filter("the_content", "new_site_fix_shortcodes");
 add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
 
+// wrap tables in a div
+function new_site_wrap_tables($content) {
+    $content = preg_replace("/(<table(?:.|\n)*?<\/table>)/im", "<div class='table_container'>$1</div>", $content);
+
+    return $content;
+}
+add_filter("the_content", "new_site_wrap_tables");
+add_filter("acf_the_content", "new_site_wrap_tables");
+
 // remove dimensions from thumbnails
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
-    $html = preg_replace('/(width|height)=\"\d*\"\s/', "", $html);
+    $html = preg_replace('/(width|height)=\"\d*\"\s/im', "", $html);
     return $html;
 }
 add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
 
 // add rel="noopener" to external links
 function new_site_rel_noopener($content) {
-    $content = preg_replace("/(<a )(?!.*(?<= )rel=(?:'|\"))(.[^>]*>)/i", "$1 rel=\"noopener\"$2", $content);
+    $content = preg_replace("/(<a )(?!.*(?<= )rel=(?:'|\"))(.[^>]*>)/im", "$1 rel=\"noopener\"$2", $content);
 
     return $content;
 }
@@ -70,7 +79,7 @@ function new_site_tribe_events_the_month_link($html) {
 add_filter("tribe_events_the_next_month_link", "new_site_tribe_events_the_month_link");
 add_filter("tribe_events_the_previous_month_link", "new_site_tribe_events_the_month_link");
 
-// diable Tribe Events ical links (since I can't re-style them)
+// disable Tribe Events ical links (since I can't re-style them)
 function new_site_tribe_events_list_show_ical_link() {
     return false;
 }
