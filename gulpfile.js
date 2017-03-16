@@ -713,7 +713,7 @@ gulp.task("watch", function () {
 
     // watch for any changes
     watch("./src/**/*", function () {
-        // run through all tasks, then ftp, if --ftp is passed
+        // run through all tasks
         run_sequence("default");
     });
 });
