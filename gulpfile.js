@@ -53,14 +53,15 @@ var gulp         = require("gulp"),                                             
     uglify = require("gulp-uglify"),                                            // uglifier
 
     // CSS stuff
-    critical     = require("critical"),                                         // critical CSS creator
     sass         = require("gulp-sass"),                                        // SCSS compiler
     postcss      = require("gulp-postcss"),                                     // postcss
     postscss     = require("postcss-scss"),                                     // postcss SCSS parser
     bgimage      = require("postcss-bgimage"),                                  // remove backgrond images to improve Critical CSS
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
-    flexibility  = require("postcss-flexibility"),                              // flexibility
-    uncss        = require("gulp-uncss"),                                       // remove unused CSS
+    flexibility  = require("postcss-flexibility"),                              // flexbox polyfill for legacy browsers
+    pixrem       = require("gulp-pixrem"),                                      // automatically add px fallback from rems for legacy browsesr
+    critical     = require("critical"),                                         // critical CSS creator (experimental)
+    uncss        = require("gulp-uncss"),                                       // remove unused CSS (experimental)
 
     // FTP stuff
     ftp  = require("vinyl-ftp"),                                                // FTP client
@@ -306,19 +307,14 @@ gulp.task("styles", function () {
         .pipe(autoprefixer("last 2 version", "ie 8", "ie 9"))
         // insert -js-display: flex; for flexbility
         .pipe(postcss([flexibility()]))
+        // insert px fallback for rems
+        .pipe(pixrem())
         // write sourcemap (if --dist isn't passed)
         .pipe(gulpif(!argv.dist, sourcemaps.write()))
         // remove unused CSS
         .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("uncss") && sitemap.data !== false, uncss({
             html: homepage
         })))
-        // generate critical CSS
-        // .pipe(gulpif(argv.experimental && argv.experimental.length > 0 && argv.experimental.includes("critical"), through.obj(function(file, enc, next) {
-        //     generate_critical_css(css_directory);
-        //
-        //     // go to next file
-        //     next(null, file);
-        // })))
         // output to compiled directory
         .pipe(gulp.dest(css_directory))
         // reload files
