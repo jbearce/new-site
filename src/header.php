@@ -90,7 +90,7 @@
                         "walker"         => new new_site_menu_walker("accordion"),
                     ));
                     ?>
-                </div><!--/.navigation_inner.-flyout-->
+                </div><!--/.navigation_inner-->
     			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
     				<?php _e("Close Menu", "new_site"); ?>
     			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
@@ -125,5 +125,5 @@
                         "walker"         => new new_site_menu_walker("mega hover touch"),
                     ));
                     ?>
-                </div><!--/.navigation_inner._tablet-->
+                </div><!--/.navigation_inner-->
             </div><!--/.navigation-block.-sticky._tablet._notebook._desktop._noprint-->
