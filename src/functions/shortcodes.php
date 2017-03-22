@@ -22,8 +22,8 @@ function new_site_col_shortcode($atts , $content = null) {
 		), $atts)
 	);
 
-    $class =  $default_width  ? "-{$default_width}" :        "";
-    $class .= $tablet_width   ? " col-xs-{$tablet_width}" :  "";
+    $class =  $default_width  ? "-{$default_width}"        : "-auto";
+    $class .= $tablet_width   ? " col-xs-{$tablet_width}"  : "";
     $class .= $notebook_width ? " col-l-{$notebook_width}" : "";
     $class .= $desktop_width  ? " col-xl-{$desktop_width}" : "";
     $class .= $variant ? " $variant" : "";
