@@ -116,9 +116,10 @@ var on_error = function(err) {
 
 // function to generate critical CSS
 function generate_critical_css(css_directory) {
-    var sitemap = json.read("./package.json").get("template-sitemap");
+    var sitemap = json.read("./package.json").get("template-sitemap"),
+        plural  = ((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "";
 
-    console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minutes, go take a coffee break.");
+    console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");
 
     // loop through all the links
     for (var template in sitemap) {
