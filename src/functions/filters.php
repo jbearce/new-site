@@ -16,6 +16,13 @@ function new_site_set_cookie() {
 }
 add_action("init", "new_site_set_cookie", 10);
 
+// add user-content class to TinyMCE body
+function new_site_tinymce_settings($settings) {
+    $settings["body_class"] .= " user-content";
+	return $settings;
+}
+add_filter("tiny_mce_before_init", "new_site_tinymce_settings");
+
 // fix shortcode formatting
 function new_site_fix_shortcodes($content) {
 	$array = array (
@@ -58,18 +65,25 @@ function new_site_rel_noopener($content) {
 add_filter("the_content", "new_site_rel_noopener");
 add_filter("acf_the_content", "new_site_rel_noopener", 12);
 
+// add "Download Adobe Reader" link on all pages that link to PDFs
+function new_site_acrobat_link($content) {
+    preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
+
+    if ($matches) {
+        $content .= "<hr />";
+        $content .= "<p class='_small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "new_site"), "<a href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+    }
+
+    return $content;
+}
+add_filter("the_content", "new_site_acrobat_link");
+add_filter("acf_the_content", "new_site_acrobat_link");
+
 // disable Ninja Forms styles
 function new_site_dequeue_nf_display() {
     wp_dequeue_style("nf-display");
 }
 add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
-
-// add user-content class to TinyMCE body
-function new_site_tinymce_settings($settings) {
-    $settings["body_class"] .= " user-content";
-	return $settings;
-}
-add_filter("tiny_mce_before_init", "new_site_tinymce_settings");
 
 // add button class to Tribe Events month links
 function new_site_tribe_events_the_month_link($html) {
