@@ -92,7 +92,9 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         $title = $item->title;
 
         // retrieve and sanitize the description
-        $description = $item->description ? " <span class='menu-item_description'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
+        $uniqid = uniqid("menu-list_description_");
+        $aria_describedby = $item->description ? " aria-describedby='{$uniqid}'" : "";
+        $description = $item->description ? " <span class='menu-item_description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
 
         /* mega menu stuff */
 
@@ -115,12 +117,13 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
         // construct the menu item
         $output .= sprintf(
-            "<li%s><a class='menu-list_link link' href='%s'%s%s%s>%s</a>",
+            "<li%s><a class='menu-list_link link' href='%s'%s%s%s%s>%s</a>%s",
             $class_names,
             $url,
             $attr_title,
             $target,
             $xfn,
+            $aria_describedby,
             $title,
             $description
         );
