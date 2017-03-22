@@ -10,7 +10,6 @@
         flex-wrap: wrap;
     }
 
-    & > .col,
     & > [class*="col-"] {
         flex-grow: 1;
         flex-shrink: 1;
@@ -126,7 +125,7 @@
     }
 }
 
-.col {
+.col-auto {
     & {
         flex-basis: auto;
     }
@@ -139,7 +138,7 @@
 }
 
 @media screen and (min-width: $xs-break) {
-    .col-xs {
+    .col-xs-auto {
         & {
             flex-basis: auto;
         }
@@ -152,8 +151,36 @@
     }
 }
 
+@media screen and (min-width: $s-break) {
+    .col-s-auto {
+        & {
+            flex-basis: auto;
+        }
+    }
+
+    @for $i from 0 through 12 {
+        .col-s-#{$i} {
+            flex-basis: ($i / 12) * 100%;
+        }
+    }
+}
+
+@media screen and (min-width: $m-break) {
+    .col-m-auto {
+        & {
+            flex-basis: auto;
+        }
+    }
+
+    @for $i from 0 through 12 {
+        .col-m-#{$i} {
+            flex-basis: ($i / 12) * 100%;
+        }
+    }
+}
+
 @media screen and (min-width: $l-break) {
-    .col-l {
+    .col-l-auto {
         & {
             flex-basis: auto;
         }
@@ -167,7 +194,7 @@
 }
 
 @media screen and (min-width: $xl-break) {
-    .col-xl {
+    .col-xl-auto {
         & {
             flex-basis: auto;
         }
