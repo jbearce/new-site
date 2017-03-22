@@ -1,4 +1,4 @@
-            <div class="footer-block" role="footer">
+            <div class="footer-block" role="contentinfo">
                 <div class="footer_inner">
                     <p class="footer_text text _textcenter _nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
                     <?php if (is_front_page()): ?>

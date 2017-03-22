@@ -10,7 +10,7 @@ if (is_home() && !$title) {
 }
 ?>
 <?php if ($slideshow || $featured_image): ?>
-<div class="hero-block -fullbleed _nopadding" role="banner">
+<div class="hero-block -fullbleed _nopadding" role="region">
     <div class="hero_inner -fullbleed">
         <div class="hero_swiper-container swiper-container -fullbleed">
 
