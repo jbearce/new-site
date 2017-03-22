@@ -20,6 +20,22 @@
     }
 }
 
+._dark {
+    color: $dark !important;
+}
+
+._light {
+    color: $light !important;
+}
+
+._big {
+    font-size: 1.25em !important;
+}
+
+._small {
+    font-size: 0.75em !important;
+}
+
 ._bold {
     font-weight: 700 !important;
 }
