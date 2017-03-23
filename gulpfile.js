@@ -140,7 +140,7 @@ function generate_critical_css(css_directory) {
 // media task, compresses images, copies other media
 gulp.task("media", function () {
     // set media directory
-    var media_directory = argv.cist ? dist + "/assets/media" : dev + "/assets/media";
+    var media_directory = argv.dist ? dist + "/assets/media" : dev + "/assets/media";
 
     // set screenshot directory
     var screenshot_directory = argv.dist ? dist : dev;
@@ -285,7 +285,7 @@ gulp.task("styles", function () {
     var generate_critical = false;
 
     // set CSS directory
-    var css_directory = argv.dist ? dist + "/asets/styles" : dev + "/assets/styles";
+    var css_directory = argv.dist ? dist + "/assets/styles" : dev + "/assets/styles";
 
     // clean directory if --dist is passed
     if (argv.dist) del(css_directory + "/**/*");
