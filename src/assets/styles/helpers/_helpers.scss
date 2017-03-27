@@ -140,6 +140,13 @@
     }
 }
 
+// when pointer: fine is not supported
+@supports not (pointer: fine) {
+    ._touch {
+        display: none !important;
+    }
+}
+
 // when pointer is inprecise (touch)
 @media (pointer: course) {
     ._mouse {
