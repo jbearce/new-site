@@ -8,7 +8,7 @@ An awesome new WordPress theme built just for new-site!
 
 If you choose to use this repository as a basis for a new project, please be sure to update all the instances of `YOURNAME @ YOURCOMPANY`, as well as any references to Weblinx, Inc. or my Jacob Bearce anywhere else in the project.
 
-I'd love to see what gets built with this, so feel free to tweet your site @revxx14 :)
+I'd love to see what gets built with this, so feel free to tweet your site @JacobTheDev :)
 
 ## License
 
