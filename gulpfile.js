@@ -689,8 +689,8 @@ gulp.task("sync", ["config"], function(cb) {
     browser_sync({
         proxy:  bs_proxy,
         port:   bs_port,
-        open:   bs_open,
-        notify: bs_notify,
+        open:   bs_open === "true" ? true : (bs_open === "false" ? false : bs_open),
+        notify: bs_notify === "true" ? true : (bs_notify === "false" ? false : bs_notify),
     });
 });
 
