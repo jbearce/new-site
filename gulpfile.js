@@ -51,6 +51,7 @@ var gulp         = require("gulp"),                                             
     // JS stuff
     jshint = require("gulp-jshint"),                                            // linter
     uglify = require("gulp-uglify"),                                            // uglifier
+    babel = require("gulp-babel"),                                              // transpiler
 
     // CSS stuff
     sass         = require("gulp-sass"),                                        // SCSS compiler
@@ -241,6 +242,8 @@ gulp.task("scripts", function () {
         .pipe(sourcemaps.init())
         // concatenate to modern.js
         .pipe(concat("modern.js"))
+        // transpile to es2015
+        .pipe(babel({presets: ["es2015"]}))
         // uglify (if --dist is passed)
         .pipe(gulpif(argv.dist, uglify()))
         // write sourcemap (if --dist isn't passed)
