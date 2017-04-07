@@ -2,8 +2,6 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-/* jshint esversion: 6 */
-
 // general stuff
 var gulp         = require("gulp"),                                             // gulp
     argv         = require("yargs").options({                                   // set up yargs
@@ -49,9 +47,9 @@ var gulp         = require("gulp"),                                             
     pngquant = require("imagemin-pngquant"),                                    // image compressor for PNGs
 
     // JS stuff
-    jshint = require("gulp-jshint"),                                            // linter
+    eslint = require("gulp-eslint"),                                            // linter
     uglify = require("gulp-uglify"),                                            // uglifier
-    babel = require("gulp-babel"),                                              // transpiler
+    babel  = require("gulp-babel"),                                             // transpiler
 
     // CSS stuff
     sass         = require("gulp-sass"),                                        // SCSS compiler
@@ -211,9 +209,9 @@ gulp.task("scripts", function () {
         // check if source is newer than destination
         .pipe(gulpif(!argv.dist, newer(js_directory + "/modern.js")))
         // lint all non-vendor scripts
-        .pipe(jshint())
+        .pipe(eslint())
         // print lint errors
-        .pipe(jshint.reporter("default"));
+        .pipe(eslint.format());
 
     // process critical scripts
     var critical = gulp.src([src + "/assets/scripts/critical/loadCSS.js", src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"])

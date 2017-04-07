@@ -8,10 +8,6 @@
     & {
         @include layer("content");
     }
-
-    .is-fluidboxactive & {
-        position: static;
-    }
 }
 
 .content_inner {
