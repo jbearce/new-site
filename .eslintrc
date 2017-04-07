@@ -9,7 +9,6 @@
     },
     "rules": {
         "curly": [2, "all"],
-        "destructuring": "any", "ignoreReadBeforeAssign": false }],
         "indent": [2, 4],
         "keyword-spacing": [1, { "before": true, "after": true }],
         "linebreak-style": [1, "unix"],
@@ -17,7 +16,7 @@
         "no-var": 2,
         "no-use-before-define": [2, { "functions": true, "classes": true }],
         "object-shorthand": [2, "always"],
-        "prefer-const": [2, {
+        "prefer-const": [2, { "destructuring": "any", "ignoreReadBeforeAssign": false }],
         "quotes": [2, "double"],
         "semi": [2, "always"],
         "semi-spacing": [2, {"before": false, "after": true}],
