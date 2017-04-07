@@ -64,7 +64,7 @@
     }
 }
 
-// center variant
+/* center variant */
 
 .menu-list.-center {
     & {
@@ -78,7 +78,7 @@
     }
 }
 
-// flex variant
+/* flex variant */
 
 .menu-list.-flex {
     & {
@@ -91,7 +91,7 @@
     }
 }
 
-// vertical variant
+/* vertical variant */
 
 .menu-list.-vertical {
     & {
@@ -107,14 +107,14 @@
     }
 }
 
-// tier variant
+/* tier variant */
 
 .menu-list[class*="-tier"] {
     & {
         min-width: 100%;
     }
 
-    // accordion variant
+    /* accordion variant */
 
     &.-accordion {
         max-height: 0;
@@ -130,7 +130,7 @@
         visibility: visible;
     }
 
-    // overlay variant
+    /* overlay variant */
 
     &.-overlay {
         left: -999em;
@@ -149,7 +149,7 @@
         visibility: visible;
     }
 
-    // overlay, reverse variant
+    /* overlay, reverse variant */
 
     &.-overlay.-reverse {
         transition: opacity 0.15s, right 0s 0.15s, top 0s 0.15s;
@@ -163,10 +163,10 @@
     }
 }
 
-// tier1 variant
+/* tier1 variant */
 
 .menu-list.-tier1 {
-    // overlay variant
+    /* overlay variant */
 
     .menu-list_item.-parent:hover > &.-overlay,
     .menu-list_item.-parent.is-active > &.-overlay {
@@ -178,7 +178,7 @@
         transform: rotate(-90deg);
     }
 
-    // overlay, reverse variant
+    /* overlay reverse variant */
 
     &.-overlay.-reverse {
         left: auto;
@@ -196,10 +196,10 @@
     }
 }
 
-// tier2 variant
+/* tier2 variant */
 
 .menu-list.-tier2 {
-    // overlay variant
+    /* overlay variant */
 
     .menu-list_item.-parent:hover > &.-overlay,
     .menu-list_item.-parent.is-active > &.-overlay {
@@ -207,7 +207,7 @@
         top: 0;
     }
 
-    // overlay, reverse variant
+    /* overlay reverse variant */
 
     &.-overlay.-reverse {
         left: auto;
@@ -221,7 +221,7 @@
     }
 }
 
-// mega variant
+/* mega variant */
 
 .menu-list_container.-mega {
     & {
@@ -251,7 +251,7 @@
     }
 }
 
-// navigation variant
+/* navigation variant */
 
 .menu-list.-navigation {
     & {
@@ -340,7 +340,7 @@
     }
 }
 
-// meta variant
+/* meta variant */
 
 .menu-list.-meta {
     & {
@@ -365,7 +365,7 @@
     }
 }
 
-// pagination variant
+/* pagination variant */
 
 .menu-list.-pagination {
     & {

@@ -32,7 +32,7 @@
     }
 }
 
-// Tablet variant
+/* Tablet variant */
 
 @media screen and (min-width: $xs-break) {
     .input {
@@ -40,7 +40,7 @@
     }
 }
 
-// select variant
+/* select variant */
 
 .input.-select {
     & {
@@ -62,7 +62,7 @@
     }
 }
 
-// checkbox & radiobutton variants
+/* checkbox & radiobutton variants */
 
 .input.-checkbox,
 .input.-radiobutton {
@@ -100,7 +100,7 @@
     }
 }
 
-// touch checkbox & radiobutton variants
+/* touch checkbox & radiobutton variants */
 
 @media (pointer: coarse) {
     .input.-checkbox,
