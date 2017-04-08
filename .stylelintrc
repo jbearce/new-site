@@ -10,6 +10,8 @@
         "color-hex-case": "upper",
         "color-hex-length": "long",
         "font-family-name-quotes": "always-unless-keyword",
+        "font-family-no-duplicate-names": true,
+        "font-weight-notation": "numeric",
         "indentation": 4,
         "order/order": [
 			"custom-properties",
