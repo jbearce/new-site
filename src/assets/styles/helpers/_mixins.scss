@@ -8,90 +8,80 @@
 
 @import "../vendor/_angled-edges";
 
-// placeholders
-
-@mixin placeholder {
-    ::-webkit-input-placeholder {@content}
-    :-moz-placeholder {@content}
-    :-ms-input-placeholder {@content}
-    .placeholder {@content}
-}
-
 // nth-child: https://paulund.co.uk/nth-child-sass-mixins
 
 @mixin first-child() {
-  &:first-of-type {
-    @content
-  }
+    &:first-of-type {
+        @content;
+    }
 }
 
 @mixin last-child() {
-  &:last-of-type {
-    @content
-  }
+    &:last-of-type {
+        @content;
+    }
 }
 
-@mixin even(){
-  &:nth-child(even) {
-    @content
-  }
+@mixin even() {
+    &:nth-child(even) {
+        @content;
+    }
 }
 
-@mixin odd(){
-  &:nth-child(odd) {
-    @content
-  }
+@mixin odd() {
+    &:nth-child(odd) {
+        @content;
+    }
 }
 
 @mixin first($num) {
-
-  @if $num == 1 {
-    &:first-child {
-      @content;
+    @if $num == 1 {
+        &:first-child {
+            @content;
+        }
     }
-  }
 
-  @else {
-    &:nth-child(-n + #{$num}) {
-      @content;
+    @else {
+        &:nth-child(-n + #{$num}) {
+            @content;
+        }
     }
-  }
 }
 
 @mixin last($num) {
-   &:nth-last-child(-n + #{$num}) {
-    @content;
-  }
+    &:nth-last-child(-n + #{$num}) {
+        @content;
+    }
 }
 
 @mixin after($num) {
-  &:nth-child(n+#{$num + 1}) {
-    @content
-   }
+    &:nth-child(n+#{$num + 1}) {
+        @content;
+    }
 }
 
 @mixin from-end($num) {
-  &:nth-last-child(#{$num}) {
-   @content
-  }
+    &:nth-last-child(#{$num}) {
+        @content;
+    }
 }
 
 @mixin between($first,$last) {
-  &:nth-child(n+#{$first}):nth-child(-n+#{$last}) {
-    @content
-  }
+    &:nth-child(n+#{$first}):nth-child(-n+#{$last}) {
+        @content;
+    }
 }
 
 @mixin all-but($num) {
-  &:not(:nth-child(#{$num})) {
-    @content
-  }
+    &:not(:nth-child(#{$num})) {
+        @content;
+    }
 }
 
 @mixin each($num) {
-  &:nth-child(#{$num}n) {
-    @content
-  }
+    &:nth-child(#{$num}n) {
+        @content;
+    }
 }
 
 // layers

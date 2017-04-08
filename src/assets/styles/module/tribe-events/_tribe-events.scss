@@ -62,7 +62,7 @@
         background-color: darken($background_alt, 5);
     }
 
-    &:after {
+    &::after {
         border-top: remify(6, 12) solid $dark;
         border-left: remify(6, 12) solid transparent;
         border-right: remify(6, 12) solid transparent;
@@ -75,7 +75,7 @@
         transition: transform 0.15s;
     }
 
-    &.tribe-bar-filters-open:after {
+    &.tribe-bar-filters-open::after {
         transform: rotate(-180deg);
     }
 }
@@ -145,8 +145,8 @@
         padding: remify(0 20, 16);
     }
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         clear: both;
         content: "\0020";
         display: block;

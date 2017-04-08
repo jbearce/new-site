@@ -283,8 +283,8 @@
 
     .menu-list_toggle:focus,
     .menu-list_toggle:hover,
-    .menu-list_item.-parent:hover >.menu-list_toggle,
-    .menu-list_item.-parent.is-active >.menu-list_toggle {
+    .menu-list_item.-parent:hover > .menu-list_toggle,
+    .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: $accent;
         color: $light;
     }
@@ -312,8 +312,8 @@
 
     .menu-list.-tier1 .menu-list_toggle:focus,
     .menu-list.-tier1 .menu-list_toggle:hover,
-    .menu-list.-tier1 .menu-list_item.-parent:hover >.menu-list_toggle,
-    .menu-list.-tier1 .menu-list_item.-parent.is-active >.menu-list_toggle {
+    .menu-list.-tier1 .menu-list_item.-parent:hover > .menu-list_toggle,
+    .menu-list.-tier1 .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: lighten($accent, 5);
     }
 
@@ -335,7 +335,7 @@
         background-color: lighten(lighten($accent, 10), 5);
     }
 
-    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link:before {
+    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link::before {
         content: "\002D\0020\0020";
     }
 }

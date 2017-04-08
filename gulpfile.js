@@ -59,6 +59,7 @@ var gulp         = require("gulp"),                                             
     autoprefixer = require("gulp-autoprefixer"),                                // autoprefix CSS
     flexibility  = require("postcss-flexibility"),                              // flexbox polyfill for legacy browsers
     pixrem       = require("gulp-pixrem"),                                      // automatically add px fallback from rems for legacy browsesr
+    stylelint    = require("gulp-stylelint"),                                   // CSS linter
     critical     = require("critical"),                                         // critical CSS creator (experimental)
     uncss        = require("gulp-uncss"),                                       // remove unused CSS (experimental)
 
@@ -295,8 +296,18 @@ gulp.task("styles", function () {
         generate_critical_css(css_directory);
     }
 
+    var linted = gulp.src([src + "/assets/styles/**/*.scss", "!" + src + "/assets/styles/vendor/**/*"])
+        // lint
+        .pipe(stylelint({
+            failAfterError: true,
+            reporters: [
+                { formatter: "string", console: true }
+            ],
+            debug: true
+        }));
+
     // process all SCSS in root styles directory
-    return gulp.src([src + "/assets/styles/*.scss"])
+    var processed = gulp.src([src + "/assets/styles/*.scss"])
         // prevent breaking on error
         .pipe(plumber({errorHandler: on_error}))
         // check if source is newer than destination
@@ -318,11 +329,16 @@ gulp.task("styles", function () {
             html: homepage
         })))
         // output to compiled directory
-        .pipe(gulp.dest(css_directory))
+        .pipe(gulp.dest(css_directory));
+
+    // merge both steams back in to one
+    return merge(linted, processed)
+        // prevent breaking on error
+        .pipe(plumber({errorHandler: on_error}))
         // reload files
         .pipe(browser_sync.reload({stream: true}))
         // notify that task is complete, if not part of default or watch
-        .pipe(gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Styles task complete!", onLast: true})))
+        .pipe(gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), notify({title: "Success!", message: "Styles task complete!", onLast: true})))
         // push task to ran_tasks array
         .on("data", function() {
             if (ran_tasks.indexOf("styles") < 0) ran_tasks.push("styles");

@@ -31,12 +31,11 @@
         order: 1;
     }
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         height: remify(15, 16);
     }
 }
-
 
 /* Calendar */
 

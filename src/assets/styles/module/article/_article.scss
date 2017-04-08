@@ -7,7 +7,7 @@
 /* excerpt variant */
 
 .article.-excerpt {
-    &:not(:last-of-type){
+    &:not(:last-of-type) {
         border-bottom: remify(1) solid darken($background_alt, 10);
         margin-bottom: remify(20, 16);
     }

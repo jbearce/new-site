@@ -18,8 +18,8 @@
         width: remify(40, 16);
     }
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         background: currentColor;
         bottom: 0;
         content: "\0020";
@@ -34,32 +34,32 @@
         width: remify(20, 16);
     }
 
-    &.-rounded:before,
-    &.-rounded:after {
+    &.-rounded::before,
+    &.-rounded::after {
         border-radius: remify(1.5, 16);
     }
 
-    &.is-active:before,
-    &.is-active:after {
+    &.is-active::before,
+    &.is-active::after {
         transition: box-shadow 0.15s, top 0.15s, transform 0.15s 0.15s;
     }
 
-    &:before {
+    &::before {
         box-shadow: remify(0 8 0 0, 16) currentColor;
         top: remify(-16, 16);
     }
 
-    &.is-active:before {
+    &.is-active::before {
         box-shadow: 0 0 0 0 transparent;
         transform: rotate(45deg);
         top: 0;
     }
 
-    &:after {
+    &::after {
         top: remify(16, 16);
     }
 
-    &.is-active:after {
+    &.is-active::after {
         transform: rotate(-45deg);
         top: 0;
     }

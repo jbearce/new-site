@@ -11,7 +11,7 @@
 // Custom
 
 a[href^="//"] {
-    &:after {
+    &::after {
         content: " (" attr(href) ")";
         font-size: 80%;
     }

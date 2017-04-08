@@ -12,7 +12,9 @@
 
 //  Change the box-sizing of all elements
 
-*, *:before, *:after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 

@@ -20,7 +20,7 @@
         padding: remify(6 8, 12);
         transition: border-color 0.15s, color 0.15s;
         width: 100%;
-        /* remove weird user agent styles */
+        // remove weird user agent styles
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -49,7 +49,7 @@
         text-indent: 0.01px;
         text-overflow: "";
         // remove IE default styles & arrow
-        &::-ms-expand {display: none;}
+        &::-ms-expand { display: none; }
     }
 
     &.-arrow {

@@ -13,7 +13,7 @@
 // generic helpers
 
 %clearfix {
-    &:after {
+    &::after {
         content: "" !important;
         clear: both !important;
         display: table !important;

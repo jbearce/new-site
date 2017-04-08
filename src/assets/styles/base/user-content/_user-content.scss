@@ -96,7 +96,7 @@
 
     table tbody th,
     table > tr > th,
-    table[data-stacked="true"] tbody td:before {
+    table[data-stacked="true"] tbody td::before {
         font-weight: 700;
         text-transform: uppercase;
     }
@@ -220,7 +220,7 @@
             padding-left: remify(36, 16);
         }
 
-        blockquote:before {
+        blockquote::before {
             font-size: remify(24, 16);
         }
 

@@ -53,8 +53,8 @@
         color: $accent;
     }
 
-    &:before,
-    &:after {
+    &::before,
+    &::after {
         background: currentColor;
         bottom: 0;
         content: "\0020";
@@ -68,11 +68,11 @@
         width: remify(12, 16);
     }
 
-    &:before {
+    &::before {
         transform: rotate(45deg);
     }
 
-    &:after {
+    &::after {
         transform: rotate(-45deg);
     }
 }

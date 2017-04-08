@@ -36,7 +36,9 @@
             $output: if($output == null, "", $output + " ");
             // calculate, append value to $output
             $output: $output + ((strip-unit($size) / strip-unit($base)) + $unit);
-        } @else {
+        }
+
+        @else {
             // pass the value through unchagned if $size is not a number
             $output: $output + " " + $size;
         }
