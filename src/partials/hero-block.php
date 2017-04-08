@@ -111,8 +111,8 @@ if (is_home() && !$title) {
 
             <?php if ($slideshow && $i > 1): ?>
             <div class="swiper-pagination"></div>
-            <button class="swiper-button-prev"><icon:caret-left><span class="_visuallyhidden"><?php _e("Previous Slide", "new_site"); ?></span></button>
-            <button class="swiper-button-next"><icon:caret-right><span class="_visuallyhidden"><?php _e("Next Slide", "new_site"); ?></span></button>
+            <button class="swiper-button -prev"><icon:caret-left:swiper-button-icon><span class="_visuallyhidden"><?php _e("Previous Slide", "new_site"); ?></span></button>
+            <button class="swiper-button -next"><icon:caret-right:swiper-button-icon><span class="_visuallyhidden"><?php _e("Next Slide", "new_site"); ?></span></button>
             <?php endif; ?>
 
         </div><!--/.hero_swiper-container.swiper-container.-fullbleed-->

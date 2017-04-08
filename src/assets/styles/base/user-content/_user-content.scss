@@ -5,6 +5,8 @@
 \* ------------------------------------------------------------------------ */
 
 .user-content {
+    /* stylelint-disable selector-no-qualifying-type, selector-no-type */
+
     // links
 
     a:not(.button) {
@@ -187,12 +189,16 @@
         margin-left: auto;
         margin-right: auto;
     }
+
+    /* stylelint-enable */
 }
 
 /* Tablet variant */
 
 @media screen and (min-width: $xs-break) {
     .user-content {
+        /* stylelint-disable selector-no-qualifying-type, selector-no-type */
+
         h1,
         h2 {
             font-size: remify(24, 16);
@@ -230,12 +236,16 @@
         blockquote table {
             font-size: remify(18, 16);
         }
+
+        /* stylelint-enable */
     }
 }
 
 /* light variant */
 
 .user-content.-light {
+    /* stylelint-disable selector-no-qualifying-type, selector-no-type */
+
     h1,
     h2,
     h3,
@@ -248,4 +258,6 @@
     ul {
         color: $light;
     }
+
+    /* stylelint-enable */
 }

@@ -25,8 +25,8 @@
 // list field fix
 
 .nf-field-container {
-    .list-checkbox-wrap ul,
-    .list-radio-wrap ul {
+    .list-checkbox,
+    .list-radio {
         font-size: remify(16, 16);
         list-style: none;
         margin-bottom: 0;
@@ -79,27 +79,27 @@
         flex-direction: column;
     }
 
-    &.label-below .nf-field-label {
+    &.label-below .field-wrap .nf-field-label {
         order: 2;
     }
 
-    &.label-below .nf-field-element {
+    &.label-below .field-wrap .nf-field-element {
         order: 1;
     }
 
     // right
 
-    &.label-right .nf-field-label {
+    &.label-right .field-wrap .nf-field-label {
         order: 2;
     }
 
-    &.label-right .nf-field-element {
+    &.label-right .field-wrap .nf-field-element {
         order: 1;
     }
 
     // hidden
 
-    &.label-hidden .nf-field-label {
+    &.label-hidden .field-wrap .nf-field-label {
         left: -999em;
         position: absolute;
         top: -999em;
@@ -113,19 +113,19 @@
 // list field fix
 
 .nf-field-container {
-    .list-checkbox-wrap ul,
-    .list-radio-wrap ul {
+    .list-checkbox,
+    .list-radio {
         font-size: remify(16, 16);
         margin-bottom: remify(24, 16);
     }
 
-    .list-checkbox-wrap ul .input.-checkbox,
-    .list-radio-wrap ul .input.-radiobutton {
+    .list-checkbox .input.-checkbox,
+    .list-radio .input.-radiobutton {
         margin-bottom: remify(4, 16);
     }
 
-    .list-checkbox-wrap ul .text.-label,
-    .list-radio-wrap ul .text.-label {
+    .list-checkbox .text.-label,
+    .list-radio .text.-label {
         margin-bottom: remify(4, 16);
     }
 }
@@ -134,8 +134,8 @@
 
 @media (pointer: coarse) {
     .nf-field-container {
-        .list-checkbox-wrap ul li:not(:last-child) .text.-label,
-        .list-radio-wrap ul li:not(:last-child) .text.-label {
+        .list-checkbox_item:not(:last-child) .text.-label,
+        .list-radio_item:not(:last-child) .text.-label {
             margin-bottom: remify(24, 16);
         }
     }
@@ -192,8 +192,8 @@
 
     &.label-below .nf-field-element .input,
     &.label-below .nf-field-element .stars,
-    &.label-below .list-checkbox-wrap ul,
-    &.label-below .list-radio-wrap ul {
+    &.label-below .list-checkbox,
+    &.label-below .list-radio {
         margin-bottom: 0;
         order: 1;
     }

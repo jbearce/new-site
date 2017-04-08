@@ -131,6 +131,31 @@
     color: $warning !important;
 }
 
+._sticky {
+    & {
+        position: sticky !important;
+        top: 0 !important;
+    }
+
+    // WordPress admin bar fix
+
+    @media screen and (min-width: 601px) {
+        @supports (position: -webkit-sticky) or (position: sticky) {
+            .admin-bar & {
+                top: 46px !important;
+            }
+        }
+    }
+
+    @media screen and (min-width: 783px) {
+        @supports (position: -webkit-sticky) or (position: sticky) {
+            .admin-bar & {
+                top: 32px !important;
+            }
+        }
+    }
+}
+
 /* visibility classes */
 
 // when pointer is precise (mouse)

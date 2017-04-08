@@ -1,18 +1,18 @@
 <script id="tmpl-nf-field-listradio" type="text/template">
-    <ul>
+    <ul class="list-radio">
         {{{ data.renderOptions() }}}
     </ul>
 </script>
 
 <script id='tmpl-nf-field-listradio-option' type='text/template'>
-    <li>
+    <li class="list-radio_item">
         <input type="radio" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked' : '' }}} input -radiobutton -styled" value="{{{ data.value }}}" {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'checked="checked"' : '' }}}>
         <label for="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" class="{{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked-label' : '' }}} text -label -radiobutton">{{{ data.label }}}</label>
     </li>
 </script>
 
 <script id='tmpl-nf-field-listradio-other' type='text/template'>
-    <li>
+    <li class="list-radio_item">
         <input type="radio" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element input -radiobutton -styled" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}>
         <label class="text -label -radiobutton">Other {{{ data.renderOtherText() }}}</label>
     </li>
