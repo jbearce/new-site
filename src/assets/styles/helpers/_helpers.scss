@@ -14,8 +14,8 @@
 
 %clearfix {
     &::after {
-        content: "" !important;
         clear: both !important;
+        content: "" !important;
         display: table !important;
     }
 }
@@ -94,14 +94,14 @@
     border-radius: 0 !important;
     box-shadow: remify(0 0 2 2, 14) transparentize($dark, 0.4) !important;
     color: $accent !important;
-    height: auto !important;
     display: block !important;
     font-family: $body-font !important;
     font-size: remify(14) !important;
     font-weight: 700 !important;
-    line-height: normal !important;
+    height: auto !important;
     left: -999em !important;
     letter-spacing: normal !important;
+    line-height: normal !important;
     outline: none !important;
     padding: remify(15 23 14, 14) !important;
     position: absolute;

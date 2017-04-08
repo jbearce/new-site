@@ -19,8 +19,8 @@
     & {
         font-size: remify(12, 16);
         font-weight: 700;
-        text-transform: uppercase;
         margin: 0;
+        text-transform: uppercase;
     }
 }
 
@@ -49,11 +49,11 @@
         font-family: $heading-font;
         font-size: remify(12, 16);
         font-weight: 700;
-        text-transform: uppercase;
         margin: 0;
         padding: remify(20, 12);
         position: relative;
         text-align: left;
+        text-transform: uppercase;
         transition: background 0.15s;
     }
 
@@ -63,9 +63,9 @@
     }
 
     &::after {
-        border-top: remify(6, 12) solid $dark;
         border-left: remify(6, 12) solid transparent;
         border-right: remify(6, 12) solid transparent;
+        border-top: remify(6, 12) solid $dark;
         content: "\0020";
         display: block;
         position: absolute;
@@ -84,9 +84,9 @@
     & {
         background: darken($background_alt, 10);
         flex: none;
+        min-width: remify(150, 16);
         padding: remify(10 20, 16);
         position: relative;
-        min-width: remify(150, 16);
     }
 
     // Tribe generates these classes so I can't change them:

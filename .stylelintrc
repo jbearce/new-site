@@ -1,5 +1,6 @@
 {
     "plugins": [
+        "stylelint-order",
         "stylelint-scss"
     ],
     "extends": [
@@ -8,6 +9,11 @@
     "rules": {
         "color-hex-case": "upper",
         "color-hex-length": "long",
-        "indentation": 4
+        "indentation": 4,
+        "order/order": [
+			"custom-properties",
+			"declarations"
+		],
+		"order/properties-alphabetical-order": true
     }
 }

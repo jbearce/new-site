@@ -85,9 +85,9 @@
         bottom: 0;
         left: 0;
         right: remify(80);
-        transition: transform 0.15s;
-        transform: translateX(0);
         top: 0;
+        transform: translateX(0);
+        transition: transform 0.15s;
         visibility: visible;
     }
 

@@ -6,9 +6,10 @@
 
 .input {
     & {
+        appearance: none;
         background: $background;
-        border-radius: 0;
         border: remify(1) solid darken($background_alt, 10);
+        border-radius: 0;
         color: $foreground;
         display: block;
         font-family: $body-font;
@@ -20,10 +21,6 @@
         padding: remify(6 8, 12);
         transition: border-color 0.15s, color 0.15s;
         width: 100%;
-        // remove weird user agent styles
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
     }
 
     &:focus,
@@ -76,9 +73,6 @@
         padding: 0;
         vertical-align: middle;
         width: remify(16, 12);
-        // remove styles where possible
-        -webkit-appearance: none;
-        appearance: none;
     }
 
     &.-radiobutton {

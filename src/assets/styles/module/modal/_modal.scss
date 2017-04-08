@@ -21,8 +21,8 @@
         position: fixed;
         right: 0;
         top: 0;
-        transition: opacity 0.15s, transform 0s 0.15s;
         transform: translateX(-100%);
+        transition: opacity 0.15s, transform 0s 0.15s;
         visibility: hidden;
         width: remify(750, 16);
         z-index: 999;

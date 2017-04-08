@@ -107,11 +107,11 @@
         max-width: 100vw;
         opacity: 0;
         position: fixed;
+        top: -999em;
         transform: translateX(-50%) translateY(-50%);
         transition: left 0s 0.15s, opacity 0.15s, top 0s 0.15s, visibility 0s 0.15s;
-        top: -999em;
-        width: remify($site-width / 2);
         visibility: hidden;
+        width: remify($site-width / 2);
     }
 
     &.is-active > .login_inner {
