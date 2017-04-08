@@ -28,6 +28,7 @@
 		"order/properties-alphabetical-order": true,
         "property-no-vendor-prefix": true,
         "selector-attribute-quotes": "always",
+        "selector-class-pattern": "^[a-z][a-z0-9]*(?:(?:-|_)[a-z][a-z0-9]*)?(?:_[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*)?)?$|^(?:-|_)[a-z][a-z0-9]*$",
         "selector-no-id": true,
         "selector-no-qualifying-type": true,
         "selector-no-type": [
