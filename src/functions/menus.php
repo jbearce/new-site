@@ -150,11 +150,11 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         $toggle = "";
 
         if (in_array("accordion", $params) && !in_array("touch", $params) && !in_array("hover", $params)) {
-            $toggle .= "<button class='menu-list_toggle'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
+            $toggle .= "<button class='menu-list_toggle'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
         if (in_array("touch", $params) && !($this->is_mega && $depth > 0) && !in_array("accordion", $params)) {
-            $toggle .= "<button class='menu-list_toggle _touch'><icon:angle-down><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
+            $toggle .= "<button class='menu-list_toggle _touch'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
         if (in_array("hover", $params) && !($this->is_mega && $depth > 0) && !in_array("accordion", $params)) {

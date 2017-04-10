@@ -18,13 +18,13 @@
                 <ul class="menu-list -meta">
 
                     <li class="menu-list_item">
-                        <a class="menu-list_link link" href="<?php the_permalink(); ?>"><icon:clock> <time datetime="<?php echo get_the_date("c"); ?>"><?php the_date(); ?></time></a>
+                        <a class="menu-list_link link" href="<?php the_permalink(); ?>"><icon use="clock" /> <time datetime="<?php echo get_the_date("c"); ?>"><?php the_date(); ?></time></a>
                     </li>
 
                     <?php if ($categories): ?>
                         <?php $i = 0; ?>
                         <li class="menu-list_item">
-                            <icon:folder>
+                            <icon use="folder" />
 
                             <?php foreach ($categories as $category): ?>
                                 <?php $i++; ?>
@@ -40,7 +40,7 @@
                     <?php if ($tags): ?>
                         <?php $i = 0; ?>
                         <li class="menu-list_item">
-                            <icon:tag>
+                            <icon use="tag" />
 
                             <?php foreach ($tags as $tag): ?>
                                 <?php $i++; ?>
@@ -56,7 +56,7 @@
                     <?php if ($comments): ?>
                         <li class="menu-list_item">
                             <a class="menu-list_link link" href="#comments">
-                                <icon:comment> <?php echo $comments; ?> <?php _e("Comments", "new_site"); ?>
+                                <icon use="comment" /> <?php echo $comments; ?> <?php _e("Comments", "new_site"); ?>
                             </a><!--/.menu-list_link.link-->
                         </li><!--/.menu-list_item-->
                     <?php endif; ?>

@@ -71,7 +71,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
                 }
             }))
             // replace icon placeholders
-            .pipe(plugins.replace(/(?:<icon:)([A-Za-z0-9\-\_][^:>]+)(?:\:([A-Za-z0-9\-\_\ ][^:>]*))?(?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
+            .pipe(plugins.replace(/(?:<icon )(?=(?:.*?(?:use=(?:"|')(.*?)(?:"|')))?)(?=(?:.*?(?:class=(?:"|')(.*?)(?:"|')))?)(?:.*?)(?: \/)?(?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
             // output to compiled directory
             .pipe(gulp.dest(html_directory));
     };

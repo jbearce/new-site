@@ -26,7 +26,7 @@
             <input type="hidden" name="redirect_to" value="<?php echo $_SERVER["REQUEST_URI"]; ?>" />
 
             <div class="_textcenter">
-                <button class="login-form_button button" type="submit"><icon:arrow-right> <?php _e("Sign in", "new_site"); ?></button>
+                <button class="login-form_button button" type="submit"><icon class="arrow-right" /> <?php _e("Sign in", "new_site"); ?></button>
             </div><!--/._textcenter-->
         </form><!--/.login_login-form.login-form-->
 
@@ -35,7 +35,7 @@
             <h6 class="login-form_title title _textcenter"><?php _e("Interested in Signing Up?", "new_site"); ?></h6>
 
             <div class="_textcenter">
-                <a class="login-form_button button" href="<?php echo wp_registration_url(); ?>"><icon:arrow-right> <?php _e("Create your account", "new_site"); ?></a>
+                <a class="login-form_button button" href="<?php echo wp_registration_url(); ?>"><icon class="arrow-right" /> <?php _e("Create your account", "new_site"); ?></a>
             </div><!--/._textcenter-->
         </div><!--/.login-form_login-form.login-form.-register-->
         <?php endif; // if (get_option("users_can_register")) ?>
