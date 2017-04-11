@@ -114,68 +114,21 @@ const on_error = function (err) {
     this.emit("end");
 };
 
-// import tasks
+// configuration tasks
 gulp.task("init", require("./gulp-tasks/init")(gulp, plugins, envs));
 gulp.task("config", require("./gulp-tasks/config")(gulp, plugins, bs, ftp));
 
+// primary tasks
 gulp.task("styles", require("./gulp-tasks/styles")(gulp, plugins, envs, ran_tasks, on_error));
 gulp.task("scripts", require("./gulp-tasks/scripts")(gulp, plugins, envs, ran_tasks, on_error));
 gulp.task("media", require("./gulp-tasks/media")(gulp, plugins, envs, ran_tasks, on_error));
 gulp.task("html", require("./gulp-tasks/html")(gulp, plugins, envs, ran_tasks, on_error));
 
-// sync task, set up a browser_sync server, depends on config
-gulp.task("sync", ["config"], function () {
-    return plugins.browser_sync({
-        proxy:  bs.proxy,
-        port:   bs.port,
-        open:   bs.open   === "true" ? true : (bs.open   === "false" ? false : bs.open),
-        notify: bs.notify === "true" ? true : (bs.notify === "false" ? false : bs.notify),
-    });
-});
+// secondary tasks
+gulp.task("ftp", ["config"], require("./gulp-tasks/ftp")(gulp, plugins, envs, ftp, ran_tasks, on_error));
+gulp.task("sync", ["config"], require("./gulp-tasks/sync")(plugins, bs));
 
-// ftp task, upload to FTP environment, depends on config
-gulp.task("ftp", ["config"], function () {
-    // set FTP directory
-    const ftp_directory = plugins.argv.dist ? envs.dist : envs.dev;
-
-    // create SFTP connection
-    const sftp_conn = plugins.sftp({
-        host:       ftp.host,
-        port:       ftp.port,
-        username:   ftp.user,
-        password:   ftp.pass,
-        remotePath: ftp.path,
-    });
-
-    // create FTP connection
-    const ftp_conn = plugins.ftp.create({
-        host:   ftp.host,
-        port:   ftp.port,
-        secure: ftp.mode === "tls" ? true : false,
-        user:   ftp.user,
-        pass:   ftp.pass,
-        path:   ftp.path,
-    });
-
-    // upload changed files
-    return gulp.src(ftp_directory + "/**/*")
-        // prevent breaking on error
-        .pipe(plugins.plumber({errorHandler: on_error}))
-        // check if files are newer
-        .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: envs.src, extra: [ftp_directory + "/**/*"]})))
-        // check if files are newer
-        .pipe(plugins.gulpif(ftp.mode !== "sftp", ftp_conn.newer(ftp.path)))
-        // upload changed files
-        .pipe(plugins.gulpif(ftp.mode !== "sftp", ftp_conn.dest(ftp.path), sftp_conn))
-        // prevent breaking on error
-        .pipe(plugins.plumber({errorHandler: on_error}))
-        // reload files
-        .pipe(plugins.browser_sync.reload({stream: true}))
-        // notify that task is complete, if not part of default or watch
-        .pipe(plugins.notify({title: "Success!", message: "FTP task complete!", onLast: true}));
-});
-
-// default task, runs through everything but dist
+// default task, runs through all primary tasks
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     // notify that task is complete
     gulp.src("gulpfile.js")
@@ -190,7 +143,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     ran_tasks.length = 0;
 });
 
-// watch task, runs through everything but dist, triggers when a file is saved
+// watch task, runs through all primary tasks, triggers when a file is saved
 gulp.task("watch", function () {
     // set up a browser_sync server, if --sync is passed
     if (plugins.argv.sync) {
