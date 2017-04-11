@@ -213,7 +213,7 @@ module.exports = function (gulp, plugins, bs, ftp) {
 
                 configure_browsersync(bs.proxy, bs.port, bs.open, bs.notify, function () {
                     configure_ftp(ftp.host, ftp.port, ftp.mode, ftp.user, ftp.pass, ftp.path, env, function () {
-                        resolve("complete");
+                        resolve();
                     });
                 });
             });
