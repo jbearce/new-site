@@ -231,9 +231,8 @@ prepros.cfg
 *.css.map
 *.js.map
 
-#Slicers
-slicers/
-slicers/*
+#Resources
+_resources/
 
 #Configuration settings
 config.json
