@@ -114,19 +114,33 @@ const on_error = function (err) {
     this.emit("end");
 };
 
+// import custom modules
+const init_module    = require("./gulp-tasks/init")(gulp, plugins, envs);
+// const config_module  = require("./gulp-tasks/config")(gulp, plugins, bs, ftp);
+const config_module  = require("./gulp-tasks/config");
+const styles_module  = require("./gulp-tasks/styles")(gulp, plugins, envs, ran_tasks, on_error);
+const scripts_module = require("./gulp-tasks/scripts")(gulp, plugins, envs, ran_tasks, on_error);
+const media_module   = require("./gulp-tasks/media")(gulp, plugins, envs, ran_tasks, on_error);
+const html_module    = require("./gulp-tasks/html")(gulp, plugins, envs, ran_tasks, on_error);
+// const ftp_module     = require("./gulp-tasks/ftp")(gulp, plugins, envs, ftp, ran_tasks, on_error);
+const ftp_module     = require("./gulp-tasks/ftp");
+const sync_module    = require("./gulp-tasks/sync")(plugins, bs);
+
 // configuration tasks
-gulp.task("init", require("./gulp-tasks/init")(gulp, plugins, envs));
-gulp.task("config", require("./gulp-tasks/config")(gulp, plugins, bs, ftp));
+gulp.task("init", init_module);
+gulp.task("config", function () {
+    config_module.config(gulp, plugins, bs, ftp);
+});
 
 // primary tasks
-gulp.task("styles", require("./gulp-tasks/styles")(gulp, plugins, envs, ran_tasks, on_error));
-gulp.task("scripts", require("./gulp-tasks/scripts")(gulp, plugins, envs, ran_tasks, on_error));
-gulp.task("media", require("./gulp-tasks/media")(gulp, plugins, envs, ran_tasks, on_error));
-gulp.task("html", require("./gulp-tasks/html")(gulp, plugins, envs, ran_tasks, on_error));
+gulp.task("styles", styles_module);
+gulp.task("scripts", scripts_module);
+gulp.task("media", media_module);
+gulp.task("html", html_module);
 
 // secondary tasks
-gulp.task("ftp", ["config"], require("./gulp-tasks/ftp")(gulp, plugins, envs, ftp, ran_tasks, on_error));
-gulp.task("sync", ["config"], require("./gulp-tasks/sync")(plugins, bs));
+// gulp.task("ftp", ["config"], ftp_module);
+gulp.task("sync", ["config"], sync_module);
 
 // default task, runs through all primary tasks
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
@@ -136,7 +150,9 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // trigger FTP task if FTP flag is passed
     if (plugins.argv.ftp) {
-        plugins.run_sequence("ftp");
+        // plugins.run_sequence("ftp");
+        config_module.config(gulp, plugins, bs, ftp);
+        // ftp_module.upload(gulp, plugins, envs, ftp, ran_tasks, on_error);
     }
 
     // reset ran_tasks array
