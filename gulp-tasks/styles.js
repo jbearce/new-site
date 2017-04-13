@@ -2,7 +2,7 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
+module.exports = function (gulp, plugins, ran_tasks, on_error) {
     // get the homepage from the package.json
     const homepage = plugins.json.read("./package.json").get("homepage");
 
@@ -29,7 +29,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     };
 
     // lint custom styles
-    const lint_styles = function (source = [envs.src + "/assets/styles/**/*.scss", "!" + envs.src + "/assets/styles/vendor/**/*"]) {
+    const lint_styles = function (source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"]) {
         return gulp.src(source)
             // lint
             .pipe(plugins.stylelint({
@@ -42,7 +42,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     };
 
     // process all SCSS in root styles directory
-    const process_styles = function (css_directory, file_name = "modern.css", source = [envs.src + "/assets/styles/*.scss"], extra = [envs.src + "/assets/styles/**/*.scss"]) {
+    const process_styles = function (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) {
         return gulp.src(source)
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
@@ -71,7 +71,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     // styles task, compiles & prefixes SCSS
     return function () {
         // set CSS directory
-        const css_directory = plugins.argv.dist ? envs.dist + "/assets/styles" : envs.dev + "/assets/styles";
+        const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
         // clean directory if --dist is passed
         if (plugins.argv.dist) {

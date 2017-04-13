@@ -2,9 +2,9 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
+module.exports = function (gulp, plugins, ran_tasks, on_error) {
     // compress images, copy other media
-    const process_media = function (media_directory, source = envs.src + "/assets/media/**/*") {
+    const process_media = function (media_directory, source = global.settings.paths.src + "/assets/media/**/*") {
         return gulp.src(source)
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
@@ -23,10 +23,10 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     // media task, compresses images, copies other media
     return function () {
         // set media directory
-        const media_directory = plugins.argv.dist ? envs.dist + "/assets/media" : envs.dev + "/assets/media";
+        const media_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/media" : global.settings.paths.dev + "/assets/media";
 
         // set screenshot directory
-        const screenshot_directory = plugins.argv.dist ? envs.dist : envs.dev;
+        const screenshot_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // clean directories if --dist is passed
         if (plugins.argv.dist) {
@@ -35,8 +35,8 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
         }
 
         // process all media
-        const media      = process_media(media_directory, envs.src + "/assets/media/**/*");
-        const screenshot = process_media(screenshot_directory, envs.src + "/screenshot.png");
+        const media      = process_media(media_directory, global.settings.paths.src + "/assets/media/**/*");
+        const screenshot = process_media(screenshot_directory, global.settings.paths.src + "/screenshot.png");
 
         // merge both steams back in to one
         return plugins.merge(media, screenshot)

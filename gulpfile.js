@@ -71,32 +71,30 @@ const plugins = {
     pngquant: require("imagemin-pngquant"),
 };
 
-/* STOP! These settings should always be blank! */
-/* To configure FTP credentials, run gulp ftp   */
-
-const ftp = {
-    host: "",
-    port: "",
-    mode: "",
-    user: "",
-    pass: "",
-    path: "",
-};
-
 /* STOP! These settings should always be blank!              */
+/* To configure FTP credentials, run gulp ftp                */
 /* To configure BrowserSync settingss, run gulp watch --sync */
-const bs = {
-    proxy:  "",
-    port:   "",
-    open:   "",
-    notify: "",
-};
 
-// set up environment paths
-const envs = {
-    src:  "./src",
-    dev:  "./dev",
-    dist: "./dist",
+global.settings = {
+    ftp: {
+        hostname: "",
+        port:     "",
+        mode:     "",
+        username: "",
+        password: "",
+        path:     "",
+    },
+    browsersync: {
+        proxy:  "",
+        port:   "",
+        open:   "",
+        notify: "",
+    },
+    paths: {
+        src:  "./src",
+        dev:  "./dev",
+        dist: "./dist",
+    }
 };
 
 // store which tasks where ran
@@ -115,21 +113,19 @@ const on_error = function (err) {
 };
 
 // import custom modules
-const init_module    = require("./gulp-tasks/init")(gulp, plugins, envs);
-// const config_module  = require("./gulp-tasks/config")(gulp, plugins, bs, ftp);
+const init_module    = require("./gulp-tasks/init")(gulp, plugins);
 const config_module  = require("./gulp-tasks/config");
-const styles_module  = require("./gulp-tasks/styles")(gulp, plugins, envs, ran_tasks, on_error);
-const scripts_module = require("./gulp-tasks/scripts")(gulp, plugins, envs, ran_tasks, on_error);
-const media_module   = require("./gulp-tasks/media")(gulp, plugins, envs, ran_tasks, on_error);
-const html_module    = require("./gulp-tasks/html")(gulp, plugins, envs, ran_tasks, on_error);
-// const ftp_module     = require("./gulp-tasks/ftp")(gulp, plugins, envs, ftp, ran_tasks, on_error);
+const styles_module  = require("./gulp-tasks/styles")(gulp, plugins, ran_tasks, on_error);
+const scripts_module = require("./gulp-tasks/scripts")(gulp, plugins, ran_tasks, on_error);
+const media_module   = require("./gulp-tasks/media")(gulp, plugins, ran_tasks, on_error);
+const html_module    = require("./gulp-tasks/html")(gulp, plugins, ran_tasks, on_error);
 const ftp_module     = require("./gulp-tasks/ftp");
-const sync_module    = require("./gulp-tasks/sync")(plugins, bs);
+const sync_module    = require("./gulp-tasks/sync")(plugins, global.settings.browsersync);
 
 // configuration tasks
 gulp.task("init", init_module);
 gulp.task("config", function () {
-    config_module.config(gulp, plugins, bs, ftp);
+    config_module.config(gulp, plugins);
 });
 
 // primary tasks
@@ -150,9 +146,9 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // trigger FTP task if FTP flag is passed
     if (plugins.argv.ftp) {
-        // plugins.run_sequence("ftp");
-        config_module.config(gulp, plugins, bs, ftp);
-        // ftp_module.upload(gulp, plugins, envs, ftp, ran_tasks, on_error);
+        config_module.config(gulp, plugins).then(function () {
+            ftp_module.upload(gulp, plugins, ran_tasks, on_error);
+        });
     }
 
     // reset ran_tasks array

@@ -2,9 +2,9 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
+module.exports = function (gulp, plugins, ran_tasks, on_error) {
     // lint custom scripts
-    const lint_scripts = function (js_directory, file_name = "modern.js", source = [envs.src + "/assets/scripts/*.js", "!" + envs.src + "/assets/scripts/vendor.*.js"]) {
+    const lint_scripts = function (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) {
         return gulp.src(source)
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
@@ -17,7 +17,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     };
 
     // process scripts
-    const process_scripts = function (js_directory, file_name = "modern.js", source = [envs.src + "/assets/scripts/vendor.*.js", envs.src + "/assets/scripts/jquery.*.js", envs.src + "/assets/scripts/*.js"]) {
+    const process_scripts = function (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"]) {
         return gulp.src(source)
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
@@ -40,7 +40,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     // scripts task, lints, concatenates, & compresses JS
     return function () {
         // set JS directory
-        const js_directory = plugins.argv.dist ? envs.dist + "/assets/scripts/" : envs.dev + "/assets/scripts";
+        const js_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/scripts/" : global.settings.paths.dev + "/assets/scripts";
 
         // clean directory if --dist is passed
         if (plugins.argv.dist) {
@@ -48,10 +48,10 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
         }
 
         // process all scripts
-        const linted   = lint_scripts(js_directory, [envs.src + "/assets/scripts/*.js", "!" + envs.src + "/assets/scripts/vendor.*.js"]);
-        const critical = process_scripts(js_directory, "critical.js", [envs.src + "/assets/scripts/critical/loadCSS.js", envs.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
-        const modern   = process_scripts(js_directory, "modern.js", [envs.src + "/assets/scripts/vendor.*.js", envs.src + "/assets/scripts/jquery.*.js", envs.src + "/assets/scripts/*.js"]);
-        const legacy   = process_scripts(js_directory, "legacy.js", [envs.src + "/assets/scripts/legacy/**/*"]);
+        const linted   = lint_scripts(js_directory, [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
+        const critical = process_scripts(js_directory, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
+        const modern   = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"]);
+        const legacy   = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"]);
 
         // merge all four steams back in to one
         return plugins.merge(linted, critical, modern, legacy)

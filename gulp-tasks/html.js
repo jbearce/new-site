@@ -2,7 +2,7 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
+module.exports = function (gulp, plugins, ran_tasks, on_error) {
     // read data from package.json
     const name           = plugins.json.read("./package.json").get("name");
     const pwa_name       = plugins.json.read("./package.json").get("progressive-web-app.name");
@@ -14,7 +14,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     const license        = plugins.json.read("./package.json").get("license");
 
     // copy binaries
-    const copy_binaries = function (html_directory, source = [envs.src + "/**/*", "!" + envs.src + "{/assets,/assets/**}"]) {
+    const copy_binaries = function (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) {
         return gulp.src(source)
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
@@ -37,7 +37,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     };
 
     // process HTML
-    const process_html = function (html_directory, source = [envs.src + "/**/*", "!" + envs.src + "{/assets,/assets/**}"]) {
+    const process_html = function (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) {
         return gulp.src(source)
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
@@ -79,7 +79,7 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
     // html task, copies binaries, converts includes & variables in HTML
     return function () {
         // set HTML directory
-        const html_directory = plugins.argv.dist ? envs.dist : envs.dev;
+        const html_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // clean directory if --dist is passed
         if (plugins.argv.dist) {
@@ -87,8 +87,8 @@ module.exports = function (gulp, plugins, envs, ran_tasks, on_error) {
         }
 
         // process all non-asset files
-        const binaries = copy_binaries(html_directory, [envs.src + "/**/*", "!" + envs.src + "{/assets,/assets/**}"]);
-        const html     = process_html(html_directory, [envs.src + "/**/*", "!" + envs.src + "{/assets,/assets/**}"]);
+        const binaries = copy_binaries(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
+        const html     = process_html(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
 
         // merge both steams back in to one
         return plugins.merge(binaries, html)
