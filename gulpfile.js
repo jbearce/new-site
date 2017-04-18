@@ -188,4 +188,7 @@ gulp.task("watch", function () {
         // run through all tasks
         plugins.run_sequence("default");
     });
+
+    // end the task
+    return;
 });
