@@ -120,7 +120,7 @@ const scripts_module = require("./gulp-tasks/scripts")(gulp, plugins, ran_tasks,
 const media_module   = require("./gulp-tasks/media")(gulp, plugins, ran_tasks, on_error);
 const html_module    = require("./gulp-tasks/html")(gulp, plugins, ran_tasks, on_error);
 const ftp_module     = require("./gulp-tasks/ftp");
-const sync_module    = require("./gulp-tasks/sync")(plugins, global.settings.browsersync);
+const sync_module    = require("./gulp-tasks/sync");
 
 // configuration tasks
 gulp.task("init", init_module);
@@ -140,7 +140,11 @@ gulp.task("ftp", function () {
         return ftp_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
-gulp.task("sync", ["config"], sync_module);
+gulp.task("sync", function () {
+    return config_module.config(gulp, plugins).then(function () {
+        return sync_module.sync(plugins, global.settings.browsersync);
+    });
+});
 
 // default task, runs through all primary tasks
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
@@ -166,7 +170,9 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 gulp.task("watch", function () {
     // set up a browser_sync server, if --sync is passed
     if (plugins.argv.sync) {
-        plugins.run_sequence("sync");
+        config_module.config(gulp, plugins).then(function () {
+            sync_module.sync(plugins, global.settings.browsersync);
+        });
     }
 
     // watch for any changes
