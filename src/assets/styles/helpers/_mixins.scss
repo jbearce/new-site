@@ -90,3 +90,13 @@
     position: relative;
     z-index: map-get($layers, $layer-name);
 }
+
+// Scale dynaimcally until a given viewport
+
+@mixin viewport-scale($size: 16, $base: 1024, $min-width: 0, $max-width: null) {
+    $max-width: if($max-width == null, $base, $max-width);
+
+    @media screen and (min-width: remify($min-width, 16)) and (max-width: remify($max-width, 16))) {
+        font-size: ($size / $base) * 100vw;
+    }
+}

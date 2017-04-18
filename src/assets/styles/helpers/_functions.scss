@@ -66,3 +66,10 @@
 
     @return $output;
 }
+
+// Specify size relative to a value
+// @param  {Number}  $size - Target size in pixels
+// @param  {Number}  $base - Base size in pixels
+@function relative-size($size, $base) {
+    @return $base * ($size / $base);
+}
