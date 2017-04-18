@@ -2,10 +2,10 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (gulp, plugins, envs) {
+module.exports = function (gulp, plugins) {
     // WIP: init task, initializes the project
     return function () {
-        return gulp.src(envs.src + "/**/*")
+        return gulp.src(global.settings.paths.src + "/**/*")
         // check if a file is a binary
         .pipe(plugins.is_binary())
         // skip file if it's a binary
@@ -21,6 +21,6 @@ module.exports = function (gulp, plugins, envs) {
         // remove login HTML code if --remove --login is passed
         .pipe(plugins.remove_code({no_login: plugins.argv.remove && plugins.argv.login ? true : false, commentStart: "<!--", commentEnd: "-->"}))
         // output to source directory
-        .pipe(gulp.dest(envs.src));
+        .pipe(gulp.dest(global.settings.paths.src));
     };
 };

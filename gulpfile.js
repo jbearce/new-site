@@ -14,12 +14,12 @@ const plugins = {
             alias: "experimental",
             type:  "array",
         },
-        "f": {
-            alias: "ftp",
-            type:  "boolean",
-        },
         "s": {
             alias: "sync",
+            type:  "boolean",
+        },
+        "u": {
+            alias: "upload",
             type:  "boolean",
         },
     }).argv,
@@ -71,38 +71,36 @@ const plugins = {
     pngquant: require("imagemin-pngquant"),
 };
 
-/* STOP! These settings should always be blank! */
-/* To configure FTP credentials, run gulp ftp   */
-
-const ftp = {
-    host: "",
-    port: "",
-    mode: "",
-    user: "",
-    pass: "",
-    path: "",
-};
-
 /* STOP! These settings should always be blank!              */
-/* To configure BrowserSync settingss, run gulp watch --sync */
-const bs = {
-    proxy:  "",
-    port:   "",
-    open:   "",
-    notify: "",
-};
+/* To configure FTP credentials, run gulp config --ftp       */
+/* To configure BrowserSync settings, run gulp config --sync */
 
-// set up environment paths
-const envs = {
-    src:  "./src",
-    dev:  "./dev",
-    dist: "./dist",
+global.settings = {
+    ftp: {
+        hostname: "",
+        port:     "",
+        mode:     "",
+        username: "",
+        password: "",
+        path:     "",
+    },
+    browsersync: {
+        proxy:  "",
+        port:   "",
+        open:   "",
+        notify: "",
+    },
+    paths: {
+        src:  "./src",
+        dev:  "./dev",
+        dist: "./dist",
+    }
 };
 
 // store which tasks where ran
 const ran_tasks = [];
 
-// Error handling
+// error handling
 const on_error = function (err) {
     plugins.notify.onError({
         title:    "Gulp",
@@ -114,19 +112,47 @@ const on_error = function (err) {
     this.emit("end");
 };
 
+// import custom modules
+const init_module    = require("./gulp-tasks/init")(gulp, plugins);
+const config_module  = require("./gulp-tasks/config");
+const styles_module  = require("./gulp-tasks/styles");
+const scripts_module = require("./gulp-tasks/scripts");
+const media_module   = require("./gulp-tasks/media");
+const html_module    = require("./gulp-tasks/html");
+const upload_module  = require("./gulp-tasks/upload");
+const sync_module    = require("./gulp-tasks/sync");
+
 // configuration tasks
-gulp.task("init", require("./gulp-tasks/init")(gulp, plugins, envs));
-gulp.task("config", require("./gulp-tasks/config")(gulp, plugins, bs, ftp));
+gulp.task("init", init_module);
+gulp.task("config", function () {
+    return config_module.config(gulp, plugins);
+});
 
 // primary tasks
-gulp.task("styles", require("./gulp-tasks/styles")(gulp, plugins, envs, ran_tasks, on_error));
-gulp.task("scripts", require("./gulp-tasks/scripts")(gulp, plugins, envs, ran_tasks, on_error));
-gulp.task("media", require("./gulp-tasks/media")(gulp, plugins, envs, ran_tasks, on_error));
-gulp.task("html", require("./gulp-tasks/html")(gulp, plugins, envs, ran_tasks, on_error));
+gulp.task("styles", function () {
+    return styles_module.styles(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("scripts", function () {
+    return scripts_module.scripts(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("media", function () {
+    return media_module.media(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("html", function () {
+    return html_module.html(gulp, plugins, ran_tasks, on_error);
+});
 
 // secondary tasks
-gulp.task("ftp", ["config"], require("./gulp-tasks/ftp")(gulp, plugins, envs, ftp, ran_tasks, on_error));
-gulp.task("sync", ["config"], require("./gulp-tasks/sync")(plugins, bs));
+gulp.task("ftp", function () {
+    return config_module.config(gulp, plugins).then(function () {
+        return upload_module.upload(gulp, plugins, ran_tasks, on_error);
+    });
+});
+gulp.task("sync", function () {
+    return config_module.config(gulp, plugins).then(function () {
+        return sync_module.sync(plugins, global.settings.browsersync);
+    });
+});
 
 // default task, runs through all primary tasks
 gulp.task("default", ["media", "scripts", "styles", "html"], function () {
@@ -134,20 +160,27 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     gulp.src("gulpfile.js")
         .pipe(plugins.gulpif(ran_tasks.length, plugins.notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
 
-    // trigger FTP task if FTP flag is passed
-    if (plugins.argv.ftp) {
-        plugins.run_sequence("ftp");
+    // trigger upload task if --upload is passed
+    if (plugins.argv.upload) {
+        config_module.config(gulp, plugins).then(function () {
+            return upload_module.upload(gulp, plugins, ran_tasks, on_error);
+        });
     }
 
     // reset ran_tasks array
     ran_tasks.length = 0;
+
+    // end the task
+    return;
 });
 
 // watch task, runs through all primary tasks, triggers when a file is saved
 gulp.task("watch", function () {
     // set up a browser_sync server, if --sync is passed
     if (plugins.argv.sync) {
-        plugins.run_sequence("sync");
+        config_module.config(gulp, plugins).then(function () {
+            sync_module.sync(plugins, global.settings.browsersync);
+        });
     }
 
     // watch for any changes
@@ -155,4 +188,7 @@ gulp.task("watch", function () {
         // run through all tasks
         plugins.run_sequence("default");
     });
+
+    // end the task
+    return;
 });

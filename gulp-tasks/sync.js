@@ -2,14 +2,14 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (plugins, bs) {
+module.exports = {
     // sync task, set up a browser_sync server, depends on config
-    return function () {
-        plugins.browser_sync({
-            proxy:  bs.proxy,
-            port:   bs.port,
-            open:   bs.open   === "true" ? true : (bs.open   === "false" ? false : bs.open),
-            notify: bs.notify === "true" ? true : (bs.notify === "false" ? false : bs.notify),
+    sync(plugins, browsersync) {
+        return plugins.browser_sync({
+            proxy:  browsersync.proxy,
+            port:   browsersync.port,
+            open:   browsersync.open   === "true" ? true : (browsersync.open   === "false" ? false : browsersync.open),
+            notify: browsersync.notify === "true" ? true : (browsersync.notify === "false" ? false : browsersync.notify),
         });
-    };
+    }
 };
