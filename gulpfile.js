@@ -119,7 +119,7 @@ const styles_module  = require("./gulp-tasks/styles")(gulp, plugins, ran_tasks, 
 const scripts_module = require("./gulp-tasks/scripts")(gulp, plugins, ran_tasks, on_error);
 const media_module   = require("./gulp-tasks/media")(gulp, plugins, ran_tasks, on_error);
 const html_module    = require("./gulp-tasks/html")(gulp, plugins, ran_tasks, on_error);
-const ftp_module     = require("./gulp-tasks/ftp");
+const upload_module  = require("./gulp-tasks/upload");
 const sync_module    = require("./gulp-tasks/sync");
 
 // configuration tasks
@@ -137,7 +137,7 @@ gulp.task("html", html_module);
 // secondary tasks
 gulp.task("ftp", function () {
     return config_module.config(gulp, plugins).then(function () {
-        return ftp_module.upload(gulp, plugins, ran_tasks, on_error);
+        return upload_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
 gulp.task("sync", function () {
@@ -155,7 +155,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     // trigger FTP task if FTP flag is passed
     if (plugins.argv.ftp) {
         config_module.config(gulp, plugins).then(function () {
-            return ftp_module.upload(gulp, plugins, ran_tasks, on_error);
+            return upload_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }
 
