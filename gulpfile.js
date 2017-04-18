@@ -115,10 +115,10 @@ const on_error = function (err) {
 // import custom modules
 const init_module    = require("./gulp-tasks/init")(gulp, plugins);
 const config_module  = require("./gulp-tasks/config");
-const styles_module  = require("./gulp-tasks/styles")(gulp, plugins, ran_tasks, on_error);
-const scripts_module = require("./gulp-tasks/scripts")(gulp, plugins, ran_tasks, on_error);
-const media_module   = require("./gulp-tasks/media")(gulp, plugins, ran_tasks, on_error);
-const html_module    = require("./gulp-tasks/html")(gulp, plugins, ran_tasks, on_error);
+const styles_module  = require("./gulp-tasks/styles");
+const scripts_module = require("./gulp-tasks/scripts");
+const media_module   = require("./gulp-tasks/media");
+const html_module    = require("./gulp-tasks/html");
 const upload_module  = require("./gulp-tasks/upload");
 const sync_module    = require("./gulp-tasks/sync");
 
@@ -129,10 +129,18 @@ gulp.task("config", function () {
 });
 
 // primary tasks
-gulp.task("styles", styles_module);
-gulp.task("scripts", scripts_module);
-gulp.task("media", media_module);
-gulp.task("html", html_module);
+gulp.task("styles", function () {
+    return styles_module.styles(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("scripts", function () {
+    return scripts_module.scripts(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("media", function () {
+    return media_module.media(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("html", function () {
+    return html_module.html(gulp, plugins, ran_tasks, on_error);
+});
 
 // secondary tasks
 gulp.task("ftp", function () {
