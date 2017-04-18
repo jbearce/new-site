@@ -135,7 +135,11 @@ gulp.task("media", media_module);
 gulp.task("html", html_module);
 
 // secondary tasks
-// gulp.task("ftp", ["config"], ftp_module);
+gulp.task("ftp", function () {
+    config_module.config(gulp, plugins).then(function () {
+        ftp_module.upload(gulp, plugins, ran_tasks, on_error);
+    });
+});
 gulp.task("sync", ["config"], sync_module);
 
 // default task, runs through all primary tasks
