@@ -110,13 +110,13 @@ module.exports = {
                 global.settings.browsersync.open   = plugins.json.read("./config.json").get("browsersync." + env + ".open");
                 global.settings.browsersync.notify = plugins.json.read("./config.json").get("browsersync." + env + ".notify");
 
-                // read FTP settingss from config.json
-                global.settings.ftp.host = plugins.json.read("./config.json").get("ftp." + env + ".hostname");
-                global.settings.ftp.port = plugins.json.read("./config.json").get("ftp." + env + ".port");
-                global.settings.ftp.mode = plugins.json.read("./config.json").get("ftp." + env + ".mode");
-                global.settings.ftp.user = plugins.json.read("./config.json").get("ftp." + env + ".username");
-                global.settings.ftp.pass = plugins.json.read("./config.json").get("ftp." + env + ".password");
-                global.settings.ftp.path = plugins.json.read("./config.json").get("ftp." + env + ".path");
+                // read FTP settings from config.json
+                global.settings.ftp.hostname = plugins.json.read("./config.json").get("ftp." + env + ".hostname");
+                global.settings.ftp.port     = plugins.json.read("./config.json").get("ftp." + env + ".port");
+                global.settings.ftp.mode     = plugins.json.read("./config.json").get("ftp." + env + ".mode");
+                global.settings.ftp.username = plugins.json.read("./config.json").get("ftp." + env + ".username");
+                global.settings.ftp.password = plugins.json.read("./config.json").get("ftp." + env + ".password");
+                global.settings.ftp.path     = plugins.json.read("./config.json").get("ftp." + env + ".path");
 
                 // configure FTP credentials
                 configure_json("ftp", {

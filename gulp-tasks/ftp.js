@@ -10,20 +10,20 @@ module.exports = {
 
         // create SFTP connection
         const sftp_conn = plugins.sftp({
-            host:       global.settings.ftp.host,
+            host:       global.settings.ftp.hostname,
             port:       global.settings.ftp.port,
-            username:   global.settings.ftp.user,
-            password:   global.settings.ftp.pass,
+            username:   global.settings.ftp.username,
+            password:   global.settings.ftp.password,
             remotePath: global.settings.ftp.path,
         });
 
         // create FTP connection
         const ftp_conn = plugins.ftp.create({
-            host:   global.settings.ftp.host,
+            host:   global.settings.ftp.hostname,
             port:   global.settings.ftp.port,
             secure: global.settings.ftp.mode === "tls" ? true : false,
-            user:   global.settings.ftp.user,
-            pass:   global.settings.ftp.pass,
+            user:   global.settings.ftp.username,
+            pass:   global.settings.ftp.password,
             path:   global.settings.ftp.path,
         });
 
