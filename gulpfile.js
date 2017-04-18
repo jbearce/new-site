@@ -72,8 +72,8 @@ const plugins = {
 };
 
 /* STOP! These settings should always be blank!              */
-/* To configure FTP credentials, run gulp ftp                */
-/* To configure BrowserSync settingss, run gulp watch --sync */
+/* To configure FTP credentials, run gulp config --ftp       */
+/* To configure BrowserSync settings, run gulp config --sync */
 
 global.settings = {
     ftp: {
