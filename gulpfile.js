@@ -125,7 +125,7 @@ const sync_module    = require("./gulp-tasks/sync")(plugins, global.settings.bro
 // configuration tasks
 gulp.task("init", init_module);
 gulp.task("config", function () {
-    config_module.config(gulp, plugins);
+    return config_module.config(gulp, plugins);
 });
 
 // primary tasks
@@ -136,8 +136,8 @@ gulp.task("html", html_module);
 
 // secondary tasks
 gulp.task("ftp", function () {
-    config_module.config(gulp, plugins).then(function () {
-        ftp_module.upload(gulp, plugins, ran_tasks, on_error);
+    return config_module.config(gulp, plugins).then(function () {
+        return ftp_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
 gulp.task("sync", ["config"], sync_module);
@@ -151,12 +151,15 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     // trigger FTP task if FTP flag is passed
     if (plugins.argv.ftp) {
         config_module.config(gulp, plugins).then(function () {
-            ftp_module.upload(gulp, plugins, ran_tasks, on_error);
+            return ftp_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }
 
     // reset ran_tasks array
     ran_tasks.length = 0;
+
+    // end the task
+    return;
 });
 
 // watch task, runs through all primary tasks, triggers when a file is saved

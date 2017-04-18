@@ -46,10 +46,10 @@ module.exports = {
                     }`;
 
                     plugins.fs.writeFile("./config.json", json_data, "utf8", function () {
-                        callback();
+                        return callback();
                     });
                 } else if (typeof callback === "function") {
-                    callback();
+                    return callback();
                 }
             });
         };
@@ -73,29 +73,36 @@ module.exports = {
                     prompt[property] = properties[property];
                 });
 
-                // put the prompt in the array
-                prompts.push(prompt);
+                // check if the setting has no value or is explicitly requested
+                if (global.settings[namespace][option] === "" || (gulp.seq.indexOf("config") >= 0 && plugins.argv[namespace])) {
+                    // put the prompt in the array
+                    prompts.push(prompt);
+                }
             });
 
-            // prompt the user
-            return gulp.src("./config.json")
-                .pipe(plugins.prompt.prompt(prompts, function (res) {
-                    // open config.json
-                    const file = plugins.json.read("./config.json");
+            if (prompts.length > 0) {
+                // prompt the user
+                gulp.src("./config.json")
+                    .pipe(plugins.prompt.prompt(prompts, function (res) {
+                        // open config.json
+                        const file = plugins.json.read("./config.json");
 
-                    // update data in JSON
-                    Object.keys(options).forEach(option => {
-                        file.set(namespace + "." + env + "." + option, res[option]);
-                        global.settings[namespace][option] = res[option];
+                        // update data in JSON
+                        Object.keys(options).forEach(option => {
+                            file.set(namespace + "." + env + "." + option, res[option]);
+                            global.settings[namespace][option] = res[option];
+                        });
+
+                        // write updated file contents
+                        file.writeSync();
+                    })).on("end", function () {
+                        if (typeof callback === "function") {
+                            return callback();
+                        }
                     });
-
-                    // write updated file contents
-                    file.writeSync();
-
-                    if (typeof callback === "function") {
-                        callback();
-                    }
-                }));
+            } else if (typeof callback === "function") {
+                return callback();
+            }
         };
 
         return new Promise (function (resolve) {
@@ -121,7 +128,7 @@ module.exports = {
                 // configure FTP credentials
                 configure_json("ftp", {
                     hostname: {
-                        default: global.settings.ftp.host,
+                        default: global.settings.ftp.hostname,
                         type:    "input",
                     },
                     port: {
@@ -134,11 +141,11 @@ module.exports = {
                         choices: ["ftp", "tls", "sftp"],
                     },
                     username: {
-                        default: global.settings.ftp.user,
+                        default: global.settings.ftp.username,
                         type:    "input",
                     },
                     password: {
-                        default: global.settings.ftp.pass,
+                        default: global.settings.ftp.password,
                         type:    "password",
                     },
                     path: {
@@ -166,7 +173,7 @@ module.exports = {
                         },
                     }, env, function () {
                         // resolve the promise
-                        resolve();
+                        return resolve();
                     });
                 });
             });
