@@ -14,12 +14,12 @@ const plugins = {
             alias: "experimental",
             type:  "array",
         },
-        "f": {
-            alias: "ftp",
-            type:  "boolean",
-        },
         "s": {
             alias: "sync",
+            type:  "boolean",
+        },
+        "u": {
+            alias: "upload",
             type:  "boolean",
         },
     }).argv,
@@ -152,8 +152,8 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
     gulp.src("gulpfile.js")
         .pipe(plugins.gulpif(ran_tasks.length, plugins.notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
 
-    // trigger FTP task if FTP flag is passed
-    if (plugins.argv.ftp) {
+    // trigger upload task if --upload is passed
+    if (plugins.argv.upload) {
         config_module.config(gulp, plugins).then(function () {
             return upload_module.upload(gulp, plugins, ran_tasks, on_error);
         });
