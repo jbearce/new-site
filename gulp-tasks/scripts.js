@@ -10,7 +10,7 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + file_name)))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name)))
                 // lint all non-vendor scripts
                 .pipe(plugins.eslint())
                 // print lint errors
@@ -23,7 +23,7 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + file_name)))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name)))
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // concatenate to critical.js
@@ -41,7 +41,7 @@ module.exports = {
         // scripts task, lints, concatenates, & compresses JS
         return new Promise (function (resolve) {
             // set JS directory
-            const js_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/scripts/" : global.settings.paths.dev + "/assets/scripts";
+            const js_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/scripts" : global.settings.paths.dev + "/assets/scripts";
 
             // clean directory if --dist is passed
             if (plugins.argv.dist) {
@@ -49,7 +49,7 @@ module.exports = {
             }
 
             // process all scripts
-            const linted   = lint_scripts(js_directory, [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
+            const linted   = lint_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
             const critical = process_scripts(js_directory, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
             const modern   = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"]);
             const legacy   = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"]);

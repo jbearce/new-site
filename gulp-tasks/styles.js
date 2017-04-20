@@ -30,8 +30,10 @@ module.exports = {
         };
 
         // lint custom styles
-        const lint_styles = function (source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"]) {
+        const lint_styles = function (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) {
             return gulp.src(source)
+                // check if source is newer than destination
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
                 // lint
                 .pipe(plugins.stylelint({
                     failAfterError: true,
@@ -84,7 +86,7 @@ module.exports = {
             }
 
             // process all styles
-            const linted    = lint_styles();
+            const linted    = lint_styles(css_directory);
             const processed = process_styles(css_directory);
 
             // merge both steams back in to one
