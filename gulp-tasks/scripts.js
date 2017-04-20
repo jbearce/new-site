@@ -18,7 +18,7 @@ module.exports = {
         };
 
         // process scripts
-        const process_scripts = function (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"]) {
+        const process_scripts = function (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], transpile = false) {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -29,7 +29,7 @@ module.exports = {
                 // concatenate to critical.js
                 .pipe(plugins.concat(file_name))
                 // transpile to es2015
-                .pipe(plugins.babel({presets: ["es2015"]}))
+                .pipe(plugins.gulpif(transpile === true, plugins.babel({presets: ["es2015"]})))
                 // uglify (if --dist is passed)
                 .pipe(plugins.gulpif(plugins.argv.dist, plugins.uglify()))
                 // write sourcemap (if --dist isn't passed)
@@ -51,8 +51,8 @@ module.exports = {
             // process all scripts
             const linted   = lint_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
             const critical = process_scripts(js_directory, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
-            const modern   = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"]);
-            const legacy   = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"]);
+            const modern   = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], true);
+            const legacy   = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"], true);
 
             // merge all four steams back in to one
             return plugins.merge(linted, critical, modern, legacy)
