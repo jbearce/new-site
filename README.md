@@ -2,7 +2,7 @@
 
 An awesome new WordPress theme built just for new-site!
 
-Testing webhook — some more test
+Testing webhook
 
 ---
 
