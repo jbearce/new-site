@@ -20,9 +20,7 @@
     }
 
     @supports (display: flow-root) {
-        & {
-            display: flow-root !important;
-        }
+        display: flow-root !important;
     }
 }
 
