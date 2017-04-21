@@ -114,7 +114,7 @@
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
             </div><!--/.header-block-->
-            <div class="navigation-block -sticky _tablet _notebook _desktop _noprint" role="navigation">
+            <div class="navigation-block _tablet _notebook _desktop _noprint" role="navigation">
                 <div class="navigation_inner">
                     <?php
                     $menu = wp_nav_menu(array(
@@ -126,4 +126,4 @@
                     ));
                     ?>
                 </div><!--/.navigation_inner-->
-            </div><!--/.navigation-block.-sticky._tablet._notebook._desktop._noprint-->
+            </div><!--/.navigation-block._tablet._notebook._desktop._noprint-->
