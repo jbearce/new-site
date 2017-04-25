@@ -10,13 +10,11 @@
 // Remove the unit of a length
 // @param  {Number}  $number
 @function strip-unit($number) {
-    $output: $number;
-
     @if type-of($number) == "number" and not unitless($number) {
-        $output: $number / 1;
+        $number: $number / ($number * 0 + 1);
     }
 
-    @return $output;
+    @return $number;
 }
 
 // Remify
