@@ -2,8 +2,6 @@
 
 An awesome new WordPress theme built just for new-site!
 
-Webhook test
-
 ---
 
 ## Using This project
