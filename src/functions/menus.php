@@ -385,3 +385,4 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
     return $menu_items;
 }
 add_filter("wp_nav_menu_objects", "new_site_nav_menu_sub_menu", 10, 2);
+?>

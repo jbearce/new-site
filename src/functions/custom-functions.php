@@ -89,3 +89,4 @@ function get_map_link($address, $embed = false) {
 function the_map_link($address) {
     echo get_map_link($address);
 }
+?>

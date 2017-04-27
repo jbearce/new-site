@@ -32,3 +32,4 @@ function new_site_col_shortcode($atts , $content = null) {
     return "<div class='col{$class}'>" . do_shortcode(new_site_fix_shortcodes($content)) . "</div>";
 }
 add_shortcode("col", "new_site_col_shortcode");
+?>

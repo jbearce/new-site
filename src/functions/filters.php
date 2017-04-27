@@ -98,3 +98,4 @@ function new_site_tribe_events_list_show_ical_link() {
     return false;
 }
 add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");
+?>

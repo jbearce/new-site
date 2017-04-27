@@ -73,3 +73,4 @@ function new_site_create_resource_post_type() {
 	);
 }
 add_action("init", "new_site_create_resource_post_type");
+?>
