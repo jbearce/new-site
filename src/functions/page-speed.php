@@ -44,4 +44,3 @@ function new_site_make_styles_async($tag, $handle, $src) {
     return $tag;
 }
 add_filter("style_loader_tag", "new_site_make_styles_async", 10, 3);
-?>

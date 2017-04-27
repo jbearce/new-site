@@ -59,7 +59,6 @@ const plugins = {
     // HTML stuff
     file_include: require("gulp-file-include"),
     replace:      require("gulp-replace"),
-    htmlmin:      require("gulp-htmlmin"),
 
     // JS stuff
     babel:  require("gulp-babel"),

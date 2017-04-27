@@ -9,4 +9,3 @@ require_once(__DIR__ . "/functions/filters.php");
 require_once(__DIR__ . "/functions/shortcodes.php");
 require_once(__DIR__ . "/functions/custom-functions.php");
 require_once(__DIR__ . "/functions/advanced-custom-fields.php");
-?>

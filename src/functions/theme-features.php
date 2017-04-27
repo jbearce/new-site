@@ -18,4 +18,3 @@ add_theme_support("automatic-feed-links");
 add_theme_support("post-thumbnails");
 
 add_editor_style("assets/styles/editor.css");
-?>
