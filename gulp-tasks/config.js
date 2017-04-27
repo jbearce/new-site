@@ -4,7 +4,7 @@
 
 module.exports = {
     // config task, generate configuration file for FTP & BrowserSync and prompt dev for input
-    config(gulp, plugins) {
+    config(gulp, plugins, requested = "") {
         // generate config.json and start other functions
         const generate_config = function (callback) {
             return plugins.fs.stat("./config.json", function (err) {
@@ -74,8 +74,7 @@ module.exports = {
                 });
 
                 // check if the setting has no value or is explicitly requested
-                if (global.settings[namespace][option] === "" || (gulp.seq.indexOf("config") >= 0 && plugins.argv[namespace])) {
-                    // put the prompt in the array
+                if ((requested !== "" && requested === namespace && global.settings[namespace][option] === "") || gulp.seq.indexOf("config") >= 0 && (global.settings[namespace][option] === "" || plugins.argv[namespace])) {
                     prompts.push(prompt);
                 }
             });

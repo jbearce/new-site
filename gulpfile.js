@@ -144,13 +144,13 @@ gulp.task("html", function () {
 });
 
 // secondary tasks
-gulp.task("ftp", function () {
-    return config_module.config(gulp, plugins).then(function () {
+gulp.task("upload", function () {
+    return config_module.config(gulp, plugins, "ftp").then(function () {
         return upload_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
 gulp.task("sync", function () {
-    return config_module.config(gulp, plugins).then(function () {
+    return config_module.config(gulp, plugins, "browsersync").then(function () {
         return sync_module.sync(plugins, global.settings.browsersync);
     });
 });
@@ -163,7 +163,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // trigger upload task if --upload is passed
     if (plugins.argv.upload) {
-        config_module.config(gulp, plugins).then(function () {
+        config_module.config(gulp, plugins, "ftp").then(function () {
             return upload_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }
@@ -179,7 +179,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 gulp.task("watch", function () {
     // set up a browser_sync server, if --sync is passed
     if (plugins.argv.sync) {
-        config_module.config(gulp, plugins).then(function () {
+        config_module.config(gulp, plugins, "browsersync").then(function () {
             sync_module.sync(plugins, global.settings.browsersync);
         });
     }
