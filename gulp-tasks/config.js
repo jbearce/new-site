@@ -14,16 +14,16 @@ module.exports = {
                         "ftp": {
                             "dev": {
                                 "hostname": "",
-                                "port":     "21",
-                                "mode":     "ftp",
+                                "port":     "",
+                                "mode":     "",
                                 "username": "",
                                 "password": "",
                                 "path":     ""
                             },
                             "dist": {
                                 "hostname": "",
-                                "port":     "21",
-                                "mode":     "ftp",
+                                "port":     "",
+                                "mode":     "",
                                 "username": "",
                                 "password": "",
                                 "path":     ""
@@ -131,7 +131,7 @@ module.exports = {
                         type:    "input",
                     },
                     port: {
-                        default: global.settings.ftp.port,
+                        default: global.settings.ftp.port ? global.settings.ftp.port : 21,
                         type:    "input",
                     },
                     mode: {
