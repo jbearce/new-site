@@ -3,7 +3,8 @@
  * Functions: Menus
 \* ------------------------------------------------------------------------ */
 
-$enable_mega_menu = false;
+// determine wether mega menu is enabled or not
+define("ENABLE_MEGA_MENU", false);
 
 // register the menus
 register_nav_menus(array(
@@ -21,16 +22,16 @@ class new_site_menu_walker extends Walker_Nav_Menu {
     }
 
     // set up mega menu variables
+    private $is_mega      = false;
 	private $column_limit = 3;
 	private $column_count = 0;
-    static $li_count = 0;
-    private $is_mega = false;
+    static $li_count      = 0;
 
     function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
         // convert the params in to an array
         $params = explode(" ", $this->params);
 
-        if ($enable_mega_menu && in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
+        if (ENABLE_MEGA_MENU && in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
             $i = 0;
 
             foreach ($children_elements[$element->ID] as $child) {
@@ -94,13 +95,13 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         $title = $item->title;
 
         // retrieve and sanitize the description
-        $uniqid = uniqid("menu-list_description_");
+        $uniqid           = uniqid("menu-list_description_");
         $aria_describedby = $item->description ? " aria-describedby='{$uniqid}'" : "";
-        $description = $item->description ? " <span class='menu-item_description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
+        $description      = $item->description ? " <span class='menu-item_description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
 
         /* mega menu stuff */
 
-        if ($enable_mega_menu && in_array("mega", $params)) {
+        if (ENABLE_MEGA_MENU && in_array("mega", $params)) {
             if ($depth === 0) {
     			self::$li_count = 0;
     		}
@@ -132,7 +133,7 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
         /* mega menu stuff */
 
-        if ($enable_mega_menu && in_array("mega", $params)) {
+        if (ENABLE_MEGA_MENU && in_array("mega", $params)) {
             if (in_array("-mega", $classes)) {
                 $this->is_mega = true;
 
@@ -174,7 +175,7 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         }
 
         // add a -accordion class if the accordion parameter is passed
-        $variant .= in_array("accordion", $params) ? " -accordion" : ((in_array("hover", $params) || in_array("touch", $params)) && !($enable_mega_menu && $this->is_mega) ? " -overlay" : "");
+        $variant .= in_array("accordion", $params) ? " -accordion" : ((in_array("hover", $params) || in_array("touch", $params)) && !(ENABLE_MEGA_MENU && $this->is_mega) ? " -overlay" : "");
 
         // add data properties for the menu script to interact with
         $data = "";
@@ -182,7 +183,7 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         if (in_array("touch", $params)) $data .= " data-touch='true'";
 
         // add aria attribute if the mega parameter is not passed
-        $aria = ($enable_mega_menu && $this->is_mega) ? "" : " aria-hidden='true'";
+        $aria = (ENABLE_MEGA_MENU && $this->is_mega) ? "" : " aria-hidden='true'";
 
         // construct the menu list
         $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$data}{$aria}>";
@@ -202,7 +203,7 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
         /* mega menu stuff */
 
-        if ($enable_mega_menu && in_array("mega", $params)) {
+        if (ENABLE_MEGA_MENU && in_array("mega", $params)) {
             // get the current classes
             $classes = $item->classes ? $item->classes : array();
 
@@ -219,7 +220,7 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 }
 
 // add "Start New Column" checkboxes to the editor for a mega menu
-if ($enable_mega_menu && is_admin()) {
+if (ENABLE_MEGA_MENU && is_admin()) {
     // @TODO figure out how to only do this on the menu editor page
     // require nav-menu.php so we can hook Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
