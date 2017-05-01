@@ -3,6 +3,10 @@
  * Functions: Post Types
 \* ------------------------------------------------------------------------ */
 
+// include page-for-post-type plugin
+require_once(TEMPLATEPATH . "/vendor/page-for-post-type.php");
+add_action("after_setup_theme", array("Page_For_Post_Type", "get_instance"));
+
 // register project post type
 function new_site_create_resource_post_type() {
     register_post_type("resource", array(
@@ -24,8 +28,8 @@ function new_site_create_resource_post_type() {
 	    ),
 		"menu_icon" 	     => "dashicons-admin-links",
 		"menu_position"      => 20,
-        "public" 		     => false,
-        "publicly_queryable" => true,
+        // "public" 		     => false,
+        // "publicly_queryable" => true,
         "rewrite"            => array(
             "slug" => "resources",
         ),
