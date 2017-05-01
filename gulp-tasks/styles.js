@@ -61,6 +61,8 @@ module.exports = {
                 .pipe(plugins.postcss([plugins.flexibility()]))
                 // insert px fallback for rems
                 .pipe(plugins.pixrem())
+                // insert run through rucksack
+                .pipe(plugins.rucksack())
                 // write sourcemap (if --dist isn't passed)
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
                 // remove unused CSS

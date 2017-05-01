@@ -52,6 +52,7 @@ const plugins = {
     flexibility:  require("postcss-flexibility"),
     pixrem:       require("gulp-pixrem"),
     postcss:      require("gulp-postcss"),
+    rucksack:     require("gulp-rucksack"),
     sass:         require("gulp-sass"),
     stylelint:    require("gulp-stylelint"),
     uncss:        require("gulp-uncss"),
