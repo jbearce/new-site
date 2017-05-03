@@ -74,9 +74,9 @@
     <body <?php body_class(); ?>>
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <div class="page_container">
-    		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button>
             <?php get_template_part("partials/login", "overlay"); ?>
-            <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" data-menu="true" aria-hidden="true" role="navigation" tabindex="1">
+            <div class="navigation-block -flyout _phone _noncritical" role="navigation" tabindex="-1">
+                <div class="navigation_background"></div>
                 <div class="navigation_inner">
                     <div class="navigation_search-form_container search-form_container _nomargin">
                         <?php get_search_form(); ?>
@@ -91,9 +91,6 @@
                     ));
                     ?>
                 </div><!--/.navigation_inner-->
-    			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
-    				<?php _e("Close Menu", "new_site"); ?>
-    			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
             </div><!--/.navigation-block.-flyout._phone._noncritical-->
             <div class="header-block" role="banner">
                 <div class="header_inner">
@@ -104,7 +101,7 @@
                             </a><!--/.header_logo.logo-->
                         </div><!--/.col-auto-->
                         <div class="col-auto -nogrow -noshrink _noprint">
-                            <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
+                            <button class="header_menu-toggle menu-toggle -rounded _phone">
                                 <?php _e("View Menu", "new_site"); ?>
                             </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
                             <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
