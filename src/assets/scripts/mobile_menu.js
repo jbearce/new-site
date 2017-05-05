@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
         requestAnimationFrame(function () {
             setTimeout(function () {
                 menu_container.classList.add(active_class);
+                menu_container.focus();
             }, 1);
         });
     };
