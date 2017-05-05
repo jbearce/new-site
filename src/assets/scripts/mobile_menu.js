@@ -142,7 +142,6 @@ document.addEventListener("DOMContentLoaded", function () {
             if (overlay.style.opacity !== newOpacity.toFixed(2) && newOpacity.toFixed(1) % 1 !== 0) {
                 overlay.style.opacity = newOpacity.toFixed(2);
             }
-
         }
     };
 
