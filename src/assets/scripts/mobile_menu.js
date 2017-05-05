@@ -1,247 +1,236 @@
+// JavaScript Document
+
+// Scripts written by YOURNAME @ YOURCOMPANY
+
+// Inspired by https://medium.com/outsystems-experts/gestures-glamour-setting-up-a-touch-menu-6d9b94039997#.d2r8ubylw
+
 document.addEventListener("DOMContentLoaded", function () {
-    var trackableElement;
-    var menu    = document.querySelector(".navigation-block.-flyout");
-    var appMenu = document.querySelector(".navigation_inner");
-    var overlay = document.querySelector(".navigation_background");
-    var toggle  = document.querySelector(".menu-toggle");
+    const menu_container      = document.querySelector(".navigation-block.-flyout");
+    const menu                = document.querySelector(".navigation_inner");
+    const overlay             = document.querySelector(".navigation_background");
+    const toggle              = document.querySelector(".menu-toggle");
+    const active_class        = "is-active";
+    const no_transition_class = "_notransition";
+    const maxOpacity          = 0.5; // if changed, don't forget to change opacity in css
+    const velocity            = 0.3;
 
-    var touchingElement = false;
-    var startTime;
-    var startX = 0,
-        startY = 0;
-    var currentX = 0,
-        currentY = 0;
+    let trackable_element     = false;
+    let touching_element      = false;
+    let start_time            = 0;
+    let start_coords          = [0, 0];
+    let current_coords        = [0, 0];
 
-    var isOpen = false;
-    var isMoving = false;
-    var menuWidth = 0;
-    var lastX = 0;
-    var lastY = 0;
-    var moveX = 0; // where in the screen is the menu currently
-    var dragDirection = "";
-    var maxOpacity = 0.5; // in case if you want to change this, don"t forget to change the value of the opacity in the css class .is-active .menu-background
+    let is_open               = false;
+    let is_moving             = false;
+    let menu_width            = 0;
+    let last_coords           = [0, 0];
+    let move_x                = 0; // where the menu currently
+    let drag_direction        = "";
 
-    var init = function(element, start, move, end) {
-        trackableElement = element;
+    const close_menu = (translate_x) => {
+        function on_transition_end() {
+            overlay.style.opacity = "";
 
-        startTime = new Date().getTime(); // start time of the touch
-
-        addEventListeners();
-    }
-
-    var addEventListeners = function () {
-        trackableElement.addEventListener("touchstart", onTouchStart, false);
-        trackableElement.addEventListener("touchmove", onTouchMove, false);
-        trackableElement.addEventListener("touchend", onTouchEnd, false);
-
-
-        overlay.addEventListener("click", closeMenuOverlay, false); // I want to be able to click the overlay and immediately close the menu (in the space between the actual menu and the page behind it)
-        toggle.addEventListener("click", clickOpenMenu, false); // I want to be able to click the toggle and immediately open the menu
-    }
-
-    function onTouchStart(evt) {
-        startTime = new Date().getTime();
-        startX = evt.touches[0].pageX;
-        startY = evt.touches[0].pageY;
-
-        touchingElement = true;
-
-        touchStart(startX, startY)
-
-    }
-
-    function onTouchMove(evt) {
-        if (!touchingElement) {
-            return;
+            menu_container.removeEventListener("transitionend", on_transition_end, false);
         }
 
-        currentX = evt.touches[0].pageX;
-        currentY = evt.touches[0].pageY;
-        const translateX = currentX - startX; // distance moved in the x axis
-        const translateY = currentY - startY; // distance moved in the y axis
+        if (translate_x < 0 || !is_open) {
+            menu.style.transform = "";
+            menu.style.webkitTransform = "";
 
-        touchMove(evt, currentX, currentY, translateX, translateY)
-    }
+            overlay.classList.remove(active_class);
 
-    function onTouchEnd(evt) {
-        if (!touchingElement) {
-            return;
+            menu_container.classList.remove(active_class);
+            menu_container.addEventListener("transitionend", on_transition_end, false);
+        }
+    };
+
+    const open_menu = () => {
+        menu.style.transform = "";
+        menu.style.webkitTransform = "";
+
+        menu_container.classList.add(active_class);
+
+        overlay.classList.add(active_class);
+        overlay.style.opacity = "";
+    };
+
+    const close_menu_overlay = () => {
+        function on_transition_end() {
+            overlay.classList.remove(active_class);
+
+            menu_container.removeEventListener("transitionend", on_transition_end);
         }
 
-        touchingElement = false;
-        const translateX = currentX - startX; // distance moved in the x axis
-        const translateY = currentY - startY; // distance moved in the y axis
+        menu_container.addEventListener("transitionend", on_transition_end, false);
+        menu_container.classList.remove(active_class);
+    };
 
-        const timeTaken = (new Date().getTime() - startTime);
+    const click_open_menu = () => {
+        overlay.classList.add(active_class);
 
-        touchEnd(currentX, currentY, translateX, translateY, timeTaken)
-    }
+        requestAnimationFrame(function () {
+            setTimeout(function () {
+                menu_container.classList.add(active_class);
+            }, 1);
+        });
+    };
 
+    const update_ui = () => {
+        if (is_moving) {
+            menu.style.transform = "translateX(" + move_x + "px)";
+            menu.style.webkitTransform = "translateX(" + move_x + "px)";
 
-    function touchStart(startX, startY) {
-        const menuOpen = menu.classList.contains("is-active");
+            requestAnimationFrame(update_ui);
+        }
+    };
 
-        if (menuOpen !== false) {
-            isOpen = true;
+    const touch_start = (start_coords) => {
+        const menu_open = menu_container.classList.contains(active_class);
+
+        if (menu_open !== false) {
+            is_open = true;
         } else {
-            isOpen = false;
+            is_open = false;
         }
 
-        menu.classList.add("_notransition");
-        appMenu.classList.add("_notransition");
+        // disable transitions
+        menu_container.classList.add(no_transition_class);
+        menu.classList.add(no_transition_class);
 
-        isMoving = true;
-        menuWidth = appMenu.offsetWidth;
-        lastX = startX;
-        lastY = startY;
+        is_moving   = true;
+        menu_width  = menu.offsetWidth;
+        last_coords = start_coords;
 
-        if (isOpen) {
-            moveX = 0;
+        if (is_open) {
+            move_x = 0;
         } else {
-            moveX = -menuWidth;
+            move_x = -menu_width;
         }
 
-        dragDirection = "";
-        overlay.classList.add("is-active");
-    }
+        drag_direction = "";
+        overlay.classList.add(active_class);
+    };
 
-    function touchMove(evt, currentX, currentY, translateX, translateY) {
-        if (!dragDirection) {
-            if (Math.abs(translateX) >= Math.abs(translateY)) {
-                dragDirection = "horizontal";
+    const touch_move = (evt, current_coords, translate_coords) => {
+        if (!drag_direction) {
+            if (Math.abs(translate_coords[0]) >= Math.abs(translate_coords[1])) {
+                drag_direction = "horizontal";
             } else {
-                dragDirection = "vertical";
+                drag_direction = "vertical";
             }
 
-            requestAnimationFrame(updateUi); // this is what effectively does the animation (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
+            requestAnimationFrame(update_ui); // this is what effectively does the animation (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
         }
-        if (dragDirection === "vertical") {
-            lastX = currentX;
-            lastY = currentY;
+        if (drag_direction === "vertical") {
+            last_coords = current_coords;
         } else {
             evt.preventDefault();
 
-            if (moveX + (currentX - lastX) < 0 && moveX + (currentX - lastX) > -menuWidth) {
-                moveX = moveX + (currentX - lastX);
+            if (move_x + (current_coords[0] - last_coords[0]) < 0 && move_x + (current_coords[0] - last_coords[0]) > -menu_width) {
+                move_x = move_x + (current_coords[0] - last_coords[0]);
             }
 
-            lastX = currentX;
-            lastY = currentY;
+            last_coords = current_coords;
 
-            overlay.classList.add("_notransition");
+            // disable transitions
+            overlay.classList.add(no_transition_class);
 
-            var percentageBeforeDif = (Math.abs(moveX) * 100) / menuWidth;
-            var percentage          = 100 - percentageBeforeDif;
-
-            var newOpacity = (((maxOpacity) * percentage) / 100);
+            const newOpacity = (((maxOpacity) * (100 - ((Math.abs(move_x) * 100) / menu_width))) / 100);
 
             if (overlay.style.opacity !== newOpacity.toFixed(2) && newOpacity.toFixed(1) % 1 !== 0) {
                 overlay.style.opacity = newOpacity.toFixed(2);
             }
 
         }
-    }
+    };
 
-    function touchEnd(currentX, currentY, translateX, translateY, timeTaken) {
-        isMoving = false;
-        var velocity = 0.3;
+    const touch_end = (current_coords, translate_coords, time_taken) => {
+        is_moving = false;
 
-        if (currentX === 0 && currentY === 0) {
-            if (isOpen) {
-                appMenu.classList.remove("_notransition");
-                menu.classList.remove("_notransition");
+        if (current_coords === [0, 0]) {
+            if (is_open) {
+                // enable transitions
+                menu.classList.remove(no_transition_class);
+                menu_container.classList.remove(no_transition_class);
             } else {
-                overlay.classList.remove("is-active");
-                menu.classList.remove("_notransition");
+                // enable transitions
+                overlay.classList.remove(active_class);
+                menu_container.classList.remove(no_transition_class);
             }
         } else {
-            if (isOpen) {
-                if ((translateX < (-menuWidth) / 2) || (Math.abs(translateX) / timeTaken > velocity)) {
-                    closeMenu(translateX);
-                    isOpen = false;
+            if (is_open) {
+                if ((translate_coords[0] < (-menu_width) / 2) || (Math.abs(translate_coords[0]) / time_taken > velocity)) {
+                    close_menu(translate_coords[0]);
+                    is_open = false;
                 } else {
-                    openMenu();
-                    isOpen = true;
+                    open_menu();
+                    is_open = true;
                 }
             } else {
-                if (translateX > menuWidth / 2 || (Math.abs(translateX) / timeTaken > velocity)) {
-                    openMenu();
-                    isOpen = true;
+                if (translate_coords[0] > menu_width / 2 || (Math.abs(translate_coords[0]) / time_taken > velocity)) {
+                    open_menu();
+                    is_open = true;
                 } else {
-                    closeMenu(translateX);
-                    isOpen = false;
+                    close_menu(translate_coords[0]);
+                    is_open = false;
                 }
 
             }
         }
 
-        menu.classList.remove("_notransition");
-        appMenu.classList.remove("_notransition");
+        // enable transitions
+        menu_container.classList.remove(no_transition_class);
+        menu.classList.remove(no_transition_class);
+        overlay.classList.remove(no_transition_class);
+    };
 
-        overlay.classList.remove("_notransition");
+    const on_touch_start = (evt) => {
+        start_time = new Date().getTime();
+        start_coords = [evt.touches[0].pageX, evt.touches[0].pageY];
 
-        // menu.classList.add("menu--animatable");
-    }
+        touching_element = true;
 
-    function updateUi() {
-        if (isMoving) {
-            appMenu.style.transform = "translateX(" + moveX + "px)";
-            appMenu.style.webkitTransform = "translateX(" + moveX + "px)";
+        touch_start(start_coords);
+    };
 
-            requestAnimationFrame(updateUi);
-        }
-    }
-
-    function closeMenu(translateX) {
-        function OnTransitionEnd() {
-            overlay.style.opacity = "";
-
-            menu.classList.remove("menu--animatable");
-            menu.removeEventListener("transitionend", OnTransitionEnd, false);
+    const on_touch_move = (evt) => {
+        if (!touching_element) {
+            return;
         }
 
-        if (translateX < 0 || !isOpen) {
-            appMenu.style.transform = "";
-            appMenu.style.webkitTransform = "";
+        current_coords          = [evt.touches[0].pageX, evt.touches[0].pageY];
+        const translate_coords  = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
 
-            overlay.classList.remove("is-active");
+        touch_move(evt, current_coords, translate_coords);
+    };
 
-            menu.classList.remove("is-active");
-            menu.addEventListener("transitionend", OnTransitionEnd, false);
-        }
-    }
-
-    function openMenu() {
-        appMenu.style.transform = "";
-        appMenu.style.webkitTransform = "";
-
-        menu.classList.add("is-active");
-
-        overlay.classList.add("is-active");
-        overlay.style.opacity = "";
-    }
-
-    function closeMenuOverlay() {
-        function OnTransitionEnd() {
-            overlay.classList.remove("is-active");
-
-            menu.removeEventListener("transitionend", OnTransitionEnd);
+    const on_touch_end = () => {
+        if (!touching_element) {
+            return;
         }
 
-        menu.addEventListener("transitionend", OnTransitionEnd, false);
-        menu.classList.remove("is-active");
-    }
+        touching_element = false;
 
-    function clickOpenMenu() {
-        overlay.classList.add("is-active");
+        const translate_coords = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
 
-        requestAnimationFrame(function () {
-            setTimeout(function () {
-                menu.classList.add("is-active");
-                // menu.classList.add("menu--animatable");
-            }, 1);
-        });
-    }
+        const time_taken = (new Date().getTime() - start_time);
 
-    init(document.querySelector(".navigation_inner"));
+        touch_end(current_coords, translate_coords, time_taken);
+    };
+
+    const init = (element) => {
+        trackable_element = element;
+
+        start_time = new Date().getTime(); // start time of the touch
+
+        trackable_element.addEventListener("touchstart", on_touch_start, false);
+        trackable_element.addEventListener("touchmove", on_touch_move, false);
+        trackable_element.addEventListener("touchend", on_touch_end, false);
+
+        overlay.addEventListener("click", close_menu_overlay, false); // click the overlay to immediately close the menu
+        toggle.addEventListener("click", click_open_menu, false);     // click the toggle to immediately open the menu
+    };
+
+    init(menu);
 });
