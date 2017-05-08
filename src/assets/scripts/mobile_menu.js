@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay             = document.querySelector(".navigation_background");
     const toggle              = document.querySelector(".menu-toggle");
     const active_class        = "is-active";
+    const transitioning_class = "is-transitioning";
     const maxOpacity          = 0.5; // if changed, don't forget to change opacity in css
     const velocity            = 0.3;
 
@@ -116,6 +117,8 @@ document.addEventListener("DOMContentLoaded", function () {
             move_x = -menu_width;
         }
 
+        menu_container.classList.add(transitioning_class);
+
         overlay.classList.add(active_class);
 
         drag_direction = "";
@@ -185,6 +188,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
             }
         }
+
+        menu_container.classList.remove(transitioning_class);
 
         // enable transitions
         toggle_transitions(menu_container, 1);

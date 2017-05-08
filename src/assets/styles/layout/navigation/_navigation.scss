@@ -73,7 +73,6 @@
 
     > .navigation_inner {
         background-color: $dark_alt;
-        box-shadow: remify(0 2 6, 16) transparentize($dark, 0.5);
         height: 100%;
         max-width: remify(350, 16);
         padding: 0;
@@ -84,6 +83,11 @@
         width: 90%;
         will-change: transform;
         z-index: 160;
+    }
+
+    &.is-active > .navigation_inner,
+    &.is-transitioning > .navigation_inner {
+        box-shadow: remify(0 2 6, 16) transparentize($dark, 0.5);
     }
 
     &.is-active > .navigation_inner {
