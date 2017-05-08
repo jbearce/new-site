@@ -10,7 +10,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const overlay             = document.querySelector(".navigation_background");
     const toggle              = document.querySelector(".menu-toggle");
     const active_class        = "is-active";
-    const no_transition_class = "_notransition";
     const maxOpacity          = 0.5; // if changed, don't forget to change opacity in css
     const velocity            = 0.3;
 
@@ -86,6 +85,14 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     };
 
+    const toggle_transitions = (elem, mode = 0) => {
+        if (mode === 1) {
+            elem.style.transition = "";
+        } else {
+            elem.style.transition = "none";
+        }
+    };
+
     const touch_start = (start_coords) => {
         const menu_open = menu_container.classList.contains(active_class);
 
@@ -96,8 +103,8 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // disable transitions
-        menu_container.classList.add(no_transition_class);
-        menu.classList.add(no_transition_class);
+        toggle_transitions(menu_container);
+        toggle_transitions(menu);
 
         is_moving   = true;
         menu_width  = menu.offsetWidth;
@@ -135,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
             last_coords = current_coords;
 
             // disable transitions
-            overlay.classList.add(no_transition_class);
+            toggle_transitions(overlay);
 
             const newOpacity = (((maxOpacity) * (100 - ((Math.abs(move_x) * 100) / menu_width))) / 100);
 
@@ -149,14 +156,13 @@ document.addEventListener("DOMContentLoaded", function () {
         is_moving = false;
 
         if (current_coords === [0, 0]) {
+            // enable transitions
+            toggle_transitions(menu_container, 1);
+
             if (is_open) {
-                // enable transitions
-                menu.classList.remove(no_transition_class);
-                menu_container.classList.remove(no_transition_class);
+                toggle_transitions(menu, 1);
             } else {
-                // enable transitions
-                overlay.classList.remove(active_class);
-                menu_container.classList.remove(no_transition_class);
+                toggle_transitions(overlay, 1);
             }
         } else {
             if (is_open) {
@@ -180,9 +186,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // enable transitions
-        menu_container.classList.remove(no_transition_class);
-        menu.classList.remove(no_transition_class);
-        overlay.classList.remove(no_transition_class);
+        toggle_transitions(menu_container, 1);
+        toggle_transitions(menu, 1);
+        toggle_transitions(overlay, 1);
     };
 
     const on_touch_start = (evt) => {
