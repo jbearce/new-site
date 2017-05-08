@@ -116,8 +116,9 @@ document.addEventListener("DOMContentLoaded", function () {
             move_x = -menu_width;
         }
 
-        drag_direction = "";
         overlay.classList.add(active_class);
+
+        drag_direction = "";
     };
 
     const touch_move = (evt, current_coords, translate_coords) => {
