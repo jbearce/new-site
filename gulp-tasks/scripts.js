@@ -29,7 +29,7 @@ module.exports = {
                 // concatenate to critical.js
                 .pipe(plugins.concat(file_name))
                 // transpile to es2015
-                .pipe(plugins.gulpif(transpile === true, plugins.babel({presets: ["es2015"]})))
+                .pipe(plugins.gulpif(transpile === true, plugins.babel({"presets": [["es2015", {modules: false}]]})))
                 // uglify (if --dist is passed)
                 .pipe(plugins.gulpif(plugins.argv.dist, plugins.uglify()))
                 // write sourcemap (if --dist isn't passed)
