@@ -120,16 +120,6 @@
         background: $background_alt;
     }
 
-    // scrolling responisve tables
-
-    @media screen and (max-width: $xs-break - (1 / 16)) {
-        table {
-            display: block;
-            overflow: auto;
-            padding-bottom: 1px;
-        }
-    }
-
     // blockquote
 
     blockquote {
