@@ -15,19 +15,17 @@
     & > [class*="col-"] {
         flex-grow: 1;
         flex-shrink: 1;
+        min-width: 0;
     }
 
-    & > .col.-nogrow,
     & > [class*="col-"].-nogrow {
         flex-grow: 0;
     }
 
-    & > .col.-nowrap,
     & > [class*="col-"].-nowrap {
         min-width: 0;
     }
 
-    & > .col.-noshrink,
     & > [class*="col-"].-noshrink {
         flex-shrink: 0;
     }
@@ -36,7 +34,6 @@
         width: calc(100% + #{remify($column-gap, 16)});
     }
 
-    &.-padded > .col,
     &.-padded > [class*="col-"] {
         padding-right: remify($column-gap, 16);
     }
