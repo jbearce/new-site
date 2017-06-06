@@ -71,6 +71,7 @@
     "jshint": "^2.9.1",
     "json-file": "^0.1.0",
     "merge-stream": "^1.0.0",
+    "path": "^0.12.7",
     "postcss-flexibility": "^1.1.0",
     "postcss-scss": "^0.4.0",
     "run-sequence": "^1.1.5",

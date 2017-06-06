@@ -40,6 +40,7 @@ module.exports = function (gulp, plugins) {
                     files.forEach((file) => {
                         if (plugins.fs.statSync(file).size <= 1) {
                             plugins.fs.unlinkSync(file);
+                            console.log("\x1b[32m✔\x1b[0m deleted: " + plugins.path.relative(process.cwd(), file));
                         }
                     });
 

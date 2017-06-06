@@ -35,13 +35,14 @@ const plugins = {
     merge:        require("merge-stream"),
     newer:        require("gulp-newer"),
     notify:       require("gulp-notify"),
+    path:         require("path"),
     plumber:      require("gulp-plumber"),
     prompt:       require("gulp-prompt"),
+    replace:      require("gulp-replace"),
     run_sequence: require("run-sequence"),
     sourcemaps:   require("gulp-sourcemaps"),
     through:      require("through2"),
     watch:        require("gulp-watch"),
-    replace:      require("gulp-replace"),
 
     // init stuff
     remove_code:  require("gulp-remove-code"),
