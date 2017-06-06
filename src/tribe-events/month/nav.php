@@ -1,4 +1,4 @@
-<?php do_action("tribe_events_before_nav"); ?>
+<!--removeIf(tribe_html)--><?php do_action("tribe_events_before_nav"); ?>
 
 <h3 class="_visuallyhidden" tabindex="0"><?php esc_html_e("Calendar Month Navigation", "the-events-calendar"); ?></h3>
 
@@ -12,4 +12,4 @@
     </div><!--/.col-0.-nogrow.-noshrink-->
 </div><!--/.tribe-events_row.row.-between-->
 
-<?php do_action("tribe_events_after_nav"); ?>
+<?php do_action("tribe_events_after_nav"); ?><!--endRemoveIf(tribe_html)-->

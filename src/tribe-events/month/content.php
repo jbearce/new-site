@@ -1,4 +1,4 @@
-<div id="tribe-events-content" class="tribe-events-month">
+<!--removeIf(tribe_html)--><div id="tribe-events-content" class="tribe-events-month">
 	<!-- Month Title -->
 	<?php do_action("tribe_events_before_the_title"); ?>
 	<h2 class="tribe-events-page-title tribe_title title _textcenter"><?php tribe_events_title() ?></h2>
@@ -29,6 +29,6 @@
     <div class="_mobile">
        <?php tribe_get_template_part("month/mobile"); ?>
    </div><!--/._mobile-->
-   
+
 	<?php tribe_get_template_part("month/tooltip"); ?>
-</div><!-- #tribe-events-content -->
+</div><!--/#tribe-events-content--><!--endRemoveIf(tribe_html)-->
