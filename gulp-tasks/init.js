@@ -50,6 +50,18 @@ module.exports = function (gulp, plugins) {
             }).then(() => {
                 // remove any remaining comments
                 gulp.src(global.settings.paths.src + "/**/*")
+                    // check if a file is a binary
+                    .pipe(plugins.is_binary())
+                    // skip file if it's a binary
+                    .pipe(plugins.through.obj(function (file, enc, next) {
+                        if (file.isBinary()) {
+                            next();
+                            return;
+                        }
+
+                        // go to next file
+                        next(null, file);
+                    }))
                     .pipe(plugins.replace(/((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))/g, ""))
                     .pipe(gulp.dest(global.settings.paths.src));
             });
