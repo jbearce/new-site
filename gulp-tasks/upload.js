@@ -41,6 +41,6 @@ module.exports = {
             // reload files
             .pipe(plugins.browser_sync.reload({stream: true}))
             // notify that task is complete, if not part of default or watch
-            .pipe(plugins.notify({title: "Success!", message: "FTP task complete!", onLast: true}));
+            .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}));
     }
 };
