@@ -18,8 +18,9 @@ module.exports = function (gulp, plugins) {
             // go to next file
             next(null, file);
         }))
-        // remove login HTML code if --remove --login is passed
-        .pipe(plugins.remove_code({no_login: plugins.argv.remove && plugins.argv.login ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+        // remove login code if --remove login is passed
+        .pipe(plugins.remove_code({login_html: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+        .pipe(plugins.remove_code({login_css: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "/*", commentEnd: "*/"}))
         // output to source directory
         .pipe(gulp.dest(global.settings.paths.src));
     };

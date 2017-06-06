@@ -33,11 +33,13 @@ const plugins = {
     notify:       require("gulp-notify"),
     plumber:      require("gulp-plumber"),
     prompt:       require("gulp-prompt"),
-    remove_code:  require("gulp-remove-code"),
     run_sequence: require("run-sequence"),
     sourcemaps:   require("gulp-sourcemaps"),
     through:      require("through2"),
     watch:        require("gulp-watch"),
+
+    // init stuff
+    remove_code:  require("gulp-remove-code"),
 
     // FTP stuff
     ftp:  require("vinyl-ftp"),
