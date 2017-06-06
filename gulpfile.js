@@ -40,6 +40,8 @@ const plugins = {
 
     // init stuff
     remove_code:  require("gulp-remove-code"),
+    glob:         require("glob"),
+    delete_empty: require("delete-empty"),
 
     // FTP stuff
     ftp:  require("vinyl-ftp"),

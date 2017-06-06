@@ -39,6 +39,8 @@
     "browser-sync": "^2.12.5",
     "critical": "^0.8.3",
     "del": "^2.2.0",
+    "delete-empty": "^1.0.1",
+    "glob": "^7.1.2",
     "gulp": "^3.9.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-babel": "^6.1.2",
