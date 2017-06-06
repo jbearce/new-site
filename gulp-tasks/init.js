@@ -51,10 +51,7 @@ module.exports = function (gulp, plugins) {
                 return Promise.all([
                     // remove any empty folders
                     new Promise((resolve) => {
-                        plugins.delete_empty(global.settings.paths.src + "/**/*", (err, deleted) => {
-                            console.log(deleted);
-                        });
-
+                        plugins.delete_empty(global.settings.paths.src + "/**/*", () => {});
                         return resolve();
                     })
                 ]).then(() => {
