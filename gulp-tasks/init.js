@@ -30,6 +30,7 @@ module.exports = function (gulp, plugins) {
                 .pipe(gulp.dest(global.settings.paths.src))
                 // resolve the promise
                 .on("end", () => {
+                    // resolve the promise
                     resolve();
                 });
         }).then(() => {
@@ -42,28 +43,34 @@ module.exports = function (gulp, plugins) {
                         }
                     });
 
+                    // resolve the promise
                     resolve();
                 });
             }).then(() => {
                 // remove any empty folders
-                plugins.delete_empty(global.settings.paths.src + "/**/*", () => {});
-            }).then(() => {
-                // remove any remaining comments
-                gulp.src(global.settings.paths.src + "/**/*")
-                    // check if a file is a binary
-                    .pipe(plugins.is_binary())
-                    // skip file if it's a binary
-                    .pipe(plugins.through.obj(function (file, enc, next) {
-                        if (file.isBinary()) {
-                            next();
-                            return;
-                        }
+                return new Promise ((resolve) => {
+                    plugins.delete_empty(global.settings.paths.src, () => {
+                        // resolve the promise
+                        resolve();
+                    });
+                }).then(() => {
+                    // remove any remaining comments
+                    gulp.src(global.settings.paths.src + "/**/*")
+                        // check if a file is a binary
+                        .pipe(plugins.is_binary())
+                        // skip file if it's a binary
+                        .pipe(plugins.through.obj(function (file, enc, next) {
+                            if (file.isBinary()) {
+                                next();
+                                return;
+                            }
 
-                        // go to next file
-                        next(null, file);
-                    }))
-                    .pipe(plugins.replace(/((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))/g, ""))
-                    .pipe(gulp.dest(global.settings.paths.src));
+                            // go to next file
+                            next(null, file);
+                        }))
+                        .pipe(plugins.replace(/((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))/g, ""))
+                        .pipe(gulp.dest(global.settings.paths.src));
+                });
             });
         });
     };
