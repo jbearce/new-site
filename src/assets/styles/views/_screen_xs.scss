@@ -3,8 +3,8 @@
 /* ------------------------------------------------------------------------ *\
  * Module
 \* ------------------------------------------------------------------------ */
-
-@import "../module/tribe-events/_tribe-events_xs";
+/*removeIf(tribe_css)*/
+@import "../module/tribe-events/_tribe-events_xs";/*endRemoveIf(tribe_css)*/
 @import "../module/swiper/_swiper_xs";
 
 /* ------------------------------------------------------------------------ *\
