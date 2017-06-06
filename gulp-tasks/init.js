@@ -7,6 +7,7 @@ module.exports = function (gulp, plugins) {
     return function () {
         return Promise.all([
             new Promise ((resolve) => {
+                // remove any specified optional modules
                 gulp.src(global.settings.paths.src + "/**/*")
                     // check if a file is a binary
                     .pipe(plugins.is_binary())
@@ -35,6 +36,7 @@ module.exports = function (gulp, plugins) {
         ]).then(() => {
             return Promise.all([
                 new Promise ((resolve) => {
+                    // remove any empty files
                     plugins.glob(global.settings.paths.src + "/**/*", (err, files) => {
                         files.forEach((file) => {
                             if (plugins.fs.statSync(file).size <= 1) {
@@ -46,8 +48,20 @@ module.exports = function (gulp, plugins) {
                     });
                 })
             ]).then(() => {
-                return plugins.delete_empty(global.settings.paths.src + "/**/*", (err, deleted) => {
-                    console.log(deleted);
+                return Promise.all([
+                    // remove any empty folders
+                    new Promise((resolve) => {
+                        plugins.delete_empty(global.settings.paths.src + "/**/*", (err, deleted) => {
+                            console.log(deleted);
+                        });
+
+                        return resolve();
+                    })
+                ]).then(() => {
+                    // remove any remaining comments
+                    return gulp.src(global.settings.paths.src + "/**/*")
+                        .pipe(plugins.replace(/((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))/g, ""))
+                        .pipe(gulp.dest(global.settings.paths.src));
                 });
             });
         });

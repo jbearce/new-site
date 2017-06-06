@@ -37,6 +37,7 @@ const plugins = {
     sourcemaps:   require("gulp-sourcemaps"),
     through:      require("through2"),
     watch:        require("gulp-watch"),
+    replace:      require("gulp-replace"),
 
     // init stuff
     remove_code:  require("gulp-remove-code"),
@@ -63,7 +64,6 @@ const plugins = {
 
     // HTML stuff
     file_include: require("gulp-file-include"),
-    replace:      require("gulp-replace"),
 
     // JS stuff
     babel:  require("gulp-babel"),
