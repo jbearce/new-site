@@ -167,7 +167,7 @@ acf_add_local_field_group(array (
 
 endif;
 // End Front Page Callouts
-
+/*removeIf(modals_css_js_php)*/
 // Stat Modals
 if( function_exists('acf_add_local_field_group') ):
 
@@ -248,7 +248,7 @@ acf_add_local_field_group(array (
 
 endif;
 // End Modals
-
+/*endRemoveIf(modals_css_js_php)*/
 // Start Options
 if( function_exists('acf_add_options_page') ):
 

@@ -5,7 +5,7 @@
                     <p class="footer_text text _textcenter _nomargin"><a class="footer_link link" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer_link link" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
                 </div><!--/.footer_inner-->
-            </div><!--/.footer-block-->
+            </div><!--/.footer-block--><!--removeIf(modals_html)-->
             <?php
             $i = 0;
             $modals = get_field("modals");
@@ -35,7 +35,7 @@
                     <?php endif; // if ($content) ?>
 
                 <?php endwhile; // while (have_rows("modals")) ?>
-            <?php endif; // if ($modals) ?>
+            <?php endif; // if ($modals) ?><!--endRemoveIf(modals_html)-->
         </div><!--/.page_container-->
         <?php wp_footer(); ?>
         <script defer="defer" src="<?php bloginfo("template_directory"); ?>/assets/scripts/modern.js"></script>

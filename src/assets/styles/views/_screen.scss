@@ -23,8 +23,8 @@
 @import "../module/login-form/_login-form";/*endRemoveIf(login_css_js_php)*/
 @import "../module/logo/_logo";
 @import "../module/menu-list/_menu-list";
-@import "../module/menu-toggle/_menu-toggle";
-@import "../module/modal/_modal";
+@import "../module/menu-toggle/_menu-toggle";/*removeIf(modals_css_js_php)*/
+@import "../module/modal/_modal";/*endRemoveIf(modals_css_js_php)*/
 @import "../module/ninja-forms/_ninja-forms";
 @import "../module/overlay-closer/_overlay-closer";
 @import "../module/search-form/_search-form";

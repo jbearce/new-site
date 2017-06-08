@@ -24,8 +24,8 @@ module.exports = function (gulp, plugins) {
                 .pipe(plugins.remove_code({login_html: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
                 .pipe(plugins.remove_code({login_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "/*", commentEnd: "*/"}))
                 // remove modal code if --remove login is passed
-                .pipe(plugins.remove_code({modal_html: plugins.argv.remove && plugins.argv.remove.includes("modal") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                .pipe(plugins.remove_code({modal_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("modal") ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                .pipe(plugins.remove_code({modals_html: plugins.argv.remove && plugins.argv.remove.includes("modals") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                .pipe(plugins.remove_code({modals_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("modals") ? true : false, commentStart: "/*", commentEnd: "*/"}))
                 // remove resource code if --remove tribe is passed
                 .pipe(plugins.remove_code({resources_html: plugins.argv.remove && plugins.argv.remove.includes("resources") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
                 .pipe(plugins.remove_code({resources_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("resources") ? true : false, commentStart: "/*", commentEnd: "*/"}))
