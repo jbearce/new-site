@@ -19,8 +19,8 @@
 \* ------------------------------------------------------------------------ */
 
 @import "../module/article/_article";
-@import "../module/divider/_divider";/*removeIf(login_css)*/
-@import "../module/login-form/_login-form";/*endRemoveIf(login_css)*/
+@import "../module/divider/_divider";/*removeIf(login_css_js_php)*/
+@import "../module/login-form/_login-form";/*endRemoveIf(login_css_js_php)*/
 @import "../module/logo/_logo";
 @import "../module/menu-list/_menu-list";
 @import "../module/menu-toggle/_menu-toggle";
@@ -28,16 +28,16 @@
 @import "../module/ninja-forms/_ninja-forms";
 @import "../module/overlay-closer/_overlay-closer";
 @import "../module/search-form/_search-form";
-@import "../module/swiper/_swiper";/*removeIf(tribe_css)*/
-@import "../module/tribe-events/_tribe-events";/*endRemoveIf(tribe_css)*/
+@import "../module/swiper/_swiper";/*removeIf(tribe_css_js_php)*/
+@import "../module/tribe-events/_tribe-events";/*endRemoveIf(tribe_css_js_php)*/
 @import "../module/widget/_widget";
 
 /* ------------------------------------------------------------------------ *\
  * Layout
 \* ------------------------------------------------------------------------ */
 
-@import "../layout/page/_page";/*removeIf(login_css)*/
-@import "../layout/login/_login";/*endRemoveIf(login_css)*/
+@import "../layout/page/_page";/*removeIf(login_css_js_php)*/
+@import "../layout/login/_login";/*endRemoveIf(login_css_js_php)*/
 @import "../layout/navigation/_navigation";
 @import "../layout/header/_header";
 @import "../layout/hero/_hero";

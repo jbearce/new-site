@@ -6,7 +6,7 @@
 // include page-for-post-type plugin
 require_once(TEMPLATEPATH . "/functions/vendor/page-for-post-type.php");
 add_action("after_setup_theme", array("Page_For_Post_Type", "get_instance"));
-
+/*removeIf(resources_css_js_php)*/
 // register project post type
 function new_site_create_resource_post_type() {
     register_post_type("resource", array(
@@ -76,4 +76,4 @@ function new_site_create_resource_post_type() {
 		)
 	);
 }
-add_action("init", "new_site_create_resource_post_type");
+add_action("init", "new_site_create_resource_post_type");/*endRemoveIf(resources_css_js_php)*/

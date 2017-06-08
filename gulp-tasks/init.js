@@ -22,12 +22,16 @@ module.exports = function (gulp, plugins) {
                 }))
                 // remove login code if --remove login is passed
                 .pipe(plugins.remove_code({login_html: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                .pipe(plugins.remove_code({login_php: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "/*", commentEnd: "*/"}))
-                .pipe(plugins.remove_code({login_css: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                .pipe(plugins.remove_code({login_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("login") ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                // remove modal code if --remove login is passed
+                .pipe(plugins.remove_code({modal_html: plugins.argv.remove && plugins.argv.remove.includes("modal") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                .pipe(plugins.remove_code({modal_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("modal") ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                // remove resource code if --remove tribe is passed
+                .pipe(plugins.remove_code({resources_html: plugins.argv.remove && plugins.argv.remove.includes("resources") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                .pipe(plugins.remove_code({resources_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("resources") ? true : false, commentStart: "/*", commentEnd: "*/"}))
                 // remove tribe code if --remove tribe is passed
                 .pipe(plugins.remove_code({tribe_html: plugins.argv.remove && plugins.argv.remove.includes("tribe") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                .pipe(plugins.remove_code({tribe_php: plugins.argv.remove && plugins.argv.remove.includes("tribe") ? true : false, commentStart: "/*", commentEnd: "*/"}))
-                .pipe(plugins.remove_code({tribe_css: plugins.argv.remove && plugins.argv.remove.includes("tribe") ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                .pipe(plugins.remove_code({tribe_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("tribe") ? true : false, commentStart: "/*", commentEnd: "*/"}))
                 // output to source directory
                 .pipe(gulp.dest(global.settings.paths.src))
                 // resolve the promise
