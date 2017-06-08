@@ -84,7 +84,7 @@ function new_site_dequeue_nf_display() {
     wp_dequeue_style("nf-display");
 }
 add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
-/*removeIf(tribe_html)*/
+/*removeIf(tribe_php)*/
 // add button class to Tribe Events month links
 function new_site_tribe_events_the_month_link($html) {
     $html = preg_replace("/(<a)/", "$1 class='tribe_button button _nowrap'", $html);
@@ -97,4 +97,4 @@ add_filter("tribe_events_the_previous_month_link", "new_site_tribe_events_the_mo
 function new_site_tribe_events_list_show_ical_link() {
     return false;
 }
-add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");/*endRemoveIf(tribe_html)*/
+add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");/*endRemoveIf(tribe_php)*/
