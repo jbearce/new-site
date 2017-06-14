@@ -56,6 +56,7 @@
         cursor: pointer;
         display: block;
         flex: 0 0 auto;
+        font-size: 1em;
         margin: 0;
     }
 
@@ -305,27 +306,17 @@
         font-weight: 400;
     }
 
-    .menu-list_link {
+    .menu-list_link,
+    .menu-list_toggle {
         color: $accent;
-        padding: remify(10 14, 16);
+        padding: remify(8 18, 16);
         transition: background-color 0.15s, color 0.15s;
     }
 
     .menu-list_link:focus,
     .menu-list_link:hover,
     > .menu-list_item.-parent:hover > .menu-list_link,
-    > .menu-list_item.-parent.is-active > .menu-list_link {
-        background-color: $accent;
-        color: $light;
-    }
-
-    .menu-list_toggle {
-        color: $accent;
-        font-size: 1em;
-        padding: remify(8 12, 16);
-        transition: background-color 0.15s, color 0.15s;
-    }
-
+    > .menu-list_item.-parent.is-active > .menu-list_link,
     .menu-list_toggle:focus,
     .menu-list_toggle:hover,
     .menu-list_item.-parent:hover > .menu-list_toggle,
@@ -334,53 +325,87 @@
         color: $light;
     }
 
-    .menu-list_container.-mega,
-    .menu-list.-tier1.-accordion,
-    .menu-list.-tier1.-overlay {
+    // tier 1
+
+    .menu-list.-tier1 {
         background-color: $accent;
+        font-size: remify(14, 16);
     }
 
-    .menu-list.-tier1 .menu-list_link {
+    .menu-list.-tier1.-mega {
+        max-width: remify(250, 14);
+        padding: remify(7 0, 14);
+    }
+
+    .menu-list.-tier1.-mega:not(:last-child) {
+        border-right: remify(1) solid darken($accent, 10);
+    }
+
+    .menu-list.-tier1:not(.-mega)::before,
+    .menu-list.-tier1:not(.-mega)::after {
+        content: "\0020";
+        display: block;
+        height: remify(7, 14);
+        width: 100%;
+    }
+
+    .menu-list.-tier1 .menu-list_link,
+    .menu-list.-tier1 .menu-list_toggle {
         color: $light;
+        padding: remify(4 18, 14);
     }
 
     .menu-list.-tier1 .menu-list_link:focus,
     .menu-list.-tier1 .menu-list_link:hover,
-    .menu-list.-tier1.-overlay .menu-list_item.-parent:hover > .menu-list_link,
-    .menu-list.-tier1.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
-        background-color: lighten($accent, 5);
-    }
-
-    .menu-list.-tier1 .menu-list_toggle {
-        color: $light;
-    }
-
+    .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_link,
     .menu-list.-tier1 .menu-list_toggle:focus,
     .menu-list.-tier1 .menu-list_toggle:hover,
-    .menu-list.-tier1 .menu-list_item.-parent:hover > .menu-list_toggle,
-    .menu-list.-tier1 .menu-list_item.-parent.is-active > .menu-list_toggle {
-        background-color: lighten($accent, 5);
-    }
-
-    .menu-list.-tier2.-accordion,
-    .menu-list.-tier2.-overlay {
+    .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_toggle,
+    .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: lighten($accent, 10);
     }
 
-    .menu-list.-tier2 .menu-list_link {
+    // tier 2
+
+    .menu-list.-tier2 {
+        font-size: remify(12, 14);
+    }
+
+    .menu-list.-tier2.-mega {
+        padding: remify(0 0 6, 12);
+    }
+
+    .menu-list.-tier2:not(.-mega) {
+        background-color: lighten($accent, 10);
+    }
+
+    .menu-list.-tier2:not(.-mega)::before,
+    .menu-list.-tier2:not(.-mega)::after {
+        content: "\0020";
+        display: block;
+        height: remify(6, 12);
+        width: 100%;
+    }
+
+    .menu-list.-tier2 .menu-list_link,
+    .menu-list.-tier2 .menu-list_toggle {
         color: $light;
+        padding: remify(2 18, 12);
     }
 
-    .menu-list.-tier2.-accordion .menu-list_link:focus,
-    .menu-list.-tier2.-accordion .menu-list_link:hover,
-    .menu-list.-tier2.-overlay .menu-list_link:focus,
-    .menu-list.-tier2.-overlay .menu-list_link:hover,
-    .menu-list.-tier2.-overlay .menu-list_item.-parent:hover > .menu-list_link,
-    .menu-list.-tier2.-overlay .menu-list_item.-parent.is-active > .menu-list_link {
-        background-color: lighten(lighten($accent, 10), 5);
+    .menu-list.-tier2 .menu-list_link:focus,
+    .menu-list.-tier2 .menu-list_link:hover,
+    .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_link,
+    .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_link,
+    .menu-list.-tier2 .menu-list_toggle:focus,
+    .menu-list.-tier2 .menu-list_toggle:hover,
+    .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_toggle,
+    .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_toggle {
+        background-color: lighten(lighten($accent, 10), 10);
     }
 
-    .menu-list_container.-mega .menu-list.-tier2 .menu-list_link::before {
+    .menu-list.-tier2 .menu-list_link::before {
         content: "\002D\0020\0020";
     }
 }

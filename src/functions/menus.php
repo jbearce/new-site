@@ -111,7 +111,7 @@ class new_site_menu_walker extends Walker_Nav_Menu {
     		}
 
             if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
-                $output .= "</ul><ul class='menu-list -vertical -child -tier1'>";
+                $output .= "</ul><ul class='menu-list -vertical -child -tier1 -mega'>";
     			$this->column_count++;
             }
 
@@ -159,23 +159,29 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         }
 
         if (in_array("hover", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("accordion", $params)) {
-            $variant = in_array("touch", $params) ? " _mouse" : "";
-            $toggle .= "<button class='menu-list_toggle _visuallyhidden{$variant}'>" . __("Toggle children", "new_site") . "</button>";
+            $toggle .= "<button class='menu-list_toggle _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "") . "'>" . __("Toggle children", "new_site") . "</button>";
         }
+
+        // set up empty variant class
+        $variant = "";
 
         // add a -tier class indicting the depth
-        $variant = "-tier1";
-
-        if ($depth > 0) {
-            if ($depth > 1) {
-                $variant = "-tier2 -tier" . ($depth + 1);
-            } else {
-                $variant = "-tier2";
-            }
+        if ($depth === 0) {
+            $variant .= "-tier1";
+        } elseif ($depth === 1) {
+            $variant .= "-tier2";
+        } elseif ($depth > 1) {
+            $variant .= "-tier2 -tier" . ($depth + 1);
         }
 
-        // add a -accordion class if the accordion parameter is passed
-        $variant .= in_array("accordion", $params) ? " -accordion" : ((in_array("hover", $params) || in_array("touch", $params)) && !(ENABLE_MEGA_MENU && $this->is_mega) ? " -overlay" : "");
+        // add the appropriate variant class
+        if (in_array("accordion", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) {
+            $variant .= " -accordion";
+        } elseif ((in_array("hover", $params) || in_array("touch", $params)) && !(ENABLE_MEGA_MENU && $this->is_mega)) {
+            $variant .= " -overlay";
+        } elseif (ENABLE_MEGA_MENU && $this->is_mega) {
+            $variant .= " -mega";
+        }
 
         // add data properties for the menu script to interact with
         $data = "";
