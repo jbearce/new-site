@@ -18,10 +18,6 @@
         content: "" !important;
         display: table !important;
     }
-
-    @supports (display: flow-root) {
-        display: flow-root !important;
-    }
 }
 
 ._dark {
