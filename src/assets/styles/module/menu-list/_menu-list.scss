@@ -332,21 +332,20 @@
         font-size: remify(14, 16);
     }
 
-    .menu-list.-tier1.-mega {
-        max-width: remify(250, 14);
-        padding: remify(7 0, 14);
-    }
-
-    .menu-list.-tier1.-mega:not(:last-child) {
-        border-right: remify(1) solid darken($accent, 10);
-    }
-
-    .menu-list.-tier1:not(.-mega)::before,
-    .menu-list.-tier1:not(.-mega)::after {
+    .menu-list.-tier1::before,
+    .menu-list.-tier1::after {
         content: "\0020";
         display: block;
         height: remify(7, 14);
         width: 100%;
+    }
+
+    .menu-list.-tier1.-mega {
+        max-width: remify(250, 14);
+    }
+
+    .menu-list.-tier1.-mega:not(:last-child) {
+        border-right: remify(1) solid darken($accent, 10);
     }
 
     .menu-list.-tier1 .menu-list_link,
@@ -372,20 +371,16 @@
         font-size: remify(12, 14);
     }
 
-    .menu-list.-tier2.-mega {
-        padding: remify(0 0 6, 12);
-    }
-
-    .menu-list.-tier2:not(.-mega) {
-        background-color: lighten($accent, 10);
-    }
-
     .menu-list.-tier2:not(.-mega)::before,
-    .menu-list.-tier2:not(.-mega)::after {
+    .menu-list.-tier2::after {
         content: "\0020";
         display: block;
         height: remify(6, 12);
         width: 100%;
+    }
+
+    .menu-list.-tier2:not(.-mega) {
+        background-color: lighten($accent, 10);
     }
 
     .menu-list.-tier2 .menu-list_link,
