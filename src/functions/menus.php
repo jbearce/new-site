@@ -4,7 +4,7 @@
 \* ------------------------------------------------------------------------ */
 
 // determine wether mega menu is enabled or not
-define("ENABLE_MEGA_MENU", false);
+define("ENABLE_MEGA_MENU", true);
 
 // register the menus
 register_nav_menus(array(
@@ -150,15 +150,15 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         // add a toggle button
         $toggle = "";
 
-        if (in_array("accordion", $params) && !in_array("touch", $params) && !in_array("hover", $params)) {
+        if (in_array("accordion", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("touch", $params) && !in_array("hover", $params)) {
             $toggle .= "<button class='menu-list_toggle'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
-        if (in_array("touch", $params) && !($this->is_mega && $depth > 0) && !in_array("accordion", $params)) {
+        if (in_array("touch", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("accordion", $params)) {
             $toggle .= "<button class='menu-list_toggle _touch'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
-        if (in_array("hover", $params) && !($this->is_mega && $depth > 0) && !in_array("accordion", $params)) {
+        if (in_array("hover", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("accordion", $params)) {
             $variant = in_array("touch", $params) ? " _mouse" : "";
             $toggle .= "<button class='menu-list_toggle _visuallyhidden{$variant}'>" . __("Toggle children", "new_site") . "</button>";
         }
@@ -179,8 +179,8 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
         // add data properties for the menu script to interact with
         $data = "";
-        if (in_array("hover", $params)) $data .= " data-click='true'";
-        if (in_array("touch", $params)) $data .= " data-touch='true'";
+        if (in_array("hover", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) $data .= " data-click='true'";
+        if (in_array("touch", $params)&& !(ENABLE_MEGA_MENU && $this->is_mega)) $data   .= " data-touch='true'";
 
         // add aria attribute if the mega parameter is not passed
         $aria = (ENABLE_MEGA_MENU && $this->is_mega) ? "" : " aria-hidden='true'";

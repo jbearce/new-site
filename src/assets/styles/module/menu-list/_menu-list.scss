@@ -43,7 +43,8 @@
 .menu-list_link {
     & {
         display: block;
-        flex: 1 1 auto;
+        flex: 1 1 0%;
+        min-width: 0;
         text-decoration: none;
     }
 }
@@ -54,6 +55,7 @@
         border: 0;
         cursor: pointer;
         display: block;
+        flex: 0 0 auto;
         margin: 0;
     }
 
@@ -88,8 +90,8 @@
     }
 
     > .menu-list_item {
-        flex: 1 1 auto;
-        width: 0;
+        flex: 1 1 0%;
+        min-width: 0;
     }
 }
 
@@ -259,9 +261,13 @@
         visibility: visible;
     }
 
-    > .menu-list.-tier1 {
-        flex: 1 1 auto;
+    .menu-list.-tier1 {
+        flex: 1 1 0%;
         min-width: 0;
+    }
+
+    .menu-list.-tier2 {
+        flex: 0 0 100%;
     }
 }
 
