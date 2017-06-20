@@ -78,6 +78,13 @@
         padding-left: remify(18, 12);
     }
 
+    ol ol,
+    ol ul,
+    ul ol,
+    ul ul {
+        font-size: 1em;
+    }
+
     .table_container {
         overflow: auto;
         width: 100%;
