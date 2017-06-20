@@ -49,7 +49,7 @@ const plugins = {
     glob:         require("glob"),
     delete_empty: require("delete-empty"),
 
-    // FTP stuff
+    // upload stuff
     ftp:  require("vinyl-ftp"),
     sftp: require("gulp-sftp"),
 
@@ -82,11 +82,11 @@ const plugins = {
 };
 
 /* STOP! These settings should always be blank!              */
-/* To configure FTP credentials, run gulp config --ftp       */
+/* To configure remote credentials, run gulp config --remote */
 /* To configure BrowserSync settings, run gulp config --sync */
 
 global.settings = {
-    ftp: {
+    remote: {
         hostname: "",
         port:     "",
         mode:     "",
@@ -154,7 +154,7 @@ gulp.task("html", function () {
 
 // secondary tasks
 gulp.task("upload", function () {
-    return config_module.config(gulp, plugins, "ftp").then(function () {
+    return config_module.config(gulp, plugins, "remote").then(function () {
         return upload_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
@@ -172,7 +172,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 
     // trigger upload task if --upload is passed
     if (plugins.argv.upload) {
-        config_module.config(gulp, plugins, "ftp").then(function () {
+        config_module.config(gulp, plugins, "remote").then(function () {
             return upload_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }

@@ -3,7 +3,7 @@
 // Scripts written by YOURNAME @ YOURCOMPANY
 
 module.exports = {
-    // config task, generate configuration file for FTP & BrowserSync and prompt dev for input
+    // config task, generate configuration file for uploads & BrowserSync and prompt dev for input
     config(gulp, plugins, requested = "") {
         // generate config.json and start other functions
         const generate_config = function (callback) {
@@ -11,7 +11,7 @@ module.exports = {
                 if (err !== null) {
                     const json_data =
                     `{
-                        "ftp": {
+                        "remote": {
                             "dev": {
                                 "hostname": "",
                                 "port":     "",
@@ -116,39 +116,39 @@ module.exports = {
                 global.settings.browsersync.open   = plugins.json.read("./config.json").get("browsersync." + env + ".open");
                 global.settings.browsersync.notify = plugins.json.read("./config.json").get("browsersync." + env + ".notify");
 
-                // read FTP settings from config.json
-                global.settings.ftp.hostname = plugins.json.read("./config.json").get("ftp." + env + ".hostname");
-                global.settings.ftp.port     = plugins.json.read("./config.json").get("ftp." + env + ".port");
-                global.settings.ftp.mode     = plugins.json.read("./config.json").get("ftp." + env + ".mode");
-                global.settings.ftp.username = plugins.json.read("./config.json").get("ftp." + env + ".username");
-                global.settings.ftp.password = plugins.json.read("./config.json").get("ftp." + env + ".password");
-                global.settings.ftp.path     = plugins.json.read("./config.json").get("ftp." + env + ".path");
+                // read remote settings from config.json
+                global.settings.remote.hostname = plugins.json.read("./config.json").get("remote." + env + ".hostname");
+                global.settings.remote.port     = plugins.json.read("./config.json").get("remote." + env + ".port");
+                global.settings.remote.mode     = plugins.json.read("./config.json").get("remote." + env + ".mode");
+                global.settings.remote.username = plugins.json.read("./config.json").get("remote." + env + ".username");
+                global.settings.remote.password = plugins.json.read("./config.json").get("remote." + env + ".password");
+                global.settings.remote.path     = plugins.json.read("./config.json").get("remote." + env + ".path");
 
-                // configure FTP credentials
-                configure_json("ftp", {
+                // configure remote credentials
+                configure_json("remote", {
                     hostname: {
-                        default: global.settings.ftp.hostname,
+                        default: global.settings.remote.hostname,
                         type:    "input",
                     },
                     port: {
-                        default: global.settings.ftp.port ? global.settings.ftp.port : 21,
+                        default: global.settings.remote.port ? global.settings.remote.port : 21,
                         type:    "input",
                     },
                     mode: {
-                        default: global.settings.ftp.mode === "ftp" ? 0 : global.settings.ftp.mode === "tls" ? 1 : global.settings.ftp.mode === "sftp" ? 2 : 0,
+                        default: global.settings.remote.mode === "ftp" ? 0 : global.settings.remote.mode === "tls" ? 1 : global.settings.remote.mode === "sftp" ? 2 : 0,
                         type:    "list",
                         choices: ["ftp", "tls", "sftp"],
                     },
                     username: {
-                        default: global.settings.ftp.username,
+                        default: global.settings.remote.username,
                         type:    "input",
                     },
                     password: {
-                        default: global.settings.ftp.password,
+                        default: global.settings.remote.password,
                         type:    "password",
                     },
                     path: {
-                        default: global.settings.ftp.path,
+                        default: global.settings.remote.path,
                         type:    "input",
                     },
                 }, env, function () {

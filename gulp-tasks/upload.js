@@ -5,37 +5,37 @@
 module.exports = {
     // upload changed files
     upload(gulp, plugins, ran_tasks, on_error) {
-        // set FTP directory
-        const ftp_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+        // set upload directory
+        const upload_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // create SFTP connection
         const sftp_conn = plugins.sftp({
-            host:       global.settings.ftp.hostname,
-            port:       global.settings.ftp.port,
-            username:   global.settings.ftp.username,
-            password:   global.settings.ftp.password,
-            remotePath: global.settings.ftp.path,
+            host:       global.settings.remote.hostname,
+            port:       global.settings.remote.port,
+            username:   global.settings.remote.username,
+            password:   global.settings.remote.password,
+            remotePath: global.settings.remote.path,
         });
 
         // create FTP connection
         const ftp_conn = plugins.ftp.create({
-            host:   global.settings.ftp.hostname,
-            port:   global.settings.ftp.port,
-            secure: global.settings.ftp.mode === "tls" ? true : false,
-            user:   global.settings.ftp.username,
-            pass:   global.settings.ftp.password,
-            path:   global.settings.ftp.path,
+            host:   global.settings.remote.hostname,
+            port:   global.settings.remote.port,
+            secure: global.settings.remote.mode === "tls" ? true : false,
+            user:   global.settings.remote.username,
+            pass:   global.settings.remote.password,
+            path:   global.settings.remote.path,
         });
 
-        return gulp.src(ftp_directory + "/**/*")
+        return gulp.src(upload_directory + "/**/*")
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
             // check if files are newer
-            .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [ftp_directory + "/**/*"]})))
+            .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [upload_directory + "/**/*"]})))
             // check if files are newer
-            .pipe(plugins.gulpif(global.settings.ftp.mode !== "sftp", ftp_conn.newer(global.settings.ftp.path)))
+            .pipe(plugins.gulpif(global.settings.remote.mode !== "sftp", ftp_conn.newer(global.settings.remote.path)))
             // upload changed files
-            .pipe(plugins.gulpif(global.settings.ftp.mode !== "sftp", ftp_conn.dest(global.settings.ftp.path), sftp_conn))
+            .pipe(plugins.gulpif(global.settings.remote.mode !== "sftp", ftp_conn.dest(global.settings.remote.path), sftp_conn))
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
             // reload files

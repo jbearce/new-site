@@ -56,9 +56,9 @@ This is the main task you need to be aware of. It compiles any changed files in 
 
 This task simply runs `gulp` every time a change is made in `./src`. If you followed the [Advanced setup instructions](#advanced), you may also use the flag `--sync` in order to automatically refresh the page every time a change is detected (i.e. `gulp watch --sync`).
 
-### `gulp ftp`
+### `gulp upload`
 
-This task allows you to upload changed files from the terminal. On first run, it will prompt you for FTP credentials, storing them in `./config.json` locally. You may also use the flag `--ftp` in conjunction with the primary `gulp` task to compile and then immediately upload (i.e. `gulp --ftp`).
+This task allows you to upload changed files from the terminal. On first run, it will prompt you for remote credentials, storing them in `./config.json` locally. You may also use the flag `--upload` in conjunction with the primary `gulp` task to compile and then immediately upload (i.e. `gulp --upload`).
 
 ## Releasing a Package
 
