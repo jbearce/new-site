@@ -24,7 +24,7 @@
                 <?php get_template_part("partials/content", "none"); ?>
             <?php endif; ?>
 
-            <?php get_template_part("partials/pagination", "list"); ?>
+            <?php get_template_part("partials/list", "pagination"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
 </div><!--/.content-block-->
