@@ -6,7 +6,7 @@ if (get_option("show_on_front") != "page") {
 }
 ?>
 <?php get_header(); ?>
-<?php get_template_part("partials/hero", "block"); ?>
+<?php get_template_part("partials/block", "hero"); ?>
 <div class="content-block">
     <div class="content_inner">
         <div class="content_post">
