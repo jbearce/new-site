@@ -2,16 +2,16 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-module.exports = function (gulp, plugins) {
+module.exports = (gulp, plugins) => {
     // WIP: init task, initializes the project
-    return function () {
+    return () => {
         return new Promise ((resolve) => {
             // remove any specified optional modules
             gulp.src(global.settings.paths.src + "/**/*")
                 // check if a file is a binary
                 .pipe(plugins.is_binary())
                 // skip file if it's a binary
-                .pipe(plugins.through.obj(function (file, enc, next) {
+                .pipe(plugins.through.obj((file, enc, next) => {
                     if (file.isBinary()) {
                         next();
                         return;
@@ -66,7 +66,7 @@ module.exports = function (gulp, plugins) {
                         // check if a file is a binary
                         .pipe(plugins.is_binary())
                         // skip file if it's a binary
-                        .pipe(plugins.through.obj(function (file, enc, next) {
+                        .pipe(plugins.through.obj((file, enc, next) => {
                             if (file.isBinary()) {
                                 next();
                                 return;

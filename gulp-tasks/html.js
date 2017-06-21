@@ -15,7 +15,7 @@ module.exports = {
         const license        = plugins.json.read("./package.json").get("license");
 
         // copy binaries
-        const copy_binaries = function (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) {
+        const copy_binaries = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -24,7 +24,7 @@ module.exports = {
                 // check if a file is a binary
                 .pipe(plugins.is_binary())
                 // skip file if it's not a binary
-                .pipe(plugins.through.obj(function (file, enc, next) {
+                .pipe(plugins.through.obj((file, enc, next) => {
                     if (!file.isBinary()) {
                         next();
                         return;
@@ -38,7 +38,7 @@ module.exports = {
         };
 
         // process HTML
-        const process_html = function (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) {
+        const process_html = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -47,7 +47,7 @@ module.exports = {
                 // check if file is a binary
                 .pipe(plugins.is_binary())
                 // skip file if it's a binary
-                .pipe(plugins.through.obj(function (file, enc, next) {
+                .pipe(plugins.through.obj((file, enc, next) => {
                     if (file.isBinary()) {
                         next();
                         return;
@@ -78,7 +78,7 @@ module.exports = {
         };
 
         // html task, copies binaries, converts includes & variables in HTML
-        return new Promise (function (resolve) {
+        return new Promise ((resolve) => {
             // set HTML directory
             const html_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
@@ -100,12 +100,12 @@ module.exports = {
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "HTML task complete!", onLast: true})))
                 // push task to ran_tasks array
-                .on("data", function () {
+                .on("data", () => {
                     if (ran_tasks.indexOf("html") < 0) {
                         ran_tasks.push("html");
                     }
                 })
-                .on("end", function () {
+                .on("end", () => {
                     return resolve();
                 });
         });

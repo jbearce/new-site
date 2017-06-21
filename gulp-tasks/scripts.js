@@ -5,7 +5,7 @@
 module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
         // lint custom scripts
-        const lint_scripts = function (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) {
+        const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -18,7 +18,7 @@ module.exports = {
         };
 
         // process scripts
-        const process_scripts = function (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], transpile = false) {
+        const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], transpile = false) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -39,7 +39,7 @@ module.exports = {
         };
 
         // scripts task, lints, concatenates, & compresses JS
-        return new Promise (function (resolve) {
+        return new Promise ((resolve) => {
             // set JS directory
             const js_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/scripts" : global.settings.paths.dev + "/assets/scripts";
 
@@ -63,12 +63,12 @@ module.exports = {
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
                 // push task to ran_tasks array
-                .on("data", function () {
+                .on("data", () => {
                     if (ran_tasks.indexOf("scripts") < 0) {
                         ran_tasks.push("scripts");
                     }
                 })
-                .on("end", function () {
+                .on("end", () => {
                     return resolve();
                 });
         });

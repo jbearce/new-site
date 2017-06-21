@@ -111,7 +111,7 @@ global.settings = {
 const ran_tasks = [];
 
 // error handling
-const on_error = function (err) {
+const on_error = (err) => {
     plugins.notify.onError({
         title:    "Gulp",
         subtitle: "Error!",
@@ -134,45 +134,45 @@ const sync_module    = require("./gulp-tasks/sync");
 
 // configuration tasks
 gulp.task("init", init_module);
-gulp.task("config", function () {
+gulp.task("config", () => {
     return config_module.config(gulp, plugins);
 });
 
 // primary tasks
-gulp.task("styles", function () {
+gulp.task("styles", () => {
     return styles_module.styles(gulp, plugins, ran_tasks, on_error);
 });
-gulp.task("scripts", function () {
+gulp.task("scripts", () => {
     return scripts_module.scripts(gulp, plugins, ran_tasks, on_error);
 });
-gulp.task("media", function () {
+gulp.task("media", () => {
     return media_module.media(gulp, plugins, ran_tasks, on_error);
 });
-gulp.task("html", function () {
+gulp.task("html", () => {
     return html_module.html(gulp, plugins, ran_tasks, on_error);
 });
 
 // secondary tasks
-gulp.task("upload", function () {
-    return config_module.config(gulp, plugins, "remote").then(function () {
+gulp.task("upload", () => {
+    return config_module.config(gulp, plugins, "remote").then(() => {
         return upload_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
-gulp.task("sync", function () {
-    return config_module.config(gulp, plugins, "browsersync").then(function () {
+gulp.task("sync", () => {
+    return config_module.config(gulp, plugins, "browsersync").then(() => {
         return sync_module.sync(plugins, global.settings.browsersync);
     });
 });
 
 // default task, runs through all primary tasks
-gulp.task("default", ["media", "scripts", "styles", "html"], function () {
+gulp.task("default", ["media", "scripts", "styles", "html"], () => {
     // notify that task is complete
     gulp.src("gulpfile.js")
         .pipe(plugins.gulpif(ran_tasks.length, plugins.notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
 
     // trigger upload task if --upload is passed
     if (plugins.argv.upload) {
-        config_module.config(gulp, plugins, "remote").then(function () {
+        config_module.config(gulp, plugins, "remote").then(() => {
             return upload_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }
@@ -185,16 +185,16 @@ gulp.task("default", ["media", "scripts", "styles", "html"], function () {
 });
 
 // watch task, runs through all primary tasks, triggers when a file is saved
-gulp.task("watch", function () {
+gulp.task("watch", () => {
     // set up a browser_sync server, if --sync is passed
     if (plugins.argv.sync) {
-        config_module.config(gulp, plugins, "browsersync").then(function () {
+        config_module.config(gulp, plugins, "browsersync").then(() => {
             sync_module.sync(plugins, global.settings.browsersync);
         });
     }
 
     // watch for any changes
-    plugins.watch("./src/**/*", function () {
+    plugins.watch("./src/**/*", () => {
         // run through all tasks
         plugins.run_sequence("default");
     });

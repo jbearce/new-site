@@ -8,7 +8,7 @@ module.exports = {
         const homepage = plugins.json.read("./package.json").get("homepage");
 
         // function to generate critical CSS
-        const generate_critical_css = function (css_directory, sitemap = plugins.json.read("./package.json").get("template-sitemap")) {
+        const generate_critical_css = (css_directory, sitemap = plugins.json.read("./package.json").get("template-sitemap")) => {
             const plural = ((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "";
 
             console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");
@@ -30,7 +30,7 @@ module.exports = {
         };
 
         // lint custom styles
-        const lint_styles = function (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) {
+        const lint_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
             return gulp.src(source)
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
@@ -45,7 +45,7 @@ module.exports = {
         };
 
         // process all SCSS in root styles directory
-        const process_styles = function (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) {
+        const process_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -74,7 +74,7 @@ module.exports = {
         };
 
         // styles task, compiles & prefixes SCSS
-        return new Promise (function (resolve) {
+        return new Promise ((resolve) => {
             // set CSS directory
             const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
@@ -100,12 +100,12 @@ module.exports = {
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Styles task complete!", onLast: true})))
                 // push task to ran_tasks array
-                .on("data", function () {
+                .on("data", () => {
                     if (ran_tasks.indexOf("styles") < 0) {
                         ran_tasks.push("styles");
                     }
                 })
-                .on("end", function () {
+                .on("end", () => {
                     return resolve();
                 });
         });

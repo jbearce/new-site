@@ -6,8 +6,8 @@ module.exports = {
     // config task, generate configuration file for uploads & BrowserSync and prompt dev for input
     config(gulp, plugins, requested = "") {
         // generate config.json and start other functions
-        const generate_config = function (callback) {
-            return plugins.fs.stat("./config.json", function (err) {
+        const generate_config = (callback) => {
+            return plugins.fs.stat("./config.json", (err) => {
                 if (err !== null) {
                     const json_data =
                     `{
@@ -45,7 +45,7 @@ module.exports = {
                         }
                     }`;
 
-                    plugins.fs.writeFile("./config.json", json_data, "utf8", function () {
+                    plugins.fs.writeFile("./config.json", json_data, "utf8", () => {
                         return callback();
                     });
                 } else if (typeof callback === "function") {
@@ -55,7 +55,7 @@ module.exports = {
         };
 
         // configue JSON data
-        const configure_json = function (namespace, options, env, callback) {
+        const configure_json = (namespace, options, env, callback) => {
             const prompts = [];
 
             // construct the prompts
@@ -82,7 +82,7 @@ module.exports = {
             if (prompts.length > 0) {
                 // prompt the user
                 gulp.src("./config.json")
-                    .pipe(plugins.prompt.prompt(prompts, function (res) {
+                    .pipe(plugins.prompt.prompt(prompts, (res) => {
                         // open config.json
                         const file = plugins.json.read("./config.json");
 
@@ -94,7 +94,7 @@ module.exports = {
 
                         // write updated file contents
                         file.writeSync();
-                    })).on("end", function () {
+                    })).on("end", () => {
                         if (typeof callback === "function") {
                             return callback();
                         }
@@ -104,12 +104,12 @@ module.exports = {
             }
         };
 
-        return new Promise (function (resolve) {
+        return new Promise ((resolve) => {
             // get the target environment
             const env = plugins.argv.dist ? "dist" : "dev";
 
             // generate config.json
-            generate_config(function () {
+            generate_config(() => {
                 // read browsersync settings from config.json
                 global.settings.browsersync.proxy  = plugins.json.read("./config.json").get("browsersync." + env + ".proxy");
                 global.settings.browsersync.port   = plugins.json.read("./config.json").get("browsersync." + env + ".port");
@@ -151,7 +151,7 @@ module.exports = {
                         default: global.settings.remote.path,
                         type:    "input",
                     },
-                }, env, function () {
+                }, env, () => {
                     // configure BrowserSync settings
                     configure_json("browsersync", {
                         proxy: {
@@ -170,7 +170,7 @@ module.exports = {
                             default: global.settings.browsersync.open === "" ? "false" : global.settings.browsersync.open,
                             type: "input",
                         },
-                    }, env, function () {
+                    }, env, () => {
                         // resolve the promise
                         return resolve();
                     });

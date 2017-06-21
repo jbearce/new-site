@@ -5,7 +5,7 @@
 module.exports = {
     media(gulp, plugins, ran_tasks, on_error) {
         // compress images, copy other media
-        const process_media = function (media_directory, source = global.settings.paths.src + "/assets/media/**/*") {
+        const process_media = (media_directory, source = global.settings.paths.src + "/assets/media/**/*") => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -22,7 +22,7 @@ module.exports = {
         };
 
         // media task, compresses images, copies other media
-        return new Promise (function (resolve) {
+        return new Promise ((resolve) => {
             // set media directory
             const media_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/media" : global.settings.paths.dev + "/assets/media";
 
@@ -48,12 +48,12 @@ module.exports = {
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Media task complete!", onLast: true})))
                 // push task to ran_tasks array
-                .on("data", function () {
+                .on("data", () => {
                     if (ran_tasks.indexOf("media") < 0) {
                         ran_tasks.push("media");
                     }
                 })
-                .on("end", function () {
+                .on("end", () => {
                     return resolve();
                 });
         });
