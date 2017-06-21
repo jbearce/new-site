@@ -18,7 +18,7 @@ if (get_option("show_on_front") != "page") {
                 <?php get_template_part("partials/content", "none"); ?>
             <?php endif; ?>
 
-            <?php get_template_part("partials/callout", "grid"); ?>
+            <?php get_template_part("partials/grid", "callout"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
 </div><!--/.content-block-->
