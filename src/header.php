@@ -75,7 +75,7 @@
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <div class="page_container">
     		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button><!--removeIf(login_html)-->
-            <?php get_template_part("partials/login", "overlay"); ?><!--endRemoveIf(login_html)-->
+            <?php get_template_part("partials/overlay", "login"); ?><!--endRemoveIf(login_html)-->
             <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" data-menu="true" aria-hidden="true" role="navigation" tabindex="1">
                 <div class="navigation_inner">
                     <div class="navigation_search-form_container search-form_container _nomargin">
