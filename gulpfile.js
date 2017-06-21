@@ -111,7 +111,7 @@ global.settings = {
 const ran_tasks = [];
 
 // error handling
-const on_error = (err) => {
+const on_error = function (err) {
     plugins.notify.onError({
         title:    "Gulp",
         subtitle: "Error!",
