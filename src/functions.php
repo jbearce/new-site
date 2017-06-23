@@ -1,4 +1,5 @@
 <?php
+require_once(TEMPLATEPATH . "/functions/vendor.php");
 require_once(TEMPLATEPATH . "/functions/post-types.php");
 require_once(TEMPLATEPATH . "/functions/page-speed.php");
 require_once(TEMPLATEPATH . "/functions/theme-features.php");
