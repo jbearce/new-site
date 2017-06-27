@@ -9,14 +9,8 @@
 
     // links
 
-    a:not(.button) {
-        color: $accent;
-        text-decoration: none;
-        transition: color 0.15s;
-    }
-
-    a:not(.button):hover {
-        color: $accent_alt;
+    a {
+        @extend .link;
     }
 
     // titles
@@ -27,9 +21,7 @@
     h4,
     h5,
     h6 {
-        color: $primary;
-        font-family: $heading-font;
-        font-weight: 700;
+        @extend .title;
     }
 
     h1,
@@ -65,12 +57,7 @@
     ol,
     ul,
     table {
-        color: $foreground;
-        font-family: $body-font;
-        font-size: remify(12, 16);
-        font-weight: 400;
-        line-height: remify(18, 12);
-        margin: remify(0 0 18, 12);
+        @extend .text;
     }
 
     ol,
@@ -92,6 +79,7 @@
 
     table {
         border-collapse: collapse;
+        display: table;
         width: 100%;
     }
 
@@ -151,12 +139,7 @@
     // horizontal rule
 
     hr {
-        background: darken($background_alt, 10);
-        border: 0;
-        clear: both;
-        height: remify(1);
-        margin: remify(0 0 20, 16);
-        width: 100%;
+        @extend .divider;
     }
 
     // images
@@ -209,13 +192,6 @@
         h5,
         h6 {
             font-size: remify(19.2, 16);
-        }
-
-        p,
-        ol,
-        ul,
-        table {
-            font-size: remify(16, 16);
         }
 
         blockquote {

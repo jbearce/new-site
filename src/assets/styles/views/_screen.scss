@@ -12,14 +12,14 @@
 @import "../base/text/_text";
 @import "../base/input/_input";
 @import "../base/button/_button";
+@import "../base/divider/_divider";
 @import "../base/user-content/_user-content";
 
 /* ------------------------------------------------------------------------ *\
  * Module
 \* ------------------------------------------------------------------------ */
 
-@import "../module/article/_article";
-@import "../module/divider/_divider";/*removeIf(login_css_js_php)*/
+@import "../module/article/_article";/*removeIf(login_css_js_php)*/
 @import "../module/login-form/_login-form";/*endRemoveIf(login_css_js_php)*/
 @import "../module/logo/_logo";
 @import "../module/menu-list/_menu-list";
