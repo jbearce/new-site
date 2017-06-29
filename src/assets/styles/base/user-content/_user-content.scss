@@ -5,7 +5,7 @@
 \* ------------------------------------------------------------------------ */
 
 .user-content {
-    /* stylelint-disable selector-no-qualifying-type, selector-no-type */
+    /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
     // links
 
@@ -177,7 +177,7 @@
 
 @media screen and (min-width: $xs-break) {
     .user-content {
-        /* stylelint-disable selector-no-qualifying-type, selector-no-type */
+        /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
         h1,
         h2 {
@@ -217,7 +217,7 @@
 /* light variant */
 
 .user-content.-light {
-    /* stylelint-disable selector-no-qualifying-type, selector-no-type */
+    /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
     h1,
     h2,
