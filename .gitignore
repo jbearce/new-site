@@ -31,4 +31,5 @@ prepros-6.cfg
 _resources/
 
 # Configuration settings
-config.json
+.bsconfig
+.ftpconfig

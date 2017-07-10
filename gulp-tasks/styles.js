@@ -5,10 +5,10 @@
 module.exports = {
     styles(gulp, plugins, ran_tasks, on_error) {
         // get the homepage from the package.json
-        const homepage = plugins.json.read("./package.json").get("homepage");
+        const homepage = plugins.json.readFileSync("./package.json").homepage;
 
         // function to generate critical CSS
-        const generate_critical_css = (css_directory, sitemap = plugins.json.read("./package.json").get("template-sitemap")) => {
+        const generate_critical_css = (css_directory, sitemap = plugins.json.readFileSync("./package.json").template_sitemap) => {
             const plural = ((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "";
 
             console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");

@@ -31,7 +31,7 @@ const plugins = {
     fs:           require("fs"),
     gulpif:       require("gulp-if"),
     is_binary:    require("gulp-is-binary"),
-    json:         require("json-file"),
+    json:         require("jsonfile"),
     merge:        require("merge-stream"),
     newer:        require("gulp-newer"),
     notify:       require("gulp-notify"),
@@ -48,6 +48,9 @@ const plugins = {
     remove_code:  require("gulp-remove-code"),
     glob:         require("glob"),
     delete_empty: require("delete-empty"),
+
+    // config stuff
+    request: require("request"),
 
     // upload stuff
     ftp:  require("vinyl-ftp"),
@@ -86,19 +89,19 @@ const plugins = {
 /* To configure BrowserSync settings, run gulp config --sync */
 
 global.settings = {
-    remote: {
-        hostname: "",
-        port:     "",
-        mode:     "",
-        username: "",
-        password: "",
-        path:     "",
-    },
     browsersync: {
         proxy:  "",
         port:   "",
         open:   "",
         notify: "",
+    },
+    ftp: {
+        protocol: "",
+        host:     "",
+        port:     "",
+        user:     "",
+        pass:     "",
+        remote:   "",
     },
     paths: {
         src:  "./src",

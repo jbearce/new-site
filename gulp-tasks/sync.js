@@ -8,8 +8,8 @@ module.exports = {
         return plugins.browser_sync({
             proxy:  browsersync.proxy,
             port:   browsersync.port,
-            open:   browsersync.open   === "true" ? true : (browsersync.open   === "false" ? false : browsersync.open),
-            notify: browsersync.notify === "true" ? true : (browsersync.notify === "false" ? false : browsersync.notify),
+            open:   browsersync.open,
+            notify: browsersync.notify,
         });
     }
 };

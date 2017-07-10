@@ -6,56 +6,56 @@ module.exports = {
     // config task, generate configuration file for uploads & BrowserSync and prompt dev for input
     config(gulp, plugins, requested = "") {
         // generate config.json and start other functions
-        const generate_config = (callback) => {
-            return plugins.fs.stat("./config.json", (err) => {
-                if (err !== null) {
-                    const json_data =
-                    `{
-                        "remote": {
-                            "dev": {
-                                "hostname": "",
-                                "port":     "",
-                                "mode":     "",
-                                "username": "",
-                                "password": "",
-                                "path":     ""
-                            },
-                            "dist": {
-                                "hostname": "",
-                                "port":     "",
-                                "mode":     "",
-                                "username": "",
-                                "password": "",
-                                "path":     ""
-                            }
-                        },
-                        "browsersync": {
-                            "dev": {
-                                "proxy":  "",
-                                "port":   "",
-                                "open":   "",
-                                "notify": ""
-                            },
-                            "dist": {
-                                "proxy":  "",
-                                "port":   "",
-                                "open":   "",
-                                "notify": ""
+        const generate_config = (file_name, mode = "ftp", callback) => {
+            const data_source = {
+                bs:   "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/f00a8c6b748a8a0e88332ad92cc2726272b3552c/.bsconfig",
+                ftp:  "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/8830bb847a010d9cc692ec6b6f1b5b8306c1c1a5/.ftpconfig",
+                sftp: "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/bc2f7d7b5a4189344c0e2dfb0e49baca77db0d3d/.ftpconfig",
+            };
+
+            if (typeof file_name !== "undefined") {
+                return plugins.fs.stat(file_name, (err) => {
+                    if (err !== null) {
+                        let gist_url  = "";
+
+                        if (file_name === ".bsconfig") {
+                            gist_url = data_source.bs;
+                        } else if (file_name === ".ftpconfig") {
+                            if (mode === "sftp") {
+                                gist_url = data_source.sftp;
+                            } else {
+                                gist_url = data_source.ftp;
                             }
                         }
-                    }`;
 
-                    plugins.fs.writeFile("./config.json", json_data, "utf8", () => {
+                        if (gist_url !== "") {
+                            plugins.request.get(gist_url, function (error, response, body) {
+                                if (!error && response.statusCode == 200) {
+                                    const json_data = body;
+
+                                    plugins.fs.writeFile(file_name, json_data, "utf8", () => {
+                                        if (typeof callback === "function") {
+                                            return callback();
+                                        }
+                                    });
+                                } else if (typeof callback === "function") {
+                                    return callback();
+                                }
+                            });
+                        } else if (typeof callback === "function") {
+                            return callback();
+                        }
+                    } else if (typeof callback === "function") {
                         return callback();
-                    });
-                } else if (typeof callback === "function") {
-                    return callback();
-                }
-            });
+                    }
+                });
+            } else if (typeof callback === "function") {
+                return callback();
+            }
         };
 
         // configue JSON data
-        const configure_json = (namespace, options, env, callback) => {
+        const configure_json = (file_name, namespace, options, callback) => {
             const prompts = [];
 
             // construct the prompts
@@ -81,19 +81,21 @@ module.exports = {
 
             if (prompts.length > 0) {
                 // prompt the user
-                gulp.src("./config.json")
+                gulp.src(file_name)
                     .pipe(plugins.prompt.prompt(prompts, (res) => {
-                        // open config.json
-                        const file = plugins.json.read("./config.json");
+                        // read the file to retrieve the JSON data
+                        const json_data = plugins.json.readFileSync(file_name);
 
-                        // update data in JSON
-                        Object.keys(options).forEach(option => {
-                            file.set(namespace + "." + env + "." + option, res[option]);
-                            global.settings[namespace][option] = res[option];
+                        // update options in JSON data
+                        Object.keys(options).forEach(key => {
+                            const value = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
+
+                            json_data[key] = value;
+                            global.settings[namespace][key] = value;
                         });
 
-                        // write updated file contents
-                        file.writeSync();
+                        // update file with new JSON data
+                        plugins.json.writeFileSync(file_name, json_data);
                     })).on("end", () => {
                         if (typeof callback === "function") {
                             return callback();
@@ -105,74 +107,77 @@ module.exports = {
         };
 
         return new Promise ((resolve) => {
-            // get the target environment
-            const env = plugins.argv.dist ? "dist" : "dev";
+            // generate .bsconfig
+            generate_config(".bsconfig", "", () => {
+                const browsersync_config = plugins.json.readFileSync(".bsconfig");
 
-            // generate config.json
-            generate_config(() => {
                 // read browsersync settings from config.json
-                global.settings.browsersync.proxy  = plugins.json.read("./config.json").get("browsersync." + env + ".proxy");
-                global.settings.browsersync.port   = plugins.json.read("./config.json").get("browsersync." + env + ".port");
-                global.settings.browsersync.open   = plugins.json.read("./config.json").get("browsersync." + env + ".open");
-                global.settings.browsersync.notify = plugins.json.read("./config.json").get("browsersync." + env + ".notify");
+                global.settings.browsersync.proxy  = browsersync_config.proxy;
+                global.settings.browsersync.port   = browsersync_config.port;
+                global.settings.browsersync.open   = browsersync_config.open;
+                global.settings.browsersync.notify = browsersync_config.notify;
 
-                // read remote settings from config.json
-                global.settings.remote.hostname = plugins.json.read("./config.json").get("remote." + env + ".hostname");
-                global.settings.remote.port     = plugins.json.read("./config.json").get("remote." + env + ".port");
-                global.settings.remote.mode     = plugins.json.read("./config.json").get("remote." + env + ".mode");
-                global.settings.remote.username = plugins.json.read("./config.json").get("remote." + env + ".username");
-                global.settings.remote.password = plugins.json.read("./config.json").get("remote." + env + ".password");
-                global.settings.remote.path     = plugins.json.read("./config.json").get("remote." + env + ".path");
-
-                // configure remote credentials
-                configure_json("remote", {
-                    hostname: {
-                        default: global.settings.remote.hostname,
+                configure_json(".bsconfig", "browsersync", {
+                    proxy: {
+                        default: global.settings.browsersync.proxy === "" ? "localhost" : global.settings.browsersync.proxy,
                         type:    "input",
                     },
                     port: {
-                        default: global.settings.remote.port ? global.settings.remote.port : 21,
+                        default: global.settings.browsersync.port === "" ? "8080" : global.settings.browsersync.port,
                         type:    "input",
                     },
-                    mode: {
-                        default: global.settings.remote.mode === "ftp" ? 0 : global.settings.remote.mode === "tls" ? 1 : global.settings.remote.mode === "sftp" ? 2 : 0,
+                    open: {
+                        default: global.settings.browsersync.open === "local" ? 1 : (global.settings.browsersync.open === "external" ? 2 : (global.settings.browsersync.open === "ui" ? 3 : (global.settings.browsersync.open === "ui-external" ? 4 : (global.settings.browsersync.open === "tunnel" ? 5 : (global.settings.browsersync.open === "false" ? 6 : 0))))),
                         type:    "list",
-                        choices: ["ftp", "tls", "sftp"],
+                        choices: ["true", "local", "external", "ui", "ui-external", "tunnel", "false"],
                     },
-                    username: {
-                        default: global.settings.remote.username,
-                        type:    "input",
+                    notify: {
+                        default: global.settings.browsersync.notify === true ? 0 : 1,
+                        type:    "list",
+                        choices: ["true", "false"],
                     },
-                    password: {
-                        default: global.settings.remote.password,
-                        type:    "password",
-                    },
-                    path: {
-                        default: global.settings.remote.path,
-                        type:    "input",
-                    },
-                }, env, () => {
-                    // configure BrowserSync settings
-                    configure_json("browsersync", {
-                        proxy: {
-                            default: global.settings.browsersync.proxy === "" ? "localhost" : global.settings.browsersync.proxy,
-                            type: "input",
-                        },
-                        port: {
-                            default: global.settings.browsersync.port === "" ? "8080" : global.settings.browsersync.port,
-                            type: "input",
-                        },
-                        open: {
-                            default: global.settings.browsersync.open === "" ? "external" : global.settings.browsersync.open,
-                            type: "input",
-                        },
-                        notify: {
-                            default: global.settings.browsersync.open === "" ? "false" : global.settings.browsersync.open,
-                            type: "input",
-                        },
-                    }, env, () => {
-                        // resolve the promise
-                        return resolve();
+                }, () => {
+                    generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp")), () => {
+                        const ftp_config = plugins.json.readFileSync(".ftpconfig");
+
+                        // read browsersync settings from config.json
+                        global.settings.ftp.protocol = ftp_config.protocol !== "sftp" && ftp_config.secure === true ? "ftps" : ftp_config.protocol;
+                        global.settings.ftp.host     = ftp_config.host;
+                        global.settings.ftp.port     = ftp_config.port;
+                        global.settings.ftp.user     = ftp_config.user;
+                        global.settings.ftp.pass     = ftp_config.pass;
+                        global.settings.ftp.remote   = ftp_config.remote;
+
+                        configure_json(".ftpconfig", "ftp", {
+                            protocol: {
+                                default: global.settings.ftp.protocol === "sftp" ? 1 : 0,
+                                type:    "list",
+                                choices: ["ftp", "sftp"],
+                            },
+                            host: {
+                                default: global.settings.ftp.host === "" ? "" : global.settings.ftp.host,
+                                type:    "input",
+                            },
+                            port: {
+                                default: global.settings.ftp.port === "" ? "" : global.settings.ftp.port,
+                                type:    "input",
+                            },
+                            user: {
+                                default: global.settings.ftp.user === "" ? "" : global.settings.ftp.user,
+                                type:    "input",
+                            },
+                            pass: {
+                                default: global.settings.ftp.pass === "" ? "" : global.settings.ftp.pass,
+                                type:    "password",
+                            },
+                            remote: {
+                                default: global.settings.ftp.remote === "" ? "" : global.settings.ftp.remote,
+                                type:    "input",
+                            }
+                        }, () => {
+                            // resolve the promise
+                            return resolve();
+                        });
                     });
                 });
             });

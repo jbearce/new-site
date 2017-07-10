@@ -10,21 +10,21 @@ module.exports = {
 
         // create SFTP connection
         const sftp_conn = plugins.sftp({
-            host:       global.settings.remote.hostname,
-            port:       global.settings.remote.port,
-            username:   global.settings.remote.username,
-            password:   global.settings.remote.password,
-            remotePath: global.settings.remote.path,
+            host:       global.settings.ftp.host,
+            port:       global.settings.ftp.port,
+            username:   global.settings.ftp.user,
+            password:   global.settings.ftp.pass,
+            remotePath: global.settings.ftp.remote,
         });
 
         // create FTP connection
         const ftp_conn = plugins.ftp.create({
-            host:   global.settings.remote.hostname,
-            port:   global.settings.remote.port,
-            secure: global.settings.remote.mode === "tls" ? true : false,
-            user:   global.settings.remote.username,
-            pass:   global.settings.remote.password,
-            path:   global.settings.remote.path,
+            host:   global.settings.ftp.hostname,
+            port:   global.settings.ftp.port,
+            secure: global.settings.ftp.protocol === "ftps" ? true : false,
+            user:   global.settings.ftp.user,
+            pass:   global.settings.ftp.pass,
+            path:   global.settings.ftp.remote,
         });
 
         return gulp.src(upload_directory + "/**/*")
@@ -33,9 +33,9 @@ module.exports = {
             // check if files are newer
             .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [upload_directory + "/**/*"]})))
             // check if files are newer
-            .pipe(plugins.gulpif(global.settings.remote.mode !== "sftp", ftp_conn.newer(global.settings.remote.path)))
+            .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", ftp_conn.newer(global.settings.ftp.remote)))
             // upload changed files
-            .pipe(plugins.gulpif(global.settings.remote.mode !== "sftp", ftp_conn.dest(global.settings.remote.path), sftp_conn))
+            .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", ftp_conn.dest(global.settings.ftp.remote), sftp_conn))
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
             // reload files

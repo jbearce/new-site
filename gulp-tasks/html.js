@@ -5,14 +5,14 @@
 module.exports = {
     html(gulp, plugins, ran_tasks, on_error) {
         // read data from package.json
-        const name           = plugins.json.read("./package.json").get("name");
-        const pwa_name       = plugins.json.read("./package.json").get("progressive-web-app.name");
-        const pwa_short_name = plugins.json.read("./package.json").get("progressive-web-app.short_name");
-        const theme_color    = plugins.json.read("./package.json").get("progressive-web-app.theme_color");
-        const description    = plugins.json.read("./package.json").get("description");
-        const version        = plugins.json.read("./package.json").get("version");
-        const repository     = plugins.json.read("./package.json").get("repository");
-        const license        = plugins.json.read("./package.json").get("license");
+        const name           = plugins.json.readFileSync("./package.json").name;
+        const pwa_name       = plugins.json.readFileSync("./package.json").progressiveWebApp.name;
+        const pwa_short_name = plugins.json.readFileSync("./package.json").progressiveWebApp.shortName;
+        const theme_color    = plugins.json.readFileSync("./package.json").progressiveWebApp.themeColor;
+        const description    = plugins.json.readFileSync("./package.json").description;
+        const version        = plugins.json.readFileSync("./package.json").version;
+        const repository     = plugins.json.readFileSync("./package.json").repository;
+        const license        = plugins.json.readFileSync("./package.json").license;
 
         // copy binaries
         const copy_binaries = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
