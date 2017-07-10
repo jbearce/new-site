@@ -19,7 +19,7 @@ module.exports = {
 
         // create FTP connection
         const ftp_conn = plugins.ftp.create({
-            host:   global.settings.ftp.hostname,
+            host:   global.settings.ftp.host,
             port:   global.settings.ftp.port,
             secure: global.settings.ftp.protocol === "ftps" ? true : false,
             user:   global.settings.ftp.user,
