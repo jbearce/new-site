@@ -8,9 +8,9 @@ module.exports = {
         // generate config.json and start other functions
         const generate_config = (file_name, mode = "ftp", callback) => {
             const data_source = {
-                bs:   "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/f00a8c6b748a8a0e88332ad92cc2726272b3552c/.bsconfig",
-                ftp:  "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/8830bb847a010d9cc692ec6b6f1b5b8306c1c1a5/.ftpconfig",
-                sftp: "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/bc2f7d7b5a4189344c0e2dfb0e49baca77db0d3d/.ftpconfig",
+                bs:   "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
+                ftp:  "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/0f408964b8f3c77ed0ae452ab3d2ba2c130e1acd/.ftpconfig",
+                sftp: "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/4829ebdc5d45cea7dce8cc3109a05501b159f992/.ftpconfig",
             };
 
             if (typeof file_name !== "undefined") {
@@ -56,7 +56,8 @@ module.exports = {
 
         // configue JSON data
         const configure_json = (file_name, namespace, options, callback) => {
-            const prompts = [];
+            const prompts    = [];
+            const configured = plugins.json.readFileSync(file_name).configured;
 
             // construct the prompts
             Object.keys(options).forEach(option => {
@@ -74,7 +75,7 @@ module.exports = {
                 });
 
                 // check if the setting has no value or is explicitly requested
-                if ((requested !== "" && requested === namespace && global.settings[namespace][option] === "") || gulp.seq.indexOf("config") >= 0 && (global.settings[namespace][option] === "" || plugins.argv[namespace])) {
+                if ((requested !== "" && requested === namespace && (global.settings[namespace][option] === "" || configured === false)) || gulp.seq.indexOf("config") >= 0 && (global.settings[namespace][option] === "" || plugins.argv[namespace] || configured === false)) {
                     prompts.push(prompt);
                 }
             });
@@ -88,15 +89,28 @@ module.exports = {
 
                         // update options in JSON data
                         Object.keys(options).forEach(key => {
+                            // turn stringy true/false values in to booleans
                             const value = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
 
+                            // update the data
                             json_data[key] = value;
+
+                            // store the updated data in the global settings
                             global.settings[namespace][key] = value;
                         });
 
                         // update file with new JSON data
                         plugins.json.writeFileSync(file_name, json_data);
                     })).on("end", () => {
+                        // read the file to retrieve the JSON data
+                        const json_data = plugins.json.readFileSync(file_name);
+
+                        // mark as configured
+                        json_data["configured"] = true;
+
+                        // update file with new JSON data
+                        plugins.json.writeFileSync(file_name, json_data);
+
                         if (typeof callback === "function") {
                             return callback();
                         }

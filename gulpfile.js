@@ -157,7 +157,7 @@ gulp.task("html", () => {
 
 // secondary tasks
 gulp.task("upload", () => {
-    return config_module.config(gulp, plugins, "remote").then(() => {
+    return config_module.config(gulp, plugins, "ftp").then(() => {
         return upload_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
@@ -175,7 +175,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], () => {
 
     // trigger upload task if --upload is passed
     if (plugins.argv.upload) {
-        config_module.config(gulp, plugins, "remote").then(() => {
+        config_module.config(gulp, plugins, "ftp").then(() => {
             return upload_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }
