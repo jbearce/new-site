@@ -11,5 +11,5 @@ self.addEventListener("fetch", (event) => {
 
 toolbox.precache(["/", "../styles/modern.css"]);
 toolbox.router.get("../media/*", toolbox.cacheFirst);
-toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
-toolbox.router.get("/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});
+toolbox.router.get("/wp-content/uploads/**/*", toolbox.cacheFirst);
+toolbox.router.get("/**/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});
