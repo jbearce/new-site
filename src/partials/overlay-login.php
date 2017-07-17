@@ -1,4 +1,4 @@
-<!--removeIf(login_html)--><div class="login-block -overlay _noncritical" data-overlay="login" tabindex="1" aria-hidden="true">
+<!--removeIf(login_html)--><div class="login-block -overlay _noncritical" data-overlay="login" tabindex="0" aria-hidden="true">
     <div class="login_inner">
         <form class="login_login-form login-form" action="<?php echo get_option("home"); ?>/wp-login.php" method="post">
             <h6 class="login-form_title title _textcenter"><?php _e("Already have an account", "new_site"); ?>:</h6>

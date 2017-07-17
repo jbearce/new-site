@@ -21,7 +21,7 @@
                     ?>
 
                     <?php if ($content): ?>
-                        <div class="modal _noncritical" data-overlay="modal<?php echo $i; ?>" aria-hidden="true" tabindex="1">
+                        <div class="modal _noncritical" data-overlay="modal<?php echo $i; ?>" aria-hidden="true" tabindex="0">
 
                             <div class="user-content">
                                 <?php echo $content; ?>
