@@ -71,7 +71,7 @@
         <script>
             if ("serviceWorker" in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("/sw.js").then(
+                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then(
                         (registration) => {
                             // Registration was successful
                             console.log("ServiceWorker registration successful with scope: ", registration.scope);
