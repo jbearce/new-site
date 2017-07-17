@@ -1,7 +1,7 @@
 {
   "short_name": "@@pwa_short_name",
   "name": "@@pwa_name",
-  "start_url": "/?utm_source=pwa",
+  "start_url": "/",
   "display": "standalone",
   "background_color": "@@theme_color",
   "theme_color": "@@theme_color",
