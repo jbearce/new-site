@@ -76,25 +76,27 @@
         <div class="page_container">
     		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button><!--removeIf(login_html)-->
             <?php get_template_part("partials/overlay", "login"); ?><!--endRemoveIf(login_html)-->
-            <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" data-menu="true" aria-hidden="true" role="navigation" tabindex="1">
-                <div class="navigation_inner">
-                    <div class="navigation_search-form_container search-form_container _nomargin">
-                        <?php get_search_form(); ?>
-                    </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
-                    <?php
-                    $menu = wp_nav_menu(array(
-                        "container"		 => false,
-                        "depth"          => 3,
-                        "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
-                        "theme_location" => "primary",
-                        "walker"         => new new_site_menu_walker("accordion"),
-                    ));
-                    ?>
-                </div><!--/.navigation_inner-->
-    			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
-    				<?php _e("Close Menu", "new_site"); ?>
-    			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
-            </div><!--/.navigation-block.-flyout._phone._noncritical-->
+            <?php if (has_nav_menu("primary")): ?>
+                <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" data-menu="true" aria-hidden="true" role="navigation" tabindex="1">
+                    <div class="navigation_inner">
+                        <div class="navigation_search-form_container search-form_container _nomargin">
+                            <?php get_search_form(); ?>
+                        </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
+                        <?php
+                        $menu = wp_nav_menu(array(
+                            "container"		 => false,
+                            "depth"          => 3,
+                            "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
+                            "theme_location" => "primary",
+                            "walker"         => new new_site_menu_walker("accordion"),
+                        ));
+                        ?>
+                    </div><!--/.navigation_inner-->
+        			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
+        				<?php _e("Close Menu", "new_site"); ?>
+        			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
+                </div><!--/.navigation-block.-flyout._phone._noncritical-->
+            <?php endif; // has_nav_menu("primary") ?>
             <div class="header-block" role="banner">
                 <div class="header_inner">
                     <div class="header_row row -between -vcenter">
@@ -104,9 +106,11 @@
                             </a><!--/.header_logo.logo-->
                         </div><!--/.col-auto-->
                         <div class="col-auto -nogrow -noshrink _noprint">
-                            <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
-                                <?php _e("View Menu", "new_site"); ?>
-                            </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
+                            <?php if (has_nav_menu("primary")): ?>
+                                <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
+                                    <?php _e("View Menu", "new_site"); ?>
+                                </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
+                            <?php endif; // has_nav_menu("primary") ?>
                             <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
                                 <?php get_search_form(); ?>
                             </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook._desktop-->
@@ -114,16 +118,18 @@
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
             </div><!--/.header-block-->
-            <div class="navigation-block _tablet _notebook _desktop _noprint" role="navigation">
-                <div class="navigation_inner">
-                    <?php
-                    $menu = wp_nav_menu(array(
-                        "container"		 => false,
-                        "depth"          => 3,
-                        "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
-                        "theme_location" => "primary",
-                        "walker"         => new new_site_menu_walker("mega hover touch"),
-                    ));
-                    ?>
-                </div><!--/.navigation_inner-->
-            </div><!--/.navigation-block._tablet._notebook._desktop._noprint-->
+            <?php if (has_nav_menu("primary")): ?>
+                <div class="navigation-block _tablet _notebook _desktop _noprint" role="navigation">
+                    <div class="navigation_inner">
+                        <?php
+                        $menu = wp_nav_menu(array(
+                            "container"		 => false,
+                            "depth"          => 3,
+                            "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
+                            "theme_location" => "primary",
+                            "walker"         => new new_site_menu_walker("mega hover touch"),
+                        ));
+                        ?>
+                    </div><!--/.navigation_inner-->
+                </div><!--/.navigation-block._tablet._notebook._desktop._noprint-->
+            <?php endif; // has_nav_menu("primary") ?>
