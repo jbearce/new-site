@@ -49,13 +49,14 @@ module.exports = {
             }
 
             // process all scripts
-            const linted   = lint_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
-            const critical = process_scripts(js_directory, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
-            const modern   = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], true);
-            const legacy   = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"], true);
+            const linted         = lint_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
+            const critical       = process_scripts(js_directory, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
+            const modern         = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], true);
+            const legacy         = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"], true);
+            const service_worker = process_scripts(js_directory, "service-worker.js", [global.settings.paths.src + "/assets/scripts/service-worker/vendor.*.js", global.settings.paths.src + "/assets/scripts/service-worker/*.js"], true);
 
-            // merge all four steams back in to one
-            return plugins.merge(linted, critical, modern, legacy)
+            // merge all five steams back in to one
+            return plugins.merge(linted, critical, modern, legacy, service_worker)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // reload files

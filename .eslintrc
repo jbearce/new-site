@@ -6,7 +6,8 @@
         "node": true
     },
     "globals": {
-        "Swiper"
+        "Swiper",
+        "toolbox"
     },
     "rules": {
         "curly": [2, "all"],

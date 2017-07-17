@@ -66,6 +66,24 @@
 		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
         <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>
 		<![endif]-->
+
+        <!-- service worker -->
+        <script>
+            if ("serviceWorker" in navigator) {
+                window.addEventListener("load", () => {
+                    navigator.serviceWorker.register("/sw.js").then(
+                        (registration) => {
+                            // Registration was successful
+                            console.log("ServiceWorker registration successful with scope: ", registration.scope);
+                        },
+                        (err) => {
+                            // registration failed :(
+                            console.log("ServiceWorker registration failed: ", err);
+                        }
+                    );
+                });
+            }
+        </script>
 	</head>
     <body <?php body_class(); ?>>
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
