@@ -3,6 +3,40 @@
  * Custom Functions
 \* ------------------------------------------------------------------------ */
 
+function enable_critical_css($template_css_file) {
+    global $template;
+    $template_css_file   = get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css";
+    $enable_critical_css = false;
+
+    if (file_exists($template_css_file) && !(isset($_GET["generating"]) && $_GET["generating"] === "critical_css")) {
+        if (isset($_GET["debug"]) && $_GET["debug"] === "critical_css") {
+            $enable_critical_css = true;
+        } elseif (!isset($_COOKIE["previously_visited"]) || (isset($_COOKIE["previously_visited"]) && $_COOKIE["previously_visited"] !== "true")) {
+            $enable_critical_css = true;
+        }
+    }
+
+    return $enable_critical_css;
+}
+
+function get_critical_css($template_css_file) {
+    global $template;
+    $template_css_file = isset($template_css_file) ? $template_css_file : get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css";
+    $template_css      = "";
+
+    if (file_exists($template_css_file)) {
+        ob_start();
+        include($template_css_file);
+        $template_css = ob_get_clean();
+    }
+
+    return $template_css;
+}
+
+function the_critical_css($template_css_file) {
+    echo get_critical_css($template_css_file);
+}
+
 // get a nicer excerpt based on post ID
 function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
     global $post;

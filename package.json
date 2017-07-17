@@ -4,16 +4,8 @@
   "description": "A brand new WordPress theme built just for new-site!",
   "homepage": "SITEDOMAIN",
   "templateSitemap": {
-    "404": "TEMPLATEURL404",
-    "archive": "TEMPLATEURLARCHIVE",
-    "front-page": "TEMPLATEURLFRONTPAGE",
-    "home": "TEMPLATEURLHOME",
-    "index": "TEMPLATEURLINDEX",
-    "page": "TEMPLATEURLPAGE",
-    "search": "TEMPLATEURLSEARCH",
-    "single": "TEMPLATEURLSINGLE",
-    "archive-tribe_events": "TEMPLATEURLARCHIVETRIBEEVENTS",
-    "single-tribe_events": "TEMPLATEURLSINGLETRIBEEVENTS"
+    "front-page": "FRONT-PAGE-TEMPLATE",
+    "page": "PAGE-TEMPLATE"
   },
   "progressiveWebApp": {
     "name": "new-site",

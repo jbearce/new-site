@@ -5,9 +5,8 @@
 
 // set cookie when a query string gets passed
 function new_site_set_cookie() {
-    $cookie     = isset($_GET["cookie"]) ? $_get["cookie"] : false;
+    $cookie     = isset($_GET["cookie"]) ? $_GET["cookie"] : false;
     $expiration = isset($_GET["expiration"]) ? time() + $_GET["expiration"] : time() + 604800;
-
 
     if ($cookie) {
         setcookie($cookie, "true", $expiration); // expires in 1 week by default

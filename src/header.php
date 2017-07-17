@@ -34,36 +34,32 @@
         <link href="<?php bloginfo("template_directory"); ?>/manifest.json" rel="manifest" />
 
         <!-- styles -->
-        <?php global $template; ?>
+        <?php if (enable_critical_css()): ?>
 
-        <?php $enable_critical_css = ((!isset($_GET["disable_critical_css"]) || $_GET["disable_critical_css"] !== "true") && (!isset($_COOKIE["previously_visited"]) || $_COOKIE["previously_visited"] !== "true") && file_exists(get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css")) || (isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? true : false; ?>
+            <style><?php the_critical_css(); ?></style>
 
-        <?php if ($enable_critical_css): ?>
+            <?php if (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")): ?>
+                <link as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
+        		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
+        		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" onload="this.rel='stylesheet'" rel="preload" media="print" />
+            <?php endif; // !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ?>
 
-        <style><?php include(get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css"); ?></style>
+        <?php endif; // enable_critical_css() ?>
 
-        <?php if ($_GET["debug"] !== "critical_css"): ?>
-        <link as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
-		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
-		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" onload="this.rel='stylesheet'" rel="preload" media="print" />
-        <?php endif; // if ($_GET["debug"] !== "critical_css") ?>
-
-        <?php endif; // if ($enable_critical_css) ?>
-
-        <?php if ($enable_critical_css): ?>
-        <noscript>
-        <?php endif; // if ($enable_critical_css) ?>
+        <?php if (enable_critical_css()): ?>
+            <noscript>
+        <?php endif; // enable_critical_css() ?>
 
             <link href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" rel="stylesheet" />
 
-            <?php if ($enable_critical_css): ?>
-            <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
-    		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" rel="stylesheet" media="print" />
-            <?php endif; // if ($enable_critical_css) ?>
+            <?php if (!(isset($_GET["generating"]) && $_GET["generating"] === "critical_css")): ?>
+                <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
+                <link href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" rel="stylesheet" media="print" />
+            <?php endif; // !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ?>
 
-        <?php if ($enable_critical_css): ?>
-        </noscript>
-        <?php endif; // if ($enable_critical_css) ?>
+        <?php if (enable_critical_css()): ?>
+            </noscript>
+        <?php endif; // enable_critical_css() ?>
 
         <!-- fallback -->
 		<!--[if lte IE 9]>
