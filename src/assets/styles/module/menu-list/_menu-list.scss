@@ -64,8 +64,7 @@
         transition: transform 0.15s;
     }
 
-    .menu-list_item.-parent:focus-within > & > .icon,
-    .menu-list_item.-parent.is-active > & > .icon {
+    .menu-list_item.is-active > & > .icon {
         transform: rotate(-180deg);
     }
 }
@@ -136,7 +135,6 @@
         width: 100%;
     }
 
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent.is-active > & {
         max-height: remify(500, 16);
         transition: max-height 0.25s;
@@ -157,7 +155,6 @@
         width: remify(250, 16);
     }
 
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent:hover > &,
     .menu-list_item.-parent.is-active > & {
         opacity: 1;
@@ -173,7 +170,6 @@
         transition: opacity 0.15s, right 0s 0.15s, top 0s 0.15s;
     }
 
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent:hover > &,
     .menu-list_item.-parent.is-active > & {
         left: auto;
@@ -185,15 +181,13 @@
 /* tier1 overlay variant */
 
 .menu-list.-tier1.-overlay {
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent:hover > &,
     .menu-list_item.-parent.is-active > & {
         left: 0;
         top: 100%;
     }
 
-    > .menu-list_item.-parent:focus-within > .menu-list_toggle > .icon,
-    > .menu-list_item.-parent.is-active > .menu-list_toggle > .icon {
+    > .menu-list_item.is-active > .menu-list_toggle > .icon {
         transform: rotate(-90deg);
     }
 }
@@ -206,15 +200,13 @@
         right: 999em;
     }
 
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent:hover > &,
     .menu-list_item.-parent.is-active > & {
         left: auto;
         right: 0;
     }
 
-    > .menu-list_item.-parent:focus-within > .menu-list_toggle > .icon,
-    > .menu-list_item.-parent.is-active > .menu-list_toggle > .icon {
+    > .menu-list_item.is-active > .menu-list_toggle > .icon {
         transform: rotate(90deg);
     }
 }
@@ -222,7 +214,6 @@
 /* tier2 overlay variant */
 
 .menu-list.-tier2.-overlay {
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent:hover > &,
     .menu-list_item.-parent.is-active > & {
         left: 100%;
@@ -238,7 +229,6 @@
         right: 999em;
     }
 
-    .menu-list_item.-parent:focus-within > &,
     .menu-list_item.-parent:hover > &,
     .menu-list_item.-parent.is-active > & {
         left: auto;
@@ -262,7 +252,6 @@
         visibility: hidden;
     }
 
-    .menu-list_item.-mega.-parent:focus-within > &,
     .menu-list_item.-mega.-parent:hover > &,
     .menu-list_item.-mega.-parent.is-active > & {
         left: 0;
@@ -326,12 +315,10 @@
 
     .menu-list_link:focus,
     .menu-list_link:hover,
-    > .menu-list_item.-parent:focus-within > .menu-list_link,
     > .menu-list_item.-parent:hover > .menu-list_link,
     > .menu-list_item.-parent.is-active > .menu-list_link,
     .menu-list_toggle:focus,
     .menu-list_toggle:hover,
-    .menu-list_item.-parent:focus-within > .menu-list_toggle,
     .menu-list_item.-parent:hover > .menu-list_toggle,
     .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: $accent;
@@ -369,12 +356,10 @@
 
     .menu-list.-tier1 .menu-list_link:focus,
     .menu-list.-tier1 .menu-list_link:hover,
-    .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:focus-within > .menu-list_link,
     .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_link,
     .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_link,
     .menu-list.-tier1 .menu-list_toggle:focus,
     .menu-list.-tier1 .menu-list_toggle:hover,
-    .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:focus-within > .menu-list_toggle,
     .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_toggle,
     .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: lighten($accent, 10);
@@ -406,12 +391,10 @@
 
     .menu-list.-tier2 .menu-list_link:focus,
     .menu-list.-tier2 .menu-list_link:hover,
-    .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent:focus-within > .menu-list_link,
     .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_link,
     .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_link,
     .menu-list.-tier2 .menu-list_toggle:focus,
     .menu-list.-tier2 .menu-list_toggle:hover,
-    .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent:focus-within > .menu-list_toggle,
     .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_toggle,
     .menu-list.-tier2:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: lighten(lighten($accent, 10), 10);
