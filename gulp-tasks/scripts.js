@@ -4,16 +4,6 @@
 
 module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
-        // read data from package.json
-        const name           = plugins.json.readFileSync("./package.json").name;
-        const pwa_name       = plugins.json.readFileSync("./package.json").progressiveWebApp.name;
-        const pwa_short_name = plugins.json.readFileSync("./package.json").progressiveWebApp.shortName;
-        const theme_color    = plugins.json.readFileSync("./package.json").progressiveWebApp.themeColor;
-        const description    = plugins.json.readFileSync("./package.json").description;
-        const version        = plugins.json.readFileSync("./package.json").version;
-        const repository     = plugins.json.readFileSync("./package.json").repository;
-        const license        = plugins.json.readFileSync("./package.json").license;
-
         // lint custom scripts
         const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) => {
             return gulp.src(source)
@@ -36,21 +26,6 @@ module.exports = {
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name)))
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
-                // replace variables
-                .pipe(plugins.file_include({
-                    prefix:   "@@",
-                    basepath: "@file",
-                    context: {
-                        name,
-                        pwa_name,
-                        pwa_short_name,
-                        theme_color,
-                        description,
-                        version,
-                        repository,
-                        license,
-                    }
-                }))
                 // concatenate to critical.js
                 .pipe(plugins.concat(file_name))
                 // transpile to es2015
