@@ -23,7 +23,7 @@ module.exports = {
                         dest:       "critical_" + template + ".css",
                         dimensions: [1920, 1080],
                         minify:     true,
-                        src:        sitemap[template] + "?generating_critical_css=true",
+                        src:        sitemap[template] + "?generating=critical_css",
                     });
                 }
             }
