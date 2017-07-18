@@ -3,9 +3,9 @@
  * Custom Functions
 \* ------------------------------------------------------------------------ */
 
-function enable_critical_css($template_css_file) {
+function enable_critical_css($template_css_file = false) {
     global $template;
-    $template_css_file   = get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css";
+    $template_css_file   = $template_css_file === false ? get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css" : $template_css_file;
     $enable_critical_css = false;
 
     if (file_exists($template_css_file) && !(isset($_GET["generating"]) && $_GET["generating"] === "critical_css")) {
