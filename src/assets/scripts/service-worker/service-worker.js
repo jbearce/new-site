@@ -9,7 +9,8 @@ self.addEventListener("fetch", (event) => {
     }
 });
 
-toolbox.precache(["/", "../styles/modern.css"]);
-toolbox.router.get("../media/*", toolbox.cacheFirst);
-toolbox.router.get("/wp-content/uploads/**/*", toolbox.cacheFirst);
-toolbox.router.get("/**/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});
+// set up caching
+toolbox.precache(["/", "/wp-content/themes/@@name/assets/styles/modern.css"]);
+toolbox.router.get("/wp-content/themes/@@name/assets/media/*", toolbox.cacheFirst);
+toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
+toolbox.router.get("/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});

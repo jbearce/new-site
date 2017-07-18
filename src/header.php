@@ -30,9 +30,6 @@
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-large.png" name="msapplication-square310x310logo" />
         <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=5; cycle=1" name="msapplication-notification" />
 
-        <!-- PWA -->
-        <link href="<?php bloginfo("template_directory"); ?>/manifest.json" rel="manifest" />
-
         <!-- styles -->
         <?php if (enable_critical_css()): ?>
 
@@ -67,11 +64,13 @@
         <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>
 		<![endif]-->
 
-        <!-- service worker -->
+        <!-- PWA -->
+        <link href="<?php bloginfo("template_directory"); ?>/manifest.json" rel="manifest" />
+
         <script>
             if ("serviceWorker" in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then(
+                    navigator.serviceWorker.register("<?php bloginfo("url"); ?>/service-worker.js").then(
                         (registration) => {
                             // Registration was successful
                             console.log("ServiceWorker registration successful with scope: ", registration.scope);
