@@ -97,3 +97,23 @@ function new_site_tribe_events_list_show_ical_link() {
     return false;
 }
 add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");/*endRemoveIf(tribe_css_js_php)*/
+
+// enable lazy loading on images
+function new_site_lazy_load_images($content) {
+    // add `<noscript>` fallback for all imges
+    $content = preg_replace("/(<img[^>]+?>)/", "$1<noscript>$1</noscript>", $content);
+
+    // replace all `src` attributes in images with `data-nomral`
+    $content = preg_replace("/(<img.*?)(src=)([^>]+?><noscript)/im", "$1data-normal=$3", $content);
+
+    // replace all `srcset` attributes in images with `data-srcset`
+    $content = preg_replace("/(<img.*?)(srcset=)([^>]+?><noscript)/im", "$1data-srcset=$3", $content);
+
+    // add ` _js ` to all `class` attributes in images
+    $content = preg_replace("/(<img[^>]+class=(?:\'|\"))([^\'|\"\>]+)([^>]+?><noscript)/im", "$1_js $2$3", $content);
+
+    return $content;
+}
+add_filter("the_content", "new_site_lazy_load_images", 999, 1);
+add_filter("acf_the_content", "new_site_lazy_load_images", 999, 1);
+add_filter("post_thumbnail_html", "new_site_lazy_load_images", 999, 1);

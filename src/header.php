@@ -58,6 +58,10 @@
             </noscript>
         <?php endif; // enable_critical_css() ?>
 
+        <noscript>
+            <style>._js {display: none !important;}</style>
+        </noscript>
+
         <!-- fallback -->
 		<!--[if lte IE 9]>
 		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
