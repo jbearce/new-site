@@ -1,26 +1,23 @@
 /*removeIf(tribe_css_js_php)*/// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Tribe Events General
+ * Tribe Events Calendar
 \* ------------------------------------------------------------------------ */
 
 /* stylelint-disable selector-class-pattern, selector-max-id, selector-no-qualifying-type, selector-max-type */
 
 /* Tribe is stupidly specific with their classes... */
 
-/* Content */
-
-#tribe-events-content {
+#tribe-events-content table.tribe-events-calendar { // Tribe is stupidly specific with their classes...
     & {
-        margin: 0;
-        padding: 0;
+        font-size: remify(16, 16);
     }
-}
 
-/* Footer */
+    .tribe-events-calendar_cell {
+        height: remify(150, 16);
+    }
 
-#tribe-events-footer {
-    & {
-        margin-bottom: 0;
+    .tribe-events-calendar_cell.mobile-active {
+        background: none;
     }
 }/*endRemoveIf(tribe_css_js_php)*/

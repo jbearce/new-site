@@ -1,14 +1,12 @@
 /*removeIf(tribe_css_js_php)*/// Styles written by YOURNAME @ YOURCOMPANY
 
 /* ------------------------------------------------------------------------ *\
- * Tribe Events
+ * Tribe Events Bar
 \* ------------------------------------------------------------------------ */
 
 /* stylelint-disable selector-class-pattern, selector-max-id, selector-no-qualifying-type, selector-max-type */
 
 /* Tribe is stupidly specific with their classes... */
-
-/* Bar */
 
 .tribe-events-bar_input {
     & {
@@ -38,21 +36,5 @@
     &::before,
     &::after {
         height: remify(15, 16);
-    }
-}
-
-/* Calendar */
-
-#tribe-events-content table.tribe-events-calendar { // Tribe is stupidly specific with their classes...
-    & {
-        font-size: remify(16, 16);
-    }
-
-    .tribe-events-calendar_cell {
-        height: remify(150, 16);
-    }
-
-    .tribe-events-calendar_cell.mobile-active {
-        background: none;
     }
 }/*endRemoveIf(tribe_css_js_php)*/

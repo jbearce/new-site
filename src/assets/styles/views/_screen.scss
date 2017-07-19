@@ -29,7 +29,9 @@
 @import "../module/overlay-closer/_overlay-closer";
 @import "../module/search-form/_search-form";
 @import "../module/swiper/_swiper";/*removeIf(tribe_css_js_php)*/
-@import "../module/tribe-events/_tribe-events";/*endRemoveIf(tribe_css_js_php)*/
+@import "../module/tribe-events/_tribe-events";
+@import "../module/tribe-events-bar/_tribe-events-bar";
+@import "../module/tribe-events-calendar/_tribe-events-calendar";/*endRemoveIf(tribe_css_js_php)*/
 @import "../module/widget/_widget";
 
 /* ------------------------------------------------------------------------ *\

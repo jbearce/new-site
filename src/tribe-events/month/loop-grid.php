@@ -5,6 +5,7 @@ global $wp_locale;
 ?>
 
 <?php do_action("tribe_events_before_the_grid"); ?>
+<div class="tribe-events-calendar_container">
 	<table class="tribe-events-calendar">
 		<thead class="tribe-events-calendar_header">
     		<tr class="tribe-events-calendar_row">
@@ -33,4 +34,5 @@ global $wp_locale;
     		</tr><!--/.tribe-events-calendar_row-->
 		</tbody><!--/.tribe-events-calendar_body-->
 	</table><!--/.tribe-events-calendar-->
+</div><!--/.tribe-events-calendar_container-->
 <?php do_action("tribe_events_after_the_grid"); ?><!--endRemoveIf(tribe_html)-->
