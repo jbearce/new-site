@@ -10,7 +10,7 @@ self.addEventListener("fetch", (event) => {
 });
 
 // set up caching
-toolbox.precache(["/", "./assets/styles/modern.css"]);
+toolbox.precache(["/", "./assets/media/logo.svg", "./assets/media/spritesheet.js", "./assets/scripts/modern.js", "./assets/styles/modern.css"]);
 toolbox.router.get("./assets/media/*", toolbox.cacheFirst);
 toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
 toolbox.router.get("/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});
