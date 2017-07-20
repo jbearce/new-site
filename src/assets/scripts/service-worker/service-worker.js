@@ -10,6 +10,5 @@ self.addEventListener("fetch", (event) => {
 });
 
 // set up caching
-toolbox.precache(["/", "./license.txt"]);
-toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
+toolbox.precache(["/"]);
 toolbox.router.get("/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});
