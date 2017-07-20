@@ -90,7 +90,7 @@ function overlay_toggle_init() {
             } else {
                 mark_overlay_inactive(this.dataset.overlay);
             }
-        });
+        }, {passive: true});
     }
 }
 

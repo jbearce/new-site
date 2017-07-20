@@ -35,14 +35,14 @@ function overlay_closer_init() {
     overlay_closer.addEventListener("click", function (e) {
         e.preventDefault();
         mark_overlay_closer_inactive();
-    });
+    }, {passive: true});
 
     // listen for esc key press
     document.addEventListener("keyup", function (e) {
         if (e.keyCode === 27) {
             mark_overlay_closer_inactive();
         }
-    });
+    }, {passive: true});
 }
 
 // init the function

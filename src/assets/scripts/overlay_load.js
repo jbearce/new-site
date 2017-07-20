@@ -52,12 +52,12 @@ function overlay_load_init() {
     // open an overlay when the page finishes loading
     window.addEventListener("load", function () {
         load_overlay(window.location.hash.substring(1));
-    });
+    }, {passive: true});
 
     // open an overlay when the hash changes
     window.addEventListener("hashchange", function () {
         load_overlay(window.location.hash.substring(1));
-    });
+    }, {passive: true});
 }
 
 // init the function
