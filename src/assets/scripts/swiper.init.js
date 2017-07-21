@@ -4,7 +4,7 @@
 
 // init swiper
 new Swiper (".swiper-container", {
-    autoplay: 5000,
+    autoplay: document.querySelectorAll(".swiper-container .swiper-slide").length > 1 ? 5000 : 0,
     speed: 150,
     loop: true,
     pagination: ".swiper-pagination",
