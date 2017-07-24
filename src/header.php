@@ -81,7 +81,7 @@
                     });
 
                     navigator.serviceWorker.ready.then(() => {
-                        console.log("Success: Service worker is ready!");
+                        navigator.serviceWorker.controller.postMessage({"hello": "world"});
                     });
                 });
             }

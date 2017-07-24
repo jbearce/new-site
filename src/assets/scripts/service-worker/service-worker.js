@@ -14,6 +14,11 @@
     global.addEventListener("install", event => event.waitUntil(global.skipWaiting()));
     global.addEventListener("activate", event => event.waitUntil(global.clients.claim()));
 
+    // return the posted data
+    global.addEventListener("message", function (evt) {
+        console.log("postMessage received: ", evt.data);
+    });
+
     // set up the cache
     global.toolbox.precache(["/"]);
     global.toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
