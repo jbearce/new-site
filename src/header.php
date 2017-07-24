@@ -74,8 +74,8 @@
         <script>
             if ("serviceWorker" in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then((registration) => {
-                        navigator.serviceWorker.controller.postMessage({"hello": "world"});
+                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then((e) => {
+                        e.ports[0].postMessage("Hello world");
                     }).catch((error) => {
                         console.log("Error", error);
                     });
