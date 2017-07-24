@@ -80,8 +80,10 @@
                         console.log("Error: ", error);
                     });
 
-                    navigator.serviceWorker.ready.then(() => {
-                        navigator.serviceWorker.controller.postMessage({"hello": "world"});
+                    navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+                        return serviceWorkerRegistration.pushManager.getSubscription();
+                    }).then((subscription) => {
+                        navigator.serviceWorker.controller.postMessage({"template_directory": "<?php echo substr(wp_make_link_relative(get_bloginfo("template_directory")), 1); ?>"});
                     });
                 });
             }
