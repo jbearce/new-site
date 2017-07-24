@@ -10,6 +10,11 @@
         }
     });
 
+    // try to get the variable data
+    global.addEventListener("message", function (e) {
+        console.log(e.data);
+    }, false);
+
     // ensure the service worker takes over as soon as possible
     global.addEventListener("install", event => event.waitUntil(global.skipWaiting()));
     global.addEventListener("activate", event => event.waitUntil(global.clients.claim()));
