@@ -2,7 +2,7 @@
 
 // Scripts written by YOURNAME @ YOURCOMPANY
 
-(global => {
+((global) => {
     // no service worker for previews
     global.addEventListener("fetch", (event) => {
         if (event.request.url.match(/preview=true/)) {
