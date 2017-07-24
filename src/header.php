@@ -74,8 +74,13 @@
         <script>
             if ("serviceWorker" in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then((e) => {
-                        e.ports[0].postMessage("Hello world");
+                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then(() => {
+                        return navigator.serviceWorker.ready;
+                    }).then((registration) => {
+                        console.log("Service worker is ready", registration)
+                        registration.pushManager.subscribe({userVisibleOnly: true}).then((subscription) => {
+                            registration.active.postMessage(JSON.stringify({template_directory: test}))
+                        });
                     }).catch((error) => {
                         console.log("Error", error);
                     });

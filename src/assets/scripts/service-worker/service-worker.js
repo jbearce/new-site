@@ -3,23 +3,23 @@
 // Scripts written by YOURNAME @ YOURCOMPANY
 
 ((global) => {
-    // no service worker for previews
+    // disalbe the service worker for post previews
     global.addEventListener("fetch", (event) => {
         if (event.request.url.match(/preview=true/)) {
             return;
         }
     });
 
-    // try to get the variable data
-    global.addEventListener("message", function (e) {
-        console.log(e.data);
-    }, false);
-
     // ensure the service worker takes over as soon as possible
     global.addEventListener("install", event => event.waitUntil(global.skipWaiting()));
     global.addEventListener("activate", event => event.waitUntil(global.clients.claim()));
 
-    // set up caching
+    // get the pushed data
+    global.addEventListener("message", (event) => {
+        console.log(event.data);
+    }, false);
+
+    // set up the cache
     global.toolbox.precache(["/", "../media/logo.svg", "../media/spritesheet.svg", "../scripts/modern.js", "../styles/modern.css"]);
     global.toolbox.router.get("../media/*", toolbox.cacheFirst);
     global.toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
