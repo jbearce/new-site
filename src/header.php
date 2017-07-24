@@ -77,6 +77,8 @@
                     navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then((registration) => {
                         return navigator.serviceWorker.ready;
                     }).then((worker) => {
+                        console.log(worker);
+                        console.log("hello world");
                         worker.postMessage("hello world");
                     }).catch((error) => {
                         console.log("Error", error);
