@@ -74,11 +74,15 @@
         <script>
             if ("serviceWorker" in navigator) {
                 window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("<?php bloginfo("template_directory"); ?>/assets/scripts/service-worker.js").then((registration) => {
+                    navigator.serviceWorker.register("/service-worker.js").then((registration) => {
                         Client.postMessage("hello world");
                         console.log("Success: Service worker successfully registered!");
                     }).catch((error) => {
                         console.log("Error: ", error);
+                    });
+
+                    navigator.serviceWorker.ready.then(() => {
+                        console.log("Success: Service worker is ready!");
                     });
                 });
             }

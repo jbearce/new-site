@@ -4,6 +4,7 @@ require_once(TEMPLATEPATH . "/functions/post-types.php");
 require_once(TEMPLATEPATH . "/functions/page-speed.php");
 require_once(TEMPLATEPATH . "/functions/theme-features.php");
 require_once(TEMPLATEPATH . "/functions/menus.php");
+require_once(TEMPLATEPATH . "/functions/rewrite-rules.php");
 require_once(TEMPLATEPATH . "/functions/styles-scripts.php");
 require_once(TEMPLATEPATH . "/functions/image-sizes.php");
 require_once(TEMPLATEPATH . "/functions/filters.php");
