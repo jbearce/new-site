@@ -15,8 +15,7 @@
     global.addEventListener("activate", event => event.waitUntil(global.clients.claim()));
 
     // set up the cache
-    global.toolbox.precache(["/", "../media/logo.svg", "../media/spritesheet.svg", "../scripts/modern.js", "../styles/modern.css"]);
-    global.toolbox.router.get("../media/*", toolbox.cacheFirst);
+    global.toolbox.precache(["/"]);
     global.toolbox.router.get("/wp-content/uploads/*", toolbox.cacheFirst);
     global.toolbox.router.get("/*", toolbox.networkFirst, {NetworkTimeoutSeconds: 5});
 })(self);
