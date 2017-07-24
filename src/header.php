@@ -79,6 +79,7 @@
                     });
 
                     navigator.serviceWorker.ready.then((event) => {
+                        console.log("it's ready!");
                         navigator.serviceWorker.controller.postMessage({"hello": "world"});
                     });
                 });
