@@ -1,6 +1,5 @@
-<?php if (!function_eixsts("get_header")) require_once("{$_SERVER["DOCUMENT_ROOT"]}/wp-blog-header.php"); ?>
+<?php require_once("{$_SERVER["DOCUMENT_ROOT"]}/wp-blog-header.php"); ?>
 <?php get_header(); ?>
-<?php get_template_part("partials/block", "hero"); ?>
 <div class="content-block">
     <div class="content_inner">
         <div class="content_post">
