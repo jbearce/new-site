@@ -14,7 +14,7 @@ add_filter("wpseo_title", function($title) {
                     <h1 class="article_title title"><?php _e("408: Request Timeout", "new_site"); ?></h1>
                 </header><!--/.article_header-->
                 <div class="article_content">
-                    <p class="article_text text"><?php _e("You may be seeing this error because you are offline. You can continue to browse to pages you have previously visited; to visit new pages, please verify your connection.", "new_site"); ?></p>
+                    <p class="article_text text"><?php _e("You may be seeing this error because you are offline. You can continue to browse to pages you have previously visited, but some features may not work as expected; to visit new pages, please verify your connection.", "new_site"); ?></p>
                 </div><!--/.article_content-->
             </article><!--/.content_article.article-->
         </div><!--/.content_post-->
