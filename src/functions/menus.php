@@ -8,7 +8,7 @@ define("ENABLE_MEGA_MENU", true);
 
 // register the menus
 register_nav_menus(array(
-	"primary" => "Navigation",
+	"primary" => __("Navigation", "new_site"),
 ));
 
 // menu walker
