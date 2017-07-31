@@ -4,6 +4,44 @@
  * Article
 \* ------------------------------------------------------------------------ */
 
+.article_figure {
+    & {
+        margin: 0;
+    }
+}
+
+.article_image {
+    & {
+        display: block;
+        width: 100%;
+    }
+}
+
+/* eventexcerpt variant */
+
+.article.-eventexcerpt {
+    &:not(:last-of-type) {
+        border-bottom: remify(1) solid darken($background_alt, 10);
+        margin-bottom: remify(20, 16);
+    }
+
+    .article_figure {
+        margin-bottom: remify(20, 16);
+    }
+
+    .article_title {
+        font-size: remify(18, 16);
+    }
+
+    .article_header > .article_title:not(:last-child) {
+        margin-bottom: 0;
+    }
+
+    .article_header > .article_title:not(:last-child) + * {
+        margin-bottom: remify(10, 16);
+    }
+}
+
 /* excerpt variant */
 
 .article.-excerpt {

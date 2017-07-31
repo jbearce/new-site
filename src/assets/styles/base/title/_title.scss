@@ -24,3 +24,29 @@
         }
     }
 }
+
+/* divider variant */
+
+.title.-divider {
+    & {
+        align-items: center;
+        display: flex;
+    }
+
+    &::before,
+    &::after {
+        background: darken($background_alt, 10);
+        content: "\0020";
+        display: block;
+        height: remify(1);
+        flex: 1 1 0%;
+    }
+
+    &::before {
+        margin-right: remify(16, 16);
+    }
+
+    &::after {
+        margin-left: remify(16, 16);
+    }
+}

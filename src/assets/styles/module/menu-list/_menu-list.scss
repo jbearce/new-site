@@ -69,6 +69,25 @@
     }
 }
 
+/* between variant */
+
+.menu-list.-between {
+    & {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    > .menu-list_item {
+        flex: 0 0 auto;
+        float: none;
+    }
+
+    &::after {
+        flex: 0 0 100%;
+    }
+}
+
 /* center variant */
 
 .menu-list.-center {
@@ -280,6 +299,7 @@
         font-family: $heading-font;
         font-size: remify(14, 16);
         font-weight: 700;
+        text-align: left;
         text-transform: uppercase;
     }
 

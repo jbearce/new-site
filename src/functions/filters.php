@@ -96,7 +96,14 @@ add_filter("tribe_events_the_previous_month_link", "new_site_tribe_events_the_mo
 function new_site_tribe_events_list_show_ical_link() {
     return false;
 }
-add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");/*endRemoveIf(tribe_css_js_php)*/
+add_filter("tribe_events_list_show_ical_link", "new_site_tribe_events_list_show_ical_link");
+
+// add class to event list date headers
+function new_site_tribe_events_list_the_date_headers($html, $event_month, $event_year) {
+    $event_month = DateTime::createFromFormat("Ymd", "{$event_year}{$event_month}01");
+    return "<h3 class='content_title title -divider'>{$event_month->format("F")} {$event_year}</h3>";
+}
+add_filter("tribe_events_list_the_date_headers", "new_site_tribe_events_list_the_date_headers", 10, 3);/*endRemoveIf(tribe_css_js_php)*/
 
 // enable lazy loading on images
 function new_site_lazy_load_images($content) {
