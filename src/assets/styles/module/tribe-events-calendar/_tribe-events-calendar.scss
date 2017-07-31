@@ -85,7 +85,7 @@
 .tribe-events-shortcode.view-week .tribe-events-tooltip,
 .tribe-events-week .tribe-events-tooltip {
     & {
-        background: darken($background_alt, 5);
+        background: $dark_alt;
         bottom: remify(30, 16);
         color: $foreground;
         display: none;
@@ -107,7 +107,7 @@
     & {
         border-left: remify(10, 16) solid transparent;
         border-right: remify(10, 16) solid transparent;
-        border-top: remify(10, 16) solid darken($background_alt, 5);
+        border-top: remify(10, 16) solid $dark_alt;
         display: block;
         height: 0;
         position: absolute;
