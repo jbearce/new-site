@@ -35,12 +35,12 @@ $current_url = tribe_events_get_current_filter_url();
             <div class="col-12 col-xs-4 <?php echo esc_attr($filter["name"]); ?>-filter">
                 <label class="tribe-events-bar_text text -label" for="<?php echo esc_attr($filter["name"]); ?>"><?php echo $filter["caption"]; ?></label>
                 <?php echo preg_replace("/<input type=\"text\"/", "<input class=\"tribe-events-bar_input input\" type=\"text\"", $filter["html"]); ?>
-            </div><!--/.col-->
+            </div><!--/.col-12.col-xs-4-->
             <?php endforeach; // foreach ($filters as $filter) ?>
-            <div class="col-12 col-xs-4">
+            <div class="col-12 col-xs-auto -nogrow -noshrink">
                 <div class="tribe-events-bar_text text -label _tablet _notebook">&nbsp;</div>
                 <input class="tribe-events-bar_button button" type="submit" name="submit-bar" value="<?php printf(esc_attr__("Find %s", "the-events-calendar"), tribe_get_event_label_plural()); ?>" />
-            </div><!--/.col-->
+            </div><!--/.col-12.col-xs-auto.-nogrow.-noshrink-->
         </div><!--/.tribe-events-bar_row.row.-padded-->
 	</div><!--/.tribe-events-bar_filters-->
 	<?php endif; // if (!empty($filters)) ?>
