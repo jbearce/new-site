@@ -1,4 +1,4 @@
-<div id="tribe-events-content" class="tribe-events-list">
+<!--removeIf(tribe_html)--><div id="tribe-events-content" class="tribe-events-list">
 	<?php do_action("tribe_events_list_before_the_content"); ?>
 
 	<!-- List Title -->
@@ -41,4 +41,4 @@
 	</div><!--/#tribe-events-footer-->
 	<?php do_action("tribe_events_after_footer"); ?>
 
-</div><!-- #tribe-events-content -->
+</div><!--/#tribe-events-content--><!--endRemoveIf(tribe_html)-->

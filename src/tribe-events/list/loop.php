@@ -1,6 +1,4 @@
-<?php
-global $post;
-?>
+<!--removeIf(tribe_html)--><?php global $post; ?>
 
 <div class="tribe-events-loop">
 
@@ -17,4 +15,4 @@ global $post;
 		<?php do_action("tribe_events_inside_after_loop"); ?>
 	<?php endwhile; // (have_posts()) ?>
 
-</div><!--/.tribe-events-loop-->
+</div><!--/.tribe-events-loop--><!--endRemoveIf(tribe_html)-->
