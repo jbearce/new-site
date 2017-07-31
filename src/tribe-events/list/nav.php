@@ -11,7 +11,7 @@ $events_label_plural = tribe_get_event_label_plural();
             <!-- Left Navigation -->
             <li class="<?php echo esc_attr(tribe_left_navigation_classes()); ?> menu-list_item" aria-label="previous events link">
                 <?php if (tribe_has_previous_event()): ?>
-                        <a class="menu-list_link link" href="<?php echo esc_url(tribe_get_listview_prev_link()); ?>" rel="prev"><?php printf("<span>&laquo;</span> " . esc_html__("Previous %s", "the-events-calendar"), $events_label_plural); ?></a>
+                    <a class="menu-list_link link" href="<?php echo esc_url(tribe_get_listview_prev_link()); ?>" rel="prev"><?php printf("<span>&laquo;</span> " . esc_html__("Previous %s", "the-events-calendar"), $events_label_plural); ?></a>
                 <?php endif; // (tribe_has_previous_event()) ?>
             </li><!--/.tribe-events-nav-left-->
 

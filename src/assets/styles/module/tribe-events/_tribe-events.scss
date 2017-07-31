@@ -8,6 +8,14 @@
 
 /* Tribe is stupidly specific with their classes... */
 
+/* Loader */
+
+.tribe-events-ajax-loading {
+    & {
+        display: none;
+    }
+}
+
 /* Content */
 
 #tribe-events-content {

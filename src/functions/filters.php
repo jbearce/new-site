@@ -84,6 +84,12 @@ function new_site_dequeue_nf_display() {
 }
 add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
 /*removeIf(tribe_css_js_php)*/
+// dequeue Tribe styles
+function new_site_tribe_events_dequeue_styles() {
+    wp_dequeue_style("tribe-events-calendar-style", 999);
+}
+add_filter("wp_enqueue_scripts", "new_site_tribe_events_dequeue_styles");
+
 // add button class to Tribe Events month links
 function new_site_tribe_events_the_month_link($html) {
     $html = preg_replace("/(<a)/", "$1 class='tribe_button button _nowrap'", $html);
@@ -103,21 +109,30 @@ function new_site_tribe_events_list_the_date_headers($html, $event_month, $event
     $event_month = DateTime::createFromFormat("Ymd", "{$event_year}{$event_month}01");
     return "<h3 class='content_title title -divider'>{$event_month->format("F")} {$event_year}</h3>";
 }
-add_filter("tribe_events_list_the_date_headers", "new_site_tribe_events_list_the_date_headers", 10, 3);/*endRemoveIf(tribe_css_js_php)*/
+add_filter("tribe_events_list_the_date_headers", "new_site_tribe_events_list_the_date_headers", 10, 3);
+
+// add class to event list navigation links
+function new_site_tribe_the_day_link($html) {
+    return preg_replace("/<a/", "<a class='menu-list_link link'", $html);
+}
+add_filter("tribe_events_the_next_month_link", "new_site_tribe_the_day_link", 10, 1);/*endRemoveIf(tribe_css_js_php)*/
+add_filter("tribe_the_day_link", "new_site_tribe_the_day_link", 10, 1);
 
 // enable lazy loading on images
 function new_site_lazy_load_images($content) {
-    // add `<noscript>` fallback for all imges
-    $content = preg_replace("/(<img[^>]+?>)/", "$1<noscript>$1</noscript>", $content);
+    if (!(tribe_is_month() && !is_tax())) {
+        // add `<noscript>` fallback for all imges
+        $content = preg_replace("/(<img[^>]+?>)/", "$1<noscript>$1</noscript>", $content);
 
-    // replace all `src` attributes in images with `data-nomral`
-    $content = preg_replace("/(<img.*?)(src=)([^>]+?><noscript)/im", "$1data-normal=$3", $content);
+        // replace all `src` attributes in images with `data-nomral`
+        $content = preg_replace("/(<img.*?)(src=)([^>]+?><noscript)/im", "$1data-normal=$3", $content);
 
-    // replace all `srcset` attributes in images with `data-srcset`
-    $content = preg_replace("/(<img.*?)(srcset=)([^>]+?><noscript)/im", "$1data-srcset=$3", $content);
+        // replace all `srcset` attributes in images with `data-srcset`
+        $content = preg_replace("/(<img.*?)(srcset=)([^>]+?><noscript)/im", "$1data-srcset=$3", $content);
 
-    // add ` _js ` to all `class` attributes in images
-    $content = preg_replace("/(<img[^>]+class=(?:\'|\"))([^\'|\"\>]+)([^>]+?><noscript)/im", "$1_js $2$3", $content);
+        // add ` _js ` to all `class` attributes in images
+        $content = preg_replace("/(<img[^>]+class=(?:\'|\"))([^\'|\"\>]+)([^>]+?><noscript)/im", "$1_js $2$3", $content);
+    }
 
     return $content;
 }

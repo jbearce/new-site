@@ -18,8 +18,12 @@
 #tribe-events-content table.tribe-events-calendar { // Tribe is stupidly specific with their classes...
     & {
         border: 0;
+        display: table;
+        border-collapse: collapse;
         font-size: remify(12, 16);
         margin: remify(0 0 20, 16);
+        table-layout: fixed;
+        width: 100%;
     }
 
     .tribe-events-calendar_cell {
@@ -27,6 +31,7 @@
         font-size: remify(16, 16);
         height: remify(75, 16);
         padding: remify(12 15 10, 16);
+        vertical-align: top;
     }
 
     .tribe-events-calendar_cell.-header {
@@ -45,6 +50,10 @@
 
     .tribe-events-calendar_link {
         font-size: 1em;
+    }
+
+    .tribe-events-calendar_event {
+        position: relative;
     }
 
     .events-archive.events-gridview & .tribe-events-calendar_event:not(:last-child) {
@@ -66,5 +75,85 @@
     .events-archive.events-gridview & .type-tribe_events {
         margin: 0;
         padding: 0;
+    }
+}
+
+/* reinstate (mostly) default Tribe tooltip styles */
+
+.recurring-info-tooltip,
+.tribe-events-calendar .tribe-events-tooltip,
+.tribe-events-shortcode.view-week .tribe-events-tooltip,
+.tribe-events-week .tribe-events-tooltip {
+    & {
+        background: darken($background_alt, 5);
+        bottom: remify(30, 16);
+        color: $foreground;
+        display: none;
+        left: remify(3, 16);
+        line-height: remify(20, 16);
+        position: absolute;
+        width: remify(320, 16);
+        z-index: 1001;
+    }
+}
+
+.tribe-events-tooltip .tribe-events-event-body {
+    & {
+        padding: remify(5 10, 16);
+    }
+}
+
+.tribe-events-tooltip .tribe-events-arrow {
+    & {
+        border-left: remify(10, 16) solid transparent;
+        border-right: remify(10, 16) solid transparent;
+        border-top: remify(10, 16) solid darken($background_alt, 5);
+        display: block;
+        height: 0;
+        position: absolute;
+        left: remify(20, 16);
+        top: 100%;
+        width: 0;
+    }
+}
+
+.recurring-info-tooltip,
+.tribe-events-calendar .tribe-events-right .tribe-events-tooltip,
+.tribe-events-shortcode.view-week .tribe-events-right .tribe-events-tooltip,
+.tribe-events-week .tribe-events-right .tribe-events-tooltip {
+    & {
+        left: auto;
+        right: remify(3, 16);
+    }
+}
+
+.tribe-events-right .tribe-events-tooltip .tribe-events-arrow {
+    & {
+        left: auto;
+        right: remify(30, 16);
+    }
+}
+
+.recurringinfo {
+    & {
+        display: inline-block;
+        zoom: 1;
+        *display: inline
+    }
+}
+
+.event-is-recurring,
+.recurringinfo {
+    & {
+        position: relative
+    }
+}
+
+.recurring-info-tooltip.tribe-events-tooltip {
+    & {
+        left: remify(10, 16);
+        max-width: remify(320, 16);
+        padding-bottom: remify(12, 16);
+        width: remify(200, 16);
     }
 }/*endRemoveIf(tribe_css_js_php)*/
