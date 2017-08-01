@@ -38,8 +38,8 @@
         background: darken($background_alt, 10);
         content: "\0020";
         display: block;
-        height: remify(1);
         flex: 1 1 0%;
+        height: remify(1);
     }
 
     &::before {

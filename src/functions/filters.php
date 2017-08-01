@@ -104,13 +104,14 @@ function new_site_tribe_events_list_the_date_headers($html, $event_month, $event
 add_filter("tribe_events_list_the_date_headers", "new_site_tribe_events_list_the_date_headers", 10, 3);
 
 // add class to event list navigation links
-function new_site_tribe_the_day_link($html) {
+function new_site_tribe_the_nav_link($html) {
     return preg_replace("/<a/", "<a class='menu-list_link link'", $html);
 }
-add_filter("tribe_events_the_next_month_link", "new_site_tribe_the_day_link", 10, 1);
-add_filter("tribe_the_prev_event_link", "new_site_tribe_the_day_link", 10, 1);
-add_filter("tribe_the_next_event_link", "new_site_tribe_the_day_link", 10, 1);
-add_filter("tribe_the_day_link", "new_site_tribe_the_day_link", 10, 1);/*endRemoveIf(tribe_css_js_php)*/
+add_filter("tribe_events_the_previous_month_link", "new_site_tribe_the_nav_link", 10, 1);
+add_filter("tribe_events_the_next_month_link", "new_site_tribe_the_nav_link", 10, 1);
+add_filter("tribe_the_prev_event_link", "new_site_tribe_the_nav_link", 10, 1);
+add_filter("tribe_the_next_event_link", "new_site_tribe_the_nav_link", 10, 1);
+add_filter("tribe_the_day_link", "new_site_tribe_the_nav_link", 10, 1);/*endRemoveIf(tribe_css_js_php)*/
 
 // enable lazy loading on images
 function new_site_lazy_load_images($content) {

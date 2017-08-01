@@ -18,8 +18,8 @@
 #tribe-events-content table.tribe-events-calendar { // Tribe is stupidly specific with their classes...
     & {
         border: 0;
-        display: table;
         border-collapse: collapse;
+        display: table;
         font-size: remify(12, 16);
         margin: remify(0 0 20, 16);
         table-layout: fixed;
@@ -110,8 +110,8 @@
         border-top: remify(10, 16) solid $dark_alt;
         display: block;
         height: 0;
-        position: absolute;
         left: remify(20, 16);
+        position: absolute;
         top: 100%;
         width: 0;
     }
@@ -138,14 +138,13 @@
     & {
         display: inline-block;
         zoom: 1;
-        *display: inline
     }
 }
 
 .event-is-recurring,
 .recurringinfo {
     & {
-        position: relative
+        position: relative;
     }
 }
 
