@@ -3,7 +3,7 @@
 
 	<!-- List Title -->
 	<?php do_action("tribe_events_before_the_title"); ?>
-	<h2 class="tribe-events-page-title tribe-events-list_title title _textcenter"><?php echo tribe_get_events_title() ?></h2>
+	<h2 class="tribe-events-page-title tribe-events-list_title title _textcenter"><?php echo tribe_get_events_title(); ?></h2>
 	<?php do_action("tribe_events_after_the_title"); ?>
 
 	<!-- Notices -->
@@ -11,7 +11,7 @@
 
 	<!-- List Header -->
 	<?php do_action("tribe_events_before_header"); ?>
-	<div id="tribe-events-header" <?php tribe_events_the_header_attributes() ?>>
+	<div id="tribe-events-header" <?php tribe_events_the_header_attributes(); ?>>
 
 		<!-- Header Navigation -->
 		<?php do_action("tribe_events_before_header_nav"); ?>
@@ -25,7 +25,7 @@
 	<!-- Events Loop -->
 	<?php if (have_posts()): ?>
 		<?php do_action("tribe_events_before_loop"); ?>
-		<?php tribe_get_template_part("list/loop") ?>
+		<?php tribe_get_template_part("list/loop"); ?>
 		<?php do_action("tribe_events_after_loop"); ?>
 	<?php endif; // (have_posts()) ?>
 

@@ -90,14 +90,6 @@ function new_site_tribe_events_dequeue_styles() {
 }
 add_filter("wp_enqueue_scripts", "new_site_tribe_events_dequeue_styles");
 
-// add button class to Tribe Events month links
-function new_site_tribe_events_the_month_link($html) {
-    $html = preg_replace("/(<a)/", "$1 class='tribe_button button _nowrap'", $html);
-    return $html;
-}
-add_filter("tribe_events_the_next_month_link", "new_site_tribe_events_the_month_link");
-add_filter("tribe_events_the_previous_month_link", "new_site_tribe_events_the_month_link");
-
 // disable Tribe Events ical links (since I can't re-style them)
 function new_site_tribe_events_list_show_ical_link() {
     return false;
@@ -115,8 +107,10 @@ add_filter("tribe_events_list_the_date_headers", "new_site_tribe_events_list_the
 function new_site_tribe_the_day_link($html) {
     return preg_replace("/<a/", "<a class='menu-list_link link'", $html);
 }
-add_filter("tribe_events_the_next_month_link", "new_site_tribe_the_day_link", 10, 1);/*endRemoveIf(tribe_css_js_php)*/
-add_filter("tribe_the_day_link", "new_site_tribe_the_day_link", 10, 1);
+add_filter("tribe_events_the_next_month_link", "new_site_tribe_the_day_link", 10, 1);
+add_filter("tribe_the_prev_event_link", "new_site_tribe_the_day_link", 10, 1);
+add_filter("tribe_the_next_event_link", "new_site_tribe_the_day_link", 10, 1);
+add_filter("tribe_the_day_link", "new_site_tribe_the_day_link", 10, 1);/*endRemoveIf(tribe_css_js_php)*/
 
 // enable lazy loading on images
 function new_site_lazy_load_images($content) {

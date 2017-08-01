@@ -6,7 +6,7 @@
 
 .article_figure {
     & {
-        margin: 0;
+        margin: remify(0 0 30, 16);
     }
 }
 

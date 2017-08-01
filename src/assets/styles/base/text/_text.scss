@@ -7,7 +7,6 @@
 .text {
     & {
         color: $foreground;
-        display: block;
         font-family: $body-font;
         font-size: remify(12, 16);
         font-weight: 400;
@@ -31,5 +30,18 @@
 .text.-label {
     & {
         cursor: pointer;
+    }
+}
+
+/* list variant */
+
+.text.-list {
+    & {
+        list-style: disc;
+        padding: remify(0 0 0 16, 12);
+    }
+
+    .text_list-item {
+        display: list-item;
     }
 }

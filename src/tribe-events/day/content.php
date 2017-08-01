@@ -23,7 +23,7 @@
 	<!-- Events Loop -->
 	<?php if (have_posts()): ?>
 		<?php do_action("tribe_events_before_loop"); ?>
-		<?php tribe_get_template_part("day/loop") ?>
+		<?php tribe_get_template_part("day/loop"); ?>
 		<?php do_action("tribe_events_after_loop"); ?>
 	<?php endif; ?>
 

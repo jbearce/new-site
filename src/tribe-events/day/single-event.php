@@ -5,7 +5,7 @@ $has_venue_address = (!empty($venue_details["address"])) ? " location" : "";
 $organizer         = tribe_get_organizer();
 ?>
 
-<article id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?> tribe-events-day_article article -eventexcerpt" <?php if ($post->post_parent): ?> data-parent-post-id="<?php echo absint($post->post_parent); ?>"<?php endif; ?>>
+<article id="post-<?php the_ID(); ?>" class="<?php tribe_events_event_classes(); ?> tribe-events-day_article article -eventexcerpt" <?php if ($post->post_parent): ?> data-parent-post-id="<?php echo absint($post->post_parent); ?>"<?php endif; ?>>
     <div class="article_row row -padded">
         <!-- Event Image -->
         <?php if (has_post_thumbnail()): ?>
