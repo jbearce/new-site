@@ -83,18 +83,41 @@ add_filter("the_content", "new_site_rel_noopener");
 add_filter("acf_the_content", "new_site_rel_noopener", 12);
 
 // add "Download Adobe Reader" link on all pages that link to PDFs
-function new_site_acrobat_link($content) {
-    preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
+function new_site_acrobat_link() {
+    global $post;
 
-    if ($matches) {
-        $content .= "<hr />";
-        $content .= "<p class='_small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "new_site"), "<a href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+    $has_pdf = false;
+    $content = get_the_content();
+    $fields  = get_fields();
+    $output  = "";
+
+    if ($content) {
+        preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
+
+        if ($matches) {
+            $has_pdf = true;
+        }
     }
 
-    return $content;
+    if ($fields && !$has_pdf) {
+        foreach ($fields as $field) {
+            preg_match("/\.pdf(?:\'|\"|$)/im", json_encode($field), $matches);
+
+            if ($matches) {
+                $has_pdf = true;
+                break;
+            }
+        }
+    }
+
+    if ($has_pdf === true) {
+        $output .= "<hr class='divider' />";
+        $output .= "<p class='content_text text _small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "new_site"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+    }
+
+    echo $output;
 }
-add_filter("the_content", "new_site_acrobat_link");
-add_filter("acf_the_content", "new_site_acrobat_link");
+add_filter("new_site_after_content", "new_site_acrobat_link");
 
 // disable Ninja Forms styles
 function new_site_dequeue_nf_display() {

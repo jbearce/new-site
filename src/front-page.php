@@ -10,6 +10,8 @@ if (get_option("show_on_front") != "page") {
 <div class="content-block">
     <div class="content_inner">
         <div class="content_post">
+            <?php do_action("new_site_before_content"); ?>
+
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
                     <?php get_template_part("partials/content", "full"); ?>
@@ -19,6 +21,8 @@ if (get_option("show_on_front") != "page") {
             <?php endif; ?>
 
             <?php get_template_part("partials/grid", "callout"); ?>
+
+            <?php do_action("new_site_after_content"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
 </div><!--/.content-block-->
