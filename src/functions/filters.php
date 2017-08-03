@@ -15,6 +15,24 @@ function new_site_set_cookie() {
 }
 add_action("init", "new_site_set_cookie", 10);
 
+// adjust WordPress login screen styles
+function new_site_login_styles() {
+    echo "<link href='" . get_bloginfo("template_directory") . "/assets/styles/wp-login.css' rel='stylesheet' />";
+}
+add_action("login_enqueue_scripts", "new_site_login_styles");
+
+// change login logo URL
+function new_site_login_logo_url() {
+    return get_bloginfo("url");
+}
+add_filter("login_headerurl", "new_site_login_logo_url");
+
+// change login logo title
+function new_site_login_logo_title() {
+    return get_bloginfo("name");
+}
+add_filter("login_headertitle", "new_site_login_logo_title");
+
 // add user-content class to TinyMCE body
 function new_site_tinymce_settings($settings) {
     $settings["body_class"] .= " user-content";

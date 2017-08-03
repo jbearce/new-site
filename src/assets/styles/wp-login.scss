@@ -1,0 +1,118 @@
+// Styles written by Jacob Bearce @ Weblinx, Inc.
+
+@import "helpers/_helpers";
+
+/* stylelint-disable selector-max-id, selector-max-type, selector-max-qualifying-type, selector-class-pattern, property-no-vendor-prefix */
+
+body {
+    & {
+        background: $accent !important;
+    }
+}
+
+.login #login_error,
+.login .message {
+    & {
+        border-left-color: darken(desaturate(adjust-hue($accent, -0.5742), 14.0382), 17.2549) !important;
+    }
+}
+
+#login h1 a,
+.login h1 a {
+    & {
+        background-image: url("../media/logo.svg") !important;
+        background-repeat: no-repeat !important;
+        background-size: 320px 73.14px !important;
+        height: 73.14px !important;
+        width: 320px !important;
+    }
+}
+
+.wp-core-ui .button-primary {
+    & {
+        background: $accent !important;
+        border-color: darken(desaturate(adjust-hue($accent, 2.361), 0.1413), 3.1373) darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+        -webkit-box-shadow: 0 1px 0 darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+        box-shadow: 0 1px 0 darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+        text-shadow: 0 -1px 1px darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706), 1px 0 1px darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706), 0 1px 1px darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706), -1px 0 1px darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+    }
+
+    &.focus,
+    &.hover,
+    &:focus,
+    *:hover {
+        background: lighten(desaturate(adjust-hue($accent, -1.1983), 0.3662), 1.5686) !important;
+        border-color: darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+    }
+
+    &.focus,
+    &:focus {
+        -webkit-box-shadow: 0 1px 0 darken(desaturate(adjust-hue($accent, 2.361), 0.1413), 3.1373), 0 0 2px 1px #E1A588 !important;
+        box-shadow: 0 1px 0 darken(desaturate(adjust-hue($accent, 2.361), 0.1413), 3.1373), 0 0 2px 1px #E1A588 !important;
+    }
+
+    &.active,
+    &.active:focus,
+    &.active:hover,
+    &:active {
+        background: darken(desaturate(adjust-hue($accent, 2.361), 0.1413), 3.1373) !important;
+        border-color: darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+        -webkit-box-shadow: inset 0 2px 0 darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+        box-shadow: inset 0 2px 0 darken(desaturate(adjust-hue($accent, 2.3783), 0.3553), 6.4706) !important;
+    }
+}
+
+input[type="text"],
+input[type="search"],
+input[type="radio"],
+input[type="tel"],
+input[type="time"],
+input[type="url"],
+input[type="week"],
+input[type="password"],
+input[type="checkbox"],
+input[type="color"],
+input[type="date"],
+input[type="datetime"],
+input[type="datetime-local"],
+input[type="email"],
+input[type="month"],
+input[type="number"],
+select,
+textarea {
+    &:focus {
+        border-color: lighten(desaturate(adjust-hue($accent, 11.2919), 38.3482), 23.9216) !important;
+        -webkit-box-shadow: 0 0 2px transparentize(lighten(desaturate(adjust-hue($accent, 1.6077), 26.8855), 6.6667), 0.2) !important;
+        box-shadow: 0 0 2px transparentize(lighten(desaturate(adjust-hue($accent, 1.6077), 26.8855), 6.6667), 0.2) !important;
+    }
+}
+
+input[type="checkbox"] {
+    &:checked::before {
+        color: $accent !important;
+    }
+}
+
+a {
+    &:focus {
+        -webkit-box-shadow: 0 0 2px transparentize(lighten(desaturate(adjust-hue($accent, 1.6077), 26.8855), 6.6667), 0.2) !important;
+        box-shadow: 0 0 2px transparentize(lighten(desaturate(adjust-hue($accent, 1.6077), 26.8855), 6.6667), 0.2) !important;
+    }
+}
+
+.login #backtoblog a,
+.login #nav a {
+    & {
+        color: $light !important;
+    }
+
+    &:hover {
+        color: darken($light, 18.0392) !important;
+    }
+
+    &:focus {
+        color: darken($light, 5.098) !important;
+    }
+}
+
+/* stylelint enable */
