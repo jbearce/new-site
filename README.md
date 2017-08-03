@@ -2,6 +2,8 @@
 
 An awesome new WordPress theme built just for new-site!
 
+Testing
+
 ---
 
 ## Using This project
