@@ -88,8 +88,8 @@
         <div class="page_container">
             <?php get_template_part("partials/login", "overlay"); ?>
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block -flyout _phone _noncritical" role="navigation" tabindex="-1">
-                    <div class="navigation_background"></div>
+                <div class="navigation-block -flyout _phone _noncritical" role="navigation" aria-hidden="true">
+                    <button class="navigation_background"><span class="_visuallyhidden"><?php _e("Close Menu", "new_site"); ?></span></button>
                     <div class="navigation_inner">
                         <div class="navigation_search-form_container search-form_container _nomargin">
                             <?php get_search_form(); ?>

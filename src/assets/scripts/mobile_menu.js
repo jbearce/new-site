@@ -4,7 +4,7 @@
 
 // Inspired by https://medium.com/outsystems-experts/gestures-glamour-setting-up-a-touch-menu-6d9b94039997#.d2r8ubylw
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
     const menu_container      = document.querySelector(".navigation-block.-flyout");
     const menu                = document.querySelector(".navigation_inner");
     const overlay             = document.querySelector(".navigation_background");
@@ -64,11 +64,11 @@ document.addEventListener("DOMContentLoaded", function () {
     const close_menu_overlay = () => {
         focusTrapper.deactivate();
 
-        function on_transition_end() {
+        const on_transition_end = () => {
             overlay.classList.remove(active_class);
 
             menu_container.removeEventListener("transitionend", on_transition_end);
-        }
+        };
 
         menu_container.addEventListener("transitionend", on_transition_end, false);
         menu_container.classList.remove(active_class);
@@ -77,8 +77,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const click_open_menu = () => {
         overlay.classList.add(active_class);
 
-        requestAnimationFrame(function () {
-            setTimeout(function () {
+        requestAnimationFrame(() => {
+            setTimeout(() => {
                 menu_container.classList.add(active_class);
                 menu_container.focus();
                 focusTrapper.activate();
