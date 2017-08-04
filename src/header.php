@@ -86,16 +86,16 @@
     <body <?php body_class(); ?>>
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <div class="page_container">
-    		<button class="overlay-closer _noncritical" aria-hidden="true"><span class="_visuallyhidden"><?php _e("Close Overlay"); ?></span></button><!--removeIf(login_html)-->
-            <?php get_template_part("partials/overlay", "login"); ?><!--endRemoveIf(login_html)-->
+            <?php get_template_part("partials/login", "overlay"); ?>
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block -flyout _phone _noncritical" data-overlay="mobile-nav" data-menu="true" aria-hidden="true" role="navigation" tabindex="0">
+                <div class="navigation-block -flyout _phone _noncritical" role="navigation" tabindex="-1">
+                    <div class="navigation_background"></div>
                     <div class="navigation_inner">
                         <div class="navigation_search-form_container search-form_container _nomargin">
                             <?php get_search_form(); ?>
                         </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
                         <?php
-                        wp_nav_menu(array(
+                        $menu = wp_nav_menu(array(
                             "container"		 => false,
                             "depth"          => 3,
                             "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
@@ -104,9 +104,6 @@
                         ));
                         ?>
                     </div><!--/.navigation_inner-->
-        			<button class="navigation_menu-toggle menu-toggle _visuallyhidden" data-overlay="mobile-nav">
-        				<?php _e("Close Menu", "new_site"); ?>
-        			</button><!--/.navigation_menu-toggle.menu-toggle._visuallyhidden-->
                 </div><!--/.navigation-block.-flyout._phone._noncritical-->
             <?php endif; // has_nav_menu("primary") ?>
             <div class="header-block" role="banner">
@@ -119,7 +116,7 @@
                         </div><!--/.col-auto-->
                         <div class="col-auto -nogrow -noshrink _noprint">
                             <?php if (has_nav_menu("primary")): ?>
-                                <button class="header_menu-toggle menu-toggle -rounded _phone" data-overlay="mobile-nav">
+                                <button class="header_menu-toggle menu-toggle -rounded _phone">
                                     <?php _e("View Menu", "new_site"); ?>
                                 </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
                             <?php endif; // has_nav_menu("primary") ?>

@@ -81,6 +81,14 @@
     padding: 0 !important;
 }
 
+._notransform {
+    transform: none !important;
+}
+
+._notransition {
+    transition: none !important;
+}
+
 ._block {
     display: block !important;
 }

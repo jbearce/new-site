@@ -41,83 +41,66 @@
 
 .navigation-block.-flyout {
     & {
-        background: $dark_alt;
-        border-right: remify(1) solid darken($dark_alt, 10);
-        bottom: 999em;
+        height: 0;
+        left: 0;
+        position: fixed;
+        top: 0;
+        width: 0;
+        z-index: 999;
+    }
+
+    > .navigation_background {
+        background: transparentize($dark, 0.6);
+        content: "\0020";
+        display: none;
+        height: 100vh;
+        left: 0;
+        opacity: 0;
+        position: fixed;
+        top: 0;
+        transition: opacity 0.3s cubic-bezier(0, 0, 0.3, 1);
+        width: 100vw;
+        will-change: opacity;
+    }
+
+    > .navigation_background.is-active {
         display: block;
-        left: -999em;
-        overflow: auto;
-        position: absolute;
-        right: 999em;
-        top: -999em;
+    }
+
+    &.is-active > .navigation_background.is-active {
+        opacity: 0.5;
+    }
+
+    > .navigation_inner {
+        background-color: $dark_alt;
+        height: 100%;
+        max-width: remify(350, 16);
+        padding: 0;
+        pointer-events: auto;
+        position: fixed;
         transform: translateX(-100%);
-        transition: bottom 0s 0.15s, left 0s 0.15s, right 0s 0.15s, top 0s 0.15s, transform 0.15s, visibility 0s 0.15s;
-        visibility: hidden;
-        z-index: 999;
+        transition: transform 0.25s ease-out;
+        width: 90%;
+        will-change: transform;
+        z-index: 160;
     }
 
-    &.is-active {
-        bottom: 0;
-        left: 0;
-        right: remify(80);
-        top: 0;
-        transform: translateX(0);
-        transition: transform 0.15s;
-        visibility: visible;
+    &.is-active > .navigation_inner,
+    &.is-transitioning > .navigation_inner {
+        box-shadow: remify(0 2 6, 16) transparentize($dark, 0.5);
     }
 
-    > .navigation_inner {
-        background: none;
-        max-width: none;
-        padding: 0;
-    }
-}
-
-/* flyout right variant */
-
-.navigation-block.-flyout.-right {
-    & {
-        border-left: remify(1) solid darken($dark_alt, 10);
-        border-right: 0;
-        left: 999em;
-        right: -999em;
-        transform: translateX(100%);
+    &.is-active > .navigation_inner {
+        transform: none;
     }
 
-    &.is-active {
-        left: remify(80);
-        right: 0;
-    }
-}
-
-/* pulldown variant */
-
-.navigation-block.-pulldown {
-    & {
-        background: $dark_alt;
-        border-right: remify(1) solid darken($dark_alt, 10);
+    > .navigation_inner::after {
+        content: "\0020";
         display: block;
-        left: 0;
+        height: 100vh;
+        left: 100%;
         position: absolute;
-        right: 0;
-        top: -999em;
-        transform: translateY(-100%);
-        transition: top 0s 0.15s, transform 0.15s, visibility 0s 0.15s;
-        visibility: hidden;
-        width: 100%;
-        z-index: 999;
-    }
-
-    &.is-active {
         top: 0;
-        transform: translateY(0);
-        transition: transform 0.15s;
-        visibility: visible;
-    }
-
-    > .navigation_inner {
-        background: none;
-        max-width: none;
-        padding: 0;
+        width: 2vw;
     }
 }
