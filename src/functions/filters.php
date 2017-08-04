@@ -3,6 +3,12 @@
  * Functions: Filters
 \* ------------------------------------------------------------------------ */
 
+// push the CSS & JS over HTTP2
+function new_site_http2_push() {
+    header("Link: <" . get_bloginfo("template_directory") . "/assets/media/modern.css>; rel=preload; as=style");
+}
+add_action("init", "new_site_http2_push", 10);
+
 // set cookie when a query string gets passed
 function new_site_set_cookie() {
     $cookie     = isset($_GET["cookie"]) ? $_GET["cookie"] : false;
