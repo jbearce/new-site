@@ -133,7 +133,7 @@ document.addEventListener("DOMContentLoaded", () => {
         drag_direction = "";
     };
 
-    const touch_move = (evt, current_coords, translate_coords) => {
+    const touch_move = (event, current_coords, translate_coords) => {
         if (!drag_direction) {
             if (Math.abs(translate_coords[0]) >= Math.abs(translate_coords[1])) {
                 drag_direction = "horizontal";
@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (drag_direction === "vertical") {
             last_coords = current_coords;
         } else {
-            evt.preventDefault();
+            event.preventDefault();
 
             if (move_x + (current_coords[0] - last_coords[0]) < 0 && move_x + (current_coords[0] - last_coords[0]) > -menu_width) {
                 move_x = move_x + (current_coords[0] - last_coords[0]);
@@ -206,36 +206,68 @@ document.addEventListener("DOMContentLoaded", () => {
         toggle_transitions(overlay, 1);
     };
 
-    const on_touch_start = (evt) => {
+    const on_touch_start = (event) => {
+        let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        let is_clickable = false;
+
+        if (element) {
+            while (element.parentNode) {
+                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                    is_clickable = true; return;
+                }
+
+                element = element.parentNode;
+            }
+        }
+
+        if (is_clickable) {
+            return;
+        }
+
         start_time = new Date().getTime();
-        start_coords = [evt.touches[0].pageX, evt.touches[0].pageY];
+        start_coords = [event.touches[0].pageX, event.touches[0].pageY];
 
         touching_element = true;
 
         touch_start(start_coords);
     };
 
-    const on_touch_move = (evt) => {
-        if (!touching_element) {
+    const on_touch_move = (event) => {
+        let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        let is_clickable = false;
+
+        if (element) {
+            while (element.parentNode) {
+                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                    is_clickable = true; return;
+                }
+
+                element = element.parentNode;
+            }
+        }
+
+        if (!touching_element || is_clickable) {
             return;
         }
 
-        current_coords          = [evt.touches[0].pageX, evt.touches[0].pageY];
+        current_coords          = [event.touches[0].pageX, event.touches[0].pageY];
         const translate_coords  = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
 
-        touch_move(evt, current_coords, translate_coords);
+        touch_move(event, current_coords, translate_coords);
     };
 
     const on_touch_end = (event) => {
         let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
         let is_clickable = false;
 
-        while (element.parentNode) {
-            if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
-                is_clickable = true; return;
-            }
+        if (element) {
+            while (element.parentNode) {
+                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                    is_clickable = true; return;
+                }
 
-            element = element.parentNode;
+                element = element.parentNode;
+            }
         }
 
         if (!touching_element || is_clickable) {
