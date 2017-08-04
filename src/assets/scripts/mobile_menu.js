@@ -212,7 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (element) {
             while (element.parentNode) {
-                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-list_link") || element.classList.contains("search-form_container")) {
                     is_clickable = true; return;
                 }
 
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (element) {
             while (element.parentNode) {
-                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-list_link") || element.classList.contains("search-form_container")) {
                     is_clickable = true; return;
                 }
 
@@ -262,7 +262,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (element) {
             while (element.parentNode) {
-                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-list_link") || element.classList.contains("search-form_container")) {
                     is_clickable = true; return;
                 }
 
