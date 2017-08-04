@@ -6,4 +6,4 @@
 document.addEventListener("DOMContentLoaded", () => {
     const instance = Layzr();
     instance.update().check().handlers(true);
-}, {passive: true});
+});

@@ -89,7 +89,7 @@ function menu_list_init() {
                 mark_menu_item_inactive(menu_items[i]);
             }
         }
-    }, {passive: true});
+    });
 
     // handle interactions with menu-list_item elements
     for (let i = 0; i < menu_items.length; i++) {
@@ -99,12 +99,12 @@ function menu_list_init() {
             menu_items[i].addEventListener("mouseover", function () {
                 mark_menu_item_siblings_inactive(this);
                 mark_menu_item_active(this);
-            }, {passive: true});
+            });
 
             // close on mouseout
             menu_items[i].addEventListener("mouseout", function () {
                 mark_menu_item_inactive(this);
-            }, {passive: true});
+            });
         }
 
         // check if the menu is touchable
@@ -117,7 +117,7 @@ function menu_list_init() {
                     mark_menu_item_siblings_inactive(this);
                     mark_menu_item_active(this);
                 }
-            }, {passive: true});
+            });
         }
     }
 
@@ -126,7 +126,7 @@ function menu_list_init() {
         // mark inactive on blur (only if no other siblings or children are focused)
         menu_links[i].addEventListener("blur", function () {
             mark_menu_item_parents_inactive(this);
-        }, {passive: true});
+        });
     }
 
     // handle interactions with menu-list_toggle elements
@@ -140,12 +140,12 @@ function menu_list_init() {
             } else {
                 mark_menu_item_active(this.parentNode);
             }
-        }, {passive: true});
+        });
 
         // mark inactive on blur (only if no other siblings or children are focused)
         menu_toggles[i].addEventListener("blur", function () {
             mark_menu_item_parents_inactive(this);
-        }, {passive: true});
+        });
     }
 }
 

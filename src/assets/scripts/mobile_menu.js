@@ -27,12 +27,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let move_x                = 0; // where the menu currently
     let drag_direction        = "";
 
+    const focusTrapper = focusTrap(".navigation-block.-flyout");
+
     const close_menu = (translate_x) => {
-        function on_transition_end() {
+        focusTrapper.deactivate();
+
+        const on_transition_end = () => {
             overlay.style.opacity = "";
 
             menu_container.removeEventListener("transitionend", on_transition_end, false);
-        }
+        };
 
         if (translate_x < 0 || !is_open) {
             menu.style.transform = "";
@@ -53,9 +57,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
         overlay.classList.add(active_class);
         overlay.style.opacity = "";
+
+        focusTrapper.activate();
     };
 
     const close_menu_overlay = () => {
+        focusTrapper.deactivate();
+
         function on_transition_end() {
             overlay.classList.remove(active_class);
 
@@ -73,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(function () {
                 menu_container.classList.add(active_class);
                 menu_container.focus();
+                focusTrapper.activate();
             }, 1);
         });
     };
@@ -217,8 +226,19 @@ document.addEventListener("DOMContentLoaded", function () {
         touch_move(evt, current_coords, translate_coords);
     };
 
-    const on_touch_end = () => {
-        if (!touching_element) {
+    const on_touch_end = (event) => {
+        let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
+        let is_clickable = false;
+
+        while (element.parentNode) {
+            if (element.classList.contains("menu-list_toggle") || element.classList.contains("menu-lisT_link")) {
+                is_clickable = true; return;
+            }
+
+            element = element.parentNode;
+        }
+
+        if (!touching_element || is_clickable) {
             return;
         }
 
