@@ -5,7 +5,7 @@
 
 // push the CSS & JS over HTTP2
 function new_site_http2_push() {
-    header("Link: <" . get_bloginfo("template_directory") . "/assets/media/modern.css>; rel=preload; as=style");
+    header("Link: <" . get_bloginfo("template_directory") . "/assets/styles/modern.css>; rel=preload; as=style");
 }
 add_action("init", "new_site_http2_push", 10);
 
