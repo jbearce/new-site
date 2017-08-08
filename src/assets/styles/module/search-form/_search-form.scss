@@ -21,6 +21,7 @@
         background: $background;
         border: remify(1) solid $background_alt;
         color: $foreground;
+        font-display: swap;
         font-family: $body-font;
         font-size: remify(16, 16);
         margin: 0;
