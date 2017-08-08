@@ -55,14 +55,12 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(plugins.gulpif(plugins.argv.dist, plugins.sass({outputStyle: "compressed"}), plugins.sass()))
-                // prefix CSS
-                .pipe(plugins.autoprefixer("last 2 version", "ie 8", "ie 9"))
                 // insert -js-display: flex; for flexbility
                 .pipe(plugins.postcss([plugins.flexibility()]))
                 // insert px fallback for rems
                 .pipe(plugins.pixrem())
                 // insert run through rucksack
-                .pipe(plugins.rucksack())
+                .pipe(plugins.rucksack({autoprefixer: true}))
                 // write sourcemap (if --dist isn't passed)
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
                 // remove unused CSS

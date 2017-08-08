@@ -60,7 +60,6 @@ const plugins = {
     browser_sync : require("browser-sync"),
 
     // CSS stuff
-    autoprefixer: require("gulp-autoprefixer"),
     critical:     require("critical"),
     flexibility:  require("postcss-flexibility"),
     pixrem:       require("gulp-pixrem"),

@@ -8,20 +8,11 @@
     & {
         color: $primary;
         font-family: $heading-font;
-        font-size: remify(20, 16);
+        font-range: $xs-break $xl-break;
+        font-size: responsive remify(20, 16) remify(24, 16);
         font-weight: 700;
         line-height: remify(30, 20);
         margin: remify(0 0 10, 20);
-    }
-}
-
-/* Tablet variant */
-
-@media screen and (min-width: $xs-break) {
-    .title {
-        & {
-            font-size: remify(24, 16);
-        }
     }
 }
 
