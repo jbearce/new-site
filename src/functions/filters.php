@@ -162,7 +162,7 @@ add_filter("tribe_the_day_link", "new_site_tribe_the_nav_link", 10, 1);/*endRemo
 
 // enable lazy loading on images
 function new_site_lazy_load_images($content) {
-    if (!(tribe_is_month() && !is_tax())) {
+    if (!((function_exists("tribe_is_month") && tribe_is_month()) && !is_tax())) {
         // add `<noscript>` fallback for all imges
         $content = preg_replace("/(<img[^>]+?>)/", "$1<noscript>$1</noscript>", $content);
 
