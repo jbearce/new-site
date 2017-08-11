@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const toggle              = document.querySelector(".menu-toggle");
     const active_class        = "is-active";
     const transitioning_class = "is-transitioning";
-    const maxOpacity          = 0.5; // if changed, don't forget to change opacity in css
+    const max_opacity         = 0.5; // if changed, don't forget to change opacity in css
     const velocity            = 0.3;
 
     let trackable_element     = false;
@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
     let move_x                = 0; // where the menu currently
     let drag_direction        = "";
 
-    const focusTrapper = focusTrap(".navigation-block.-flyout");
+    const focus_trapper = focusTrap(".navigation-block.-flyout");
 
     const close_menu = (translate_x) => {
-        focusTrapper.deactivate();
+        focus_trapper.deactivate();
 
         const on_transition_end = () => {
             overlay.style.opacity = "";
@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
             overlay.classList.remove(active_class);
 
+            menu_container.setAttribute("aria-hidden", "true");
             menu_container.classList.remove(active_class);
             menu_container.addEventListener("transitionend", on_transition_end, false);
         }
@@ -58,19 +59,21 @@ document.addEventListener("DOMContentLoaded", () => {
         overlay.classList.add(active_class);
         overlay.style.opacity = "";
 
-        focusTrapper.activate();
+        focus_trapper.activate();
+
+        menu_container.setAttribute("aria-hidden", "false");
     };
 
     const close_menu_overlay = () => {
-        focusTrapper.deactivate();
+        focus_trapper.deactivate();
 
         const on_transition_end = () => {
             overlay.classList.remove(active_class);
-
             menu_container.removeEventListener("transitionend", on_transition_end);
         };
 
         menu_container.addEventListener("transitionend", on_transition_end, false);
+        menu_container.setAttribute("aria-hidden", "true");
         menu_container.classList.remove(active_class);
     };
 
@@ -79,9 +82,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
         requestAnimationFrame(() => {
             setTimeout(() => {
+                menu_container.setAttribute("aria-hidden", "false");
                 menu_container.classList.add(active_class);
                 menu_container.focus();
-                focusTrapper.activate();
+                focus_trapper.activate();
             }, 1);
         });
     };
@@ -157,10 +161,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // disable transitions
             toggle_transitions(overlay);
 
-            const newOpacity = (((maxOpacity) * (100 - ((Math.abs(move_x) * 100) / menu_width))) / 100);
+            const new_opacity = (((max_opacity) * (100 - ((Math.abs(move_x) * 100) / menu_width))) / 100);
 
-            if (overlay.style.opacity !== newOpacity.toFixed(2) && newOpacity.toFixed(1) % 1 !== 0) {
-                overlay.style.opacity = newOpacity.toFixed(2);
+            if (overlay.style.opacity !== new_opacity.toFixed(2) && new_opacity.toFixed(1) % 1 !== 0) {
+                overlay.style.opacity = new_opacity.toFixed(2);
             }
         }
     };
