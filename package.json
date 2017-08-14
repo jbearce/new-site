@@ -3,14 +3,14 @@
   "version": "0.0.1",
   "description": "A brand new WordPress theme built just for new-site!",
   "homepage": "SITEDOMAIN",
-  "templateSitemap": {
-    "front-page": "FRONT-PAGE-TEMPLATE",
-    "page": "PAGE-TEMPLATE"
+  "templates": {
+    "front-page": "https://framework.jacob.rocks/",
+    "page": "https://framework.jacob.rocks/sample-page/"
   },
-  "progressiveWebApp": {
+  "progressive-web-app": {
     "name": "new-site",
-    "shortName": "new-site",
-    "themeColor": "#17AAEC"
+    "short_name": "new-site",
+    "theme_color": "#17AAEC"
   },
   "bugs": {
     "url": "SITEREPOSITORY/issues",

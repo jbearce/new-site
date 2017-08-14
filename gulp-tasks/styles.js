@@ -8,7 +8,7 @@ module.exports = {
         const homepage = plugins.json.readFileSync("./package.json").homepage;
 
         // function to generate critical CSS
-        const generate_critical_css = (css_directory, sitemap = plugins.json.readFileSync("./package.json").templateSitemap) => {
+        const generate_critical_css = (css_directory, sitemap = plugins.json.readFileSync("./package.json").templates) => {
             const plural = ((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "";
 
             console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");
