@@ -60,14 +60,15 @@ const plugins = {
     browser_sync : require("browser-sync"),
 
     // CSS stuff
-    critical:     require("critical"),
-    flexibility:  require("postcss-flexibility"),
-    pixrem:       require("gulp-pixrem"),
-    postcss:      require("gulp-postcss"),
-    rucksack:     require("gulp-rucksack"),
-    sass:         require("gulp-sass"),
-    stylelint:    require("gulp-stylelint"),
-    uncss:        require("gulp-uncss"),
+    critical:         require("critical"),
+    easing_gradients: require("postcss-easing-gradients"),
+    flexibility:      require("postcss-flexibility"),
+    pixrem:           require("gulp-pixrem"),
+    postcss:          require("gulp-postcss"),
+    rucksack:         require("gulp-rucksack"),
+    sass:             require("gulp-sass"),
+    stylelint:        require("gulp-stylelint"),
+    uncss:            require("gulp-uncss"),
 
     // HTML stuff
     file_include: require("gulp-file-include"),

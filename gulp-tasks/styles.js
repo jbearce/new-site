@@ -55,8 +55,8 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(plugins.gulpif(plugins.argv.dist, plugins.sass({outputStyle: "compressed"}), plugins.sass()))
-                // insert -js-display: flex; for flexbility
-                .pipe(plugins.postcss([plugins.flexibility()]))
+                // process post CSS stuff
+                .pipe(plugins.postcss([plugins.flexibility(), plugins.easing_gradients()]))
                 // insert px fallback for rems
                 .pipe(plugins.pixrem())
                 // insert run through rucksack
