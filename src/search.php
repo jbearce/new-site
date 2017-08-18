@@ -8,13 +8,13 @@
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
-                    <?php get_template_part("partials/content", "excerpt"); ?>
+                    <?php include(locate_template("partials/content-excerpt.php")); ?>
                 <?php endwhile; ?>
             <?php else: ?>
-                <?php get_template_part("partials/content", "none"); ?>
+                <?php include(locate_template("partials/content-none.php")); ?>
             <?php endif; ?>
 
-            <?php get_template_part("partials/list", "pagination"); ?>
+            <?php include(locate_template("partials/list-pagination.php")); ?>
 
             <?php do_action("new_site_after_content"); ?>
         </div><!--/.content_post-->

@@ -1,5 +1,5 @@
 <!--removeIf(tribe_html)--><?php get_header(); ?>
-<?php get_template_part("partials/block", "hero"); ?>
+<?php include(locate_template("partials/block-hero.php")); ?>
 <div class="content-block">
     <div class="content_inner">
         <div class="content_post">
