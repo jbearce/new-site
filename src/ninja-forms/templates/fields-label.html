@@ -1,5 +1,5 @@
 <script id="tmpl-nf-field-label" type="text/template">
-    <# if ( data.renderWrapClass() !== "field-wrap hr-wrap" && data.renderWrapClass() !== "field-wrap html-wrap" && data.renderWrapClass() !== "field-wrap recaptcha-wrap" ) { #> 
-	<div class="nf-field-label"><label for="nf-field-{{{ data.id }}}" class="{{{ data.renderLabelClasses() }}} text -label">{{{ data.label }}} {{{ ( 'undefined' != typeof data.required && 1 == data.required ) ? '<span class="ninja-forms-req-symbol _warning">*</span>' : '' }}} {{{ data.maybeRenderHelp() }}}</label></div>
+    <# if ( data.renderWrapClass() !== "field-wrap hr-wrap" && data.renderWrapClass() !== "field-wrap html-wrap" && data.renderWrapClass() !== "field-wrap recaptcha-wrap" ) { #>
+	<div class="nf-field-label"><label for="nf-field-{{{ data.id }}}" class="{{{ data.renderLabelClasses() }}} nf-text text -label">{{{ data.label }}} {{{ ( 'undefined' != typeof data.required && 1 == data.required ) ? '<span class="ninja-forms-req-symbol _warning">*</span>' : '' }}} {{{ data.maybeRenderHelp() }}}</label></div>
     <# } #>
 </script>

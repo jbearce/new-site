@@ -6,18 +6,18 @@
 
 <script id='tmpl-nf-field-listcheckbox-option' type='text/template'>
     <li class="list-checkbox_item">
-        <input type="checkbox" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element{{{ ( data.isSelected ) ? ' nf-checked' : '' }}} input -checkbox -styled" value="{{{ data.value }}}" {{{ ( data.isSelected ) ? 'checked="checked"' : '' }}}>
-        <label for="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" class="{{{ ( data.isSelected ) ? 'nf-checked-label' : '' }}} text -label -checkbox">{{{ data.label }}}</label>
+        <input type="checkbox" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element{{{ ( data.isSelected ) ? ' nf-checked' : '' }}} nf-input input -checkbox -styled" value="{{{ data.value }}}" {{{ ( data.isSelected ) ? 'checked="checked"' : '' }}}>
+        <label for="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" class="{{{ ( data.isSelected ) ? 'nf-checked-label' : '' }}} nf-text text -label -checkbox">{{{ data.label }}}</label>
     </li>
 </script>
 
 <script id='tmpl-nf-field-listcheckbox-other' type='text/template'>
     <li class="list-checkbox_item">
-        <input type="checkbox" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element input -checkbox -styled" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}>
-        <label class="text -label -checkbox">Other {{{ data.renderOtherText() }}}</label>
+        <input type="checkbox" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input -checkbox -styled" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}>
+        <label class="nf-text text -label -checkbox">Other {{{ data.renderOtherText() }}}</label>
     </li>
 </script>
 
 <script id='tmpl-nf-field-listcheckbox-other-text' type='text/template'>
-    <input type="text" name="nf-field-{{{ data.fieldID }}}" class="nf-element" value="{{{ data.currentValue }}}">
+    <input type="text" name="nf-field-{{{ data.fieldID }}}" class="nf-element nf-input input" value="{{{ data.currentValue }}}">
 </script>

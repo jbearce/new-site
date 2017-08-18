@@ -1,18 +1,18 @@
 <script id="tmpl-nf-field-product" type="text/template">
-    <div class="nf-product-field {{{ data.renderClasses() }}}">
+    <div class="nf-product-field {{{ data.renderClasses() }}} nf-text text">
         {{{ data.renderProduct() }}}
     </div>
 </script>
 
 <script id="tmpl-nf-product-single" type="text/template">
-    <span class="nf-product-price-label text -label">Price:</span>
+    <span class="nf-product-price-label nf-text text -label">Price:</span>
     <span class="nf-product-price text">${{{ data.product_price }}}</span>
     {{{ data.renderProductQuantity() }}}
 </script>
 
 <script id="tmpl-nf-product-dropdown" type="text/template">
     <span for="nf-field-{{{ data.id }}}">
-        <div class="input -select">
+        <div class="nf-input input -select">
             <select id="nf-field-{{{ data.id }}}" name="nf-field-{{{ data.id }}}" class="{{{ data.renderClasses() }}} nf-element input_inner">
                 {{{ data.renderOptions() }}}
                 {{{ data.renderProductQuantity() }}}
@@ -26,6 +26,6 @@
 </script>
 
 <script id="tmpl-nf-product-quantity" type="text/template">
-    <span class="nf-product-quantity-label">Quantity:</span>
-    <span class="nf-product-quantity"><input id="nf-field-qty-{{{ data.id }}}" name="nf-field-qty-{{{ data.id }}}" class="nf-field-qty nf-element input -number -quantity" type="number" min="0" size="10" value="{{{ data.value }}}"></span></span>
+    <span class="nf-product-quantity-label nf-text text -label">Quantity:</span>
+    <span class="nf-product-quantity"><input id="nf-field-qty-{{{ data.id }}}" name="nf-field-qty-{{{ data.id }}}" class="nf-field-qty nf-element nf-input input -number -quantity" type="number" min="0" size="10" value="{{{ data.value }}}"></span></span>
 </script>
