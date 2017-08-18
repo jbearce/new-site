@@ -193,3 +193,13 @@ function new_site_lazy_load_images($content) {
 add_filter("the_content", "new_site_lazy_load_images", 999, 1);
 add_filter("acf_the_content", "new_site_lazy_load_images", 999, 1);
 add_filter("post_thumbnail_html", "new_site_lazy_load_images", 999, 1);
+
+// redirect to the home template if no front page is set
+function new_site_home_template_redirect($template) {
+    if (is_front_page() && get_option("show_on_front") != "page") {
+        return TEMPLATEPATH . "/home.php";
+    } else {
+        return $template;
+    }
+}
+add_action("template_include", "new_site_home_template_redirect");
