@@ -131,6 +131,18 @@ function new_site_dequeue_nf_display() {
 }
 add_action("ninja_forms_enqueue_scripts", "new_site_dequeue_nf_display", 999);
 /*removeIf(tribe_css_js_php)*/
+// force redirect 'cause tribe is stupid
+function new_site_tribe_redirect($template) {
+    if (is_post_type_archive("tribe_events")) {
+        return TEMPLATEPATH . "/archive-tribe_events.php";
+    } elseif (get_post_type() == "tribe_events") {
+        return TEMPLATEPATH . "/single-tribe_events.php";
+    } else {
+        return $template;
+    }
+}
+add_action("template_include", "new_site_tribe_redirect");
+
 // dequeue Tribe styles
 function new_site_tribe_events_dequeue_styles() {
     wp_dequeue_style("tribe-events-calendar-style", 999);
