@@ -8,14 +8,14 @@
 
 /* These styles are intended to be global */
 
-// Vendor
+@media print {
+    // Vendor
 
-@import "../../vendor/_gutenberg";
+    @import "../../vendor/_gutenberg";
 
-// Custom
+    // Custom
 
-a[href^="//"] {
-    &::after {
+    a[href^="//"]::after {
         content: " (" attr(href) ")";
         font-size: 80%;
     }
