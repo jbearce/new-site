@@ -1,6 +1,16 @@
 // Styles written by YOURNAME @ YOURCOMPANY
 
 @import "helpers/_helpers";
+
+html,
+body {
+    & {
+        background: $background;
+        color: $foreground;
+        padding: remify(20 25, 16);
+    }
+}
+
 @import "base/normalize/_normalize";
 @import "base/grid/_grid";
 @import "base/icon/_icon";
