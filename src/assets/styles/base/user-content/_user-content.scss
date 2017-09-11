@@ -9,7 +9,7 @@
 
     // links
 
-    a {
+    a:not(.button) {
         @extend .link;
     }
 
