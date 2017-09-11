@@ -14,7 +14,8 @@
         display: block;
         font-display: swap;
         font-family: $body-font;
-        font-size: remify(12, 16);
+        font-range: $xs-break $xl-break;
+        font-size: responsive remify(12, 16) remify(16, 16);
         font-weight: 400;
         line-height: remify(18, 12);
         margin: remify(0 0 18, 12);
@@ -27,14 +28,6 @@
     &:focus,
     &:hover {
         border-color: $accent;
-    }
-}
-
-/* Tablet variant */
-
-@media screen and (min-width: $xs-break) {
-    .input {
-        font-size: remify(16, 16);
     }
 }
 

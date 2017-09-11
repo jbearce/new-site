@@ -13,7 +13,8 @@
         display: inline-block;
         font-display: swap;
         font-family: $heading-font;
-        font-size: remify(14, 16);
+        font-range: $xs-break $xl-break;
+        font-size: responsive remify(14, 16) remify(18, 16);
         font-weight: 700;
         line-height: remify(20, 14);
         margin: remify(0 0 20, 14);
@@ -26,13 +27,5 @@
     &:focus,
     &:hover {
         background: $primary_alt;
-    }
-}
-
-/* Desktop variant */
-
-@media screen and (min-width: $xs-break) {
-    .button {
-        font-size: remify(18, 16);
     }
 }
