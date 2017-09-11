@@ -85,8 +85,8 @@
 	</head>
     <body <?php body_class(); ?>>
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
-        <div class="page_container">
-            <?php include(locate_template("partials/overlay-login.php")); ?>
+        <div class="page_container"><!--removeIf(login_html)-->
+            <?php include(locate_template("partials/overlay-login.php")); ?><!--endRemoveIf(login_html)-->
             <?php if (has_nav_menu("primary")): ?>
                 <div class="navigation-block -flyout _phone _noncritical" role="navigation" aria-hidden="true">
                     <button class="navigation_background"><span class="_visuallyhidden"><?php _e("Close Menu", "new_site"); ?></span></button>
