@@ -1,10 +1,10 @@
 <?php
-$title      = isset($title) && $title ? $title : (isset($post) ? $post->post_title : "");
-$permalink  = isset($permalink) && $permalink ? $permalink : (isset($post) ? get_the_permalink($post->ID) : "");
-$categories = isset($categories) && $categories ? $categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
-$tags       = isset($tags) && $tags ? $tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
-$comments   = isset($comments) && $comments ? $comments : (isset($post) ? get_comments_number($post->ID) : "");
-$content    = isset($content) && $content ? $content : (isset($post) ? $post->post_content : "");
+$title      = isset($title) ? $title : (isset($post) ? $post->post_title : "");
+$permalink  = isset($permalink) ? $permalink : (isset($post) ? get_the_permalink($post->ID) : "");
+$categories = isset($categories) ? $categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
+$tags       = isset($tags) ? $tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
+$comments   = isset($comments) ? $comments : (isset($post) ? get_comments_number($post->ID) : "");
+$content    = isset($content) ? $content : (isset($post) ? $post->post_content : "");
 ?>
 
 <article class="content_article article">

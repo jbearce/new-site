@@ -7,7 +7,7 @@
 
             <?php
             $posts_page = get_post(get_option("page_for_posts"));
-            $title = get_the_title($posts_page->ID) ? get_the_title($posts_page->ID) : __("Latest Posts", "new_site");
+            $title      = get_the_title($posts_page->ID) ? get_the_title($posts_page->ID) : __("Latest Posts", "new_site");
             ?>
 
             <?php if ($title): ?>

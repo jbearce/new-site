@@ -1,10 +1,10 @@
 <?php
-$title      = isset($title) && $title ? $title : (isset($post) ? $post->post_title : "");
-$permalink  = isset($permalink) && $permalink ? $permalink : (isset($post) ? get_the_permalink($post->ID) : "");
-$categories = isset($categories) && $categories ? $categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
-$tags       = isset($tags) && $tags ? $tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
-$comments   = isset($comments) && $comments ? $comments : (isset($post) ? get_comments_number($post->ID) : "");
-$excerpt    = isset($excerpt) && $excerpt ? $excerpt : (isset($post) ? get_better_excerpt($post->ID, 55, "&hellip; " . $permalink ? "<a class='article_link link' href='" . apply_filters("the_permalink", $permalink) . "'>" . __("Read More", "new_site") . "</a>" : "") : "");
+$title      = isset($title) ? $title : (isset($post) ? $post->post_title : "");
+$permalink  = isset($permalink) ? $permalink : (isset($post) ? get_the_permalink($post->ID) : "");
+$categories = isset($categories) ? $categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
+$tags       = isset($tags) ? $tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
+$comments   = isset($comments) ? $comments : (isset($post) ? get_comments_number($post->ID) : "");
+$excerpt    = isset($excerpt) ? $excerpt : (isset($post) ? get_better_excerpt($post->ID, 55, "&hellip; " . $permalink ? "<a class='article_link link' href='" . apply_filters("the_permalink", $permalink) . "'>" . __("Read More", "new_site") . "</a>" : "") : "");
 ?>
 
 <article class="content_article article -excerpt">
