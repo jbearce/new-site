@@ -4,8 +4,8 @@
   "description": "A brand new WordPress theme built just for new-site!",
   "homepage": "SITEDOMAIN",
   "templates": {
-    "front-page": "https://framework.jacob.rocks/",
-    "page": "https://framework.jacob.rocks/sample-page/"
+    "front-page": "SITEFRONTPAGE",
+    "page": "SITEPAGE"
   },
   "progressive-web-app": {
     "name": "new-site",
@@ -13,7 +13,7 @@
     "theme_color": "#17AAEC"
   },
   "bugs": {
-    "url": "https://github.com/JacobDB/new-site/issues",
+    "url": "SITEREPOSITORY/issues",
     "email": "YOUREMAIL"
   },
   "license": "UNLICENSED",
@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/JacobDB/new-site.git"
+    "url": "SITEREPOSITORY"
   },
   "devDependencies": {
     "babel-preset-es2015": "^6.24.0",
