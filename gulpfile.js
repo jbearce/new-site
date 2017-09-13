@@ -5,7 +5,7 @@
 const gulp    = require("gulp");
 const plugins = {
     // general stuff
-    argv         : require("yargs").options({
+    argv:             require("yargs").options({
         "d": {
             alias: "dist",
             type:  "boolean",
@@ -27,37 +27,40 @@ const plugins = {
             type:  "boolean",
         },
     }).argv,
-    del:          require("del"),
-    fs:           require("fs"),
-    gulpif:       require("gulp-if"),
-    is_binary:    require("gulp-is-binary"),
-    json:         require("jsonfile"),
-    merge:        require("merge-stream"),
-    newer:        require("gulp-newer"),
-    notify:       require("gulp-notify"),
-    path:         require("path"),
-    plumber:      require("gulp-plumber"),
-    prompt:       require("gulp-prompt"),
-    replace:      require("gulp-replace"),
-    run_sequence: require("run-sequence"),
-    sourcemaps:   require("gulp-sourcemaps"),
-    through:      require("through2"),
-    watch:        require("gulp-watch"),
+    del:              require("del"),
+    fs:               require("fs"),
+    gulpif:           require("gulp-if"),
+    is_binary:        require("gulp-is-binary"),
+    json:             require("jsonfile"),
+    merge:            require("merge-stream"),
+    newer:            require("gulp-newer"),
+    notify:           require("gulp-notify"),
+    path:             require("path"),
+    plumber:          require("gulp-plumber"),
+    prompt:           require("gulp-prompt"),
+    replace:          require("gulp-replace"),
+    run_sequence:     require("run-sequence"),
+    sourcemaps:       require("gulp-sourcemaps"),
+    through:          require("through2"),
+    watch:            require("gulp-watch"),
+
+    // dist stuff
+    changelog:        require("gulp-conventional-changelog"),
 
     // init stuff
-    remove_code:  require("gulp-remove-code"),
-    glob:         require("glob"),
-    delete_empty: require("delete-empty"),
+    remove_code:      require("gulp-remove-code"),
+    glob:             require("glob"),
+    delete_empty:     require("delete-empty"),
 
     // config stuff
-    request: require("request"),
+    request:          require("request"),
 
     // upload stuff
-    ftp:  require("vinyl-ftp"),
-    sftp: require("gulp-sftp"),
+    ftp:              require("vinyl-ftp"),
+    sftp:             require("gulp-sftp"),
 
     // browser-sync stuff
-    browser_sync : require("browser-sync"),
+    browser_sync:     require("browser-sync"),
 
     // CSS stuff
     critical:         require("critical"),
@@ -71,17 +74,17 @@ const plugins = {
     uncss:            require("gulp-uncss"),
 
     // HTML stuff
-    file_include: require("gulp-file-include"),
+    file_include:     require("gulp-file-include"),
 
     // JS stuff
-    babel:  require("gulp-babel"),
-    concat: require("gulp-concat"),
-    eslint: require("gulp-eslint"),
-    uglify: require("gulp-uglify"),
+    babel:            require("gulp-babel"),
+    concat:           require("gulp-concat"),
+    eslint:           require("gulp-eslint"),
+    uglify:           require("gulp-uglify"),
 
     // media stuff
-    imagemin: require("gulp-imagemin"),
-    pngquant: require("imagemin-pngquant"),
+    imagemin:         require("gulp-imagemin"),
+    pngquant:         require("imagemin-pngquant"),
 };
 
 /* STOP! These settings should always be blank!              */
@@ -165,6 +168,24 @@ gulp.task("sync", () => {
     return config_module.config(gulp, plugins, "browsersync").then(() => {
         return sync_module.sync(plugins, global.settings.browsersync);
     });
+});
+
+// changelog task, generates a changelog when --dist is passed
+gulp.task("changelog", () => {
+    return gulp.src("CHANGELOG.md")
+        .pipe(plugins.gulpif(plugins.argv.dist, plugins.changelog({
+            // conventional-changelog options go here
+            preset: "angular",
+        }, {
+            // context goes here
+        }, {
+            // git-raw-commits options go here
+        }, {
+            // conventional-commits-parser options go here
+        }, {
+            // conventional-changelog-writer options go here
+        })))
+        .pipe(gulp.dest("./"));
 });
 
 // default task, runs through all primary tasks
