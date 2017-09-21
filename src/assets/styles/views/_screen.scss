@@ -19,8 +19,7 @@
  * Module
 \* ------------------------------------------------------------------------ */
 
-@import "../module/article/_article";/*removeIf(login_css_js_php)*/
-@import "../module/login-form/_login-form";/*endRemoveIf(login_css_js_php)*/
+@import "../module/article/_article";
 @import "../module/logo/_logo";
 @import "../module/menu-list/_menu-list";
 @import "../module/menu-toggle/_menu-toggle";
@@ -37,8 +36,7 @@
  * Layout
 \* ------------------------------------------------------------------------ */
 
-@import "../layout/page/_page";/*removeIf(login_css_js_php)*/
-@import "../layout/login/_login";/*endRemoveIf(login_css_js_php)*/
+@import "../layout/page/_page";
 @import "../layout/navigation/_navigation";
 @import "../layout/header/_header";
 @import "../layout/hero/_hero";
