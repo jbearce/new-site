@@ -20,7 +20,7 @@ module.exports = (gulp, plugins) => {
                     // go to next file
                     next(null, file);
                 }))
-                // remove resource code if --remove tribe is passed
+                // remove resource code if --remove resources is passed
                 .pipe(plugins.remove_code({resources_html: plugins.argv.remove && plugins.argv.remove.includes("resources") ? true : false, commentStart: "<!--", commentEnd: "-->"}))
                 .pipe(plugins.remove_code({resources_css_js_php: plugins.argv.remove && plugins.argv.remove.includes("resources") ? true : false, commentStart: "/*", commentEnd: "*/"}))
                 // remove tribe code if --remove tribe is passed
