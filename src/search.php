@@ -4,7 +4,9 @@
         <div class="content_post">
             <?php do_action("new_site_before_content"); ?>
 
-            <?php get_search_form(); ?>
+            <div class="content_search-form_container search-form_container">
+                <?php get_search_form(); ?>
+            </div><!--/.content_search-form_container.search-form_container-->
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
