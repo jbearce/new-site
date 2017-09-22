@@ -87,25 +87,8 @@ const plugins = {
     pngquant:         require("imagemin-pngquant"),
 };
 
-/* STOP! These settings should always be blank!              */
-/* To configure remote credentials, run gulp config --remote */
-/* To configure BrowserSync settings, run gulp config --sync */
-
+// store global environment paths
 global.settings = {
-    browsersync: {
-        proxy:  "",
-        port:   "",
-        open:   "",
-        notify: "",
-    },
-    ftp: {
-        protocol: "",
-        host:     "",
-        port:     "",
-        user:     "",
-        pass:     "",
-        remote:   "",
-    },
     paths: {
         src:  "./src",
         dev:  "./dev",
@@ -141,7 +124,7 @@ const sync_module    = require("./gulp-tasks/sync");
 // configuration tasks
 gulp.task("init", init_module);
 gulp.task("config", () => {
-    return config_module.config(gulp, plugins);
+    return config_module.config(gulp, plugins, (plugins.argv.ftp || plugins.argv.sftp ? "ftp" : (plugins.argv.browsersync ? "browsersync" : "")));
 });
 
 // primary tasks

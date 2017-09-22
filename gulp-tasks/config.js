@@ -64,7 +64,7 @@ module.exports = {
                 const properties = options[option];
 
                 // construct the prompt
-                const prompt     = {
+                const prompt = {
                     name:    option,
                     message: namespace + " " + option + ": ",
                 };
@@ -75,7 +75,7 @@ module.exports = {
                 });
 
                 // check if the setting has no value or is explicitly requested
-                if ((requested !== "" && requested === namespace && (global.settings[namespace][option] === "" || configured === false)) || gulp.seq.indexOf("config") >= 0 && (global.settings[namespace][option] === "" || plugins.argv[namespace] || configured === false)) {
+                if ((requested !== "" && requested === namespace && (global.settings[namespace][option] === "" || configured === false)) || gulp.seq.indexOf("config") >= 0 && (requested === "" || requested === namespace) && (global.settings[namespace][option] === "" || plugins.argv[namespace] || configured === false)) {
                     prompts.push(prompt);
                 }
             });
@@ -122,16 +122,17 @@ module.exports = {
 
         return new Promise ((resolve) => {
             // generate .bsconfig
-            generate_config(".bsconfig", "", () => {
+            generate_config(".bsconfig", "browsersync", () => {
                 const browsersync_config = plugins.json.readFileSync(".bsconfig");
 
-                // read browsersync settings from config.json
+                // read browsersync settings from .bsconfig
+                global.settings.browsersync        = {};
                 global.settings.browsersync.proxy  = browsersync_config.proxy;
                 global.settings.browsersync.port   = browsersync_config.port;
                 global.settings.browsersync.open   = browsersync_config.open;
                 global.settings.browsersync.notify = browsersync_config.notify;
 
-                configure_json(".bsconfig", "browsersync", {
+                const prompts = {
                     proxy: {
                         default: global.settings.browsersync.proxy === "" ? "localhost" : global.settings.browsersync.proxy,
                         type:    "input",
@@ -150,11 +151,14 @@ module.exports = {
                         type:    "list",
                         choices: ["true", "false"],
                     },
-                }, () => {
+                };
+
+                configure_json(".bsconfig", "browsersync", prompts, () => {
                     generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp")), () => {
                         const ftp_config = plugins.json.readFileSync(".ftpconfig");
 
-                        // read browsersync settings from config.json
+                        // read remote settings from .ftpconfig
+                        global.settings.ftp          = {};
                         global.settings.ftp.protocol = ftp_config.protocol !== "sftp" && ftp_config.secure === true ? "ftps" : ftp_config.protocol;
                         global.settings.ftp.host     = ftp_config.host;
                         global.settings.ftp.port     = ftp_config.port;
@@ -162,11 +166,11 @@ module.exports = {
                         global.settings.ftp.pass     = ftp_config.pass;
                         global.settings.ftp.remote   = ftp_config.remote;
 
-                        configure_json(".ftpconfig", "ftp", {
+                        const prompts = {
                             protocol: {
-                                default: global.settings.ftp.protocol === "sftp" ? 1 : 0,
+                                default: global.settings.ftp.protocol === "ftps" ? 1 : 0,
                                 type:    "list",
-                                choices: ["ftp", "sftp"],
+                                choices: ["ftp", "ftps"],
                             },
                             host: {
                                 default: global.settings.ftp.host === "" ? "" : global.settings.ftp.host,
@@ -187,8 +191,15 @@ module.exports = {
                             remote: {
                                 default: global.settings.ftp.remote === "" ? "" : global.settings.ftp.remote,
                                 type:    "input",
-                            }
-                        }, () => {
+                            },
+                        };
+
+                        // don't prompt for protocol for SFTP
+                        if (global.settings.ftp.protocol === "sftp") {
+                            delete prompts.protocol;
+                        }
+
+                        configure_json(".ftpconfig", "ftp", prompts, () => {
                             // resolve the promise
                             return resolve();
                         });
