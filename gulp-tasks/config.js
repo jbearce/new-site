@@ -13,36 +13,22 @@ module.exports = {
                 sftp: "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/4829ebdc5d45cea7dce8cc3109a05501b159f992/.ftpconfig",
             };
 
-            if (typeof file_name !== "undefined") {
+            const gist_url = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? data_source.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? data_source.sft : data_source.ftp) : "")) : "";
+
+            if (typeof file_name !== "undefined" && gist_url !== "") {
                 return plugins.fs.stat(file_name, (err) => {
                     if (err !== null) {
-                        let gist_url  = "";
-
-                        if (file_name === ".bsconfig") {
-                            gist_url = data_source.bs;
-                        } else if (file_name === ".ftpconfig") {
-                            if (mode === "sftp") {
-                                gist_url = data_source.sftp;
-                            } else {
-                                gist_url = data_source.ftp;
+                        plugins.request.get(gist_url, function (error, response, body) {
+                            if (!error && response.statusCode == 200) {
+                                plugins.fs.writeFile(file_name, body, "utf8", () => {
+                                    if (typeof callback === "function") {
+                                        return callback();
+                                    }
+                                });
+                            } else if (typeof callback === "function") {
+                                return callback();
                             }
-                        }
-
-                        if (gist_url !== "") {
-                            plugins.request.get(gist_url, function (error, response, body) {
-                                if (!error && response.statusCode == 200) {
-                                    plugins.fs.writeFile(file_name, body, "utf8", () => {
-                                        if (typeof callback === "function") {
-                                            return callback();
-                                        }
-                                    });
-                                } else if (typeof callback === "function") {
-                                    return callback();
-                                }
-                            });
-                        } else if (typeof callback === "function") {
-                            return callback();
-                        }
+                        });
                     } else if (typeof callback === "function") {
                         return callback();
                     }
