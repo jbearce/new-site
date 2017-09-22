@@ -31,9 +31,7 @@ module.exports = {
                         if (gist_url !== "") {
                             plugins.request.get(gist_url, function (error, response, body) {
                                 if (!error && response.statusCode == 200) {
-                                    const json_data = body;
-
-                                    plugins.fs.writeFile(file_name, json_data, "utf8", () => {
+                                    plugins.fs.writeFile(file_name, body, "utf8", () => {
                                         if (typeof callback === "function") {
                                             return callback();
                                         }
