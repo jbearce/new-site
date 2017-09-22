@@ -72,6 +72,15 @@ function new_site_wrap_tables($content) {
 add_filter("the_content", "new_site_wrap_tables");
 add_filter("acf_the_content", "new_site_wrap_tables");
 
+// wrap frames in a div
+function new_site_wrap_frames($content) {
+    $content = preg_replace("/(<iframe(?![^>]* class=))((?:.|\n)*?<\/iframe>)/im", "<div class='iframe_container'>$1 class='iframe'$2</div>", $content);
+
+    return $content;
+}
+add_filter("the_content", "new_site_wrap_frames");
+add_filter("acf_the_content", "new_site_wrap_frames");
+
 // remove dimensions from thumbnails
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     $html = preg_replace('/(width|height)=\"\d*\"\s/im', "", $html);
