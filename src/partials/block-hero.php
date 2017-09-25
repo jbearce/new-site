@@ -1,23 +1,16 @@
 <?php
-$slideshow      = get_field("slideshow");
-$featured_image = get_the_post_thumbnail($post->ID, "hero", array("class" => "swiper-image"));
-$post_title     = is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false));
-
-if (is_home() && !$post_title) {
-    $posts_page = get_post(get_option("page_for_posts"));
-    
-    if ($posts_page) {
-        $post_title = get_the_title($posts_page->ID) ? get_the_title($posts_page->ID) : __("Latest Posts", "new_site");
-    }
-}
+$block_variant        = isset($block_variant) ? " {$block_variant}" : "";
+$block_slideshow      = get_field("slideshow");
+$block_feautred_image = get_the_post_thumbnail($post->ID, "hero", array("class" => "swiper-image"));
+$block_title          = is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false));
 ?>
-<?php if ($slideshow || $featured_image): $i = 0; ?>
-    <div class="hero-block -fullbleed _nopadding" role="region">
+<?php if ($block_slideshow || $block_feautred_image): $i = 0; ?>
+    <div class="hero-block -fullbleed<?php echo $block_variant; ?>" role="region">
         <div class="hero_inner -fullbleed">
             <div class="hero_swiper-container swiper-container -fullbleed">
 
                 <div class="swiper-wrapper">
-                    <?php if ($slideshow): ?>
+                    <?php if ($block_slideshow): ?>
                         <?php while (have_rows("slideshow")): the_row(); ?>
                             <?php
                             $image = get_sub_field("image");
@@ -70,41 +63,41 @@ if (is_home() && !$post_title) {
                                 </figure><!--/.swiper-slide-->
                             <?php endif; // if ($image) ?>
                         <?php endwhile; // while (have_rows("slideshow")) ?>
-                    <?php elseif ($featured_image): // ($slideshow) ?>
+                    <?php elseif ($block_feautred_image): // ($block_slideshow) ?>
                         <?php
-                        $featured_image_large_src  = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_large")[0];
-                        $featured_image_medium_src = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_medium")[0];
+                        $block_feautred_image_large_src  = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_large")[0];
+                        $block_feautred_image_medium_src = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_medium")[0];
                         ?>
 
                         <figure class="swiper-slide">
 
                             <picture class="swiper-picture">
-                                <?php if ($featured_image_large_src): ?>
-                                    <source srcset="<?php echo $featured_image_desktop_src; ?>" media="(min-width: 64em)" />
+                                <?php if ($block_feautred_image_large_src): ?>
+                                    <source srcset="<?php echo $block_feautred_image_desktop_src; ?>" media="(min-width: 64em)" />
                                 <?php endif; ?>
 
-                                <?php if ($featured_image_medium_src): ?>
-                                    <source srcset="<?php echo $featured_image_tablet_src; ?>" media="(min-width: 40em)" />
+                                <?php if ($block_feautred_image_medium_src): ?>
+                                    <source srcset="<?php echo $block_feautred_image_tablet_src; ?>" media="(min-width: 40em)" />
                                 <?php endif; ?>
 
-                                <?php echo $featured_image; ?>
+                                <?php echo $block_feautred_image; ?>
                             </picture><!--/.swiper-picture-->
 
-                            <?php if ($post_title): ?>
+                            <?php if ($block_title): ?>
                                 <header class="swiper-caption">
                                     <div class="swiper-caption-inner">
                                         <h1 class="swiper-title title _nomargin" role="heading">
-                                            <?php echo $post_title; ?>
+                                            <?php echo $block_title; ?>
                                         </h1><!--/.swiper-title.title._nomargin-->
                                     </div><!--/.swiper-caption-inner-->
                                 </header>
-                            <?php endif; // if ($post_title) ?>
+                            <?php endif; // if ($block_title) ?>
 
                         </figure><!--/.swiper-slide-->
-                    <?php endif; // ($featured_image) ?>
+                    <?php endif; // ($block_feautred_image) ?>
                 </div> <!--/.swiper-wrapper-->
 
-                <?php if ($slideshow && $i > 1): ?>
+                <?php if ($block_slideshow && $i > 1): ?>
                     <div class="swiper-pagination"></div>
 
                     <button class="swiper-button -prev">
@@ -121,4 +114,4 @@ if (is_home() && !$post_title) {
             </div><!--/.hero_swiper-container.swiper-container.-fullbleed-->
         </div><!--/.hero_inner.-fullbleed-->
     </div><!--/.hero-block.-fullbleed._nopadding-->
-<?php endif; // if ($slideshow || $featured_image) ?>
+<?php endif; // if ($block_slideshow || $block_feautred_image) ?>

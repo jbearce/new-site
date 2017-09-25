@@ -1,4 +1,5 @@
 <?php get_header(); ?>
+<?php $block_variant = "_nopadding"; ?>
 <?php include(locate_template("partials/block-hero.php")); ?>
 <div class="content-block">
     <div class="content_inner">
@@ -7,7 +8,10 @@
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
-                    <?php $post_title = ""; ?>
+                    <?php
+                    $post_variant = "content_article";
+                    $post_title   = "";
+                    ?>
                     <?php include(locate_template("partials/content-full.php")); ?>
                 <?php endwhile; ?>
             <?php else: ?>

@@ -1,14 +1,18 @@
+<?php
+$post_id    = get_post(get_option("page_for_posts"));
+$post_title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "new_site");
+?>
 <?php get_header(); ?>
-<?php include(locate_template("partials/block-hero.php")); ?>
+<?php
+if ($posts_title) $block_title = $post_title;
+include(locate_template("partials/block-hero.php"));
+?>
 <div class="content-block">
     <div class="content_inner">
         <div class="content_post">
             <?php do_action("new_site_before_content"); ?>
 
-            <?php
-            $posts_page = get_post(get_option("page_for_posts"));
-            $title      = get_the_title($posts_page->ID) ? get_the_title($posts_page->ID) : __("Latest Posts", "new_site");
-            ?>
+            <?php $title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "new_site"); ?>
 
             <?php if ($title): ?>
                 <article class="content_article article -introduction">
@@ -20,9 +24,11 @@
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
+                    <?php $post_varaint = "content_article"; ?>
                     <?php include(locate_template("partials/content-excerpt.php")); ?>
                 <?php endwhile; ?>
             <?php else: ?>
+                <?php $post_varaint = "content_article"; ?>
                 <?php include(locate_template("partials/content-none.php")); ?>
             <?php endif; ?>
 

@@ -7,9 +7,11 @@
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
+                    <?php $post_variant = "content_article"; ?>
                     <?php include(locate_template("partials/content-full.php")); ?>
                 <?php endwhile; ?>
             <?php else: ?>
+                <?php $post_variant = "content_article"; ?>
                 <?php include(locate_template("partials/content-none.php")); ?>
             <?php endif; ?>
 

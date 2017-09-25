@@ -1,4 +1,5 @@
 <?php
+$post_variant    = isset($post_variant) ? " {$post_variant}" : "";
 $post_title      = isset($post_title) ? $post_title : (isset($post) ? $post->post_title : "");
 $post_permalink  = isset($post_permalink) ? $post_permalink : (isset($post) ? get_the_permalink($post->ID) : "");
 $post_categories = isset($post_categories) ? $post_categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
@@ -8,7 +9,7 @@ $post_content    = isset($post_content) ? $post_content : (isset($post) ? $post-
 ?>
 
 <?php if ($post_title || (((isset($post_show_meta) && $post_show_meta === true) || (get_post_type() === "post" && !(isset($post_show_meta) && $post_show_meta === false))) && ($post_permalink || $post_categories || $post_tags || $post_comments)) || $post_content): ?>
-    <article class="content_article article">
+    <article class="article<?php echo $post_variant; ?>">
 
         <?php if ($post_title || (((isset($post_show_meta) && $post_show_meta === true) || (get_post_type() === "post" && !(isset($post_show_meta) && $post_show_meta === false))) && ($post_permalink || $post_categories || $post_tags || $post_comments))): ?>
             <header class="article_header">
@@ -83,10 +84,11 @@ $post_content    = isset($post_content) ? $post_content : (isset($post) ? $post-
             </div><!--/.article_content-->
         <?php endif; ?>
 
-    </article><!--/.content_article.article.-full-->
+    </article><!--/.article-->
 <?php endif; // ($post_title || (((isset($post_show_meta) && $post_show_meta === true) || (get_post_type() === "post" && !(isset($post_show_meta) && $post_show_meta === false))) && ($post_permalink || $post_categories || $post_tags || $post_comments)) || $post_content) ?>
 
 <?php
+unset($post_variant);
 unset($post_title);
 unset($post_permalink);
 unset($post_show_meta);

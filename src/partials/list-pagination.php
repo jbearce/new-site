@@ -1,10 +1,11 @@
-<?php $pagination_links = paginate_links(array("type" => "array")); ?>
-
-<?php if ($pagination_links): ?>
-    <nav class="content_menu-list_container menu-list_container">
+<?php
+$list_variant = isset($list_variant) ? " {$list_variant}" : "";
+$list_links   = isset($list_links) ? $list_links : paginate_links(array("type" => "array"));
+?>
+<?php if ($list_links): ?>
+    <nav class="menu-list_container<?php echo $list_variant; ?>">
         <ul class="menu-list -pagination -center">
-
-            <?php foreach ($pagination_links as $link): ?>
+            <?php foreach ($list_links as $link): ?>
                 <?php
                 // replace double quote with single quote for consistancy
                 $link = preg_replace("/\"/", "'", $link);
@@ -20,7 +21,6 @@
                     <?php echo $link; ?>
                 </li><!--/.menu-list_item-->
             <?php endforeach; ?>
-
         </ul><!--/.menu-list.-pagination.-center-->
     </nav><!--/.contenT_menu-list_container.menu-list_container-->
 <?php endif; ?>
