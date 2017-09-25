@@ -290,6 +290,7 @@ if (ENABLE_MEGA_MENU && is_admin()) {
 // @param  {Boolean}  sub_menu - Set to true to make a menu behave as a sub menu
 // @param  {Boolean}  show_parent - Set to false to hide the parent menu item, thus only showing siblings
 // @param  {Boolean}  direct_parent - Set to true to show the direct parent of the currently viewed page, instea of the top level ancestor
+// @param  {Boolean}  only_viewed - Set to true to show all child menus
 // @param  {Number}   parent_id - Set to a Post ID or Menu Item ID to use as the parent
 function new_site_nav_menu_sub_menu($menu_items, $args) {
     $root_id = 0;
@@ -307,7 +308,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
         }
 
         // if direct_parent is set, show all links from the top level down, otherwise only display the closest parent
-        if (!isset($args->direct_parent)) {
+        if (!isset($args->direct_parent) || (isset($args->direct_parent) && $args->direct_parent === false)) {
             $prev_root_id = $root_id;
 
             while ($prev_root_id != 0) {
@@ -322,7 +323,38 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                     } // if ($menu_item->ID == $prev_root_id)
                 } // foreach ($menu_items as $menu_item)
             } // while ($prev_root_id != 0)
-        } // if (!isset($args->direct_parent))
+        } // if (!isset($args->direct_parent) || (isset($args->direct_parent) && $args->direct_parent === false))
+
+        // if only_viewed is set, show all links from the top level down, otherwise only display the closest parent
+        if (isset($args->only_viewed) && $args->only_viewed === true) {
+            $viewed_id        = 0;
+            $viewed_parent_id = 0;
+            $top_parent_id    = 0;
+
+            // get the ID of the currently viewed page and its parent
+            foreach ($menu_items as $menu_item) {
+                if (in_array("current-menu-item", $menu_item->classes)) {
+                    $viewed_id        = $menu_item->ID;
+                    $viewed_parent_id = $menu_item->menu_item_parent;
+                    break;
+                }
+            }
+
+            // get the ID of the top-level parent of the currently viewed page
+            foreach ($menu_items as $menu_item) {
+                if ($menu_item->menu_item_parent == 0) {
+                    $top_parent_id = $menu_item->ID;
+                    break;
+                }
+            }
+
+            // remove any page that's not a child or sibling of the currently viewed page
+            foreach ($menu_items as $key => $menu_item) {
+                if ($menu_item->menu_item_parent != $viewed_id && $menu_item->menu_item_parent != $viewed_parent_id && $menu_item->menu_item_parent != $top_parent_id && $menu_item->menu_item_parent != 0) {
+                    unset($menu_items[$key]);
+                }
+            }
+        } // (!isset($args->expand_all) || (isset($args->expand_all) && $args->expand_all === false))
 
         // display a specific section of links if parent_id is set
         if (isset($args->parent_id)) {
@@ -355,8 +387,8 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                         } elseif ($current_menu_item_parent == $parent_id || $current_menu_item_parent == 0) {
                             break;
                         }
-                    } // foreach ($menu_items as $key2 => $item2)
-                } // while ($current_menu_item_parent != $parent_id && $current_menu_item_parent != 0)
+                    }
+                }
 
                 // remove menu items that aren't children of the specified parent
                 if (!in_array($parent_id, $current_menu_item_parents) && !(isset($args->show_parent) && $parent_id == $item->ID)) {
