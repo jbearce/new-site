@@ -7,7 +7,7 @@
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
-                    <?php $title = ""; ?>
+                    <?php $post_title = ""; ?>
                     <?php include(locate_template("partials/content-full.php")); ?>
                 <?php endwhile; ?>
             <?php else: ?>
