@@ -22,10 +22,6 @@
         flex-grow: 0;
     }
 
-    & > [class*="col-"].-nowrap {
-        min-width: 0;
-    }
-
     & > [class*="col-"].-noshrink {
         flex-shrink: 0;
     }
@@ -36,6 +32,22 @@
 
     &.-padded > [class*="col-"] {
         padding-right: remify($column-gap, 16);
+    }
+
+    &.-padded.-tight {
+        width: calc(100% + #{remify($column-gap * 0.75, 16)});
+    }
+
+    &.-padded.-tight > [class*="col-"] {
+        padding-right: remify($column-gap * 0.75, 16);
+    }
+
+    &.-padded.-loose {
+        width: calc(100% + #{remify($column-gap * 1.25, 16)});
+    }
+
+    &.-padded.-loose > [class*="col-"] {
+        padding-right: remify($column-gap * 1.25, 16);
     }
 
     &.-nowrap {
