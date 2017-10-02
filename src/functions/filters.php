@@ -24,6 +24,7 @@ add_action("init", "new_site_set_cookie", 10);
 // adjust WordPress login screen styles
 function new_site_login_styles() {
     echo "<link href='" . get_bloginfo("template_directory") . "/assets/styles/wp-login.css' rel='stylesheet' />";
+    wp_enqueue_script("new_site_critical_scripts", get_bloginfo("template_directory") . "/assets/scripts/critical.js", array(), false, true);
 }
 add_action("login_enqueue_scripts", "new_site_login_styles");
 
