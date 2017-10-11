@@ -91,7 +91,7 @@ add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3)
 
 // add rel="noopener" to external links
 function new_site_rel_noopener($content) {
-    $content = preg_replace("/(<a )(?!.*(?<= )rel=(?:'|\"))(.[^>]*>)/im", "$1 rel=\"noopener\"$2", $content);
+    $content = preg_replace("/(<a )(?!.*(?<= )rel=(?:'|\"))(.[^>]*>)/im", "$1 rel=\"noopener\" $2", $content);
 
     return $content;
 }
