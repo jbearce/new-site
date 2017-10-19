@@ -57,7 +57,15 @@
 
     ol,
     ul {
-        padding-left: remify(18, 12);
+        @extend .text.-list;
+    }
+
+    ol {
+        @extend .text.-list.-ordered;
+    }
+
+    ul {
+        @extend .text.-list.-unordered;
     }
 
     ol ol,

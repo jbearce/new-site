@@ -29,11 +29,26 @@
 
 .text.-list {
     & {
-        list-style: disc;
         padding: remify(0 0 0 16, 12);
     }
 
     .text_list-item {
         display: list-item;
+    }
+}
+
+/* list ordered variant */
+
+.text.-list.-ordered {
+    & {
+        list-style: decimal;
+    }
+}
+
+/* list unordered variant */
+
+.text.-list.-unordered {
+    & {
+        list-style: disc;
     }
 }
