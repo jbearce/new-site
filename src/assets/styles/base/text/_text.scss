@@ -10,10 +10,10 @@
         font-display: swap;
         font-family: $body-font;
         font-range: $xs-break $xl-break;
-        font-size: responsive remify(12, 16) remify(16, 16);
+        font-size: responsive remify(16, 16) remify(18, 16);
         font-weight: 400;
-        line-height: remify(18, 12);
-        margin: remify(0 0 18, 12);
+        line-height: remify(20, 16);
+        margin: remify(0 0 16, 16);
     }
 }
 
@@ -29,7 +29,7 @@
 
 .text.-list {
     & {
-        padding: remify(0 0 0 16, 12);
+        padding: remify(0 0 0 24, 16);
     }
 
     .text_list-item {
@@ -50,5 +50,53 @@
 .text.-list.-unordered {
     & {
         list-style: disc;
+    }
+}
+
+/* table variant */
+
+.text.-table {
+    & {
+        border-collapse: collapse;
+        display: table;
+        width: 100%;
+    }
+
+    .text_header {
+        display: table-header-group;
+    }
+
+    .text_body {
+        display: table-row-group;
+    }
+
+    .text_footer {
+        display: table-footer-group;
+    }
+
+    .text_row {
+        display: table-row;
+    }
+
+    .text_cell {
+        border: 0;
+        padding: remify(6 8, 16);
+        text-align: left;
+        vertical-align: top;
+    }
+
+    .text_header .text_cell {
+        border-bottom: remify(1) solid darken($background_alt, 10);
+        font-weight: 700;
+    }
+
+    .text_body .text_cell.-header {
+        font-weight: 700;
+        text-align: left;
+    }
+
+    > .text_row:nth-child(even) .text_cell,
+    .text_body .text_row:nth-child(even) .text_cell {
+        background: $background_alt;
     }
 }
