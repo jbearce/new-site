@@ -186,10 +186,10 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         // add data properties for the menu script to interact with
         $data = "";
         if (in_array("hover", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) $data .= " data-click='true'";
-        if (in_array("touch", $params)&& !(ENABLE_MEGA_MENU && $this->is_mega)) $data   .= " data-touch='true'";
+        if (in_array("touch", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) $data   .= " data-touch='true'";
 
         // add aria attribute if the mega parameter is not passed
-        $aria = (ENABLE_MEGA_MENU && $this->is_mega) ? "" : " aria-hidden='true'";
+        $aria = (ENABLE_MEGA_MENU && $this->is_mega) ? "" : (in_array("hover", $params) || in_array("touch", $params) ? " aria-hidden='true'" : "");
 
         // construct the menu list
         $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$data}{$aria}>";
@@ -288,8 +288,8 @@ if (ENABLE_MEGA_MENU && is_admin()) {
 
 // add sub_menu options to wp_nav_menu
 // @param  {Boolean}  sub_menu - Set to true to make a menu behave as a sub menu
-// @param  {Boolean}  show_parent - Set to false to hide the parent menu item, thus only showing siblings
-// @param  {Boolean}  direct_parent - Set to true to show the direct parent of the currently viewed page, instea of the top level ancestor
+// @param  {Boolean}  show_parent - Set to true to show the parent menu item
+// @param  {Boolean}  direct_parent - Set to true to show the direct parent of the currently viewed page, instead of the top level ancestor
 // @param  {Boolean}  only_viewed - Set to true to show all child menus
 // @param  {Number}   parent_id - Set to a Post ID or Menu Item ID to use as the parent
 function new_site_nav_menu_sub_menu($menu_items, $args) {
@@ -354,7 +354,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                     unset($menu_items[$key]);
                 }
             }
-        } // (!isset($args->expand_all) || (isset($args->expand_all) && $args->expand_all === false))
+        } // (!isset($args->only_viewed) || (isset($args->only_viewed) && $args->only_viewed === false))
 
         // display a specific section of links if parent_id is set
         if (isset($args->parent_id)) {
@@ -414,7 +414,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                 if (in_array($item->menu_item_parent, $menu_item_parents)) {
                     array_push($menu_item_parents, $item->ID);
                 // remove the menu item if it's not a child
-                } else if (!(isset($args->show_parent) && in_array($item->ID, $menu_item_parents))) {
+            } else if (!(isset($args->show_parent) && $args->show_parent === true && in_array($item->ID, $menu_item_parents))) {
                     unset($menu_items[$key]);
                 }
             }

@@ -42,7 +42,7 @@
 .menu-list_link {
     & {
         display: block;
-        flex: 1 1 0%;
+        flex: 1 1 1%;
         min-width: 0;
         text-decoration: none;
     }
@@ -459,5 +459,31 @@
     .menu-list_link.-current {
         color: $foreground;
         cursor: auto;
+    }
+}
+
+/* submenu variant */
+
+.menu-list.-submenu {
+    & {
+        font-display: swap;
+        font-family: $body-font;
+        font-size: remify(18, 16);
+        font-weight: 400;
+    }
+
+    .menu-list_link {
+        border-bottom: remify(1) solid $background_alt;
+        padding: remify(9 0, 18);
+    }
+
+    .menu-list.-tier1 {
+        padding: remify(4.5 0, 18);
+    }
+
+    .menu-list.-tier1 .menu-list_link {
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23DDDDDD' d='M25.3,16c0,0.3-0.1,0.5-0.3,0.7L10.1,31.7C9.9,31.9,9.6,32,9.3,32c-0.3,0-0.5-0.1-0.7-0.3L7,30.1c-0.2-0.2-0.3-0.5-0.3-0.7c0-0.3,0.1-0.5,0.3-0.7L19.6,16L7,3.4C6.8,3.2,6.7,2.9,6.7,2.7S6.8,2.1,7,1.9l1.6-1.6C8.8,0.1,9.1,0,9.3,0c0.3,0,0.5,0.1,0.7,0.3L25,15.3C25.2,15.5,25.3,15.7,25.3,16z' /%3E%3C/svg%3E%0A") remify(0 11, 18) / remify(13.5 13.5, 18) no-repeat;
+        border-bottom: 0;
+        padding: remify(4.5 0 4.5 18, 18);
     }
 }
