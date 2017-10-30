@@ -126,7 +126,7 @@
         background: transparentize($dark, 0.5);
         height: remify(10, 16);
         opacity: 1;
-        transition: background 0.15s;
+        transition: background-color 0.15s;
         width: remify(10, 16);
     }
 }
@@ -139,6 +139,6 @@
 
 .swiper-pagination-bullet-active {
     & {
-        background: $primary;
+        background-color: $primary;
     }
 }

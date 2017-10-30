@@ -21,11 +21,11 @@
         outline: 0;
         padding: remify(8 12, 14);
         text-decoration: none;
-        transition: background 0.15s;
+        transition: background-color 0.15s;
     }
 
     &:focus,
     &:hover {
-        background: $primary_alt;
+        background-color: $primary_alt;
     }
 }
