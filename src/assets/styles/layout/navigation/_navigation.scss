@@ -12,10 +12,10 @@
 
 .navigation_inner {
     & {
-        background: $dark_alt;
+        background: darken($primary, 10);
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(($content-padding * 0.75) $content-padding);
+        padding: remify(0 $content-padding);
     }
 }
 
@@ -23,8 +23,8 @@
 
 .navigation-block.-fullbleed {
     & {
-        background: $dark_alt;
-        padding: remify(($content-padding * 0.75) $content-padding);
+        background: darken($primary, 10);
+        padding: remify(0 $content-padding);
     }
 
     > .navigation_inner {

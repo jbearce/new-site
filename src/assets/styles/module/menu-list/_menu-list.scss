@@ -337,9 +337,9 @@
 
     .menu-list_link,
     .menu-list_toggle {
-        color: $accent;
+        color: $light;
         padding: remify(15 20, 20);
-        transition: color 0.15s;
+        transition: background-color 0.15s;
     }
 
     &.-vertical .menu-list_link,
@@ -356,7 +356,8 @@
     .menu-list_toggle:hover,
     .menu-list_item.-parent:hover > .menu-list_toggle,
     .menu-list_item.-parent.is-active > .menu-list_toggle {
-        color: $accent_alt;
+        background-color: $accent;
+        color: $light;
     }
 
     // tier 1
