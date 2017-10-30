@@ -323,15 +323,29 @@
     & {
         font-display: swap;
         font-family: $body-font;
-        font-size: remify(16, 16);
+        font-size: remify(20, 16);
         font-weight: 400;
+    }
+
+    &.-vertical::before,
+    &.-vertical::after {
+        content: "\0020";
+        display: block;
+        height: remify(7.5, 20);
+        width: 100%;
     }
 
     .menu-list_link,
     .menu-list_toggle {
         color: $accent;
-        padding: remify(8 18, 16);
-        transition: background-color 0.15s, color 0.15s;
+        padding: remify(15 20, 20);
+        transition: color 0.15s;
+    }
+
+    &.-vertical .menu-list_link,
+    &.-vertical .menu-list_toggle {
+        padding-bottom: remify(7.5, 20);
+        padding-top: remify(7.5, 20);
     }
 
     .menu-list_link:focus,
@@ -342,27 +356,26 @@
     .menu-list_toggle:hover,
     .menu-list_item.-parent:hover > .menu-list_toggle,
     .menu-list_item.-parent.is-active > .menu-list_toggle {
-        background-color: $accent;
-        color: $light;
+        color: $accent_alt;
     }
 
     // tier 1
 
     .menu-list.-tier1 {
         background-color: $accent;
-        font-size: remify(14, 16);
+        font-size: remify(18, 20);
     }
 
     .menu-list.-tier1::before,
     .menu-list.-tier1::after {
         content: "\0020";
         display: block;
-        height: remify(7, 14);
+        height: remify(6.75, 18);
         width: 100%;
     }
 
     .menu-list.-tier1.-mega {
-        max-width: remify(250, 14);
+        max-width: remify(250, 18);
     }
 
     .menu-list.-tier1.-mega:not(:last-child) {
@@ -372,7 +385,8 @@
     .menu-list.-tier1 .menu-list_link,
     .menu-list.-tier1 .menu-list_toggle {
         color: $light;
-        padding: remify(4 18, 14);
+        padding: remify(6.75 20, 18);
+        transition: background-color 0.15s;
     }
 
     .menu-list.-tier1 .menu-list_link:focus,
@@ -384,19 +398,20 @@
     .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent:hover > .menu-list_toggle,
     .menu-list.-tier1:not(.-mega) > .menu-list_item.-parent.is-active > .menu-list_toggle {
         background-color: lighten($accent, 10);
+        color: $light;
     }
 
     // tier 2
 
     .menu-list.-tier2 {
-        font-size: remify(12, 14);
+        font-size: remify(16, 18);
     }
 
     .menu-list.-tier2:not(.-mega)::before,
     .menu-list.-tier2::after {
         content: "\0020";
         display: block;
-        height: remify(6, 12);
+        height: remify(4, 16);
         width: 100%;
     }
 
@@ -407,7 +422,7 @@
     .menu-list.-tier2 .menu-list_link,
     .menu-list.-tier2 .menu-list_toggle {
         color: $light;
-        padding: remify(2 18, 12);
+        padding: remify(4 20, 16);
     }
 
     .menu-list.-tier2 .menu-list_link:focus,
