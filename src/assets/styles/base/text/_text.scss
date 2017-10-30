@@ -93,7 +93,7 @@
     }
 
     .text_header .text_cell {
-        border-bottom: remify(1) solid darken($background_alt, 10);
+        border-bottom: remify(2) solid $background_alt;
         font-weight: 700;
     }
 
