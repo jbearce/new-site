@@ -94,7 +94,7 @@
                             <?php get_search_form(); ?>
                         </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
                         <?php
-                        $menu = wp_nav_menu(array(
+                        wp_nav_menu(array(
                             "container"		 => false,
                             "depth"          => 3,
                             "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
