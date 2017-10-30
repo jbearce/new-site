@@ -18,8 +18,6 @@
                 <?php include(locate_template("partials/content-none.php")); ?>
             <?php endif; ?>
 
-            <?php include(locate_template("partials/grid-callout.php")); ?>
-
             <?php do_action("new_site_after_content"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
