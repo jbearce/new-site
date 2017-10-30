@@ -15,7 +15,7 @@
         background: $page_background;
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(($content-padding * 1.25) $content-padding);
+        padding: remify(($content-padding * 0.75) $content-padding);
     }
 }
 
@@ -24,7 +24,7 @@
 .footer-block.-fullbleed {
     & {
         background: $page_background;
-        padding: remify(($content-padding * 1.25) $content-padding);
+        padding: remify(($content-padding * 0.75) $content-padding);
     }
 
     > .footer_inner {
