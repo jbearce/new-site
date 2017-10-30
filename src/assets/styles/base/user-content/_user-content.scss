@@ -7,123 +7,43 @@
 .user-content {
     /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
-    // links
-
-    a:not(.button) {
-        @extend .link;
-    }
-
     // titles
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        @extend .title;
-    }
-
-    h3,
-    h4 {
+    .title.-h3,
+    .title.-h4 {
         font-range: $xs-break $xl-break;
         font-size: responsive remify(18, 16) remify(21.6, 16);
         line-height: remify(26, 18);
         margin: remify(0 0 8, 18);
     }
 
-    h5,
-    h6 {
+    .title.-h5,
+    .title.-h6 {
         font-range: $xs-break $xl-break;
         font-size: responsive remify(16, 16) remify(19.2, 16);
         line-height: remify(24, 16);
         margin: remify(0 0 8, 16);
     }
 
-    h2,
-    h4,
-    h6 {
+    .title.-h2,
+    .title.-h4,
+    .title.-h6 {
         color: $foreground;
     }
 
-    // text
-
-    p,
-    ol,
-    ul,
-    table {
-        @extend .text;
-    }
-
-    ol,
-    ul {
-        @extend .text.-list;
-    }
-
-    ol {
-        @extend .text.-list.-ordered;
-    }
-
-    ul {
-        @extend .text.-list.-unordered;
-    }
-
-    ol ol,
-    ol ul,
-    ul ol,
-    ul ul {
-        font-size: 1em;
-    }
+    // tables
 
     .table_container {
         overflow: auto;
         width: 100%;
     }
 
-    table {
-        @extend .text.-table;
-    }
+    // blockquotes
 
-    table thead {
-        @extend .text_header;
-    }
-
-    table tbody {
-        @extend .text_body;
-    }
-
-    table tfoot {
-        @extend .text_footer;
-    }
-
-    table tr {
-        @extend .text_row;
-    }
-
-    table td {
-        @extend .text_cell;
-    }
-
-    table thead td,
-    table thead th,
-    table tbody th,
-    table > tr th {
-        @extend .text_cell;
-        @extend .text_cell.-header;
-    }
-
-    // blockquote
-
-    blockquote {
+    .blockquote {
         border-left: remify(2) solid $accent;
         margin: 0;
         padding: remify(0 0 0 24, 16);
-    }
-
-    // horizontal rule
-
-    hr {
-        @extend .divider;
     }
 
     // images
@@ -163,7 +83,9 @@
     .user-content {
         /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
-        blockquote {
+        // blockquotes
+
+        .blockquote {
             padding-left: remify(27, 16);
         }
 
@@ -176,16 +98,9 @@
 .user-content.-light {
     /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    ol,
-    p,
-    table,
-    ul {
+    .link,
+    .title,
+    .text {
         color: $light;
     }
 

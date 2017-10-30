@@ -47,6 +47,144 @@ function new_site_tinymce_settings($settings) {
 }
 add_filter("tiny_mce_before_init", "new_site_tinymce_settings");
 
+// add classes to elements
+function new_site_add_user_content_classes($content) {
+    if ($content) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML($content);
+
+        $anchors = $DOM->getElementsByTagName("a");
+
+        foreach ($anchors as $anchor) {
+            $existing_classes = $anchor->getAttribute("class") ? $anchor->getAttribute("class") : "";
+
+            if (preg_match("/button/i", $existing_classes)) {
+                $anchor->setAttribute("class", "user-content_button {$existing_classes}");
+            } else {
+                $anchor->setAttribute("class", "user-content_link link {$existing_classes}");
+            }
+        }
+
+        $h1s = $DOM->getElementsByTagName("h1");
+
+        foreach ($h1s as $h1) {
+            $h1->setAttribute("class", "user-content_title title -h1 {$h1->getAttribute("class")}");
+        }
+
+        $h2s = $DOM->getElementsByTagName("h2");
+
+        foreach ($h2s as $h2) {
+            $h2->setAttribute("class", "user-content_title title -h2 {$h2->getAttribute("class")}");
+        }
+
+        $h3s = $DOM->getElementsByTagName("h3");
+
+        foreach ($h3s as $h3) {
+            $h3->setAttribute("class", "user-content_title title -h3 {$h3->getAttribute("class")}");
+        }
+
+        $h4s = $DOM->getElementsByTagName("h4");
+
+        foreach ($h4s as $h4) {
+            $h4->setAttribute("class", "user-content_title title -h4 {$h4->getAttribute("class")}");
+        }
+
+        $h5s = $DOM->getElementsByTagName("h5");
+
+        foreach ($h5s as $h5) {
+            $h5->setAttribute("class", "user-content_title title -h5 {$h5->getAttribute("class")}");
+        }
+
+        $h6s = $DOM->getElementsByTagName("h6");
+
+        foreach ($h6s as $h6) {
+            $h6->setAttribute("class", "user-content_title title -h6 {$h6->getAttribute("class")}");
+        }
+
+        $paragraphs = $DOM->getElementsByTagName("p");
+
+        foreach ($paragraphs as $paragraph) {
+            $paragraph->setAttribute("class", "user-content_text text {$paragraph->getAttribute("class")}");
+        }
+
+        $ordered_lists = $DOM->getElementsByTagName("ol");
+
+        foreach ($ordered_lists as $ordered_list) {
+            $ordered_list->setAttribute("class", "user-content_text text -list -ordered {$ordered_list->getAttribute("class")}");
+        }
+
+        $unordered_lists = $DOM->getElementsByTagName("ul");
+
+        foreach ($unordered_lists as $unordered_list) {
+            $unordered_list->setAttribute("class", "user-content_text text -list -unordered {$unordered_list->getAttribute("class")}");
+        }
+
+        $list_items = $DOM->getElementsByTagName("li");
+
+        foreach ($list_items as $list_item) {
+            $list_item->setAttribute("class", "text_list-item {$list_item->getAttribute("class")}");
+        }
+
+        $tables = $DOM->getElementsByTagName("table");
+
+        foreach ($tables as $table) {
+            $table->setAttribute("class", "user-content_text text -table {$table->getAttribute("class")}");
+        }
+
+        $table_headers = $DOM->getElementsByTagName("thead");
+
+        foreach ($table_headers as $table_header) {
+            $table_header->setAttribute("class", "text_header {$table_header->getAttribute("class")}");
+        }
+
+        $table_bodies = $DOM->getElementsByTagName("tbody");
+
+        foreach ($table_bodies as $tbody) {
+            $tbody->setAttribute("class", "text_body {$tbody->getAttribute("class")}");
+        }
+
+        $table_footers = $DOM->getElementsByTagName("tfoot");
+
+        foreach ($table_footers as $table_footer) {
+            $table_footer->setAttribute("class", "text_footer {$table_footer->getAttribute("class")}");
+        }
+
+        $table_rows = $DOM->getElementsByTagName("tr");
+
+        foreach ($table_rows as $table_row) {
+            $table_row->setAttribute("class", "text_row {$table_row->getAttribute("class")}");
+        }
+
+        $table_cell_headers = $DOM->getElementsByTagName("th");
+
+        foreach ($table_cell_headers as $table_cell_header) {
+            $table_cell_header->setAttribute("class", "text_cell -header {$table_cell_header->getAttribute("class")}");
+        }
+
+        $table_cells = $DOM->getElementsByTagName("td");
+
+        foreach ($table_cells as $table_cell) {
+            $table_cell->setAttribute("class", "text_cell {$table_cell->getAttribute("class")}");
+        }
+
+        $blockquotes = $DOM->getElementsByTagName("blockquote");
+
+        foreach ($blockquotes as $blockquote) {
+            $blockquote->setAttribute("class", "user-content_blockquote blockquote {$blockquote->getAttribute("class")}");
+        }
+
+        $horizontal_rules = $DOM->getElementsByTagName("hr");
+
+        foreach ($horizontal_rules as $horizontal_rule) {
+            $horizontal_rule->setAttribute("class", "user-content_divider divider {$horizontal_rule->getAttribute("class")}");
+        }
+
+        return $DOM->saveHTML();
+    }
+}
+add_filter("the_content", "new_site_add_user_content_classes");
+add_filter("acf_the_content", "new_site_add_user_content_classes");
+
 // fix shortcode formatting
 function new_site_fix_shortcodes($content) {
 	$array = array (
@@ -66,34 +204,113 @@ add_filter("acf_the_content", "new_site_fix_shortcodes", 12);
 
 // wrap tables in a div
 function new_site_wrap_tables($content) {
-    $content = preg_replace("/(<table(?:.|\n)*?<\/table>)/im", "<div class='table_container'>$1</div>", $content);
+    if ($content) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML($content);
 
-    return $content;
+        $tables = $DOM->getElementsByTagName("table");
+
+        $table_container = $DOM->createElement("div");
+        $table_container->setAttribute("class", "user-content_text_table_container text_table_container");
+
+        foreach ($tables as $table) {
+            $table_container_clone = $table_container->cloneNode();
+            $table->parentNode->replaceChild($table_container_clone, $table);
+            $table_container_clone->appendChild($table);
+        }
+
+        return $DOM->saveHTML();
+    }
 }
 add_filter("the_content", "new_site_wrap_tables");
 add_filter("acf_the_content", "new_site_wrap_tables");
 
 // wrap frames in a div
 function new_site_wrap_frames($content) {
-    $content = preg_replace("/(<iframe(?![^>]* class=))((?:.|\n)*?<\/iframe>)/im", "<div class='iframe_container'>$1 class='iframe'$2</div>", $content);
+    if ($content) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML($content);
 
-    return $content;
+        $iframes = $DOM->getElementsByTagName("iframe");
+
+        $iframe_container = $DOM->createElement("div");
+        $iframe_container->setAttribute("class", "user-content_iframe_container iframe_container");
+
+        foreach ($iframes as $iframe) {
+            $iframe->setAttribute("class", "iframe {$iframe->getAttribute("class")}");
+
+            $aspect_ratio = "56.25%";
+
+            $height = $iframe->getAttribute("height");
+            $width  = $iframe->getAttribute("width");
+
+            $iframe->removeAttribute("height");
+            $iframe->removeAttribute("width");
+
+            if ($height && $width) {
+                $height = (int) preg_replace("/[^0-9]/", "", $height);
+                $width  = (int) preg_replace("/[^0-9]/", "", $width);
+
+                $aspect_ratio = ($height / $width * 100) . "%";
+            }
+
+            $iframe_container_clone = $iframe_container->cloneNode();
+
+            $iframe_container_clone->setAttribute("style", "padding-bottom:{$aspect_ratio};");
+
+            $iframe_parent_node = $iframe->parentNode;
+
+            if ($iframe_parent_node->tagName === "p") {
+                $iframe_parent_node->parentNode->replaceChild($iframe_container_clone, $iframe_parent_node);
+            } else {
+                $iframe->parentNode->replaceChild($iframe_container_clone, $iframe);
+            }
+
+            $iframe_container_clone->appendChild($iframe);
+        }
+
+        return $DOM->saveHTML();
+    }
 }
 add_filter("the_content", "new_site_wrap_frames");
 add_filter("acf_the_content", "new_site_wrap_frames");
 
 // remove dimensions from thumbnails
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
-    $html = preg_replace('/(width|height)=\"\d*\"\s/im', "", $html);
-    return $html;
+    if ($html) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML($html);
+
+        $images = $DOM->getElementsByTagName("img");
+
+        foreach ($images as $image) {
+            $image->removeAttribute("height");
+            $image->removeAttribute("width");
+        }
+
+        return $DOM->saveHTML();
+    }
 }
 add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
 
 // add rel="noopener" to external links
 function new_site_rel_noopener($content) {
-    $content = preg_replace("/(<a )(?!.*(?<= )rel=(?:'|\"))(.[^>]*>)/im", "$1 rel=\"noopener\" $2", $content);
+    if ($content) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML($content);
 
-    return $content;
+        $anchors = $DOM->getElementsByTagName("a");
+
+        foreach ($anchors as $anchor) {
+            $existing_rel = $anchor->getAttribute("rel");
+
+            if (!$existing_rel) {
+                $anchor->setAttribute("rel", "noopener");
+            }
+        }
+
+        return $DOM->saveHTML();
+    }
 }
 add_filter("the_content", "new_site_rel_noopener");
 add_filter("acf_the_content", "new_site_rel_noopener", 12);
