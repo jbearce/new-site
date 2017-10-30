@@ -1,6 +1,6 @@
 <!--removeIf(tribe_html)--><?php get_header(); ?>
 <?php include(locate_template("partials/block-hero.php")); ?>
-<div class="content-block">
+<div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">
             <?php do_action("new_site_before_content"); ?>
@@ -17,5 +17,5 @@
             <?php do_action("new_site_after_content"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
-</div><!--/.content-block-->
+</div><!--/.content-block.-fullbleed-->
 <?php get_footer(); ?><!--endRemoveIf(tribe_html)-->

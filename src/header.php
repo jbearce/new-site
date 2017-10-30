@@ -105,7 +105,7 @@
                     </div><!--/.navigation_inner-->
                 </div><!--/.navigation-block.-flyout._phone._noncritical-->
             <?php endif; // has_nav_menu("primary") ?>
-            <div class="header-block" role="banner">
+            <div class="header-block -fullbleed" role="banner">
                 <div class="header_inner">
                     <div class="header_row row -between -vcenter">
                         <div class="col-auto">
@@ -125,9 +125,9 @@
                         </div><!--/.col-auto.-nogrow.-noshrink._noprint-->
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
-            </div><!--/.header-block-->
+            </div><!--/.header-block.-fullbleed-->
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block _tablet _notebook _desktop _noprint" role="navigation">
+                <div class="navigation-block -fullbleed _tablet _notebook _desktop _noprint" role="navigation">
                     <div class="navigation_inner">
                         <?php
                         wp_nav_menu(array(
@@ -139,5 +139,5 @@
                         ));
                         ?>
                     </div><!--/.navigation_inner-->
-                </div><!--/.navigation-block._tablet._notebook._desktop._noprint-->
+                </div><!--/.navigation-block.-fullbleed._tablet._notebook._desktop._noprint-->
             <?php endif; // has_nav_menu("primary") ?>

@@ -6,7 +6,7 @@ add_filter("wpseo_title", function($title) {
 });
 ?>
 <?php get_header(); ?>
-<div class="content-block">
+<div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">
             <?php do_action("new_site_before_content"); ?>
@@ -23,5 +23,5 @@ add_filter("wpseo_title", function($title) {
             <?php do_action("new_site_after_content"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
-</div><!--/.content-block-->
+</div><!--/.content-block.-fullbleed-->
 <?php get_footer(); ?>
