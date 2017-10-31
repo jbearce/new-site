@@ -7,30 +7,6 @@
 .user-content {
     /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
-    // titles
-
-    .title.-h3,
-    .title.-h4 {
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(18, 16) remify(21.6, 16);
-        line-height: remify(26, 18);
-        margin: remify(0 0 8, 18);
-    }
-
-    .title.-h5,
-    .title.-h6 {
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(16, 16) remify(19.2, 16);
-        line-height: remify(24, 16);
-        margin: remify(0 0 8, 16);
-    }
-
-    .title.-h2,
-    .title.-h4,
-    .title.-h6 {
-        color: $foreground;
-    }
-
     // images
 
     img {

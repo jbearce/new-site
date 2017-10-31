@@ -35,6 +35,10 @@
     .text_list-item {
         display: list-item;
     }
+
+    .text_list-item:not(:last-child) {
+        margin-bottom: remify(8, 16);
+    }
 }
 
 /* list ordered variant */
@@ -78,7 +82,9 @@
     }
 
     .text_footer {
+        color: $foreground_alt;
         display: table-footer-group;
+        font-style: italic;
     }
 
     .text_row {

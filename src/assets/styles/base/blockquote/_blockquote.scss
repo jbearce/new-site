@@ -11,3 +11,11 @@
         padding: remify(0 0 0 24, 16);
     }
 }
+
+/* tablet variant */
+
+@media screen and (min-width: $xs-break) {
+    .blockquote {
+        padding-left: remify(27, 16);
+    }
+}
