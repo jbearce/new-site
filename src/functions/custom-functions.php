@@ -123,3 +123,19 @@ function get_map_link($address, $embed = false) {
 function the_map_link($address) {
     echo get_map_link($address);
 }
+
+// function to remove the root element (see https://stackoverflow.com/a/29499398)
+function remove_root_tag($DOM, $tag = "html") {
+    $container = $DOM->getElementsByTagName($tag)->item(0);
+    $container = $container->parentNode->removeChild($container);
+
+    while ($DOM->firstChild) {
+        $DOM->removeChild($doc->firstChild);
+    }
+
+    while ($container->firstChild ) {
+        $DOM->appendChild($container->firstChild);
+    }
+
+    return $DOM;
+}

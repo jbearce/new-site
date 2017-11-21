@@ -79,7 +79,7 @@ add_filter("acf_the_content", "new_site_fix_shortcodes", 5);
 function new_site_add_user_content_classes($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -207,6 +207,9 @@ function new_site_add_user_content_classes($content) {
             $horizontal_rule->setAttribute("class", "user-content_divider divider {$horizontal_rule->getAttribute("class")}");
         }
 
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
         return $DOM->saveHTML();
     }
 }
@@ -217,7 +220,7 @@ add_filter("acf_the_content", "new_site_add_user_content_classes", 999);
 function new_site_wrap_tables($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $tables = $DOM->getElementsByTagName("table");
 
@@ -230,6 +233,9 @@ function new_site_wrap_tables($content) {
             $table_container_clone->appendChild($table);
         }
 
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
         return $DOM->saveHTML();
     }
 }
@@ -240,7 +246,7 @@ add_filter("acf_the_content", "new_site_wrap_tables", 999);
 function new_site_wrap_frames($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $iframes = $DOM->getElementsByTagName("iframe");
 
@@ -280,6 +286,9 @@ function new_site_wrap_frames($content) {
             $iframe_container_clone->appendChild($iframe);
         }
 
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
         return $DOM->saveHTML();
     }
 }
@@ -290,7 +299,7 @@ add_filter("acf_the_content", "new_site_wrap_frames", 999);
 function new_site_rel_noopener($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -301,6 +310,9 @@ function new_site_rel_noopener($content) {
                 $anchor->setAttribute("rel", "noopener");
             }
         }
+
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
 
         return $DOM->saveHTML();
     }
@@ -313,7 +325,7 @@ function new_site_lazy_load_images($content) {
     if ($content && !((function_exists("tribe_is_month") && tribe_is_month()) && !is_tax())) {
         $DOM   = new DOMDocument();
 
-        $DOM->loadHTML($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $XPath = new DOMXPath($DOM);
 
@@ -344,6 +356,9 @@ function new_site_lazy_load_images($content) {
             $image->setAttribute("class", "_js {$image->getAttribute("class")}");
         }
 
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
         return $DOM->saveHTML();
     }
 }
@@ -364,10 +379,11 @@ function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
             $image->removeAttribute("width");
         }
 
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
         return $DOM->saveHTML();
     }
-
-    return $html;
 }
 add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
 
