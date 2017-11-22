@@ -370,7 +370,7 @@ add_filter("post_thumbnail_html", "new_site_lazy_load_images", 999);
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML($html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$html}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $images = $DOM->getElementsByTagName("img");
 
