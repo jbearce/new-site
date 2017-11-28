@@ -1,10 +1,11 @@
 <?php
 $block_variant        = isset($block_variant) ? " {$block_variant}" : "";
-$block_slideshow      = get_field("slideshow");
-$block_feautred_image = get_the_post_thumbnail($post->ID, "hero", array("class" => "swiper-image"));
-$block_title          = is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false));
+$block_slideshow      = isset($block_slideshow) ? $block_slideshow : get_field("slideshow");
+$block_image_size     = isset($block_image_size) ? $block_image_size : "hero";
+$block_featured_image = isset($block_featured_image) ? $block_featured_image : (isset($post) && has_post_thumbnail($post) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_large")[0]) : false);
+$block_title          = isset($block_title) ? $block_title : (is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false)));
 ?>
-<?php if ($block_slideshow || $block_feautred_image): $i = 0; ?>
+<?php if ($block_slideshow || $block_featured_image): $i = 0; ?>
     <div class="hero-block -fullbleed<?php echo $block_variant; ?>" role="region">
         <div class="hero_inner -fullbleed">
             <div class="hero_swiper-container swiper-container -fullbleed">
@@ -27,14 +28,14 @@ $block_title          = is_singular() ? get_the_title() : (is_archive() ? get_th
                                     <?php if ($image["sizes"]["hero"]): ?>
                                         <picture class="swiper-picture">
                                             <?php if ($image["sizes"]["hero_large"]): ?>
-                                                <source srcset="<?php echo $image["sizes"]["hero_large"]; ?>" media="(min-width: 64em)" />
+                                                <source srcset="<?php echo $image["sizes"]["{$block_image_size}_large"]; ?>" media="(min-width: 64em)" />
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["hero_medium"]): ?>
-                                                <source srcset="<?php echo $image["sizes"]["hero_medium"]; ?>" media="(min-width: 40em)" />
+                                                <source srcset="<?php echo $image["sizes"]["{$block_image_size}_medium"]; ?>" media="(min-width: 40em)" />
                                             <?php endif; ?>
 
-                                            <img class="swiper-image" at="<?php echo $image["alt"]; ?>" src="<?php echo $image["sizes"]["hero"]; ?>" />
+                                            <img class="swiper-image" at="<?php echo $image["alt"]; ?>" src="<?php echo $image["sizes"]["{$block_image_size}"]; ?>" />
                                         </picture><!--/.swiper-picture-->
                                     <?php endif; // if ($image["sizes"]["hero"]) ?>
 
@@ -63,24 +64,21 @@ $block_title          = is_singular() ? get_the_title() : (is_archive() ? get_th
                                 </figure><!--/.swiper-slide-->
                             <?php endif; // if ($image) ?>
                         <?php endwhile; // while (have_rows("slideshow")) ?>
-                    <?php elseif ($block_feautred_image): // ($block_slideshow) ?>
-                        <?php
-                        $block_feautred_image_large_src  = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_large")[0];
-                        $block_feautred_image_medium_src = wp_get_attachment_image_src(get_post_thumbnail_id(), "hero_medium")[0];
-                        ?>
-
+                    <?php elseif ($block_featured_image): // ($block_slideshow) ?>
                         <figure class="swiper-slide">
 
                             <picture class="swiper-picture">
-                                <?php if ($block_feautred_image_large_src): ?>
-                                    <source srcset="<?php echo $block_feautred_image_large_src; ?>" media="(min-width: 64em)" />
+                                <?php if ($block_featured_image["large"]): ?>
+                                    <source srcset="<?php echo $block_featured_image["large"]; ?>" media="(min-width: 64em)" />
                                 <?php endif; ?>
 
-                                <?php if ($block_feautred_image_medium_src): ?>
-                                    <source srcset="<?php echo $block_feautred_image_medium_src; ?>" media="(min-width: 40em)" />
+                                <?php if ($block_featured_image["medium"]): ?>
+                                    <source srcset="<?php echo $block_featured_image["medium"]; ?>" media="(min-width: 40em)" />
                                 <?php endif; ?>
 
-                                <?php echo $block_feautred_image; ?>
+                                <?php if ($block_featured_image["small"]): ?>
+                                    <img class="swiper-image" src="<?php echo $block_featured_image["small"]; ?>" alt="<?php echo $block_featured_image["alt"]; ?>" />
+                                <?php endif; ?>
                             </picture><!--/.swiper-picture-->
 
                             <?php if ($block_title): ?>
@@ -94,7 +92,7 @@ $block_title          = is_singular() ? get_the_title() : (is_archive() ? get_th
                             <?php endif; // if ($block_title) ?>
 
                         </figure><!--/.swiper-slide-->
-                    <?php endif; // ($block_feautred_image) ?>
+                    <?php endif; // ($block_featured_image) ?>
                 </div> <!--/.swiper-wrapper-->
 
                 <?php if ($block_slideshow && $i > 1): ?>
@@ -114,4 +112,12 @@ $block_title          = is_singular() ? get_the_title() : (is_archive() ? get_th
             </div><!--/.hero_swiper-container.swiper-container.-fullbleed-->
         </div><!--/.hero_inner.-fullbleed-->
     </div><!--/.hero-block.-fullbleed._nopadding-->
-<?php endif; // if ($block_slideshow || $block_feautred_image) ?>
+<?php endif; // if ($block_slideshow || $block_featured_image) ?>
+
+<?php
+unset($block_variant);
+unset($block_slideshow);
+unset($block_image_size);
+unset($block_featured_image);
+unset($block_title);
+?>
