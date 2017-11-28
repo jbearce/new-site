@@ -47,6 +47,16 @@ function new_site_tinymce_settings($settings) {
 }
 add_filter("tiny_mce_before_init", "new_site_tinymce_settings");
 
+// fix Ninja Forms HTML field formatting
+function new_site_ninja_forms_html($default_value, $field_class, $field_settings) {
+    if ($field_settings["type"] === "html") {
+        $default_value = apply_filters("the_content", $default_value);
+    }
+
+    return $default_value;
+}
+add_filter("ninja_forms_render_default_value", "new_site_ninja_forms_html", 10, 3);
+
 // fix shortcode formatting
 function new_site_fix_shortcodes($content) {
     if (!is_admin()) {
