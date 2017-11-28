@@ -73,11 +73,11 @@ $block_title          = is_singular() ? get_the_title() : (is_archive() ? get_th
 
                             <picture class="swiper-picture">
                                 <?php if ($block_feautred_image_large_src): ?>
-                                    <source srcset="<?php echo $block_feautred_image_desktop_src; ?>" media="(min-width: 64em)" />
+                                    <source srcset="<?php echo $block_feautred_image_large_src; ?>" media="(min-width: 64em)" />
                                 <?php endif; ?>
 
                                 <?php if ($block_feautred_image_medium_src): ?>
-                                    <source srcset="<?php echo $block_feautred_image_tablet_src; ?>" media="(min-width: 40em)" />
+                                    <source srcset="<?php echo $block_feautred_image_medium_src; ?>" media="(min-width: 40em)" />
                                 <?php endif; ?>
 
                                 <?php echo $block_feautred_image; ?>
