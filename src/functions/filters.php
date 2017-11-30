@@ -89,7 +89,7 @@ add_filter("acf_the_content", "new_site_fix_shortcodes", 5);
 function new_site_add_user_content_classes($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -230,7 +230,7 @@ add_filter("acf_the_content", "new_site_add_user_content_classes", 999);
 function new_site_wrap_tables($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $tables = $DOM->getElementsByTagName("table");
 
@@ -256,7 +256,7 @@ add_filter("acf_the_content", "new_site_wrap_tables", 999);
 function new_site_wrap_frames($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $iframes = $DOM->getElementsByTagName("iframe");
 
@@ -309,7 +309,7 @@ add_filter("acf_the_content", "new_site_wrap_frames", 999);
 function new_site_rel_noopener($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -335,7 +335,7 @@ function new_site_lazy_load_images($content) {
     if ($content && !((function_exists("tribe_is_month") && tribe_is_month()) && !is_tax())) {
         $DOM   = new DOMDocument();
 
-        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $XPath = new DOMXPath($DOM);
 
@@ -380,7 +380,7 @@ add_filter("post_thumbnail_html", "new_site_lazy_load_images", 999);
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML("<html>{$html}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $images = $DOM->getElementsByTagName("img");
 
