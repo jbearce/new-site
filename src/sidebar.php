@@ -7,7 +7,6 @@ $sub_menu = wp_nav_menu(array(
     "items_wrap"           => "<nav class='content_menu-list_container menu-list_container'><ul class='menu-list -submenu -vertical'>%3\$s</ul></nav>",
     "only_viewed"          => true,
     "show_parent"          => true,
-    "show_parent_siblings" => true,
     "sub_menu"             => true,
     "theme_location"       => "primary",
     "walker"               => new new_site_menu_walker(),

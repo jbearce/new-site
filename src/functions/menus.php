@@ -291,7 +291,6 @@ if (ENABLE_MEGA_MENU && is_admin()) {
 // @param  {Boolean}  only_viewed - Set to true to show all child menus
 // @param  {Number}   parent_id - Set to a Post ID to use as the parent
 // @param  {Boolean}  show_parent - Set to true to show the parent menu item
-// @param  {Number}   show_parent_siblings - Set to true to show parent menu item siblings
 // @param  {Boolean}  sub_menu - Set to true to make a menu behave as a sub menu
 function new_site_nav_menu_sub_menu($menu_items, $args) {
     $root_id = 0;
@@ -330,7 +329,6 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
             $viewed_id          = 0;
             $viewed_parent_id   = 0;
             $top_parent_id      = 0;
-            $parent_sibling_ids = array();
 
             // get the ID of the currently viewed page and its parent
             foreach ($menu_items as $menu_item) {
@@ -358,25 +356,6 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                 }
             }
 
-            // store siblings in array if show_parent_siblings is set
-            if (isset($args->show_parent_siblings) && $args->show_parent_siblings === true) {
-                foreach ($menu_items as $menu_item) {
-                    if (isset($args->direct_parent) && $args->direct_parent === true) {
-                        if ($menu_item->ID == $viewed_parent_id) {
-                            $sibling_parent_id = $menu_item->menu_item_parent;
-
-                            foreach ($menu_items as $menu_item_2) {
-                                if ($menu_item_2->menu_item_parent == $sibling_parent_id) {
-                                    $parent_sibling_ids[] = $menu_item_2->ID;
-                                }
-                            }
-                        }
-                    } elseif ($menu_item->menu_item_parent == $top_parent_id) {
-                        $parent_sibling_ids[] = $menu_item->ID;
-                    }
-                }
-            }
-
             // remove any page that's not a child or sibling of the currently viewed page
             foreach ($menu_items as $key => $menu_item) {
                 if (
@@ -384,8 +363,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                     $menu_item->menu_item_parent != $viewed_parent_id &&
                     $menu_item->menu_item_parent != $top_parent_id &&
                     $menu_item->menu_item_parent != 0 &&
-                    $menu_item->ID != $viewed_parent_id &&
-                    !in_array($menu_item->ID, $parent_sibling_ids)
+                    $menu_item->ID != $viewed_parent_id
                 ) {
                     unset($menu_items[$key]);
                 }
@@ -440,56 +418,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
 
             $menu_items = $menu_items_copy;
         } else { // if (isset($args->parent_id))
-            $viewed_id          = 0;
-            $viewed_parent_id   = 0;
-            $top_parent_id      = 0;
-            $parent_ids         = array();
-            $parent_sibling_ids = array();
-
-            // get the ID of the currently viewed page and its parent
-            foreach ($menu_items as $menu_item) {
-                if (in_array("current-menu-item", $menu_item->classes)) {
-                    $viewed_id        = $menu_item->ID;
-                    $viewed_parent_id = $menu_item->menu_item_parent;
-                    break;
-                }
-            }
-
-            if (isset($args->parent_id)) {
-                // get the menu ID of the specified parent ID
-                foreach ($menu_items as $menu_item) {
-                    if ($menu_item->object_id == $args->parent_id) {
-                        $top_parent_id = $menu_item->ID;
-                    }
-                }
-            } else {
-                // get the ID of the top-level parent of the currently viewed page
-                foreach ($menu_items as $menu_item) {
-                    if ($menu_item->menu_item_parent == 0) {
-                        $top_parent_id = $menu_item->ID;
-                        break;
-                    }
-                }
-            }
-
-            // store siblings in array if show_parent_siblings is set
-            if (isset($args->show_parent_siblings) && $args->show_parent_siblings === true) {
-                foreach ($menu_items as $menu_item) {
-                    if (isset($args->direct_parent) && $args->direct_parent === true) {
-                        if ($menu_item->ID == $viewed_parent_id) {
-                            $sibling_parent_id = $menu_item->menu_item_parent;
-
-                            foreach ($menu_items as $menu_item_2) {
-                                if ($menu_item_2->menu_item_parent == $sibling_parent_id) {
-                                    $parent_sibling_ids[] = $menu_item_2->ID;
-                                }
-                            }
-                        }
-                    } elseif ($menu_item->menu_item_parent == $top_parent_id) {
-                        $parent_sibling_ids[] = $menu_item->ID;
-                    }
-                }
-            }
+            $parent_ids = array();
 
             foreach ($menu_items as $key => $menu_item) {
                 // store the top level menu item in the array
@@ -506,11 +435,6 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                         isset($args->show_parent) &&
                         $args->show_parent === true &&
                         in_array($menu_item->ID, $parent_ids)
-                    ) &&
-                    !(
-                        isset($args->show_parent_siblings) &&
-                        $args->show_parent_siblings === true &&
-                        in_array($menu_item->ID, $parent_sibling_ids)
                     )
                 ) {
                     unset($menu_items[$key]);
