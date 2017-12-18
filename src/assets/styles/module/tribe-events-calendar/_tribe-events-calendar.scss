@@ -32,6 +32,7 @@
         height: remify(75, 16);
         padding: remify(12 15 10, 16);
         vertical-align: top;
+        width: auto !important;
     }
 
     .tribe-events-calendar_cell.-header {

@@ -47,7 +47,7 @@ $organizer         = tribe_get_organizer();
                             </li><!--/.tribe-events-event-cost.menu-list_item-->
                         <?php endif; // (tribe_get_cost()) ?>
 
-                        <?php if ($venue_details): ?>
+                        <?php if ($venue_details && trim($venue_details["address"]) !== ""): ?>
                             <!-- Venue Display Info -->
                             <li class="tribe-events-venue-details menu-list_item" style="clear:left;">
                                 <icon use="map-marker" class="menu-list_icon" />

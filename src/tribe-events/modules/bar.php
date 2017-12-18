@@ -1,6 +1,6 @@
 <!--removeIf(tribe_html)--><?php
-$filters = tribe_events_get_filters();
-$views   = tribe_events_get_views();
+$filters     = tribe_events_get_filters();
+$views       = tribe_events_get_views();
 $current_url = tribe_events_get_current_filter_url();
 ?>
 

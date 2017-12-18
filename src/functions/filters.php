@@ -87,7 +87,9 @@ add_filter("acf_the_content", "new_site_fix_shortcodes", 5);
 
 // add classes to elements
 function new_site_add_user_content_classes($content) {
-    if ($content) {
+    global $post;
+
+    if ($content && !(is_post_type_archive("tribe_events") && $post->ID === 0)) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -220,15 +222,20 @@ function new_site_add_user_content_classes($content) {
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
-        return $DOM->saveHTML();
+        $content = $DOM->saveHTML();
     }
+
+    return $content;
 }
-add_filter("the_content", "new_site_add_user_content_classes", 999);
-add_filter("acf_the_content", "new_site_add_user_content_classes", 999);
+add_filter("the_content", "new_site_add_user_content_classes", 10);
+add_filter("acf_the_content", "new_site_add_user_content_classes", 10);
+add_filter("tribe_events_get_the_excerpt", "new_site_add_user_content_classes", 10);
 
 // wrap tables in a div
 function new_site_wrap_tables($content) {
-    if ($content) {
+    global $post;
+
+    if ($content && !(is_post_type_archive("tribe_events") && $post->ID === 0)) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -246,15 +253,20 @@ function new_site_wrap_tables($content) {
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
-        return $DOM->saveHTML();
+        $content = $DOM->saveHTML();
     }
+
+    return $content;
 }
-add_filter("the_content", "new_site_wrap_tables", 999);
-add_filter("acf_the_content", "new_site_wrap_tables", 999);
+add_filter("the_content", "new_site_wrap_tables", 10);
+add_filter("acf_the_content", "new_site_wrap_tables", 10);
+add_filter("tribe_events_get_the_excerpt", "new_site_wrap_tables", 10);
 
 // wrap frames in a div
 function new_site_wrap_frames($content) {
-    if ($content) {
+    global $post;
+
+    if ($content && !(is_post_type_archive("tribe_events") && $post->ID === 0)) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -299,15 +311,20 @@ function new_site_wrap_frames($content) {
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
-        return $DOM->saveHTML();
+        $content = $DOM->saveHTML();
     }
+
+    return $content;
 }
-add_filter("the_content", "new_site_wrap_frames", 999);
-add_filter("acf_the_content", "new_site_wrap_frames", 999);
+add_filter("the_content", "new_site_wrap_frames", 10);
+add_filter("acf_the_content", "new_site_wrap_frames", 10);
+add_filter("tribe_events_get_the_excerpt", "new_site_wrap_frames", 10);
 
 // add rel="noopener" to external links
 function new_site_rel_noopener($content) {
-    if ($content) {
+    global $post;
+
+    if ($content && !(is_post_type_archive("tribe_events") && $post->ID === 0)) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -324,61 +341,73 @@ function new_site_rel_noopener($content) {
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
-        return $DOM->saveHTML();
+        $content = $DOM->saveHTML();
     }
+
+    return $content;
 }
-add_filter("the_content", "new_site_rel_noopener", 999);
-add_filter("acf_the_content", "new_site_rel_noopener", 999);
+add_filter("the_content", "new_site_rel_noopener", 10);
+add_filter("acf_the_content", "new_site_rel_noopener", 10);
+add_filter("tribe_events_get_the_excerpt", "new_site_rel_noopener", 10);
 
 // enable lazy loading on images
 function new_site_lazy_load_images($content) {
-    if ($content && !((function_exists("tribe_is_month") && tribe_is_month()) && !is_tax())) {
+    global $post;
+
+    if ($content && !(is_post_type_archive("tribe_events") && $post->ID === 0)) {
         $DOM   = new DOMDocument();
 
-        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $XPath = new DOMXPath($DOM);
 
         $images = $XPath->query("//img");
 
         foreach ($images as $image) {
-            $existing_src    = $image->getAttribute("src");
-            $existing_srcset = $image->getAttribute("srcset");
+            if ($image->parentNode->nodeName !== "noscript") {
+                $existing_src    = $image->getAttribute("src");
+                $existing_srcset = $image->getAttribute("srcset");
 
-            // add noscript before images
-            $noscript = $DOM->createElement("noscript");
-            $noscript->appendChild($image->cloneNode());
-            $image->parentNode->insertBefore($noscript, $image);
+                // add noscript before images
+                $noscript = $DOM->createElement("noscript");
+                $noscript->appendChild($image->cloneNode());
+                $image->parentNode->insertBefore($noscript, $image);
 
-            // change src to data-normal
-            if ($existing_src) {
-                $image->removeAttribute("src");
-                $image->setAttribute("data-normal", $existing_src);
+                // change src to data-normal
+                if ($existing_src) {
+                    $image->removeAttribute("src");
+                    $image->setAttribute("data-normal", $existing_src);
+                }
+
+                // change srcset to data-srcset
+                if ($existing_srcset) {
+                    $image->removeAttribute("srcset");
+                    $image->setAttribute("data-srcset", $existing_srcset);
+                }
+
+                // add _js class
+                $image->setAttribute("class", "_js {$image->getAttribute("class")}");
             }
-
-            // change srcset to data-srcset
-            if ($existing_srcset) {
-                $image->removeAttribute("srcset");
-                $image->setAttribute("data-srcset", $existing_srcset);
-            }
-
-            // add _js class
-            $image->setAttribute("class", "_js {$image->getAttribute("class")}");
         }
 
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
-        return $DOM->saveHTML();
+        $content = $DOM->saveHTML();
     }
+
+    return $content;
 }
-add_filter("the_content", "new_site_lazy_load_images", 999);
-add_filter("acf_the_content", "new_site_lazy_load_images", 999);
-add_filter("post_thumbnail_html", "new_site_lazy_load_images", 999);
+add_filter("the_content", "new_site_lazy_load_images", 10);
+add_filter("acf_the_content", "new_site_lazy_load_images", 10);
+add_filter("tribe_events_get_the_excerpt", "new_site_lazy_load_images", 10);
+add_filter("post_thumbnail_html", "new_site_lazy_load_images", 10);
 
 // remove dimensions from thumbnails
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
-    if ($html) {
+    global $post;
+
+    if ($html && !(is_post_type_archive("tribe_events") && $post->ID === 0)) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -392,8 +421,10 @@ function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
-        return $DOM->saveHTML();
+        $html = $DOM->saveHTML();
     }
+
+    return $html;
 }
 add_filter("post_thumbnail_html", "new_site_remove_thumbnail_dimensions", 10, 3);
 
@@ -406,7 +437,7 @@ function new_site_acrobat_link() {
     $fields  = get_fields();
     $output  = "";
 
-    if ($content) {
+    if ($content && !is_post_type_archive("tribe_events")) {
         preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
 
         if ($matches) {
@@ -459,3 +490,32 @@ function new_site_decode_html_entities_in_blog_description($value, $field) {
     return $value;
 }
 add_filter("bloginfo", "new_site_decode_html_entities_in_blog_description", 10, 2);
+
+/*removeIf(tribe_css_js_php)*/// force redirect 'cause tribe is stupid
+function new_site_redirect_tribe_templates($template) {
+    if (is_post_type_archive("tribe_events")) {
+        return locate_template("archive-tribe_events.php");
+    } elseif (get_post_type() == "tribe_events") {
+        return locate_template("single-tribe_events.php");
+    } else {
+        return $template;
+    }
+}
+add_filter("template_include", "new_site_redirect_tribe_templates", 10, 1);
+
+// add proper link classes to next/previous event links
+function new_site_tribe_add_pagination_class($anchor) {
+    return preg_replace("/<a /", "<a class='menu-list_link link' ", $anchor);
+}
+add_filter("tribe_the_next_event_link", "new_site_tribe_add_pagination_class");
+add_filter("tribe_the_prev_event_link", "new_site_tribe_add_pagination_class");
+
+// add proper title classes to month $table_headers
+function new_site_tribe_add_month_title_class($html) {
+    if ($html) {
+        $html = "<h5 class='tribe-events_title title -divider'>{$html}</h5>";
+    }
+
+    return $html;
+}
+add_filter("tribe_events_list_the_date_headers", "new_site_tribe_add_month_title_class");/*endRemoveIf(tribe_css_js_php)*/
