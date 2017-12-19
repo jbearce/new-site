@@ -80,6 +80,8 @@
         background-color: $dark_alt;
         height: 100%;
         max-width: remify(350, 16);
+        overflow: auto;
+        overscroll-behavior: contain;
         padding: 0;
         pointer-events: auto;
         position: fixed;
