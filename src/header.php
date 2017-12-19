@@ -10,16 +10,16 @@
 
         <!-- Android -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-favicon.png" rel="shortcut icon" />
-        <meta name="theme-color" content="@@theme_color">
+        <meta name="theme-color" content="@@pwa_theme_color">
 
         <!-- iOS -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-ios.png" rel="apple-touch-icon" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="@@theme_color">
+        <meta name="apple-mobile-web-app-status-bar-style" content="@@pwa_theme_color">
 
         <!-- Windows -->
         <meta content="no" name="msapplication-tap-highlight" />
-        <meta name="msapplication-navbutton-color" content="@@theme_color">
-        <meta content="@@theme_color" name="msapplication-TileColor" />
+        <meta name="msapplication-navbutton-color" content="@@pwa_theme_color">
+        <meta content="@@pwa_theme_color" name="msapplication-TileColor" />
         <meta content="<?php bloginfo("name"); ?>" name="application-name" />
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-tiny.png" name="msapplication-square70x70logo" />
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-square.png" name="msapplication-square150x150logo" />

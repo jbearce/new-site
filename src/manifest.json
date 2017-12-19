@@ -3,8 +3,8 @@
   "name": "@@pwa_name",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "@@theme_color",
-  "theme_color": "@@theme_color",
+  "background_color": "@@pwa_theme_color",
+  "theme_color": "@@pwa_theme_color",
   "icons": [
     {
       "src": "assets/media/logo-pwa-small.png",
