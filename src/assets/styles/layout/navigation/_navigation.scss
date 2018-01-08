@@ -80,8 +80,6 @@
         background-color: $dark_alt;
         height: 100%;
         max-width: remify(350, 16);
-        overflow: auto;
-        overscroll-behavior: contain;
         padding: 0;
         pointer-events: auto;
         position: fixed;
@@ -120,5 +118,11 @@
     &.is-transitioning > .navigation_inner > * {
         transition: none;
         visibility: visible;
+    }
+
+    > .navigation_inner > .navigation_scroller {
+        max-height: 100%;
+        overflow: auto;
+        overscroll-behavior: contain;
     }
 }
