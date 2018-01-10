@@ -89,7 +89,7 @@ add_filter("acf_the_content", "new_site_fix_shortcodes", 5);
 function new_site_add_user_content_classes($content) {
     global $post;
 
-    if ($content && !$GLOBALS["tribe_archive_loop"]) {
+    if ($content && !$GLOBALS["tribe_hooked_template"]) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -235,7 +235,7 @@ add_filter("tribe_events_get_the_excerpt", "new_site_add_user_content_classes", 
 function new_site_wrap_tables($content) {
     global $post;
 
-    if ($content && !$GLOBALS["tribe_archive_loop"]) {
+    if ($content && !$GLOBALS["tribe_hooked_template"]) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -266,7 +266,7 @@ add_filter("tribe_events_get_the_excerpt", "new_site_wrap_tables", 10);
 function new_site_wrap_frames($content) {
     global $post;
 
-    if ($content && !$GLOBALS["tribe_archive_loop"]) {
+    if ($content && !$GLOBALS["tribe_hooked_template"]) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -324,7 +324,7 @@ add_filter("tribe_events_get_the_excerpt", "new_site_wrap_frames", 10);
 function new_site_rel_noopener($content) {
     global $post;
 
-    if ($content && !$GLOBALS["tribe_archive_loop"]) {
+    if ($content && !$GLOBALS["tribe_hooked_template"]) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -354,7 +354,7 @@ add_filter("tribe_events_get_the_excerpt", "new_site_rel_noopener", 10);
 function new_site_lazy_load_images($content) {
     global $post;
 
-    if ($content && !$GLOBALS["tribe_archive_loop"]) {
+    if ($content && !$GLOBALS["tribe_hooked_template"]) {
         $DOM   = new DOMDocument();
 
         $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -407,7 +407,7 @@ add_filter("post_thumbnail_html", "new_site_lazy_load_images", 10);
 function new_site_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     global $post;
 
-    if ($html && !$GLOBALS["tribe_archive_loop"]) {
+    if ($html && !$GLOBALS["tribe_hooked_template"]) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 

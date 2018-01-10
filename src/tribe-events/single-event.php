@@ -46,7 +46,11 @@ $event_id = get_the_ID();
 			<?php do_action("tribe_events_single_event_before_the_content"); ?>
 			<div class="tribe-events-single-event-description tribe-events-content article_content">
                 <div class="article_user-content user-content">
+                    <?php $GLOBALS["tribe_hooked_template"] = false; ?>
+
                     <?php the_content(); ?>
+
+                    <?php $GLOBALS["tribe_hooked_template"] = true; ?>
                 </div><!--/.article_user-content.user-content-->
 			</div><!--/.article_content-->
 			<?php
