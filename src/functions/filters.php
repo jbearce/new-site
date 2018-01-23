@@ -509,6 +509,8 @@ function new_site_tribe_add_pagination_class($anchor) {
 }
 add_filter("tribe_the_next_event_link", "new_site_tribe_add_pagination_class");
 add_filter("tribe_the_prev_event_link", "new_site_tribe_add_pagination_class");
+add_filter("tribe_events_the_previous_month_link", "new_site_tribe_add_pagination_class");
+add_filter("tribe_events_the_next_month_link", "new_site_tribe_add_pagination_class");
 
 // add proper title classes to month $table_headers
 function new_site_tribe_add_month_title_class($html) {
