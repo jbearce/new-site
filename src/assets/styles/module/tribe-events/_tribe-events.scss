@@ -8,6 +8,14 @@
 
 /* Tribe is stupidly specific with their classes... */
 
+/* Button */
+
+.tribe-events-button {
+    & {
+        @extend .button;
+    }
+}
+
 /* Loader */
 
 .tribe-events-ajax-loading {
