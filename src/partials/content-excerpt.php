@@ -1,7 +1,7 @@
 <?php
 $post_variant    = isset($post_vairant) ? " {$post_variant}" : "";
-$post_title      = isset($post_title) ? $post_title : (isset($post) ? $post->post_title : "");
 $post_permalink  = isset($post_permalink) ? $post_permalink : (isset($post) ? get_the_permalink($post->ID) : "");
+$post_title      = isset($post_title) ? $post_title : (isset($post) ? $post->post_title : "");
 $post_categories = isset($post_categories) ? $post_categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
 $post_tags       = isset($post_tags) ? $post_tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
 $post_comments   = isset($post_comments) ? $post_comments : (isset($post) ? get_comments_number($post->ID) : "");
@@ -95,8 +95,8 @@ $post_excerpt    = isset($post_excerpt) ? $post_excerpt : (isset($post) ? get_be
 
 <?php
 unset($post_variant);
-unset($post_title);
 unset($post_permalink);
+unset($post_title);
 unset($post_show_meta);
 unset($post_categories);
 unset($post_tags);
