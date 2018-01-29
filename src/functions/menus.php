@@ -405,7 +405,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                 }
 
                 // remove menu items that aren't children of the specified parent
-                if (!in_array($parent_id, $current_menu_item_parents) && !(isset($args->show_parent) && $parent_id == $item->ID)) {
+                if (!in_array($parent_id, $current_menu_item_parents) && !(isset($args->show_parent) && $parent_id == $menu_item->ID)) {
                     $menu_items_removed = true;
                     unset($menu_items_copy[$key]);
                 }
