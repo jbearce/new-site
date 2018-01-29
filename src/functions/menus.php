@@ -339,7 +339,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
                 }
             }
 
-            if (isset($args->parent_id)) {
+            if (isset($args->parent_id) && $args->parent_id !== false) {
                 // get the menu ID of the specified parent ID
                 foreach ($menu_items as $menu_item) {
                     if ($menu_item->object_id == $args->parent_id) {
@@ -371,7 +371,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
         } // (!isset($args->only_viewed) || (isset($args->only_viewed) && $args->only_viewed === false))
 
         // display a specific section of links if parent_id is set
-        if (isset($args->parent_id)) {
+        if (isset($args->parent_id) && $args->parent_id !== false) {
             $parent_id          = 0;
             $menu_items_removed = false;
             $menu_items_copy    = $menu_items;
