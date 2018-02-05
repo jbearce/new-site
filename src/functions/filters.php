@@ -57,6 +57,12 @@ function new_site_ninja_forms_html($default_value, $field_class, $field_settings
 }
 add_filter("ninja_forms_render_default_value", "new_site_ninja_forms_html", 10, 3);
 
+// fix Ninja Forms not being output when no content exists and selected via meta box
+function new_site_fix_ninja_forms($content) {
+    return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
+}
+add_filter("the_content", "new_site_fix_ninja_forms", 5);
+
 // fix shortcode formatting
 function new_site_fix_shortcodes($content) {
     if (!is_admin()) {

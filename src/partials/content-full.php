@@ -1,11 +1,11 @@
 <?php
 $post_variant    = isset($post_variant) ? " {$post_variant}" : "";
-$post_permalink  = isset($post_permalink) ? $post_permalink : (isset($post) ? get_the_permalink($post->ID) : "");
-$post_title      = isset($post_title) ? $post_title : (isset($post) ? $post->post_title : "");
+$post_permalink  = apply_filters("the_permalink", isset($post_permalink) ? $post_permalink : (isset($post) ? get_the_permalink($post->ID) : ""));
+$post_title      = apply_filters("the_title", isset($post_title) ? $post_title : (isset($post) ? $post->post_title : ""));
 $post_categories = isset($post_categories) ? $post_categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
 $post_tags       = isset($post_tags) ? $post_tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
 $post_comments   = isset($post_comments) ? $post_comments : (isset($post) ? get_comments_number($post->ID) : "");
-$post_content    = isset($post_content) ? $post_content : (isset($post) ? $post->post_content : "");
+$post_content    = apply_filters("the_content", isset($post_content) ? $post_content : (isset($post) ? $post->post_content : ""));
 ?>
 
 <?php if ($post_title || (((isset($post_show_meta) && $post_show_meta === true) || (get_post_type() === "post" && !(isset($post_show_meta) && $post_show_meta === false))) && ($post_permalink || $post_categories || $post_tags || $post_comments)) || $post_content): ?>
@@ -15,7 +15,7 @@ $post_content    = isset($post_content) ? $post_content : (isset($post) ? $post-
             <header class="article_header">
                 <?php if ($post_title): ?>
                     <h1 class="article_title title">
-                        <?php echo apply_filters("the_title", $post_title); ?>
+                        <?php echo $post_title; ?>
                     </h1><!--/.article_title.title-->
                 <?php endif; ?>
 
@@ -25,7 +25,7 @@ $post_content    = isset($post_content) ? $post_content : (isset($post) ? $post-
 
                             <?php if ($post_permalink): ?>
                                 <li class="menu-list_item">
-                                    <a class="menu-list_link link" href="<?php echo apply_filters("the_permalink", $post_permalink); ?>"><icon use="clock" /> <time datetime="<?php echo get_the_date("c"); ?>"><?php the_date(); ?></time></a>
+                                    <a class="menu-list_link link" href="<?php echo $post_permalink; ?>"><icon use="clock" /> <time datetime="<?php echo get_the_date("c"); ?>"><?php the_date(); ?></time></a>
                                 </li>
                             <?php endif; ?>
 
@@ -79,7 +79,7 @@ $post_content    = isset($post_content) ? $post_content : (isset($post) ? $post-
         <?php if ($post_content): ?>
             <div class="article_content">
                 <div class="article_user-content user-content">
-                    <?php echo apply_filters("the_content", $post_content); ?>
+                    <?php echo $post_content; ?>
                 </div><!--/.article_user-content.user-content-->
             </div><!--/.article_content-->
         <?php endif; ?>
