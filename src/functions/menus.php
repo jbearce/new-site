@@ -301,7 +301,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
         foreach ($menu_items as $menu_item) {
             // find the currently active menu item, but exclude custom links for override purposes
             if ($menu_item->current && $menu_item->type !== "custom") {
-                $root_id = ($menu_item->menu_item_parent) ? $menu_item->menu_item_parent : $menu_item->ID;
+                $root_id = $menu_item->menu_item_parent ? $menu_item->menu_item_parent : $menu_item->ID;
                 break;
             }
         }
@@ -332,7 +332,7 @@ function new_site_nav_menu_sub_menu($menu_items, $args) {
 
             // get the ID of the currently viewed page and its parent
             foreach ($menu_items as $menu_item) {
-                if (in_array("current-menu-item", $menu_item->classes)) {
+                if ($menu_item->current && $menu_item->type !== "custom") {
                     $viewed_id        = $menu_item->ID;
                     $viewed_parent_id = $menu_item->menu_item_parent;
                     break;
