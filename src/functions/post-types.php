@@ -3,7 +3,7 @@
  * Functions: Post Types
 \* ------------------------------------------------------------------------ */
 /*removeIf(resources_css_js_php)*/
-// register project post type
+// register resource post type
 function new_site_create_resource_post_type() {
     register_post_type("resource", array(
         "has_archive" 	     => true,
