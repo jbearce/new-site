@@ -1,46 +1,71 @@
-<?php get_header(); ?>
-<?php include(locate_template("partials/block-hero.php")); ?>
-<div class="content-block -fullbleed">
-    <div class="content_inner">
-        <div class="content_post">
-            <?php do_action("new_site_before_content"); ?>
+<?php
+$post_variant = isset($post_vairant) ? " {$post_variant}" : "";
 
-            <?php
-            $queried_object  = get_queried_object();
-            $archive_title   = is_post_type_archive() && isset($queried_object->label) && $queried_object->label ? $queried_object->label : (single_term_title("", false) ? single_term_title("", false) : get_the_archive_title());
-            $archive_content = isset($queried_object->description) && $queried_object->description ? $queried_object->description : get_the_archive_description();
-            ?>
+if (!isset($post_type_label)) {
+    $queried_object = get_queried_object();
 
-            <?php if ($archive_title): ?>
-                <header class="content_header">
-                    <h1 class="content_title title">
-                        <?php echo apply_filters("the_title", $archive_title); ?>
-                    </h1><!--/.content_title.title-->
-                </header><!--/.content_header-->
-            <?php endif; // if (get_the_archive_title()) ?>
+    if (is_post_type_archive() && isset($queried_object->labels->name)) {
+        $post_type_label = strtolower($queried_object->labels->name);
+    } elseif (is_archive()) {
+        global $wp_taxonomies;
 
-            <?php if ($archive_content): ?>
-                <div class="content_content">
-                    <div class="content_user-content user-content">
-                        <?php echo apply_filters("the_content", $archive_content); ?>
-                    </div><!--/.content_user-content.user-content-->
-                </dv><!--/.content_content-->
-            <?php endif; ?>
+        if (isset($queried_object->taxonomy)) {
+            $post_types = isset($wp_taxonomies[$queried_object->taxonomy]) ? $wp_taxonomies[$queried_object->taxonomy]->object_type : "";
 
-            <?php if (have_posts()): ?>
-                <?php while (have_posts()): the_post(); ?>
-                    <?php $post_variant = "content_article"; ?>
-                    <?php include(locate_template("partials/content-excerpt.php")); ?>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <?php $post_variant = "content_article"; ?>
-                <?php include(locate_template("partials/content-none.php")); ?>
-            <?php endif; ?>
+            if (isset($post_types[0])) {
+                $post_type = get_post_type_object($post_types[0]);
 
-            <?php include(locate_template("partials/list-pagination.php")); ?>
+                if (isset($post_type->label)) {
+                    $post_type_label = strtolower($post_type->label);
+                }
+            }
 
-            <?php do_action("new_site_after_content"); ?>
-        </div><!--/.content_post-->
-    </div><!--/.content_inner-->
-</div><!--/.content-block.-fullbleed-->
-<?php get_footer(); ?>
+            if (!isset($post_taxonomy_label)) {
+                $taxonomy_labels = get_taxonomy_labels(get_taxonomy($queried_object->taxonomy));
+                if (isset($taxonomy_labels->singular_name)) {
+                    $post_taxonomy_label = strtolower($taxonomy_labels->singular_name);
+                }
+            }
+        }
+    }
+}
+
+if (!isset($post_type_label)) {
+    $post_type_label = __("posts", "nssra");
+}
+
+if (!isset($post_taxonomy_label)) {
+    $post_taxonomy_label = __("taxonomy", "nssra");
+}
+
+if (!isset($post_error)) {
+    if (is_post_type_archive()) {
+        $post_error = sprintf(__("Sorry, no %s could be found.", "nssra"), $post_type_label);
+    } elseif (is_archive()) {
+        $post_error = sprintf(__("Sorry, no %s could be found in this %s.", "nssra"), $post_type_label, $post_taxonomy_label);
+    } elseif (is_search()) {
+        if (get_search_query()) {
+            $post_error = sprintf(__("Sorry, no %s could be found for the search phrase %s%s.%s", "nssra"), $post_type_label, "&ldquo;", get_search_query(), "&rdquo;");
+        } else {
+            $post_error = __("No search query was entered.", "nssra");
+        }
+    } else {
+        $post_error = sprintf(__("Sorry, no %s could be found matching this criteria.", "nssra"), $post_type_label);
+    }
+}
+?>
+
+<?php if ($post_error): ?>
+    <article class="article<?php echo $post_variant; ?>">
+        <div class="article_content">
+            <p class="article_text text"><?php echo $post_error; ?></p>
+        </div><!--/.article_content-->
+    </article><!--/.article-->
+<?php endif; ?>
+
+<?php
+unset($post_variant);
+unset($post_type_label);
+unset($post_taxonomy_label);
+unset($post_error);
+?>
