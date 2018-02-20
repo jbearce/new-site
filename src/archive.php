@@ -5,26 +5,27 @@
         <div class="content_post">
             <?php do_action("new_site_before_content"); ?>
 
-            <?php $term = get_queried_object(); ?>
-            <?php if (get_the_archive_title() || $term->description): ?>
-                <article class="content_article article -introduction">
+            <?php
+            $queried_object  = get_queried_object();
+            $archive_title   = is_post_type_archive() && isset($queried_object->label) && $queried_object->label ? $queried_object->label : (single_term_title("", false) ? single_term_title("", false) : get_the_archive_title());
+            $archive_content = isset($queried_object->description) && $queried_object->description ? $queried_object->description : get_the_archive_description();
+            ?>
 
-                    <?php if (get_the_archive_title()): ?>
-                        <header class="article_header">
-                            <?php the_archive_title("<h1 class='article_title title'>", "</h1>"); ?>
-                        </header><!--/.article_header-->
-                    <?php endif; // if (get_the_archive_title()) ?>
+            <?php if ($archive_title): ?>
+                <header class="content_header">
+                    <h1 class="content_title title">
+                        <?php echo apply_filters("the_title", $archive_title); ?>
+                    </h1><!--/.content_title.title-->
+                </header><!--/.content_header-->
+            <?php endif; // if (get_the_archive_title()) ?>
 
-                    <?php if ($term->description): ?>
-                        <div class="article_content">
-                            <div class="article_user-content user-content">
-                                <?php echo wpautop($term->description); ?>
-                            </div><!--/.article_user-content.user-content-->
-                        </div><!--/.article_content-->
-                    <?php endif; ?>
-
-                </article><!--/.content_article article.-introduction-->
-            <?php endif; // if (get_the_archive_title() || $term->description) ?>
+            <?php if ($archive_content): ?>
+                <div class="content_content">
+                    <div class="content_user-content user-content">
+                        <?php echo apply_filters("the_content", $archive_content); ?>
+                    </div><!--/.content_user-content.user-content-->
+                </dv><!--/.content_content-->
+            <?php endif; ?>
 
             <?php if (have_posts()): ?>
                 <?php while (have_posts()): the_post(); ?>
