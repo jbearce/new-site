@@ -501,7 +501,7 @@ add_filter("bloginfo", "new_site_decode_html_entities_in_blog_description", 10, 
 function new_site_redirect_tribe_templates($template) {
     if (is_post_type_archive("tribe_events")) {
         return locate_template("archive-tribe_events.php");
-    } elseif (get_post_type() == "tribe_events") {
+    } elseif (is_singular("tribe_events")) {
         return locate_template("single-tribe_events.php");
     } else {
         return $template;
