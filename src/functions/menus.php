@@ -277,6 +277,10 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 }
 
                 if ($field["description"]) {
+                    if (in_array($field["type"], array("radio", "checkbox"))) {
+                        $fields_markup .= "<br>";
+                    }
+                    
                     $fields_markup .= "<span class='description'>{$field["description"]}</span>";
                 }
 
