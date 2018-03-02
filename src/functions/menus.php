@@ -217,10 +217,13 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
     class new_site_create_custom_menu_options extends Walker_Nav_Menu_Edit {
+        static $displayed_fields = array();
+
         // create an array with all the new fields
         static function get_custom_fields() {
             return array(
                 array(
+                    "location"    => "primary",
                     "type"        => "checkbox",
                     "name"        => "column_start",
                     "label"       => __("Start a new column here", "new_site"),
@@ -234,6 +237,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // append the new fields to the menu system
         function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+            $all_menus    = get_nav_menu_locations();
+            $current_menu = get_the_terms($item->ID, "nav_menu")[0]->term_id;
+
             $fields = self::get_custom_fields();
 
             $fields_markup = "";
@@ -243,6 +249,13 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
             // set up each new custom field
             foreach ($fields as $field) {
+                // skip the field if it has a specific location set that the viewed menu isn't set to
+                if ((isset($all_menus[$field["location"]]) && $current_menu !== $all_menus[$field["location"]]) || !isset($all_menus[$field["location"]])) {
+                    continue;
+                } elseif (!in_array($field["name"], self::$displayed_fields)) {
+                    self::$displayed_fields[] = $field["name"];
+                }
+
                 // retrieve the existing value from the database
                 $field["meta_value"] = get_post_meta($item->ID, "_menu_item_{$field["name"]}", true);
 
@@ -280,7 +293,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                     if (in_array($field["type"], array("radio", "checkbox"))) {
                         $fields_markup .= "<br>";
                     }
-                    
+
                     $fields_markup .= "<span class='description'>{$field["description"]}</span>";
                 }
 
@@ -304,12 +317,14 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $fields = self::get_custom_fields();
 
             foreach ($fields as $field) {
-                $POST_key = "menu-item-{$field["name"]}";
-                $meta_key = "_menu_item_{$field["name"]}";
+                if (in_array($field["name"], self::$displayed_fields)) {
+                    $POST_key = "menu-item-{$field["name"]}";
+                    $meta_key = "_menu_item_{$field["name"]}";
 
-                $field["value"] = isset($_POST[$POST_key][$post_id]) ? sanitize_text_field($_POST[$POST_key][$post_id]) : "";
+                    $field["value"] = isset($_POST[$POST_key][$post_id]) ? sanitize_text_field($_POST[$POST_key][$post_id]) : "";
 
-                update_post_meta($post_id, $meta_key, $field["value"]);
+                    update_post_meta($post_id, $meta_key, $field["value"]);
+                }
             }
         }
 
@@ -323,7 +338,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $fields = self::get_custom_fields();
 
             foreach ($fields as $field) {
-                if ($field["scripts"]) {
+                if ($field["scripts"] && in_array($field["name"], self::$displayed_fields)) {
                     echo "<script>{$field["styles"]}</script>";
                 }
             }
@@ -334,7 +349,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $fields = self::get_custom_fields();
 
             foreach ($fields as $field) {
-                if ($field["styles"]) {
+                if ($field["styles"] && in_array($field["name"], self::$displayed_fields)) {
                     echo "<style>{$field["styles"]}</style>";
                 }
             }
@@ -345,7 +360,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $fields = self::get_custom_fields();
 
             foreach ($fields as $field) {
-                $args[$field["name"]] = $field["label"];
+                if (in_array($field["name"], self::$displayed_fields)) {
+                    $args[$field["name"]] = $field["label"];
+                }
             }
 
             return $args;
