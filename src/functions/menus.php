@@ -223,7 +223,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         static function get_custom_fields() {
             return array(
                 array(
-                    "location"    => "primary",
+                    "locations"   => array("primary"),
                     "type"        => "checkbox",
                     "name"        => "column_start",
                     "label"       => __("Start a new column here", "new_site"),
@@ -237,8 +237,8 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // append the new fields to the menu system
         function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-            $all_menus    = get_nav_menu_locations();
-            $current_menu = get_the_terms($item->ID, "nav_menu")[0]->term_id;
+            $all_menus      = get_nav_menu_locations();
+            $assigned_menus = get_the_terms($item->ID, "nav_menu");
 
             $fields = self::get_custom_fields();
 
@@ -249,10 +249,29 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
             // set up each new custom field
             foreach ($fields as $field) {
-                // skip the field if it has a specific location set that the viewed menu isn't set to
-                if ($field["location"] && ((isset($all_menus[$field["location"]]) && $current_menu !== $all_menus[$field["location"]]) || !isset($all_menus[$field["location"]]))) {
-                    continue;
-                } elseif (!in_array($field["name"], self::$displayed_fields)) {
+                // if fixed locations are set, see if the menu is assigned to that location, and if not, skip the field
+                if ($field["locations"]) {
+                    $skip = true;
+
+                    if ($all_menus) {
+                        foreach ($field["locations"] as $location) {
+                            if (isset($all_menus[$location])) {
+                                foreach ($assigned_menus as $assigned_menu) {
+                                    if ($assigned_menu->term_id === $all_menus[$location]) {
+                                        $skip = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if ($skip === true) {
+                        continue;
+                    }
+                }
+
+                // store the displayed fields for later use
+                if (!in_array($field["name"], self::$displayed_fields)) {
                     self::$displayed_fields[] = $field["name"];
                 }
 
