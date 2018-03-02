@@ -3,9 +3,6 @@
  * Functions: Menus
 \* ------------------------------------------------------------------------ */
 
-// determine wether mega menu is enabled or not
-define("ENABLE_MEGA_MENU", true);
-
 // register the menus
 register_nav_menus(array(
 	"primary" => __("Navigation", "new_site"),
@@ -31,23 +28,15 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         // convert the params in to an array
         $params = explode(" ", $this->params);
 
-        if (ENABLE_MEGA_MENU && in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) {
-            $i = 0;
-
-            foreach ($children_elements[$element->ID] as $child) {
-                $has_columns = get_post_meta($child->ID, "_menu_item_column");
+        if (in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
+            foreach ($children_elements[$element->ID] as $child) { $i++;
+                $has_columns = get_post_meta($child->ID, "_menu_item_column_start");
                 $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
 
-                $i++;
-
-                if ($i > 1) {
-                    if (intval($has_columns[0]) === 1 && intval($parent_id[0]) === $element->ID) {
-                        array_push($element->classes, "-mega");
-                        break;
-                    }
+                if ($i > 1 && $has_columns[0] === "true" && intval($parent_id[0]) === $element->ID) {
+                    array_push($element->classes, "-mega"); break;
                 }
             }
-
         }
 
         return parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
@@ -56,6 +45,24 @@ class new_site_menu_walker extends Walker_Nav_Menu {
     public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         // convert the params in to an array
         $params = explode(" ", $this->params);
+
+        // mega menu stuff
+        if (in_array("mega", $params)) {
+            if ($depth === 0) {
+    			self::$li_count = 0;
+    		}
+
+    		if ($depth === 1 && self::$li_count === 1) {
+    			$this->column_count++;
+    		}
+
+            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column_start", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
+                $output .= "</ul><ul class='menu-list -vertical -child -tier1 -mega'>";
+    			$this->column_count++;
+            }
+
+            self::$li_count++;
+        }
 
         // get the current classes
         $classes = $item->classes ? $item->classes : array();
@@ -99,25 +106,6 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         $aria_describedby = $item->description ? " aria-describedby='{$uniqid}'" : "";
         $description      = $item->description ? " <span class='menu-item_description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
 
-        /* mega menu stuff */
-
-        if (ENABLE_MEGA_MENU && in_array("mega", $params)) {
-            if ($depth === 0) {
-    			self::$li_count = 0;
-    		}
-
-    		if ($depth === 1 && self::$li_count === 1) {
-    			$this->column_count++;
-    		}
-
-            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
-                $output .= "</ul><ul class='menu-list -vertical -child -tier1 -mega'>";
-    			$this->column_count++;
-            }
-
-            self::$li_count++;
-        }
-
         // construct the menu item
         $output .= sprintf(
             "<li%s><a class='menu-list_link link' href='%s'%s%s%s%s>%s</a>%s",
@@ -131,13 +119,12 @@ class new_site_menu_walker extends Walker_Nav_Menu {
             $description
         );
 
-        /* mega menu stuff */
-
-        if (ENABLE_MEGA_MENU && in_array("mega", $params)) {
+        // mega menu stuff
+        if (in_array("mega", $params)) {
             if (in_array("-mega", $classes)) {
                 $this->is_mega = true;
 
-                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Click to toggle children", "new_site") . "</button>";
+                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children (mega)", "new_site") . "</button>";
                 $output .= "<div class='menu-list_container -mega' aria-hidden='true'>";
             }
         }
@@ -150,15 +137,15 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         // add a toggle button
         $toggle = "";
 
-        if (in_array("accordion", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("touch", $params) && !in_array("hover", $params)) {
+        if (in_array("accordion", $params) && !$this->is_mega && !in_array("touch", $params) && !in_array("hover", $params)) {
             $toggle .= "<button class='menu-list_toggle'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
-        if (in_array("touch", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("accordion", $params)) {
+        if (in_array("touch", $params) && !$this->is_mega && !in_array("accordion", $params)) {
             $toggle .= "<button class='menu-list_toggle _touch'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "new_site") . "</span></button>";
         }
 
-        if (in_array("hover", $params) && !(ENABLE_MEGA_MENU && $this->is_mega) && !in_array("accordion", $params)) {
+        if (in_array("hover", $params) && !$this->is_mega && !in_array("accordion", $params)) {
             $toggle .= "<button class='menu-list_toggle _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "") . "'>" . __("Toggle children", "new_site") . "</button>";
         }
 
@@ -175,21 +162,21 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         }
 
         // add the appropriate variant class
-        if (in_array("accordion", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) {
+        if (in_array("accordion", $params) && !$this->is_mega) {
             $variant .= " -accordion";
-        } elseif ((in_array("hover", $params) || in_array("touch", $params)) && !(ENABLE_MEGA_MENU && $this->is_mega)) {
+        } elseif ((in_array("hover", $params) || in_array("touch", $params)) && !$this->is_mega) {
             $variant .= " -overlay";
-        } elseif (ENABLE_MEGA_MENU && $this->is_mega) {
+        } elseif ($this->is_mega) {
             $variant .= " -mega";
         }
 
         // add data properties for the menu script to interact with
         $data = "";
-        if (in_array("hover", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) $data .= " data-click='true'";
-        if (in_array("touch", $params) && !(ENABLE_MEGA_MENU && $this->is_mega)) $data   .= " data-touch='true'";
+        if (in_array("hover", $params) && !$this->is_mega) $data .= " data-hover='true'";
+        if (in_array("touch", $params) && !$this->is_mega) $data   .= " data-touch='true'";
 
         // add aria attribute if the mega parameter is not passed
-        $aria = (ENABLE_MEGA_MENU && $this->is_mega) ? "" : (in_array("hover", $params) || in_array("touch", $params) ? " aria-hidden='true'" : "");
+        $aria = ($this->is_mega) ? "" : (in_array("hover", $params) || in_array("touch", $params) ? " aria-hidden='true'" : "");
 
         // construct the menu list
         $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$data}{$aria}>";
@@ -207,9 +194,8 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         // reset the column counter
         $this->column_count = 0;
 
-        /* mega menu stuff */
-
-        if (ENABLE_MEGA_MENU && in_array("mega", $params)) {
+        // mega menu stuff
+        if (in_array("mega", $params)) {
             // get the current classes
             $classes = $item->classes ? $item->classes : array();
 
@@ -225,65 +211,147 @@ class new_site_menu_walker extends Walker_Nav_Menu {
     }
 }
 
-// add "Start New Column" checkboxes to the editor for a mega menu
-if (ENABLE_MEGA_MENU && is_admin()) {
-    // @TODO figure out how to only do this on the menu editor page
-    // require nav-menu.php so we can hook Walker_Nav_Menu_Edit
+// add custom options to the menu editor
+if (is_admin() && $pagenow === "nav-menus.php") {
+    // include this so we can access Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
-    class new_site_mega_menu_column_checkbox_setup extends Walker_Nav_Menu_Edit {
-        static $field = array("name" => "column");
-
-        // add a new checkbox to each menu item
-        function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-            $item_output = "";
-
-            // get the parent item
-            parent::start_el($item_output, $item, $depth, $args);
-
-            self::$field["value"] = get_post_meta($item->ID, "_menu_item_" . self::$field["name"], true);
-            self::$field["checked"] = "value='1' " . checked(self::$field["value"], 1, false);
-
-            $new_field = "<p class='field-" . self::$field["name"] . " description'><label for='edit-menu-item-" . self::$field["name"] . "-{$item->ID}'>";
-            $new_field .= "<input type='checkbox' id='edit-menu-item-" . self::$field["name"] . "-{$item->ID}' class='widefat code edit-menu-item-" . self::$field["name"] . "' name='menu-item-" . self::$field["name"] . "[{$item->ID}]'" . self::$field["checked"] . " />";
-            $new_field .= __("Start new column here", "new_site");
-            $new_field .= "</label></p>";
-
-            $output .= preg_replace("/(?=<p[^>]+class=\"[^\"]*field-css-classes)/", $new_field, $item_output);
+    class new_site_create_custom_menu_options extends Walker_Nav_Menu_Edit {
+        // create an array with all the new fields
+        static function get_custom_fields() {
+            return array(
+                array(
+                    "type"        => "checkbox",
+                    "name"        => "column_start",
+                    "label"       => __("Start a new column here", "new_site"),
+                    "description" => "",
+                    "scripts"     => "",
+                    "styles"      => ".menu-item:not(.menu-item-depth-1) .field-column_start, .menu-item.menu-item-depth-0 + .menu-item.menu-item-depth-1 .field-column_start {display:none;}",
+                    "value"       => "true",
+                ),
+            );
         }
 
-        // function to save the new field
-        static function _save_post($post_id) {
+        // append the new fields to the menu system
+        function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+            $fields = self::get_custom_fields();
+
+            $fields_markup = "";
+
+            // get the menu item
+            parent::start_el($item_output, $item, $depth, $args);
+
+            // set up each new custom field
+            foreach ($fields as $field) {
+                // retrieve the existing value from the database
+                $field["meta_value"] = get_post_meta($item->ID, "_menu_item_{$field["name"]}", true);
+
+                $fields_markup .= "<p class='field-{$field["name"]} description description-wide'>";
+                $fields_markup .= "<label for='edit-menu-item-{$field["name"]}-{$item->ID}'>";
+
+                if ($field["type"] === "text") {
+                    $fields_markup .= "{$field["label"]}<br>";
+                    $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' />";
+                } elseif ($field["type"] === "textarea") {
+                    $fields_markup .= "{$field["label"]}<br>";
+                    $fields_markup .= "<textarea id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>{$field["meta_value"]}</textarea>";
+                } elseif ($field["type"] === "select") {
+                    $fields_markup .= "{$field["label"]}<br>";
+                    $fields_markup .= "<select id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>";
+
+                    foreach ($field["options"] as $value => $label) {
+                        $fields_markup .= "<option value='{$value}'" . ($field["meta_value"] === $value ? " selected='selected'" : "") . ">{$label}</option>";
+                    }
+
+                    $fields_markup .= "</select>";
+                } elseif ($field["type"] === "radio") {
+                    foreach ($field["options"] as $value => $label) {
+                        $fields_markup .= "<label for='edit-menu-item-{$field["name"]}-{$item->ID}-" . sanitize_title($value) . "'>";
+                        $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}-" . sanitize_title($value) . "' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$value}' type='radio'" . checked($field["meta_value"], $value, false) . " />";
+                        $fields_markup .= $label;
+                        $fields_markup .= "</label>&nbsp;&nbsp;";
+                    }
+                } elseif ($field["type"] === "checkbox") {
+                    $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["value"]}' type='checkbox'" . checked($field["meta_value"], $field["value"], false) . " />";
+                    $fields_markup .= $field["label"];
+                }
+
+                if ($field["description"]) {
+                    $fields_markup .= "<span class='description'>{$field["description"]}</span>";
+                }
+
+                $fields_markup .= "</label>";
+                $fields_markup .= "</p>";
+            }
+
+            // insert the new markup before the fieldset tag
+            $item_output = preg_replace("/(<fieldset)/", "{$fields_markup}$1", $item_output);
+
+            // update the output
+            $output .= $item_output;
+        }
+
+        // save the new fields
+        static function save_field_data($post_id) {
             if (get_post_type($post_id) !== "nav_menu_item") {
                 return;
             }
 
-            $form_field_name = "menu-item-" . self::$field["name"];
-            $key = "_menu_item_" . self::$field["name"];
-            $value = isset($_POST[$form_field_name][$post_id]) ? stripslashes($_POST[$form_field_name][$post_id]) : "";
+            $fields = self::get_custom_fields();
 
-            update_post_meta($post_id, $key, $value);
+            foreach ($fields as $field) {
+                $POST_key = "menu-item-{$field["name"]}";
+                $meta_key = "_menu_item_{$field["name"]}";
+
+                $field["value"] = isset($_POST[$POST_key][$post_id]) ? sanitize_text_field($_POST[$POST_key][$post_id]) : "";
+
+                update_post_meta($post_id, $meta_key, $field["value"]);
+            }
         }
 
         // add the save function to the save_post action
-        static function setup() {
-            add_action("save_post", array(__CLASS__, "_save_post"));
+        static function setup_custom_fields() {
+            add_action("save_post", array(__CLASS__, "save_field_data"));
+        }
+
+        // insert field custom scripts in to the admin footer
+        static function insert_custom_scripts() {
+            $fields = self::get_custom_fields();
+
+            foreach ($fields as $field) {
+                if ($field["scripts"]) {
+                    echo "<script>{$field["styles"]}</script>";
+                }
+            }
+        }
+
+        // insert field custom styles in to the admin header
+        static function insert_custom_styles() {
+            $fields = self::get_custom_fields();
+
+            foreach ($fields as $field) {
+                if ($field["styles"]) {
+                    echo "<style>{$field["styles"]}</style>";
+                }
+            }
+        }
+
+        // insert the screen options
+        static function insert_custom_screen_options($args) {
+            $fields = self::get_custom_fields();
+
+            foreach ($fields as $field) {
+                $args[$field["name"]] = $field["label"];
+            }
+
+            return $args;
         }
     }
-    add_action("init", array("new_site_mega_menu_column_checkbox_setup", "setup"));
-    add_filter("wp_edit_nav_menu_walker", function () {
-        return "new_site_mega_menu_column_checkbox_setup";
-    });
-
-    // hide the checkbox except on depth 1
-    function new_site_hide_column_checkbox_except_on_depth_1() {
-        $current_screen = get_current_screen();
-
-        if ($current_screen->base === "nav-menus") {
-            echo "<style>.menu-item:not(.menu-item-depth-1) .field-column, .menu-item.menu-item-depth-0 + .menu-item.menu-item-depth-1 .field-column {display:none;}</style>";
-        }
-    }
-    add_action("admin_head", "new_site_hide_column_checkbox_except_on_depth_1");
+    add_action("init", array("new_site_create_custom_menu_options", "setup_custom_fields"));
+    add_filter("wp_edit_nav_menu_walker", function () { return "new_site_create_custom_menu_options"; });
+    add_action("admin_footer", array("new_site_create_custom_menu_options", "insert_custom_scripts"));
+    add_action("admin_head", array("new_site_create_custom_menu_options", "insert_custom_styles"));
+    add_filter("manage_nav-menus_columns", array("new_site_create_custom_menu_options", "insert_custom_screen_options"), 20);
 }
 
 // add sub_menu options to wp_nav_menu

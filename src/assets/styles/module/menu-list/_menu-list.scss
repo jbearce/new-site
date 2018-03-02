@@ -33,10 +33,6 @@
         display: flex;
         flex-wrap: wrap;
     }
-
-    &.-mega {
-        position: static;
-    }
 }
 
 .menu-list_link {
@@ -282,11 +278,11 @@
 
     .menu-list.-tier1 {
         flex: 1 1 0%;
-        min-width: 0;
     }
 
     .menu-list.-tier2 {
         flex: 0 0 100%;
+        min-width: 0;
     }
 }
 
