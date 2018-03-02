@@ -267,9 +267,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                         }
                     }
 
-                    if ($skip === true) {
-                        continue;
-                    }
+                    if ($skip === true) continue;
                 }
 
                 // store the displayed fields for later use
