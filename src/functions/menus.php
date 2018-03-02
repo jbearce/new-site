@@ -258,10 +258,12 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                             if (isset($all_menus[$location])) {
                                 foreach ($assigned_menus as $assigned_menu) {
                                     if ($assigned_menu->term_id === $all_menus[$location]) {
-                                        $skip = false;
+                                        $skip = false; continue;
                                     }
                                 }
                             }
+
+                            if ($skip === false) continue;
                         }
                     }
 
