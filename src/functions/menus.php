@@ -329,9 +329,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // save the new fields
         static function save_field_data($post_id) {
-            if (get_post_type($post_id) !== "nav_menu_item") {
-                return;
-            }
+            if (get_post_type($post_id) !== "nav_menu_item") return;
 
             $fields = self::get_custom_fields();
 
