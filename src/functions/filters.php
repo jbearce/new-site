@@ -225,6 +225,18 @@ function new_site_add_user_content_classes($content) {
             $horizontal_rule->setAttribute("class", "user-content_divider divider {$horizontal_rule->getAttribute("class")}");
         }
 
+        $figures = $DOM->getElementsByTagName("figure");
+
+        foreach ($figures as $figure) {
+            $figure->setAttribute("class", "user-content_figure figure {$figure->getAttribute("class")}");
+        }
+
+        $figcaptions = $DOM->getElementsByTagName("figcaption");
+
+        foreach ($figcaptions as $figcaption) {
+            $figcaption->setAttribute("class", "user-content_text text {$figcaption->getAttribute("class")}");
+        }
+
         // remove unneeded HTML tag
         $DOM = remove_root_tag($DOM);
 
