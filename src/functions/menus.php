@@ -250,7 +250,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             // set up each new custom field
             foreach ($fields as $field) {
                 // skip the field if it has a specific location set that the viewed menu isn't set to
-                if ((isset($all_menus[$field["location"]]) && $current_menu !== $all_menus[$field["location"]]) || !isset($all_menus[$field["location"]])) {
+                if ($field["location"] && ((isset($all_menus[$field["location"]]) && $current_menu !== $all_menus[$field["location"]]) || !isset($all_menus[$field["location"]]))) {
                     continue;
                 } elseif (!in_array($field["name"], self::$displayed_fields)) {
                     self::$displayed_fields[] = $field["name"];
