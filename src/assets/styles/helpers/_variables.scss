@@ -47,16 +47,16 @@ $warning_alt: #F83636;
  * Fonts                                                                    *
 \* ------------------------------------------------------------------------ */
 
-$heading-font: "Open Sans", "Arial", "Helvetica", sans-serif;
-$body-font: "Open Sans", "Arial", "Helvetica", sans-serif;
+$heading-font: α__init_heading_font;
+$body-font: α__init_body_font;
 
 /* ------------------------------------------------------------------------ *\
  * Widths                                                                   *
 \* ------------------------------------------------------------------------ */
 
-$site-width: 1500;
-$column-gap: 30;
-$content-padding: 50;
+$site-width: α__init_site_width;
+$column-gap: α__init_column_gap;
+$content-padding: α__init_content_padding;
 
 /* ------------------------------------------------------------------------ *\
  * Break Points                                                             *

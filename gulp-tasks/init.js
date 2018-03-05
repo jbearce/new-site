@@ -24,9 +24,10 @@ module.exports = {
                         type:    "input",
                     },
                     {
-                        name:    "version",
-                        message: "Project Version:",
-                        type:    "input",
+                        name:     "version",
+                        message:  "Project Version:",
+                        type:     "input",
+                        defualt:  "0.1.0",
                         validate: (response) => {
                             if (response.match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$/)) {
                                 return true;
@@ -39,12 +40,11 @@ module.exports = {
                         name:    "description",
                         message: "Project Description:",
                         type:    "input",
-                        default: "A brand new WordPress theme built just for α__init_full_name!",
                     },
                     {
-                        name:    "homepage",
-                        message: "Project URL:",
-                        type:    "input",
+                        name:     "homepage",
+                        message:  "Project URL:",
+                        type:     "input",
                         validate: (response) => {
                             if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/)) {
                                 return true;
@@ -54,9 +54,9 @@ module.exports = {
                         },
                     },
                     {
-                        name:    "repository",
-                        message: "Project Repository:",
-                        type:    "input",
+                        name:     "repository",
+                        message:  "Project Repository:",
+                        type:     "input",
                         validate: (response) => {
                             if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/)) {
                                 return true;
@@ -71,9 +71,9 @@ module.exports = {
                         type:    "input",
                     },
                     {
-                        name:    "author_email",
-                        message: "Author Email:",
-                        type:    "input",
+                        name:     "author_email",
+                        message:  "Author Email:",
+                        type:     "input",
                         validate: (response) => {
                             if (response.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
                                 return true;
@@ -88,9 +88,9 @@ module.exports = {
                         type:    "input",
                     },
                     {
-                        name:    "author_url",
-                        message: "Author URL:",
-                        type:    "input",
+                        name:     "author_url",
+                        message:  "Author URL:",
+                        type:     "input",
                         validate: (response) => {
                             if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/)) {
                                 return true;
@@ -100,9 +100,15 @@ module.exports = {
                         },
                     },
                     {
-                        name:    "theme_color",
-                        message: "Theme Color:",
-                        type:    "input",
+                        name:    "remove_modules",
+                        message: "Modules to Remove:",
+                        type:    "checkbox",
+                        choices: ["Resources", "Tribe Events"],
+                    },
+                    {
+                        name:     "theme_color",
+                        message:  "Theme Color:",
+                        type:     "input",
                         validate: (response) => {
                             if (response.match(/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/)) {
                                 return true;
@@ -112,10 +118,55 @@ module.exports = {
                         },
                     },
                     {
-                        name:    "remove_modules",
-                        message: "Modules to Remove:",
-                        type:    "checkbox",
-                        choices: ["Resources", "Tribe Events"],
+                        name:    "heading_font",
+                        message: "Heading Font:",
+                        type:    "input",
+                        default: "\"Open Sans\", \"Arial\", \"Helvetica\", sans-serif",
+                    },
+                    {
+                        name:    "body_font",
+                        message: "Body Font:",
+                        type:    "input",
+                        default: "\"Open Sans\", \"Arial\", \"Helvetica\", sans-serif",
+                    },
+                    {
+                        name:     "site_width",
+                        message:  "Site Width:",
+                        type:     "input",
+                        default:  "1500",
+                        validate: (response) => {
+                            if (response.match(/[0-9]+/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid positive integer.";
+                            }
+                        },
+                    },
+                    {
+                        name:     "column_gap",
+                        message:  "Column Gap:",
+                        type:     "input",
+                        default:  "30",
+                        validate: (response) => {
+                            if (response.match(/[0-9]+/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid positive integer.";
+                            }
+                        },
+                    },
+                    {
+                        name:     "content_padding",
+                        message:  "Content Padding:",
+                        type:     "input",
+                        default:  "25",
+                        validate: (response) => {
+                            if (response.match(/[0-9]+/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid positive integer.";
+                            }
+                        },
                     },
                 ], (res) => {
                     // store the project data
@@ -150,19 +201,24 @@ module.exports = {
                     prefix:   "α__init_",
                     basepath: "@file",
                     context: {
-                        full_name:      project_data.full_name,
-                        short_name:     project_data.short_name,
-                        npm_name:       project_data.full_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "-"),
-                        namespace:      project_data.short_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "_"),
-                        version:        project_data.version,
-                        description:    project_data.description,
-                        homepage_url:   project_data.homepage,
-                        repository:     project_data.repository.replace(/(\.git$)|(\/$)/, ""),
-                        author_name:    project_data.author_name,
-                        author_company: project_data.author_company,
-                        author_email:   project_data.author_email,
-                        author_url:     project_data.author_url,
-                        theme_color:    project_data.theme_color,
+                        full_name:       project_data.full_name,
+                        short_name:      project_data.short_name,
+                        npm_name:        project_data.full_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "-"),
+                        namespace:       project_data.short_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "_"),
+                        version:         project_data.version,
+                        description:     project_data.description,
+                        homepage_url:    project_data.homepage,
+                        repository:      project_data.repository.replace(/(\.git$)|(\/$)/, ""),
+                        author_name:     project_data.author_name,
+                        author_email:    project_data.author_email,
+                        author_company:  project_data.author_company,
+                        author_url:      project_data.author_url,
+                        theme_color:     project_data.theme_color,
+                        heading_font:    project_data.heading_font,
+                        body_font:       project_data.body_font,
+                        site_width:      project_data.site_width,
+                        column_gap:      project_data.column_gap,
+                        content_padding: project_data.content_padding,
                     }
                 }))
                 // write the file
