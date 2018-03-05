@@ -28,10 +28,10 @@
         "no-descending-specificity": false,
         "no-duplicate-selectors": false,
         "order/order": [
-			"custom-properties",
-			"declarations"
-		],
-		"order/properties-alphabetical-order": true,
+            "custom-properties",
+            "declarations"
+        ],
+        "order/properties-alphabetical-order": true,
         "property-no-unknown": [
             true,
             ignoreProperties: ["font-range", "overscroll-behavior"]
