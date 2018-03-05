@@ -17,3 +17,17 @@
         color: $accent_alt;
     }
 }
+
+/* inherit variant */
+
+.link.-inherit {
+    & {
+        color: inherit;
+    }
+
+    &:focus,
+    &:hover {
+        color: inherit;
+        text-decoration: none;
+    }
+}
