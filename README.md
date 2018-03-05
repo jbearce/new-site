@@ -1,12 +1,12 @@
-# new-site
+# @@init_full_name
 
-An awesome new WordPress theme built just for new-site!
+An awesome new WordPress theme built just for @@init_full_name!
 
 ---
 
 ## Using This project
 
-If you choose to use this repository as a basis for a new project, please be sure to update all the instances of `YOURNAME @ YOURCOMPANY`, as well as any references to Weblinx, Inc. or my Jacob Bearce anywhere else in the project.
+If you choose to use this repository as a basis for a new project, please be sure to remove any references to Weblinx, Inc. in the project.
 
 I'd love to see what gets built with this, so feel free to tweet your site @JacobTheDev :)
 

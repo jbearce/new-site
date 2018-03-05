@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by YOURNAME @ YOURCOMPANY
+// Scripts written by @@init_author_name @ @@init_author_company
 
 function menu_list_init() {
     const menu_items   = document.querySelectorAll(".menu-list_item");
