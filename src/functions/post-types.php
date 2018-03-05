@@ -1,8 +1,8 @@
 <?php
 /* ------------------------------------------------------------------------ *\
  * Functions: Post Types
-\* ------------------------------------------------------------------------ */
-/*removeIf(resources_css_js_php)*/
+\* ------------------------------------------------------------------------ *//*removeIf(resources_css_js_php)*/
+
 // register resource post type
 function α__init_namespace_create_resource_post_type() {
     $type_plural_name   = __("Resources", "α__init_namespace");
@@ -77,4 +77,5 @@ function α__init_namespace_create_resource_post_type() {
         )
     );
 }
-add_action("init", "α__init_namespace_create_resource_post_type");/*endRemoveIf(resources_css_js_php)*/
+add_action("init", "α__init_namespace_create_resource_post_type");
+/*endRemoveIf(resources_css_js_php)*/
