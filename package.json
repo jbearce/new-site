@@ -25,9 +25,7 @@
     "type": "git",
     "url": "α__init_repository"
   },
-  "devDependencies": {},
-  "private": true,
-  "dependencies": {
+  "devDependencies": {
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "critical": "^1.1.0",
@@ -77,5 +75,6 @@
     "through2": "^2.0.3",
     "vinyl-ftp": "^0.6.1",
     "yargs": "^11.0.0"
-  }
+  },
+  "private": true
 }
