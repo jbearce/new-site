@@ -14,14 +14,28 @@ module.exports = {
                 // prompt for project data
                 .pipe(plugins.prompt.prompt([
                     {
-                        name:    "full_name",
-                        message: "Project Name:",
-                        type:    "input",
+                        name:     "full_name",
+                        message:  "Project Name:",
+                        type:     "input",
+                        validate: (response) => {
+                            if (response.trim().length > 0 && response.match(/\w/)) {
+                                return true;
+                            } else {
+                                return "Please enter a full name.";
+                            }
+                        },
                     },
                     {
-                        name:    "short_name",
-                        message: "Project Short Name:",
-                        type:    "input",
+                        name:     "short_name",
+                        message:  "Project Short Name:",
+                        type:     "input",
+                        validate: (response) => {
+                            if (response.trim().length > 0 && response.match(/\w/)) {
+                                return true;
+                            } else {
+                                return "Please enter a short name.";
+                            }
+                        },
                     },
                     {
                         name:     "version",
@@ -40,6 +54,13 @@ module.exports = {
                         name:    "description",
                         message: "Project Description:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.trim().length > 0 && response.match(/\w/)) {
+                                return true;
+                            } else {
+                                return "Please enter a description.";
+                            }
+                        },
                     },
                     {
                         name:     "homepage",
@@ -69,6 +90,13 @@ module.exports = {
                         name:    "author_name",
                         message: "Author Name:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.trim().length > 0 && response.match(/\w/)) {
+                                return true;
+                            } else {
+                                return "Please enter a name.";
+                            }
+                        },
                     },
                     {
                         name:     "author_email",
@@ -86,6 +114,13 @@ module.exports = {
                         name:    "author_company",
                         message: "Author Company:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.trim().length > 0 && response.match(/\w/)) {
+                                return true;
+                            } else {
+                                return "Please enter a company.";
+                            }
+                        },
                     },
                     {
                         name:     "author_url",
