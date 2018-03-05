@@ -28,7 +28,7 @@
 		"order/properties-alphabetical-order": true,
         "property-no-unknown": [
             true,
-            ignoreProperties: ["font-range"]
+            ignoreProperties: ["font-range", "overscroll-behavior"]
         ],
         "property-no-vendor-prefix": true,
         "selector-attribute-quotes": "always",
