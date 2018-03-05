@@ -334,14 +334,12 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $fields = self::get_custom_fields();
 
             foreach ($fields as $field) {
-                if (in_array($field["name"], self::$displayed_fields)) {
-                    $POST_key = "menu-item-{$field["name"]}";
-                    $meta_key = "_menu_item_{$field["name"]}";
+                $POST_key = "menu-item-{$field["name"]}";
+                $meta_key = "_menu_item_{$field["name"]}";
 
-                    $field["value"] = isset($_POST[$POST_key][$post_id]) ? sanitize_text_field($_POST[$POST_key][$post_id]) : "";
+                $field["value"] = isset($_POST[$POST_key][$post_id]) ? sanitize_text_field($_POST[$POST_key][$post_id]) : "";
 
-                    update_post_meta($post_id, $meta_key, $field["value"]);
-                }
+                update_post_meta($post_id, $meta_key, $field["value"]);
             }
         }
 
