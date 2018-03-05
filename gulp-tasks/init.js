@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by α__init_author_name @ α__init_author_company
+// Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
     init(gulp, plugins, on_error) {
@@ -233,7 +233,7 @@ module.exports = {
                 }))
                 // replace variables with project data
                 .pipe(plugins.file_include({
-                    prefix:   "α__init_",
+                    prefix:   "__gulp_init__",
                     basepath: "@file",
                     context: {
                         full_name:       project_data.full_name,

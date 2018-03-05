@@ -4,13 +4,13 @@
 \* ------------------------------------------------------------------------ */
 
 // push the CSS & JS over HTTP2
-function α__init_namespace_http2_push() {
+function __gulp_init__namespace_http2_push() {
     header("Link: <" . get_bloginfo("template_directory") . "/assets/styles/modern.css>; rel=preload; as=style, <https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic>; rel=preload; as=style; crossorigin");
 }
-add_action("init", "α__init_namespace_http2_push", 10);
+add_action("init", "__gulp_init__namespace_http2_push", 10);
 
 // set cookie when a query string gets passed
-function α__init_namespace_set_cookie() {
+function __gulp_init__namespace_set_cookie() {
     $cookie     = isset($_GET["cookie"]) ? $_GET["cookie"] : false;
     $expiration = isset($_GET["expiration"]) ? time() + $_GET["expiration"] : time() + 604800;
 
@@ -19,52 +19,52 @@ function α__init_namespace_set_cookie() {
         exit;
     }
 }
-add_action("init", "α__init_namespace_set_cookie", 10);
+add_action("init", "__gulp_init__namespace_set_cookie", 10);
 
 // adjust WordPress login screen styles
-function α__init_namespace_login_styles() {
+function __gulp_init__namespace_login_styles() {
     echo "<link href='" . get_bloginfo("template_directory") . "/assets/styles/wp-login.css' rel='stylesheet' />";
-    wp_enqueue_script("α__init_namespace_critical_scripts", get_bloginfo("template_directory") . "/assets/scripts/critical.js", array(), false, true);
+    wp_enqueue_script("__gulp_init__namespace_critical_scripts", get_bloginfo("template_directory") . "/assets/scripts/critical.js", array(), false, true);
 }
-add_action("login_enqueue_scripts", "α__init_namespace_login_styles");
+add_action("login_enqueue_scripts", "__gulp_init__namespace_login_styles");
 
 // change login logo URL
-function α__init_namespace_login_logo_url() {
+function __gulp_init__namespace_login_logo_url() {
     return get_bloginfo("url");
 }
-add_filter("login_headerurl", "α__init_namespace_login_logo_url");
+add_filter("login_headerurl", "__gulp_init__namespace_login_logo_url");
 
 // change login logo title
-function α__init_namespace_login_logo_title() {
+function __gulp_init__namespace_login_logo_title() {
     return get_bloginfo("name");
 }
-add_filter("login_headertitle", "α__init_namespace_login_logo_title");
+add_filter("login_headertitle", "__gulp_init__namespace_login_logo_title");
 
 // add user-content class to TinyMCE body
-function α__init_namespace_tinymce_settings($settings) {
+function __gulp_init__namespace_tinymce_settings($settings) {
     $settings["body_class"] .= " user-content";
     return $settings;
 }
-add_filter("tiny_mce_before_init", "α__init_namespace_tinymce_settings");
+add_filter("tiny_mce_before_init", "__gulp_init__namespace_tinymce_settings");
 
 // fix Ninja Forms HTML field formatting
-function α__init_namespace_ninja_forms_html($default_value, $field_class, $field_settings) {
+function __gulp_init__namespace_ninja_forms_html($default_value, $field_class, $field_settings) {
     if ($field_settings["type"] === "html") {
         $default_value = apply_filters("the_content", $default_value);
     }
 
     return $default_value;
 }
-add_filter("ninja_forms_render_default_value", "α__init_namespace_ninja_forms_html", 10, 3);
+add_filter("ninja_forms_render_default_value", "__gulp_init__namespace_ninja_forms_html", 10, 3);
 
 // fix Ninja Forms not being output when no content exists and selected via meta box
-function α__init_namespace_fix_ninja_forms($content) {
+function __gulp_init__namespace_fix_ninja_forms($content) {
     return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
 }
-add_filter("the_content", "α__init_namespace_fix_ninja_forms", 5);
+add_filter("the_content", "__gulp_init__namespace_fix_ninja_forms", 5);
 
 // fix shortcode formatting
-function α__init_namespace_fix_shortcodes($content) {
+function __gulp_init__namespace_fix_shortcodes($content) {
     if (!is_admin()) {
         $array = array (
             "<p>["                => "[",
@@ -88,11 +88,11 @@ function α__init_namespace_fix_shortcodes($content) {
 
     return $content;
 }
-add_filter("the_content", "α__init_namespace_fix_shortcodes", 5);
-add_filter("acf_the_content", "α__init_namespace_fix_shortcodes", 5);
+add_filter("the_content", "__gulp_init__namespace_fix_shortcodes", 5);
+add_filter("acf_the_content", "__gulp_init__namespace_fix_shortcodes", 5);
 
 // add classes to elements
-function α__init_namespace_add_user_content_classes($content) {
+function __gulp_init__namespace_add_user_content_classes($content) {
     global $post;
 
     if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
@@ -245,12 +245,12 @@ function α__init_namespace_add_user_content_classes($content) {
 
     return $content;
 }
-add_filter("the_content", "α__init_namespace_add_user_content_classes", 10);
-add_filter("acf_the_content", "α__init_namespace_add_user_content_classes", 10);
-add_filter("tribe_events_get_the_excerpt", "α__init_namespace_add_user_content_classes", 10);
+add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 10);
+add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 10);
+add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_add_user_content_classes", 10);
 
 // wrap tables in a div
-function α__init_namespace_wrap_tables($content) {
+function __gulp_init__namespace_wrap_tables($content) {
     global $post;
 
     if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
@@ -276,12 +276,12 @@ function α__init_namespace_wrap_tables($content) {
 
     return $content;
 }
-add_filter("the_content", "α__init_namespace_wrap_tables", 10);
-add_filter("acf_the_content", "α__init_namespace_wrap_tables", 10);
-add_filter("tribe_events_get_the_excerpt", "α__init_namespace_wrap_tables", 10);
+add_filter("the_content", "__gulp_init__namespace_wrap_tables", 10);
+add_filter("acf_the_content", "__gulp_init__namespace_wrap_tables", 10);
+add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_wrap_tables", 10);
 
 // wrap frames in a div
-function α__init_namespace_wrap_frames($content) {
+function __gulp_init__namespace_wrap_frames($content) {
     global $post;
 
     if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
@@ -334,12 +334,12 @@ function α__init_namespace_wrap_frames($content) {
 
     return $content;
 }
-add_filter("the_content", "α__init_namespace_wrap_frames", 10);
-add_filter("acf_the_content", "α__init_namespace_wrap_frames", 10);
-add_filter("tribe_events_get_the_excerpt", "α__init_namespace_wrap_frames", 10);
+add_filter("the_content", "__gulp_init__namespace_wrap_frames", 10);
+add_filter("acf_the_content", "__gulp_init__namespace_wrap_frames", 10);
+add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_wrap_frames", 10);
 
 // add rel="noopener" to external links
-function α__init_namespace_rel_noopener($content) {
+function __gulp_init__namespace_rel_noopener($content) {
     global $post;
 
     if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
@@ -364,12 +364,12 @@ function α__init_namespace_rel_noopener($content) {
 
     return $content;
 }
-add_filter("the_content", "α__init_namespace_rel_noopener", 10);
-add_filter("acf_the_content", "α__init_namespace_rel_noopener", 10);
-add_filter("tribe_events_get_the_excerpt", "α__init_namespace_rel_noopener", 10);
+add_filter("the_content", "__gulp_init__namespace_rel_noopener", 10);
+add_filter("acf_the_content", "__gulp_init__namespace_rel_noopener", 10);
+add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_rel_noopener", 10);
 
 // enable lazy loading on images
-function α__init_namespace_lazy_load_images($content) {
+function __gulp_init__namespace_lazy_load_images($content) {
     global $post;
 
     if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
@@ -416,13 +416,13 @@ function α__init_namespace_lazy_load_images($content) {
 
     return $content;
 }
-add_filter("the_content", "α__init_namespace_lazy_load_images", 10);
-add_filter("acf_the_content", "α__init_namespace_lazy_load_images", 10);
-add_filter("tribe_events_get_the_excerpt", "α__init_namespace_lazy_load_images", 10);
-add_filter("post_thumbnail_html", "α__init_namespace_lazy_load_images", 10);
+add_filter("the_content", "__gulp_init__namespace_lazy_load_images", 10);
+add_filter("acf_the_content", "__gulp_init__namespace_lazy_load_images", 10);
+add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_lazy_load_images", 10);
+add_filter("post_thumbnail_html", "__gulp_init__namespace_lazy_load_images", 10);
 
 // remove dimensions from thumbnails
-function α__init_namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
+function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     global $post;
 
     if ($html && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
@@ -444,10 +444,10 @@ function α__init_namespace_remove_thumbnail_dimensions($html, $post_id, $post_i
 
     return $html;
 }
-add_filter("post_thumbnail_html", "α__init_namespace_remove_thumbnail_dimensions", 10, 3);
+add_filter("post_thumbnail_html", "__gulp_init__namespace_remove_thumbnail_dimensions", 10, 3);
 
 // add "Download Adobe Reader" link on all pages that link to PDFs
-function α__init_namespace_acrobat_link() {
+function __gulp_init__namespace_acrobat_link() {
     global $post;
 
     $has_pdf = false;
@@ -476,41 +476,41 @@ function α__init_namespace_acrobat_link() {
 
     if ($has_pdf === true) {
         $output .= "<hr class='divider' />";
-        $output .= "<p class='content_text text _small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "α__init_namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+        $output .= "<p class='content_text text _small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init__namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
     }
 
     echo $output;
 }
-add_filter("α__init_namespace_after_content", "α__init_namespace_acrobat_link");
+add_filter("__gulp_init__namespace_after_content", "__gulp_init__namespace_acrobat_link");
 
 // disable Ninja Forms styles
-function α__init_namespace_dequeue_nf_display() {
+function __gulp_init__namespace_dequeue_nf_display() {
     wp_dequeue_style("nf-display");
 }
-add_action("ninja_forms_enqueue_scripts", "α__init_namespace_dequeue_nf_display", 999);
+add_action("ninja_forms_enqueue_scripts", "__gulp_init__namespace_dequeue_nf_display", 999);
 
 // redirect to the home template if no front page is set
-function α__init_namespace_home_template_redirect($template) {
+function __gulp_init__namespace_home_template_redirect($template) {
     if (is_front_page() && get_option("show_on_front") != "page") {
         return TEMPLATEPATH . "/home.php";
     } else {
         return $template;
     }
 }
-add_action("template_include", "α__init_namespace_home_template_redirect");
+add_action("template_include", "__gulp_init__namespace_home_template_redirect");
 
 // decode HTML entities in bloginfo("description")
-function α__init_namespace_decode_html_entities_in_blog_description($value, $field) {
+function __gulp_init__namespace_decode_html_entities_in_blog_description($value, $field) {
     if ($field === "description") {
         $value = html_entity_decode($value);
     }
 
     return $value;
 }
-add_filter("bloginfo", "α__init_namespace_decode_html_entities_in_blog_description", 10, 2);
+add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_description", 10, 2);
 
 /*removeIf(tribe_css_js_php)*/// force redirect 'cause tribe is stupid
-function α__init_namespace_redirect_tribe_templates($template) {
+function __gulp_init__namespace_redirect_tribe_templates($template) {
     if (is_post_type_archive("tribe_events")) {
         return locate_template("archive-tribe_events.php");
     } elseif (is_singular("tribe_events")) {
@@ -519,23 +519,23 @@ function α__init_namespace_redirect_tribe_templates($template) {
         return $template;
     }
 }
-add_filter("template_include", "α__init_namespace_redirect_tribe_templates", 10, 1);
+add_filter("template_include", "__gulp_init__namespace_redirect_tribe_templates", 10, 1);
 
 // add proper link classes to next/previous event links
-function α__init_namespace_tribe_add_pagination_class($anchor) {
+function __gulp_init__namespace_tribe_add_pagination_class($anchor) {
     return preg_replace("/<a /", "<a class='menu-list_link link' ", $anchor);
 }
-add_filter("tribe_the_next_event_link", "α__init_namespace_tribe_add_pagination_class");
-add_filter("tribe_the_prev_event_link", "α__init_namespace_tribe_add_pagination_class");
-add_filter("tribe_events_the_previous_month_link", "α__init_namespace_tribe_add_pagination_class");
-add_filter("tribe_events_the_next_month_link", "α__init_namespace_tribe_add_pagination_class");
+add_filter("tribe_the_next_event_link", "__gulp_init__namespace_tribe_add_pagination_class");
+add_filter("tribe_the_prev_event_link", "__gulp_init__namespace_tribe_add_pagination_class");
+add_filter("tribe_events_the_previous_month_link", "__gulp_init__namespace_tribe_add_pagination_class");
+add_filter("tribe_events_the_next_month_link", "__gulp_init__namespace_tribe_add_pagination_class");
 
 // add proper title classes to month $table_headers
-function α__init_namespace_tribe_add_month_title_class($html) {
+function __gulp_init__namespace_tribe_add_month_title_class($html) {
     if ($html) {
         $html = "<h5 class='tribe-events_title title -divider'>{$html}</h5>";
     }
 
     return $html;
 }
-add_filter("tribe_events_list_the_date_headers", "α__init_namespace_tribe_add_month_title_class");/*endRemoveIf(tribe_css_js_php)*/
+add_filter("tribe_events_list_the_date_headers", "__gulp_init__namespace_tribe_add_month_title_class");/*endRemoveIf(tribe_css_js_php)*/

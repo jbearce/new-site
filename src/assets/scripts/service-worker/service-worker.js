@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by α__init_author_name @ α__init_author_company
+// Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 ((global) => {
     // disable the service worker for post previews

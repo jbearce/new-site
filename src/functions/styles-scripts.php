@@ -4,6 +4,6 @@
 \* ------------------------------------------------------------------------ */
 
 // enqueue styles & scripts
-function α__init_namespace_enqueue_scripts() {
+function __gulp_init__namespace_enqueue_scripts() {
 }
-add_action("wp_enqueue_scripts", "α__init_namespace_enqueue_scripts");
+add_action("wp_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts");

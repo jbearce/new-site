@@ -1,6 +1,6 @@
-# α__init_full_name
+# __gulp_init__full_name
 
-An awesome new WordPress theme built just for α__init_full_name!
+An awesome new WordPress theme built just for __gulp_init__full_name!
 
 ---
 

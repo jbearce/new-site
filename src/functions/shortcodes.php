@@ -4,14 +4,14 @@
 \* ------------------------------------------------------------------------ */
 
 // add row shortcode
-function α__init_namespace_row_shortcode($atts, $content = null) {
+function __gulp_init__namespace_row_shortcode($atts, $content = null) {
     // return the tab wrapper with the menu
-    return "<div class='user-content_row row -padded'>" . do_shortcode(α__init_namespace_fix_shortcodes($content)) . "</div>";
+    return "<div class='user-content_row row -padded'>" . do_shortcode(__gulp_init__namespace_fix_shortcodes($content)) . "</div>";
 }
-add_shortcode("row", "α__init_namespace_row_shortcode");
+add_shortcode("row", "__gulp_init__namespace_row_shortcode");
 
 // add col shortcode
-function α__init_namespace_col_shortcode($atts , $content = null) {
+function __gulp_init__namespace_col_shortcode($atts , $content = null) {
     extract(shortcode_atts(
         array(
             "default_width"  => "",
@@ -29,6 +29,6 @@ function α__init_namespace_col_shortcode($atts , $content = null) {
     $class .= $variant ? " $variant" : "";
 
     // return the tab wrapper with the menu
-    return "<div class='col{$class}'>" . do_shortcode(α__init_namespace_fix_shortcodes($content)) . "</div>";
+    return "<div class='col{$class}'>" . do_shortcode(__gulp_init__namespace_fix_shortcodes($content)) . "</div>";
 }
-add_shortcode("col", "α__init_namespace_col_shortcode");
+add_shortcode("col", "__gulp_init__namespace_col_shortcode");

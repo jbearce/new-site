@@ -5,11 +5,11 @@
 
 // register the menus
 register_nav_menus(array(
-    "primary" => __("Navigation", "α__init_namespace"),
+    "primary" => __("Navigation", "__gulp_init__namespace"),
 ));
 
 // menu walker
-class α__init_namespace_menu_walker extends Walker_Nav_Menu {
+class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
     // set up a variable to hold the parameters passed to the walker
     private $params;
 
@@ -124,7 +124,7 @@ class α__init_namespace_menu_walker extends Walker_Nav_Menu {
             if (in_array("-mega", $classes)) {
                 $this->is_mega = true;
 
-                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children (mega)", "α__init_namespace") . "</button>";
+                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init__namespace") . "</button>";
                 $output .= "<div class='menu-list_container -mega' aria-hidden='true'>";
             }
         }
@@ -138,15 +138,15 @@ class α__init_namespace_menu_walker extends Walker_Nav_Menu {
         $toggle = "";
 
         if (in_array("accordion", $params) && !$this->is_mega && !in_array("touch", $params) && !in_array("hover", $params)) {
-            $toggle .= "<button class='menu-list_toggle'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "α__init_namespace") . "</span></button>";
+            $toggle .= "<button class='menu-list_toggle'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
         }
 
         if (in_array("touch", $params) && !$this->is_mega && !in_array("accordion", $params)) {
-            $toggle .= "<button class='menu-list_toggle _touch'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "α__init_namespace") . "</span></button>";
+            $toggle .= "<button class='menu-list_toggle _touch'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
         }
 
         if (in_array("hover", $params) && !$this->is_mega && !in_array("accordion", $params)) {
-            $toggle .= "<button class='menu-list_toggle _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "") . "'>" . __("Toggle children", "α__init_namespace") . "</button>";
+            $toggle .= "<button class='menu-list_toggle _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "") . "'>" . __("Toggle children", "__gulp_init__namespace") . "</button>";
         }
 
         // set up empty variant class
@@ -216,7 +216,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     // include this so we can access Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
-    class α__init_namespace_create_custom_menu_options extends Walker_Nav_Menu_Edit {
+    class __gulp_init__namespace_create_custom_menu_options extends Walker_Nav_Menu_Edit {
         static $displayed_fields = array();
 
         // create an array with all the new fields
@@ -226,7 +226,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                     "locations"   => array("primary"),
                     "type"        => "checkbox",
                     "name"        => "column_start",
-                    "label"       => __("Start a new column here", "α__init_namespace"),
+                    "label"       => __("Start a new column here", "__gulp_init__namespace"),
                     "description" => "",
                     "scripts"     => "",
                     "styles"      => ".menu-item:not(.menu-item-depth-1) .field-column_start, .menu-item.menu-item-depth-0 + .menu-item.menu-item-depth-1 .field-column_start {display:none;}",
@@ -383,11 +383,11 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             return $args;
         }
     }
-    add_action("init", array("α__init_namespace_create_custom_menu_options", "setup_custom_fields"));
-    add_filter("wp_edit_nav_menu_walker", function () { return "α__init_namespace_create_custom_menu_options"; });
-    add_action("admin_footer", array("α__init_namespace_create_custom_menu_options", "insert_custom_scripts"));
-    add_action("admin_head", array("α__init_namespace_create_custom_menu_options", "insert_custom_styles"));
-    add_filter("manage_nav-menus_columns", array("α__init_namespace_create_custom_menu_options", "insert_custom_screen_options"), 20);
+    add_action("init", array("__gulp_init__namespace_create_custom_menu_options", "setup_custom_fields"));
+    add_filter("wp_edit_nav_menu_walker", function () { return "__gulp_init__namespace_create_custom_menu_options"; });
+    add_action("admin_footer", array("__gulp_init__namespace_create_custom_menu_options", "insert_custom_scripts"));
+    add_action("admin_head", array("__gulp_init__namespace_create_custom_menu_options", "insert_custom_styles"));
+    add_filter("manage_nav-menus_columns", array("__gulp_init__namespace_create_custom_menu_options", "insert_custom_screen_options"), 20);
 }
 
 // add sub_menu options to wp_nav_menu
@@ -396,7 +396,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 // @param  {Number}   parent_id - Set to a Post ID to use as the parent
 // @param  {Boolean}  show_parent - Set to true to show the parent menu item
 // @param  {Boolean}  sub_menu - Set to true to make a menu behave as a sub menu
-function α__init_namespace_nav_menu_sub_menu($menu_items, $args) {
+function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
     $root_id = 0;
 
     // check if the submenu argument is set and is true
@@ -549,4 +549,4 @@ function α__init_namespace_nav_menu_sub_menu($menu_items, $args) {
 
     return $menu_items;
 }
-add_filter("wp_nav_menu_objects", "α__init_namespace_nav_menu_sub_menu", 10, 2);
+add_filter("wp_nav_menu_objects", "__gulp_init__namespace_nav_menu_sub_menu", 10, 2);

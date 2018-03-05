@@ -5,7 +5,7 @@ $post_title      = isset($post_title) ? $post_title : (isset($post) ? $post->pos
 $post_categories = isset($post_categories) ? $post_categories : (isset($post) ? get_the_terms($post->ID, "category") : "");
 $post_tags       = isset($post_tags) ? $post_tags : (isset($post) ? get_the_terms($post->ID, "post_tag") : "");
 $post_comments   = isset($post_comments) ? $post_comments : (isset($post) ? get_comments_number($post->ID) : "");
-$post_excerpt    = isset($post_excerpt) ? $post_excerpt : (isset($post) ? get_better_excerpt($post->ID, 55, "&hellip; " . $post_permalink ? "<a class='article_link link' href='" . apply_filters("the_permalink", $post_permalink) . "'>" . __("Read More", "α__init_namespace") . "</a>" : "") : "");
+$post_excerpt    = isset($post_excerpt) ? $post_excerpt : (isset($post) ? get_better_excerpt($post->ID, 55, "&hellip; " . $post_permalink ? "<a class='article_link link' href='" . apply_filters("the_permalink", $post_permalink) . "'>" . __("Read More", "__gulp_init__namespace") . "</a>" : "") : "");
 ?>
 
 <?php if ($post_title || (((isset($post_show_meta) && $post_show_meta === true) || (get_post_type() === "post" && !(isset($post_show_meta) && $post_show_meta === false))) && ($post_permalink || $post_categories || $post_tags || $post_comments)) || $post_excerpt): ?>
@@ -70,7 +70,7 @@ $post_excerpt    = isset($post_excerpt) ? $post_excerpt : (isset($post) ? get_be
                             <?php if ($post_comments): ?>
                                 <li class="menu-list_item">
                                     <a class="menu-list_link link" href="#comments">
-                                        <icon use="comment" /> <?php echo $post_comments; ?> <?php _e("Comments", "α__init_namespace"); ?>
+                                        <icon use="comment" /> <?php echo $post_comments; ?> <?php _e("Comments", "__gulp_init__namespace"); ?>
                                     </a><!--/.menu-list_link.link-->
                                 </li><!--/.menu-list_item-->
                             <?php endif; ?>

@@ -85,7 +85,7 @@
         <div class="page_container">
             <?php if (has_nav_menu("primary")): ?>
                 <div class="navigation-block -flyout _phone _noncritical" role="navigation" aria-hidden="true">
-                    <button class="navigation_background"><span class="_visuallyhidden"><?php _e("Close Menu", "α__init_namespace"); ?></span></button>
+                    <button class="navigation_background"><span class="_visuallyhidden"><?php _e("Close Menu", "__gulp_init__namespace"); ?></span></button>
                     <div class="navigation_inner">
                         <div class="navigation_scroller">
                             <div class="navigation_search-form_container search-form_container _nomargin">
@@ -97,7 +97,7 @@
                                 "depth"          => 3,
                                 "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
                                 "theme_location" => "primary",
-                                "walker"         => new α__init_namespace_menu_walker("accordion"),
+                                "walker"         => new __gulp_init__namespace_menu_walker("accordion"),
                             ));
                             ?>
                         </div><!--/.navigation_scroller-->
@@ -115,7 +115,7 @@
                         <div class="col-auto -nogrow -noshrink _noprint">
                             <?php if (has_nav_menu("primary")): ?>
                                 <button class="header_menu-toggle menu-toggle -rounded _phone">
-                                    <?php _e("View Menu", "α__init_namespace"); ?>
+                                    <?php _e("View Menu", "__gulp_init__namespace"); ?>
                                 </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
                             <?php endif; // has_nav_menu("primary") ?>
                             <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
@@ -134,7 +134,7 @@
                             "depth"          => 3,
                             "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
                             "theme_location" => "primary",
-                            "walker"         => new α__init_namespace_menu_walker("mega hover touch"),
+                            "walker"         => new __gulp_init__namespace_menu_walker("mega hover touch"),
                         ));
                         ?>
                     </div><!--/.navigation_inner-->
