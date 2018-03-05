@@ -14,10 +14,6 @@ const plugins = {
             alias: "experimental",
             type:  "array",
         },
-        "r": {
-            alias: "remove",
-            type:  "array",
-        },
         "s": {
             alias: "sync",
             type:  "boolean",

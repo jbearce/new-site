@@ -70,6 +70,12 @@ module.exports = {
                         type:    "input",
                         default: "#17AAEC",
                     },
+                    {
+                        name:    "remove_modules",
+                        message: "Modules to Remove:",
+                        type:    "checkbox",
+                        choices: ["Resources", "Tribe Events"],
+                    },
                 ], (res) => {
                     // store the project data
                     project_data = res;
@@ -127,10 +133,45 @@ module.exports = {
                 });
         };
 
+        // remove modules selected during init
+        const remove_selected_modules = (callback) => {
+            return gulp.src(global.settings.paths.src + "/**/*")
+                // check if a file is a binary
+                .pipe(plugins.is_binary())
+                // skip file if it's a binary
+                .pipe(plugins.through.obj((file, enc, next) => {
+                    if (file.isBinary()) {
+                        next();
+                        return;
+                    }
+
+                    // go to next file
+                    next(null, file);
+                }))
+
+                // remove resource code if selected
+                .pipe(plugins.remove_code({resources_html: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                .pipe(plugins.remove_code({resources_css_js_php: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
+
+                // remove tribe code if selected
+                .pipe(plugins.remove_code({tribe_html: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                .pipe(plugins.remove_code({tribe_css_js_php: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
+
+                // output to source directory
+                .pipe(gulp.dest(global.settings.paths.src)).on("end", () => {
+                    // return the callback
+                    if (typeof callback === "function") {
+                        return callback();
+                    }
+                });
+        };
+
         return new Promise ((resolve) => {
             get_project_data(() => {
                 write_project_data(() => {
-                    return resolve();
+                    remove_selected_modules(() => {
+                        return resolve();
+                    });
                 });
             });
         });
