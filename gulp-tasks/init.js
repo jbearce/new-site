@@ -331,7 +331,8 @@ module.exports = {
                                 // go to next file
                                 next(null, file);
                             }))
-                            .pipe(plugins.replace(/((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))/g, ""))
+                            // for comments that are on their own line, remove the entire line, otherwise just delete the comment
+                            .pipe(plugins.replace(/(^((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))\n$)|(((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->)))/gm, ""))
                             .pipe(gulp.dest(global.settings.paths.src))
                             .on("end", () => {
                                 // return the callback
