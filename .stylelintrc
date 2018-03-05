@@ -7,6 +7,10 @@
         "stylelint-config-standard"
     ],
     "rules": {
+        "at-rule-no-unknown": [
+            true,
+            ignoreAtRules: ["content", "each", "else", "extend", "for", "function", "if", "include", "mixin", "return"]
+        ],
         "color-hex-case": "upper",
         "color-hex-length": "long",
         "font-family-name-quotes": "always-unless-keyword",
@@ -21,6 +25,8 @@
         "function-url-scheme-whitelist": ["https", "data"],
         "indentation": 4,
         "max-nesting-depth": 3,
+        "no-descending-specificity": false,
+        "no-duplicate-selectors": false,
         "order/order": [
 			"custom-properties",
 			"declarations"
