@@ -25,14 +25,14 @@
 @function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
     $unit: if($unit == null, if($base == null, rem, em), $unit);
     $base: if($base == null, 16, strip-unit($base));
-    $output: null;
+    $output: "";
 
     @each $size in $sizes {
         $size: strip-unit($size);
 
         @if type-of($size) == "number" {
             // add as space if $output already has a value
-            $output: if($output == null, "", $output + " ");
+            $output: if($output == "", "", $output + " ");
             // calculate, append value to $output
             $output: $output + ((strip-unit($size) / strip-unit($base)) + $unit);
         }
