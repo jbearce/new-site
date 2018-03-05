@@ -8,9 +8,9 @@ $full_region = tribe_get_full_region($venue_id);
 <?php endif; ?>
 
 <?php if (tribe_get_city($venue_id)): ?>
-	<?php echo tribe_get_city($venue_id); ?><?php if (tribe_get_region($venue_id)): ?>, <?php endif; ?>
+    <?php echo tribe_get_city($venue_id); ?><?php if (tribe_get_region($venue_id)): ?>, <?php endif; ?>
 <?php endif; ?>
 
 <?php if (tribe_get_region($venue_id)): ?>
-	<span class="tribe-region tribe-events-abbr" title="<?php esc_attr_e($full_region); ?>" tabindex="0"><?php echo tribe_get_region($venue_id); ?></span>
+    <span class="tribe-region tribe-events-abbr" title="<?php esc_attr_e($full_region); ?>" tabindex="0"><?php echo tribe_get_region($venue_id); ?></span>
 <?php endif; ?><!--endRemoveIf(tribe_html)-->

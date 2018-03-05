@@ -13,14 +13,14 @@ add_shortcode("row", "new_site_row_shortcode");
 // add col shortcode
 function new_site_col_shortcode($atts , $content = null) {
     extract(shortcode_atts(
-		array(
-			"default_width"  => "",
-			"tablet_width"   => "",
+        array(
+            "default_width"  => "",
+            "tablet_width"   => "",
             "notebook_width" => "",
-			"desktop_width"  => "",
+            "desktop_width"  => "",
             "variant"        => "",
-		), $atts)
-	);
+        ), $atts)
+    );
 
     $class =  $default_width  ? "-{$default_width}"        : "-auto";
     $class .= $tablet_width   ? " col-xs-{$tablet_width}"  : "";

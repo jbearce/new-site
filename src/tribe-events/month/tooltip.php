@@ -10,16 +10,16 @@
 ?>
 
 <script type="text/html" id="tribe_tmpl_tooltip">
-	<div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
-		<div class="tribe-events-event-body">
+    <div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip">
+        <div class="tribe-events-event-body">
             <h4 class="entry-title summary tribe-events-tooltip_text text _bold _light _nomargin">[[=raw title]]</h4>
 
-			<div class="tribe-event-duration tribe-events-tooltip_text text _italic _small _light">
-				<abbr class="tribe-events-abbr tribe-event-date-start">[[=dateDisplay]] </abbr>
-			</div>
+            <div class="tribe-event-duration tribe-events-tooltip_text text _italic _small _light">
+                <abbr class="tribe-events-abbr tribe-event-date-start">[[=dateDisplay]] </abbr>
+            </div>
 
             [[ if(excerpt.length || imageTooltipSrc.length) { ]]
-			<div class="tribe-event-description tribe-event_user-content user-content -light">
+            <div class="tribe-event-description tribe-event_user-content user-content -light">
                 [[ if(imageTooltipSrc.length) { ]]
                     <p class="tribe-events-event-thumb">
                         <img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
@@ -30,25 +30,25 @@
                     [[=raw excerpt]]
                 [[ } ]]
             </div>
-			[[ } ]]
+            [[ } ]]
 
-			<span class="tribe-events-arrow"></span>
-		</div>
-	</div>
+            <span class="tribe-events-arrow"></span>
+        </div>
+    </div>
 </script>
 
 <script type="text/html" id="tribe_tmpl_tooltip_featured">
-	<div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip tribe-event-featured">
+    <div id="tribe-events-tooltip-[[=eventId]]" class="tribe-events-tooltip tribe-event-featured">
         <div class="tribe-events-event-body">
 
-    		<h4 class="entry-title summary tribe-events-tooltip_text text _bold _light _nomargin">[[=raw title]]</h4>
+            <h4 class="entry-title summary tribe-events-tooltip_text text _bold _light _nomargin">[[=raw title]]</h4>
 
-			<div class="tribe-event-duration tribe-events-tooltip_text text _italic _small _light">
-				<abbr class="tribe-events-abbr tribe-event-date-start">[[=dateDisplay]] </abbr>
-			</div>
+            <div class="tribe-event-duration tribe-events-tooltip_text text _italic _small _light">
+                <abbr class="tribe-events-abbr tribe-event-date-start">[[=dateDisplay]] </abbr>
+            </div>
 
-			[[ if(excerpt.length || imageTooltipSrc.length) { ]]
-			<div class="tribe-event-description tribe-event_user-content user-content -light">
+            [[ if(excerpt.length || imageTooltipSrc.length) { ]]
+            <div class="tribe-event-description tribe-event_user-content user-content -light">
                 [[ if(imageTooltipSrc.length) { ]]
                     <p class="tribe-events-event-thumb">
                         <img src="[[=imageTooltipSrc]]" alt="[[=title]]" />
@@ -59,9 +59,9 @@
                     [[=raw excerpt]]
                 [[ } ]]
             </div>
-			[[ } ]]
+            [[ } ]]
 
-			<span class="tribe-events-arrow"></span>
-		</div>
-	</div>
+            <span class="tribe-events-arrow"></span>
+        </div>
+    </div>
 </script><!--endRemoveIf(tribe_html)-->

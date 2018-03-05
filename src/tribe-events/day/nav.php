@@ -3,13 +3,13 @@
 <nav class="content_menu-list_container menu-list_container">
     <ul class="tribe-events-sub-nav menu-list -pagination -between">
 
-    	<!-- Previous Page Navigation -->
-    	<li class="tribe-events-nav-previous menu-list_item" aria-label="previous day link">
+        <!-- Previous Page Navigation -->
+        <li class="tribe-events-nav-previous menu-list_item" aria-label="previous day link">
             <?php tribe_the_day_link("previous day"); ?>
         </li><!--/.tribe-events-nav-next.menu-list_item-->
 
-    	<!-- Next Page Navigation -->
-    	<li class="tribe-events-nav-next menu-list_item" aria-label="next day link">
+        <!-- Next Page Navigation -->
+        <li class="tribe-events-nav-next menu-list_item" aria-label="next day link">
             <?php tribe_the_day_link("next day"); ?>
         </li><!--/.tribe-events-nav-next.menu-list_item-->
 

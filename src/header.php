@@ -1,12 +1,12 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
-	<head>
+    <head>
         <!-- settings -->
         <meta content="text/html;charset=utf-8" http-equiv="content-type" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
 
-		<!-- WordPress -->
-		<?php wp_head(); ?>
+        <!-- WordPress -->
+        <?php wp_head(); ?>
 
         <!-- Android -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-favicon.png" rel="shortcut icon" />
@@ -34,8 +34,8 @@
 
             <?php if (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")): ?>
                 <link as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
-        		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
-        		<link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" onload="this.rel='stylesheet'" rel="preload" media="print" />
+                <link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
+                <link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" onload="this.rel='stylesheet'" rel="preload" media="print" />
             <?php endif; // !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ?>
 
         <?php endif; // enable_critical_css() ?>
@@ -60,10 +60,10 @@
         </noscript>
 
         <!-- fallback -->
-		<!--[if lte IE 9]>
-		<link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
+        <!--[if lte IE 9]>
+        <link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
         <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>
-		<![endif]-->
+        <![endif]-->
 
         <!-- PWA -->
         <link href="<?php bloginfo("template_directory"); ?>/manifest.json" rel="manifest" />
@@ -79,7 +79,7 @@
                 });
             }
         </script>
-	</head>
+    </head>
     <body <?php body_class(); ?>>
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <div class="page_container">
@@ -93,9 +93,9 @@
                             </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
                             <?php
                             wp_nav_menu(array(
-                                "container"		 => false,
+                                "container"         => false,
                                 "depth"          => 3,
-                                "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
+                                "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
                                 "theme_location" => "primary",
                                 "walker"         => new new_site_menu_walker("accordion"),
                             ));
@@ -109,7 +109,7 @@
                     <div class="header_row row -between -vcenter">
                         <div class="col-auto">
                             <a class="header_logo logo" href="<?php echo home_url(); ?>">
-    							<img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
+                                <img class="logo_image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
                             </a><!--/.header_logo.logo-->
                         </div><!--/.col-auto-->
                         <div class="col-auto -nogrow -noshrink _noprint">
@@ -130,9 +130,9 @@
                     <div class="navigation_inner">
                         <?php
                         wp_nav_menu(array(
-                            "container"		 => false,
+                            "container"         => false,
                             "depth"          => 3,
-                            "items_wrap"	 => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
+                            "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
                             "theme_location" => "primary",
                             "walker"         => new new_site_menu_walker("mega hover touch"),
                         ));

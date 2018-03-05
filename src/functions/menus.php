@@ -5,7 +5,7 @@
 
 // register the menus
 register_nav_menus(array(
-	"primary" => __("Navigation", "new_site"),
+    "primary" => __("Navigation", "new_site"),
 ));
 
 // menu walker
@@ -20,8 +20,8 @@ class new_site_menu_walker extends Walker_Nav_Menu {
 
     // set up mega menu variables
     private $is_mega      = false;
-	private $column_limit = 3;
-	private $column_count = 0;
+    private $column_limit = 3;
+    private $column_count = 0;
     static $li_count      = 0;
 
     function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
@@ -49,16 +49,16 @@ class new_site_menu_walker extends Walker_Nav_Menu {
         // mega menu stuff
         if (in_array("mega", $params)) {
             if ($depth === 0) {
-    			self::$li_count = 0;
-    		}
+                self::$li_count = 0;
+            }
 
-    		if ($depth === 1 && self::$li_count === 1) {
-    			$this->column_count++;
-    		}
+            if ($depth === 1 && self::$li_count === 1) {
+                $this->column_count++;
+            }
 
             if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column_start", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
                 $output .= "</ul><ul class='menu-list -vertical -child -tier1 -mega'>";
-    			$this->column_count++;
+                $this->column_count++;
             }
 
             self::$li_count++;

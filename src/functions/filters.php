@@ -43,7 +43,7 @@ add_filter("login_headertitle", "new_site_login_logo_title");
 // add user-content class to TinyMCE body
 function new_site_tinymce_settings($settings) {
     $settings["body_class"] .= " user-content";
-	return $settings;
+    return $settings;
 }
 add_filter("tiny_mce_before_init", "new_site_tinymce_settings");
 
