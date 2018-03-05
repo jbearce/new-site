@@ -72,7 +72,7 @@ module.exports = {
                     }
                 }))
                 // replace icon placeholders
-                .pipe(plugins.replace(/(?:<icon )(?=(?:.*?(?:use=(?:"|')(.*?)(?:"|')))?)(?=(?:[^>]+?(?:class=(?:"|')(.*?)(?:"|')))?)(?:.*?)(?: \/)?[^?](?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' \/><\/svg></i>"))
+                .pipe(plugins.replace(/(?:<icon )(?=(?:.*?(?:use=(?:"|')(.*?)(?:"|')))?)(?=(?:[^>]+?(?:class=(?:"|')(.*?)(?:"|')))?)(?:.*?)(?: \/)?[^?](?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' /></svg></i>"))
                 // output to compiled directory
                 .pipe(gulp.dest(html_directory));
         };
