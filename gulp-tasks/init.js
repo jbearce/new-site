@@ -27,6 +27,13 @@ module.exports = {
                         name:    "version",
                         message: "Project Version:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid version number (semver).";
+                            }
+                        },
                     },
                     {
                         name:    "description",
@@ -38,11 +45,25 @@ module.exports = {
                         name:    "homepage",
                         message: "Project URL:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid URL.";
+                            }
+                        },
                     },
                     {
                         name:    "repository",
                         message: "Project Repository:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid URL.";
+                            }
+                        },
                     },
                     {
                         name:    "author_name",
@@ -50,25 +71,45 @@ module.exports = {
                         type:    "input",
                     },
                     {
-                        name:    "author_company",
-                        message: "Author Company:",
-                        type:    "input",
-                    },
-                    {
                         name:    "author_email",
                         message: "Author Email:",
+                        type:    "input",
+                        validate: (response) => {
+                            if (response.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid email address.";
+                            }
+                        }
+                    },
+                    {
+                        name:    "author_company",
+                        message: "Author Company:",
                         type:    "input",
                     },
                     {
                         name:    "author_url",
                         message: "Author URL:",
                         type:    "input",
+                        validate: (response) => {
+                            if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid URL.";
+                            }
+                        },
                     },
                     {
                         name:    "theme_color",
                         message: "Theme Color:",
                         type:    "input",
-                        default: "#17AAEC",
+                        validate: (response) => {
+                            if (response.match(/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/)) {
+                                return true;
+                            } else {
+                                return "Please enter a valid hex color.";
+                            }
+                        },
                     },
                     {
                         name:    "remove_modules",
