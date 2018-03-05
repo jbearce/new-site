@@ -4,6 +4,6 @@
 \* ------------------------------------------------------------------------ */
 
 // enqueue styles & scripts
-function new_site_enqueue_scripts() {
+function α__init_namespace_enqueue_scripts() {
 }
-add_action("wp_enqueue_scripts", "new_site_enqueue_scripts");
+add_action("wp_enqueue_scripts", "α__init_namespace_enqueue_scripts");

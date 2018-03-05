@@ -1,6 +1,6 @@
-# @@init_full_name
+# α__init_full_name
 
-An awesome new WordPress theme built just for @@init_full_name!
+An awesome new WordPress theme built just for α__init_full_name!
 
 ---
 

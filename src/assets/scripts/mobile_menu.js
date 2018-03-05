@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by @@init_author_name @ @@init_author_company
+// Scripts written by α__init_author_name @ α__init_author_company
 
 // Inspired by https://medium.com/outsystems-experts/gestures-glamour-setting-up-a-touch-menu-6d9b94039997#.d2r8ubylw
 

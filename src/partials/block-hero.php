@@ -3,7 +3,7 @@ $block_variant        = isset($block_variant) ? " {$block_variant}" : "";
 $block_slideshow      = isset($block_slideshow) ? $block_slideshow : get_field("slideshow");
 $block_image_size     = isset($block_image_size) ? $block_image_size : "hero";
 $block_featured_image = isset($block_featured_image) ? $block_featured_image : (isset($post) && has_post_thumbnail($post) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_large")[0]) : false);
-$block_title          = isset($block_title) ? $block_title : (is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "new_site") : false)));
+$block_title          = isset($block_title) ? $block_title : (is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "α__init_namespace") : false)));
 ?>
 <?php if ($block_slideshow || $block_featured_image): $i = 0; ?>
     <div class="hero-block -fullbleed<?php echo $block_variant; ?>" role="region">
@@ -100,12 +100,12 @@ $block_title          = isset($block_title) ? $block_title : (is_singular() ? ge
 
                     <button class="swiper-button -prev">
                         <icon use="caret-left" class="swiper-button-icon" />
-                        <span class="_visuallyhidden"><?php _e("Previous Slide", "new_site"); ?></span>
+                        <span class="_visuallyhidden"><?php _e("Previous Slide", "α__init_namespace"); ?></span>
                     </button><!--/.swiper-button.-prev-->
 
                     <button class="swiper-button -next">
                         <icon use="caret-right" class="swiper-button-icon" />
-                        <span class="_visuallyhidden"><?php _e("Next Slide", "new_site"); ?></span>
+                        <span class="_visuallyhidden"><?php _e("Next Slide", "α__init_namespace"); ?></span>
                     </button><!--/.swiper-button.-next-->
                 <?php endif; ?>
 

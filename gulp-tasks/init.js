@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by @@init_author_name @ @@init_author_company
+// Scripts written by α__init_author_name @ α__init_author_company
 
 module.exports = {
     init(gulp, plugins, on_error) {
@@ -32,7 +32,7 @@ module.exports = {
                         name:    "description",
                         message: "Project Description",
                         type:    "input",
-                        default: "A brand new WordPress theme built just for @@init_full_name!",
+                        default: "A brand new WordPress theme built just for α__init_full_name!",
                     },
                     {
                         name:    "homepage",
@@ -100,7 +100,7 @@ module.exports = {
                 }))
                 // replace variables with project data
                 .pipe(plugins.file_include({
-                    prefix:   "@@init_",
+                    prefix:   "α__init_",
                     basepath: "@file",
                     context: {
                         full_name:      project_data.full_name,

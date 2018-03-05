@@ -1,6 +1,6 @@
 <?php
 $post_id    = get_post(get_option("page_for_posts"));
-$post_title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "new_site");
+$post_title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "α__init_namespace");
 ?>
 <?php get_header(); ?>
 <?php
@@ -10,9 +10,9 @@ include(locate_template("partials/block-hero.php"));
 <div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">
-            <?php do_action("new_site_before_content"); ?>
+            <?php do_action("α__init_namespace_before_content"); ?>
 
-            <?php $title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "new_site"); ?>
+            <?php $title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "α__init_namespace"); ?>
 
             <?php if ($title): ?>
                 <article class="content_article article -introduction">
@@ -34,7 +34,7 @@ include(locate_template("partials/block-hero.php"));
 
             <?php include(locate_template("partials/list-pagination.php")); ?>
 
-            <?php do_action("new_site_after_content"); ?>
+            <?php do_action("α__init_namespace_after_content"); ?>
         </div><!--/.content_post-->
     </div><!--/.content_inner-->
 </div><!--/.content-block.-fullbleed-->

@@ -1,29 +1,29 @@
 {
-  "name": "@@init_npm_name",
-  "version": "@@init_version",
-  "description": "@@init_description",
-  "homepage": "@@init_homepage_url",
+  "name": "α__init_npm_name",
+  "version": "α__init_version",
+  "description": "α__init_description",
+  "homepage": "α__init_homepage_url",
   "templates": {
-    "front-page": "@@init_homepage_url"
+    "front-page": "α__init_homepage_url"
   },
   "progressive-web-app": {
-    "name": "@@init_full_name",
-    "short_name": "@@init_short_name",
-    "theme_color": "@@init_theme_color"
+    "name": "α__init_full_name",
+    "short_name": "α__init_short_name",
+    "theme_color": "α__init_theme_color"
   },
   "bugs": {
-    "url": "@@init_repository/issues",
-    "email": "@@init_author_email_address"
+    "url": "α__init_repository/issues",
+    "email": "α__init_author_email_address"
   },
   "license": "UNLICENSED",
   "author": {
-    "name": "@@init_author_name @ @@init_author_company",
-    "email": "@@init_author_email_address",
-    "url": "@@init_author_domain"
+    "name": "α__init_author_name @ α__init_author_company",
+    "email": "α__init_author_email_address",
+    "url": "α__init_author_domain"
   },
   "repository": {
     "type": "git",
-    "url": "@@init_repository"
+    "url": "α__init_repository"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.0",
