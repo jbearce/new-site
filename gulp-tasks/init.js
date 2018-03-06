@@ -144,6 +144,7 @@ module.exports = {
                         name:     "theme_color",
                         message:  "Theme Color:",
                         type:     "input",
+                        default:  "#17AAEC",
                         validate: (response) => {
                             if (response.match(/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/)) {
                                 return true;
