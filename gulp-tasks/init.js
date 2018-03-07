@@ -157,13 +157,13 @@ module.exports = {
                         name:    "heading_font",
                         message: "Heading Font:",
                         type:    "input",
-                        default: "\"Open Sans\", \"Arial\", \"Helvetica\", sans-serif",
+                        default: "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
                     },
                     {
                         name:    "body_font",
                         message: "Body Font:",
                         type:    "input",
-                        default: "\"Open Sans\", \"Arial\", \"Helvetica\", sans-serif",
+                        default: "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
                     },
                     {
                         name:     "site_width",
