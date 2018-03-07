@@ -47,16 +47,16 @@ $warning_alt: #F83636;
  * Fonts                                                                    *
 \* ------------------------------------------------------------------------ */
 
-$heading-font: __gulp_init__heading_font;
-$body-font: __gulp_init__body_font;
+$heading-font: "Open Sans", "Helvetica", "Arial", sans-serif;
+$body-font: "Open Sans", "Helvetica", "Arial", sans-serif;
 
 /* ------------------------------------------------------------------------ *\
  * Widths                                                                   *
 \* ------------------------------------------------------------------------ */
 
-$site-width: __gulp_init__site_width;
-$column-gap: __gulp_init__column_gap;
-$content-padding: __gulp_init__content_padding;
+$site-width: 1500;
+$column-gap: 30;
+$content-padding: 25;
 
 /* ------------------------------------------------------------------------ *\
  * Break Points                                                             *
