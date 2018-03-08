@@ -64,32 +64,13 @@ function __gulp_init__namespace_fix_ninja_forms($content) {
 add_filter("the_content", "__gulp_init__namespace_fix_ninja_forms", 5);
 
 // fix shortcode formatting
-function __gulp_init__namespace_fix_shortcodes($content) {
+function __gulp_init__namespace_fix_shortcodes() {
     if (!is_admin()) {
-        $array = array (
-            "<p>["                => "[",
-            "]</p>"               => "]",
-            "]<br />"             => "]",
-
-            "<p>&#91;"            => "[",
-            "&#93;</p>"           => "]",
-            "&#93;<br />"         => "]",
-
-            "&#60;p&#62;["        => "[",
-            "]&#60;/p&#62;"       => "]",
-            "[&#60;br /&#62;"     => "]",
-
-            "&#60;p&#62;&#91;"    => "[",
-            "&#93;&#60;/p&#62;"   => "]",
-            "&#93;&#60;br /&#62;" => "]",
-        );
-        $content = strtr($content, $array);
+        remove_filter("the_content", "wpautop");
+        add_filter("the_content", "wpautop", 12);
     }
-
-    return $content;
 }
-add_filter("the_content", "__gulp_init__namespace_fix_shortcodes", 5);
-add_filter("acf_the_content", "__gulp_init__namespace_fix_shortcodes", 5);
+add_filter("init", "__gulp_init__namespace_fix_shortcodes", 10);
 
 // add classes to elements
 function __gulp_init__namespace_add_user_content_classes($content) {
