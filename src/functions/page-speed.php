@@ -44,3 +44,15 @@ function __gulp_init__namespace_make_styles_async($tag, $handle, $src) {
     return $tag;
 }
 add_filter("style_loader_tag", "__gulp_init__namespace_make_styles_async", 10, 3);
+
+// create a local copy of Google Analytics instead and serve that for caching purposes
+function __gulp_init__namespace_cache_google_analytics($url) {
+    $local_path = ABSPATH . "analytics.js";
+
+    if (!file_exists($local_path) || date("Ymd", filemtime($local_path)) <= date("Ymd", strtotime("-2 weeks"))) {
+        file_put_contents($local_path, fopen($url, "r"));
+    }
+
+    return home_url("/analytics.js");
+}
+add_filter("gadwp_analytics_script_path", "__gulp_init__namespace_cache_google_analytics");
