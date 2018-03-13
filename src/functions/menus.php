@@ -289,7 +289,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                     $fields_markup .= "<textarea id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>{$field["meta_value"]}</textarea>";
                 } elseif ($field["type"] === "select") {
                     $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<select id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>";
+                    $fields_markup .= "<select id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'" . (isset($field["multiple"]) && $field["multiple"] === true ? " multiple" : "") . ">";
 
                     foreach ($field["options"] as $value => $label) {
                         $fields_markup .= "<option value='{$value}'" . ($field["meta_value"] === $value ? " selected='selected'" : "") . ">{$label}</option>";
