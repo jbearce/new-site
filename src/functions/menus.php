@@ -297,6 +297,8 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
                     $fields_markup .= "</select>";
                 } elseif ($field["type"] === "radio") {
+                    $fields_markup .= "{$field["label"]}<br>";
+
                     foreach ($field["options"] as $value => $label) {
                         $fields_markup .= "<label for='edit-menu-item-{$field["name"]}-{$item->ID}-" . sanitize_title($value) . "'>";
                         $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}-" . sanitize_title($value) . "' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$value}' type='radio'" . checked($field["meta_value"], $value, false) . " />";
