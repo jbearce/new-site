@@ -49,7 +49,7 @@ add_filter("style_loader_tag", "__gulp_init__namespace_make_styles_async", 10, 3
 function __gulp_init__namespace_cache_google_analytics($url) {
     $local_path = ABSPATH . "analytics.js";
 
-    if (!file_exists($local_path) || date("Ymd", filemtime($local_path)) <= date("Ymd", strtotime("-2 weeks"))) {
+    if (!file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {
         file_put_contents($local_path, fopen($url, "r"));
     }
 
