@@ -492,10 +492,10 @@ add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_desc
 
 // create a local copy of Google Analytics instead and serve that for caching purposes
 function __gulp_init__cache_google_analytics($url) {
-    $local_path  = "{$_SERVER["DOCUMENT_ROOT"]}/analytics.js";
+    $local_path = ABSPATH . "analytics.js";
 
     if (!file_exists($local_path) || date("Ymd", filemtime($local_path)) <= date("Ymd", strtotime("-2 weeks"))) {
-        file_put_contents("{$_SERVER["DOCUMENT_ROOT"]}/analytics.js", fopen($url, "r"));
+        file_put_contents($local_path fopen($url, "r"));
     }
 
     return home_url("/analytics.js");
