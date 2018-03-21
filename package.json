@@ -26,6 +26,7 @@
     "url": "__gulp_init__repository"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "browser-sync": "^2.23.6",
     "critical": "^1.1.0",

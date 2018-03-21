@@ -28,7 +28,7 @@ prepros-6.cfg
 *.js.map
 
 # Resources
-_resources/
+.resources/
 
 # Configuration settings
 .bsconfig
