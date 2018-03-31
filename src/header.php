@@ -27,58 +27,13 @@
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-large.png" name="msapplication-square310x310logo" />
         <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=5; cycle=1" name="msapplication-notification" />
 
-        <!-- styles -->
-        <?php if (enable_critical_css()): ?>
-
-            <style><?php the_critical_css(); ?></style>
-
-            <?php if (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")): ?>
-                <link as="style" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" onload="this.rel='stylesheet'" rel="preload" />
-                <link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" onload="this.rel='stylesheet'" rel="preload" />
-                <link as="style" href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" onload="this.rel='stylesheet'" rel="preload" media="print" />
-            <?php endif; // !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ?>
-
-        <?php endif; // enable_critical_css() ?>
-
-        <?php if (enable_critical_css()): ?>
-            <noscript>
-        <?php endif; // enable_critical_css() ?>
-
-            <link href="<?php bloginfo("template_directory"); ?>/assets/styles/modern.css" rel="stylesheet" />
-
-            <?php if (!(isset($_GET["generating"]) && $_GET["generating"] === "critical_css")): ?>
-                <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic" rel="stylesheet" />
-                <link href="<?php bloginfo("template_directory"); ?>/assets/styles/print.css" rel="stylesheet" media="print" />
-            <?php endif; // !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ?>
-
-        <?php if (enable_critical_css()): ?>
-            </noscript>
-        <?php endif; // enable_critical_css() ?>
-
-        <noscript>
-            <style>._js {display: none !important;}</style>
-        </noscript>
-
-        <!-- fallback -->
-        <!--[if lte IE 9]>
-        <link href="<?php bloginfo("template_directory"); ?>/assets/styles/legacy.css" rel="stylesheet" />
-        <script src="<?php bloginfo("template_directory"); ?>/assets/scripts/legacy.js"></script>
-        <![endif]-->
-
         <!-- PWA -->
         <link href="<?php bloginfo("template_directory"); ?>/manifest.json" rel="manifest" />
 
-        <script>
-            if ("serviceWorker" in navigator) {
-                window.addEventListener("load", () => {
-                    navigator.serviceWorker.register("/service-worker.js").then((registration) => {
-                        console.log("Success: Service worker successfully registered!");
-                    }).catch((error) => {
-                        console.log("Error: ", error);
-                    });
-                });
-            }
-        </script>
+        <!-- fallback -->
+        <noscript>
+            <style>._js {display: none !important;}</style>
+        </noscript>
     </head>
     <body <?php body_class(); ?>>
         <div class="page_container">

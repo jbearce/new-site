@@ -3,38 +3,17 @@
  * Custom Functions
 \* ------------------------------------------------------------------------ */
 
-function enable_critical_css($template_css_file = false) {
-    global $template;
-    $template_css_file   = $template_css_file === false ? get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css" : $template_css_file;
-    $enable_critical_css = false;
+// check if critical styles should be used, and return it if true
+function get_critical_css($template) {
+    $critical_css      = "";
+    $current_template  = explode(".", basename($template))[0];
+    $critical_css_path = get_theme_file_path("assets/styles/critical/{$current_template}.css");
 
-    if (file_exists($template_css_file) && !(isset($_GET["generating"]) && $_GET["generating"] === "critical_css")) {
-        if (isset($_GET["debug"]) && $_GET["debug"] === "critical_css") {
-            $enable_critical_css = true;
-        } elseif (!isset($_COOKIE["previously_visited"]) || (isset($_COOKIE["previously_visited"]) && $_COOKIE["previously_visited"] !== "true")) {
-            $enable_critical_css = true;
-        }
+    if (file_exists($critical_css_path) && !isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) {
+        $critical_css = file_get_contents($critical_css_path);
     }
 
-    return $enable_critical_css;
-}
-
-function get_critical_css($template_css_file) {
-    global $template;
-    $template_css_file = isset($template_css_file) ? $template_css_file : get_template_directory() . "/assets/styles/critical_" . preg_replace("/.php$/i", "", basename($template)) . ".css";
-    $template_css      = "";
-
-    if (file_exists($template_css_file)) {
-        ob_start();
-        include($template_css_file);
-        $template_css = ob_get_clean();
-    }
-
-    return $template_css;
-}
-
-function the_critical_css($template_css_file) {
-    echo get_critical_css($template_css_file);
+    return $critical_css;
 }
 
 // get a nicer excerpt based on post ID

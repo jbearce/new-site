@@ -3,23 +3,25 @@
  * Functions: Filters
 \* ------------------------------------------------------------------------ */
 
+// set a cookie after the first load to mark returning visitors
+function __gulp_init__namespace_set_return_visitor_cookie() {
+    if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
+}
+add_action("wp_enqueue_scripts", "__gulp_init__namespace_set_return_visitor_cookie", 999);
+
 // push the CSS & JS over HTTP2
 function __gulp_init__namespace_http2_push() {
-    header("Link: <" . get_bloginfo("template_directory") . "/assets/styles/modern.css>; rel=preload; as=style, <https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic>; rel=preload; as=style; crossorigin");
-}
-add_action("init", "__gulp_init__namespace_http2_push", 10);
+    global $wp_styles;
 
-// set cookie when a query string gets passed
-function __gulp_init__namespace_set_cookie() {
-    $cookie     = isset($_GET["cookie"]) ? $_GET["cookie"] : false;
-    $expiration = isset($_GET["expiration"]) ? time() + $_GET["expiration"] : time() + 604800;
+    $http2_string = "";
 
-    if ($cookie) {
-        setcookie($cookie, "true", $expiration); // expires in 1 week by default
-        exit;
+    foreach ($wp_styles->queue as $style) {
+        $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$wp_styles->registered[$style]->src}>; rel=preload; as=style";
     }
+
+    header("Link: {$http2_string}");
 }
-add_action("init", "__gulp_init__namespace_set_cookie", 10);
+add_action("wp_enqueue_scripts", "__gulp_init__namespace_http2_push", 999);
 
 // adjust WordPress login screen styles
 function __gulp_init__namespace_login_styles() {

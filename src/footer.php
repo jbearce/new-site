@@ -30,15 +30,5 @@
         </div><!--/.page_container-->
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <?php wp_footer(); ?>
-        <script defer="defer" src="<?php bloginfo("template_directory"); ?>/assets/scripts/modern.js"></script>
-        <script><?php include(get_template_directory() . "/assets/scripts/critical.js"); ?></script>
-
-        <?php if (!(isset($_COOKIE["previously_visited"]) && $_COOKIE["previously_visited"] === "true")): ?>
-            <script>
-                var httpRequest = new XMLHttpRequest();
-                httpRequest.open("GET", "<?php echo home_url(); ?>?cookie=previously_visited&expiration=604800");
-                httpRequest.send();
-            </script>
-        <?php endif; // !(isset($_COOKIE["previously_visited"]) && $_COOKIE["previously_visited"] === "true") ?>
     </body>
 </html>

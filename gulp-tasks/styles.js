@@ -19,11 +19,11 @@ module.exports = {
                 if (sitemap.hasOwnProperty(template)) {
                     // generate the critial CSS
                     plugins.critical.generate({
-                        base:       css_directory,
-                        dest:       "critical_" + template + ".css",
+                        base:       css_directory + "/critical",
+                        dest:       template + ".css",
                         dimensions: [1920, 1080],
                         minify:     true,
-                        src:        sitemap[template] + "?generating=critical_css",
+                        src:        sitemap[template] + "?disable=critical_css"
                     });
                 }
             }
