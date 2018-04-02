@@ -25,8 +25,8 @@
         "function-url-scheme-whitelist": ["https", "data"],
         "indentation": 4,
         "max-nesting-depth": 3,
-        "no-descending-specificity": false,
-        "no-duplicate-selectors": false,
+        "no-descending-specificity": null,
+        "no-duplicate-selectors": null,
         "order/order": [
             "custom-properties",
             "declarations"
@@ -38,7 +38,7 @@
         ],
         "property-no-vendor-prefix": true,
         "selector-attribute-quotes": "always",
-        "selector-class-pattern": "^[a-z][a-z0-9]*(?:(?:-|_)[a-z][a-z0-9]*)?(?:_[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*)?)?(?:_[a-z][a-z0-9]*(?:-[a-z][a-z0-9]*)?)?$|^(?:-|_)[a-z][a-z0-9]*$",
+        "selector-class-pattern": "^(-|_)?([a-z][a-z0-9]*(?:(-|_)(?!$))?)+$",
         "selector-max-id": 0,
         "selector-max-type": [
             0,
