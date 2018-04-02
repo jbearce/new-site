@@ -76,8 +76,6 @@ add_action("wp_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts");
 
 // add licenisng attributes to FontAwesome 5 Pro script
 function __gulp_init__namespace_add_fontawesome_license_attributes($tag, $handle, $src) {
-    // <script defer src="https://pro.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-816IUmmhAwCMonQiPZBO/PTgzgsjHtpb78rpsLzldhb4HZjFzBl06Z3eu4ZuwHTz" crossorigin="anonymous"></script>
-
     if (!is_admin() && $handle === "__gulp_init__namespace-scripts-fontawesome") {
         return str_replace("<script", "<script integrity='sha384-816IUmmhAwCMonQiPZBO/PTgzgsjHtpb78rpsLzldhb4HZjFzBl06Z3eu4ZuwHTz' crossorigin='anonymous'", $tag);
     }
