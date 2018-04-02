@@ -216,6 +216,13 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     // include this so we can access Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
+    // Add the WordPress color picker styles & scripts
+    function __gulp_init__namespace_nav_menu_color_picker() {
+        wp_enqueue_style("wp-color-picker");
+        wp_enqueue_script("wp-color-picker");
+    }
+    add_action("admin_enqueue_scripts", "__gulp_init__namespace_nav_menu_color_picker");
+
     class __gulp_init__namespace_create_custom_menu_options extends Walker_Nav_Menu_Edit {
         static $displayed_fields = array();
 
@@ -284,6 +291,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 if ($field["type"] === "text") {
                     $fields_markup .= "{$field["label"]}<br>";
                     $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' />";
+                } elseif ($field["type"] === "color") {
+                    $fields_markup .= "{$field["label"]}<br>";
+                    $fields_markup .= "<span><input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]} __gulp_init__namespace-color-picker' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' /></span>";
                 } elseif ($field["type"] === "textarea") {
                     $fields_markup .= "{$field["label"]}<br>";
                     $fields_markup .= "<textarea id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>{$field["meta_value"]}</textarea>";
@@ -333,13 +343,23 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         static function save_field_data($post_id) {
             if (get_post_type($post_id) !== "nav_menu_item") return;
 
-            $fields = self::get_custom_fields();
+            $post_object   = get_post($post_id);
+            $custom_fields = self::get_custom_fields();
 
-            foreach ($fields as $field) {
+            foreach ($custom_fields as $field) {
                 $POST_key = "menu-item-{$field["name"]}";
                 $meta_key = "_menu_item_{$field["name"]}";
 
                 $field["value"] = isset($_POST[$POST_key][$post_id]) ? sanitize_text_field($_POST[$POST_key][$post_id]) : "";
+
+                // validate the color picker
+                if ($field["type"] === "color" && $field["value"] !== "" && !preg_match("/^#[a-f0-9]{6}$/i", $field["value"])) {
+                    $field["value"] = "";
+
+                    add_action("admin_notices", function () use ($post_object) {
+                        echo "<div class='notice notice-error'><p>" . sprintf(__("Invalid HEX color code entered for '%s' [%s].", "__gulp_init__namespace"), $post_object->post_title, $post_object->ID) . "</p></div>";
+                    });
+                }
 
                 update_post_meta($post_id, $meta_key, $field["value"]);
             }
@@ -356,7 +376,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
             foreach ($fields as $field) {
                 if ($field["scripts"] && in_array($field["name"], self::$displayed_fields)) {
-                    echo "<script>{$field["styles"]}</script>";
+                    echo "<script>{$field["scripts"]}</script>";
                 }
             }
         }
