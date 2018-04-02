@@ -247,7 +247,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $all_menus      = get_nav_menu_locations();
             $assigned_menus = get_the_terms($item->ID, "nav_menu");
 
-            $fields = self::get_custom_fields();
+            $custom_fields = self::get_custom_fields();
 
             $fields_markup = "";
 
@@ -255,7 +255,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             parent::start_el($item_output, $item, $depth, $args);
 
             // set up each new custom field
-            foreach ($fields as $field) {
+            foreach ($custom_fields as $field) {
                 // if fixed locations are set, see if the menu is assigned to that location, and if not, skip the field
                 if ($field["locations"]) {
                     $skip = true;
@@ -372,9 +372,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // insert field custom scripts in to the admin footer
         static function insert_custom_scripts() {
-            $fields = self::get_custom_fields();
+            $custom_fields = self::get_custom_fields();
 
-            foreach ($fields as $field) {
+            foreach ($custom_fields as $field) {
                 if ($field["scripts"] && in_array($field["name"], self::$displayed_fields)) {
                     echo "<script>{$field["scripts"]}</script>";
                 }
@@ -383,9 +383,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // insert field custom styles in to the admin header
         static function insert_custom_styles() {
-            $fields = self::get_custom_fields();
+            $custom_fields = self::get_custom_fields();
 
-            foreach ($fields as $field) {
+            foreach ($custom_fields as $field) {
                 if ($field["styles"] && in_array($field["name"], self::$displayed_fields)) {
                     echo "<style>{$field["styles"]}</style>";
                 }
@@ -394,9 +394,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // insert the screen options
         static function insert_custom_screen_options($args) {
-            $fields = self::get_custom_fields();
+            $custom_fields = self::get_custom_fields();
 
-            foreach ($fields as $field) {
+            foreach ($custom_fields as $field) {
                 if (in_array($field["name"], self::$displayed_fields)) {
                     $args[$field["name"]] = $field["label"];
                 }
