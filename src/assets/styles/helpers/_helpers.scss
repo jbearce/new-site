@@ -194,38 +194,86 @@
     }
 }
 
-// when screen is < 768
-@media screen and (max-width: ($xs-break - 1 / 16)) {
-    ._tablet:not(._phone),
-    ._notebook:not(._phone),
-    ._desktop:not(._phone) {
-        display: none !important;
+/* "visible" classes */
+
+// $xs-break
+
+._visible-xs {
+    @media screen and (max-width: $xs-break - (1 / 16)) {
+        display: none;
     }
 }
 
-// when screen is >= 768 and < 1024
-@media screen and (min-width: $xs-break) and (max-width: ($l-break - 1 / 16)) {
-    ._phone:not(._tablet),
-    ._notebook:not(._tablet),
-    ._desktop:not(._tablet) {
-        display: none !important;
+// $s-break
+
+._visible-s {
+    @media screen and (max-width: $s-break - (1 / 16)) {
+        display: none;
     }
 }
 
-// when screen is >= 1024 and < 1280
-@media screen and (min-width: $l-break) and (max-width: ($xl-break - 1 / 16)) {
-    ._phone:not(._notebook),
-    ._tablet:not(._notebook),
-    ._desktop:not(._notebook) {
-        display: none !important;
+// $m-break
+
+._visible-m {
+    @media screen and (max-width: $m-break - (1 / 16)) {
+        display: none;
     }
 }
 
-// when screen is >= 1280
-@media screen and (min-width: $xl-break) {
-    ._phone:not(._desktop),
-    ._tablet:not(._desktop),
-    ._notebook:not(._desktop) {
-        display: none !important;
+// $l-break
+
+._visible-l {
+    @media screen and (max-width: $l-break - (1 / 16)) {
+        display: none;
+    }
+}
+
+// $xl-break
+
+._visible-xl {
+    @media screen and (max-width: $xl-break - (1 / 16)) {
+        display: none;
+    }
+}
+
+/* "hidden" classes -- NOTE: It is important that _hidden classes come after _visible for override purposes */
+
+// $xs-break
+
+._hidden-xs {
+    @media screen and (min-width: $xs-break) {
+        display: none;
+    }
+}
+
+// $s-break
+
+._hidden-s {
+    @media screen and (min-width: $s-break) {
+        display: none;
+    }
+}
+
+// $m-break
+
+._hidden-m {
+    @media screen and (min-width: $m-break) {
+        display: none;
+    }
+}
+
+// $l-break
+
+._hidden-l {
+    @media screen and (min-width: $l-break) {
+        display: none;
+    }
+}
+
+// $xl-break
+
+._hidden-xl {
+    @media screen and (min-width: $xl-break) {
+        display: none;
     }
 }

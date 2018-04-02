@@ -7,7 +7,7 @@
                 </div><!--/.footer_inner-->
             </div><!--/.footer-block.-fullbleed-->
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block -flyout _phone _noncritical" role="navigation" aria-hidden="true">
+                <div class="navigation-block -flyout _hidden-xs _noncritical" role="navigation" aria-hidden="true">
                     <button class="navigation_background"><span class="_visuallyhidden"><?php _e("Close Menu", "__gulp_init__namespace"); ?></span></button>
                     <div class="navigation_inner">
                         <div class="navigation_scroller">
@@ -25,7 +25,7 @@
                             ?>
                         </div><!--/.navigation_scroller-->
                     </div><!--/.navigation_inner-->
-                </div><!--/.navigation-block.-flyout._phone._noncritical-->
+                </div><!--/.navigation-block.-flyout._hidden-xs._noncritical-->
             <?php endif; // has_nav_menu("primary") ?>
         </div><!--/.page_container-->
         <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>

@@ -47,19 +47,19 @@
                         </div><!--/.col-auto-->
                         <div class="col-auto -nogrow -noshrink _noprint">
                             <?php if (has_nav_menu("primary")): ?>
-                                <button class="header_menu-toggle menu-toggle -rounded _phone">
+                                <button class="header_menu-toggle menu-toggle -rounded _hidden-xs">
                                     <?php _e("View Menu", "__gulp_init__namespace"); ?>
-                                </button><!--/.header_menu-toggle.menu-toggle.-rounded._phone-->
+                                </button><!--/.header_menu-toggle.menu-toggle.-rounded._hidden-xs-->
                             <?php endif; // has_nav_menu("primary") ?>
-                            <div class="header_search_container search-form_container _nomargin _tablet _notebook _desktop" role="search">
+                            <div class="header_search_container search-form_container _nomargin _visible-xs" role="search">
                                 <?php get_search_form(); ?>
-                            </div><!--/.header_search_container.search-form_container._nomargin._tablet._notebook._desktop-->
+                            </div><!--/.header_search_container.search-form_container._nomargin._visible-xs-->
                         </div><!--/.col-auto.-nogrow.-noshrink._noprint-->
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
             </div><!--/.header-block.-fullbleed-->
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block -fullbleed _tablet _notebook _desktop _noprint" role="navigation">
+                <div class="navigation-block -fullbleed _visible-xs _noprint" role="navigation">
                     <div class="navigation_inner">
                         <?php
                         wp_nav_menu(array(
@@ -71,5 +71,5 @@
                         ));
                         ?>
                     </div><!--/.navigation_inner-->
-                </div><!--/.navigation-block.-fullbleed._tablet._notebook._desktop._noprint-->
+                </div><!--/.navigation-block.-fullbleed._visible-xs._noprint-->
             <?php endif; // has_nav_menu("primary") ?>

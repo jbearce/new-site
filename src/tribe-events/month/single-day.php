@@ -15,12 +15,12 @@ $events_label = (1 === $day["total_events"]) ? tribe_get_event_label_singular() 
 <!-- Events List -->
 <?php if ($day["events"]->have_posts()): ?>
     <?php while ($day["events"]->have_posts()) : $day["events"]->the_post(); ?>
-        <div class="_tablet _notebook _desktop">
+        <div class="_visible-xs">
            <?php tribe_get_template_part("month/single", "event"); ?>
-       </div><!--/._tablet._notebook._desktop-->
+       </div><!--/._visible-xs-->
     <?php endwhile; ?>
 
-    <div class="tribe-events-calendar_mobile-event-indicator _phone"><span class="_visuallyhidden"><?php _e("Click to view events on this day.", "the-events-calendar"); ?></span></div>
+    <div class="tribe-events-calendar_mobile-event-indicator _hidden-xs"><span class="_visuallyhidden"><?php _e("Click to view events on this day.", "the-events-calendar"); ?></span></div>
 <?php endif; ?>
 
 <!-- View More -->
