@@ -291,9 +291,6 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 if ($field["type"] === "text") {
                     $fields_markup .= "{$field["label"]}<br>";
                     $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' />";
-                } elseif ($field["type"] === "color") {
-                    $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<span><input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]} __gulp_init__namespace-color-picker' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' /></span>";
                 } elseif ($field["type"] === "textarea") {
                     $fields_markup .= "{$field["label"]}<br>";
                     $fields_markup .= "<textarea id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>{$field["meta_value"]}</textarea>";
@@ -318,6 +315,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 } elseif ($field["type"] === "checkbox") {
                     $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["value"]}' type='checkbox'" . checked($field["meta_value"], $field["value"], false) . " />";
                     $fields_markup .= $field["label"];
+                } elseif ($field["type"] === "color") {
+                    $fields_markup .= "{$field["label"]}<br>";
+                    $fields_markup .= "<span><input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]} __gulp_init__namespace-color-picker' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' /></span>";
                 }
 
                 if ($field["description"]) {
