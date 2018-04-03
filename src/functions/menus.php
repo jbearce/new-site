@@ -466,7 +466,12 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
                 ) {
                     $viewed_item_id        = $menu_item->ID;
                     $viewed_ancestor_ids[] = $viewed_item_id;
-                    $viewed_ancestor_ids[] = (int) $menu_item->menu_item_parent;
+
+                    // prevent 0 (root) from being added to viewed_ancestor_ids
+                    if ((int) $menu_item->menu_item_parent !== 0) {
+                        $viewed_ancestor_ids[] = (int) $menu_item->menu_item_parent;
+                    }
+
                     break;
                 }
             }
