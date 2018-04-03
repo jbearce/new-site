@@ -13,6 +13,9 @@ module.exports = {
 
             console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");
 
+            // create the "critical" directory
+            plugins.mkdirp(css_directory + "/critical");
+
             // loop through all the links
             for (const template in sitemap) {
                 // make sure the key isn't a prototype

@@ -29,6 +29,7 @@ const plugins = {
     is_binary:        require("gulp-is-binary"),
     json:             require("jsonfile"),
     merge:            require("merge-stream"),
+    mkdirp:           require("mkdirp"),
     newer:            require("gulp-newer"),
     notify:           require("gulp-notify"),
     path:             require("path"),
