@@ -3,7 +3,7 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 // init swiper
-if (document.querySelectorAll(".swiper-container .swiper-slide").length > 1) {
+if (document.querySelectorAll(".swiper-container.-hero .swiper-slide").length > 1) {
     new Swiper (".swiper-container.-hero", {
         autoplay: {
             delay: 5000,
