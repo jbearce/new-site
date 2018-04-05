@@ -8,7 +8,7 @@ $block_title          = isset($block_title) ? $block_title : (is_singular() ? ge
 <?php if ($block_slideshow || $block_featured_image): $i = 0; ?>
     <div class="hero-block -fullbleed<?php echo $block_variant; ?>" role="region">
         <div class="hero_inner -fullbleed">
-            <div class="hero_swiper-container swiper-container -fullbleed">
+            <div class="hero_swiper-container swiper-container -hero -fullbleed">
 
                 <div class="swiper-wrapper">
                     <?php if ($block_slideshow): ?>
@@ -109,7 +109,7 @@ $block_title          = isset($block_title) ? $block_title : (is_singular() ? ge
                     </button><!--/.swiper-button.-next-->
                 <?php endif; ?>
 
-            </div><!--/.hero_swiper-container.swiper-container.-fullbleed-->
+            </div><!--/.hero_swiper-container.swiper-container.-hero.-fullbleed-->
         </div><!--/.hero_inner.-fullbleed-->
     </div><!--/.hero-block.-fullbleed._nopadding-->
 <?php endif; // if ($block_slideshow || $block_featured_image) ?>
