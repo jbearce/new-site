@@ -63,7 +63,7 @@
                     <div class="navigation_inner">
                         <?php
                         wp_nav_menu(array(
-                            "container"         => false,
+                            "container"      => false,
                             "depth"          => 3,
                             "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation' data-hover='true' data-touch='true'>%3\$s</ul></nav>",
                             "theme_location" => "primary",

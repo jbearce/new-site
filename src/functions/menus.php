@@ -57,7 +57,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
             }
 
             if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column_start", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
-                $output .= "</ul><ul class='menu-list -vertical -child -tier1 -mega'>";
+                $output .= "</ul><ul class='menu-list -vertical -child -depth-1 -mega'>";
                 $this->column_count++;
             }
 
@@ -137,16 +137,18 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         // add a toggle button
         $toggle = "";
 
-        if (in_array("accordion", $params) && !$this->is_mega && !in_array("touch", $params) && !in_array("hover", $params)) {
-            $toggle .= "<button class='menu-list_toggle'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
-        }
+        if (!$this->is_mega && in_array("accordion", $params) || in_array("hover", $params) || in_array("touch", $params)) {
+            $toggle_class = "";
 
-        if (in_array("touch", $params) && !$this->is_mega && !in_array("accordion", $params)) {
-            $toggle .= "<button class='menu-list_toggle _touch'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
-        }
+            if (in_array("touch", $params) && !in_array("accordion", $params)) {
+                $toggle_class = " _touch";
+            }
 
-        if (in_array("hover", $params) && !$this->is_mega && !in_array("accordion", $params)) {
-            $toggle .= "<button class='menu-list_toggle _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "") . "'>" . __("Toggle children", "__gulp_init__namespace") . "</button>";
+            if (in_array("hover", $params) && !in_array("accordion", $params)) {
+                $toggle_class .= " _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "");
+            }
+
+            $toggle .= "<button class='menu-list_toggle{$toggle_class}'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
         }
 
         // set up empty variant class
@@ -154,32 +156,41 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
 
         // add a -tier class indicting the depth
         if ($depth === 0) {
-            $variant .= "-tier1";
+            $variant .= " -depth-1";
         } elseif ($depth === 1) {
-            $variant .= "-tier2";
+            $variant .= " -depth-2";
         } elseif ($depth > 1) {
-            $variant .= "-tier2 -tier" . ($depth + 1);
+            $variant .= " -depth-" . ($depth + 1);
         }
 
         // add the appropriate variant class
-        if (in_array("accordion", $params) && !$this->is_mega) {
-            $variant .= " -accordion";
-        } elseif ((in_array("hover", $params) || in_array("touch", $params)) && !$this->is_mega) {
-            $variant .= " -overlay";
-        } elseif ($this->is_mega) {
+        if ($this->is_mega) {
             $variant .= " -mega";
+        } else {
+            if (in_array("accordion", $params)) {
+                $variant .= " -accordion";
+            } elseif (in_array("hover", $params) || in_array("touch", $params)) {
+                $variant .= " -overlay" . ($depth >= 1 ? " -flyout" : "");
+            }
         }
 
-        // add data properties for the menu script to interact with
+        // set up empty data attribute
         $data = "";
+
+        // add data properties for the menu script to interact with
         if (in_array("hover", $params) && !$this->is_mega) $data .= " data-hover='true'";
-        if (in_array("touch", $params) && !$this->is_mega) $data   .= " data-touch='true'";
+        if (in_array("touch", $params) && !$this->is_mega) $data .= " data-touch='true'";
+
+        // set up empty aria attribute
+        $aria = "";
 
         // add aria attribute if the mega parameter is not passed
-        $aria = ($this->is_mega) ? "" : (in_array("hover", $params) || in_array("touch", $params) ? " aria-hidden='true'" : "");
+        if (!$this->is_mega && (in_array("hover", $params) || in_array("touch", $params))) {
+            $aria = " aria-hidden='true'";
+        }
 
         // construct the menu list
-        $output .= "{$toggle}<ul class='menu-list -vertical -child {$variant}'{$data}{$aria}>";
+        $output .= "{$toggle}<ul class='menu-list -vertical -child{$variant}'{$data}{$aria}>";
     }
 
     public function end_lvl(&$output, $depth = 0, $args = array()) {
