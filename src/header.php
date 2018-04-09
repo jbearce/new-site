@@ -51,9 +51,9 @@
                                     <?php _e("View Menu", "__gulp_init__namespace"); ?>
                                 </button><!--/.header_menu-toggle.menu-toggle.-rounded._hidden-xs-->
                             <?php endif; // has_nav_menu("primary") ?>
-                            <div class="header_search_container search-form_container _nomargin _visible-xs" role="search">
+                            <div class="header_search-form_container search-form_container _nomargin _visible-xs" role="search">
                                 <?php get_search_form(); ?>
-                            </div><!--/.header_search_container.search-form_container._nomargin._visible-xs-->
+                            </div><!--/.header_search-form_container.search-form_container._nomargin._visible-xs-->
                         </div><!--/.col-auto.-nogrow.-noshrink._noprint-->
                     </div><!--/.header_row.row.-between.-vcenter-->
                 </div><!--/.header_inner-->
