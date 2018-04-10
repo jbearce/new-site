@@ -33,3 +33,4 @@ prepros-6.cfg
 # Configuration settings
 .bsconfig
 .ftpconfig
+.rsyncconfig

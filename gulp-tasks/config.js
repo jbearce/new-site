@@ -8,12 +8,13 @@ module.exports = {
         // generate config.json and start other functions
         const generate_config = (file_name, mode = "ftp", callback) => {
             const data_source = {
-                bs:   "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
-                ftp:  "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/0f408964b8f3c77ed0ae452ab3d2ba2c130e1acd/.ftpconfig",
-                sftp: "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/4829ebdc5d45cea7dce8cc3109a05501b159f992/.ftpconfig",
+                bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
+                ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/0f408964b8f3c77ed0ae452ab3d2ba2c130e1acd/.ftpconfig",
+                sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/4829ebdc5d45cea7dce8cc3109a05501b159f992/.ftpconfig",
+                rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/28b31aff5a494daf13f5be679d51c67f7782dc68/.rsyncconfig",
             };
 
-            const gist_url = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? data_source.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? data_source.sft : data_source.ftp) : "")) : "";
+            const gist_url = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? data_source.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? data_source.sftp : data_source.ftp) : (mode === "rsync" ? data_source.rsync : ""))) : "";
 
             if (typeof file_name !== "undefined" && gist_url !== "") {
                 return plugins.fs.stat(file_name, (err) => {
@@ -184,8 +185,58 @@ module.exports = {
                         }
 
                         configure_json(".ftpconfig", "ftp", prompts, () => {
-                            // resolve the promise
-                            return resolve();
+                            generate_config(".rsyncconfig", "rsync", () => {
+                                const rsync_config = plugins.json.readFileSync(".rsyncconfig");
+
+                                // read rsync settings from .rsyncconfig
+                                global.settings.rsync             = {};
+                                global.settings.rsync.root        = rsync_config.root;
+                                global.settings.rsync.hostname    = rsync_config.hostname;
+                                global.settings.rsync.username    = rsync_config.username;
+                                global.settings.rsync.destination = rsync_config.destination;
+                                global.settings.rsync.archive     = rsync_config.archive;
+                                global.settings.rsync.silent      = rsync_config.silent;
+                                global.settings.rsync.compress    = rsync_config.compress;
+
+                                const prompts = {
+                                    root: {
+                                        default: global.settings.rsync.root === "" ? "dev/" : global.settings.rsync.root,
+                                        type:    "input",
+                                    },
+                                    hostname: {
+                                        default: global.settings.rsync.hostname === "" ? "localhost" : global.settings.rsync.hostname,
+                                        type:    "input",
+                                    },
+                                    username: {
+                                        default: global.settings.rsync.username === "" ? "root" : global.settings.rsync.username,
+                                        type:    "input",
+                                    },
+                                    destination: {
+                                        default: global.settings.rsync.destination === "" ? "/var/www/html" : global.settings.rsync.destination,
+                                        type:    "input",
+                                    },
+                                    archive: {
+                                        default: global.settings.rsync.archive === true ? 0 : 1,
+                                        type:    "list",
+                                        choices: ["true", "false"],
+                                    },
+                                    silent: {
+                                        default: global.settings.rsync.silent === true ? 0 : 1,
+                                        type:    "list",
+                                        choices: ["true", "false"],
+                                    },
+                                    compress: {
+                                        default: global.settings.rsync.compress === true ? 0 : 1,
+                                        type:    "list",
+                                        choices: ["true", "false"],
+                                    },
+                                };
+
+                                configure_json(".rsyncconfig", "rsync", prompts, () => {
+                                    // resolve the promise
+                                    return resolve();
+                                });
+                            });
                         });
                     });
                 });

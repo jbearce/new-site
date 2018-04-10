@@ -14,6 +14,10 @@ const plugins = {
             alias: "experimental",
             type:  "array",
         },
+        "r": {
+            alias: "rsync",
+            type:  "boolean",
+        },
         "s": {
             alias: "sync",
             type:  "boolean",
@@ -29,7 +33,6 @@ const plugins = {
     is_binary:        require("gulp-is-binary"),
     json:             require("jsonfile"),
     merge:            require("merge-stream"),
-    mkdirp:           require("mkdirp"),
     newer:            require("gulp-newer"),
     notify:           require("gulp-notify"),
     path:             require("path"),
@@ -55,6 +58,7 @@ const plugins = {
     // upload stuff
     ftp:              require("vinyl-ftp"),
     sftp:             require("gulp-sftp"),
+    rsync:            require("gulp-rsync"),
 
     // browser-sync stuff
     browser_sync:     require("browser-sync"),
@@ -118,6 +122,7 @@ const media_module   = require("./gulp-tasks/media");
 const html_module    = require("./gulp-tasks/html");
 const upload_module  = require("./gulp-tasks/upload");
 const sync_module    = require("./gulp-tasks/sync");
+const rsync_module   = require("./gulp-tasks/rsync");
 
 // configuration tasks
 gulp.task("init", () => {
@@ -142,14 +147,19 @@ gulp.task("html", () => {
 });
 
 // secondary tasks
+gulp.task("sync", () => {
+    return config_module.config(gulp, plugins, "browsersync").then(() => {
+        return sync_module.sync(plugins, global.settings.browsersync);
+    });
+});
 gulp.task("upload", () => {
     return config_module.config(gulp, plugins, "ftp").then(() => {
         return upload_module.upload(gulp, plugins, ran_tasks, on_error);
     });
 });
-gulp.task("sync", () => {
-    return config_module.config(gulp, plugins, "browsersync").then(() => {
-        return sync_module.sync(plugins, global.settings.browsersync);
+gulp.task("rsync", () => {
+    return config_module.config(gulp, plugins, "rsync").then(() => {
+        return rsync_module.rsync(gulp, plugins, global.settings.rsync);
     });
 });
 
@@ -181,6 +191,13 @@ gulp.task("default", ["media", "scripts", "styles", "html"], () => {
     if (plugins.argv.upload) {
         config_module.config(gulp, plugins, "ftp").then(() => {
             return upload_module.upload(gulp, plugins, ran_tasks, on_error);
+        });
+    }
+
+    // trigger rsync task if --rsync is passed
+    if (plugins.argv.rsync) {
+        config_module.config(gulp, plugins, "rsync").then(() => {
+            return rsync_module.upload(gulp, plugins, ran_tasks, on_error);
         });
     }
 
