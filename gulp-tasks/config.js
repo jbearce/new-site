@@ -138,11 +138,7 @@ module.exports = {
             };
 
             // configure the JSON
-            return new Promise((resolve) => {
-                configure_json(".bsconfig", "browsersync", prompts).then(() => {
-                    resolve();
-                });
-            });
+            return configure_json(".bsconfig", "browsersync", prompts);
         };
 
         const configure_ftp = () => {
@@ -184,11 +180,7 @@ module.exports = {
             }
 
             // configure the JSON
-            return new Promise((resolve) => {
-                configure_json(".ftpconfig", "ftp", prompts).then(() => {
-                    resolve();
-                });
-            });
+            return configure_json(".ftpconfig", "ftp", prompts);
         };
 
         const configure_rsync = () => {
@@ -231,11 +223,7 @@ module.exports = {
             };
 
             // configure the JSON
-            return new Promise ((resolve) => {
-                configure_json(".rsyncconfig", "rsync", prompts).then(() => {
-                    resolve();
-                });
-            });
+            return configure_json(".rsyncconfig", "rsync", prompts);
         };
 
         // download and configure config files
