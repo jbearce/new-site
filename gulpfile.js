@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by init_author_name @ init_author_company
+// Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 const gulp    = require("gulp");
 const plugins = {
