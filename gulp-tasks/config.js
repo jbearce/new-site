@@ -19,7 +19,7 @@ module.exports = {
             const gist_url = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? data_source.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? data_source.sftp : data_source.ftp) : (mode === "rsync" ? data_source.rsync : ""))) : "";
 
             // write the file
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 // open the file
                 plugins.fs.stat(file_name, (err) => {
                     // make sure the file doesn't exist (or otherwise has an error)
@@ -32,8 +32,12 @@ module.exports = {
                                     // resolve the promise
                                     resolve();
                                 });
+                            } else {
+                                reject();
                             }
                         });
+                    } else {
+                        reject();
                     }
                 });
             });
@@ -65,7 +69,7 @@ module.exports = {
                 }
             });
 
-            return new Promise ((resolve) => {
+            return new Promise ((resolve, reject) => {
                 // prompt the user
                 gulp.src(file_name)
                     .pipe(plugins.prompt.prompt(prompts, (res) => {
@@ -98,6 +102,9 @@ module.exports = {
 
                         // resolve the promise
                         resolve();
+                    }).on("error", () => {
+                        // reject the promise
+                        reject();
                     });
             });
         };
