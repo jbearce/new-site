@@ -197,7 +197,7 @@ module.exports = {
             // construct the prompts
             const prompts = {
                 root: {
-                    default: global.settings.rsync.root === "" ? "dev/" : global.settings.rsync.root,
+                    default: global.settings.rsync.root === "" ? (plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev) : global.settings.rsync.root,
                     type:    "input",
                 },
                 hostname: {
