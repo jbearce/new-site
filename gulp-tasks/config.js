@@ -6,7 +6,8 @@ module.exports = {
     // config task, generate configuration file for uploads & BrowserSync and prompt dev for input
     config(gulp, plugins, requested = "") {
         // generate config.json and start other functions
-        const generate_config = (file_name, mode = "ftp", callback) => {
+        const generate_config = (file_name, mode = "ftp") => {
+            // store array of config file URIs
             const data_source = {
                 bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
                 ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/0f408964b8f3c77ed0ae452ab3d2ba2c130e1acd/.ftpconfig",
@@ -14,33 +15,32 @@ module.exports = {
                 rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/28b31aff5a494daf13f5be679d51c67f7782dc68/.rsyncconfig",
             };
 
+            // check which config URI to use
             const gist_url = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? data_source.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? data_source.sftp : data_source.ftp) : (mode === "rsync" ? data_source.rsync : ""))) : "";
 
-            if (typeof file_name !== "undefined" && gist_url !== "") {
-                return plugins.fs.stat(file_name, (err) => {
+            // write the file
+            return new Promise((resolve) => {
+                // open the file
+                plugins.fs.stat(file_name, (err) => {
+                    // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
+                        // get the file contents from the gist_url
                         plugins.request.get(gist_url, function (error, response, body) {
                             if (!error && response.statusCode == 200) {
+                                // write the file
                                 plugins.fs.writeFile(file_name, body, "utf8", () => {
-                                    if (typeof callback === "function") {
-                                        return callback();
-                                    }
+                                    // resolve the promise
+                                    resolve();
                                 });
-                            } else if (typeof callback === "function") {
-                                return callback();
                             }
                         });
-                    } else if (typeof callback === "function") {
-                        return callback();
                     }
                 });
-            } else if (typeof callback === "function") {
-                return callback();
-            }
+            });
         };
 
         // configue JSON data
-        const configure_json = (file_name, namespace, options, callback) => {
+        const configure_json = (file_name, namespace, options) => {
             const prompts    = [];
             const configured = plugins.json.readFileSync(file_name).configured;
 
@@ -65,7 +65,7 @@ module.exports = {
                 }
             });
 
-            if (prompts.length > 0) {
+            return new Promise ((resolve) => {
                 // prompt the user
                 gulp.src(file_name)
                     .pipe(plugins.prompt.prompt(prompts, (res) => {
@@ -96,151 +96,152 @@ module.exports = {
                         // update file with new JSON data
                         plugins.json.writeFileSync(file_name, json_data);
 
-                        if (typeof callback === "function") {
-                            return callback();
-                        }
+                        // resolve the promise
+                        resolve();
                     });
-            } else if (typeof callback === "function") {
-                return callback();
-            }
+            });
         };
 
-        return new Promise ((resolve) => {
-            // generate .bsconfig
-            generate_config(".bsconfig", "browsersync", () => {
-                const browsersync_config = plugins.json.readFileSync(".bsconfig");
+        const download_configs = () => {
+            // download all config files
+            return Promise.all([
+                generate_config(".bsconfig", "browsersync"),
+                generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp"))),
+                generate_config(".rsyncconfig", "rsync")
+            ]);
+        };
 
-                // read browsersync settings from .bsconfig
-                global.settings.browsersync        = {};
-                global.settings.browsersync.proxy  = browsersync_config.proxy;
-                global.settings.browsersync.port   = browsersync_config.port;
-                global.settings.browsersync.open   = browsersync_config.open;
-                global.settings.browsersync.notify = browsersync_config.notify;
+        const configure_browsersync = () => {
+            // read browsersync settings from .bsconfig
+            global.settings.browsersync = plugins.json.readFileSync(".bsconfig");
 
-                const prompts = {
-                    proxy: {
-                        default: global.settings.browsersync.proxy === "" ? "localhost" : global.settings.browsersync.proxy,
-                        type:    "input",
-                    },
-                    port: {
-                        default: global.settings.browsersync.port === "" ? "8080" : global.settings.browsersync.port,
-                        type:    "input",
-                    },
-                    open: {
-                        default: global.settings.browsersync.open === "local" ? 1 : (global.settings.browsersync.open === "external" ? 2 : (global.settings.browsersync.open === "ui" ? 3 : (global.settings.browsersync.open === "ui-external" ? 4 : (global.settings.browsersync.open === "tunnel" ? 5 : (global.settings.browsersync.open === "false" ? 6 : 0))))),
-                        type:    "list",
-                        choices: ["true", "local", "external", "ui", "ui-external", "tunnel", "false"],
-                    },
-                    notify: {
-                        default: global.settings.browsersync.notify === true ? 0 : 1,
-                        type:    "list",
-                        choices: ["true", "false"],
-                    },
-                };
+            // construct the prompts
+            const prompts = {
+                proxy: {
+                    default: global.settings.browsersync.proxy === "" ? "localhost" : global.settings.browsersync.proxy,
+                    type:    "input",
+                },
+                port: {
+                    default: global.settings.browsersync.port === "" ? "8080" : global.settings.browsersync.port,
+                    type:    "input",
+                },
+                open: {
+                    default: global.settings.browsersync.open === "local" ? 1 : (global.settings.browsersync.open === "external" ? 2 : (global.settings.browsersync.open === "ui" ? 3 : (global.settings.browsersync.open === "ui-external" ? 4 : (global.settings.browsersync.open === "tunnel" ? 5 : (global.settings.browsersync.open === "false" ? 6 : 0))))),
+                    type:    "list",
+                    choices: ["true", "local", "external", "ui", "ui-external", "tunnel", "false"],
+                },
+                notify: {
+                    default: global.settings.browsersync.notify === true ? 0 : 1,
+                    type:    "list",
+                    choices: ["true", "false"],
+                },
+            };
 
-                configure_json(".bsconfig", "browsersync", prompts, () => {
-                    generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp")), () => {
-                        const ftp_config = plugins.json.readFileSync(".ftpconfig");
-
-                        // read remote settings from .ftpconfig
-                        global.settings.ftp          = {};
-                        global.settings.ftp.protocol = ftp_config.protocol !== "sftp" && ftp_config.secure === true ? "ftps" : ftp_config.protocol;
-                        global.settings.ftp.host     = ftp_config.host;
-                        global.settings.ftp.port     = ftp_config.port;
-                        global.settings.ftp.user     = ftp_config.user;
-                        global.settings.ftp.pass     = ftp_config.pass;
-                        global.settings.ftp.remote   = ftp_config.remote;
-
-                        const prompts = {
-                            protocol: {
-                                default: global.settings.ftp.protocol === "ftps" ? 1 : 0,
-                                type:    "list",
-                                choices: ["ftp", "ftps"],
-                            },
-                            host: {
-                                default: global.settings.ftp.host === "" ? "" : global.settings.ftp.host,
-                                type:    "input",
-                            },
-                            port: {
-                                default: global.settings.ftp.port === "" ? "" : global.settings.ftp.port,
-                                type:    "input",
-                            },
-                            user: {
-                                default: global.settings.ftp.user === "" ? "" : global.settings.ftp.user,
-                                type:    "input",
-                            },
-                            pass: {
-                                default: global.settings.ftp.pass === "" ? "" : global.settings.ftp.pass,
-                                type:    "password",
-                            },
-                            remote: {
-                                default: global.settings.ftp.remote === "" ? "" : global.settings.ftp.remote,
-                                type:    "input",
-                            },
-                        };
-
-                        // don't prompt for protocol for SFTP
-                        if (global.settings.ftp.protocol === "sftp") {
-                            delete prompts.protocol;
-                        }
-
-                        configure_json(".ftpconfig", "ftp", prompts, () => {
-                            generate_config(".rsyncconfig", "rsync", () => {
-                                const rsync_config = plugins.json.readFileSync(".rsyncconfig");
-
-                                // read rsync settings from .rsyncconfig
-                                global.settings.rsync             = {};
-                                global.settings.rsync.root        = rsync_config.root;
-                                global.settings.rsync.hostname    = rsync_config.hostname;
-                                global.settings.rsync.username    = rsync_config.username;
-                                global.settings.rsync.destination = rsync_config.destination;
-                                global.settings.rsync.archive     = rsync_config.archive;
-                                global.settings.rsync.silent      = rsync_config.silent;
-                                global.settings.rsync.compress    = rsync_config.compress;
-
-                                const prompts = {
-                                    root: {
-                                        default: global.settings.rsync.root === "" ? "dev/" : global.settings.rsync.root,
-                                        type:    "input",
-                                    },
-                                    hostname: {
-                                        default: global.settings.rsync.hostname === "" ? "localhost" : global.settings.rsync.hostname,
-                                        type:    "input",
-                                    },
-                                    username: {
-                                        default: global.settings.rsync.username === "" ? "root" : global.settings.rsync.username,
-                                        type:    "input",
-                                    },
-                                    destination: {
-                                        default: global.settings.rsync.destination === "" ? "/var/www/html" : global.settings.rsync.destination,
-                                        type:    "input",
-                                    },
-                                    archive: {
-                                        default: global.settings.rsync.archive === true ? 0 : 1,
-                                        type:    "list",
-                                        choices: ["true", "false"],
-                                    },
-                                    silent: {
-                                        default: global.settings.rsync.silent === true ? 0 : 1,
-                                        type:    "list",
-                                        choices: ["true", "false"],
-                                    },
-                                    compress: {
-                                        default: global.settings.rsync.compress === true ? 0 : 1,
-                                        type:    "list",
-                                        choices: ["true", "false"],
-                                    },
-                                };
-
-                                configure_json(".rsyncconfig", "rsync", prompts, () => {
-                                    // resolve the promise
-                                    return resolve();
-                                });
-                            });
-                        });
-                    });
+            // configure the JSON
+            return new Promise((resolve) => {
+                configure_json(".bsconfig", "browsersync", prompts).then(() => {
+                    resolve();
                 });
             });
-        });
+        };
+
+        const configure_ftp = () => {
+            // read ftp settings from .ftpconfig
+            global.settings.ftp = plugins.json.readFileSync(".ftpconfig");
+
+            // construct the prompts
+            const prompts = {
+                protocol: {
+                    default: global.settings.ftp.protocol === "ftps" ? 1 : 0,
+                    type:    "list",
+                    choices: ["ftp", "ftps"],
+                },
+                host: {
+                    default: global.settings.ftp.host === "" ? "" : global.settings.ftp.host,
+                    type:    "input",
+                },
+                port: {
+                    default: global.settings.ftp.port === "" ? "" : global.settings.ftp.port,
+                    type:    "input",
+                },
+                user: {
+                    default: global.settings.ftp.user === "" ? "" : global.settings.ftp.user,
+                    type:    "input",
+                },
+                pass: {
+                    default: global.settings.ftp.pass === "" ? "" : global.settings.ftp.pass,
+                    type:    "password",
+                },
+                remote: {
+                    default: global.settings.ftp.remote === "" ? "" : global.settings.ftp.remote,
+                    type:    "input",
+                },
+            };
+
+            // don't prompt for protocol for SFTP
+            if (global.settings.ftp.protocol === "sftp") {
+                delete prompts.protocol;
+            }
+
+            // configure the JSON
+            return new Promise((resolve) => {
+                configure_json(".ftpconfig", "ftp", prompts).then(() => {
+                    resolve();
+                });
+            });
+        };
+
+        const configure_rsync = () => {
+            // read ftp settings from .ftpconfig
+            global.settings.rsync = plugins.json.readFileSync(".rsyncconfig");
+
+            // construct the prompts
+            const prompts = {
+                root: {
+                    default: global.settings.rsync.root === "" ? "dev/" : global.settings.rsync.root,
+                    type:    "input",
+                },
+                hostname: {
+                    default: global.settings.rsync.hostname === "" ? "localhost" : global.settings.rsync.hostname,
+                    type:    "input",
+                },
+                username: {
+                    default: global.settings.rsync.username === "" ? "root" : global.settings.rsync.username,
+                    type:    "input",
+                },
+                destination: {
+                    default: global.settings.rsync.destination === "" ? "/var/www/html" : global.settings.rsync.destination,
+                    type:    "input",
+                },
+                archive: {
+                    default: global.settings.rsync.archive === true ? 0 : 1,
+                    type:    "list",
+                    choices: ["true", "false"],
+                },
+                silent: {
+                    default: global.settings.rsync.silent === true ? 0 : 1,
+                    type:    "list",
+                    choices: ["true", "false"],
+                },
+                compress: {
+                    default: global.settings.rsync.compress === true ? 0 : 1,
+                    type:    "list",
+                    choices: ["true", "false"],
+                },
+            };
+
+            // configure the JSON
+            return new Promise ((resolve) => {
+                configure_json(".rsyncconfig", "rsync", prompts).then(() => {
+                    resolve();
+                });
+            });
+        };
+
+        // download and configure config files
+        return download_configs()
+            .then(configure_browsersync)
+            .then(configure_ftp)
+            .then(configure_rsync);
     }
 };
