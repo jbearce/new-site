@@ -91,7 +91,7 @@ module.exports = {
                             });
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(file_name, json_data);
+                            plugins.json.writeFileSync(file_name, json_data, {spaces: 2});
                         })).on("end", () => {
                             // read the file to retrieve the JSON data
                             const json_data = plugins.json.readFileSync(file_name);
@@ -100,7 +100,7 @@ module.exports = {
                             json_data["configured"] = true;
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(file_name, json_data);
+                            plugins.json.writeFileSync(file_name, json_data, {spaces: 2});
 
                             // resolve the promise
                             resolve();
