@@ -3,42 +3,40 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
-    styles(gulp, plugins, ran_tasks, on_error) {
+    styles(GULP, PLUGINS, RAN_TASKS, ON_ERROR) {
         // get the homepage from the package.json
-        const homepage = plugins.json.readFileSync("./package.json").homepage;
+        const HOMEPAGE = PLUGINS.json.readFileSync("./package.json").homepage;
 
         // function to generate critical CSS
-        const generate_critical_css = (css_directory, sitemap = plugins.json.readFileSync("./package.json").templates) => {
-            const plural = ((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "";
-
-            console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");
+        const GENERATE_CRITICAL_CSS = (CSS_DIRECTORY, sitemap = PLUGINS.json.readFileSync("./package.json").templates) => {
+            console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + (((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
 
             // create the "critical" directory
-            plugins.mkdirp(css_directory + "/critical");
+            PLUGINS.mkdirp(CSS_DIRECTORY + "/critical");
 
             // loop through all the links
-            for (const template in sitemap) {
+            for (const TEMPLATE in sitemap) {
                 // make sure the key isn't a prototype
-                if (sitemap.hasOwnProperty(template)) {
+                if (sitemap.hasOwnProperty(TEMPLATE)) {
                     // generate the critial CSS
-                    plugins.critical.generate({
-                        base:       css_directory + "/critical",
-                        dest:       template + ".css",
+                    PLUGINS.critical.generate({
+                        base:       CSS_DIRECTORY + "/critical",
+                        dest:       TEMPLATE + ".css",
                         dimensions: [1920, 1080],
                         minify:     true,
-                        src:        sitemap[template] + "?disable=critical_css"
+                        src:        sitemap[TEMPLATE] + "?disable=critical_css"
                     });
                 }
             }
         };
 
         // lint custom styles
-        const lint_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
-            return gulp.src(source)
+        const LINT_STYLES = (CSS_DIRECTORY, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
+            return GULP.src(source)
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer({dest: CSS_DIRECTORY + "/" + file_name, extra})))
                 // lint
-                .pipe(plugins.stylelint({
+                .pipe(PLUGINS.stylelint({
                     failAfterError: true,
                     reporters: [
                         { formatter: "string", console: true }
@@ -48,62 +46,62 @@ module.exports = {
         };
 
         // process all SCSS in root styles directory
-        const process_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
-            return gulp.src(source)
+        const PROCESS_STYLES = (CSS_DIRECTORY, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
+            return GULP.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer({dest: CSS_DIRECTORY + "/" + file_name, extra})))
                 // initialize sourcemap
-                .pipe(plugins.sourcemaps.init())
+                .pipe(PLUGINS.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, plugins.sass({outputStyle: "compressed"}), plugins.sass()))
+                .pipe(PLUGINS.gulpif(PLUGINS.argv.dist, PLUGINS.sass({outputStyle: "compressed"}), PLUGINS.sass()))
                 // process post CSS stuff
-                .pipe(plugins.postcss([plugins.flexibility(), plugins.easing_gradients()]))
+                .pipe(PLUGINS.postcss([PLUGINS.flexibility(), PLUGINS.easing_gradients()]))
                 // insert px fallback for rems
-                .pipe(plugins.pixrem())
+                .pipe(PLUGINS.pixrem())
                 // insert run through rucksack
-                .pipe(plugins.rucksack({autoprefixer: true}))
+                .pipe(PLUGINS.rucksack({autoprefixer: true}))
                 // write sourcemap (if --dist isn't passed)
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.sourcemaps.write()))
                 // remove unused CSS
-                .pipe(plugins.gulpif(plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("uncss") && homepage !== "", plugins.uncss({
-                    html: homepage
+                .pipe(PLUGINS.gulpif(PLUGINS.argv.experimental && PLUGINS.argv.experimental.length > 0 && PLUGINS.argv.experimental.includes("uncss") && HOMEPAGE !== "", PLUGINS.uncss({
+                    html: HOMEPAGE
                 })))
                 // output to compiled directory
-                .pipe(gulp.dest(css_directory));
+                .pipe(GULP.dest(CSS_DIRECTORY));
         };
 
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
             // set CSS directory
-            const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
+            const CSS_DIRECTORY = PLUGINS.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
             // clean directory if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del(css_directory + "/**/*");
+            if (PLUGINS.argv.dist) {
+                PLUGINS.del(CSS_DIRECTORY + "/**/*");
             }
 
-            if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
-                generate_critical_css(css_directory);
+            if (PLUGINS.argv.experimental && PLUGINS.argv.experimental.length > 0 && PLUGINS.argv.experimental.includes("critical")) {
+                GENERATE_CRITICAL_CSS(CSS_DIRECTORY);
             }
 
             // process all styles
-            const linted    = lint_styles(css_directory);
-            const processed = process_styles(css_directory);
+            const LINTED    = LINT_STYLES(CSS_DIRECTORY);
+            const PROCESSED = PROCESS_STYLES(CSS_DIRECTORY);
 
             // merge both steams back in to one
-            return plugins.merge(linted, processed)
+            return PLUGINS.merge(LINTED, PROCESSED)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // reload files
-                .pipe(plugins.browser_sync.reload({stream: true}))
+                .pipe(PLUGINS.browser_sync.reload({stream: true}))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Styles task complete!", onLast: true})))
-                // push task to ran_tasks array
+                .pipe(PLUGINS.gulpif(GULP.seq.indexOf("styles") > GULP.seq.indexOf("default"), PLUGINS.notify({title: "Success!", message: "Styles task complete!", onLast: true})))
+                // push task to RAN_TASKS array
                 .on("data", () => {
-                    if (ran_tasks.indexOf("styles") < 0) {
-                        ran_tasks.push("styles");
+                    if (RAN_TASKS.indexOf("styles") < 0) {
+                        RAN_TASKS.push("styles");
                     }
                 })
                 .on("end", () => {

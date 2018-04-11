@@ -4,30 +4,30 @@
 
 module.exports = {
     // upload changed files
-    upload(gulp, plugins, ran_tasks, on_error) {
+    upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR) {
         // set upload directory
-        const upload_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+        const UPLOAD_DIRECTORY = PLUGINS.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // create FTP connection
-        const ftp_conn = plugins.ftp.create(global.settings.ftp);
+        const FTP_CONN = PLUGINS.ftp.create(global.settings.ftp);
 
         // create SFTP connection
-        const sftp_conn = plugins.sftp(global.settings.ftp);
+        const SFTP_CONN = PLUGINS.sftp(global.settings.ftp);
 
-        return gulp.src(upload_directory + "/**/*")
+        return GULP.src(UPLOAD_DIRECTORY + "/**/*")
             // prevent breaking on error
-            .pipe(plugins.plumber({errorHandler: on_error}))
+            .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
             // check if files are newer
-            .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [upload_directory + "/**/*"]})))
+            .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer({dest: global.settings.paths.src, extra: [UPLOAD_DIRECTORY + "/**/*"]})))
             // check if files are newer
-            .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", ftp_conn.newer(global.settings.ftp.remotePath)))
+            .pipe(PLUGINS.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
             // upload changed files
-            .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", ftp_conn.dest(global.settings.ftp.remotePath), sftp_conn))
+            .pipe(PLUGINS.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
             // prevent breaking on error
-            .pipe(plugins.plumber({errorHandler: on_error}))
+            .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
             // reload files
-            .pipe(plugins.browser_sync.reload({stream: true}))
+            .pipe(PLUGINS.browser_sync.reload({stream: true}))
             // notify that task is complete
-            .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}));
+            .pipe(PLUGINS.notify({title: "Success!", message: "Upload task complete!", onLast: true}));
     }
 };

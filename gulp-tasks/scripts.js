@@ -3,70 +3,70 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
-    scripts(gulp, plugins, ran_tasks, on_error) {
+    scripts(GULP, PLUGINS, RAN_TASKS, ON_ERROR) {
         // lint custom scripts
-        const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) => {
-            return gulp.src(source)
+        const LINT_SCRIPTS = (JS_DIRECTORY, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) => {
+            return GULP.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name)))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer(JS_DIRECTORY + "/" + file_name)))
                 // lint all non-vendor scripts
-                .pipe(plugins.eslint())
+                .pipe(PLUGINS.eslint())
                 // print lint errors
-                .pipe(plugins.eslint.format());
+                .pipe(PLUGINS.eslint.format());
         };
 
         // process scripts
-        const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], transpile = false) => {
-            return gulp.src(source)
+        const PROCESS_SCRIPTS = (JS_DIRECTORY, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], transpile = false) => {
+            return GULP.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name)))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer(JS_DIRECTORY + "/" + file_name)))
                 // initialize sourcemap
-                .pipe(plugins.sourcemaps.init())
+                .pipe(PLUGINS.sourcemaps.init())
                 // concatenate to critical.js
-                .pipe(plugins.concat(file_name))
+                .pipe(PLUGINS.concat(file_name))
                 // transpile to es2015
-                .pipe(plugins.gulpif(transpile === true, plugins.babel({"presets": [["env", {modules: false}]]})))
+                .pipe(PLUGINS.gulpif(transpile === true, PLUGINS.babel({"presets": [["env", {modules: false}]]})))
                 // uglify (if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, plugins.uglify()))
+                .pipe(PLUGINS.gulpif(PLUGINS.argv.dist, PLUGINS.uglify()))
                 // write sourcemap (if --dist isn't passed)
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.sourcemaps.write()))
                 // output to compiled directory
-                .pipe(gulp.dest(js_directory));
+                .pipe(GULP.dest(JS_DIRECTORY));
         };
 
         // scripts task, lints, concatenates, & compresses JS
         return new Promise ((resolve) => {
             // set JS directory
-            const js_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/scripts" : global.settings.paths.dev + "/assets/scripts";
+            const JS_DIRECTORY = PLUGINS.argv.dist ? global.settings.paths.dist + "/assets/scripts" : global.settings.paths.dev + "/assets/scripts";
 
             // clean directory if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del(js_directory + "/**/*");
+            if (PLUGINS.argv.dist) {
+                PLUGINS.del(JS_DIRECTORY + "/**/*");
             }
 
             // process all scripts
-            const linted         = lint_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
-            const critical       = process_scripts(js_directory, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
-            const modern         = process_scripts(js_directory, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], true);
-            const legacy         = process_scripts(js_directory, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"], true);
-            const service_worker = process_scripts(js_directory, "service-worker.js", [global.settings.paths.src + "/assets/scripts/service-worker/vendor.*.js", global.settings.paths.src + "/assets/scripts/service-worker/*.js"], true);
+            const LINTED         = LINT_SCRIPTS(JS_DIRECTORY, "modern.js", [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]);
+            const CRITICAL       = PROCESS_SCRIPTS(JS_DIRECTORY, "critical.js", [global.settings.paths.src + "/assets/scripts/critical/loadCSS.js", global.settings.paths.src + "/assets/scripts/critical/loadCSS.cssrelpreload.js"]);
+            const MODERN         = PROCESS_SCRIPTS(JS_DIRECTORY, "modern.js", [global.settings.paths.src + "/assets/scripts/vendor.*.js", global.settings.paths.src + "/assets/scripts/jquery.*.js", global.settings.paths.src + "/assets/scripts/*.js"], true);
+            const LEGACY         = PROCESS_SCRIPTS(JS_DIRECTORY, "legacy.js", [global.settings.paths.src + "/assets/scripts/legacy/**/*"], true);
+            const SERVICE_WORKER = PROCESS_SCRIPTS(JS_DIRECTORY, "service-worker.js", [global.settings.paths.src + "/assets/scripts/service-worker/vendor.*.js", global.settings.paths.src + "/assets/scripts/service-worker/*.js"], true);
 
             // merge all five steams back in to one
-            return plugins.merge(linted, critical, modern, legacy, service_worker)
+            return PLUGINS.merge(LINTED, CRITICAL, MODERN, LEGACY, SERVICE_WORKER)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // reload files
-                .pipe(plugins.browser_sync.reload({stream: true}))
+                .pipe(PLUGINS.browser_sync.reload({stream: true}))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
-                // push task to ran_tasks array
+                .pipe(PLUGINS.gulpif(GULP.seq.indexOf("scripts") > GULP.seq.indexOf("default"), PLUGINS.notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
+                // push task to RAN_TASKS array
                 .on("data", () => {
-                    if (ran_tasks.indexOf("scripts") < 0) {
-                        ran_tasks.push("scripts");
+                    if (RAN_TASKS.indexOf("scripts") < 0) {
+                        RAN_TASKS.push("scripts");
                     }
                 })
                 .on("end", () => {

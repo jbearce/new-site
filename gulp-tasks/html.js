@@ -3,28 +3,28 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
-    html(gulp, plugins, ran_tasks, on_error) {
+    html(GULP, PLUGINS, RAN_TASKS, ON_ERROR) {
         // read data from package.json
-        const name            = plugins.json.readFileSync("./package.json").name;
-        const pwa_name        = plugins.json.readFileSync("./package.json")["progressive-web-app"].name;
-        const pwa_short_name  = plugins.json.readFileSync("./package.json")["progressive-web-app"].short_name;
-        const pwa_theme_color = plugins.json.readFileSync("./package.json")["progressive-web-app"].theme_color;
-        const description     = plugins.json.readFileSync("./package.json").description;
-        const version         = plugins.json.readFileSync("./package.json").version;
-        const repository      = plugins.json.readFileSync("./package.json").repository;
-        const license         = plugins.json.readFileSync("./package.json").license;
+        const NAME            = PLUGINS.json.readFileSync("./package.json").name;
+        const PWA_NAME        = PLUGINS.json.readFileSync("./package.json")["progressive-web-app"].name;
+        const PWA_SHORT_NAME  = PLUGINS.json.readFileSync("./package.json")["progressive-web-app"].short_name;
+        const PWA_THEME_COLOR = PLUGINS.json.readFileSync("./package.json")["progressive-web-app"].theme_color;
+        const DESCRIPTION     = PLUGINS.json.readFileSync("./package.json").description;
+        const VERSION         = PLUGINS.json.readFileSync("./package.json").version;
+        const REPOSITORY      = PLUGINS.json.readFileSync("./package.json").repository;
+        const LICENSE         = PLUGINS.json.readFileSync("./package.json").license;
 
         // copy binaries
-        const copy_binaries = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
-            return gulp.src(source)
+        const COPY_BINARIES = (HTML_DIRECTORY, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
+            return GULP.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer(HTML_DIRECTORY)))
                 // check if a file is a binary
-                .pipe(plugins.is_binary())
+                .pipe(PLUGINS.is_binary())
                 // skip file if it's not a binary
-                .pipe(plugins.through.obj((file, enc, next) => {
+                .pipe(PLUGINS.through.obj((file, enc, next) => {
                     if (!file.isBinary()) {
                         next();
                         return;
@@ -34,20 +34,20 @@ module.exports = {
                     next(null, file);
                 }))
                 // output to compiled directory
-                .pipe(gulp.dest(html_directory));
+                .pipe(GULP.dest(HTML_DIRECTORY));
         };
 
         // process HTML
-        const process_html = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
-            return gulp.src(source)
+        const PROCESS_HTML = (HTML_DIRECTORY, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
+            return GULP.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
+                .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer(HTML_DIRECTORY)))
                 // check if file is a binary
-                .pipe(plugins.is_binary())
+                .pipe(PLUGINS.is_binary())
                 // skip file if it's a binary
-                .pipe(plugins.through.obj((file, enc, next) => {
+                .pipe(PLUGINS.through.obj((file, enc, next) => {
                     if (file.isBinary()) {
                         next();
                         return;
@@ -57,54 +57,54 @@ module.exports = {
                     next(null, file);
                 }))
                 // replace variables
-                .pipe(plugins.file_include({
+                .pipe(PLUGINS.file_include({
                     prefix:   "@@",
                     basepath: "@file",
                     context: {
-                        name,
-                        pwa_name,
-                        pwa_short_name,
-                        pwa_theme_color,
-                        description,
-                        version,
-                        repository,
-                        license,
+                        NAME,
+                        PWA_NAME,
+                        PWA_SHORT_NAME,
+                        PWA_THEME_COLOR,
+                        DESCRIPTION,
+                        VERSION,
+                        REPOSITORY,
+                        LICENSE,
                     }
                 }))
                 // replace icon placeholders
-                .pipe(plugins.replace(/(?:<icon )(?=(?:.*?(?:use=(?:"|')(.*?)(?:"|')))?)(?=(?:[^>]+?(?:class=(?:"|')(.*?)(?:"|')))?)(?:.*?)(?: \/)?[^?](?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' /></svg></i>"))
+                .pipe(PLUGINS.replace(/(?:<icon )(?=(?:.*?(?:use=(?:"|')(.*?)(?:"|')))?)(?=(?:[^>]+?(?:class=(?:"|')(.*?)(?:"|')))?)(?:.*?)(?: \/)?[^?](?:>)/g, "<i class='icon $2'><svg class='icon_svg' aria-hidden='true'><use xlink:href='#$1' /></svg></i>"))
                 // minify
-                .pipe(plugins.gulpif(plugins.argv.dist, plugins.htmlmin({collapseWhitespace: true, ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ], includeAutoGeneratedTags: false})))
+                .pipe(PLUGINS.gulpif(PLUGINS.argv.dist, PLUGINS.htmlmin({collapseWhitespace: true, ignoreCustomFragments: [ /<%[\s\S]*?%>/, /<\?[\s\S]*?(\?>|$)/ ], includeAutoGeneratedTags: false})))
                 // output to compiled directory
-                .pipe(gulp.dest(html_directory));
+                .pipe(GULP.dest(HTML_DIRECTORY));
         };
 
         // html task, copies binaries, converts includes & variables in HTML
         return new Promise ((resolve) => {
             // set HTML directory
-            const html_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+            const HTML_DIRECTORY = PLUGINS.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
             // clean directory if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del([html_directory + "/**/*", "!" + html_directory + "{/assets,/assets/**}"]);
+            if (PLUGINS.argv.dist) {
+                PLUGINS.del([HTML_DIRECTORY + "/**/*", "!" + HTML_DIRECTORY + "{/assets,/assets/**}"]);
             }
 
             // process all non-asset files
-            const binaries = copy_binaries(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
-            const html     = process_html(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
+            const BINARIES = COPY_BINARIES(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
+            const HTML     = PROCESS_HTML(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
 
             // merge both steams back in to one
-            return plugins.merge(binaries, html)
+            return PLUGINS.merge(BINARIES, HTML)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // reload files
-                .pipe(plugins.browser_sync.reload({stream: true}))
+                .pipe(PLUGINS.browser_sync.reload({stream: true}))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "HTML task complete!", onLast: true})))
-                // push task to ran_tasks array
+                .pipe(PLUGINS.gulpif(GULP.seq.indexOf("html") > GULP.seq.indexOf("default"), PLUGINS.notify({title: "Success!", message: "HTML task complete!", onLast: true})))
+                // push task to RAN_TASKS array
                 .on("data", () => {
-                    if (ran_tasks.indexOf("html") < 0) {
-                        ran_tasks.push("html");
+                    if (RAN_TASKS.indexOf("html") < 0) {
+                        RAN_TASKS.push("html");
                     }
                 })
                 .on("end", () => {

@@ -4,22 +4,22 @@
 
 module.exports = {
     // rsync changed files
-    rsync(gulp, plugins, ran_tasks, on_error) {
+    rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR) {
         // set upload directory
-        const rsync_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+        const RSYNC_DIRECTORY = PLUGINS.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
-        return gulp.src(rsync_directory + "/**/*")
+        return GULP.src(RSYNC_DIRECTORY + "/**/*")
             // prevent breaking on error
-            .pipe(plugins.plumber({errorHandler: on_error}))
+            .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
             // check if files are newer
-            .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [rsync_directory + "/**/*"]})))
+            .pipe(PLUGINS.gulpif(!PLUGINS.argv.dist, PLUGINS.newer({dest: global.settings.paths.src, extra: [RSYNC_DIRECTORY + "/**/*"]})))
             // rsync files
-            .pipe(plugins.rsync(global.settings.rsync))
+            .pipe(PLUGINS.rsync(global.settings.rsync))
             // prevent breaking on error
-            .pipe(plugins.plumber({errorHandler: on_error}))
+            .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
             // reload files
-            .pipe(plugins.browser_sync.reload({stream: true}))
+            .pipe(PLUGINS.browser_sync.reload({stream: true}))
             // notify that task is complete
-            .pipe(plugins.notify({title: "Success!", message: "Rsync task complete!", onLast: true}));
+            .pipe(PLUGINS.notify({title: "Success!", message: "Rsync task complete!", onLast: true}));
     }
 };

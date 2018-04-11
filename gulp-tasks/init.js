@@ -3,16 +3,16 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
-    init(gulp, plugins, on_error) {
+    init(GULP, PLUGINS, ON_ERROR) {
         let project_data = {};
 
         // gather project data
-        const get_project_data = (callback) => {
-            return gulp.src("./gulpfile.js")
+        const GET_PROJECT_DATA = (callback) => {
+            return GULP.src("./gulpfile.js")
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // prompt for project data
-                .pipe(plugins.prompt.prompt([
+                .pipe(PLUGINS.prompt.prompt([
                     {
                         name:     "full_name",
                         message:  "Project Name:",
@@ -216,14 +216,14 @@ module.exports = {
         };
 
         // write project data
-        const write_project_data = (callback) => {
-            return gulp.src(["./*", "./gulp-tasks/*", "./src/**/*"], {base: "./"})
+        const WRITE_PROJECT_DATA = (callback) => {
+            return GULP.src(["./*", "./gulp-tasks/*", "./src/**/*"], {base: "./"})
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(PLUGINS.plumber({errorHandler: ON_ERROR}))
                 // check if a file is a binary
-                .pipe(plugins.is_binary())
+                .pipe(PLUGINS.is_binary())
                 // skip file if it's a binary
-                .pipe(plugins.through.obj((file, enc, next) => {
+                .pipe(PLUGINS.through.obj((file, enc, next) => {
                     if (file.isBinary()) {
                         next();
                         return;
@@ -233,7 +233,7 @@ module.exports = {
                     next(null, file);
                 }))
                 // replace variables with project data
-                .pipe(plugins.file_include({
+                .pipe(PLUGINS.file_include({
                     prefix:   "__gulp_init__",
                     basepath: "@file",
                     context: {
@@ -258,7 +258,7 @@ module.exports = {
                     }
                 }))
                 // write the file
-                .pipe(gulp.dest("./")).on("end", () => {
+                .pipe(GULP.dest("./")).on("end", () => {
                     // return the callback
                     if (typeof callback === "function") {
                         return callback();
@@ -267,13 +267,13 @@ module.exports = {
         };
 
         // remove modules selected during init
-        const remove_selected_modules = (callback) => {
+        const REMOVE_SELECTED_MODULES = (callback) => {
             return new Promise ((resolve) => {
-                gulp.src(global.settings.paths.src + "/**/*")
+                GULP.src(global.settings.paths.src + "/**/*")
                     // check if a file is a binary
-                    .pipe(plugins.is_binary())
+                    .pipe(PLUGINS.is_binary())
                     // skip file if it's a binary
-                    .pipe(plugins.through.obj((file, enc, next) => {
+                    .pipe(PLUGINS.through.obj((file, enc, next) => {
                         if (file.isBinary()) {
                             next();
                             return;
@@ -284,26 +284,26 @@ module.exports = {
                     }))
 
                     // remove resource code if selected
-                    .pipe(plugins.remove_code({resources_html: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                    .pipe(plugins.remove_code({resources_css_js_php: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                    .pipe(PLUGINS.remove_code({resources_html: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                    .pipe(PLUGINS.remove_code({resources_css_js_php: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
 
                     // remove tribe code if selected
-                    .pipe(plugins.remove_code({tribe_html: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                    .pipe(plugins.remove_code({tribe_css_js_php: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                    .pipe(PLUGINS.remove_code({tribe_html: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                    .pipe(PLUGINS.remove_code({tribe_css_js_php: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
 
                     // output to source directory
-                    .pipe(gulp.dest(global.settings.paths.src)).on("end", () => {
+                    .pipe(GULP.dest(global.settings.paths.src)).on("end", () => {
                         // resolve the promise
                         resolve();
                     });
             }).then(() => {
                 return new Promise ((resolve) => {
                     // remove any empty files
-                    plugins.glob(global.settings.paths.src + "/**/*", (err, files) => {
+                    PLUGINS.glob(global.settings.paths.src + "/**/*", (err, files) => {
                         files.forEach((file) => {
-                            if (plugins.fs.statSync(file).size <= 1) {
-                                plugins.fs.unlinkSync(file);
-                                console.log("\x1b[32m✔\x1b[0m deleted: " + plugins.path.relative(process.cwd(), file));
+                            if (PLUGINS.fs.statSync(file).size <= 1) {
+                                PLUGINS.fs.unlinkSync(file);
+                                console.log("\x1b[32m✔\x1b[0m deleted: " + PLUGINS.path.relative(process.cwd(), file));
                             }
                         });
 
@@ -313,17 +313,17 @@ module.exports = {
                 }).then(() => {
                     // remove any empty folders
                     return new Promise ((resolve) => {
-                        plugins.delete_empty(global.settings.paths.src, () => {
+                        PLUGINS.delete_empty(global.settings.paths.src, () => {
                             // resolve the promise
                             resolve();
                         });
                     }).then(() => {
                         // remove any remaining comments
-                        gulp.src(global.settings.paths.src + "/**/*")
+                        GULP.src(global.settings.paths.src + "/**/*")
                             // check if a file is a binary
-                            .pipe(plugins.is_binary())
+                            .pipe(PLUGINS.is_binary())
                             // skip file if it's a binary
-                            .pipe(plugins.through.obj((file, enc, next) => {
+                            .pipe(PLUGINS.through.obj((file, enc, next) => {
                                 if (file.isBinary()) {
                                     next();
                                     return;
@@ -333,8 +333,8 @@ module.exports = {
                                 next(null, file);
                             }))
                             // for comments that are on their own line, remove the entire line, otherwise just delete the comment
-                            .pipe(plugins.replace(/(^((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))\n$)|(((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->)))/gm, ""))
-                            .pipe(gulp.dest(global.settings.paths.src))
+                            .pipe(PLUGINS.replace(/(^((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))\n$)|(((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->)))/gm, ""))
+                            .pipe(GULP.dest(global.settings.paths.src))
                             .on("end", () => {
                                 // return the callback
                                 if (typeof callback === "function") {
@@ -347,9 +347,9 @@ module.exports = {
         };
 
         return new Promise ((resolve) => {
-            get_project_data(() => {
-                write_project_data(() => {
-                    remove_selected_modules(() => {
+            GET_PROJECT_DATA(() => {
+                WRITE_PROJECT_DATA(() => {
+                    REMOVE_SELECTED_MODULES(() => {
                         return resolve();
                     });
                 });

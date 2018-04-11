@@ -4,7 +4,7 @@
 
 module.exports = {
     // sync task, set up a browser_sync server, depends on config
-    sync(plugins) {
-        return plugins.browser_sync(global.settings.browsersync);
+    sync(PLUGINS) {
+        return PLUGINS.browser_sync(global.settings.browsersync);
     }
 };
