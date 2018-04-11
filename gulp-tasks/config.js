@@ -4,11 +4,11 @@
 
 module.exports = {
     // config task, generate configuration file for uploads & BrowserSync and prompt dev for input
-    config(GULP, PLUGINS, REQUESTED = "") {
+    config(gulp, plugins, requested = "") {
         // generate config.json and start other functions
-        const GENERATE_CONFIG = (file_name, mode = "ftp") => {
+        const generate_config = (file_name, mode = "ftp") => {
             // store array of config file URIs
-            const DATA_SOURCE = {
+            const data_source = {
                 bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
                 ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/1edc9488cccf2200831b13565a02180fce2afc5a/.ftpconfig",
                 sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/31ade808eb3b90940864271a9236be7c45e8233e/.ftpconfig",
@@ -16,19 +16,19 @@ module.exports = {
             };
 
             // check which config URI to use
-            const GIST_URL = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? DATA_SOURCE.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? DATA_SOURCE.sftp : DATA_SOURCE.ftp) : (mode === "rsync" ? DATA_SOURCE.rsync : ""))) : "";
+            const gist_url = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? data_source.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? data_source.sftp : data_source.ftp) : (mode === "rsync" ? data_source.rsync : ""))) : "";
 
             // write the file
             return new Promise((resolve, reject) => {
                 // open the file
-                PLUGINS.fs.stat(file_name, (err) => {
+                plugins.fs.stat(file_name, (err) => {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
-                        // get the file contents from the GIST_URL
-                        PLUGINS.request.get(GIST_URL, (error, response, body) => {
+                        // get the file contents from the gist_url
+                        plugins.request.get(gist_url, (error, response, body) => {
                             if (!error && response.statusCode == 200) {
                                 // write the file
-                                PLUGINS.fs.writeFile(file_name, body, "utf8", () => {
+                                plugins.fs.writeFile(file_name, body, "utf8", () => {
                                     // resolve the promise
                                     resolve();
                                 });
@@ -45,62 +45,62 @@ module.exports = {
         };
 
         // configue JSON data
-        const CONFIGURE_JSON = (file_name, namespace, options) => {
-            const PROMPTS    = [];
-            const CONFIGURED = PLUGINS.json.readFileSync(file_name).configured;
+        const configure_json = (file_name, namespace, options) => {
+            const prompts    = [];
+            const configured = plugins.json.readFileSync(file_name).configured;
 
             // construct the prompts
             Object.keys(options).forEach(option => {
-                const PROPERTIES = options[option];
+                const properties = options[option];
 
                 // construct the prompt
-                const PROMPT = {
+                const prompt = {
                     name:    option,
                     message: namespace + " " + option + ": ",
                 };
 
                 // construct the prompt
-                Object.keys(PROPERTIES).forEach(property => {
-                    prompt[property] = PROPERTIES[property];
+                Object.keys(properties).forEach(property => {
+                    prompt[property] = properties[property];
                 });
 
                 // check if the setting has no value or is explicitly requested
-                if ((REQUESTED !== "" && REQUESTED === namespace && (global.settings[namespace][option] === "" || CONFIGURED === false)) || GULP.seq.indexOf("config") >= 0 && (REQUESTED === "" || REQUESTED === namespace) && (global.settings[namespace][option] === "" || PLUGINS.argv[namespace] || CONFIGURED === false)) {
-                    PROMPTS.push(PROMPT);
+                if ((requested !== "" && requested === namespace && (global.settings[namespace][option] === "" || configured === false)) || gulp.seq.indexOf("config") >= 0 && (requested === "" || requested === namespace) && (global.settings[namespace][option] === "" || plugins.argv[namespace] || configured === false)) {
+                    prompts.push(prompt);
                 }
             });
 
             return new Promise ((resolve, reject) => {
-                if (PROMPTS.length > 0) {
+                if (prompts.length > 0) {
                     // prompt the user
-                    GULP.src(file_name)
-                        .pipe(PLUGINS.prompt.prompt(PROMPTS, (res) => {
+                    gulp.src(file_name)
+                        .pipe(plugins.prompt.prompt(prompts, (res) => {
                             // read the file to retrieve the JSON data
-                            const JSON_DATA = PLUGINS.json.readFileSync(file_name);
+                            const json_data = plugins.json.readFileSync(file_name);
 
                             // update options in JSON data
                             Object.keys(options).forEach(key => {
                                 // turn stringy true/false values in to booleans
-                                const VALUE = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
+                                const value = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
 
                                 // update the data
-                                JSON_DATA[key] = VALUE;
+                                json_data[key] = value;
 
                                 // store the updated data in the global settings
-                                global.settings[namespace][key] = VALUE;
+                                global.settings[namespace][key] = value;
                             });
 
                             // update file with new JSON data
-                            PLUGINS.json.writeFileSync(file_name, JSON_DATA, {spaces: 2});
+                            plugins.json.writeFileSync(file_name, json_data, {spaces: 2});
                         })).on("end", () => {
                             // read the file to retrieve the JSON data
-                            const JSON_DATA = PLUGINS.json.readFileSync(file_name);
+                            const json_data = plugins.json.readFileSync(file_name);
 
                             // mark as configured
-                            JSON_DATA["configured"] = true;
+                            json_data["configured"] = true;
 
                             // update file with new JSON data
-                            PLUGINS.json.writeFileSync(file_name, JSON_DATA, {spaces: 2});
+                            plugins.json.writeFileSync(file_name, json_data, {spaces: 2});
 
                             // resolve the promise
                             resolve();
@@ -115,21 +115,21 @@ module.exports = {
             });
         };
 
-        const DOWNLOAD_CONFIGS = () => {
+        const download_configs = () => {
             // download all config files
             return Promise.all([
-                GENERATE_CONFIG(".bsconfig", "browsersync"),
-                GENERATE_CONFIG(".ftpconfig", (PLUGINS.argv["sftp"] ? "sftp" : (PLUGINS.argv["ftps"] ? "ftps" : "ftp"))),
-                GENERATE_CONFIG(".rsyncconfig", "rsync")
+                generate_config(".bsconfig", "browsersync"),
+                generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp"))),
+                generate_config(".rsyncconfig", "rsync")
             ]);
         };
 
-        const CONFIGURE_BROWSERSYNC = () => {
+        const configure_browsersync = () => {
             // read browsersync settings from .bsconfig
-            global.settings.browsersync = PLUGINS.json.readFileSync(".bsconfig");
+            global.settings.browsersync = plugins.json.readFileSync(".bsconfig");
 
             // construct the prompts
-            const PROMPTS = {
+            const prompts = {
                 proxy: {
                     default: global.settings.browsersync.proxy,
                     type:    "input",
@@ -151,15 +151,15 @@ module.exports = {
             };
 
             // configure the JSON
-            return CONFIGURE_JSON(".bsconfig", "browsersync", PROMPTS);
+            return configure_json(".bsconfig", "browsersync", prompts);
         };
 
-        const CONFIGURE_FTP = () => {
+        const configure_ftp = () => {
             // read ftp settings from .ftpconfig
-            global.settings.ftp = PLUGINS.json.readFileSync(".ftpconfig");
+            global.settings.ftp = plugins.json.readFileSync(".ftpconfig");
 
             // construct the prompts
-            const PROMPTS = {
+            const prompts = {
                 host: {
                     default: global.settings.ftp.host,
                     type:    "input",
@@ -185,19 +185,19 @@ module.exports = {
 
             // don't prompt for protocol for SFTP
             if (global.settings.ftp.protocol === "sftp") {
-                delete PROMPTS.secure;
+                delete prompts.secure;
             }
 
             // configure the JSON
-            return CONFIGURE_JSON(".ftpconfig", "ftp", PROMPTS);
+            return configure_json(".ftpconfig", "ftp", prompts);
         };
 
-        const CONFIGURE_RSYNC = () => {
+        const configure_rsync = () => {
             // read ftp settings from .ftpconfig
-            global.settings.rsync = PLUGINS.json.readFileSync(".rsyncconfig");
+            global.settings.rsync = plugins.json.readFileSync(".rsyncconfig");
 
             // construct the prompts
-            const PROMPTS = {
+            const prompts = {
                 destination: {
                     default: global.settings.rsync.destination,
                     type:    "input",
@@ -217,13 +217,13 @@ module.exports = {
             };
 
             // configure the JSON
-            return CONFIGURE_JSON(".rsyncconfig", "rsync", PROMPTS);
+            return configure_json(".rsyncconfig", "rsync", prompts);
         };
 
         // download and configure config files
-        return DOWNLOAD_CONFIGS()
-            .then(CONFIGURE_BROWSERSYNC)
-            .then(CONFIGURE_FTP)
-            .then(CONFIGURE_RSYNC);
+        return download_configs()
+            .then(configure_browsersync)
+            .then(configure_ftp)
+            .then(configure_rsync);
     }
 };
