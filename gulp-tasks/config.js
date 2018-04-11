@@ -12,7 +12,7 @@ module.exports = {
                 bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
                 ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/0f408964b8f3c77ed0ae452ab3d2ba2c130e1acd/.ftpconfig",
                 sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/4829ebdc5d45cea7dce8cc3109a05501b159f992/.ftpconfig",
-                rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/28b31aff5a494daf13f5be679d51c67f7782dc68/.rsyncconfig",
+                rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/ce822b6391a1969c2b9d2a33c9ea1cc0c3ea5ed0/.rsyncconfig",
             };
 
             // check which config URI to use
@@ -37,7 +37,8 @@ module.exports = {
                             }
                         });
                     } else {
-                        reject();
+                        // automatically resolve the promise if the file already exists
+                        resolve();
                     }
                 });
             });
@@ -70,42 +71,47 @@ module.exports = {
             });
 
             return new Promise ((resolve, reject) => {
-                // prompt the user
-                gulp.src(file_name)
-                    .pipe(plugins.prompt.prompt(prompts, (res) => {
-                        // read the file to retrieve the JSON data
-                        const json_data = plugins.json.readFileSync(file_name);
+                if (prompts.length > 0) {
+                    // prompt the user
+                    gulp.src(file_name)
+                        .pipe(plugins.prompt.prompt(prompts, (res) => {
+                            // read the file to retrieve the JSON data
+                            const json_data = plugins.json.readFileSync(file_name);
 
-                        // update options in JSON data
-                        Object.keys(options).forEach(key => {
-                            // turn stringy true/false values in to booleans
-                            const value = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
+                            // update options in JSON data
+                            Object.keys(options).forEach(key => {
+                                // turn stringy true/false values in to booleans
+                                const value = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
 
-                            // update the data
-                            json_data[key] = value;
+                                // update the data
+                                json_data[key] = value;
 
-                            // store the updated data in the global settings
-                            global.settings[namespace][key] = value;
+                                // store the updated data in the global settings
+                                global.settings[namespace][key] = value;
+                            });
+
+                            // update file with new JSON data
+                            plugins.json.writeFileSync(file_name, json_data);
+                        })).on("end", () => {
+                            // read the file to retrieve the JSON data
+                            const json_data = plugins.json.readFileSync(file_name);
+
+                            // mark as configured
+                            json_data["configured"] = true;
+
+                            // update file with new JSON data
+                            plugins.json.writeFileSync(file_name, json_data);
+
+                            // resolve the promise
+                            resolve();
+                        }).on("error", () => {
+                            // reject the promise
+                            reject();
                         });
-
-                        // update file with new JSON data
-                        plugins.json.writeFileSync(file_name, json_data);
-                    })).on("end", () => {
-                        // read the file to retrieve the JSON data
-                        const json_data = plugins.json.readFileSync(file_name);
-
-                        // mark as configured
-                        json_data["configured"] = true;
-
-                        // update file with new JSON data
-                        plugins.json.writeFileSync(file_name, json_data);
-
-                        // resolve the promise
-                        resolve();
-                    }).on("error", () => {
-                        // reject the promise
-                        reject();
-                    });
+                } else {
+                    // automatically resolve the promise if no prompts exist
+                    resolve();
+                }
             });
         };
 
