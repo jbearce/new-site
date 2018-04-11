@@ -25,7 +25,7 @@ module.exports = {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
                         // get the file contents from the gist_url
-                        plugins.request.get(gist_url, function (error, response, body) {
+                        plugins.request.get(gist_url, (error, response, body) => {
                             if (!error && response.statusCode == 200) {
                                 // write the file
                                 plugins.fs.writeFile(file_name, body, "utf8", () => {
