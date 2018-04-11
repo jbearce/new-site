@@ -14,15 +14,7 @@ module.exports = {
             // check if files are newer
             .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [rsync_directory + "/**/*"]})))
             // rsync files
-            .pipe(plugins.rsync({
-                root: global.settings.rsync.root,
-                hostname: global.settings.rsync.hostname,
-                username: global.settings.rsync.username,
-                destination: global.settings.rsync.destination,
-                archive: global.settings.rsync.archive,
-                silent: global.settings.rsync.silent,
-                compress: global.settings.rsync.root.compress
-            }))
+            .pipe(plugins.rsync(global.settings.rsync))
             // prevent breaking on error
             .pipe(plugins.plumber({errorHandler: on_error}))
             // reload files

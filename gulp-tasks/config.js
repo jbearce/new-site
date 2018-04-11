@@ -10,9 +10,9 @@ module.exports = {
             // store array of config file URIs
             const data_source = {
                 bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
-                ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/0f408964b8f3c77ed0ae452ab3d2ba2c130e1acd/.ftpconfig",
-                sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/4829ebdc5d45cea7dce8cc3109a05501b159f992/.ftpconfig",
-                rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/ce822b6391a1969c2b9d2a33c9ea1cc0c3ea5ed0/.rsyncconfig",
+                ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/1edc9488cccf2200831b13565a02180fce2afc5a/.ftpconfig",
+                sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/31ade808eb3b90940864271a9236be7c45e8233e/.ftpconfig",
+                rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/91214db28e8f9cbbecb7f8ddcf5e42cbe5c5b0a8/.rsyncconfig",
             };
 
             // check which config URI to use
@@ -131,11 +131,11 @@ module.exports = {
             // construct the prompts
             const prompts = {
                 proxy: {
-                    default: global.settings.browsersync.proxy === "" ? "localhost" : global.settings.browsersync.proxy,
+                    default: global.settings.browsersync.proxy,
                     type:    "input",
                 },
                 port: {
-                    default: global.settings.browsersync.port === "" ? "8080" : global.settings.browsersync.port,
+                    default: global.settings.browsersync.port,
                     type:    "input",
                 },
                 open: {
@@ -160,36 +160,32 @@ module.exports = {
 
             // construct the prompts
             const prompts = {
-                protocol: {
-                    default: global.settings.ftp.protocol === "ftps" ? 1 : 0,
-                    type:    "list",
-                    choices: ["ftp", "ftps"],
-                },
                 host: {
-                    default: global.settings.ftp.host === "" ? "" : global.settings.ftp.host,
-                    type:    "input",
-                },
-                port: {
-                    default: global.settings.ftp.port === "" ? "" : global.settings.ftp.port,
+                    default: global.settings.ftp.host,
                     type:    "input",
                 },
                 user: {
-                    default: global.settings.ftp.user === "" ? "" : global.settings.ftp.user,
+                    default: global.settings.ftp.user,
                     type:    "input",
                 },
                 pass: {
-                    default: global.settings.ftp.pass === "" ? "" : global.settings.ftp.pass,
+                    default: global.settings.ftp.pass,
                     type:    "password",
                 },
-                remote: {
-                    default: global.settings.ftp.remote === "" ? "" : global.settings.ftp.remote,
+                remotePath: {
+                    default: global.settings.ftp.remotePath,
                     type:    "input",
+                },
+                secure: {
+                    default: global.settings.ftp.secure === true ? 0 : 1,
+                    type:    "list",
+                    choices: ["true", "false"],
                 },
             };
 
             // don't prompt for protocol for SFTP
             if (global.settings.ftp.protocol === "sftp") {
-                delete prompts.protocol;
+                delete prompts.secure;
             }
 
             // configure the JSON
@@ -202,36 +198,21 @@ module.exports = {
 
             // construct the prompts
             const prompts = {
+                destination: {
+                    default: global.settings.rsync.destination,
+                    type:    "input",
+                },
                 root: {
-                    default: global.settings.rsync.root === "" ? (plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev) : global.settings.rsync.root,
+                    default: global.settings.rsync.root,
                     type:    "input",
                 },
                 hostname: {
-                    default: global.settings.rsync.hostname === "" ? "localhost" : global.settings.rsync.hostname,
+                    default: global.settings.rsync.hostname,
                     type:    "input",
                 },
                 username: {
-                    default: global.settings.rsync.username === "" ? "root" : global.settings.rsync.username,
+                    default: global.settings.rsync.username,
                     type:    "input",
-                },
-                destination: {
-                    default: global.settings.rsync.destination === "" ? "/var/www/html" : global.settings.rsync.destination,
-                    type:    "input",
-                },
-                archive: {
-                    default: global.settings.rsync.archive === true ? 0 : 1,
-                    type:    "list",
-                    choices: ["true", "false"],
-                },
-                silent: {
-                    default: global.settings.rsync.silent === true ? 0 : 1,
-                    type:    "list",
-                    choices: ["true", "false"],
-                },
-                compress: {
-                    default: global.settings.rsync.compress === true ? 0 : 1,
-                    type:    "list",
-                    choices: ["true", "false"],
                 },
             };
 

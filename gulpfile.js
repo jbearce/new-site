@@ -149,7 +149,7 @@ gulp.task("html", () => {
 // secondary tasks
 gulp.task("sync", () => {
     return config_module.config(gulp, plugins, "browsersync").then(() => {
-        return sync_module.sync(plugins, global.settings.browsersync);
+        return sync_module.sync(plugins);
     });
 });
 gulp.task("upload", () => {
@@ -159,7 +159,7 @@ gulp.task("upload", () => {
 });
 gulp.task("rsync", () => {
     return config_module.config(gulp, plugins, "rsync").then(() => {
-        return rsync_module.rsync(gulp, plugins, global.settings.rsync);
+        return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
     });
 });
 
@@ -213,7 +213,7 @@ gulp.task("watch", () => {
     // set up a browser_sync server, if --sync is passed
     if (plugins.argv.sync) {
         config_module.config(gulp, plugins, "browsersync").then(() => {
-            sync_module.sync(plugins, global.settings.browsersync);
+            sync_module.sync(plugins);
         });
     }
 
