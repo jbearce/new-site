@@ -28,6 +28,10 @@ module.exports = {
             // reload files
             .pipe(plugins.browser_sync.reload({stream: true}))
             // notify that task is complete
-            .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}));
+            .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}))
+            // consume the stream to prevent rvagg/through2#82
+            .pipe(plugins.through.obj((file, enc, next) => {
+                next(null, plugins.consume(file));
+            }));
     }
 };
