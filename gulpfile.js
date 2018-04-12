@@ -198,7 +198,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], () => {
     // trigger rsync task if --rsync is passed
     if (plugins.argv.rsync) {
         config_module.config(gulp, plugins, "rsync").then(() => {
-            return rsync_module.upload(gulp, plugins, ran_tasks, on_error);
+            return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
         });
     }
 
