@@ -73,7 +73,6 @@
     "request": "^2.83.0",
     "rucksack-css": "^1.0.2",
     "run-sequence": "^2.2.1",
-    "stream-consume": "^0.1.1",
     "stylelint": "^9.1.1",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^0.8.1",

@@ -27,7 +27,6 @@ const plugins = {
             type:  "boolean",
         },
     }).argv,
-    consume:          require("stream-consume"),
     del:              require("del"),
     fs:               require("fs"),
     gulpif:           require("gulp-if"),
