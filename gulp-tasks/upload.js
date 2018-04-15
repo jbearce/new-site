@@ -27,7 +27,11 @@ module.exports = {
             .pipe(plugins.plumber({errorHandler: on_error}))
             // reload files
             .pipe(plugins.browser_sync.reload({stream: true}))
-            // notify that task is complete, if not part of default or watch
-            .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}));
+            // notify that task is complete
+            .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}))
+            // consume the stream to prevent rvagg/through2#82
+            .on("data", () => {
+                // do nothing
+            });
     }
 };

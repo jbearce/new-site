@@ -33,6 +33,7 @@ const plugins = {
     is_binary:        require("gulp-is-binary"),
     json:             require("jsonfile"),
     merge:            require("merge-stream"),
+    mkdirp:           require("mkdirp"),
     newer:            require("gulp-newer"),
     notify:           require("gulp-notify"),
     path:             require("path"),
@@ -197,7 +198,7 @@ gulp.task("default", ["media", "scripts", "styles", "html"], () => {
     // trigger rsync task if --rsync is passed
     if (plugins.argv.rsync) {
         config_module.config(gulp, plugins, "rsync").then(() => {
-            return rsync_module.upload(gulp, plugins, ran_tasks, on_error);
+            return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
         });
     }
 

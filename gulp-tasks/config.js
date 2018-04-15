@@ -25,7 +25,7 @@ module.exports = {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
                         // get the file contents from the gist_url
-                        plugins.request.get(gist_url, function (error, response, body) {
+                        plugins.request.get(gist_url, (error, response, body) => {
                             if (!error && response.statusCode == 200) {
                                 // write the file
                                 plugins.fs.writeFile(file_name, body, "utf8", () => {
@@ -91,7 +91,7 @@ module.exports = {
                             });
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(file_name, json_data);
+                            plugins.json.writeFileSync(file_name, json_data, {spaces: 2});
                         })).on("end", () => {
                             // read the file to retrieve the JSON data
                             const json_data = plugins.json.readFileSync(file_name);
@@ -100,7 +100,7 @@ module.exports = {
                             json_data["configured"] = true;
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(file_name, json_data);
+                            plugins.json.writeFileSync(file_name, json_data, {spaces: 2});
 
                             // resolve the promise
                             resolve();
