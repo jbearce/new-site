@@ -115,16 +115,12 @@ module.exports = {
             });
         };
 
-        const download_configs = () => {
-            // download all config files
-            return Promise.all([
-                generate_config(".bsconfig", "browsersync"),
-                generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp"))),
-                generate_config(".rsyncconfig", "rsync")
-            ]);
-        };
-
-        const configure_browsersync = () => {
+        // download all config files
+        return Promise.all([
+            generate_config(".bsconfig", "browsersync"),
+            generate_config(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp"))),
+            generate_config(".rsyncconfig", "rsync")
+        ]).then(() => {
             // read browsersync settings from .bsconfig
             global.settings.browsersync = plugins.json.readFileSync(".bsconfig");
 
@@ -152,9 +148,7 @@ module.exports = {
 
             // configure the JSON
             return configure_json(".bsconfig", "browsersync", prompts);
-        };
-
-        const configure_ftp = () => {
+        }).then(() => {
             // read ftp settings from .ftpconfig
             global.settings.ftp = plugins.json.readFileSync(".ftpconfig");
 
@@ -190,9 +184,7 @@ module.exports = {
 
             // configure the JSON
             return configure_json(".ftpconfig", "ftp", prompts);
-        };
-
-        const configure_rsync = () => {
+        }).then(() => {
             // read ftp settings from .ftpconfig
             global.settings.rsync = plugins.json.readFileSync(".rsyncconfig");
 
@@ -218,12 +210,6 @@ module.exports = {
 
             // configure the JSON
             return configure_json(".rsyncconfig", "rsync", prompts);
-        };
-
-        // download and configure config files
-        return download_configs()
-            .then(configure_browsersync)
-            .then(configure_ftp)
-            .then(configure_rsync);
+        });
     }
 };
