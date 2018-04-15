@@ -31,26 +31,26 @@ if (!isset($post_type_label)) {
 }
 
 if (!isset($post_type_label)) {
-    $post_type_label = __("posts", "nssra");
+    $post_type_label = __("posts", "__gulp_init__namespace");
 }
 
 if (!isset($post_taxonomy_label)) {
-    $post_taxonomy_label = __("taxonomy", "nssra");
+    $post_taxonomy_label = __("taxonomy", "__gulp_init__namespace");
 }
 
 if (!isset($post_error)) {
     if (is_post_type_archive()) {
-        $post_error = sprintf(__("Sorry, no %s could be found.", "nssra"), $post_type_label);
+        $post_error = sprintf(__("Sorry, no %s could be found.", "__gulp_init__namespace"), $post_type_label);
     } elseif (is_archive()) {
-        $post_error = sprintf(__("Sorry, no %s could be found in this %s.", "nssra"), $post_type_label, $post_taxonomy_label);
+        $post_error = sprintf(__("Sorry, no %s could be found in this %s.", "__gulp_init__namespace"), $post_type_label, $post_taxonomy_label);
     } elseif (is_search()) {
         if (get_search_query()) {
-            $post_error = sprintf(__("Sorry, no %s could be found for the search phrase %s%s.%s", "nssra"), $post_type_label, "&ldquo;", get_search_query(), "&rdquo;");
+            $post_error = sprintf(__("Sorry, no %s could be found for the search phrase %s%s.%s", "__gulp_init__namespace"), $post_type_label, "&ldquo;", get_search_query(), "&rdquo;");
         } else {
-            $post_error = __("No search query was entered.", "nssra");
+            $post_error = __("No search query was entered.", "__gulp_init__namespace");
         }
     } else {
-        $post_error = sprintf(__("Sorry, no %s could be found matching this criteria.", "nssra"), $post_type_label);
+        $post_error = sprintf(__("Sorry, no %s could be found matching this criteria.", "__gulp_init__namespace"), $post_type_label);
     }
 }
 ?>
