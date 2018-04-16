@@ -200,7 +200,7 @@
 
 ._visible-xs {
     @media screen and (max-width: $xs-break - (1 / 16)) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -208,7 +208,7 @@
 
 ._visible-s {
     @media screen and (max-width: $s-break - (1 / 16)) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -216,7 +216,7 @@
 
 ._visible-m {
     @media screen and (max-width: $m-break - (1 / 16)) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -224,7 +224,7 @@
 
 ._visible-l {
     @media screen and (max-width: $l-break - (1 / 16)) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -232,7 +232,7 @@
 
 ._visible-xl {
     @media screen and (max-width: $xl-break - (1 / 16)) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -242,7 +242,7 @@
 
 ._hidden-xs {
     @media screen and (min-width: $xs-break) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -250,7 +250,7 @@
 
 ._hidden-s {
     @media screen and (min-width: $s-break) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -258,7 +258,7 @@
 
 ._hidden-m {
     @media screen and (min-width: $m-break) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -266,7 +266,7 @@
 
 ._hidden-l {
     @media screen and (min-width: $l-break) {
-        display: none;
+        display: none !important;
     }
 }
 
@@ -274,6 +274,6 @@
 
 ._hidden-xl {
     @media screen and (min-width: $xl-break) {
-        display: none;
+        display: none !important;
     }
 }
