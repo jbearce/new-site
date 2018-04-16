@@ -35,7 +35,7 @@ $block_title          = isset($block_title) ? $block_title : (is_singular() ? ge
                                                 <source srcset="<?php echo $image["sizes"]["{$block_image_size}_medium"]; ?>" media="(min-width: 40em)" />
                                             <?php endif; ?>
 
-                                            <img class="swiper-image" alt="<?php echo $image["alt"]; ?>" src="<?php echo $image["sizes"]["{$block_image_size}"]; ?>" />
+                                            <img class="swiper-image" src="<?php echo $image["sizes"]["{$block_image_size}"]; ?>" alt="<?php echo htmlspecialchars($image["alt"]); ?>" />
                                         </picture><!--/.swiper-picture-->
                                     <?php endif; // if ($image["sizes"]["hero"]) ?>
 
@@ -77,7 +77,7 @@ $block_title          = isset($block_title) ? $block_title : (is_singular() ? ge
                                 <?php endif; ?>
 
                                 <?php if ($block_featured_image["small"]): ?>
-                                    <img class="swiper-image" src="<?php echo $block_featured_image["small"]; ?>" alt="<?php echo $block_featured_image["alt"]; ?>" />
+                                    <img class="swiper-image" src="<?php echo $block_featured_image["small"]; ?>" alt="<?php echo htmlspecialchars($block_featured_image["alt"]); ?>" />
                                 <?php endif; ?>
                             </picture><!--/.swiper-picture-->
 
