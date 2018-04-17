@@ -146,6 +146,9 @@ gulp.task("media", () => {
 gulp.task("html", () => {
     return html_module.html(gulp, plugins, ran_tasks, on_error);
 });
+gulp.task("php", () => {
+    return html_module.html(gulp, plugins, ran_tasks, on_error);
+});
 
 // secondary tasks
 gulp.task("sync", () => {
