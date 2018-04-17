@@ -115,23 +115,15 @@ const on_error = function (err) {
 };
 
 // import custom modules
-const init_module    = require("./gulp-tasks/init");
-const config_module  = require("./gulp-tasks/config");
 const styles_module  = require("./gulp-tasks/styles");
 const scripts_module = require("./gulp-tasks/scripts");
 const media_module   = require("./gulp-tasks/media");
 const html_module    = require("./gulp-tasks/html");
-const upload_module  = require("./gulp-tasks/upload");
 const sync_module    = require("./gulp-tasks/sync");
+const upload_module  = require("./gulp-tasks/upload");
 const rsync_module   = require("./gulp-tasks/rsync");
-
-// configuration tasks
-gulp.task("init", () => {
-    return init_module.init(gulp, plugins, on_error);
-});
-gulp.task("config", () => {
-    return config_module.config(gulp, plugins, (plugins.argv.ftp || plugins.argv.sftp ? "ftp" : (plugins.argv.browsersync ? "browsersync" : "")));
-});
+const config_module  = require("./gulp-tasks/config");
+const init_module    = require("./gulp-tasks/init");
 
 // primary tasks
 gulp.task("styles", () => {
@@ -140,14 +132,14 @@ gulp.task("styles", () => {
 gulp.task("scripts", () => {
     return scripts_module.scripts(gulp, plugins, ran_tasks, on_error);
 });
-gulp.task("media", () => {
-    return media_module.media(gulp, plugins, ran_tasks, on_error);
-});
 gulp.task("html", () => {
     return html_module.html(gulp, plugins, ran_tasks, on_error);
 });
 gulp.task("php", () => {
     return html_module.html(gulp, plugins, ran_tasks, on_error);
+});
+gulp.task("media", () => {
+    return media_module.media(gulp, plugins, ran_tasks, on_error);
 });
 
 // secondary tasks
@@ -165,6 +157,14 @@ gulp.task("rsync", () => {
     return config_module.config(gulp, plugins, "rsync").then(() => {
         return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
     });
+});
+
+// configuration tasks
+gulp.task("init", () => {
+    return init_module.init(gulp, plugins, on_error);
+});
+gulp.task("config", () => {
+    return config_module.config(gulp, plugins, (plugins.argv.ftp || plugins.argv.sftp ? "ftp" : (plugins.argv.browsersync ? "browsersync" : "")));
 });
 
 // changelog task, generates a changelog when --dist is passed
