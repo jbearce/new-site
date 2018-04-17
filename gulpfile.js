@@ -5,7 +5,7 @@
 const gulp    = require("gulp");
 const plugins = {
     // general stuff
-    argv:             require("yargs").options({
+    argv:         require("yargs").options({
         "d": {
             alias: "dist",
             type:  "boolean",
@@ -27,66 +27,24 @@ const plugins = {
             type:  "boolean",
         },
     }).argv,
-    del:              require("del"),
-    fs:               require("fs"),
-    gulpif:           require("gulp-if"),
-    is_binary:        require("gulp-is-binary"),
-    json:             require("jsonfile"),
-    merge:            require("merge-stream"),
-    mkdirp:           require("mkdirp"),
-    newer:            require("gulp-newer"),
-    notify:           require("gulp-notify"),
-    path:             require("path"),
-    plumber:          require("gulp-plumber"),
-    prompt:           require("gulp-prompt"),
-    replace:          require("gulp-replace"),
-    run_sequence:     require("run-sequence"),
-    sourcemaps:       require("gulp-sourcemaps"),
-    through:          require("through2"),
-    watch:            require("gulp-watch"),
-
-    // CSS stuff
-    critical:         require("critical"),
-    easing_gradients: require("postcss-easing-gradients"),
-    flexibility:      require("postcss-flexibility"),
-    pixrem:           require("gulp-pixrem"),
-    postcss:          require("gulp-postcss"),
-    rucksack:         require("gulp-rucksack"),
-    sass:             require("gulp-sass"),
-    stylelint:        require("gulp-stylelint"),
-    uncss:            require("gulp-uncss"),
-
-    // JS stuff
-    babel:            require("gulp-babel"),
-    concat:           require("gulp-concat"),
-    eslint:           require("gulp-eslint"),
-    uglify:           require("gulp-uglify"),
-
-    // HTML stuff
-    file_include:     require("gulp-file-include"),
-    htmlmin:          require("gulp-htmlmin"),
-
-    // media stuff
-    imagemin:         require("gulp-imagemin"),
-    pngquant:         require("imagemin-pngquant"),
-
-    // upload stuff
-    ftp:              require("vinyl-ftp"),
-    sftp:             require("gulp-sftp"),
-
-    // rsync stuff
-    rsync:            require("gulp-rsync"),
-
-    // browser-sync stuff
-    browser_sync:     require("browser-sync"),
-
-    // config stuff
-    request:          require("request"),
-
-    // init stuff
-    remove_code:      require("gulp-remove-code"),
-    glob:             require("glob"),
-    delete_empty:     require("delete-empty"),
+    del:          require("del"),
+    fs:           require("fs"),
+    gulpif:       require("gulp-if"),
+    is_binary:    require("gulp-is-binary"),
+    json:         require("jsonfile"),
+    merge:        require("merge-stream"),
+    mkdirp:       require("mkdirp"),
+    newer:        require("gulp-newer"),
+    notify:       require("gulp-notify"),
+    path:         require("path"),
+    plumber:      require("gulp-plumber"),
+    prompt:       require("gulp-prompt"),
+    replace:      require("gulp-replace"),
+    run_sequence: require("run-sequence"),
+    sourcemaps:   require("gulp-sourcemaps"),
+    through:      require("through2"),
+    watch:        require("gulp-watch"),
+    browser_sync: require("browser-sync"),
 };
 
 // store global environment paths
@@ -144,7 +102,7 @@ gulp.task("media", () => {
 // secondary tasks
 gulp.task("sync", () => {
     return config_module.config(gulp, plugins, "browsersync").then(() => {
-        return sync_module.sync(plugins);
+        return sync_module.sync();
     });
 });
 gulp.task("upload", () => {

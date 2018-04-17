@@ -4,6 +4,11 @@
 
 module.exports = {
     init(gulp, plugins, on_error) {
+        // task-specific plugins
+        const remove_code  = require("gulp-remove-code");
+        const glob         = require("glob");
+        const delete_empty = require("delete-empty");
+
         let project_data = {};
 
         // gather project data
@@ -233,12 +238,12 @@ module.exports = {
                     }))
 
                     // remove resource code if selected
-                    .pipe(plugins.remove_code({resources_html: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                    .pipe(plugins.remove_code({resources_css_js_php: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                    .pipe(remove_code({resources_html: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                    .pipe(remove_code({resources_css_js_php: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
 
                     // remove tribe code if selected
-                    .pipe(plugins.remove_code({tribe_html: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                    .pipe(plugins.remove_code({tribe_css_js_php: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
+                    .pipe(remove_code({tribe_html: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
+                    .pipe(remove_code({tribe_css_js_php: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
 
                     // output to source directory
                     .pipe(gulp.dest(global.settings.paths.src)).on("end", () => {
@@ -248,7 +253,7 @@ module.exports = {
             }).then(() => {
                 return new Promise ((resolve) => {
                     // remove any empty files
-                    plugins.glob(global.settings.paths.src + "/**/*", (err, files) => {
+                    glob(global.settings.paths.src + "/**/*", (err, files) => {
                         files.forEach((file) => {
                             if (plugins.fs.statSync(file).size <= 1) {
                                 plugins.fs.unlinkSync(file);
@@ -262,7 +267,7 @@ module.exports = {
                 }).then(() => {
                     // remove any empty folders
                     return new Promise ((resolve) => {
-                        plugins.delete_empty(global.settings.paths.src, () => {
+                        delete_empty(global.settings.paths.src, () => {
                             // resolve the promise
                             resolve();
                         });

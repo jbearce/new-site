@@ -3,16 +3,19 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
-    // upload changed files
     upload(gulp, plugins, ran_tasks, on_error) {
+        // task-specific plugins
+        const ftp  = require("vinyl-ftp");
+        const sftp = require("gulp-sftp");
+
         // set upload directory
         const upload_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // create FTP connection
-        const ftp_conn = plugins.ftp.create(global.settings.ftp);
+        const ftp_conn = ftp.create(global.settings.ftp);
 
         // create SFTP connection
-        const sftp_conn = plugins.sftp(global.settings.ftp);
+        const sftp_conn = sftp(global.settings.ftp);
 
         return gulp.src(upload_directory + "/**/*")
             // prevent breaking on error

@@ -4,6 +4,10 @@
 
 module.exports = {
     media(gulp, plugins, ran_tasks, on_error) {
+        // task-specific plugins
+        const imagemin = require("gulp-imagemin");
+        const pngquant = require("imagemin-pngquant");
+
         // compress images, copy other media
         const process_media = (media_directory, source = global.settings.paths.src + "/assets/media/**/*") => {
             return gulp.src(source)
@@ -12,10 +16,10 @@ module.exports = {
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(media_directory)))
                 // compress images
-                .pipe(plugins.imagemin({
+                .pipe(imagemin({
                     progressive: true,
                     svgoPlugins: [{cleanupIDs: false, removeViewBox: false}],
-                    use:         [plugins.pngquant()]
+                    use:         [pngquant()]
                 }))
                 // output to compiled directory
                 .pipe(gulp.dest(media_directory));

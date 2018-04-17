@@ -4,6 +4,12 @@
 
 module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
+        // task-specific plugins
+        const babel  = require("gulp-babel");
+        const concat = require("gulp-concat");
+        const eslint = require("gulp-eslint");
+        const uglify = require("gulp-uglify");
+
         // lint custom scripts
         const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor.*.js"]) => {
             return gulp.src(source)
@@ -12,9 +18,9 @@ module.exports = {
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name)))
                 // lint all non-vendor scripts
-                .pipe(plugins.eslint())
+                .pipe(eslint())
                 // print lint errors
-                .pipe(plugins.eslint.format());
+                .pipe(eslint.format());
         };
 
         // process scripts
@@ -27,11 +33,11 @@ module.exports = {
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // concatenate to critical.js
-                .pipe(plugins.concat(file_name))
+                .pipe(concat(file_name))
                 // transpile to es2015
-                .pipe(plugins.gulpif(transpile === true, plugins.babel({"presets": [["env", {modules: false}]]})))
+                .pipe(plugins.gulpif(transpile === true, babel({"presets": [["env", {modules: false}]]})))
                 // uglify (if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, plugins.uglify()))
+                .pipe(plugins.gulpif(plugins.argv.dist, uglify()))
                 // write sourcemap (if --dist isn't passed)
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
                 // output to compiled directory

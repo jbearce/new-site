@@ -3,8 +3,10 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 module.exports = {
-    // config task, generate configuration file for uploads & BrowserSync and prompt dev for input
     config(gulp, plugins, requested = "") {
+        // task-specific plugins
+        const request = require("request");
+
         // generate config.json and start other functions
         const generate_config = (file_name, mode = "ftp") => {
             // store array of config file URIs
@@ -25,7 +27,7 @@ module.exports = {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
                         // get the file contents from the gist_url
-                        plugins.request.get(gist_url, (error, response, body) => {
+                        request.get(gist_url, (error, response, body) => {
                             if (!error && response.statusCode == 200) {
                                 // write the file
                                 plugins.fs.writeFile(file_name, body, "utf8", () => {

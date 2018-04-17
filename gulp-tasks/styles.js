@@ -4,14 +4,16 @@
 
 module.exports = {
     styles(gulp, plugins, ran_tasks, on_error) {
-        // get the homepage from the package.json
-        const homepage = plugins.json.readFileSync("./package.json").homepage;
+        // task-specific plugins
+        const postcss   = require("gulp-postcss");
+        const sass      = require("gulp-sass");
+        const stylelint = require("gulp-stylelint");
 
         // function to generate critical CSS
         const generate_critical_css = (css_directory, sitemap = plugins.json.readFileSync("./package.json").templates) => {
-            const plural = ((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "";
+            const critical = require("critical");
 
-            console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + plural + ", go take a coffee break.");
+            console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + (((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
 
             // create the "critical" directory
             plugins.mkdirp(css_directory + "/critical");
@@ -21,7 +23,7 @@ module.exports = {
                 // make sure the key isn't a prototype
                 if (sitemap.hasOwnProperty(template)) {
                     // generate the critial CSS
-                    plugins.critical.generate({
+                    critical.generate({
                         base:       css_directory + "/critical",
                         dest:       template + ".css",
                         dimensions: [1920, 1080],
@@ -38,7 +40,7 @@ module.exports = {
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
                 // lint
-                .pipe(plugins.stylelint({
+                .pipe(stylelint({
                     failAfterError: true,
                     reporters: [
                         { formatter: "string", console: true }
@@ -57,19 +59,11 @@ module.exports = {
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, plugins.sass({outputStyle: "compressed"}), plugins.sass()))
+                .pipe(plugins.gulpif(plugins.argv.dist, sass({outputStyle: "compressed"}), sass()))
                 // process post CSS stuff
-                .pipe(plugins.postcss([plugins.flexibility(), plugins.easing_gradients()]))
-                // insert px fallback for rems
-                .pipe(plugins.pixrem())
-                // insert run through rucksack
-                .pipe(plugins.rucksack({autoprefixer: true}))
+                .pipe(postcss([require("pixrem"), require("postcss-clearfix"), require("postcss-easing-gradients"), require("postcss-flexibility"), require("postcss-responsive-type")]))
                 // write sourcemap (if --dist isn't passed)
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
-                // remove unused CSS
-                .pipe(plugins.gulpif(plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("uncss") && homepage !== "", plugins.uncss({
-                    html: homepage
-                })))
                 // output to compiled directory
                 .pipe(gulp.dest(css_directory));
         };
