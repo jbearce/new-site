@@ -45,9 +45,6 @@ const plugins = {
     through:          require("through2"),
     watch:            require("gulp-watch"),
 
-    // dist stuff
-    changelog:        require("gulp-conventional-changelog"),
-
     // init stuff
     remove_code:      require("gulp-remove-code"),
     glob:             require("glob"),
@@ -165,24 +162,6 @@ gulp.task("init", () => {
 });
 gulp.task("config", () => {
     return config_module.config(gulp, plugins, (plugins.argv.ftp || plugins.argv.sftp ? "ftp" : (plugins.argv.browsersync ? "browsersync" : "")));
-});
-
-// changelog task, generates a changelog when --dist is passed
-gulp.task("changelog", () => {
-    return gulp.src("CHANGELOG.md")
-        .pipe(plugins.gulpif(plugins.argv.dist, plugins.changelog({
-            // conventional-changelog options go here
-            preset: "angular",
-        }, {
-            // context goes here
-        }, {
-            // git-raw-commits options go here
-        }, {
-            // conventional-commits-parser options go here
-        }, {
-            // conventional-changelog-writer options go here
-        })))
-        .pipe(gulp.dest("./"));
 });
 
 // default task, runs through all primary tasks
