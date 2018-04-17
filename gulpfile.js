@@ -45,22 +45,6 @@ const plugins = {
     through:          require("through2"),
     watch:            require("gulp-watch"),
 
-    // init stuff
-    remove_code:      require("gulp-remove-code"),
-    glob:             require("glob"),
-    delete_empty:     require("delete-empty"),
-
-    // config stuff
-    request:          require("request"),
-
-    // upload stuff
-    ftp:              require("vinyl-ftp"),
-    sftp:             require("gulp-sftp"),
-    rsync:            require("gulp-rsync"),
-
-    // browser-sync stuff
-    browser_sync:     require("browser-sync"),
-
     // CSS stuff
     critical:         require("critical"),
     easing_gradients: require("postcss-easing-gradients"),
@@ -72,19 +56,37 @@ const plugins = {
     stylelint:        require("gulp-stylelint"),
     uncss:            require("gulp-uncss"),
 
-    // HTML stuff
-    file_include:     require("gulp-file-include"),
-    htmlmin:          require("gulp-htmlmin"),
-
     // JS stuff
     babel:            require("gulp-babel"),
     concat:           require("gulp-concat"),
     eslint:           require("gulp-eslint"),
     uglify:           require("gulp-uglify"),
 
+    // HTML stuff
+    file_include:     require("gulp-file-include"),
+    htmlmin:          require("gulp-htmlmin"),
+
     // media stuff
     imagemin:         require("gulp-imagemin"),
     pngquant:         require("imagemin-pngquant"),
+
+    // upload stuff
+    ftp:              require("vinyl-ftp"),
+    sftp:             require("gulp-sftp"),
+
+    // rsync stuff
+    rsync:            require("gulp-rsync"),
+
+    // browser-sync stuff
+    browser_sync:     require("browser-sync"),
+
+    // config stuff
+    request:          require("request"),
+
+    // init stuff
+    remove_code:      require("gulp-remove-code"),
+    glob:             require("glob"),
+    delete_empty:     require("delete-empty"),
 };
 
 // store global environment paths
@@ -114,8 +116,8 @@ const on_error = function (err) {
 // import custom modules
 const styles_module  = require("./gulp-tasks/styles");
 const scripts_module = require("./gulp-tasks/scripts");
-const media_module   = require("./gulp-tasks/media");
 const html_module    = require("./gulp-tasks/html");
+const media_module   = require("./gulp-tasks/media");
 const sync_module    = require("./gulp-tasks/sync");
 const upload_module  = require("./gulp-tasks/upload");
 const rsync_module   = require("./gulp-tasks/rsync");
@@ -165,7 +167,7 @@ gulp.task("config", () => {
 });
 
 // default task, runs through all primary tasks
-gulp.task("default", ["media", "scripts", "styles", "html"], () => {
+gulp.task("default", ["styles", "scripts", "html", "media"], () => {
     // notify that task is complete
     gulp.src("gulpfile.js")
         .pipe(plugins.gulpif(ran_tasks.length, plugins.notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
