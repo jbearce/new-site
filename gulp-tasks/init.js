@@ -153,57 +153,6 @@ module.exports = {
                             }
                         },
                     },
-                    {
-                        name:    "heading_font",
-                        message: "Heading Font:",
-                        type:    "input",
-                        default: "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
-                    },
-                    {
-                        name:    "body_font",
-                        message: "Body Font:",
-                        type:    "input",
-                        default: "\"Open Sans\", \"Helvetica\", \"Arial\", sans-serif",
-                    },
-                    {
-                        name:     "site_width",
-                        message:  "Site Width:",
-                        type:     "input",
-                        default:  "1500",
-                        validate: (response) => {
-                            if (response.match(/[0-9]+/)) {
-                                return true;
-                            } else {
-                                return "Please enter a valid positive integer.";
-                            }
-                        },
-                    },
-                    {
-                        name:     "column_gap",
-                        message:  "Column Gap:",
-                        type:     "input",
-                        default:  "30",
-                        validate: (response) => {
-                            if (response.match(/[0-9]+/)) {
-                                return true;
-                            } else {
-                                return "Please enter a valid positive integer.";
-                            }
-                        },
-                    },
-                    {
-                        name:     "content_padding",
-                        message:  "Content Padding:",
-                        type:     "input",
-                        default:  "25",
-                        validate: (response) => {
-                            if (response.match(/[0-9]+/)) {
-                                return true;
-                            } else {
-                                return "Please enter a valid positive integer.";
-                            }
-                        },
-                    },
                 ], (res) => {
                     // store the project data
                     project_data = res;
