@@ -27,9 +27,6 @@ function __gulp_init__namespace_enqueue_scripts() {
 
     /* scripts */
 
-    // FontAwesome 5 Pro
-    wp_register_script("__gulp_init__namespace-scripts-fontawesome", "https://pro.fontawesome.com/releases/v5.0.8/js/all.js", array(), "@@version");
-
     // modern scripts
     wp_register_script("__gulp_init__namespace-scripts-modern", get_theme_file_uri("assets/scripts/modern.js"), array(), "@@version", true);
 
@@ -61,7 +58,6 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_enqueue_style("__gulp_init__namespace-styles-legacy");
     wp_enqueue_style("__gulp_init__namespace-styles-print");
 
-    wp_enqueue_script("__gulp_init__namespace-scripts-fontawesome");
     wp_enqueue_script("__gulp_init__namespace-scripts-modern");
     wp_enqueue_script("__gulp_init__namespace-scripts-legacy");
     wp_enqueue_script("__gulp_init__namespace-scripts-critical");
@@ -72,14 +68,3 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_script_add_data("__gulp_init__namespace-scripts-legacy", "conditional", "lte IE 9");
 }
 add_action("wp_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts");
-
-
-// add licenisng attributes to FontAwesome 5 Pro script
-function __gulp_init__namespace_add_fontawesome_license_attributes($tag, $handle, $src) {
-    if (!is_admin() && $handle === "__gulp_init__namespace-scripts-fontawesome") {
-        return str_replace("<script", "<script integrity='sha384-816IUmmhAwCMonQiPZBO/PTgzgsjHtpb78rpsLzldhb4HZjFzBl06Z3eu4ZuwHTz' crossorigin='anonymous'", $tag);
-    }
-
-    return $tag;
-}
-add_filter("script_loader_tag", "__gulp_init__namespace_add_fontawesome_license_attributes", 10, 3);
