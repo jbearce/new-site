@@ -1,12 +1,13 @@
 <?php
-$block_variant        = isset($block_variant) ? " {$block_variant}" : "";
-$block_slideshow      = isset($block_slideshow) ? $block_slideshow : get_field("slideshow");
-$block_image_size     = isset($block_image_size) ? $block_image_size : "hero";
-$block_featured_image = isset($block_featured_image) ? $block_featured_image : (isset($post) && has_post_thumbnail($post) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_large")[0]) : false);
-$block_title          = isset($block_title) ? $block_title : (is_singular() ? get_the_title() : (is_archive() ? get_the_archive_title() : (is_404() ? __("404: Page Not Found", "__gulp_init__namespace") : false)));
+$post                 = isset($template_args["post"]) ? $template_args["post"] : false;
+$block_class          = isset($template_args["block_class"]) ? $template_args["block_class"] : "";
+$block_slideshow      = isset($template_args["block_slideshow"]) ? $template_args["block_slideshow"] : ($post ? get_field("slideshow", $post->ID) : false);
+$block_image_size     = isset($template_args["block_image_size"]) ? $template_args["block_image_size"] : "hero";
+$block_featured_image = isset($template_args["block_featured_image"]) ? $template_args["block_featured_image"] : ($post && has_post_thumbnail($post->ID) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$block_image_size}_large")[0]) : false);
+$block_title          = isset($template_args["block_title"]) ? $template_args["block_title"] : false;
 ?>
 <?php if ($block_slideshow || $block_featured_image): $i = 0; ?>
-    <div class="hero-block -fullbleed<?php echo $block_variant; ?>" role="region">
+    <div class="hero-block -fullbleed <?php echo $block_class; ?>" role="region">
         <div class="hero_inner -fullbleed">
             <div class="hero_swiper-container swiper-container -hero -fullbleed">
 
@@ -113,11 +114,3 @@ $block_title          = isset($block_title) ? $block_title : (is_singular() ? ge
         </div><!--/.hero_inner.-fullbleed-->
     </div><!--/.hero-block.-fullbleed._nopadding-->
 <?php endif; // if ($block_slideshow || $block_featured_image) ?>
-
-<?php
-unset($block_variant);
-unset($block_slideshow);
-unset($block_image_size);
-unset($block_featured_image);
-unset($block_title);
-?>

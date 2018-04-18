@@ -1,38 +1,33 @@
 <?php
-$post_id    = get_post(get_option("page_for_posts"));
-$post_title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "__gulp_init__namespace");
+$post_id    = get_option("page_for_posts") ? get_post(get_option("page_for_posts")) : false;
+$post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "__gulp_init__namespace");
 ?>
 <?php get_header(); ?>
-<?php
-if ($posts_title) $block_title = $post_title;
-include(locate_template("partials/block-hero.php"));
-?>
+<?php __gulp_init__namespace_get_template_part("partials/blocks/hero.php", array("block_title" => $post_title)); ?>
 <div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">
             <?php do_action("__gulp_init__namespace_before_content"); ?>
 
-            <?php $title = get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "__gulp_init__namespace"); ?>
-
-            <?php if ($title): ?>
+            <?php if ($post_title): ?>
                 <article class="content_article article -introduction">
                     <header class="article_header">
-                        <h1 class="article_title title"><?php echo $title; ?></h1>
+                        <h1 class="article_title title"><?php echo $post_title; ?></h1>
                     </header><!--/.article_header-->
                 </article><!--/.content_article.article.-introduction-->
             <?php endif; ?>
 
-            <?php if (have_posts()): ?>
-                <?php while (have_posts()): the_post(); ?>
-                    <?php $post_varaint = "content_article"; ?>
-                    <?php include(locate_template("partials/content-excerpt.php")); ?>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <?php $post_varaint = "content_article"; ?>
-                <?php include(locate_template("partials/content-none.php")); ?>
-            <?php endif; ?>
+            <?php
+            if (have_posts()) {
+                while (have_posts()) { the_post();
+                    __gulp_init__namespace_get_template_part("partials/content/post-excerpt.php", array("post" => $post, "article_class" => "content_article"));
+                }
+            } else {
+                __gulp_init__namespace_get_template_part("partials/content/post-none.php", array("article_class" => "content_article", "article_error" => get_no_posts_message(get_queried_object())));
+            }
+            ?>
 
-            <?php include(locate_template("partials/list-pagination.php")); ?>
+            <?php __gulp_init__namespace_get_template_part("partials/lists/pagination.php"); ?>
 
             <?php do_action("__gulp_init__namespace_after_content"); ?>
         </div><!--/.content_post-->

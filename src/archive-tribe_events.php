@@ -1,5 +1,5 @@
 <!--removeIf(tribe_html)--><?php get_header(); ?>
-<?php include(locate_template("partials/block-hero.php")); ?>
+<?php __gulp_init__namespace_get_template_part("partials/blocks/hero.php"); ?>
 <div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">

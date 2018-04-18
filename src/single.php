@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<?php include(locate_template("partials/block-hero.php")); ?>
+<?php __gulp_init__namespace_get_template_part("partials/blocks/hero.php"); ?>
 <div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_row row -padded">
@@ -7,15 +7,13 @@
                 <div class="content_post">
                     <?php do_action("__gulp_init__namespace_before_content"); ?>
 
-                    <?php if (have_posts()): ?>
-                        <?php while (have_posts()): the_post(); ?>
-                            <?php $post_variant = "content_article"; ?>
-                            <?php include(locate_template("partials/content-full.php")); ?>
-                        <?php endwhile; ?>
-                    <?php else: ?>
-                        <?php $post_variant = "content_article"; ?>
-                        <?php include(locate_template("partials/content-none.php")); ?>
-                    <?php endif; ?>
+                    <?php
+                    if (have_posts()) {
+                        while (have_posts()) { the_post();
+                            __gulp_init__namespace_get_template_part("partials/content/post-full.php", array("post" => $post, "article_class" => "content_article"));
+                        }
+                    }
+                    ?>
 
                     <?php do_action("__gulp_init__namespace_after_content"); ?>
                 </div><!--/.content_post-->

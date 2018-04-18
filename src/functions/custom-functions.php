@@ -118,3 +118,148 @@ function remove_root_tag($DOM, $tag = "html") {
 
     return $DOM;
 }
+
+// function to get a "no posts found" message
+function get_no_posts_message($queried_object) {
+    if (is_post_type_archive() && isset($queried_object->labels->name)) {
+        $post_type_label = strtolower($queried_object->labels->name);
+    } elseif (is_archive() && isset($queried_object->taxonomy)) {
+        global $wp_taxonomies;
+
+        $post_types = isset($wp_taxonomies[$queried_object->taxonomy]) ? $wp_taxonomies[$queried_object->taxonomy]->object_type : "";
+
+        if (isset($post_types[0])) {
+            $post_type = get_post_type_object($post_types[0]);
+
+            if (isset($post_type->label)) {
+                $post_type_label = strtolower($post_type->label);
+            }
+        }
+
+        if (!isset($post_taxonomy_label)) {
+            $taxonomy_labels = get_taxonomy_labels(get_taxonomy($queried_object->taxonomy));
+            if (isset($taxonomy_labels->singular_name)) {
+                $post_taxonomy_label = strtolower($taxonomy_labels->singular_name);
+            }
+        }
+    }
+
+    if (!isset($post_type_label)) {
+        $post_type_label = __("posts", "__gulp_init__namespace");
+    }
+
+    if (!isset($post_taxonomy_label)) {
+        $post_taxonomy_label = __("taxonomy", "__gulp_init__namespace");
+    }
+
+    if (is_post_type_archive()) {
+        $error_message = sprintf(__("Sorry, no %s could be found.", "__gulp_init__namespace"), $post_type_label);
+    } elseif (is_archive()) {
+        $error_message = sprintf(__("Sorry, no %s could be found in this %s.", "__gulp_init__namespace"), $post_type_label, $post_taxonomy_label);
+    } elseif (is_search()) {
+        $error_message = sprintf(__("Sorry, no %s could be found for the search phrase %s%s.%s", "__gulp_init__namespace"), $post_type_label, "&ldquo;", get_search_query(), "&rdquo;");
+    } else {
+        $error_message = sprintf(__("Sorry, no %s could be found matching this criteria.", "__gulp_init__namespace"), $post_type_label);
+    }
+
+    return $error_message;
+}
+
+// function to retrieve a bunch of article metadata
+function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
+    // set up some default taxonomies
+    if (empty($taxonomies)) {
+        $taxonomies = array(
+            array(
+                "icon" => "folder",
+                "name" => "category"
+            ),
+            array(
+                "icon" => "tag",
+                "name" => "post_tag"
+            ),
+        );
+    }
+
+    // grab the date
+    if (!isset($meta["date"])) {
+        $meta["date"] = array(
+            "icon"     => "clock",
+            "links"    => array(
+                array(
+                    "url"    => get_permalink($post_id),
+                    "title"  => get_the_time(get_option("date_format"), $post_id),
+                    "target" => "",
+                )
+            ),
+            "datetime" => get_the_time("c", $post_id),
+        );
+    }
+
+    // grab the author
+    if (!isset($meta["author"])) {
+        $author_id = get_post_field("post_author", $post_id);
+
+        $meta["author"] = array(
+            "icon"   => "user-circle",
+            "links" => array(
+                array(
+                    "url"    => get_author_posts_url($author_id),
+                    "title"  => get_the_author_meta("display_name", $author_id),
+                    "target" => "",
+                )
+            ),
+            "avatar" => get_avatar_url($author_id, array("size" => 150)),
+        );
+    }
+
+    // grab the comments count
+    if (!isset($meta["comments"])) {
+        $comment_count = get_comments_number($post_id);
+
+        $meta["comments"] = array(
+            "icon"  => "comment",
+            "links" => array(
+                array(
+                    "url"    => get_comments_link($post_id),
+                    "title"  => sprintf(__("%s comment%s", "__gulp_init__namespace"), $comment_count, ((int) $comment_count !== 1 ? __("s", "__gulp_init__namespace") : "")),
+                    "target" => "",
+                )
+            ),
+            "count" => $comment_count,
+        );
+    }
+
+    // grab the taxonomy terms
+    if ($taxonomies) {
+        foreach ($taxonomies as $tax) {
+            if (!isset($meta["tax_{$tax["name"]}"])) {
+
+                $terms = get_the_terms($post_id, $tax["name"]);
+
+                if ($terms) {
+                    $meta["tax_{$tax["name"]}"] = array(
+                        "icon"  => $tax["icon"],
+                        "links" => array(),
+                        "terms" => $terms,
+                    );
+
+                    foreach ($terms as $term) {
+                        $meta["tax_{$tax["name"]}"]["links"][] = array(
+                            "url"    => get_term_link($term->term_id, $term->taxonomy),
+                            "title"  => sanitize_text_field($term->name),
+                            "target" => "",
+                        );
+                    }
+                }
+            }
+        }
+    }
+
+    return $meta;
+}
+
+// make calls to hm_get_templtae_part easier
+function __gulp_init__namespace_get_template_part($file, $template_args = array(), $cache_args = array()) {
+    hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
+}

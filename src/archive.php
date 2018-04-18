@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<?php include(locate_template("partials/block-hero.php")); ?>
+<?php __gulp_init__namespace_get_template_part("partials/blocks/hero.php"); ?>
 <div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">
@@ -27,17 +27,17 @@
                 </dv><!--/.content_content-->
             <?php endif; ?>
 
-            <?php if (have_posts()): ?>
-                <?php while (have_posts()): the_post(); ?>
-                    <?php $post_variant = "content_article"; ?>
-                    <?php include(locate_template("partials/content-excerpt.php")); ?>
-                <?php endwhile; ?>
-            <?php else: ?>
-                <?php $post_variant = "content_article"; ?>
-                <?php include(locate_template("partials/content-none.php")); ?>
-            <?php endif; ?>
+            <?php
+            if (have_posts()) {
+                while (have_posts()) { the_post();
+                    __gulp_init__namespace_get_template_part("partials/content/post-excerpt.php", array("post" => $post, "article_class" => "content_article"));
+                }
+            } else {
+                __gulp_init__namespace_get_template_part("partials/content/post-none.php", array("article_class" => "content_article", "article_error" => get_no_posts_message(get_queried_object())));
+            }
+            ?>
 
-            <?php include(locate_template("partials/list-pagination.php")); ?>
+            <?php __gulp_init__namespace_get_template_part("partials/lists/pagination.php"); ?>
 
             <?php do_action("__gulp_init__namespace_after_content"); ?>
         </div><!--/.content_post-->
