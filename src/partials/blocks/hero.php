@@ -100,12 +100,12 @@ $block_title          = isset($template_args["block_title"]) ? $template_args["b
                     <div class="swiper-pagination"></div>
 
                     <button class="swiper-button -prev">
-                        <icon use="caret-left" class="swiper-button-icon" />
+                        <i class="far fa-caret-left swiper-button-icon"></i>
                         <span class="_visuallyhidden"><?php _e("Previous Slide", "__gulp_init__namespace"); ?></span>
                     </button><!--/.swiper-button.-prev-->
 
                     <button class="swiper-button -next">
-                        <icon use="caret-right" class="swiper-button-icon" />
+                        <i class="far fa-caret-right swiper-button-icon"></i>
                         <span class="_visuallyhidden"><?php _e("Next Slide", "__gulp_init__namespace"); ?></span>
                     </button><!--/.swiper-button.-next-->
                 <?php endif; ?>

@@ -148,7 +148,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
                 $toggle_class .= " _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "");
             }
 
-            $toggle .= "<button class='menu-list_toggle{$toggle_class}'><icon use='angle-down' /><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
+            $toggle .= "<button class='menu-list_toggle{$toggle_class}'><i class='far fa-angle-down'></i><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
         }
 
         // set up empty variant class

@@ -34,14 +34,14 @@ $organizer         = tribe_get_organizer();
 
                         <!-- Schedule & Recurrence Details -->
                         <li class="tribe-event-schedule-details menu-list_item">
-                            <icon use="clock" class="menu-list_icon" />
+                            <i class="far fa-clock menu-list_icon"></i>
                             <?php echo tribe_events_event_schedule_details(); ?>
                         </li><!--/.tribe-event-schedule-details.menu-list_item-->
 
                         <!-- Event Cost -->
                         <?php if (tribe_get_cost()): ?>
                             <li class="tribe-events-event-cost menu-list_item">
-                                <icon use="money" class="menu-list_icon" />
+                                <i class="far fa-money-bill menu-list_icon"></i>
                                 <span class="ticket-cost"><?php echo tribe_get_cost(null, true); ?></span>
                                 <?php do_action("tribe_events_inside_cost"); ?>
                             </li><!--/.tribe-events-event-cost.menu-list_item-->
@@ -50,7 +50,7 @@ $organizer         = tribe_get_organizer();
                         <?php if ($venue_details && trim($venue_details["address"]) !== ""): ?>
                             <!-- Venue Display Info -->
                             <li class="tribe-events-venue-details menu-list_item" style="clear:left;">
-                                <icon use="map-marker" class="menu-list_icon" />
+                                <i class="far fa-map-marker menu-list_icon"></i>
                                 <?php echo implode(", ", $venue_details); ?>
                                 <?php
                                 if (tribe_get_map_link()) {

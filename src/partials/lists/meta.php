@@ -12,11 +12,7 @@ $list_meta  = isset($template_args["list_meta"]) ? $template_args["list_meta"] :
                     <li class="menu-list_item">
 
                         <?php if (isset($meta["icon"]) && $meta["icon"]): ?>
-                            <i class="menu-list_icon icon">
-                                <svg class="icon_svg" aria-hidden="true">
-                                    <use xlink:href="#<?php echo $meta["icon"]; ?>"></use>
-                                </svg>
-                            </i><!--/.menu-list_icon.icon-->
+                            <i class="far <?php echo $meta["icon"]; ?> menu-list_icon"></i>
                         <?php endif; ?>
 
                         <?php if ($key === "date" && isset($meta["datetime"]) && $meta["datetime"]): ?>

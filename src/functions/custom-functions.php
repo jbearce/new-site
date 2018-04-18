@@ -171,11 +171,11 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     if (empty($taxonomies)) {
         $taxonomies = array(
             array(
-                "icon" => "folder",
+                "icon" => "fa-folder",
                 "name" => "category"
             ),
             array(
-                "icon" => "tag",
+                "icon" => "fa-tag",
                 "name" => "post_tag"
             ),
         );
@@ -184,7 +184,7 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     // grab the date
     if (!isset($meta["date"])) {
         $meta["date"] = array(
-            "icon"     => "clock",
+            "icon"     => "fa-clock",
             "links"    => array(
                 array(
                     "url"    => get_permalink($post_id),
@@ -201,7 +201,7 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
         $author_id = get_post_field("post_author", $post_id);
 
         $meta["author"] = array(
-            "icon"   => "user-circle",
+            "icon"   => "fa-user-circle",
             "links" => array(
                 array(
                     "url"    => get_author_posts_url($author_id),
@@ -218,7 +218,7 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
         $comment_count = get_comments_number($post_id);
 
         $meta["comments"] = array(
-            "icon"  => "comment",
+            "icon"  => "fa-comment",
             "links" => array(
                 array(
                     "url"    => get_comments_link($post_id),

@@ -28,7 +28,6 @@
                 </div><!--/.navigation-block.-flyout._hidden-xs._noncritical-->
             <?php endif; // has_nav_menu("primary") ?>
         </div><!--/.page_container-->
-        <div style="display:none;"><?php include_once(get_template_directory() . "/assets/media/spritesheet.svg"); ?></div>
         <?php wp_footer(); ?>
     </body>
 </html>

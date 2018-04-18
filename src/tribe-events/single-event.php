@@ -21,12 +21,12 @@ $event_id = get_the_ID();
             <nav class="tribe-events-schedule tribe-clearfix tribe-events-single_menu-list_container menu-list_container">
                 <ul class="menu-list -meta">
                     <li class="menu-list_item">
-                        <icon use="clock" class="menu-list_icon" />
+                        <i class="far fa-clock menu-list_icon"></i>
                         <?php echo strip_tags(tribe_events_event_schedule_details($event_id)); ?>
                     </li><!--/.menu-list_item-->
                     <?php if (tribe_get_cost()): ?>
                         <li class="menu-list_item">
-                            <icon use="money" class="menu-list_icon" />
+                            <i class="far fa-money-bill menu-list_icon"></i>
                             <span class="tribe-events-cost"><?php echo tribe_get_cost(null, true); ?></span>
                         </li><!--/.menu-list_item-->
                     <?php endif; ?>
