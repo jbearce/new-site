@@ -5,7 +5,7 @@ $article_permalink = isset($template_args["article_permalink"]) ? $template_args
 $article_image     = isset($template_args["article_image"]) ? $template_args["article_image"] : ($post && has_post_thumbnail($post) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "url" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "medium")[0]) : "");
 $article_title     = isset($template_args["article_title"]) ? $template_args["article_title"] : ($post ? $post->post_title : "");
 $article_meta      = get_article_meta(isset($template_args["article_meta"]) ? $template_args["meta"] : array());
-$article_excerpt   = isset($template_args["article_excerpt"]) ? $template_args["article_excerpt"] : ($post ? get_better_excerpt($post->ID, 55, "&hellip; " . $post_permalink ? "<a class='article_link link' href='" . apply_filters("the_permalink", $post_permalink) . "'>" . __("Read More", "__gulp_init__namespace") . "</a>" : "") : "");
+$article_excerpt   = isset($template_args["article_excerpt"]) ? $template_args["article_excerpt"] : ($post ? get_better_excerpt($post->ID, 55, "&hellip; " . $article_permalink ? "<a class='article_link link' href='" . apply_filters("the_permalink", $article_permalink) . "'>" . __("Read More", "__gulp_init__namespace") . "</a>" : "") : "");
 ?>
 
 <?php if ($article_title || $article_permalink): ?>
@@ -20,7 +20,7 @@ $article_excerpt   = isset($template_args["article_excerpt"]) ? $template_args["
                         <?php endif; ?>
 
                         <?php echo $article_title; ?>
-                        
+
                         <?php if ($article_permalink): ?>
                             </a><!--/.article_link.link-->
                         <?php endif; ?>
