@@ -78,7 +78,7 @@ add_filter("init", "__gulp_init__namespace_fix_shortcodes", 10);
 function __gulp_init__namespace_add_user_content_classes($content) {
     global $post;
 
-    if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
+    if ($content) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -230,13 +230,12 @@ function __gulp_init__namespace_add_user_content_classes($content) {
 }
 add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 10);
 add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 10);
-add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_add_user_content_classes", 10);
 
 // wrap tables in a div
 function __gulp_init__namespace_wrap_tables($content) {
     global $post;
 
-    if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
+    if ($content) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -261,13 +260,12 @@ function __gulp_init__namespace_wrap_tables($content) {
 }
 add_filter("the_content", "__gulp_init__namespace_wrap_tables", 10);
 add_filter("acf_the_content", "__gulp_init__namespace_wrap_tables", 10);
-add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_wrap_tables", 10);
 
 // wrap frames in a div
 function __gulp_init__namespace_wrap_frames($content) {
     global $post;
 
-    if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
+    if ($content) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -319,13 +317,12 @@ function __gulp_init__namespace_wrap_frames($content) {
 }
 add_filter("the_content", "__gulp_init__namespace_wrap_frames", 10);
 add_filter("acf_the_content", "__gulp_init__namespace_wrap_frames", 10);
-add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_wrap_frames", 10);
 
 // add rel="noopener" to external links
 function __gulp_init__namespace_rel_noopener($content) {
     global $post;
 
-    if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
+    if ($content) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -349,13 +346,12 @@ function __gulp_init__namespace_rel_noopener($content) {
 }
 add_filter("the_content", "__gulp_init__namespace_rel_noopener", 10);
 add_filter("acf_the_content", "__gulp_init__namespace_rel_noopener", 10);
-add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_rel_noopener", 10);
 
 // enable lazy loading on images
 function __gulp_init__namespace_lazy_load_images($content) {
     global $post;
 
-    if ($content && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
+    if ($content) {
         $DOM   = new DOMDocument();
 
         $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
@@ -401,14 +397,13 @@ function __gulp_init__namespace_lazy_load_images($content) {
 }
 add_filter("the_content", "__gulp_init__namespace_lazy_load_images", 10);
 add_filter("acf_the_content", "__gulp_init__namespace_lazy_load_images", 10);
-add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_lazy_load_images", 10);
 add_filter("post_thumbnail_html", "__gulp_init__namespace_lazy_load_images", 10);
 
 // remove dimensions from thumbnails
 function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     global $post;
 
-    if ($html && !(isset($GLOBALS["tribe_hooked_template"]) && $GLOBALS["tribe_hooked_template"])) {
+    if ($html) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
@@ -438,7 +433,7 @@ function __gulp_init__namespace_acrobat_link() {
     $fields  = get_fields();
     $output  = "";
 
-    if ($content && !is_post_type_archive("tribe_events")) {
+    if ($content) {
         preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
 
         if ($matches) {
@@ -491,34 +486,3 @@ function __gulp_init__namespace_decode_html_entities_in_blog_description($value,
     return $value;
 }
 add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_description", 10, 2);
-
-/*removeIf(tribe_css_js_php)*/// force redirect 'cause tribe is stupid
-function __gulp_init__namespace_redirect_tribe_templates($template) {
-    if (is_post_type_archive("tribe_events")) {
-        return locate_template("archive-tribe_events.php");
-    } elseif (is_singular("tribe_events")) {
-        return locate_template("single-tribe_events.php");
-    } else {
-        return $template;
-    }
-}
-add_filter("template_include", "__gulp_init__namespace_redirect_tribe_templates", 10, 1);
-
-// add proper link classes to next/previous event links
-function __gulp_init__namespace_tribe_add_pagination_class($anchor) {
-    return preg_replace("/<a /", "<a class='menu-list_link link' ", $anchor);
-}
-add_filter("tribe_the_next_event_link", "__gulp_init__namespace_tribe_add_pagination_class");
-add_filter("tribe_the_prev_event_link", "__gulp_init__namespace_tribe_add_pagination_class");
-add_filter("tribe_events_the_previous_month_link", "__gulp_init__namespace_tribe_add_pagination_class");
-add_filter("tribe_events_the_next_month_link", "__gulp_init__namespace_tribe_add_pagination_class");
-
-// add proper title classes to month $table_headers
-function __gulp_init__namespace_tribe_add_month_title_class($html) {
-    if ($html) {
-        $html = "<h5 class='tribe-events_title title -divider'>{$html}</h5>";
-    }
-
-    return $html;
-}
-add_filter("tribe_events_list_the_date_headers", "__gulp_init__namespace_tribe_add_month_title_class");/*endRemoveIf(tribe_css_js_php)*/
