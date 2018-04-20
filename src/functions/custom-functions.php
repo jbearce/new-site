@@ -259,6 +259,138 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     return $meta;
 }
 
+// determine if the current page is a tribe page
+function is_tribe_page() {
+    $queried_object = get_queried_object();
+
+    $post_id = isset($post) ? $post->ID : (isset($queried_object->ID) ? $queried_object->ID : 0);
+    $term_id = isset($queried_object->term_id) ? $queried_object->term_id : 0;
+
+    if (function_exists("tribe_is_month") && tribe_is_month() && !is_tax()) {
+    	return array(
+            "archive"  => true,
+            "view"     => "month",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_month") && tribe_is_month() && is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "month",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_past") && tribe_is_past() && !is_tax()) { // List View Page
+        return array(
+            "archive"  => true,
+            "view"     => "list",
+            "mode"     => "past",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_upcoming") && tribe_is_upcoming() && !is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "list",
+            "mode"     => "upcoming",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_past") && tribe_is_past() && is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "list",
+            "mode"     => "past",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_upcoming") && tribe_is_upcoming() && is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "list",
+            "mode"     => "upcoming",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_week") && tribe_is_week() && !is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "week",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_week") && tribe_is_week() && is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "week",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_day") && tribe_is_day() && !is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "day",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_day") && tribe_is_day() && is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "day",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_map") && tribe_is_map() && !is_tax()) {
+        return array(
+            "archive"  => true,
+            "view"     => "map",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_map") && tribe_is_map() && is_tax()) { // Map View Category Page
+        return array(
+            "archive"  => true,
+            "view"     => "map",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_photo") && tribe_is_photo() && !is_tax()) { // Photo View Page
+        return array(
+            "archive"  => true,
+            "view"     => "photo",
+            "taxonomy" => false,
+            "term_id"  => 0,
+        );
+    } elseif (function_exists("tribe_is_photo") && tribe_is_photo() && is_tax()) { // Photo View Category Page
+        return array(
+            "archive"  => true,
+            "view"     => "photo",
+            "taxonomy" => true,
+            "term_id"  => $term_id,
+        );
+    } elseif (function_exists("tribe_is_event") && tribe_is_event() && is_single()) { // Single Events
+        return array(
+            "single"    => true,
+            "post_type" => "tribe_events",
+            "post_id"   => $post_id,
+        );
+    } elseif (function_exists("tribe_is_venue") && tribe_is_venue()) { // Single Venues
+        return array(
+            "single"    => true,
+            "post_type" => "tribe_venue",
+            "post_id"   => $post_id,
+        );
+    } elseif (get_post_type() === "tribe_organizer" && is_single()) { // Single Organizers
+        return array(
+            "single"    => true,
+            "post_type" => "tribe_organizer",
+            "post_id"   => $post_id,
+        );
+    } else {
+        return false;
+    }
+}
+
 // make calls to hm_get_templtae_part easier
 function __gulp_init__namespace_get_template_part($file, $template_args = array(), $cache_args = array()) {
     hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
