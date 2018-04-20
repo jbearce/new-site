@@ -8,7 +8,7 @@ $article_meta      = get_article_meta(isset($template_args["article_meta"]) ? $t
 $article_content   = apply_filters("the_content", isset($template_args["article_content"]) ? $template_args["article_content"] : ($post ? $post->post_content : ""));
 ?>
 
-<?php if ($post_title || $article_content): ?>
+<?php if ($article_title || $article_content): ?>
     <article class="article <?php echo $article_class; ?>">
 
         <?php if ($article_title || $article_meta): ?>
