@@ -72,7 +72,7 @@ function __gulp_init__namespace_fix_shortcodes() {
         add_filter("the_content", "wpautop", 12);
     }
 }
-add_filter("init", "__gulp_init__namespace_fix_shortcodes", 10);
+add_filter("loop_start", "__gulp_init__namespace_fix_shortcodes", 10);
 
 // add classes to elements
 function __gulp_init__namespace_add_user_content_classes($content) {
@@ -91,6 +91,12 @@ function __gulp_init__namespace_add_user_content_classes($content) {
                 $anchor->setAttribute("class", "user-content_button {$existing_classes}");
             } else {
                 $anchor->setAttribute("class", "user-content_link link {$existing_classes}");
+            }
+
+            $existing_rel = $anchor->getAttribute("rel");
+
+            if (!$existing_rel) {
+                $anchor->setAttribute("rel", "noopener");
             }
         }
 
@@ -220,25 +226,6 @@ function __gulp_init__namespace_add_user_content_classes($content) {
             $figcaption->setAttribute("class", "user-content_text text {$figcaption->getAttribute("class")}");
         }
 
-        // remove unneeded HTML tag
-        $DOM = remove_root_tag($DOM);
-
-        $content = $DOM->saveHTML();
-    }
-
-    return $content;
-}
-add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 10);
-add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 10);
-
-// wrap tables in a div
-function __gulp_init__namespace_wrap_tables($content) {
-    global $post;
-
-    if ($content) {
-        $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
         $tables = $DOM->getElementsByTagName("table");
 
         $table_container = $DOM->createElement("div");
@@ -249,25 +236,6 @@ function __gulp_init__namespace_wrap_tables($content) {
             $table->parentNode->replaceChild($table_container_clone, $table);
             $table_container_clone->appendChild($table);
         }
-
-        // remove unneeded HTML tag
-        $DOM = remove_root_tag($DOM);
-
-        $content = $DOM->saveHTML();
-    }
-
-    return $content;
-}
-add_filter("the_content", "__gulp_init__namespace_wrap_tables", 10);
-add_filter("acf_the_content", "__gulp_init__namespace_wrap_tables", 10);
-
-// wrap frames in a div
-function __gulp_init__namespace_wrap_frames($content) {
-    global $post;
-
-    if ($content) {
-        $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $iframes = $DOM->getElementsByTagName("iframe");
 
@@ -307,55 +275,7 @@ function __gulp_init__namespace_wrap_frames($content) {
             $iframe_container_clone->appendChild($iframe);
         }
 
-        // remove unneeded HTML tag
-        $DOM = remove_root_tag($DOM);
-
-        $content = $DOM->saveHTML();
-    }
-
-    return $content;
-}
-add_filter("the_content", "__gulp_init__namespace_wrap_frames", 10);
-add_filter("acf_the_content", "__gulp_init__namespace_wrap_frames", 10);
-
-// add rel="noopener" to external links
-function __gulp_init__namespace_rel_noopener($content) {
-    global $post;
-
-    if ($content) {
-        $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-        $anchors = $DOM->getElementsByTagName("a");
-
-        foreach ($anchors as $anchor) {
-            $existing_rel = $anchor->getAttribute("rel");
-
-            if (!$existing_rel) {
-                $anchor->setAttribute("rel", "noopener");
-            }
-        }
-
-        // remove unneeded HTML tag
-        $DOM = remove_root_tag($DOM);
-
-        $content = $DOM->saveHTML();
-    }
-
-    return $content;
-}
-add_filter("the_content", "__gulp_init__namespace_rel_noopener", 10);
-add_filter("acf_the_content", "__gulp_init__namespace_rel_noopener", 10);
-
-// enable lazy loading on images
-function __gulp_init__namespace_lazy_load_images($content) {
-    global $post;
-
-    if ($content) {
-        $DOM   = new DOMDocument();
-
-        $DOM->loadHTML("<html>{$content}</html>", LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
+        // XPath required otherwise an infinite loop occurs
         $XPath = new DOMXPath($DOM);
 
         $images = $XPath->query("//img");
@@ -395,9 +315,8 @@ function __gulp_init__namespace_lazy_load_images($content) {
 
     return $content;
 }
-add_filter("the_content", "__gulp_init__namespace_lazy_load_images", 10);
-add_filter("acf_the_content", "__gulp_init__namespace_lazy_load_images", 10);
-add_filter("post_thumbnail_html", "__gulp_init__namespace_lazy_load_images", 10);
+add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 10);
+add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 10);
 
 // remove dimensions from thumbnails
 function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
