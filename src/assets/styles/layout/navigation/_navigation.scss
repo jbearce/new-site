@@ -15,6 +15,7 @@
         background: darken($accent, 10);
         margin: 0 auto;
         max-width: remify($site-width);
+        max-width: calc(#{remify($site-width)} + #{remify(16 * 2, 20)});
     }
 }
 
