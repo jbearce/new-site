@@ -432,6 +432,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
     $root_item_id = 0;
     $post_id_map  = array();
+    $loop_limit   = 1000;
 
     // store the arguments in an easy to reference way
     $settings = array(
@@ -490,9 +491,9 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
             $parent_item_id = $viewed_item_id;
 
             // build a complete list of ancestor menu_items (if direct_parent is false)
-            if (!$settings["direct_parent"]) {
+            if (!$settings["direct_parent"]) { $i = 0;
                 // continue looping until we hit the top
-                while ($parent_item_id !== 0) {
+                while ($parent_item_id !== 0 && $i < $loop_limit) { $i++;
                     foreach ($menu_items as $menu_item) {
                         // find the menu_item currently set as the parent_item_id
                         if ($menu_item->ID === $parent_item_id) {
@@ -516,13 +517,9 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
             $parent_item_id          = $viewed_item_id;
             $viewed_descendant_ids[] = $parent_item_id;
 
-            $i = 0;
-
-            while ($i < count($menu_items)) {
-                foreach ($menu_items as $menu_item) { $i++;
-                    if (in_array($menu_item->menu_item_parent, $viewed_descendant_ids) && !in_array($menu_item->ID, $viewed_descendant_ids)) {
-                        $viewed_descendant_ids[] = $menu_item->ID;
-                    }
+            foreach ($menu_items as $menu_item) {
+                if (in_array($menu_item->menu_item_parent, $viewed_descendant_ids) && !in_array($menu_item->ID, $viewed_descendant_ids)) {
+                    $viewed_descendant_ids[] = $menu_item->ID;
                 }
             }
 
