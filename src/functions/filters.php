@@ -69,7 +69,9 @@ add_filter("the_content", "__gulp_init__namespace_fix_ninja_forms", 5);
 function __gulp_init__namespace_fix_shortcodes() {
     if (!is_admin()) {
         remove_filter("the_content", "wpautop");
+        remove_filter("acf_the_content", "wpautop");
         add_filter("the_content", "wpautop", 12);
+        add_filter("acf_the_content", "wpautop", 12);
     }
 }
 add_filter("loop_start", "__gulp_init__namespace_fix_shortcodes", 10);
