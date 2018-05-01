@@ -424,11 +424,11 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 }
 
 // add sub_menu options to wp_nav_menu
-// @param  {Boolean}  direct_parent - Set to true to show the direct parent of the currently viewed page, instead of the top level ancestor
-// @param  {Boolean}  only_viewed - Set to true to show only the currently viewed tree
-// @param  {Number}   parent_id - Set to a Post ID to use as the parent
-// @param  {Boolean}  show_parent - Set to true to show the parent menu item
-// @param  {Boolean}  sub_menu - Set to true to make a menu behave as a sub menu
+// @param  direct_parent  {true|false}
+// @param  parent_id      {int}
+// @param  show_parent    {true|false}
+// @param  sub_menu       {true|false}
+// @param  tree_mode      {"all"|"related"|"viewed"}
 function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
     $root_item_id = 0;
     $post_id_map  = array();
@@ -441,6 +441,7 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
         "parent_id"     => isset($args->parent_id) && $args->parent_id !== false ? (int) $args->parent_id : false,
         "show_parent"   => isset($args->show_parent) && $args->show_parent === true ? true : false,
         "sub_menu"      => isset($args->sub_menu) && $args->sub_menu === true ? true : false,
+        "tree_mode"     => isset($args->tree_mode) && in_array($args->tree_mode, array("all", "related", "viewed")) ? $args->tree_mode : "all",
     );
 
     // check if the submenu argument is set and is true
@@ -462,10 +463,10 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
             }
         }
 
-        // if only_viewed is true, remove any menu_items that aren't in the viewed tree
-        if (($settings["only_viewed"] XOR !$settings["show_parent"]) || $settings["direct_parent"]) {
+        if (($settings["tree_mode"] !== "all" XOR !$settings["show_parent"]) || $settings["direct_parent"]) {
             $viewed_ancestor_ids   = array();
             $viewed_descendant_ids = array();
+            $viewed_related_ids    = array();
             $viewed_item_id        = 0;
 
             // find the viewed item
@@ -518,25 +519,38 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
             $viewed_descendant_ids[] = $parent_item_id;
 
             foreach ($menu_items as $menu_item) {
+                // if the menu items parent is a descendant, the menu item is also a descendant
                 if (in_array($menu_item->menu_item_parent, $viewed_descendant_ids) && !in_array($menu_item->ID, $viewed_descendant_ids)) {
                     $viewed_descendant_ids[] = $menu_item->ID;
                 }
+
+                // if the menu items parent is an ancestor, the menu item is related
+                if (in_array($menu_item->menu_item_parent, $viewed_ancestor_ids) && !in_array($menu_item->ID, $viewed_related_ids)) {
+                    $viewed_related_ids[] = $menu_item->ID;
+                }
+
+                // if the menu items parent is related, the menu item is also related
+                if (in_array($menu_item->menu_item_parent, $viewed_related_ids) && !in_array($menu_item->ID, $viewed_related_ids)) {
+                    $viewed_related_ids[] = $menu_item->ID;
+                }
             }
 
-            if ($settings["only_viewed"]) {
+            if ($settings["tree_mode"] !== "all") {
                 // remove any menu_items that aren't ancestors or descendants of the viewed page
                 foreach ($menu_items as $key => $menu_item) {
                     if (
-                    // if the menu_item is the currently viewed page
-                    $menu_item->ID !== $viewed_item_id &&
-                    // if the menu_item->ID is NOT in viewed_ancestor_ids
-                    !in_array((int) $menu_item->ID, $viewed_ancestor_ids) &&
-                    // if the menu_item_parent is NOT in viewed_ancestor_ids
-                    !in_array((int) $menu_item->ID, $viewed_descendant_ids) &&
-                    // if the menu_item->ID is NOT in $viewed_descendant_ids
-                    !in_array((int) $menu_item->menu_item_parent, $viewed_ancestor_ids) &&
-                    // if the menu_item_parent is NOT in $viewed_descendant_ids
-                    !in_array((int) $menu_item->menu_item_parent, $viewed_descendant_ids)
+                        // if the menu_item is the currently viewed page
+                        $menu_item->ID !== $viewed_item_id &&
+                        // if the menu_item->ID is NOT in viewed_ancestor_ids
+                        !in_array((int) $menu_item->ID, $viewed_ancestor_ids) &&
+                        // if the menu_item_parent is NOT in viewed_ancestor_ids
+                        !in_array((int) $menu_item->ID, $viewed_descendant_ids) &&
+                        // if the menu_item->ID is NOT in $viewed_descendant_ids
+                        !in_array((int) $menu_item->menu_item_parent, $viewed_ancestor_ids) &&
+                        // if the menu_item_parent is NOT in $viewed_descendant_ids
+                        !in_array((int) $menu_item->menu_item_parent, $viewed_descendant_ids) &&
+                        // if the tree_mode is NOT "related" and menu_item->ID is NOT in $viewed_related_ids
+                        !($settings["tree_mode"] === "related" && in_array((int) $menu_item->ID, $viewed_related_ids))
                     ) {
                         unset($menu_items[$key]);
                     }
@@ -563,8 +577,8 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
                     }
                 }
             }
-        } elseif ($settings["only_viewed"] && !$settings["show_parent"]) {
-            trigger_error("<code>&quot;only_viewed&quot;</code> requires that <code>&quot;show_parent&quot;</code> be set to true.");
+        } elseif ($settings["tree_mode"] !== "all" && !$settings["show_parent"]) {
+            trigger_error("<code>&quot;tree_mode[{$settings["tree_mode"]}]&quot;</code> requires that <code>&quot;show_parent&quot;</code> be set to true.");
         }
     } // if (isset($args->sub_menu))
 
