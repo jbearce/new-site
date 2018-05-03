@@ -5,9 +5,10 @@
 module.exports = {
     init(gulp, plugins, on_error) {
         // task-specific plugins
-        const remove_code  = require("gulp-remove-code");
         const glob         = require("glob");
         const delete_empty = require("delete-empty");
+        const file_include = require("gulp-file-include");
+        const remove_code  = require("gulp-remove-code");
 
         let project_data = {};
 
@@ -187,7 +188,7 @@ module.exports = {
                     next(null, file);
                 }))
                 // replace variables with project data
-                .pipe(plugins.file_include({
+                .pipe(file_include({
                     prefix:   "__gulp_init__",
                     basepath: "@file",
                     context: {
