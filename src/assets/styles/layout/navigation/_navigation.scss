@@ -12,7 +12,7 @@
 
 .navigation_inner {
     & {
-        background: darken($accent, 10);
+        background: $accent;
         margin: 0 auto;
         max-width: remify($site-width);
         max-width: calc(#{remify($site-width)} + #{remify(16 * 2, 20)});
@@ -23,7 +23,7 @@
 
 .navigation-block.-fullbleed {
     & {
-        background: darken($accent, 10);
+        background: $accent;
     }
 
     > .navigation_inner {
@@ -75,7 +75,7 @@
     }
 
     > .navigation_inner {
-        background-color: darken($accent, 10);
+        background-color: $accent;
         height: 100%;
         max-width: remify(350, 16);
         padding: 0;
