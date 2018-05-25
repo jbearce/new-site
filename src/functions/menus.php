@@ -566,11 +566,6 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
                 }
             }
         }
-
-        // don't echo if only one link exists
-        if (count($menu_items) < 2) {
-            $menu_items = array();
-        }
     } // if (isset($args->sub_menu))
 
     return $menu_items;
