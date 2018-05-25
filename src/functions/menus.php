@@ -437,7 +437,6 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
     // store the arguments in an easy to reference way
     $settings = array(
         "direct_parent" => isset($args->direct_parent) && $args->direct_parent === true ? true : false,
-        "only_viewed"   => isset($args->only_viewed) && $args->only_viewed === true ? true : false,
         "parent_id"     => isset($args->parent_id) && $args->parent_id !== false ? (int) $args->parent_id : false,
         "show_parent"   => isset($args->show_parent) && $args->show_parent === true ? true : false,
         "sub_menu"      => isset($args->sub_menu) && $args->sub_menu === true ? true : false,
@@ -463,7 +462,8 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
             }
         }
 
-        if (($settings["tree_mode"] !== "all" XOR !$settings["show_parent"]) || $settings["direct_parent"]) {
+        // if tree_mode is not all, remove any menu_items that aren't in the viewed tree
+        if ($settings["tree_mode"] !== "all" || !$settings["show_parent"] || $settings["direct_parent"]) {
             $viewed_ancestor_ids   = array();
             $viewed_descendant_ids = array();
             $viewed_related_ids    = array();
@@ -557,28 +557,19 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
                 }
             }
 
-            // if show_parent is false
-            if (!$settings["show_parent"]) {
-                $parent_item_id = 0;
-
-                // find the parent_item_id
-                foreach ($menu_items as $menu_item) {
-                    if ($menu_item->ID === $viewed_item_id) {
-                        $parent_item_id = $menu_item->menu_item_parent;
-                    }
-                }
-
-                // unset the parent menu_item
-                if ($parent_item_id) {
-                    foreach ($menu_items as $key => $menu_item) {
-                        if ($menu_item->ID == $parent_item_id) {
-                            unset($menu_items[$key]);
-                        }
+            // if show_parent is false unset the parent menu_item
+            if (!$settings["show_parent"] && $parent_item_id) {
+                foreach ($menu_items as $key => $menu_item) {
+                    if ($menu_item->ID == $parent_item_id) {
+                        unset($menu_items[$key]);
                     }
                 }
             }
-        } elseif ($settings["tree_mode"] !== "all" && !$settings["show_parent"]) {
-            trigger_error("<code>&quot;tree_mode[{$settings["tree_mode"]}]&quot;</code> requires that <code>&quot;show_parent&quot;</code> be set to true.");
+        }
+
+        // don't echo if only one link exists
+        if (count($menu_items) < 2) {
+            $menu_items = array();
         }
     } // if (isset($args->sub_menu))
 
