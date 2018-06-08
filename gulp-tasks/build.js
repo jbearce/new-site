@@ -5,8 +5,10 @@
 module.exports = {
     build(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const latest_semver = require("latest-semver");
-        const semver_regex  = require("semver-regex");
+        const latest_semver          = require("latest-semver");
+        const semver_regex           = require("semver-regex");
+        const bump                   = require("gulp-bump");
+        const conventional_changelog = require("gulp-conventional-changelog");
 
         // get the current version number
         const current_version = plugins.json.readFileSync("package.json").version;
@@ -47,9 +49,40 @@ module.exports = {
             });
         };
 
+        const bump_version = (new_version) => {
+            return new Promise ((resolve, reject) => {
+                gulp.src(["./package.json", "./package-lock.json"])
+                    .pipe(bump({version: new_version}))
+                    .pipe(gulp.dest("./"))
+                    .on("end", () => {
+                        resolve();
+                    }).on("error", () => {
+                        reject();
+                    });
+            });
+        };
+
+        const generate_changelog = () => {
+            return new Promise((resolve, reject) => {
+                gulp.src("./CHANGELOG.md")
+                    .pipe(conventional_changelog({
+                        preset: "angular",
+                    }))
+                    .pipe(gulp.dest("./"))
+                    .on("end", () => {
+                        resolve();
+                    }).on("error", () => {
+                        reject();
+                    });
+            });
+        };
+
         return new Promise ((resolve) => {
             prompt_for_version().then((new_version) => {
-                console.log(new_version);
+                return bump_version(new_version);
+            }).then(() => {
+                return generate_changelog();
+            }).then(() => {
                 resolve();
             });
         });
