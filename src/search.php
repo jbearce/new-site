@@ -11,14 +11,14 @@
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    __gulp_init__namespace_get_template_part("partials/content/post-excerpt.php", array("post" => $post, "article_class" => "content_article"));
+                    __gulp_init__namespace_get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "article_class" => "content_article"));
                 }
             } else {
-                __gulp_init__namespace_get_template_part("partials/content/post-none.php", array("article_class" => "content_article", "article_error" => get_no_posts_message(get_queried_object())));
+                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("article_class" => "content_article", "article_error" => get_no_posts_message(get_queried_object())));
             }
             ?>
 
-            <?php __gulp_init__namespace_get_template_part("partials/lists/pagination.php"); ?>
+            <?php __gulp_init__namespace_get_template_part("partials/modules/menu-list-pagination.php"); ?>
 
             <?php do_action("__gulp_init__namespace_after_content"); ?>
         </div><!--/.content_post-->
