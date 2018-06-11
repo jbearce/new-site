@@ -28,6 +28,7 @@ const plugins = {
         },
     }).argv,
     del:          require("del"),
+    file_include: require("gulp-file-include"),
     fs:           require("fs"),
     gulpif:       require("gulp-if"),
     is_binary:    require("gulp-is-binary"),

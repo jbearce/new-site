@@ -5,8 +5,7 @@
 module.exports = {
     html(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const file_include = require("gulp-file-include");
-        const htmlmin      = require("gulp-htmlmin");
+        const htmlmin = require("gulp-htmlmin");
 
         // read data from package.json
         const name            = plugins.json.readFileSync("./package.json").name;
@@ -61,7 +60,7 @@ module.exports = {
                     next(null, file);
                 }))
                 // replace variables
-                .pipe(file_include({
+                .pipe(plugins.file_include({
                     prefix:   "@@",
                     basepath: "@file",
                     context: {
