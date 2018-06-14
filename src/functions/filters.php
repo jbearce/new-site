@@ -468,8 +468,38 @@ function __gulp_init__namespace_tribe_ical_link_button_class($calendar_links) {
     // remove unneeded HTML tag
     $DOM = remove_root_tag($DOM);
 
-    $html = $DOM->saveHTML();
+    $calendar_links = $DOM->saveHTML();
 
     return $calendar_links;
 }
 add_filter("tribe_events_ical_single_event_links", "__gulp_init__namespace_tribe_ical_link_button_class");
+
+// add 'title -divider' class to tribe date headers
+function __gulp_init__namespace_tribe_add_title_class_to_date_headers($html) {
+    if ($html) {
+        $html = "<h4 class='tribe-events-title title -h4 -divider'>$html</h4>";
+    }
+
+    return $html;
+}
+add_filter("tribe_events_list_the_date_headers", "__gulp_init__namespace_tribe_add_title_class_to_date_headers");
+
+// add 'tribe-events-text_text text' class to tribe excerpts
+function __gulp_init__namespace_tribe_add_text_class_to_excerpt($excerpt) {
+    $DOM = new DOMDocument();
+    $DOM->loadHTML(mb_convert_encoding("<html>{$excerpt}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    $paragraphs = $DOM->getElementsByTagName("p");
+
+    foreach ($paragraphs as $paragraph) {
+        $paragraph->setAttribute("class", "tribe-events-text_text text {$paragraph->getAttribute("class")}");
+    }
+
+    // remove unneeded HTML tag
+    $DOM = remove_root_tag($DOM);
+
+    $excerpt = $DOM->saveHTML();
+
+    return $excerpt;
+}
+add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_tribe_add_text_class_to_excerpt");
