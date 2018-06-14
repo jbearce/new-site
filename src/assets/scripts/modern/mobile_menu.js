@@ -5,14 +5,14 @@
 // Inspired by https://medium.com/outsystems-experts/gestures-glamour-setting-up-a-touch-menu-6d9b94039997#.d2r8ubylw
 
 document.addEventListener("DOMContentLoaded", () => {
-    const menu_container      = document.querySelector(".navigation-block.-flyout");
-    const menu                = document.querySelector(".navigation_inner");
-    const overlay             = document.querySelector(".navigation_background");
-    const toggle              = document.querySelector(".menu-toggle");
-    const active_class        = "is-active";
-    const transitioning_class = "is-transitioning";
-    const max_opacity         = 0.5; // if changed, don't forget to change opacity in css
-    const velocity            = 0.3;
+    const MENU_CONTAINER      = document.querySelector(".navigation-block.-flyout");
+    const MENU                = document.querySelector(".navigation-block.-flyout .navigation_inner");
+    const OVERLAY             = document.querySelector(".navigation-block.-flyout .navigation_background");
+    const TOGGLE              = document.querySelector(".menu-toggle");
+    const ACTIVE_CLASS        = "is-active";
+    const TRANSITIONING_CLASS = "is-transitioning";
+    const MAX_OPACITY         = 0.5; // if changed, don't forget to change opacity in css
+    const VELOCITY            = 0.3;
 
     let trackable_element     = false;
     let touching_element      = false;
@@ -27,79 +27,79 @@ document.addEventListener("DOMContentLoaded", () => {
     let move_x                = 0; // where the menu currently
     let drag_direction        = "";
 
-    const focus_trapper = focusTrap(".navigation-block.-flyout");
+    const FOCUS_TRAPPER = focusTrap(".navigation-block.-flyout");
 
-    const close_menu = (translate_x) => {
-        focus_trapper.deactivate();
+    const CLOSE_MENU = (translate_x) => {
+        FOCUS_TRAPPER.deactivate();
 
-        const on_transition_end = () => {
-            overlay.style.opacity = "";
+        const ON_TRANSITION_END = () => {
+            OVERLAY.style.opacity = "";
 
-            menu_container.removeEventListener("transitionend", on_transition_end, false);
+            MENU_CONTAINER.removeEventListener("transitionend", ON_TRANSITION_END, false);
         };
 
         if (translate_x < 0 || !is_open) {
-            menu.style.transform = "";
-            menu.style.webkitTransform = "";
+            MENU.style.transform = "";
+            MENU.style.webkitTransform = "";
 
-            overlay.classList.remove(active_class);
+            OVERLAY.classList.remove(ACTIVE_CLASS);
 
-            menu_container.setAttribute("aria-hidden", "true");
-            menu_container.classList.remove(active_class);
-            menu_container.addEventListener("transitionend", on_transition_end, false);
+            MENU_CONTAINER.setAttribute("aria-hidden", "true");
+            MENU_CONTAINER.classList.remove(ACTIVE_CLASS);
+            MENU_CONTAINER.addEventListener("transitionend", ON_TRANSITION_END, false);
         }
     };
 
-    const open_menu = () => {
-        menu.style.transform = "";
-        menu.style.webkitTransform = "";
+    const OPEN_MENU = () => {
+        MENU.style.transform = "";
+        MENU.style.webkitTransform = "";
 
-        menu_container.classList.add(active_class);
+        MENU_CONTAINER.classList.add(ACTIVE_CLASS);
 
-        overlay.classList.add(active_class);
-        overlay.style.opacity = "";
+        OVERLAY.classList.add(ACTIVE_CLASS);
+        OVERLAY.style.opacity = "";
 
-        focus_trapper.activate();
+        FOCUS_TRAPPER.activate();
 
-        menu_container.setAttribute("aria-hidden", "false");
+        MENU_CONTAINER.setAttribute("aria-hidden", "false");
     };
 
-    const close_menu_overlay = () => {
-        focus_trapper.deactivate();
+    const CLOSE_MENU_overlay = () => {
+        FOCUS_TRAPPER.deactivate();
 
-        const on_transition_end = () => {
-            overlay.classList.remove(active_class);
-            menu_container.removeEventListener("transitionend", on_transition_end);
+        const ON_TRANSITION_END = () => {
+            OVERLAY.classList.remove(ACTIVE_CLASS);
+            MENU_CONTAINER.removeEventListener("transitionend", ON_TRANSITION_END);
         };
 
-        menu_container.addEventListener("transitionend", on_transition_end, false);
-        menu_container.setAttribute("aria-hidden", "true");
-        menu_container.classList.remove(active_class);
+        MENU_CONTAINER.addEventListener("transitionend", ON_TRANSITION_END, false);
+        MENU_CONTAINER.setAttribute("aria-hidden", "true");
+        MENU_CONTAINER.classList.remove(ACTIVE_CLASS);
     };
 
-    const click_open_menu = () => {
-        overlay.classList.add(active_class);
+    const CLICK_OPEN_MENU = () => {
+        OVERLAY.classList.add(ACTIVE_CLASS);
 
         requestAnimationFrame(() => {
             setTimeout(() => {
-                menu_container.setAttribute("aria-hidden", "false");
-                menu_container.classList.add(active_class);
-                menu_container.focus();
-                focus_trapper.activate();
+                MENU_CONTAINER.setAttribute("aria-hidden", "false");
+                MENU_CONTAINER.classList.add(ACTIVE_CLASS);
+                MENU_CONTAINER.focus();
+                FOCUS_TRAPPER.activate();
             }, 1);
         });
     };
 
-    const update_ui = () => {
+    const UPDATE_UI = () => {
         if (is_moving) {
-            menu.style.transform = "translateX(" + move_x + "px)";
-            menu.style.webkitTransform = "translateX(" + move_x + "px)";
+            MENU.style.transform = "translateX(" + move_x + "px)";
+            MENU.style.webkitTransform = "translateX(" + move_x + "px)";
 
-            requestAnimationFrame(update_ui);
+            requestAnimationFrame(UPDATE_UI);
         }
     };
 
-    const toggle_transitions = (elem, mode = 0) => {
+    const TOGGLE_TRANSITIONS = (elem, mode = 0) => {
         if (mode === 1) {
             elem.style.transition = "";
         } else {
@@ -107,21 +107,21 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    const touch_start = (start_coords) => {
-        const menu_open = menu_container.classList.contains(active_class);
+    const TOUCH_START = (start_coords) => {
+        const MENU_OPEN = MENU_CONTAINER.classList.contains(ACTIVE_CLASS);
 
-        if (menu_open !== false) {
+        if (MENU_OPEN !== false) {
             is_open = true;
         } else {
             is_open = false;
         }
 
         // disable transitions
-        toggle_transitions(menu_container);
-        toggle_transitions(menu);
+        TOGGLE_TRANSITIONS(MENU_CONTAINER);
+        TOGGLE_TRANSITIONS(MENU);
 
         is_moving   = true;
-        menu_width  = menu.offsetWidth;
+        menu_width  = MENU.offsetWidth;
         last_coords = start_coords;
 
         if (is_open) {
@@ -130,22 +130,22 @@ document.addEventListener("DOMContentLoaded", () => {
             move_x = -menu_width;
         }
 
-        menu_container.classList.add(transitioning_class);
+        MENU_CONTAINER.classList.add(TRANSITIONING_CLASS);
 
-        overlay.classList.add(active_class);
+        OVERLAY.classList.add(ACTIVE_CLASS);
 
         drag_direction = "";
     };
 
-    const touch_move = (event, current_coords, translate_coords) => {
+    const TOUCH_MOVE = (event, current_coords, TRANSLATE_COORDS) => {
         if (!drag_direction) {
-            if (Math.abs(translate_coords[0]) >= Math.abs(translate_coords[1])) {
+            if (Math.abs(TRANSLATE_COORDS[0]) >= Math.abs(TRANSLATE_COORDS[1])) {
                 drag_direction = "horizontal";
             } else {
                 drag_direction = "vertical";
             }
 
-            requestAnimationFrame(update_ui); // this is what effectively does the animation (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
+            requestAnimationFrame(UPDATE_UI); // this is what effectively does the animation (ﾉ◕ヮ◕)ﾉ*:・ﾟ✧
         }
         if (drag_direction === "vertical") {
             last_coords = current_coords;
@@ -159,64 +159,64 @@ document.addEventListener("DOMContentLoaded", () => {
             last_coords = current_coords;
 
             // disable transitions
-            toggle_transitions(overlay);
+            TOGGLE_TRANSITIONS(OVERLAY);
 
-            const new_opacity = (((max_opacity) * (100 - ((Math.abs(move_x) * 100) / menu_width))) / 100);
+            const NEW_OPACITY = (((MAX_OPACITY) * (100 - ((Math.abs(move_x) * 100) / menu_width))) / 100);
 
-            if (overlay.style.opacity !== new_opacity.toFixed(2) && new_opacity.toFixed(1) % 1 !== 0) {
-                overlay.style.opacity = new_opacity.toFixed(2);
+            if (OVERLAY.style.opacity !== NEW_OPACITY.toFixed(2) && NEW_OPACITY.toFixed(1) % 1 !== 0) {
+                OVERLAY.style.opacity = NEW_OPACITY.toFixed(2);
             }
         }
     };
 
-    const touch_end = (current_coords, translate_coords, time_taken) => {
+    const TOUCH_END = (current_coords, TRANSLATE_COORDS, TIME_TAKEN) => {
         is_moving = false;
 
         if (current_coords === [0, 0]) {
             // enable transitions
-            toggle_transitions(menu_container, 1);
+            TOGGLE_TRANSITIONS(MENU_CONTAINER, 1);
 
             if (is_open) {
-                toggle_transitions(menu, 1);
+                TOGGLE_TRANSITIONS(MENU, 1);
             } else {
-                toggle_transitions(overlay, 1);
+                TOGGLE_TRANSITIONS(OVERLAY, 1);
             }
         } else {
             if (is_open) {
-                if ((translate_coords[0] < (-menu_width) / 2) || (Math.abs(translate_coords[0]) / time_taken > velocity)) {
-                    close_menu(translate_coords[0]);
+                if ((TRANSLATE_COORDS[0] < (-menu_width) / 2) || (Math.abs(TRANSLATE_COORDS[0]) / TIME_TAKEN > VELOCITY)) {
+                    CLOSE_MENU(TRANSLATE_COORDS[0]);
                     is_open = false;
                 } else {
-                    open_menu();
+                    OPEN_MENU();
                     is_open = true;
                 }
             } else {
-                if (translate_coords[0] > menu_width / 2 || (Math.abs(translate_coords[0]) / time_taken > velocity)) {
-                    open_menu();
+                if (TRANSLATE_COORDS[0] > menu_width / 2 || (Math.abs(TRANSLATE_COORDS[0]) / TIME_TAKEN > VELOCITY)) {
+                    OPEN_MENU();
                     is_open = true;
                 } else {
-                    close_menu(translate_coords[0]);
+                    CLOSE_MENU(TRANSLATE_COORDS[0]);
                     is_open = false;
                 }
 
             }
         }
 
-        menu_container.classList.remove(transitioning_class);
+        MENU_CONTAINER.classList.remove(TRANSITIONING_CLASS);
 
         // enable transitions
-        toggle_transitions(menu_container, 1);
-        toggle_transitions(menu, 1);
-        toggle_transitions(overlay, 1);
+        TOGGLE_TRANSITIONS(MENU_CONTAINER, 1);
+        TOGGLE_TRANSITIONS(MENU, 1);
+        TOGGLE_TRANSITIONS(OVERLAY, 1);
     };
 
-    const on_touch_start = (event) => {
+    const ON_TOUCH_START = (event) => {
         let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
         let is_clickable = false;
 
         if (element) {
             while (element.parentNode) {
-                if ((element.tagName === "A" || element.tagName === "BUTTON" || element.tagName === "INPUT") && element != overlay) {
+                if ((element.tagName === "A" || element.tagName === "BUTTON" || element.tagName === "INPUT") && element != OVERLAY) {
                     is_clickable = true; return;
                 }
 
@@ -233,16 +233,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         touching_element = true;
 
-        touch_start(start_coords);
+        TOUCH_START(start_coords);
     };
 
-    const on_touch_move = (event) => {
+    const ON_TOUCH_MOVE = (event) => {
         let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
         let is_clickable = false;
 
         if (element) {
             while (element.parentNode) {
-                if ((element.tagName === "A" || element.tagName === "BUTTON" || element.tagName === "INPUT") && element != overlay) {
+                if ((element.tagName === "A" || element.tagName === "BUTTON" || element.tagName === "INPUT") && element != OVERLAY) {
                     is_clickable = true; return;
                 }
 
@@ -255,18 +255,18 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         current_coords          = [event.touches[0].pageX, event.touches[0].pageY];
-        const translate_coords  = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
+        const TRANSLATE_COORDS  = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
 
-        touch_move(event, current_coords, translate_coords);
+        TOUCH_MOVE(event, current_coords, TRANSLATE_COORDS);
     };
 
-    const on_touch_end = (event) => {
+    const ON_TOUCH_END = (event) => {
         let element      = document.elementFromPoint(event.changedTouches[0].clientX, event.changedTouches[0].clientY);
         let is_clickable = false;
 
         if (element) {
             while (element.parentNode) {
-                if ((element.tagName === "A" || element.tagName === "BUTTON" || element.tagName === "INPUT") && element != overlay) {
+                if ((element.tagName === "A" || element.tagName === "BUTTON" || element.tagName === "INPUT") && element != OVERLAY) {
                     is_clickable = true; return;
                 }
 
@@ -280,25 +280,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         touching_element = false;
 
-        const translate_coords = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
+        const TRANSLATE_COORDS = [(current_coords[0] - start_coords[0]), (current_coords[1] - start_coords[1])];
 
-        const time_taken = (new Date().getTime() - start_time);
+        const TIME_TAKEN = (new Date().getTime() - start_time);
 
-        touch_end(current_coords, translate_coords, time_taken);
+        TOUCH_END(current_coords, TRANSLATE_COORDS, TIME_TAKEN);
     };
 
-    const init = (element) => {
+    const INIT = (element) => {
         trackable_element = element;
 
         start_time = new Date().getTime(); // start time of the touch
 
-        trackable_element.addEventListener("touchstart", on_touch_start, false);
-        trackable_element.addEventListener("touchmove", on_touch_move, false);
-        trackable_element.addEventListener("touchend", on_touch_end, false);
+        trackable_element.addEventListener("touchstart", ON_TOUCH_START, false);
+        trackable_element.addEventListener("touchmove", ON_TOUCH_MOVE, false);
+        trackable_element.addEventListener("touchend", ON_TOUCH_END, false);
 
-        overlay.addEventListener("click", close_menu_overlay, false); // click the overlay to immediately close the menu
-        toggle.addEventListener("click", click_open_menu, false);     // click the toggle to immediately open the menu
+        OVERLAY.addEventListener("click", CLOSE_MENU_overlay, false); // click the overlay to immediately close the menu
+        TOGGLE.addEventListener("click", CLICK_OPEN_MENU, false);     // click the toggle to immediately open the menu
     };
 
-    init(menu);
+    INIT(MENU);
 });
