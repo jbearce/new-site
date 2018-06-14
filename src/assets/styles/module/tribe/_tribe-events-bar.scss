@@ -1,0 +1,175 @@
+// Styles written by __gulp_init__author_name @ __gulp_init__author_company
+
+/* ------------------------------------------------------------------------ *\
+ * Tribe Events Bar (https://theeventscalendar.com/)
+\* ------------------------------------------------------------------------ */
+
+.tribe-events-bar {
+    & {
+        background: $background_alt;
+        position: relative;
+        z-index: 2;
+    }
+}
+
+.tribe-bar-collapse-toggle {
+    & {
+        background: $background_alt;
+        border: 0;
+        color: $foreground;
+        cursor: pointer;
+        display: block;
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-weight: 700;
+        margin: 0;
+        padding: remify(16 24, 16);
+        text-align: left;
+        text-transform: uppercase;
+        transition: background-color 0.15s;
+        width: 100%;
+    }
+
+    &:focus,
+    &:hover,
+    &.tribe-bar-filters-open {
+        background-color: darken($background_alt, 5);
+    }
+
+    .tribe-bar-collapse-toggle-icon {
+        transition: transform 0.15s;
+    }
+
+    &.tribe-bar-filters-open .tribe-bar-collapse-toggle-icon {
+        transform: rotate(-180deg);
+    }
+}
+
+.tribe-bar-views {
+    & {
+        background: darken($background_alt, 10);
+        font-size: remify(10, 16);
+        position: relative;
+    }
+
+    &::before {
+        content: "";
+        display: block;
+        width: remify(100, 8);
+    }
+}
+
+.tribe-bar-views-inner {
+    & {
+        background: darken($background_alt, 10);
+        left: 0;
+        padding: remify(10.5 12, 10);
+        position: absolute;
+        top: 0;
+        width: 100%;
+    }
+}
+
+.tribe-bar-views-label {
+    & {
+        color: $foreground;
+        display: block;
+        font-family: $body-font;
+        font-size: remify(10, 10);
+        font-weight: 700;
+        text-transform: uppercase;
+        width: remify(75, 10);
+    }
+}
+
+.tribe-bar-views-list {
+    & {
+        color: $foreground;
+        display: block;
+        font-family: $body-font;
+        font-size: remify(14, 10);
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tribe-bar-views-option {
+        display: none;
+    }
+
+    .tribe-bar-views-open & .tribe-bar-views-option,
+    .tribe-bar-views-option.tribe-bar-active {
+        display: block;
+    }
+
+    /* stylelint-disable selector-max-type */
+
+    a {
+        color: inherit;
+        display: block;
+        text-decoration: none;
+    }
+
+    /* stylelint-enable selector-max-type */
+}
+
+.tribe-bar-filters {
+    & {
+        display: none;
+    }
+}
+
+.tribe-bar-filters-inner {
+    & {
+        padding: remify(16 24, 16);
+    }
+}
+
+.tribe-bar-filters-label {
+    & {
+        color: $foreground;
+        display: block;
+        font-family: $body-font;
+        font-size: remify(10, 16);
+        font-weight: 700;
+        margin: remify(0 0 2, 10);
+        text-transform: uppercase;
+    }
+}
+
+.tribe-bar-filters-input {
+    & {
+        background: $background;
+        border: remify(1) solid $foreground;
+        color: $foreground;
+        display: block;
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        margin: remify(0 0 8, 14);
+        padding: remify(7 10.5, 14);
+        width: 100%;
+    }
+}
+
+.tribe-events-bar-filters-button {
+    & {
+        background: $primary;
+        border: remify(1) solid darken($primary, 5);
+        color: $light;
+        cursor: pointer;
+        display: block;
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        font-weight: 700;
+        margin: remify(0 0 8, 14);
+        padding: remify(7 10.5, 14);
+        text-transform: uppercase;
+        transition: background-color 0.15s;
+        width: 100%;
+    }
+
+    &:focus,
+    &:hover {
+        background-color: darken($primary, 5);
+    }
+}
