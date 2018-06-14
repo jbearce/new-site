@@ -74,7 +74,7 @@ function __gulp_init__namespace_fix_shortcodes() {
         add_filter("acf_the_content", "wpautop", 12);
     }
 }
-add_filter("loop_start", "__gulp_init__namespace_fix_shortcodes", 10);
+add_action("loop_start", "__gulp_init__namespace_fix_shortcodes", 10);
 
 // add classes to elements
 function __gulp_init__namespace_add_user_content_classes($content) {
@@ -407,3 +407,12 @@ function __gulp_init__namespace_decode_html_entities_in_blog_description($value,
     return $value;
 }
 add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_description", 10, 2);
+
+// remove wpautop from tribe events pages
+function __gulp_init__namespace_remove_content_filters_from_tribe_pages() {
+    if (is_tribe_page()) {
+        remove_filter("the_content", "wpautop", 12);
+        remove_filter("acf_the_content", "wpautop", 12);
+    }
+}
+add_action("loop_start", "__gulp_init__namespace_remove_content_filters_from_tribe_pages", 999);
