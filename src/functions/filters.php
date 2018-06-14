@@ -408,11 +408,68 @@ function __gulp_init__namespace_decode_html_entities_in_blog_description($value,
 }
 add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_description", 10, 2);
 
+/* ------------------------------------------------------------------------ *\
+ * Tribe Events
+\* ------------------------------------------------------------------------ */
+
+// dequue tribe calendar styles
+function __gulp_init__namespace_tribe_dequeue_calendar_styles() {
+    wp_dequeue_style("tribe-events-calendar-style", 999);
+}
+add_action("wp_enqueue_scripts", "__gulp_init__namespace_tribe_dequeue_calendar_styles");
+
+// remove the tribe events promo
+function __gulp_init__namespace_tribe_disable_promo($echo) {
+    return false;
+}
+add_action("tribe_events_promo_banner", "__gulp_init__namespace_tribe_disable_promo");
+
 // remove wpautop from tribe events pages
-function __gulp_init__namespace_remove_content_filters_from_tribe_pages() {
+function __gulp_init__namespace_tribe_remove_content_filters() {
     if (is_tribe_page()) {
         remove_filter("the_content", "wpautop", 12);
         remove_filter("acf_the_content", "wpautop", 12);
     }
 }
-add_action("loop_start", "__gulp_init__namespace_remove_content_filters_from_tribe_pages", 999);
+add_action("loop_start", "__gulp_init__namespace_tribe_remove_content_filters", 999);
+
+// add 'menu-list_link link' to list of classes for tribe monthly pagination link
+function __gulp_init__namespace_tribe_add_pagination_menu_link_class($html) {
+    $DOM = new DOMDocument();
+    $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    $anchors = $DOM->getElementsByTagName("a");
+
+    foreach ($anchors as $anchor) {
+        $anchor->setAttribute("class", "menu-list_link link {$anchor->getAttribute("class")}");
+    }
+
+    // remove unneeded HTML tag
+    $DOM = remove_root_tag($DOM);
+
+    $html = $DOM->saveHTML();
+
+    return $html;
+}
+add_filter("tribe_events_the_previous_month_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
+add_filter("tribe_events_the_next_month_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
+
+// add 'button' to list of classes for tribe ical buttons
+function __gulp_init__namespace_tribe_ical_link_button_class($calendar_links) {
+    $DOM = new DOMDocument();
+    $DOM->loadHTML(mb_convert_encoding("<html>{$calendar_links}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    $anchors = $DOM->getElementsByTagName("a");
+
+    foreach ($anchors as $anchor) {
+        $anchor->setAttribute("class", "button {$anchor->getAttribute("class")}");
+    }
+
+    // remove unneeded HTML tag
+    $DOM = remove_root_tag($DOM);
+
+    $html = $DOM->saveHTML();
+
+    return $calendar_links;
+}
+add_filter("tribe_events_ical_single_event_links", "__gulp_init__namespace_tribe_ical_link_button_class");

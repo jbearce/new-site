@@ -5,3 +5,16 @@
 \* ------------------------------------------------------------------------ */
 
 @import "_tribe-events-bar";
+@import "_tribe-events-calendar";
+
+.tribe-events-ajax-loading {
+    & {
+        display: none;
+    }
+}
+
+.tribe-events_menu-list_container {
+    .menu-list.-pagination {
+        margin-bottom: remify(16, 16);
+    }
+}

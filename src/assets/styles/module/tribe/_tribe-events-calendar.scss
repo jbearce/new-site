@@ -1,0 +1,184 @@
+// Styles written by __gulp_init__author_name @ __gulp_init__author_company
+
+/* ------------------------------------------------------------------------ *\
+ * Tribe Events Calendar (https://theeventscalendar.com/)
+\* ------------------------------------------------------------------------ */
+
+.tribe-events-calendar {
+    & {
+        border-collapse: collapse;
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        margin: remify(0 0 16, 16);
+        position: relative;
+        table-layout: fixed;
+        width: 100%;
+        z-index: 10;
+    }
+}
+
+.tribe-events-calendar-cell {
+    & {
+        background: $background;
+        border: remify(1) solid darken($background_alt, 10);
+        height: remify(100, 16);
+        padding: remify(4 6, 16);
+        text-align: left;
+        vertical-align: top;
+    }
+
+    @media screen and (max-width: 768px) {
+        height: remify(50, 16);
+    }
+
+    &.-heading {
+        font-weight: 700;
+    }
+
+    .tribe-events-calendar-header &.-heading {
+        background: $background_alt;
+        height: auto;
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    &.tribe-events-present {
+        background: darken($background, 5);
+    }
+
+    &.mobile-active {
+        @media screen and (max-width: 768px) {
+            background: mix($background, $primary);
+        }
+    }
+
+    .hentry {
+        & {
+            position: relative;
+        }
+
+        @media screen and (max-width: 768px) {
+            display: none;
+        }
+    }
+
+    &.tribe-events-past .hentry {
+        opacity: 0.5;
+    }
+
+    .tribe-events-indicator {
+        @media screen and (min-width: 769px) {
+            display: none;
+        }
+    }
+}
+
+.tribe-events-calendar-daynum {
+    & {
+        display: inline-block;
+        font-size: remify(12, 16);
+        line-height: remify(20, 12);
+        margin-bottom: remify(4, 12);
+    }
+
+    .tribe-events-calendar-cell.tribe-events-present & {
+        background: $primary;
+        border-radius: 50%;
+        color: $light;
+        text-align: center;
+        width: remify(20, 12);
+    }
+}
+
+.tribe-events-month-event-title {
+    & {
+        font-size: remify(12, 16);
+        font-weight: 400;
+        margin: remify(0 0 4, 12);
+        overflow: hidden;
+    }
+
+    &.tribe-events-all-day {
+        background: $accent;
+        border-radius: remify(2, 12);
+        color: $light;
+        margin-bottom: remify(2, 12);
+        padding: remify(2 4, 12);
+    }
+}
+
+.tribe-events-tooltip {
+    & {
+        background: $background;
+        bottom: 100% !important;
+        box-shadow: remify(0 0 20, 16) transparentize($dark, 0.5);
+        left: 50%;
+        position: absolute;
+        transform: translateX(-50%) translateY(#{remify(-10, 16)});
+        width: remify(350, 16);
+    }
+
+    &::after {
+        border-left: remify(10, 16) solid transparent;
+        border-right: remify(10, 16) solid transparent;
+        border-top: remify(10, 16) solid $background;
+        content: "";
+        display: block;
+        height: 0;
+        left: 50%;
+        position: absolute;
+        top: 100%;
+        transform: translateX(-50%);
+        width: 0;
+    }
+
+    .tribe-events-event-header {
+        background: $accent;
+        padding: remify(20 10 10, 16);
+    }
+
+    .tribe-events-event-header .entry-title {
+        color: $light;
+        font-size: remify(16, 16);
+        margin: 0;
+    }
+
+    .tribe-events-event-body {
+        padding: remify(15 10, 16);
+    }
+
+    .tribe-events-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .tribe-events-list-item {
+        margin-bottom: remify(8, 16);
+        padding-left: remify(28, 16);
+        position: relative;
+    }
+
+    .tribe-events-list-icon {
+        color: lighten($foreground, 15);
+        left: 0;
+        position: absolute;
+        top: remify(3, 16);
+    }
+
+    .tribe-events-list-small {
+        color: lighten($foreground, 15);
+        display: block;
+        font-size: remify(12, 16);
+    }
+}
+
+/* stylelint-disable selector-max-id */
+
+#tribe-mobile-container {
+    @media screen and (min-width: 769px) {
+        display: none;
+    }
+}
+
+/* stylelint-enable selector-max-id */

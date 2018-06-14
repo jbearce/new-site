@@ -42,10 +42,10 @@ $current_url = tribe_events_get_current_filter_url();
                 <div class="col-auto -nogrow -noshrink _flex">
         			<div class="tribe-bar-views" id="tribe-bar-views" style="width: 100%;">
         				<div class="tribe-bar-views-inner tribe-clearfix">
-        					<h3 class="tribe-events-visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'the-events-calendar' ) ?></h3>
+        					<h3 class="tribe-events-visuallyhidden _visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'the-events-calendar' ) ?></h3>
         					<label class="tribe-bar-views-label"><?php esc_html_e( 'View As', 'the-events-calendar' ); ?></label>
         					<select
-        						class="tribe-bar-views-select tribe-no-param tribe-accessible-js-hidden"
+        						class="tribe-bar-views-select tribe-no-param tribe-accessible-js-hidden _visuallyhidden"
         						name="tribe-bar-view"
         						tabindex="0"
         						aria-label="<?php esc_attr_e( 'View As', 'the-events-calendar' ); ?>"
