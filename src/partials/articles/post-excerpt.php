@@ -28,7 +28,7 @@ $article_excerpt   = isset($template_args["article_excerpt"]) ? $template_args["
                 <?php endif; ?>
 
                 <?php if ($article_meta): ?>
-                    <?php __gulp_init__namespace_get_template_part("partials/lists/meta.php", array("list_class" => "article_menu-list_container", "list_meta" => $article_meta)); ?>
+                    <?php __gulp_init__namespace_get_template_part("partials/modules/menu-list-meta.php", array("list_class" => "article_menu-list_container", "list_meta" => $article_meta)); ?>
                 <?php endif; ?>
             </header><!--/.article_header-->
         <?php endif; ?>
