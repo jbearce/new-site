@@ -62,10 +62,6 @@
         }
     }
 
-    &.tribe-events-past .hentry {
-        opacity: 0.5;
-    }
-
     .tribe-events-indicator {
         @media screen and (min-width: 769px) {
             display: none;
@@ -104,6 +100,10 @@
         color: $light;
         margin-bottom: remify(2, 12);
         padding: remify(2 4, 12);
+    }
+
+    .tribe-events-calendar-cell.tribe-events-past & {
+        opacity: 0.5;
     }
 }
 
