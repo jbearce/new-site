@@ -22,13 +22,15 @@ global $post;
  * $post global referencing something other than the event we're interested
  * in.
  */
-$day         = tribe_events_get_current_month_day();
-$event_id    = "{$post->ID}-{$day['daynum']}";
-$link        = tribe_get_event_link( $post );
-$title       = get_the_title( $post );
-$all_day     = tribe_event_is_all_day( $post->ID );
-$time_format = tribe_get_start_date( $post->ID, false, 'i' ) == '00' ? 'ga' : 'g:ia';
-$time        = $all_day ? '' : tribe_get_start_date( $post->ID, false, $time_format ) . ' ';
+$day        = tribe_events_get_current_month_day();
+$event_id   = "{$post->ID}-{$day['daynum']}";
+$is_all_day = tribe_event_is_all_day($event_id);
+$link       = tribe_get_event_link( $post );
+$title      = get_the_title( $post );
+$date       = get_tribe_date_and_time_strings( $post->ID );
+$time_start = ! $is_all_day ? tribe_get_start_date( $post->ID, false, ( tribe_get_start_date( $post->ID, false, 'i' ) == '00' ? 'ga' : 'g:ia' ) ) : false;
+$venue      = tribe_get_venue( $post->ID );
+$address    = strip_tags( tribe_get_full_address( $post->ID ) );
 
 $categories_string = '';
 
@@ -49,10 +51,10 @@ if ( $categories ) { $i = 0;
 }
 
 $additional_data = array(
-    'date'       => tribe_get_start_date( $post->ID, false, 'l, F j' ),
-    'time'       => !$all_day ? tribe_get_start_date( $post->ID, false, 'g:ia' ) . ' &ndash; ' . tribe_get_end_date( $post->ID, false, 'g:ia' ) : '',
-    'venue'      => tribe_get_venue( $post->ID ),
-    'address'    => strip_tags( tribe_get_full_address() ),
+    'date'       => $date[ 'date' ],
+    'time'       => $date[ 'time' ],
+    'venue'      => $venue,
+    'address'    => $address,
     'categories' => $categories_string,
 );
 
@@ -222,5 +224,5 @@ $additional_data = array(
 ?>
 
 <div id="tribe-events-event-<?php echo esc_attr( $event_id ); ?>" class="<?php tribe_events_event_classes() ?>" data-tribejson='<?php echo esc_attr( tribe_events_template_data( $post, $additional_data ) ); ?>'>
-	<h3 class="tribe-events-month-event-title<?php if ( $all_day ) { ?> tribe-events-all-day<?php } ?>"><a href="<?php echo esc_url( $link ) ?>" class="url tribe-events-month-event-link link -inherit _block"><?php echo $time; ?><strong class="_bold"><?php echo $title ?></strong></a></h3>
+	<h3 class="tribe-events-month-event-title<?php if ( $is_all_day ) { ?> tribe-events-all-day<?php } ?>"><a href="<?php echo esc_url( $link ) ?>" class="url tribe-events-month-event-link link -inherit _block"><?php if ( $time_start ) { echo $time_start .' '; } ?><strong class="_bold"><?php echo $title ?></strong></a></h3>
 </div><!-- #tribe-events-event-# -->

@@ -137,6 +137,57 @@ function is_tribe_page() {
     }
 }
 
+// retrieve a date and time string
+function get_tribe_date_and_time_strings($event_id) {
+    $is_all_day   = tribe_event_is_all_day($event_id);
+    $is_multiday  = tribe_event_is_multiday($event_id);
+
+    $time_start = !$is_all_day ? tribe_get_start_date($event_id, false, (tribe_get_start_date($event_id, false, "i") === "00" ? "ga" : "g:ia")) : false;
+    $time_end   = !$is_all_day ? tribe_get_end_date($event_id, false, (tribe_get_end_date($event_id, false, "i") === "00" ? "ga" : "g:ia")) : false;
+
+    $year_current = current_time("Y");
+
+    $year_start   = tribe_get_start_date($event_id, false, "Y");
+    $month_start  = tribe_get_start_date($event_id, false, "n");
+
+    $year_end     = tribe_get_end_date($event_id, false, "Y");
+    $month_end    = tribe_get_end_date($event_id, false, "n");
+
+    $date_start_format = "l, F j"; // Sunday, January 1
+    $date_end_format   = "l, F j"; // Sunday, January 1
+
+    // if the same years and the same months
+    if ($is_multiday && $year_start === $year_end && $month_start === $month_end) {
+        $date_start_format = "M j"; // Jan 1
+        $date_end_format   = "j" . ($year_end !== $year_current ? ", Y" : ""); // 1, 2018
+    // if the same years but different months
+    } elseif ($is_multiday && $year_start === $year_end && $month_start !== $month_end) {
+        $date_start_format = "M j"; // Jan 1
+        $date_end_format   = "M j" . ($year_end !== $year_current ? ", Y" : ""); // Jan 1, 2018
+    // if different years
+    } elseif ($year_start !== $year_end || $year_start !== $year_current) {
+        $date_start_format = "M j, Y"; // Jan 1, 2018
+        $date_end_format   = "M j, Y"; // Jan 1, 2018
+    }
+
+    $date_start = tribe_get_start_date($event_id, false, $date_start_format);
+    $date_end   = tribe_get_end_date($event_id, false, $date_end_format);
+
+    if ($is_multiday && !$is_all_day) {
+        $date_start .= ", {$time_start}";
+        $date_end .= ", {$time_end}";
+    }
+
+    $date_string = $date_start . ($is_multiday ? " &ndash; {$date_end}" : "");
+
+    $time_string = !$is_multiday && !$is_all_day ? $time_start . ($time_start !== $time_end ? " &ndash; {$time_end}" : "") : false;
+
+    return array(
+        "date" => $date_string,
+        "time" => $time_string,
+    );
+}
+
 /* FILTERS */
 
 // dequue tribe calendar styles
@@ -181,26 +232,6 @@ function __gulp_init__namespace_tribe_add_pagination_menu_link_class($html) {
 add_filter("tribe_events_the_previous_month_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
 add_filter("tribe_events_the_next_month_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
 add_filter("tribe_the_day_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
-
-// add 'button' to list of classes for tribe ical buttons
-function __gulp_init__namespace_tribe_ical_link_button_class($calendar_links) {
-    $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html>{$calendar_links}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-
-    $anchors = $DOM->getElementsByTagName("a");
-
-    foreach ($anchors as $anchor) {
-        $anchor->setAttribute("class", "button {$anchor->getAttribute("class")}");
-    }
-
-    // remove unneeded HTML tag
-    $DOM = remove_root_tag($DOM);
-
-    $calendar_links = $DOM->saveHTML();
-
-    return $calendar_links;
-}
-add_filter("tribe_events_ical_single_event_links", "__gulp_init__namespace_tribe_ical_link_button_class");
 
 // add 'title -divider' class to tribe date headers
 function __gulp_init__namespace_tribe_add_title_class_to_date_headers($html) {
@@ -257,3 +288,38 @@ function __gulp_init__namespace_tribe_add_text_class_to_notices($html) {
     return $html;
 }
 add_filter("tribe_the_notices", "__gulp_init__namespace_tribe_add_text_class_to_notices");
+
+// disable tribe ical links
+function __gulp_init__namespace_tribe_disable_ical_links() {
+    return false;
+}
+add_filter("tribe_events_ical_single_event_links", "__gulp_init__namespace_tribe_disable_ical_links");
+add_filter("tribe_events_list_show_ical_link", "__gulp_init__namespace_tribe_disable_ical_links");
+
+// add proper classes to Tribe featured images
+function __gulp_init__namespace_tribe_add_class_to_featured_image($featured_image) {
+    if (is_singular("tribe_events")) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML(mb_convert_encoding("<html>{$featured_image}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $divs = $DOM->getElementsByTagName("div");
+
+        foreach ($divs as $div) {
+            $div->setAttribute("class", "article_figure {$div->getAttribute("class")}");
+        }
+
+        $images = $DOM->getElementsByTagName("img");
+
+        foreach ($images as $image) {
+            $image->setAttribute("class", "article_image {$image->getAttribute("class")}");
+        }
+
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
+        $featured_image = $DOM->saveHTML();
+    }
+
+    return $featured_image;
+}
+add_filter("tribe_event_featured_image", "__gulp_init__namespace_tribe_add_class_to_featured_image");

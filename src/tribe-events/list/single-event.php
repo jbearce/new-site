@@ -17,10 +17,7 @@ $event_id    = get_the_ID();
 
 $link        = tribe_get_event_link( $event_id );
 $title       = get_the_title( $event_id );
-$all_day     = tribe_event_is_all_day( $event_id );
-$time_format = tribe_get_start_date( $event_id, false, 'i' ) == '00' ? 'ga' : 'g:ia';
-$date        = tribe_get_start_date( $event_id, false, 'l, F j' );
-$time        = $all_day ? '' : tribe_get_start_date( $event_id, false, $time_format ) . ' ';
+$date        = get_tribe_date_and_time_strings( $event_id );
 $venue       = tribe_get_venue( $event_id );
 $venue_link  = tribe_get_venue_website_link( $event_id, $venue );
 $cost        = tribe_get_cost() ? tribe_get_cost( null, true ) : false;
@@ -63,7 +60,7 @@ if ( $categories ) { $i = 0;
                 <li class="menu-list_item">
                     <i class="far fa-clock menu-list_icon"></i>
                     <a class="menu-list_link link" href="<?php echo $link; ?>">
-                        <?php echo $date; ?><?php if ( $time ){ echo ' @ ' . $time; } ?>
+                        <?php echo $date[ 'date' ]; ?><?php if ( $date[ 'time' ] ){ echo ', ' . $date[ 'time' ]; } ?>
                     </a><!--/.menu-list_link.link-->
                 </li><!--/.menu-list_item-->
 
