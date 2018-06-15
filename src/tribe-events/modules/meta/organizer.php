@@ -53,7 +53,7 @@ $website = tribe_get_organizer_website_link();
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                     <span class="_visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                    <?php echo preg_replace( '/<a /', '<a class="tribe-events-meta-list-link link -inherit" ', $website ); ?>
+                    <?php echo preg_replace( '/<a /', '<a class="tribe-events-meta-list-link link -inherit" ', preg_replace( '/ target="_self"/', ' target="_blank"', $website ) ); ?>
     			</li>
             <?php endif; ?>
 

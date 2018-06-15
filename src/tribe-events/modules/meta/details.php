@@ -88,7 +88,7 @@ if ( $tags ) { $i = 0;
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                 <span class="_visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                <a class="tribe-events-meta-list-link link -inherit">
+                <a class="tribe-events-meta-list-link link -inherit" href="<?php echo $website; ?>" target="_blank">
                     <?php echo $website; ?>
                 </a>
             </li>
