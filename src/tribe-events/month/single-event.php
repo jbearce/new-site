@@ -122,7 +122,7 @@ $additional_data = array(
  *    $additional_data = array();
  *    $string = get_post_meta( get_the_ID(), 'hello_meta' ); // this string can be anything
  *    $additional_data['hello'] = $string;
- *    echo tribe_events_template_data( $post, $additional_data ); ?>
+ *    echo tribe_events_template_data( $post, $additional_data );
  *
  * Explanation: we create an empty array to cram our data into. We can add as much as we want, there are no limits on
  * data attribute length in the html5 spec. We want to call this data with the word "hello" in the js template, so that
