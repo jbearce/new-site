@@ -11,3 +11,4 @@ require_once(TEMPLATEPATH . "/functions/filters.php");
 require_once(TEMPLATEPATH . "/functions/shortcodes.php");
 require_once(TEMPLATEPATH . "/functions/custom-functions.php");
 require_once(TEMPLATEPATH . "/functions/advanced-custom-fields.php");
+require_once(TEMPLATEPATH . "/functions/tribe-events.php");
