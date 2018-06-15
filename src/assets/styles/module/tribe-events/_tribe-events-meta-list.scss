@@ -5,26 +5,34 @@
 \* ------------------------------------------------------------------------ */
 
 .tribe-events-meta-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+    & {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
 }
 
 .tribe-events-meta-list-item {
-    margin-bottom: remify(8, 16);
-    padding-left: remify(28, 16);
-    position: relative;
+    & {
+        margin-bottom: remify(8, 16);
+        padding-left: remify(28, 16);
+        position: relative;
+    }
 }
 
 .tribe-events-meta-list-icon {
-    color: lighten($foreground, 15);
-    left: 0;
-    position: absolute;
-    top: remify(3, 16);
+    & {
+        color: lighten($foreground, 15);
+        left: 0;
+        position: absolute;
+        top: remify(3, 16);
+    }
 }
 
 .tribe-events-meta-list-small {
-    color: lighten($foreground, 15);
-    display: block;
-    font-size: remify(12, 16);
+    & {
+        color: lighten($foreground, 15);
+        display: block;
+        font-size: remify(12, 16);
+    }
 }
