@@ -159,7 +159,7 @@ function get_tribe_date_and_time_strings($event_id) {
     // if the same years and the same months
     if ($is_multiday && $year_start === $year_end && $month_start === $month_end) {
         $date_start_format = "M j"; // Jan 1
-        $date_end_format   = "j" . ($year_end !== $year_current ? ", Y" : ""); // 1, 2018
+        $date_end_format   = (!$is_all_day ? "M " : "") . "j" . ($year_end !== $year_current ? ", Y" : ""); // Jan 1, 2018
     // if the same years but different months
     } elseif ($is_multiday && $year_start === $year_end && $month_start !== $month_end) {
         $date_start_format = "M j"; // Jan 1
