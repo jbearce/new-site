@@ -1,11 +1,11 @@
 <?php
 /**
- * List View Single Event
- * This file contains one event in the list view
+ * Day View Single Event
+ * This file contains one event in the day view
  *
- * Override this template in your own theme by creating a file at [your-theme]/tribe-events/list/single-event.php
+ * Override this template in your own theme by creating a file at [your-theme]/tribe-events/day/single-event.php
  *
- * @version 4.6.3
+ * @version 4.5.11
  *
  */
 
@@ -42,15 +42,16 @@ if ( $categories ) { $i = 0;
         }
     }
 }
+
 ?>
 
 <!-- Event Title -->
 <?php do_action( 'tribe_events_before_the_event_title' ) ?>
-<h6 class="tribe-events-list-event-title article_title title _nomargin">
-	<a class="tribe-event-url title_link link" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark">
+<h2 class="tribe-events-list-event-title article_title title _nomargin">
+    <a class="tribe-event-url title_link link" href="<?php echo esc_url( tribe_get_event_link() ); ?>" title="<?php the_title_attribute() ?>" rel="bookmark">
 		<?php the_title() ?>
 	</a>
-</h6>
+</h2>
 <?php do_action( 'tribe_events_after_the_event_title' ) ?>
 
 <!-- Event Meta -->

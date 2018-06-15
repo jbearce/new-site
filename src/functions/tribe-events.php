@@ -180,6 +180,7 @@ function __gulp_init__namespace_tribe_add_pagination_menu_link_class($html) {
 }
 add_filter("tribe_events_the_previous_month_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
 add_filter("tribe_events_the_next_month_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
+add_filter("tribe_the_day_link", "__gulp_init__namespace_tribe_add_pagination_menu_link_class");
 
 // add 'button' to list of classes for tribe ical buttons
 function __gulp_init__namespace_tribe_ical_link_button_class($calendar_links) {
