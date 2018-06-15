@@ -323,3 +323,9 @@ function __gulp_init__namespace_tribe_add_class_to_featured_image($featured_imag
     return $featured_image;
 }
 add_filter("tribe_event_featured_image", "__gulp_init__namespace_tribe_add_class_to_featured_image");
+
+// add 'link' class to tribe events title links
+function __gulp_init__namespace_tribe_add_events_title_link_class($title) {
+    return preg_replace("/<a /", "<a class='title_link link' ", $title);
+}
+add_filter("tribe_events_title", "__gulp_init__namespace_tribe_add_events_title_link_class");
