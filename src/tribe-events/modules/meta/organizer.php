@@ -9,12 +9,14 @@
  * @version 4.4
  */
 
+$event_id = Tribe__Main::post_id_helper();
+
 $organizer_ids = tribe_get_organizer_ids();
 $multiple = count( $organizer_ids ) > 1;
 
-$phone = tribe_get_organizer_phone();
-$email = tribe_get_organizer_email();
-$website = tribe_get_organizer_website_link();
+$phone   = tribe_get_organizer_phone();
+$email   = tribe_get_organizer_email();
+$website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_OrganizerWebsite', true );
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
@@ -53,7 +55,9 @@ $website = tribe_get_organizer_website_link();
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                     <span class="_visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                    <?php echo preg_replace( '/<a /', '<a class="tribe-events-meta-list-link link -inherit" ', preg_replace( '/ target="_self"/', ' target="_blank"', $website ) ); ?>
+                    <a class="tribe-events-meta-list-link link -inherit" href="<?php echo $website; ?>" target="_blank">
+                        <?php echo $website; ?>
+                    </a>
     			</li>
             <?php endif; ?>
 

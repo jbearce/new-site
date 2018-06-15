@@ -12,9 +12,10 @@ if ( ! tribe_get_venue_id() ) {
 	return;
 }
 
-$phone   = tribe_get_phone();
-$website = tribe_get_venue_website_link();
+$event_id = Tribe__Main::post_id_helper();
 
+$phone   = tribe_get_phone();
+$website = tribe_get_venue_website_url( $event_id );
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
@@ -46,7 +47,9 @@ $website = tribe_get_venue_website_link();
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                 <span class="_visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                <?php echo preg_replace( '/<a /', '<a class="tribe-events-meta-list-link link -inherit" ', preg_replace( '/ target="_self"/', ' target="_blank"', $website) ); ?>
+                <a class="tribe-events-meta-list-link link -inherit" href="<?php echo $website; ?>" target="_blank">
+                    <?php echo $website; ?>
+                </a>
             </li>
 		<?php endif ?>
 
