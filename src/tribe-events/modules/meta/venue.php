@@ -34,7 +34,6 @@ $website = tribe_get_venue_website_url( $event_id );
             <?php endif; ?>
         </li>
 
-
 		<?php if ( ! empty( $phone ) ): ?>
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-phone"></i>
