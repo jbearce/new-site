@@ -231,3 +231,29 @@ function __gulp_init__namespace_tribe_add_text_class_to_excerpt($excerpt) {
     return $excerpt;
 }
 add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_tribe_add_text_class_to_excerpt");
+
+// add text classes to tribe notices
+function __gulp_init__namespace_tribe_add_text_class_to_notices($html) {
+    $DOM = new DOMDocument();
+    $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+    $unordered_lists = $DOM->getElementsByTagName("ul");
+
+    foreach ($unordered_lists as $unordered_list) {
+        $unordered_list->setAttribute("class", "tribe-events-notices_text text -list -unordered {$unordered_list->getAttribute("class")}");
+    }
+
+    $list_items = $DOM->getElementsByTagName("li");
+
+    foreach ($list_items as $list_item) {
+        $list_item->setAttribute("class", "text_list-item {$list_item->getAttribute("class")}");
+    }
+
+    // remove unneeded HTML tag
+    $DOM = remove_root_tag($DOM);
+
+    $html = $DOM->saveHTML();
+
+    return $html;
+}
+add_filter("tribe_the_notices", "__gulp_init__namespace_tribe_add_text_class_to_notices");

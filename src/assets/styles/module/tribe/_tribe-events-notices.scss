@@ -1,0 +1,29 @@
+// Styles written by __gulp_init__author_name @ __gulp_init__author_company
+
+/* ------------------------------------------------------------------------ *\
+ * Tribe Events Notices (https://theeventscalendar.com/)
+\* ------------------------------------------------------------------------ */
+
+.tribe-events-notices {
+    & {
+        background: $warning;
+        border: remify(1) solid darken($warning, 10);
+        border-radius: remify(8, 16);
+        color: $light;
+        font-size: remify(16, 16);
+        padding: remify(8 12, 16);
+    }
+}
+
+.tribe-events-notices_text {
+    & {
+        color: $light;
+        font-size: remify(16, 16);
+        margin: 0;
+    }
+
+    &.-list.-unordered {
+        list-style: none;
+        padding: 0;
+    }
+}
