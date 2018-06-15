@@ -19,7 +19,7 @@
             <ul class="tribe-events-meta-list _nomargin">
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-duration">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-clock"></i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"></i>
                         <abbr class="tribe-events-abbr tribe-event-date-time">[[=raw date]][[ if(typeof time === 'string' && time.length) { ]] <span class="tribe-events-meta-list-small">[[=raw time]]</span>[[ } ]]</abbr>
                     </div>
                 </li>
@@ -34,7 +34,7 @@
                 [[ if(typeof categories === 'string' && categories.length){ ]]
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-terms">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-calendar"></i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-calendar"></i>
                         <abbr class="tribe-events-abbr tribe-event-categories">[[=categories]]</abbr>
                     </div>
                 </li>

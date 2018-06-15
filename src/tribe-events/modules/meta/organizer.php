@@ -43,7 +43,7 @@ $website = tribe_get_organizer_website_link();
 
 			<?php if ( ! empty( $email ) ) : ?>
                 <li class="tribe-events-meta-list-item">
-                    <i class="tribe-events-meta-list-icon far fa-fw fa-envelope"></i>
+                    <i class="tribe-events-meta-list-icon fas fa-fw fa-envelope"></i>
                     <span class="_visuallyhidden"><?php esc_html_e( 'Email:', 'the-events-calendar' ) ?></span>
                     <?php echo esc_html( $email ); ?>
     			</li>

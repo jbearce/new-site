@@ -61,7 +61,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $date[ 'date' ] ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-clock"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"></i>
                 <span class="_visuallyhidden"><?php esc_html_e( 'Date:', 'the-events-calendar' ) ?></span>
                 <?php echo $date[ 'date' ]; ?>
                 <?php if ( $date[ 'time' ] ) : ?>
@@ -76,7 +76,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $cost ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-money-bill"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-money-bill"></i>
                 <span class="_visuallyhidden"><?php esc_html_e( 'Cost:', 'the-events-calendar' ) ?></span>
                 <?php echo $cost; ?>
             </li>
@@ -108,7 +108,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $tags_string ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-tag"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-tag"></i>
                 <span class="_visuallyhidden"><?php esc_html_e( 'Tags:', 'the-events-calendar' ) ?></span>
                 <?php echo $tags_string; ?>
             </li>
