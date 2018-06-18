@@ -559,8 +559,18 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
 
             // if show_parent is false unset the parent menu_item
             if (!$settings["show_parent"] && $parent_item_id) {
+                // edge case where the parent id item got reset to the viewed item id
+                if ($parent_item_id === $viewed_item_id) {
+                    foreach ($menu_items as $key => $menu_item) {
+                        if ($menu_item->ID === $viewed_item_id) {
+                            $parent_item_id = $menu_item->menu_item_parent;
+                            break;
+                        }
+                    }
+                }
+
                 foreach ($menu_items as $key => $menu_item) {
-                    if ($menu_item->ID == $parent_item_id) {
+                    if ($menu_item->ID === $parent_item_id) {
                         unset($menu_items[$key]);
                     }
                 }
