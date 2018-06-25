@@ -97,13 +97,13 @@ const MENU_LIST_INIT = () => {
         if (MENU_ITEMS[i].parentElement.dataset.hover === "true") {
             // open on mouseover
             MENU_ITEMS[i].addEventListener("mouseover", () => {
-                MARK_MENU_ITEM_SIBLINGS_INACTIVE(this);
-                MARK_MENU_ITEM_ACTIVE(this);
+                MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
+                MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
             });
 
             // close on mouseout
             MENU_ITEMS[i].addEventListener("mouseout", () => {
-                MARK_MENU_ITEM_INACTIVE(this);
+                MARK_MENU_ITEM_INACTIVE(MENU_ITEMS[i]);
             });
         }
 
@@ -112,10 +112,10 @@ const MENU_LIST_INIT = () => {
             // mark active on touch
             MENU_ITEMS[i].addEventListener("touchstart", (e) => {
                 // check if the element is already active
-                if (this.classList.contains("-parent") && !this.classList.contains("is-active")) {
+                if (MENU_ITEMS[i].classList.contains("-parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
                     e.preventDefault();
-                    MARK_MENU_ITEM_SIBLINGS_INACTIVE(this);
-                    MARK_MENU_ITEM_ACTIVE(this);
+                    MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
+                    MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
                 }
             });
         }
@@ -125,7 +125,7 @@ const MENU_LIST_INIT = () => {
     for (let i = 0; i < MENU_LINKS.length; i++) {
         // mark inactive on blur (only if no other siblings or children are focused)
         MENU_LINKS[i].addEventListener("blur", () => {
-            MARK_MENU_ITEM_PARENTS_INACTIVE(this);
+            MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_LINKS[i]);
         });
     }
 
@@ -135,16 +135,16 @@ const MENU_LIST_INIT = () => {
         MENU_TOGGLES[i].addEventListener("click", (e) => {
             e.preventDefault();
 
-            if (this.parentNode.classList.contains("is-active")) {
-                MARK_MENU_ITEM_INACTIVE(this.parentNode);
+            if (MENU_TOGGLES[i].parentNode.classList.contains("is-active")) {
+                MARK_MENU_ITEM_INACTIVE(MENU_TOGGLES[i].parentNode);
             } else {
-                MARK_MENU_ITEM_ACTIVE(this.parentNode);
+                MARK_MENU_ITEM_ACTIVE(MENU_TOGGLES[i].parentNode);
             }
         });
 
         // mark inactive on blur (only if no other siblings or children are focused)
         MENU_TOGGLES[i].addEventListener("blur", () => {
-            MARK_MENU_ITEM_PARENTS_INACTIVE(this);
+            MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_TOGGLES[i]);
         });
     }
 };
