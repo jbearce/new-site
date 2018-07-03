@@ -489,6 +489,17 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
                 }
             }
 
+            // only return the top level menu items if the viewed page isn't in the menu
+            if ($viewed_item_id === 0) {
+                foreach ($menu_items as $key => $menu_item) {
+                    if ((int) $menu_item->menu_item_parent !== 0) {
+                        unset($menu_items[$key]);
+                    }
+                }
+
+                return $menu_items;
+            }
+
             $parent_item_id = $viewed_item_id;
 
             // build a complete list of ancestor menu_items (if direct_parent is false)
