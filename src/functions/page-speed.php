@@ -54,7 +54,17 @@ function __gulp_init__namespace_cache_google_analytics($url) {
     $local_path = ABSPATH . "analytics.js";
 
     if (!file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {
-        file_put_contents($local_path, fopen($url, "r"));
+        $curl = curl_init();
+
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+        $script = curl_exec($curl);
+
+        curl_close($curl);
+
+        file_put_contents($local_path, $script);
     }
 
     return home_url("/analytics.js");
