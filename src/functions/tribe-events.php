@@ -236,7 +236,19 @@ add_filter("tribe_the_day_link", "__gulp_init__namespace_tribe_add_pagination_me
 // add 'title -divider' class to tribe date headers
 function __gulp_init__namespace_tribe_add_title_class_to_date_headers($html) {
     if ($html) {
-        $html = "<h4 class='tribe-events-title title -h4 -divider'>$html</h4>";
+        $DOM = new DOMDocument();
+        $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $h2s = $DOM->getElementsByTagName("h2");
+
+        foreach ($h2s as $h2) {
+            $h2->setAttribute("class", "tribe-events-title title -h4 -divider {$h2->getAttribute("class")}");
+        }
+
+        // remove unneeded HTML tag
+        $DOM = remove_root_tag($DOM);
+
+        $html = $DOM->saveHTML();
     }
 
     return $html;
