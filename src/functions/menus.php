@@ -120,10 +120,10 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         );
 
         // mega menu stuff
-        if (in_array("mega", $params)) {
-            if (in_array("-mega", $classes)) {
-                $this->is_mega = true;
+        if (in_array("mega", $params) && in_array("-mega", $classes)) {
+            $this->is_mega = true;
 
+            if ($depth === 0) {
                 $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init__namespace") . "</button>";
                 $output .= "<div class='menu-list_container -mega' aria-hidden='true'>";
             }
@@ -137,7 +137,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         // add a toggle button
         $toggle = "";
 
-        if (!$this->is_mega && in_array("accordion", $params) || in_array("hover", $params) || in_array("touch", $params)) {
+        if (!$this->is_mega && (in_array("accordion", $params) || in_array("hover", $params) || in_array("touch", $params))) {
             $toggle_class = "";
 
             if (in_array("touch", $params) && !in_array("accordion", $params)) {
