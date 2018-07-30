@@ -1,12 +1,12 @@
 <?php
-$article_class = isset($template_args["article_class"]) ? $template_args["article_class"] : "";
-$article_error = isset($template_args["article_error"]) ? $template_args["article_error"] : false;
+$class = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
+$error = isset($template_args["error"]) ? $template_args["error"] : false;
 ?>
 
-<?php if ($article_error): ?>
-    <article class="article <?php echo $article_class; ?>">
+<?php if ($error): ?>
+    <article class="article<?php echo $class; ?>">
         <div class="article_content">
-            <p class="article_text text"><?php echo $article_error; ?></p>
+            <p class="article_text text"><?php echo $error; ?></p>
         </div><!--/.article_content-->
     </article><!--/.article-->
 <?php endif; ?>
