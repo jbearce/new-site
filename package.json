@@ -81,7 +81,7 @@
     "stylelint-order": "^0.8.1",
     "stylelint-scss": "^2.4.0",
     "through2": "^2.0.3",
-    "vinyl-ftp": "^0.6.1",
+    "vinyl-ftp": "github:JacobDB/vinyl-ftp#issue-90",
     "yargs": "^11.0.0"
   },
   "private": true
