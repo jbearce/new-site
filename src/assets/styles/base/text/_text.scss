@@ -16,6 +16,15 @@
         line-height: remify(20, 16);
         margin: remify(0 0 16, 16);
     }
+
+    .button {
+        font-range: $xs-break $xl-break;
+        font-size: responsive remify(14, 16) remify(18, 18);
+    }
+
+    > .button:last-child {
+        margin-bottom: 0 !important;
+    }
 }
 
 /* label variant */
