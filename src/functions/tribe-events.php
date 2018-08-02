@@ -190,9 +190,10 @@ function get_tribe_date_and_time_strings($event_id) {
 
 /* FILTERS */
 
-// dequue tribe calendar styles
+// dequeue & deregister tribe calendar styles
 function __gulp_init__namespace_tribe_dequeue_calendar_styles() {
     wp_dequeue_style("tribe-events-calendar-style", 999);
+    wp_deregister_style("tribe-events-calendar-style");
 }
 add_action("wp_enqueue_scripts", "__gulp_init__namespace_tribe_dequeue_calendar_styles");
 
