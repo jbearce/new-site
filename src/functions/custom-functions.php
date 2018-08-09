@@ -103,6 +103,18 @@ function the_map_url($address) {
     echo get_map_url($address);
 }
 
+// compare two dates to make sure they're sequential
+function are_dates_sequential($date_start, $date_end = null) {
+    $date_start = date("Ymd", strtotime($date_start));
+    $date_end   = $date_end ? date("Ymd", strtotime($date_end)) : false;
+
+    if ($date_start && $date_end && $date_start > $date_end) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 // function to remove the root element (see https://stackoverflow.com/a/29499398)
 function remove_root_tag($DOM, $tag = "html") {
     $container = $DOM->getElementsByTagName($tag)->item(0);
