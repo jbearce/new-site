@@ -82,8 +82,8 @@ function format_address($address_1, $address_2, $city, $state, $zip_code, $break
     return $address;
 }
 
-// get a map link
-function get_map_link($address, $embed = false) {
+// get a map url
+function get_map_url($address, $embed = false) {
     $address_url = "";
 
     if ($address) {
@@ -98,9 +98,9 @@ function get_map_link($address, $embed = false) {
     return $address_url;
 }
 
-// echo the map link;
-function the_map_link($address) {
-    echo get_map_link($address);
+// echo the map url;
+function the_map_url($address) {
+    echo get_map_url($address);
 }
 
 // function to remove the root element (see https://stackoverflow.com/a/29499398)
