@@ -68,20 +68,20 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         $classes = $item->classes ? $item->classes : array();
 
         // add the menu-list_item class if the classes array contains menu-item
-        if (in_array("menu-item", $classes))
-            array_push($classes, "menu-list_item");
+        if (in_array("menu-item", $classes) && !in_array("menu-list_item", $classes))
+            $classes[] = "menu-list_item";
 
         // add the is-viewed class if the page is currently be viewed
-        if (in_array("current_page_item", $classes))
-            array_push($classes, "is-viewed");
+        if (in_array("current_page_item", $classes) && !in_array("is-viewed", $classes))
+            $classes[] = "is-viewed";
 
         // add the is-viewed class if the page is currently be viewed
-        if (in_array("current_page_item", $classes))
-            array_push($classes, "is-viewed");
+        if (in_array("current_page_item", $classes) && !in_array("is-viewed", $classes))
+            $classes[] = "is-viewed";
 
         // add a the -parent class if the page has children
-        if (in_array("menu-item-has-children", $classes))
-            array_push($classes, "-parent");
+        if (in_array("menu-item-has-children", $classes) && !in_array("-parent", $classes))
+            $classes[] = "-parent";
 
         // convert the clean_classes array in to usable string
         $class_names = " class='" . esc_attr(join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item))) . "'";
