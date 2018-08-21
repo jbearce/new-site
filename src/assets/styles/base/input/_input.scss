@@ -6,6 +6,8 @@
 
 .input {
     & {
+        -webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
+        -moz-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
         appearance: none;
         background: $background;
         border: remify(1) solid darken($background_alt, 10);
@@ -37,19 +39,11 @@
     & {
         cursor: pointer;
 
-        /* stylelint-disable order/properties-alphabetical-order, property-no-vendor-prefix */
-
-        // remove Safari, Chrome, and Firefox default styles & arrow
-        -webkit-appearance: none;
-        -moz-appearance: none;
-        appearance: none;
         // remove Firefox default styles & arrow
         text-indent: 0.01px;
         text-overflow: "";
         // remove IE default styles & arrow
         &::-ms-expand { display: none; }
-
-        /* stylelint-enable order/properties-alphabetical-order, property-no-vendor-prefix */
     }
 
     &.-arrow {
