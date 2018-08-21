@@ -12,14 +12,6 @@
 
 // generic helpers
 
-%clearfix {
-    &::after {
-        clear: both !important;
-        content: "" !important;
-        display: table !important;
-    }
-}
-
 ._dark {
     color: $dark !important;
 }
@@ -98,33 +90,9 @@
 }
 
 ._visuallyhidden {
-    background: darken($background, 5.4902) !important;
-    border-radius: 0 !important;
-    box-shadow: remify(0 0 2 2, 14) transparentize($dark, 0.4) !important;
-    color: $accent !important;
-    display: block !important;
-    font-family: $body-font !important;
-    font-size: remify(14) !important;
-    font-weight: 700 !important;
-    height: auto !important;
     left: -999em !important;
-    letter-spacing: normal !important;
-    line-height: normal !important;
-    outline: none !important;
-    padding: remify(15 23 14, 14) !important;
-    position: absolute;
-    text-decoration: none !important;
-    text-shadow: none !important;
-    text-transform: none !important;
+    position: absolute !important;
     top: -999em !important;
-    white-space: nowrap;
-    width: auto !important;
-}
-
-._visuallyhidden:focus {
-    left: remify(6, 14) !important;
-    top: remify(6, 14) !important;
-    z-index: 100000 !important;
 }
 
 ._primary {
@@ -137,31 +105,6 @@
 
 ._warning {
     color: $warning !important;
-}
-
-._sticky {
-    & {
-        position: sticky !important;
-        top: 0 !important;
-    }
-
-    // WordPress admin bar fix
-
-    @media screen and (min-width: 601px) {
-        @supports (position: -webkit-sticky) or (position: sticky) {
-            .admin-bar & {
-                top: 46px !important;
-            }
-        }
-    }
-
-    @media screen and (min-width: 783px) {
-        @supports (position: -webkit-sticky) or (position: sticky) {
-            .admin-bar & {
-                top: 32px !important;
-            }
-        }
-    }
 }
 
 /* visibility classes */
