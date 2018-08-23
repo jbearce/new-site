@@ -65,24 +65,27 @@ function __gulp_init__namespace_fix_ninja_forms($content) {
 }
 add_filter("the_content", "__gulp_init__namespace_fix_ninja_forms", 5);
 
-// fix shortcode formatting
-function __gulp_init__namespace_fix_shortcodes() {
-    if (!is_admin()) {
-        remove_filter("the_content", "wpautop");
-        remove_filter("acf_the_content", "wpautop");
-        add_filter("the_content", "wpautop", 12);
-        add_filter("acf_the_content", "wpautop", 12);
-    }
+// delay when shortcodes get expanded
+remove_filter("the_content", "do_shortcode", 11);
+remove_filter("acf_the_content", "do_shortcode", 11);
+add_filter("the_content", "do_shortcode", 25);
+add_filter("acf_the_content", "do_shortcode", 25);
+
+// remove wpautop stuff from shortcodes
+function __gulp_init__namespace_fix_shortcodes($content) {
+    $block = join("|", array("row", "col"));
+    $rep = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/","[$2$3]",$content);
+    $rep = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/","[/$2]",$rep);
+    return $rep;
 }
-add_action("loop_start", "__gulp_init__namespace_fix_shortcodes", 10);
+add_action("the_content", "__gulp_init__namespace_fix_shortcodes", 15);
+add_action("acf_the_content", "__gulp_init__namespace_fix_shortcodes", 15);
 
 // add classes to elements
 function __gulp_init__namespace_add_user_content_classes($content) {
-    global $post;
-
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -309,16 +312,19 @@ function __gulp_init__namespace_add_user_content_classes($content) {
             }
         }
 
-        // remove unneeded HTML tag
-        $DOM = remove_root_tag($DOM);
+        // remove unneeded first paragraph tag (inserted for parsing reasons)
+        $DOM = remove_first_p_tag($DOM);
+
+        // remove unneeded HTML tag (inserted for parsing reasons)
+        $DOM = remove_html_tag($DOM);
 
         $content = $DOM->saveHTML();
     }
 
     return $content;
 }
-add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 10);
-add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 10);
+add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 20);
+add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 20);
 
 // remove dimensions from thumbnails
 function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
@@ -326,7 +332,7 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
 
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $images = $DOM->getElementsByTagName("img");
 
@@ -335,8 +341,11 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
             $image->removeAttribute("width");
         }
 
-        // remove unneeded HTML tag
-        $DOM = remove_root_tag($DOM);
+        // remove unneeded first paragraph tag (inserted for parsing reasons)
+        $DOM = remove_first_p_tag($DOM);
+
+        // remove unneeded HTML tag (inserted for parsing reasons)
+        $DOM = remove_html_tag($DOM);
 
         $html = $DOM->saveHTML();
     }

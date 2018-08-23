@@ -115,16 +115,29 @@ function are_dates_sequential($date_start, $date_end = null) {
     }
 }
 
-// function to remove the root element (see https://stackoverflow.com/a/29499398)
-function remove_root_tag($DOM, $tag = "html") {
-    $container = $DOM->getElementsByTagName($tag)->item(0);
-    $container = $container->parentNode->removeChild($container);
+// function to remove the first p tag (only if it's empty) (see https://stackoverflow.com/a/29499398)
+function remove_first_p_tag($DOM) {
+    // find the first p tag
+    $first_paragraph = $DOM->getElementsByTagName("p")->item(0);
 
-    while ($DOM->firstChild) {
-        $DOM->removeChild($doc->firstChild);
+    // remove the first p tag (only if it's empty)
+    if (!$first_paragraph->nodeValue) {
+        $first_paragraph->parentNode->removeChild($first_paragraph);
     }
 
-    while ($container->firstChild ) {
+    return $DOM;
+}
+
+// function to remove the html tag (see https://stackoverflow.com/a/29499398)
+function remove_html_tag($DOM) {
+    // find the first html tag
+    $container = $DOM->getElementsByTagName("html")->item(0);
+
+    // remove the first html tag
+    $container = $container->parentNode->removeChild($container);
+
+    // insert the first html tag's contents
+    if ($container->firstChild) {
         $DOM->appendChild($container->firstChild);
     }
 
