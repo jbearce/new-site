@@ -9,30 +9,30 @@ function __gulp_init__namespace_create_resource_post_type() {
     $type_singular_name = __("Resource", "__gulp_init__namespace");
 
     register_post_type("resource", array(
-        "has_archive"          => true,
-        "hierarchical"          => false,
+        "has_archive"   => true,
+        "hierarchical"  => false,
         "labels"              => array(
-            "add_new"              => __("Add New", "__gulp_init__namespace"),
-            "add_new_item"          => sprintf(__("Add New %s", "__gulp_init__namespace"), $type_singular_name),
+            "add_new"            => __("Add New", "__gulp_init__namespace"),
+            "add_new_item"       => sprintf(__("Add New %s", "__gulp_init__namespace"), $type_singular_name),
             "all_items"          => sprintf(__("All %s", "__gulp_init__namespace"), $type_plural_name),
             "edit_item"          => sprintf(__("Edit %s", "__gulp_init__namespace"), $type_singular_name),
             "menu_name"          => sprintf(__("%s", "nssra"), $type_plural_name),
-            "name"                  => sprintf(__("%s", "nssra"), $type_plural_name),
-            "new_item"              => sprintf(__("New %s", "__gulp_init__namespace"), $type_singular_name),
+            "name"               => sprintf(__("%s", "nssra"), $type_plural_name),
+            "new_item"           => sprintf(__("New %s", "__gulp_init__namespace"), $type_singular_name),
             "not_found"          => sprintf(__("No %s found", "__gulp_init__namespace"), strtolower($type_plural_name)),
             "not_found_in_trash" => sprintf(__("No %s found in Trash", "__gulp_init__namespace"), strtolower($type_plural_name)),
-            "search_items"          => sprintf(__("Search resources", "__gulp_init__namespace")),
+            "search_items"       => sprintf(__("Search resources", "__gulp_init__namespace")),
             "singular_name"      => sprintf(__("%s", "nssra"), $type_singular_name),
             "view_item"          => sprintf(__("View %s", "__gulp_init__namespace"), $type_singular_name),
         ),
-        "menu_icon"          => "dashicons-admin-links",
-        "menu_position"      => 20,
-        "public"              => true,
-        "rewrite"            => array(
+        "menu_icon"     => "dashicons-admin-links",
+        "menu_position" => 20,
+        "public"        => true,
+        "rewrite"       => array(
             "slug" => "resources",
         ),
-        "show_ui"            => true,
-        "supports"              => array(
+        "show_ui"       => true,
+        "supports"      => array(
             "title",
             "editor",
             "author",
@@ -53,9 +53,9 @@ function __gulp_init__namespace_create_resource_post_type() {
         "resource_tag",
         "resource",
         array(
-            "capabilities"     => array("edit_terms" => "manage_categories"),
-            "hierarchical"     => false,
-            "labels"         => array(
+            "capabilities" => array("edit_terms" => "manage_categories"),
+            "hierarchical" => false,
+            "labels"       => array(
                 "name"                       => sprintf(_x("%s %s", "taxonomy general name", "__gulp_init__namespace"), $type_singular_name, $taxonomy_plural_name),
                 "singular_name"              => sprintf(_x("%s", "taxonomy singular name", "__gulp_init__namespace"), $taxonomy_singular_name),
                 "search_items"               => sprintf(__("Search %s", "__gulp_init__namespace"), $taxonomy_plural_name),
@@ -71,7 +71,7 @@ function __gulp_init__namespace_create_resource_post_type() {
                 "not_found"                  => sprintf(__("No %s found.", "__gulp_init__namespace"), strtolower($taxonomy_plural_name)),
                 "menu_name"                  => sprintf(__("%s", "__gulp_init__namespace"), $taxonomy_plural_name),
             ),
-            "rewrite"         => array(
+            "rewrite"      => array(
                 "slug" => "resource-tag",
             ),
         )
