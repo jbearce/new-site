@@ -14,19 +14,19 @@ add_shortcode("row", "__gulp_init__namespace_row_shortcode");
 function __gulp_init__namespace_col_shortcode($atts , $content = null) {
     extract(shortcode_atts(
         array(
-            "default_width"  => "",
-            "tablet_width"   => "",
-            "notebook_width" => "",
-            "desktop_width"  => "",
-            "variant"        => "",
+            "mobile"   => "",
+            "tablet"   => "",
+            "notebook" => "",
+            "desktop"  => "",
+            "variant"  => "",
         ), $atts)
     );
 
-    $class =  $default_width  ? "-{$default_width}"        : "-auto";
-    $class .= $tablet_width   ? " col-xs-{$tablet_width}"  : "";
-    $class .= $notebook_width ? " col-l-{$notebook_width}" : "";
-    $class .= $desktop_width  ? " col-xl-{$desktop_width}" : "";
-    $class .= $variant ? " $variant" : "";
+    $class =  $mobile   ? "-{$mobile}"         : "-auto";
+    $class .= $tablet   ? " col-xs-{$tablet}"  : "";
+    $class .= $notebook ? " col-l-{$notebook}" : "";
+    $class .= $desktop  ? " col-xl-{$desktop}" : "";
+    $class .= $variant  ? " $variant"          : "";
 
     // return the tab wrapper with the menu
     return "<div class='col{$class}'>" . do_shortcode($content) . "</div>";
