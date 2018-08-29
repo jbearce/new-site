@@ -233,7 +233,7 @@ add_action("tribe_events_single_event_after_the_content", "__gulp_init__namespac
 // add 'menu-list_link link' to list of classes for tribe monthly pagination link
 function __gulp_init__namespace_tribe_add_pagination_menu_link_class($html) {
     $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
     $anchors = $DOM->getElementsByTagName("a");
 
@@ -241,13 +241,8 @@ function __gulp_init__namespace_tribe_add_pagination_menu_link_class($html) {
         $anchor->setAttribute("class", "menu-list_link link {$anchor->getAttribute("class")}");
     }
 
-    // remove unneeded first paragraph tag (inserted for parsing reasons)
-    $DOM = remove_first_p_tag($DOM);
-
-    // remove unneeded HTML tag (inserted for parsing reasons)
-    $DOM = remove_html_tag($DOM);
-
-    $html = $DOM->saveHTML();
+    // remove unneeded tags (inserted for parsing reasons)
+    $html = remove_extra_tags($DOM);
 
     return $html;
 }
@@ -259,7 +254,7 @@ add_filter("tribe_the_day_link", "__gulp_init__namespace_tribe_add_pagination_me
 function __gulp_init__namespace_tribe_add_title_class_to_date_headers($html) {
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $h2s = $DOM->getElementsByTagName("h2");
 
@@ -267,13 +262,8 @@ function __gulp_init__namespace_tribe_add_title_class_to_date_headers($html) {
             $h2->setAttribute("class", "tribe-events-title title -h4 -divider {$h2->getAttribute("class")}");
         }
 
-        // remove unneeded first paragraph tag (inserted for parsing reasons)
-        $DOM = remove_first_p_tag($DOM);
-
-        // remove unneeded HTML tag (inserted for parsing reasons)
-        $DOM = remove_html_tag($DOM);
-
-        $html = $DOM->saveHTML();
+        // remove unneeded tags (inserted for parsing reasons)
+        $html = remove_extra_tags($DOM);
     }
 
     return $html;
@@ -283,7 +273,7 @@ add_filter("tribe_events_list_the_date_headers", "__gulp_init__namespace_tribe_a
 // add 'tribe-events-text_text text' class to tribe excerpts
 function __gulp_init__namespace_tribe_add_text_class_to_excerpt($excerpt) {
     $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$excerpt}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $DOM->loadHTML(mb_convert_encoding("<html><body>{$excerpt}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
     $paragraphs = $DOM->getElementsByTagName("p");
 
@@ -291,13 +281,8 @@ function __gulp_init__namespace_tribe_add_text_class_to_excerpt($excerpt) {
         $paragraph->setAttribute("class", "tribe-events-text_text text {$paragraph->getAttribute("class")}");
     }
 
-    // remove unneeded first paragraph tag (inserted for parsing reasons)
-    $DOM = remove_first_p_tag($DOM);
-
-    // remove unneeded HTML tag (inserted for parsing reasons)
-    $DOM = remove_html_tag($DOM);
-
-    $excerpt = $DOM->saveHTML();
+    // remove unneeded tags (inserted for parsing reasons)
+    $excerpt = remove_extra_tags($DOM);
 
     return $excerpt;
 }
@@ -306,7 +291,7 @@ add_filter("tribe_events_get_the_excerpt", "__gulp_init__namespace_tribe_add_tex
 // add text classes to tribe notices
 function __gulp_init__namespace_tribe_add_text_class_to_notices($html) {
     $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
     $unordered_lists = $DOM->getElementsByTagName("ul");
 
@@ -320,13 +305,8 @@ function __gulp_init__namespace_tribe_add_text_class_to_notices($html) {
         $list_item->setAttribute("class", "text_list-item {$list_item->getAttribute("class")}");
     }
 
-    // remove unneeded first paragraph tag (inserted for parsing reasons)
-    $DOM = remove_first_p_tag($DOM);
-
-    // remove unneeded HTML tag (inserted for parsing reasons)
-    $DOM = remove_html_tag($DOM);
-
-    $html = $DOM->saveHTML();
+    // remove unneeded tags (inserted for parsing reasons)
+    $html = remove_extra_tags($DOM);
 
     return $html;
 }
@@ -343,7 +323,7 @@ add_filter("tribe_events_list_show_ical_link", "__gulp_init__namespace_tribe_dis
 function __gulp_init__namespace_tribe_add_class_to_featured_image($featured_image) {
     if (is_singular("tribe_events")) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$featured_image}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$featured_image}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $divs = $DOM->getElementsByTagName("div");
 
@@ -357,13 +337,8 @@ function __gulp_init__namespace_tribe_add_class_to_featured_image($featured_imag
             $image->setAttribute("class", "article_image {$image->getAttribute("class")}");
         }
 
-        // remove unneeded first paragraph tag (inserted for parsing reasons)
-        $DOM = remove_first_p_tag($DOM);
-
-        // remove unneeded HTML tag (inserted for parsing reasons)
-        $DOM = remove_html_tag($DOM);
-
-        $featured_image = $DOM->saveHTML();
+        // remove unneeded tags (inserted for parsing reasons)
+        $featured_image = remove_extra_tags($DOM);
     }
 
     return $featured_image;

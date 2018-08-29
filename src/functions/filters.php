@@ -66,10 +66,13 @@ function __gulp_init__namespace_fix_ninja_forms($content) {
 add_filter("the_content", "__gulp_init__namespace_fix_ninja_forms", 5);
 
 // delay when shortcodes get expanded
-remove_filter("the_content", "do_shortcode", 11);
-remove_filter("acf_the_content", "do_shortcode", 11);
-add_filter("the_content", "do_shortcode", 25);
-add_filter("acf_the_content", "do_shortcode", 25);
+function __gulp_init__namespace_delay_shortcode_expansion() {
+    remove_filter("the_content", "do_shortcode", 11);
+    remove_filter("acf_the_content", "do_shortcode", 11);
+    add_filter("the_content", "do_shortcode", 25);
+    add_filter("acf_the_content", "do_shortcode", 25);
+}
+add_action("wp", "__gulp_init__namespace_delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
 function __gulp_init__namespace_fix_shortcodes($content) {
@@ -85,7 +88,7 @@ add_action("acf_the_content", "__gulp_init__namespace_fix_shortcodes", 15);
 function __gulp_init__namespace_add_user_content_classes($content) {
     if ($content) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$content}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -312,13 +315,8 @@ function __gulp_init__namespace_add_user_content_classes($content) {
             }
         }
 
-        // remove unneeded first paragraph tag (inserted for parsing reasons)
-        $DOM = remove_first_p_tag($DOM);
-
-        // remove unneeded HTML tag (inserted for parsing reasons)
-        $DOM = remove_html_tag($DOM);
-
-        $content = $DOM->saveHTML();
+        // remove unneeded tags (inserted for parsing reasons)
+        $content = remove_extra_tags($DOM);
     }
 
     return $content;
@@ -332,7 +330,7 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
 
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><p></p>{$html}</html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $images = $DOM->getElementsByTagName("img");
 
@@ -341,11 +339,8 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
             $image->removeAttribute("width");
         }
 
-        // remove unneeded first paragraph tag (inserted for parsing reasons)
-        $DOM = remove_first_p_tag($DOM);
-
-        // remove unneeded HTML tag (inserted for parsing reasons)
-        $DOM = remove_html_tag($DOM);
+        // remove unneeded tags (inserted for parsing reasons)
+        $DOM = remove_extra_tags($DOM);
 
         $html = $DOM->saveHTML();
     }
