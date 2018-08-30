@@ -411,3 +411,11 @@ function __gulp_init__namespace_decode_html_entities_in_blog_description($value,
     return $value;
 }
 add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_description", 10, 2);
+
+// replace content with a password form if a post is password protected
+function __gulp_init__namespace_enable_post_password_protection($post_object) {
+    if (post_password_required($post_object->ID)) {
+        $post_object->post_content = get_the_password_form();
+    }
+}
+add_action("the_post", "__gulp_init__namespace_enable_post_password_protection");
