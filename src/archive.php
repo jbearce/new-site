@@ -14,7 +14,7 @@
             <?php if ($archive_title): ?>
                 <header class="content_header">
                     <h1 class="content_title title">
-                        <?php echo apply_filters("the_title", $archive_title); ?>
+                        <?php echo apply_filters("the_title", $archive_title, 0); ?>
                     </h1><!--/.content_title.title-->
                 </header><!--/.content_header-->
             <?php endif; // if (get_the_archive_title()) ?>
