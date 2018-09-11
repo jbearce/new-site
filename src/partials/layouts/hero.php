@@ -102,12 +102,12 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                     <div class="swiper-pagination"></div>
 
                     <button class="swiper-button -prev">
-                        <i class="far fa-caret-left swiper-button-icon"></i>
+                        <i class="fas fa-caret-left swiper-button-icon"></i>
                         <span class="_visuallyhidden"><?php _e("Previous Slide", "__gulp_init__namespace"); ?></span>
                     </button><!--/.swiper-button.-prev-->
 
                     <button class="swiper-button -next">
-                        <i class="far fa-caret-right swiper-button-icon"></i>
+                        <i class="fas fa-caret-right swiper-button-icon"></i>
                         <span class="_visuallyhidden"><?php _e("Next Slide", "__gulp_init__namespace"); ?></span>
                     </button><!--/.swiper-button.-next-->
                 <?php endif; ?>

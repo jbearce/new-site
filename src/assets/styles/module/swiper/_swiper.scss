@@ -23,7 +23,6 @@
     }
 }
 
-.swiper-picture,
 .swiper-picture {
     & {
         flex: none;
@@ -63,14 +62,17 @@
         background: none;
         border: 0;
         color: $primary;
+        cursor: pointer;
         display: block;
         height: 100%;
         margin: 0;
         opacity: 0;
         padding: 0;
+        position: absolute;
         top: 0;
         transition: opacity 0.15s;
         width: remify(55, 16);
+        z-index: 999;
     }
 
     &.-prev {
@@ -102,7 +104,6 @@
         opacity: 1;
     }
 
-    .swiper-button-icon,
     .swiper-button-icon {
         font-size: remify(48, 16);
         left: 50%;
