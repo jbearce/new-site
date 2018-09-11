@@ -51,9 +51,13 @@
         padding: remify(($content-padding * 0.5) $content-padding);
     }
 
-    .swiper-container.-fullbleed & .swiper-caption-inner {
+    .swiper-caption-inner {
         margin: 0 auto;
         max-width: remify($site-width, 16);
+    }
+
+    .swiper-container.-fullbleed & .swiper-caption-inner {
+        max-width: none;
     }
 }
 

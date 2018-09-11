@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<?php __gulp_init__namespace_get_template_part("partials/layouts/hero.php", array("post" => $post, "class" => "_nopadding")); ?>
+<?php __gulp_init__namespace_get_template_part("partials/layouts/hero.php", array("post" => $post, "class" => array("block" => "-fullbleed _nopadding", "inner" => "-fullbleed"))); ?>
 <div class="content-block -fullbleed">
     <div class="content_inner">
         <div class="content_post">

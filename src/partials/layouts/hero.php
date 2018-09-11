@@ -1,15 +1,20 @@
 <?php
 $post           = isset($template_args["post"]) ? $template_args["post"] : false;
-$class          = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
+$class          = isset($template_args["class"]) ? $template_args["class"] : "";
+$block_class    = gettype($class) === "array" && key_exists("block", $class) ? " {$class["block"]}" : (gettype($class) === "string" ? " {$class}" : "");
+$inner_class    = gettype($class) === "array" && key_exists("inner", $class) ? " {$class["inner"]}" : "";
+$swiper_class   = gettype($class) === "array" && key_exists("swiper", $class) ? " {$class["swiper"]}" : "";
+$navigation     = isset($template_args["navigation"]) ? $template_args["navigation"] : false;
+$pagination     = isset($template_args["pagination"]) ? $template_args["pagination"] : false;
 $slideshow      = isset($template_args["slideshow"]) ? $template_args["slideshow"] : ($post ? get_field("slideshow", $post->ID) : false);
 $image_size     = isset($template_args["image_size"]) ? $template_args["image_size"] : "hero";
 $featured_image = isset($template_args["featured_image"]) ? $template_args["featured_image"] : ($post && has_post_thumbnail($post->ID) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_large")[0]) : false);
 $title          = isset($template_args["title"]) ? $template_args["title"] : false;
 ?>
 <?php if ($slideshow || $featured_image): $i = 0; ?>
-    <div class="hero-block -fullbleed<?php echo $class; ?>" role="region">
-        <div class="hero_inner -fullbleed">
-            <div class="hero_swiper-container swiper-container -hero -fullbleed">
+    <div class="hero-block<?php echo $block_class; ?>" role="region">
+        <div class="hero_inner<?php echo $inner_class; ?>">
+            <div class="hero_swiper-container swiper-container -hero<?php echo $swiper_class; ?>">
 
                 <div class="swiper-wrapper">
                     <?php if ($slideshow): ?>
@@ -98,21 +103,25 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                     <?php endif; ?>
                 </div> <!--/.swiper-wrapper-->
 
-                <?php if ($slideshow && $i > 1): ?>
-                    <div class="swiper-pagination"></div>
+                <?php if ($slideshow && ($navigation || $pagination) && $i > 1): ?>
+                    <?php if ($navigation): ?>
+                        <div class="swiper-pagination"></div>
+                    <?php endif; ?>
 
-                    <button class="swiper-button -prev">
-                        <i class="fas fa-caret-left swiper-button-icon"></i>
-                        <span class="_visuallyhidden"><?php _e("Previous Slide", "__gulp_init__namespace"); ?></span>
-                    </button><!--/.swiper-button.-prev-->
+                    <?php if ($pagination): ?>
+                        <button class="swiper-button -prev">
+                            <i class="fas fa-caret-left swiper-button-icon"></i>
+                            <span class="_visuallyhidden"><?php _e("Previous Slide", "__gulp_init__namespace"); ?></span>
+                        </button><!--/.swiper-button.-prev-->
 
-                    <button class="swiper-button -next">
-                        <i class="fas fa-caret-right swiper-button-icon"></i>
-                        <span class="_visuallyhidden"><?php _e("Next Slide", "__gulp_init__namespace"); ?></span>
-                    </button><!--/.swiper-button.-next-->
+                        <button class="swiper-button -next">
+                            <i class="fas fa-caret-right swiper-button-icon"></i>
+                            <span class="_visuallyhidden"><?php _e("Next Slide", "__gulp_init__namespace"); ?></span>
+                        </button><!--/.swiper-button.-next-->
+                    <?php endif; ?>
                 <?php endif; ?>
 
-            </div><!--/.hero_swiper-container.swiper-container.-hero.-fullbleed-->
-        </div><!--/.hero_inner.-fullbleed-->
-    </div><!--/.hero-block.-fullbleed._nopadding-->
+            </div><!--/.hero_swiper-container.swiper-container.-hero-->
+        </div><!--/.hero_inner-->
+    </div><!--/.hero-block-->
 <?php endif; ?>

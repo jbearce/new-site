@@ -1,6 +1,7 @@
 <?php
-$class = isset($class) ? " {$class}" : "";
-$links = isset($links) ? $links : paginate_links(array("type" => "array"));
+$class = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
+$light = isset($template_args["light"]) ? $template_args["light"] : false;
+$links = isset($template_args["links"]) ? $template_args["links"] : paginate_links(array("type" => "array"));
 ?>
 <?php if ($links): ?>
     <nav class="menu-list_container<?php echo $class; ?>">
