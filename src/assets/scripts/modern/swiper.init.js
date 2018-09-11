@@ -2,6 +2,8 @@
 
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
+import Swiper from "swiper";
+
 // init swiper
 if (document.querySelectorAll(".swiper-container.-hero .swiper-slide").length > 1) {
     new Swiper (".swiper-container.-hero", {

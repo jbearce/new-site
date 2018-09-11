@@ -2,6 +2,8 @@
 
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
+import toolbox from "sw-toolbox";
+
 ((global) => {
     // disable the service worker for post previews
     global.addEventListener("fetch", (event) => {

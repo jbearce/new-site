@@ -12,6 +12,9 @@
         "Swiper",
         "toolbox"
     },
+    "parserOptions": {
+        "sourceType": "module"
+    },
     "rules": {
         "curly": [2, "all"],
         "indent": [2, 4],
