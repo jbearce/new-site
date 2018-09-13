@@ -60,7 +60,7 @@ module.exports = {
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, sass(eyeglass({outputStyle: "compressed"})), sass(eyeglass({eyeglass: { includePaths: "../node_modules" }}))))
+                .pipe(plugins.gulpif(plugins.argv.dist, sass(eyeglass({outputStyle: "compressed"})), sass(eyeglass({ includePaths: "./node_modules" }))))
                 // process post CSS stuff
                 .pipe(postcss([require("pixrem"), require("postcss-clearfix"), require("postcss-easing-gradients"), require("postcss-flexibility"), require("postcss-responsive-type")]))
                 // write sourcemap (if --dist isn't passed)
