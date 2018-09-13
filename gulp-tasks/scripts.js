@@ -23,20 +23,30 @@ module.exports = {
 
         // process scripts
         const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
-            return gulp.src(source)
-                // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
-                // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
-                // run webpack
-                .pipe(webpack({
-                    mode: plugins.argv.dist ? "production" : "development",
-                    output: {
-                        filename: file_name,
-                    }
-                }))
-                // output to compiled directory
-                .pipe(gulp.dest(js_directory));
+            return new Promise((resolve, reject) => {
+                const TASK = gulp.src(source)
+                    // prevent breaking on error
+                    .pipe(plugins.plumber({errorHandler: on_error}))
+                    // check if source is newer than destination
+                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
+                    // run webpack
+                    .pipe(webpack({
+                        mode: plugins.argv.dist ? "production" : "development",
+                        output: {
+                            filename: file_name,
+                        }
+                    }))
+                    // output to compiled directory
+                    .pipe(gulp.dest(js_directory))
+                    // reject after errors
+                    .on("error", () => {
+                        reject(TASK);
+                    })
+                    // return the task after completion
+                    .on("end", () => {
+                        resolve(TASK);
+                    });
+            });
         };
 
         // scripts task, lints, concatenates, & compresses JS
@@ -57,39 +67,50 @@ module.exports = {
             // get the script folder list
             const script_folders = plugins.fs.readdirSync(source_directory);
 
-            // @TODO figure out how to make this run synchronously
-            script_folders.forEach((file) => {
-                // ensure the read file is a folder
-                if (plugins.fs.statSync(source_directory + "/" + file).isDirectory()) {
+            // process all the script folders
+            const process_script_folders = () => {
+                return new Promise((resolve) => {
+                    const FOLDER = script_folders.shift();
+
                     // lint all scripts, except for critical
-                    if (file !== "critical") {
-                        const linted = lint_scripts(js_directory, file + ".js", source_directory + "/" + file + "/**/*");
+                    if (FOLDER !== "critical") {
+                        const linted = lint_scripts(js_directory, FOLDER + ".js", source_directory + "/" + FOLDER + "/**/*");
                         merged_streams.add(linted);
                     }
 
-                    // process all scripts
-                    const processed = process_scripts(js_directory, file + ".js", source_directory + "/" + file + "/**/*");
-                    merged_streams.add(processed);
-                }
+                    process_scripts(js_directory, FOLDER + ".js", source_directory + "/" + FOLDER + "/**/*").then((processed) => {
+                        merged_streams.add(processed);
+
+                        if (script_folders.length > 0) {
+                            process_script_folders();
+                        } else {
+                            // @TODO figure out why this isn't resolving
+                            resolve();
+                        }
+                    });
+                });
+            };
+
+            return process_script_folders().then(() => {
+                // merge all five steams back in to one
+                return merged_streams
+                    // prevent breaking on error
+                    .pipe(plugins.plumber({errorHandler: on_error}))
+                    // reload files
+                    .pipe(plugins.browser_sync.reload({stream: true}))
+                    // notify that task is complete, if not part of default or watch
+                    .pipe(plugins.gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
+                    // push task to ran_tasks array
+                    .on("data", () => {
+                        if (ran_tasks.indexOf("scripts") < 0) {
+                            ran_tasks.push("scripts");
+                        }
+                    })
+                    .on("end", () => {
+                        return resolve();
+                    });
             });
 
-            // merge all five steams back in to one
-            return merged_streams
-                // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
-                // reload files
-                .pipe(plugins.browser_sync.reload({stream: true}))
-                // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Scripts task complete!", onLast: true})))
-                // push task to ran_tasks array
-                .on("data", () => {
-                    if (ran_tasks.indexOf("scripts") < 0) {
-                        ran_tasks.push("scripts");
-                    }
-                })
-                .on("end", () => {
-                    return resolve();
-                });
         });
     }
 };
