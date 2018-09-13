@@ -88,6 +88,7 @@
   },
   "private": true,
   "dependencies": {
+    "@dotsunited/load-css-polyfill": "^1.2.0",
     "fg-loadcss": "^2.0.1",
     "flexibility": "^2.0.1",
     "focus-trap": "^3.0.0",
