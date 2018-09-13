@@ -5,6 +5,7 @@
 module.exports = {
     styles(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
+        const eyeglass  = require("eyeglass");
         const postcss   = require("gulp-postcss");
         const sass      = require("gulp-sass");
         const stylelint = require("gulp-stylelint");
@@ -59,7 +60,7 @@ module.exports = {
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, sass({outputStyle: "compressed"}), sass()))
+                .pipe(plugins.gulpif(plugins.argv.dist, sass(eyeglass({outputStyle: "compressed"})), sass(eyeglass({eyeglass: { includePaths: "../node_modules" }}))))
                 // process post CSS stuff
                 .pipe(postcss([require("pixrem"), require("postcss-clearfix"), require("postcss-easing-gradients"), require("postcss-flexibility"), require("postcss-responsive-type")]))
                 // write sourcemap (if --dist isn't passed)

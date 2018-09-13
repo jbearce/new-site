@@ -8,15 +8,13 @@
 
 /* These styles are intended to be global */
 
-@media print {
-    // Vendor
+// Vendor
 
-    @import "../../vendor/_gutenberg";
+@import "node_modules/gutenberg-web-type/assets/combined";
 
-    // Custom
+// Custom
 
-    a[href^="//"]::after {
-        content: " (" attr(href) ")";
-        font-size: 80%;
-    }
+a[href^="//"]::after {
+    content: " (" attr(href) ")";
+    font-size: 80%;
 }
