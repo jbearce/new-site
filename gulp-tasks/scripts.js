@@ -70,15 +70,15 @@ module.exports = {
             // process all the script folders
             const process_script_folders = () => {
                 return new Promise((resolve) => {
-                    const FOLDER = script_folders.shift();
+                    const folder = script_folders.shift();
 
                     // lint all scripts, except for critical
-                    if (FOLDER !== "critical") {
-                        const linted = lint_scripts(js_directory, FOLDER + ".js", source_directory + "/" + FOLDER + "/**/*");
+                    if (folder !== "critical") {
+                        const linted = lint_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*");
                         merged_streams.add(linted);
                     }
 
-                    process_scripts(js_directory, FOLDER + ".js", source_directory + "/" + FOLDER + "/**/*").then((processed) => {
+                    process_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*").then((processed) => {
                         merged_streams.add(processed);
 
                         if (script_folders.length > 0) {
