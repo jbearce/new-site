@@ -50,9 +50,10 @@
                         </div><!--/.col-auto-->
                         <div class="col-auto -nogrow -noshrink _noprint">
                             <?php if (has_nav_menu("primary")): ?>
-                                <button class="header_menu-toggle menu-toggle -rounded _hidden-xs">
-                                    <?php _e("View Menu", "__gulp_init__namespace"); ?>
-                                </button><!--/.header_menu-toggle.menu-toggle.-rounded._hidden-xs-->
+                                <button class="header_panel-toggle panel-toggle _hidden-xs" data-toggle="mobile-menu">
+                                    <i class="panel-toggle_icon fas fa-fw fa-bars"></i>
+                                    <span class="_visuallyhidden"><?php _e("View Menu", "__gulp_init__namespace"); ?></span>
+                                </button><!--/.header_panel-toggle.panel-toggle._hidden-xs-->
                             <?php endif; // has_nav_menu("primary") ?>
                             <div class="header_search-form_container search-form_container _nomargin _visible-xs" role="search">
                                 <?php get_search_form(); ?>

@@ -1,0 +1,20 @@
+// Styles written by __gulp_init__author_name @ __gulp_init__author_company
+
+/* ------------------------------------------------------------------------ *\
+ * Panel Toggle
+\* ------------------------------------------------------------------------ */
+
+.panel-toggle {
+    & {
+        background: none;
+        border: 0;
+        color: $accent;
+        cursor: pointer;
+        font-size: remify(24, 16);
+        height: remify(40, 24);
+        margin: 0;
+        padding: 0;
+        position: relative;
+        width: remify(40, 24);
+    }
+}

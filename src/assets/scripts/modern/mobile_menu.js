@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const MENU_CONTAINER      = document.querySelector(".navigation-block.-flyout");
     const MENU                = document.querySelector(".navigation-block.-flyout .navigation_inner");
     const OVERLAY             = document.querySelector(".navigation-block.-flyout .navigation_background");
-    const TOGGLE              = document.querySelector(".menu-toggle");
+    const TOGGLE              = document.querySelector("[data-toggle=mobile-menu]");
     const ACTIVE_CLASS        = "is-active";
     const TRANSITIONING_CLASS = "is-transitioning";
     const MAX_OPACITY         = 0.5; // if changed, don't forget to change opacity in css
@@ -298,8 +298,13 @@ document.addEventListener("DOMContentLoaded", () => {
         trackable_element.addEventListener("touchmove", ON_TOUCH_MOVE, false);
         trackable_element.addEventListener("touchend", ON_TOUCH_END, false);
 
-        OVERLAY.addEventListener("click", CLOSE_MENU_overlay, false); // click the overlay to immediately close the menu
-        TOGGLE.addEventListener("click", CLICK_OPEN_MENU, false);     // click the toggle to immediately open the menu
+        if (OVERLAY !== null) {
+            OVERLAY.addEventListener("click", CLOSE_MENU_overlay, false); // click the overlay to immediately close the menu
+        }
+
+        if (TOGGLE !== null) {
+            TOGGLE.addEventListener("click", CLICK_OPEN_MENU, false);     // click the toggle to immediately open the menu
+        }
     };
 
     INIT(MENU);
