@@ -72,17 +72,18 @@ module.exports = {
                 return new Promise((resolve) => {
                     const folder = script_folders.shift();
 
-                    // lint all scripts, except for critical
+                    // lint all scripts, except for critical, update the stream
                     if (folder !== "critical") {
                         const linted = lint_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*");
                         merged_streams.add(linted);
                     }
 
+                    // process all scripts, update the stream
                     process_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*").then((processed) => {
                         merged_streams.add(processed);
                         resolve();
                     });
-                }).then(() => script_folders.length > 0 ? process_script_folders() : resolve());
+                }).then(() => script_folders.length > 0 ? process_script_folders() : resolve()); // loop again if foldres remain, otherwise resolve
             };
 
             return process_script_folders().then(() => {
