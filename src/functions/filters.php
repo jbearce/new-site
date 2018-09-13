@@ -340,9 +340,7 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $DOM = remove_extra_tags($DOM);
-
-        $html = $DOM->saveHTML();
+        $html = remove_extra_tags($DOM);
     }
 
     return $html;
