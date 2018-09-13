@@ -4,6 +4,8 @@
 
 // Inspired by https://medium.com/outsystems-experts/gestures-glamour-setting-up-a-touch-menu-6d9b94039997#.d2r8ubylw
 
+import focusTrap from "focus-trap";
+
 document.addEventListener("DOMContentLoaded", () => {
     const MENU_CONTAINER      = document.querySelector(".navigation-block.-flyout");
     const MENU                = document.querySelector(".navigation-block.-flyout .navigation_inner");

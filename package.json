@@ -82,7 +82,16 @@
     "stylelint-scss": "^2.4.0",
     "through2": "^2.0.3",
     "vinyl-ftp": "github:JacobDB/vinyl-ftp#issue-90",
+    "webpack-stream": "^5.1.1",
     "yargs": "^11.0.0"
   },
-  "private": true
+  "private": true,
+  "dependencies": {
+    "fg-loadcss": "^2.0.1",
+    "flexibility": "^2.0.1",
+    "focus-trap": "^3.0.0",
+    "layzr.js": "^2.2.2",
+    "sw-toolbox": "^3.6.0",
+    "swiper": "^4.3.5"
+  }
 }
