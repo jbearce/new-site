@@ -30,6 +30,9 @@ prepros-6.cfg
 # Resources
 .resources/
 
+# Eyeglass
+.eyeglass_cache
+
 # Configuration settings
 .bsconfig
 .ftpconfig
