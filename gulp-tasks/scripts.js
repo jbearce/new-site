@@ -80,15 +80,9 @@ module.exports = {
 
                     process_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*").then((processed) => {
                         merged_streams.add(processed);
-
-                        if (script_folders.length > 0) {
-                            process_script_folders();
-                        } else {
-                            // @TODO figure out why this isn't resolving
-                            resolve();
-                        }
+                        resolve();
                     });
-                });
+                }).then(() => script_folders.length > 0 ? process_script_folders() : resolve());
             };
 
             return process_script_folders().then(() => {
