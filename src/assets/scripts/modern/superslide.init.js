@@ -31,8 +31,6 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
     TOGGLE.addEventListener("click", (e) => {
         e.preventDefault();
 
-        console.log(MOBILE_MENU.isOpen());
-
         if (!MOBILE_MENU.isOpen()) {
             MOBILE_MENU.open();
         } else {
