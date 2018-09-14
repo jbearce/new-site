@@ -19,6 +19,12 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
         duration:     0.25,
         slideContent: false,
         slider:       document.getElementById("mobile-menu"),
+        beforeOpen:   () => {
+            CONTENT.classList.add("-overlay");
+        },
+        beforeClose:   () => {
+            CONTENT.classList.remove("-overlay");
+        },
         onOpen:       () => {
             SLIDER.setAttribute("aria-hidden", false);
         },
