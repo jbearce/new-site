@@ -3,11 +3,13 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 import SuperSlide from "superslide.js";
+import focusTrap from "focus-trap";
 
 // get the elements
 const CONTENT    = document.getElementById("page-container");
 const SLIDER     = document.getElementById("mobile-menu");
 const TOGGLE     = document.querySelector("[data-toggle=mobile-menu]");
+const FOCUS_TRAP = focusTrap("#mobile-menu");
 
 // verify that the elements exist
 if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
@@ -22,9 +24,11 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
         slider:                  document.getElementById("mobile-menu"),
         onOpen:                  () => {
             SLIDER.setAttribute("aria-hidden", false);
+            FOCUS_TRAP.activate();
         },
         onClose:                 () => {
             SLIDER.setAttribute("aria-hidden", true);
+            FOCUS_TRAP.deactivate();
         },
     });
 
