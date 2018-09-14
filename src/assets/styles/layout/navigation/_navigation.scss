@@ -39,88 +39,15 @@
 
 .navigation-block.-flyout {
     & {
-        height: 0;
-        left: 0;
+        background: $accent;
+        height: 100%;
+        left: -999em;
         position: fixed;
         top: 0;
-        width: 0;
         z-index: 100000;
     }
 
-    > .navigation_background {
-        background: transparentize($dark, 0.6);
-        border: 0;
-        content: "\0020";
-        display: none;
-        height: 100vh;
-        left: 0;
-        margin: 0;
-        opacity: 0;
-        padding: 0;
-        position: fixed;
-        top: 0;
-        transition: opacity 0.3s cubic-bezier(0, 0, 0.3, 1);
-        visibility: hidden;
-        width: 100vw;
-        will-change: opacity;
-    }
-
-    > .navigation_background.is-active {
-        display: block;
-        visibility: visible;
-    }
-
-    &.is-active > .navigation_background.is-active {
-        opacity: 0.5;
-    }
-
     > .navigation_inner {
-        background-color: $accent;
-        height: 100%;
-        max-width: remify(350, 16);
         padding: 0;
-        pointer-events: auto;
-        position: fixed;
-        transform: translateX(-100%);
-        transition: transform 0.25s ease-out;
-        width: 90%;
-        will-change: transform;
-        z-index: 160;
-    }
-
-    &.is-active > .navigation_inner,
-    &.is-transitioning > .navigation_inner {
-        box-shadow: remify(0 2 6, 16) transparentize($dark, 0.5);
-    }
-
-    &.is-active > .navigation_inner {
-        transform: none;
-    }
-
-    > .navigation_inner::after {
-        content: "\0020";
-        display: block;
-        height: 100vh;
-        left: 100%;
-        position: absolute;
-        top: 0;
-        width: 2vw;
-    }
-
-    > .navigation_inner > * {
-        transition: visibility 0s 0.3s;
-        visibility: hidden;
-    }
-
-    &.is-active > .navigation_inner > *,
-    &.is-transitioning > .navigation_inner > * {
-        transition: none;
-        visibility: visible;
-    }
-
-    > .navigation_inner > .navigation_scroller {
-        max-height: 100%;
-        overflow: auto;
-        overscroll-behavior: contain;
     }
 }

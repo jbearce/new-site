@@ -39,7 +39,7 @@
         </noscript>
     </head>
     <body <?php body_class(); ?>>
-        <div class="page_container">
+        <div class="page_container" id="page-container">
             <div class="header-block -fullbleed" role="banner">
                 <div class="header_inner">
                     <div class="header_row row -between -vcenter">
