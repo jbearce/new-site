@@ -96,7 +96,7 @@
     "layzr.js": "^2.2.2",
     "normalize-scss": "^7.0.1",
     "picturefill": "^3.0.2",
-    "superslide.js": "^1.0.0",
+    "superslide.js": "github:JacobDB/SuperSlide.js#issue-2",
     "sw-toolbox": "^3.6.0",
     "swiper": "^4.3.5"
   }
