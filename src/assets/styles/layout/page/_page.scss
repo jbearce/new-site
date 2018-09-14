@@ -40,10 +40,14 @@ body {
     &.-active,
     &.-transitioning {
         left: 0;
-        transition: opacity 0.15s;
     }
 
     &.-active {
         opacity: 0.5;
+        transition: opacity 0.15s;
+    }
+
+    &.-transitioning {
+        transition: none;
     }
 }
