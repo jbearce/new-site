@@ -272,6 +272,42 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     return $meta;
 }
 
+// function to construct an image to make lazy loading simpler
+function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = "img") {
+    $element = "<{$tag}";
+
+    // build an srcset
+    if (gettype($src) === "array") { $i = 0;
+        $element .= " src='{$src["1x"]}' srcset='";
+
+        foreach ($src as $dpi => $source) { $i++;
+            $element .= "{$source} {$dpi}" . ($i < count($src) ? ", " : "");
+        }
+
+        $element .= "'";
+    } else {
+        $source_att = $tag === "source" ? "srcset" : "src";
+
+        $element .= " {$source_att}='{$src}'";
+    }
+
+    // add attributes
+    if (!empty($atts)) {
+        foreach ($atts as $att => $value) {
+            $element .= " {$att}='{$value}'";
+        }
+    }
+
+    $element .= " />";
+
+    // lazy load the image
+    if ($lazy && $tag === "img") {
+        $element = apply_filters("__gulp_init__namespace_lazy_load_images", $element);
+    }
+
+    return $element;
+}
+
 // make calls to hm_get_templtae_part easier
 function __gulp_init__namespace_get_template_part($file, $template_args = array(), $cache_args = array()) {
     hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);

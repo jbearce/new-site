@@ -34,15 +34,15 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                     <?php if ($image["sizes"]["{$image_size}"]): ?>
                                         <picture class="swiper-picture">
                                             <?php if ($image["sizes"]["{$image_size}_large"]): ?>
-                                                <source srcset="<?php echo $image["sizes"]["{$image_size}_large"]; ?>" media="(min-width: 64em)" />
+                                                <?php echo __gulp_init__namespace_img($image["sizes"]["{$image_size}_large"], array("media" => "(min-width: 64em)"), false, "source"); ?>
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}_medium"]): ?>
-                                                <source srcset="<?php echo $image["sizes"]["{$image_size}_medium"]; ?>" media="(min-width: 40em)" />
+                                                <?php echo __gulp_init__namespace_img($image["sizes"]["{$image_size}_medium"], array("media" => "(min-width: 40em)"), false, "source"); ?>
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}"]): ?>
-                                                <img class="swiper-image" src="<?php echo $image["sizes"]["{$image_size}"]; ?>" alt="<?php echo htmlspecialchars($image["alt"]); ?>" />
+                                                <?php echo __gulp_init__namespace_img($image["sizes"]["{$image_size}"], array("alt" => $image["alt"], "class" => "swiper-image")); ?>
                                             <?php endif; ?>
                                         </picture><!--/.swiper-picture-->
                                     <?php endif; ?>
@@ -77,15 +77,15 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 
                             <picture class="swiper-picture">
                                 <?php if ($featured_image["large"]): ?>
-                                    <source srcset="<?php echo $featured_image["large"]; ?>" media="(min-width: 64em)" />
+                                    <?php echo __gulp_init__namespace_img($featured_image["large"], array("media" => "(min-width: 64em)"), false, "source"); ?>
                                 <?php endif; ?>
 
                                 <?php if ($featured_image["medium"]): ?>
-                                    <source srcset="<?php echo $featured_image["medium"]; ?>" media="(min-width: 40em)" />
+                                    <?php echo __gulp_init__namespace_img($featured_image["medium"], array("media" => "(min-width: 40em)"), false, "source"); ?>
                                 <?php endif; ?>
 
                                 <?php if ($featured_image["small"]): ?>
-                                    <img class="swiper-image" src="<?php echo $featured_image["small"]; ?>" alt="<?php echo htmlspecialchars($featured_image["alt"]); ?>" />
+                                    <?php echo __gulp_init__namespace_img($featured_image["small"], array("alt" => $featured_image["alt"], "class" => "swiper-image")); ?>
                                 <?php endif; ?>
                             </picture><!--/.swiper-picture-->
 

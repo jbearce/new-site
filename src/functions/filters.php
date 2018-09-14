@@ -283,6 +283,21 @@ function __gulp_init__namespace_add_user_content_classes($content) {
             $iframe_container_clone->appendChild($iframe);
         }
 
+        // remove unneeded tags (inserted for parsing reasons)
+        $content = remove_extra_tags($DOM);
+    }
+
+    return $content;
+}
+add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 20);
+add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 20);
+
+// lazy load images
+function __gulp_init__namespace_lazy_load_images($content) {
+    if ($content) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
         // XPath required otherwise an infinite loop occurs
         $XPath = new DOMXPath($DOM);
 
@@ -321,8 +336,10 @@ function __gulp_init__namespace_add_user_content_classes($content) {
 
     return $content;
 }
-add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 20);
-add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 20);
+add_filter("the_content", "__gulp_init__namespace_lazy_load_images", 20);
+add_filter("acf_the_content", "__gulp_init__namespace_lazy_load_images", 20);
+add_filter("post_thumbnail_html", "__gulp_init__namespace_lazy_load_images", 20);
+add_filter("__gulp_init__namespace_lazy_load_images", "__gulp_init__namespace_lazy_load_images", 20);
 
 // remove dimensions from thumbnails
 function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
