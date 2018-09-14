@@ -13,17 +13,16 @@ const TOGGLE     = document.querySelector("[data-toggle=mobile-menu]");
 if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
     // initialize the menu
     const MOBILE_MENU = new SuperSlide({
-        allowContentInteraction: false,
-        animation:               "slideLeft",
-        closeOnBlur:             true,
-        content:                 document.getElementById("page-container"),
-        duration:                0.25,
-        slideContent:            false,
-        slider:                  document.getElementById("mobile-menu"),
-        onOpen:                  () => {
+        animation:    "slideLeft",
+        closeOnBlur:  true,
+        content:      document.getElementById("page-container"),
+        duration:     0.25,
+        slideContent: false,
+        slider:       document.getElementById("mobile-menu"),
+        onOpen:       () => {
             SLIDER.setAttribute("aria-hidden", false);
         },
-        onClose:                 () => {
+        onClose:      () => {
             SLIDER.setAttribute("aria-hidden", true);
         },
     });
