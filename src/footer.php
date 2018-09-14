@@ -9,25 +9,22 @@
         </div><!--/.page_container-->
         <?php if (has_nav_menu("primary")): ?>
             <div class="navigation-block -flyout _hidden-xs _noncritical" role="navigation" aria-hidden="true" id="mobile-menu">
-                <button class="navigation_background"><span class="_visuallyhidden"><?php _e("Close Menu", "__gulp_init__namespace"); ?></span></button>
                 <div class="navigation_inner">
-                    <div class="navigation_scroller">
-                        <div class="navigation_search-form_container search-form_container _nomargin">
-                            <?php get_search_form(); ?>
-                        </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
-                        <?php
-                        wp_nav_menu(array(
-                            "container"      => false,
-                            "depth"          => 3,
-                            "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
-                            "theme_location" => "primary",
-                            "walker"         => new __gulp_init__namespace_menu_walker("accordion"),
-                        ));
-                        ?>
-                    </div><!--/.navigation_scroller-->
+                    <div class="navigation_search-form_container search-form_container _nomargin">
+                        <?php get_search_form(); ?>
+                    </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
+                    <?php
+                    wp_nav_menu(array(
+                        "container"      => false,
+                        "depth"          => 3,
+                        "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
+                        "theme_location" => "primary",
+                        "walker"         => new __gulp_init__namespace_menu_walker("accordion"),
+                    ));
+                    ?>
                 </div><!--/.navigation_inner-->
             </div><!--/.navigation-block.-flyout._hidden-xs._noncritical-->
-        <?php endif; // has_nav_menu("primary") ?>
+        <?php endif; ?>
         <?php wp_footer(); ?>
     </body>
 </html>
