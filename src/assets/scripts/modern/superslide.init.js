@@ -18,6 +18,7 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
         closeOnBlur:  true,
         content:      document.getElementById("page-container"),
         duration:     0.25,
+        height:       "100vh",
         slideContent: false,
         slider:       document.getElementById("mobile-menu"),
         beforeOpen:   () => {
