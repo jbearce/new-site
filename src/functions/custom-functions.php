@@ -272,7 +272,7 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     return $meta;
 }
 
-// function to construct an image to make lazy loading simpler
+// function to construct an image to make srcsets and lazy loading simpler
 function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
 
