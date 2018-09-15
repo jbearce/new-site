@@ -12,10 +12,6 @@ const TOGGLE  = document.querySelector("[data-toggle=mobile-menu]");
 
 // verify that the elements exist
 if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
-    const DISABLE_TOUCH_SCROLL = (e) => {
-        e.preventDefault();
-    };
-
     // initialize the menu
     const MOBILE_MENU = new SuperSlide({
         animation:    "slideLeft",
@@ -28,11 +24,8 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
             OVERLAY.classList.remove("-transitioning");
             OVERLAY.classList.add("-active");
             OVERLAY.style.removeProperty("opacity");
-
-            CONTENT.addEventListener("touchmove", DISABLE_TOUCH_SCROLL, false);
         },
         beforeClose:   () => {
-            CONTENT.removeEventListener("touchmove", DISABLE_TOUCH_SCROLL);
             OVERLAY.classList.remove("-active");
         },
         onOpen:       () => {
@@ -42,8 +35,6 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
             SLIDER.setAttribute("aria-hidden", true);
         },
         onDrag:       (completion) => {
-            CONTENT.addEventListener("touchmove", DISABLE_TOUCH_SCROLL, false);
-
             OVERLAY.classList.add("-transitioning");
             OVERLAY.style.opacity = completion / 2;
         }

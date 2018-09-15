@@ -42,6 +42,7 @@
         background: $accent;
         height: 100%;
         left: -999em;
+        overscroll-behavior: contain;
         position: fixed;
         top: 0;
         z-index: 100000;
