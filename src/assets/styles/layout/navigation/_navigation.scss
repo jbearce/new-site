@@ -40,7 +40,7 @@
 .navigation-block.-flyout {
     & {
         background: $accent;
-        height: 100%;
+        height: 100vw !important;
         left: -999em;
         position: fixed;
         top: 0;
