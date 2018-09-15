@@ -6,8 +6,8 @@
                     <?php endif; ?>
                 </div><!--/.footer_inner-->
             </div><!--/.footer-block.-fullbleed-->
-            <div class="page_overlay" id="page-overlay"></div>
         </div><!--/.page_container-->
+        <div class="page_overlay" id="page-overlay"></div>
         <?php if (has_nav_menu("primary")): ?>
             <div class="navigation-block -flyout _hidden-xs _noncritical" role="navigation" aria-hidden="true" id="mobile-menu">
                 <div class="navigation_inner">

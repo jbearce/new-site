@@ -40,12 +40,15 @@
 .navigation-block.-flyout {
     & {
         background: $accent;
-        height: 100% !important;
-        height: 100vh !important;
+        height: 100%;
         left: -999em;
         position: fixed;
         top: 0;
         z-index: 100000;
+    }
+
+    &.-active {
+        left: 0;
     }
 
     > .navigation_inner {

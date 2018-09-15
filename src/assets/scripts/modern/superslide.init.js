@@ -12,22 +12,27 @@ const TOGGLE  = document.querySelector("[data-toggle=mobile-menu]");
 
 // verify that the elements exist
 if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
+    const DISABLE_TOUCH_SCROLL = (e) => {
+        e.preventDefault();
+    };
+
     // initialize the menu
     const MOBILE_MENU = new SuperSlide({
         animation:    "slideLeft",
         closeOnBlur:  true,
-        content:      document.getElementById("page-container"),
+        content:      CONTENT,
         duration:     0.25,
-        height:       "100vh",
         slideContent: false,
-        slider:       document.getElementById("mobile-menu"),
+        slider:       SLIDER,
         beforeOpen:   () => {
             OVERLAY.classList.remove("-transitioning");
             OVERLAY.classList.add("-active");
             OVERLAY.style.removeProperty("opacity");
+
+            CONTENT.addEventListener("touchmove", DISABLE_TOUCH_SCROLL, false);
         },
         beforeClose:   () => {
-            CONTENT.classList.remove("-overlay");
+            CONTENT.removeEventListener("touchmove", DISABLE_TOUCH_SCROLL);
             OVERLAY.classList.remove("-active");
         },
         onOpen:       () => {
@@ -37,8 +42,19 @@ if (CONTENT !== null && SLIDER !== null && TOGGLE !== null) {
             SLIDER.setAttribute("aria-hidden", true);
         },
         onDrag:       (completion) => {
+            CONTENT.addEventListener("touchmove", DISABLE_TOUCH_SCROLL, false);
+
             OVERLAY.classList.add("-transitioning");
             OVERLAY.style.opacity = completion / 2;
+        }
+    });
+
+    // close the menu when clicking on the overlay
+    OVERLAY.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        if (MOBILE_MENU.isOpen()) {
+            MOBILE_MENU.close();
         }
     });
 
