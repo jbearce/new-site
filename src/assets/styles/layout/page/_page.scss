@@ -15,6 +15,7 @@ body {
 
 .page_container {
     & {
+        box-shadow: remify(0 0 10, 16) transparentize($dark, 0.75);
         min-height: 100%;
         overflow: hidden;
         position: relative;
