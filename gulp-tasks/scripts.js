@@ -24,6 +24,12 @@ module.exports = {
         // process scripts
         const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
             return new Promise((resolve, reject) => {
+                const WEBPACK_CONFIG = require("../webpack.config.js");
+
+                // update webpack config for the current target destination and file name
+                WEBPACK_CONFIG.mode   = plugins.argv.dist ? "production" : WEBPACK_CONFIG.mode;
+                WEBPACK_CONFIG.output = {filename: file_name};
+
                 const TASK = gulp.src(source)
                     // prevent breaking on error
                     .pipe(plugins.plumber({errorHandler: on_error}))
@@ -31,10 +37,7 @@ module.exports = {
                     .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
                     // run webpack
                     .pipe(webpack({
-                        mode: plugins.argv.dist ? "production" : "development",
-                        output: {
-                            filename: file_name,
-                        }
+                        config: WEBPACK_CONFIG,
                     }))
                     // output to compiled directory
                     .pipe(gulp.dest(js_directory))
