@@ -5,8 +5,9 @@
 module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const eslint  = require("gulp-eslint");
-        const webpack = require("webpack-stream");
+        const eslint         = require("gulp-eslint");
+        const webpack        = require("webpack-stream");
+        const webpack_config = require("../webpack.config.js");
 
         // lint custom scripts
         const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/**/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor/**/*"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
@@ -24,11 +25,9 @@ module.exports = {
         // process scripts
         const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
             return new Promise((resolve, reject) => {
-                const WEBPACK_CONFIG = require("../webpack.config.js");
-
                 // update webpack config for the current target destination and file name
-                WEBPACK_CONFIG.mode   = plugins.argv.dist ? "production" : WEBPACK_CONFIG.mode;
-                WEBPACK_CONFIG.output = {filename: file_name};
+                webpack_config.mode   = plugins.argv.dist ? "production" : webpack_config.mode;
+                webpack_config.output = {filename: file_name};
 
                 const TASK = gulp.src(source)
                     // prevent breaking on error
@@ -36,9 +35,7 @@ module.exports = {
                     // check if source is newer than destination
                     .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
                     // run webpack
-                    .pipe(webpack({
-                        config: WEBPACK_CONFIG,
-                    }))
+                    .pipe(webpack(webpack_config))
                     // output to compiled directory
                     .pipe(gulp.dest(js_directory))
                     // reject after errors
