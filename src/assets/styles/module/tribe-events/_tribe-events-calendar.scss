@@ -27,7 +27,7 @@
         vertical-align: top;
     }
 
-    @media screen and (max-width: 768px) {
+    @include smaller-than(s, true) {
         height: remify(50, 16);
     }
 
@@ -47,7 +47,7 @@
     }
 
     &.mobile-active {
-        @media screen and (max-width: 768px) {
+        @include smaller-than(s, true) {
             background: mix(color("background"), color("primary"));
         }
     }
@@ -57,13 +57,13 @@
             position: relative;
         }
 
-        @media screen and (max-width: 768px) {
+        @include smaller-than(s, true) {
             display: none;
         }
     }
 
     .tribe-events-indicator {
-        @media screen and (min-width: 769px) {
+        @include larger-than(s, false) {
             display: none;
         }
     }
@@ -151,7 +151,7 @@
 /* stylelint-disable selector-max-id */
 
 #tribe-mobile-container {
-    @media screen and (min-width: 769px) {
+    @include larger-than(s, false) {
         display: none;
     }
 }

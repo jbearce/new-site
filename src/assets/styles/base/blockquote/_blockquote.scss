@@ -14,7 +14,7 @@
 
 /* tablet variant */
 
-@media screen and (min-width: $xs-break) {
+@include larger-than(xs) {
     .blockquote {
         padding-left: remify(27, 16);
     }

@@ -142,7 +142,7 @@
 // $xs-break
 
 ._visible-xs {
-    @media screen and (max-width: $xs-break - (1 / 16)) {
+    @include smaller-than(xs) {
         display: none !important;
     }
 }
@@ -150,7 +150,7 @@
 // $s-break
 
 ._visible-s {
-    @media screen and (max-width: $s-break - (1 / 16)) {
+    @include smaller-than(s) {
         display: none !important;
     }
 }
@@ -158,7 +158,7 @@
 // $m-break
 
 ._visible-m {
-    @media screen and (max-width: $m-break - (1 / 16)) {
+    @include smaller-than(m) {
         display: none !important;
     }
 }
@@ -166,7 +166,7 @@
 // $l-break
 
 ._visible-l {
-    @media screen and (max-width: $l-break - (1 / 16)) {
+    @include smaller-than(l) {
         display: none !important;
     }
 }
@@ -174,7 +174,7 @@
 // $xl-break
 
 ._visible-xl {
-    @media screen and (max-width: $xl-break - (1 / 16)) {
+    @include smaller-than(xl) {
         display: none !important;
     }
 }
@@ -184,7 +184,7 @@
 // $xs-break
 
 ._hidden-xs {
-    @media screen and (min-width: $xs-break) {
+    @include larger-than(xs) {
         display: none !important;
     }
 }
@@ -192,7 +192,7 @@
 // $s-break
 
 ._hidden-s {
-    @media screen and (min-width: $s-break) {
+    @include larger-than(s) {
         display: none !important;
     }
 }
@@ -200,7 +200,7 @@
 // $m-break
 
 ._hidden-m {
-    @media screen and (min-width: $m-break) {
+    @include larger-than(m) {
         display: none !important;
     }
 }
@@ -208,7 +208,7 @@
 // $l-break
 
 ._hidden-l {
-    @media screen and (min-width: $l-break) {
+    @include larger-than(l) {
         display: none !important;
     }
 }
@@ -216,7 +216,7 @@
 // $xl-break
 
 ._hidden-xl {
-    @media screen and (min-width: $xl-break) {
+    @include larger-than(xl) {
         display: none !important;
     }
 }

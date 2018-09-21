@@ -100,3 +100,31 @@
         font-size: ($size / $base) * 100vw;
     }
 }
+
+// Create a media query relatie to a break point variable
+
+@mixin smaller-than($point-name, $inclusive: false) {
+    $width: map-get($breakpoints, $point-name);
+
+    @if $inclusive == false {
+        $width: $width - (1 / 16);
+    }
+
+    @media (max-width: $width) {
+        @content;
+    }
+}
+
+// Create a media query relatie to a break point variable
+
+@mixin larger-than($point-name, $inclusive: true) {
+    $width: map-get($breakpoints, $point-name);
+
+    @if $inclusive == false {
+        $width: $width + (1 / 16);
+    }
+
+    @media (min-width: $width) {
+        @content;
+    }
+}

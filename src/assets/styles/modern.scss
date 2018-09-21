@@ -3,38 +3,38 @@
 @import "helpers/_helpers";
 @import "views/_screen";
 
-@media screen and (min-width: $xxxs-break) {
+@include larger-than(xxxs) {
     @import "views/_screen_xxxs";
 }
 
-@media screen and (min-width: $xxs-break) {
+@include larger-than(xxs) {
     @import "views/_screen_xxs";
 }
 
-@media screen and (min-width: $xs-break) {
+@include larger-than(xs) {
     @import "views/_screen_xs";
 }
 
-@media screen and (min-width: $s-break) {
+@include larger-than(s) {
     @import "views/_screen_s";
 }
 
-@media screen and (min-width: $m-break) {
+@include larger-than(m) {
     @import "views/_screen_m";
 }
 
-@media screen and (min-width: $l-break) {
+@include larger-than(l) {
     @import "views/_screen_l";
 }
 
-@media screen and (min-width: $xl-break) {
+@include larger-than(xl) {
     @import "views/_screen_xl";
 }
 
-@media screen and (min-width: $xxl-break) {
+@include larger-than(xxl) {
     @import "views/_screen_xxl";
 }
 
-@media screen and (min-width: $xxxl-break) {
+@include larger-than(xxxl) {
     @import "views/_screen_xxxl";
 }

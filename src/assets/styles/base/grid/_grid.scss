@@ -148,7 +148,7 @@
     }
 }
 
-@media screen and (min-width: $xs-break) {
+@include larger-than(xs) {
     .col-xs-auto {
         & {
             flex-basis: auto;
@@ -162,7 +162,7 @@
     }
 }
 
-@media screen and (min-width: $s-break) {
+@include larger-than(s) {
     .col-s-auto {
         & {
             flex-basis: auto;
@@ -176,7 +176,7 @@
     }
 }
 
-@media screen and (min-width: $m-break) {
+@include larger-than(m) {
     .col-m-auto {
         & {
             flex-basis: auto;
@@ -190,7 +190,7 @@
     }
 }
 
-@media screen and (min-width: $l-break) {
+@include larger-than(l) {
     .col-l-auto {
         & {
             flex-basis: auto;
@@ -204,7 +204,7 @@
     }
 }
 
-@media screen and (min-width: $xl-break) {
+@include larger-than(xl) {
     .col-xl-auto {
         & {
             flex-basis: auto;
