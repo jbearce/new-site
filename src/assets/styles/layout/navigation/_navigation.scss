@@ -10,7 +10,7 @@
     }
 }
 
-.navigation_inner {
+.navigation__inner {
     & {
         background: color("accent");
         margin: 0 auto;
@@ -21,23 +21,23 @@
 
 /* fullbleed variant */
 
-.navigation-block.-fullbleed {
+.navigation-block.--fullbleed {
     & {
         background: color("accent");
     }
 
-    > .navigation_inner {
+    > .navigation__inner {
         background: none;
     }
 
-    > .navigation_inner.-fullbleed {
+    > .navigation__inner.--fullbleed {
         max-width: none;
     }
 }
 
 /* flyout variant */
 
-.navigation-block.-flyout {
+.navigation-block.--flyout {
     & {
         background: color("accent");
         overscroll-behavior: contain;
@@ -49,7 +49,7 @@
         display: none;
     }
 
-    > .navigation_inner {
+    > .navigation__inner {
         padding: 0;
     }
 }

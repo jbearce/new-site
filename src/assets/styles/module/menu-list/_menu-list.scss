@@ -6,7 +6,7 @@
 
 /* ============================ GLOBAL VARIANTS =========================== */
 
-.menu-list_container {
+.menu-list__container {
     & {
         clear: fix;
     }
@@ -22,30 +22,30 @@
     }
 }
 
-.menu-list_item {
+.menu-list__item {
     & {
         float: left;
         position: relative;
     }
 
-    &.-parent {
+    &.--parent {
         display: flex;
         flex-wrap: wrap;
     }
 }
 
-.menu-list_link {
+.menu-list__link {
     & {
         display: block;
     }
 
-    .menu-list_item.-parent > & {
+    .menu-list__item.--parent > & {
         flex: 1 1 1%;
         min-width: 0;
     }
 }
 
-.menu-list_toggle {
+.menu-list__toggle {
     & {
         background: none;
         border: 0;
@@ -56,23 +56,23 @@
         margin: 0;
     }
 
-    > .icon {
+    > .toggle__icon {
         transition: transform 0.15s;
     }
 
-    .menu-list_item.is-active > & > .icon {
+    .menu-list__item.is-active > & > .toggle__icon {
         transform: rotate(-180deg);
     }
 }
 
 /* flex variant */
 
-.menu-list.-flex {
+.menu-list.--flex {
     & {
         display: flex;
     }
 
-    &:not(.-between) {
+    &:not(.--between) {
         text-align: center;
     }
 
@@ -80,62 +80,62 @@
         display: none;
     }
 
-    > .menu-list_item {
+    > .menu-list__item {
         flex: 1 1 0%;
     }
 
-    &:not(.-between):not(.-center) > .menu-list_item {
+    &:not(.--between):not(.--center) > .menu-list__item {
         min-width: 0;
     }
 }
 
 /* flex between variant */
 
-.menu-list.-flex.-between {
+.menu-list.--flex.--between {
     & {
         justify-content: space-between;
     }
 
-    > .menu-list_item {
+    > .menu-list__item {
         flex: 0 0 auto;
     }
 }
 
 /* flex center variant */
 
-.menu-list.-flex.-center {
+.menu-list.--flex.--center {
     & {
         justify-content: center;
     }
 
-    > .menu-list_item {
+    > .menu-list__item {
         flex: 0 0 auto;
     }
 }
 
 /* vertical variant */
 
-.menu-list.-vertical {
-    > .menu-list_item {
+.menu-list.--vertical {
+    > .menu-list__item {
         float: none;
     }
 }
 
 /* child variant */
 
-.menu-list.-child {
+.menu-list.--child {
     & {
         min-width: 100%;
     }
 
-    .menu-list_item {
+    .menu-list__item {
         float: none;
     }
 }
 
 /* child accordion variant */
 
-.menu-list.-child.-accordion {
+.menu-list.--child.--accordion {
     & {
         max-height: 0;
         overflow: hidden;
@@ -143,7 +143,7 @@
         visibility: hidden;
     }
 
-    .menu-list_item.-parent.is-active > & {
+    .menu-list__item.--parent.is-active > & {
         max-height: remify(1000, 16);
         transition: max-height 0.25s;
         visibility: visible;
@@ -152,7 +152,7 @@
 
 /* child overlay variant */
 
-.menu-list.-child.-overlay {
+.menu-list.--child.--overlay {
     & {
         left: -999em;
         opacity: 0;
@@ -162,8 +162,8 @@
         visibility: hidden;
     }
 
-    .menu-list_item.-parent:hover > &,
-    .menu-list_item.-parent.is-active > & {
+    .menu-list__item.--parent:hover > &,
+    .menu-list__item.--parent.is-active > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -173,7 +173,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list_item.-parent:focus-within > & {
+    .menu-list__item.--parent:focus-within > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -184,16 +184,16 @@
 
 /* child overlay depth 2 variant */
 
-.menu-list.-child.-overlay.-depth-2 {
-    .menu-list_item.-parent:hover > &,
-    .menu-list_item.-parent.is-active > & {
+.menu-list.--child.--overlay.--depth-2 {
+    .menu-list__item.--parent:hover > &,
+    .menu-list__item.--parent.is-active > & {
         left: 100%;
         top: 0;
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list_item.-parent:focus-within > & {
+    .menu-list__item.--parent:focus-within > & {
         left: 100%;
         top: 0;
     }
@@ -203,7 +203,7 @@
 
 /* mega variant */
 
-.menu-list_container.-mega {
+.menu-list__container.--mega {
     & {
         display: flex;
         left: -999em;
@@ -214,8 +214,8 @@
         visibility: hidden;
     }
 
-    .menu-list_item.-mega.-parent:hover > &,
-    .menu-list_item.-mega.-parent.is-active > & {
+    .menu-list__item.--mega.--parent:hover > &,
+    .menu-list__item.--mega.--parent.is-active > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -223,18 +223,18 @@
         visibility: visible;
     }
 
-    .menu-list.-tier1 {
+    .menu-list.--depth-1 {
         flex: 0 0 auto;
     }
 
-    .menu-list.-tier2 {
+    .menu-list.--depth-2 {
         flex: 0 0 100%;
     }
 }
 
 /* meta variant */
 
-.menu-list.-meta {
+.menu-list.--meta {
     & {
         color: color("foreground", "tint");
         font-display: swap;
@@ -246,23 +246,23 @@
         text-transform: uppercase;
     }
 
-    .menu-list_item:not(:last-child) {
+    .menu-list__item:not(:last-child) {
         margin-right: remify(20, 14);
     }
 
-    .menu-list_link {
+    .menu-list__link {
         color: color("foreground", "tint");
         display: inline-block;
     }
 
-    .menu-list_link:hover {
+    .menu-list__link:hover {
         color: color("foreground", "tint");
     }
 }
 
 /* navigation variant */
 
-.menu-list.-navigation {
+.menu-list.--navigation {
     & {
         font-display: swap;
         font-family: $body-font;
@@ -270,100 +270,100 @@
         font-weight: 400;
     }
 
-    .menu-list_link,
-    .menu-list_toggle {
+    .menu-list__link,
+    .menu-list__toggle {
         color: color("light");
         padding: remify(8 16, 20);
         transition: background-color 0.15s;
     }
 
-    .menu-list_link:focus,
-    .menu-list_link:hover,
-    .menu-list_item:hover > .menu-list_link,
-    .menu-list_item.is-active > .menu-list_link,
-    .menu-list_toggle:focus,
-    .menu-list_toggle:hover,
-    .menu-list_item:hover > .menu-list_toggle,
-    .menu-list_item.is-active > .menu-list_toggle {
+    .menu-list__link:focus,
+    .menu-list__link:hover,
+    .menu-list__item:hover > .menu-list__link,
+    .menu-list__item.is-active > .menu-list__link,
+    .menu-list__toggle:focus,
+    .menu-list__toggle:hover,
+    .menu-list__item:hover > .menu-list__toggle,
+    .menu-list__item.is-active > .menu-list__toggle {
         background-color: color("accent");
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list_item:focus-within > .menu-list_link,
-    .menu-list_item:focus-within > .menu-list_toggle {
+    .menu-list__item:focus-within > .menu-list__link,
+    .menu-list__item:focus-within > .menu-list__toggle {
         background-color: color("accent");
     }
 
     // child
 
-    .menu-list.-child {
+    .menu-list.--child {
         background: transparentize(color("accent"), 0.05);
         font-size: remify(16, 20);
     }
 
-    .menu-list.-child .menu-list_link {
+    .menu-list.--child .menu-list__link {
         padding: remify(4 16, 16);
     }
 
-    .menu-list.-child > .menu-list_item:first-child > .menu-list_link {
+    .menu-list.--child > .menu-list__item:first-child > .menu-list__link {
         padding-top: remify(8, 16);
     }
 
-    .menu-list.-child > .menu-list_item:last-child > .menu-list_link {
+    .menu-list.--child > .menu-list__item:last-child > .menu-list__link {
         padding-bottom: remify(8, 16);
     }
 
-    .menu-list.-child .menu-list_link:focus,
-    .menu-list.-child .menu-list_link:hover,
-    .menu-list.-child:not(.-mega) .menu-list_item:hover > .menu-list_link,
-    .menu-list.-child:not(.-mega) .menu-list_item.is-active > .menu-list_link,
-    .menu-list.-child .menu-list_toggle:focus,
-    .menu-list.-child .menu-list_toggle:hover,
-    .menu-list.-child:not(.-mega) .menu-list_item:hover > .menu-list_toggle,
-    .menu-list.-child:not(.-mega) .menu-list_item.is-active > .menu-list_toggle {
+    .menu-list.--child .menu-list__link:focus,
+    .menu-list.--child .menu-list__link:hover,
+    .menu-list.--child:not(.--mega) .menu-list__item:hover > .menu-list__link,
+    .menu-list.--child:not(.--mega) .menu-list__item.is-active > .menu-list__link,
+    .menu-list.--child .menu-list__toggle:focus,
+    .menu-list.--child .menu-list__toggle:hover,
+    .menu-list.--child:not(.--mega) .menu-list__item:hover > .menu-list__toggle,
+    .menu-list.--child:not(.--mega) .menu-list__item.is-active > .menu-list__toggle {
         background-color: transparentize(color("light"), 0.9);
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list.-child:not(.-mega) .menu-list_item:focus-within > .menu-list_link,
-    .menu-list.-child:not(.-mega) .menu-list_item:focus-within > .menu-list_toggle {
+    .menu-list.--child:not(.--mega) .menu-list__item:focus-within > .menu-list__link,
+    .menu-list.--child:not(.--mega) .menu-list__item:focus-within > .menu-list__toggle {
         background-color: transparentize(color("light"), 0.9);
     }
 
     // child depth 2
 
-    .menu-list.-child.-depth-2 {
+    .menu-list.--child.--depth-2 {
         background: linear-gradient(to bottom, transparentize(color("light"), 0.9) 0%, transparentize(color("light"), 0.9) 100%), transparentize(color("accent"), 0.05);
         font-size: remify(16, 16);
     }
 
     // line up the flyout with its parent
-    .menu-list_item.-parent:not(:first-child) > .menu-list.-child.-depth-2.-overlay {
+    .menu-list__item.--parent:not(:first-child) > .menu-list.--child.--depth-2.--overlay {
         transform: translateY(#{remify(-4, 20)});
     }
 
     /* mega */
 
-    .menu-list_container.-mega {
+    .menu-list__container.--mega {
         background: transparentize(color("accent"), 0.05);
     }
 
-    .menu-list.-child.-mega {
+    .menu-list.--child.--mega {
         background: none;
     }
 
-    .menu-list.-child.-depth-1.-mega {
+    .menu-list.--child.--depth-1.--mega {
         min-width: 0;
         width: remify(200, 16);
     }
 
-    .menu-list.-child.-depth-1.-mega:not(:last-child) {
+    .menu-list.--child.--depth-1.--mega:not(:last-child) {
         border-right: remify(1) solid darken(color("accent"), 5);
     }
 
-    .menu-list.-child.-mega.-depth-2 .menu-list_link {
+    .menu-list.--child.--mega.--depth-2 .menu-list__link {
         background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23FFFFFF' d='M25.3,16c0,0.3-0.1,0.5-0.3,0.7L10.1,31.7C9.9,31.9,9.6,32,9.3,32c-0.3,0-0.5-0.1-0.7-0.3L7,30.1c-0.2-0.2-0.3-0.5-0.3-0.7c0-0.3,0.1-0.5,0.3-0.7L19.6,16L7,3.4C6.8,3.2,6.7,2.9,6.7,2.7S6.8,2.1,7,1.9l1.6-1.6C8.8,0.1,9.1,0,9.3,0c0.3,0,0.5,0.1,0.7,0.3L25,15.3C25.2,15.5,25.3,15.7,25.3,16z' /%3E%3C/svg%3E%0A");
         background-position: remify(16 11, 16);
         background-repeat: no-repeat;
@@ -373,14 +373,14 @@
     }
 
     // accomodate the additional padding on first menu items
-    .menu-list.-child.-mega.-depth-2 > .menu-list_item:first-child > .menu-list_link {
+    .menu-list.--child.--mega.--depth-2 > .menu-list__item:first-child > .menu-list__link {
         background-position: remify(16 15, 16);
     }
 }
 
 /* pagination variant */
 
-.menu-list.-pagination {
+.menu-list.--pagination {
     & {
         font-display: swap;
         font-family: $body-font;
@@ -388,11 +388,11 @@
         font-weight: 400;
     }
 
-    .menu-list_item:not(:last-child) {
+    .menu-list__item:not(:last-child) {
         margin-right: remify(8, 14);
     }
 
-    .menu-list_link.-current {
+    .menu-list__link.--current {
         color: color("foreground");
         cursor: auto;
     }
@@ -400,7 +400,7 @@
 
 /* submenu variant */
 
-.menu-list.-submenu {
+.menu-list.--submenu {
     & {
         font-display: swap;
         font-family: $body-font;
@@ -408,22 +408,22 @@
         font-weight: 400;
     }
 
-    .menu-list_link {
+    .menu-list__link {
         border-bottom: remify(2) solid color("background", "shade");
         padding: remify(9 0, 18);
     }
 
-    .menu-list.-child {
+    .menu-list.--child {
         padding: remify(4.5 0, 18);
     }
 
-    .menu-list.-child .menu-list_link {
+    .menu-list.--child .menu-list__link {
         background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23DDDDDD' d='M25.3,16c0,0.3-0.1,0.5-0.3,0.7L10.1,31.7C9.9,31.9,9.6,32,9.3,32c-0.3,0-0.5-0.1-0.7-0.3L7,30.1c-0.2-0.2-0.3-0.5-0.3-0.7c0-0.3,0.1-0.5,0.3-0.7L19.6,16L7,3.4C6.8,3.2,6.7,2.9,6.7,2.7S6.8,2.1,7,1.9l1.6-1.6C8.8,0.1,9.1,0,9.3,0c0.3,0,0.5,0.1,0.7,0.3L25,15.3C25.2,15.5,25.3,15.7,25.3,16z' /%3E%3C/svg%3E%0A") remify(0 11, 18) / remify(13.5 13.5, 18) no-repeat;
         border-bottom: 0;
         padding: remify(4.5 0 4.5 18, 18);
     }
 
-    .menu-list.-child.-depth-2 {
+    .menu-list.--child.--depth-2 {
         padding-left: remify(18, 18);
     }
 }

@@ -4,13 +4,13 @@
  * Article
 \* ------------------------------------------------------------------------ */
 
-.article_figure {
+.article__figure {
     & {
         margin: remify(0 0 30, 16);
     }
 }
 
-.article_image {
+.article__image {
     & {
         display: block;
         width: 100%;
@@ -19,21 +19,21 @@
 
 /* excerpt variant */
 
-.article.-excerpt {
+.article.--excerpt {
     & + & {
         border-top: remify(1) solid color("background", "shade");
         padding-top: remify(16, 16);
     }
 
-    .article_title {
+    .article__title {
         font-size: remify(18, 16);
     }
 
-    .article_header > .article_title:not(:last-child) {
+    .article__header > .article__title:not(:last-child) {
         margin-bottom: 0;
     }
 
-    .article_header > .article_title:not(:last-child) + * {
+    .article__header > .article__title:not(:last-child) + * {
         margin-bottom: remify(10, 16);
     }
 }

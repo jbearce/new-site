@@ -10,7 +10,7 @@
     }
 }
 
-.header_inner {
+.header__inner {
     & {
         background: color("background");
         margin: 0 auto;
@@ -19,7 +19,7 @@
     }
 }
 
-.header_logo {
+.header__logo {
     & {
         max-width: remify(200, 16);
     }
@@ -27,18 +27,18 @@
 
 /* fullbleed variant */
 
-.header-block.-fullbleed {
+.header-block.--fullbleed {
     & {
         background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 
-    > .header_inner {
+    > .header__inner {
         background: none;
         padding: 0;
     }
 
-    > .header_inner.-fullbleed {
+    > .header__inner.--fullbleed {
         max-width: none;
     }
 }

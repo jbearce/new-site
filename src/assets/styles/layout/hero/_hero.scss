@@ -10,7 +10,7 @@
     }
 }
 
-.hero_inner {
+.hero__inner {
     & {
         background: color("background");
         margin: 0 auto;
@@ -21,18 +21,18 @@
 
 /* fullbleed variant */
 
-.hero-block.-fullbleed {
+.hero-block.--fullbleed {
     & {
         background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 
-    > .hero_inner {
+    > .hero__inner {
         background: none;
         padding: 0;
     }
 
-    > .hero_inner.-fullbleed {
+    > .hero__inner.--fullbleed {
         max-width: none;
     }
 }

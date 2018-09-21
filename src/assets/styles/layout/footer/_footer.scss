@@ -10,7 +10,7 @@
     }
 }
 
-.footer_inner {
+.footer__inner {
     & {
         background: color("page_background");
         margin: 0 auto;
@@ -21,18 +21,18 @@
 
 /* fullbleed variant */
 
-.footer-block.-fullbleed {
+.footer-block.--fullbleed {
     & {
         background: color("page_background");
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 
-    > .footer_inner {
+    > .footer__inner {
         background: none;
         padding: 0;
     }
 
-    > .footer_inner.-fullbleed {
+    > .footer__inner.--fullbleed {
         max-width: none;
     }
 }

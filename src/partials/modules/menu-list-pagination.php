@@ -4,8 +4,8 @@ $light = isset($template_args["light"]) ? $template_args["light"] : false;
 $links = isset($template_args["links"]) ? $template_args["links"] : paginate_links(array("type" => "array"));
 ?>
 <?php if ($links): ?>
-    <nav class="menu-list_container<?php echo $class; ?>">
-        <ul class="menu-list -pagination -center">
+    <nav class="menu-list__container<?php echo $class; ?>">
+        <ul class="menu-list --pagination --center">
             <?php foreach ($links as $link): ?>
                 <?php
                 // replace double quote with single quote for consistancy
@@ -18,10 +18,10 @@ $links = isset($template_args["links"]) ? $template_args["links"] : paginate_lin
                 $link = preg_replace("/current/", "-current", $link);
                 ?>
 
-                <li class="menu-list_item">
+                <li class="menu-list__item">
                     <?php echo $link; ?>
-                </li><!--/.menu-list_item-->
+                </li><!--/.menu-list__item-->
             <?php endforeach; ?>
-        </ul><!--/.menu-list.-pagination.-center-->
-    </nav><!--/.contenT_menu-list_container.menu-list_container-->
+        </ul><!--/.menu-list.--pagination.--center-->
+    </nav><!--/.menu-list__container-->
 <?php endif; ?>

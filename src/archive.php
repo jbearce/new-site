@@ -1,8 +1,8 @@
 <?php get_header(); ?>
 <?php __gulp_init__namespace_get_template_part("partials/layouts/hero.php"); ?>
-<div class="content-block -fullbleed">
-    <div class="content_inner">
-        <div class="content_post">
+<div class="content-block --fullbleed">
+    <div class="content__inner">
+        <div class="content__post">
             <?php do_action("__gulp_init__namespace_before_content"); ?>
 
             <?php
@@ -11,36 +11,38 @@
             $archive_content = isset($queried_object->description) && $queried_object->description ? $queried_object->description : get_the_archive_description();
             ?>
 
-            <?php if ($archive_title): ?>
-                <header class="content_header">
-                    <h1 class="content_title title">
-                        <?php echo apply_filters("the_title", $archive_title, 0); ?>
-                    </h1><!--/.content_title.title-->
-                </header><!--/.content_header-->
-            <?php endif; // if (get_the_archive_title()) ?>
+            <?php if ($archive_title || $archive_content): ?>
+                <article class="content__article article --introduction">
+                    <?php if ($archive_title): ?>
+                        <header class="article__header">
+                            <h1 class="article__title title"><?php echo $archive_title; ?></h1>
+                        </header><!--/.article__header-->
+                    <?php endif; ?>
 
-            <?php if ($archive_content): ?>
-                <div class="content_content">
-                    <div class="content_user-content user-content">
-                        <?php echo apply_filters("the_content", $archive_content); ?>
-                    </div><!--/.content_user-content.user-content-->
-                </dv><!--/.content_content-->
+                    <?php if ($archive_content): ?>
+                        <div class="article__content">
+                            <div class="article__user-content user-content">
+                                <?php echo apply_filters("the_content", $archive_content); ?>
+                            </div><!--/.article__user-content.user-content-->
+                        </dv><!--/.article__content-->
+                    <?php endif; ?>
+                </article><!--/.content__article.article.--introduction-->
             <?php endif; ?>
 
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    __gulp_init__namespace_get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "class" => "content_article"));
+                    __gulp_init__namespace_get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "class" => "content__article"));
                 }
             } else {
-                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("class" => "content_article", "error" => get_no_posts_message(get_queried_object())));
+                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("class" => "content__article", "error" => get_no_posts_message(get_queried_object())));
             }
             ?>
 
             <?php __gulp_init__namespace_get_template_part("partials/modules/menu-list-pagination.php"); ?>
 
             <?php do_action("__gulp_init__namespace_after_content"); ?>
-        </div><!--/.content_post-->
-    </div><!--/.content_inner-->
-</div><!--/.content-block.-fullbleed-->
+        </div><!--/.content__post-->
+    </div><!--/.content__inner-->
+</div><!--/.content-block.--fullbleed-->
 <?php get_footer(); ?>

@@ -34,7 +34,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
                 $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
 
                 if ($i > 1 && $has_columns[0] === "true" && intval($parent_id[0]) === $element->ID) {
-                    array_push($element->classes, "-mega"); break;
+                    array_push($element->classes, "--mega"); break;
                 }
             }
         }
@@ -57,7 +57,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
             }
 
             if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column_start", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
-                $output .= "</ul><ul class='menu-list -vertical -child -depth-1 -mega'>";
+                $output .= "</ul><ul class='menu-list --vertical --child --depth-1 --mega'>";
                 $this->column_count++;
             }
 
@@ -68,8 +68,8 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         $classes = $item->classes ? $item->classes : array();
 
         // add the menu-list_item class if the classes array contains menu-item
-        if (in_array("menu-item", $classes) && !in_array("menu-list_item", $classes))
-            $classes[] = "menu-list_item";
+        if (in_array("menu-item", $classes) && !in_array("menu-list__item", $classes))
+            $classes[] = "menu-list__item";
 
         // add the is-viewed class if the page is currently be viewed
         if (in_array("current_page_item", $classes) && !in_array("is-viewed", $classes))
@@ -80,8 +80,8 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
             $classes[] = "is-viewed";
 
         // add a the -parent class if the page has children
-        if (in_array("menu-item-has-children", $classes) && !in_array("-parent", $classes))
-            $classes[] = "-parent";
+        if (in_array("menu-item-has-children", $classes) && !in_array("--parent", $classes))
+            $classes[] = "--parent";
 
         // convert the clean_classes array in to usable string
         $class_names = " class='" . esc_attr(join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item))) . "'";
@@ -102,13 +102,13 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         $title = $item->title;
 
         // retrieve and sanitize the description
-        $uniqid           = uniqid("menu-list_description_");
+        $uniqid           = uniqid("menu-list__description__");
         $aria_describedby = $item->description ? " aria-describedby='{$uniqid}'" : "";
-        $description      = $item->description ? " <span class='menu-item_description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
+        $description      = $item->description ? " <span class='menu-item__description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
 
         // construct the menu item
         $output .= sprintf(
-            "<li%s><a class='menu-list_link link' href='%s'%s%s%s%s>%s</a>%s",
+            "<li%s><a class='menu-list__link link' href='%s'%s%s%s%s>%s</a>%s",
             $class_names,
             $url,
             $attr_title,
@@ -120,12 +120,12 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         );
 
         // mega menu stuff
-        if (in_array("mega", $params) && in_array("-mega", $classes)) {
+        if (in_array("mega", $params) && in_array("--mega", $classes)) {
             $this->is_mega = true;
 
             if ($depth === 0) {
-                $output .= "<button class='menu-list_toggle _visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init__namespace") . "</button>";
-                $output .= "<div class='menu-list_container -mega' aria-hidden='true'>";
+                $output .= "<button class='menu-list__toggle __visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init__namespace") . "</button>";
+                $output .= "<div class='menu-list__container --mega' aria-hidden='true'>";
             }
         }
     }
@@ -141,14 +141,14 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
             $toggle_class = "";
 
             if (in_array("touch", $params) && !in_array("accordion", $params)) {
-                $toggle_class = " _touch";
+                $toggle_class = " __touch";
             }
 
             if (in_array("hover", $params) && !in_array("accordion", $params)) {
-                $toggle_class .= " _visuallyhidden" . (in_array("touch", $params) ? " _mouse" : "");
+                $toggle_class .= " __visuallyhidden" . (in_array("touch", $params) ? " __mouse" : "");
             }
 
-            $toggle .= "<button class='menu-list_toggle{$toggle_class}'><i class='far fa-angle-down'></i><span class='_visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
+            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
         }
 
         // set up empty variant class
@@ -156,21 +156,21 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
 
         // add a -tier class indicting the depth
         if ($depth === 0) {
-            $variant .= " -depth-1";
+            $variant .= " --depth-1";
         } elseif ($depth === 1) {
-            $variant .= " -depth-2";
+            $variant .= " --depth-2";
         } elseif ($depth > 1) {
-            $variant .= " -depth-" . ($depth + 1);
+            $variant .= " --depth-" . ($depth + 1);
         }
 
         // add the appropriate variant class
         if ($this->is_mega) {
-            $variant .= " -mega";
+            $variant .= " --mega";
         } else {
             if (in_array("accordion", $params)) {
-                $variant .= " -accordion";
+                $variant .= " --accordion";
             } elseif (in_array("hover", $params) || in_array("touch", $params)) {
-                $variant .= " -overlay" . ($depth >= 1 ? " -flyout" : "");
+                $variant .= " --overlay" . ($depth >= 1 ? " --flyout" : "");
             }
         }
 
@@ -190,7 +190,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
         }
 
         // construct the menu list
-        $output .= "{$toggle}<ul class='menu-list -vertical -child{$variant}'{$data}{$aria}>";
+        $output .= "{$toggle}<ul class='menu-list --vertical --child{$variant}'{$data}{$aria}>";
     }
 
     public function end_lvl(&$output, $depth = 0, $args = array()) {
@@ -210,7 +210,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
             // get the current classes
             $classes = $item->classes ? $item->classes : array();
 
-            if (in_array("-mega", $classes)) {
+            if (in_array("--mega", $classes)) {
                 $this->is_mega = false;
 
                 $output .= "</div>";

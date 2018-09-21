@@ -1,27 +1,27 @@
 <?php get_header(); ?>
-<div class="content-block -fullbleed">
-    <div class="content_inner">
-        <div class="content_post">
+<div class="content-block --fullbleed">
+    <div class="content__inner">
+        <div class="content__post">
             <?php do_action("__gulp_init__namespace_before_content"); ?>
 
-            <div class="content_search-form_container search-form_container">
+            <div class="content_search-form__container search-form__container">
                 <?php get_search_form(); ?>
-            </div><!--/.content_search-form_container.search-form_container-->
+            </div><!--/.content_search-form__container.search-form__container-->
 
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    __gulp_init__namespace_get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "class" => "content_article"));
+                    __gulp_init__namespace_get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "class" => "content__article"));
                 }
             } else {
-                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("class" => "content_article", "error" => get_no_posts_message(get_queried_object())));
+                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("class" => "content__article", "error" => get_no_posts_message(get_queried_object())));
             }
             ?>
 
             <?php __gulp_init__namespace_get_template_part("partials/modules/menu-list-pagination.php"); ?>
 
             <?php do_action("__gulp_init__namespace_after_content"); ?>
-        </div><!--/.content_post-->
-    </div><!--/.content_inner-->
-</div><!--/.content-block.-fullbleed-->
+        </div><!--/.content__post-->
+    </div><!--/.content__inner-->
+</div><!--/.content-block.--fullbleed-->
 <?php get_footer(); ?>

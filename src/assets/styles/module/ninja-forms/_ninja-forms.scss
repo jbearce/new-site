@@ -121,13 +121,13 @@
         margin-bottom: remify(24, 16);
     }
 
-    .list-checkbox .input.-checkbox,
-    .list-radio .input.-radiobutton {
+    .list-checkbox .input.--checkbox,
+    .list-radio .input.--radiobutton {
         margin-bottom: remify(4, 16);
     }
 
-    .list-checkbox .text.-label,
-    .list-radio .text.-label {
+    .list-checkbox .text.--label,
+    .list-radio .text.--label {
         margin-bottom: remify(4, 16);
     }
 }
@@ -136,8 +136,8 @@
 
 @media (pointer: coarse) {
     .nf-field-container {
-        .list-checkbox_item:not(:last-child) .text.-label,
-        .list-radio_item:not(:last-child) .text.-label {
+        .list-checkbox__item:not(:last-child) .text.--label,
+        .list-radio__item:not(:last-child) .text.--label {
             margin-bottom: remify(24, 16);
         }
     }
@@ -182,13 +182,13 @@
 .nf-field-container {
     // above
 
-    &.label-above .nf-field-label > .text.-label {
+    &.label-above .nf-field-label > .text.--label {
         margin-bottom: remify(4, 16);
     }
 
     // below
 
-    &.label-below .nf-field-label > .text.-label {
+    &.label-below .nf-field-label > .text.--label {
         margin-top: remify(4, 16);
     }
 
@@ -202,13 +202,13 @@
 
     // left
 
-    &.label-left .nf-field-label > .text.-label {
+    &.label-left .nf-field-label > .text.--label {
         margin-right: remify(10, 16);
     }
 
     // right
 
-    &.label-right .nf-field-label > .text.-label {
+    &.label-right .nf-field-label > .text.--label {
         margin-left: remify(10, 16);
     }
 }

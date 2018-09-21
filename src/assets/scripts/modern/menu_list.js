@@ -3,9 +3,9 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 const MENU_LIST_INIT = () => {
-    const MENU_ITEMS   = document.querySelectorAll(".menu-list_item");
-    const MENU_LINKS   = document.querySelectorAll(".menu-list_link");
-    const MENU_TOGGLES = document.querySelectorAll(".menu-list_toggle");
+    const MENU_ITEMS   = document.querySelectorAll(".menu-list__item");
+    const MENU_LINKS   = document.querySelectorAll(".menu-list__link");
+    const MENU_TOGGLES = document.querySelectorAll(".menu-list__toggle");
 
     // function to mark elements as inactive
     // @param  {Element}  elem - An element to mark as inactive
@@ -31,7 +31,7 @@ const MENU_LIST_INIT = () => {
         let parent = elem.parentNode;
 
         setTimeout(() => {
-            while (parent && parent.nodeType === 1 && !parent.classList.contains("menu-list_container")) {
+            while (parent && parent.nodeType === 1 && !parent.classList.contains("menu-list__container")) {
                 if (parent.classList.contains("is-active") && !parent.contains(document.activeElement)) {
                     MARK_MENU_ITEM_INACTIVE(parent);
                 }
@@ -112,7 +112,7 @@ const MENU_LIST_INIT = () => {
             // mark active on touch
             MENU_ITEMS[i].addEventListener("touchstart", (e) => {
                 // check if the element is already active
-                if (MENU_ITEMS[i].classList.contains("-parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
+                if (MENU_ITEMS[i].classList.contains("--parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
                     e.preventDefault();
                     MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
                     MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);

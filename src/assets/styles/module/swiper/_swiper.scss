@@ -35,7 +35,7 @@
         width: 100%;
     }
 
-    .swiper-container.-fixedheight & {
+    .swiper-container.--fixedheight & {
         left: 50%;
         min-width: 100%;
         position: relative;
@@ -56,7 +56,7 @@
         max-width: remify($site-width, 16);
     }
 
-    .swiper-container.-fullbleed & .swiper-caption-inner {
+    .swiper-container.--fullbleed & .swiper-caption-inner {
         max-width: none;
     }
 }
@@ -79,22 +79,22 @@
         z-index: 999;
     }
 
-    &.-prev {
+    &.--prev {
         background: none;
         left: 0;
     }
 
-    .swiper-container-rtl &.-prev {
+    .swiper-container-rtl &.--prev {
         background: none;
         right: 0;
     }
 
-    &.-next {
+    &.--next {
         background: none;
         right: 0;
     }
 
-    .swiper-container-rtl &.-next {
+    .swiper-container-rtl &.--next {
         background: none;
         left: 0;
     }

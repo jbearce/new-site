@@ -4,7 +4,7 @@
  * Search Form
 \* ------------------------------------------------------------------------ */
 
-.search-form_container {
+.search-form__container {
     & {
         margin: remify(0 0 20, 16);
     }
@@ -16,7 +16,7 @@
     }
 }
 
-.search-form_input {
+.search-form__input {
     & {
         background: color("background");
         border: remify(1) solid color("background", "shade");
@@ -37,7 +37,7 @@
     }
 }
 
-.search-form_button {
+.search-form__button {
     & {
         background: none;
         border: 0;

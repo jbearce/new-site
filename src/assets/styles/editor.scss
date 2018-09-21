@@ -42,27 +42,27 @@ html {
     }
 
     h1 {
-        @extend .title.-h1;
+        @extend .title.--h1;
     }
 
     h2 {
-        @extend .title.-h2;
+        @extend .title.--h2;
     }
 
     h3 {
-        @extend .title.-h3;
+        @extend .title.--h3;
     }
 
     h4 {
-        @extend .title.-h4;
+        @extend .title.--h4;
     }
 
     h5 {
-        @extend .title.-h5;
+        @extend .title.--h5;
     }
 
     h6 {
-        @extend .title.-h6;
+        @extend .title.--h6;
     }
 
     p,
@@ -74,49 +74,49 @@ html {
 
     ol,
     ul {
-        @extend .text.-list;
+        @extend .text.--list;
     }
 
     ol li,
     ul li {
-        @extend .text_list-item;
+        @extend .text__list-item;
     }
 
     ol {
-        @extend .text.-list.-ordered;
+        @extend .text.--list.--ordered;
     }
 
     ul {
-        @extend .text.-list;
+        @extend .text.--list;
     }
 
     table {
-        @extend .text.-table;
+        @extend .text.--table;
     }
 
     table thead {
-        @extend .text_header;
+        @extend .text__header;
     }
 
     table tbody {
-        @extend .text_body;
+        @extend .text__body;
     }
 
     table tfoot {
-        @extend .text_footer;
+        @extend .text__footer;
     }
 
     table tr {
-        @extend .text_row;
+        @extend .text__row;
     }
 
     table td,
     table th {
-        @extend .text_cell;
+        @extend .text__cell;
     }
 
     table th {
-        @extend .text_cell.-header;
+        @extend .text__cell.--header;
     }
 
     blockquote {

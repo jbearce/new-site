@@ -13,8 +13,8 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 ?>
 <?php if ($slideshow || $featured_image): $i = 0; ?>
     <div class="hero-block<?php echo $block_class; ?>" role="region">
-        <div class="hero_inner<?php echo $inner_class; ?>">
-            <div class="hero_swiper-container swiper-container -hero<?php echo $swiper_class; ?>">
+        <div class="hero__inner<?php echo $inner_class; ?>">
+            <div class="hero__swiper-container swiper-container --hero<?php echo $swiper_class; ?>">
 
                 <div class="swiper-wrapper">
                     <?php if ($slideshow): ?>
@@ -51,15 +51,15 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                         <figcaption class="swiper-caption">
                                             <div class="swiper-caption-inner">
                                                 <?php if ($image["title"]): ?>
-                                                    <h6 class="swiper-title title<?php echo !$image["caption"] ? " _nomargin" : ""; ?>">
+                                                    <h6 class="swiper-title title<?php echo !$image["caption"] ? " __nomargin" : ""; ?>">
                                                         <?php echo $image["title"]; ?>
                                                     </h6><!--/.swiper-title.title-->
                                                 <?php endif; ?>
 
                                                 <?php if ($image["caption"]): ?>
-                                                    <div class="swiper-user-content user-content -light">
+                                                    <div class="swiper-user-content user-content --light">
                                                         <?php echo wpautop($image["caption"]); ?>
-                                                    </div><!--/.swiper-user-content.user-content.-light-->
+                                                    </div><!--/.swiper-user-content.user-content.--light-->
                                                 <?php endif; ?>
                                             </div><!--/.swiper-caption-inner-->
                                         </figcaption><!--/.swiper-caption-->
@@ -92,9 +92,9 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                             <?php if ($title): ?>
                                 <header class="swiper-caption">
                                     <div class="swiper-caption-inner">
-                                        <h1 class="swiper-title title _nomargin" role="heading">
+                                        <h1 class="swiper-title title __nomargin" role="heading">
                                             <?php echo $title; ?>
-                                        </h1><!--/.swiper-title.title._nomargin-->
+                                        </h1><!--/.swiper-title.title.__nomargin-->
                                     </div><!--/.swiper-caption-inner-->
                                 </header>
                             <?php endif; ?>
@@ -109,19 +109,19 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                     <?php endif; ?>
 
                     <?php if ($pagination): ?>
-                        <button class="swiper-button -prev">
-                            <i class="fas fa-caret-left swiper-button-icon"></i>
-                            <span class="_visuallyhidden"><?php _e("Previous Slide", "__gulp_init__namespace"); ?></span>
-                        </button><!--/.swiper-button.-prev-->
+                        <button class="swiper-button --prev">
+                            <i class="swiper-button-icon fas fa-caret-left"></i>
+                            <span class="__visuallyhidden"><?php _e("Previous Slide", "__gulp_init__namespace"); ?></span>
+                        </button><!--/.swiper-button.--prev-->
 
-                        <button class="swiper-button -next">
-                            <i class="fas fa-caret-right swiper-button-icon"></i>
-                            <span class="_visuallyhidden"><?php _e("Next Slide", "__gulp_init__namespace"); ?></span>
-                        </button><!--/.swiper-button.-next-->
+                        <button class="swiper-button --next">
+                            <i class="swiper-button-icon fas fa-caret-right"></i>
+                            <span class="__visuallyhidden"><?php _e("Next Slide", "__gulp_init__namespace"); ?></span>
+                        </button><!--/.swiper-button.--next-->
                     <?php endif; ?>
                 <?php endif; ?>
 
-            </div><!--/.hero_swiper-container.swiper-container.-hero-->
-        </div><!--/.hero_inner-->
+            </div><!--/.hero__swiper-container.swiper-container.--hero-->
+        </div><!--/.hero__inner-->
     </div><!--/.hero-block-->
 <?php endif; ?>

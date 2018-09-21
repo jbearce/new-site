@@ -29,7 +29,7 @@
 
 /* label variant */
 
-.text.-label {
+.text.--label {
     & {
         cursor: pointer;
     }
@@ -37,23 +37,23 @@
 
 /* list variant */
 
-.text.-list {
+.text.--list {
     & {
         padding: remify(0 0 0 24, 16);
     }
 
-    .text_list-item {
+    .text__list-item {
         display: list-item;
     }
 
-    .text_list-item:not(:last-child) {
+    .text__list-item:not(:last-child) {
         margin-bottom: remify(8, 16);
     }
 }
 
 /* list ordered variant */
 
-.text.-list.-ordered {
+.text.--list.--ordered {
     & {
         list-style: decimal;
     }
@@ -61,7 +61,7 @@
 
 /* list unordered variant */
 
-.text.-list.-unordered {
+.text.--list.--unordered {
     & {
         list-style: disc;
     }
@@ -69,57 +69,57 @@
 
 /* table variant */
 
-.text_table_container {
+.text__table__container {
     & {
         overflow: auto;
         width: 100%;
     }
 }
 
-.text.-table {
+.text.--table {
     & {
         border-collapse: collapse;
         display: table;
         width: 100%;
     }
 
-    .text_header {
+    .text__header {
         display: table-header-group;
     }
 
-    .text_body {
+    .text__body {
         display: table-row-group;
     }
 
-    .text_footer {
+    .text__footer {
         color: color("foreground", "tint");
         display: table-footer-group;
         font-style: italic;
     }
 
-    .text_row {
+    .text__row {
         display: table-row;
     }
 
-    .text_cell {
+    .text__cell {
         border: 0;
         padding: remify(6 8, 16);
         text-align: left;
         vertical-align: top;
     }
 
-    .text_header .text_cell {
+    .text__header .text__cell {
         border-bottom: remify(2) solid color("background", "tint");
         font-weight: 700;
     }
 
-    .text_body .text_cell.-header {
+    .text__body .text__cell.--header {
         font-weight: 700;
         text-align: left;
     }
 
-    > .text_row:nth-child(even) .text_cell,
-    .text_body .text_row:nth-child(even) .text_cell {
+    > .text__row:nth-child(even) .text__cell,
+    .text__body .text__row:nth-child(even) .text__cell {
         background: color("background", "tint");
     }
 }

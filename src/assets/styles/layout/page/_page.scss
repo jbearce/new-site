@@ -13,7 +13,7 @@ body {
     }
 }
 
-.page_container {
+.page__container {
     & {
         box-shadow: remify(0 0 10, 16) transparentize(color("dark"), 0.75);
         min-height: 100%;
@@ -23,7 +23,7 @@ body {
     }
 }
 
-.page_overlay {
+.page__overlay {
     & {
         background: color("dark");
         content: "";
@@ -38,17 +38,17 @@ body {
         z-index: 99999;
     }
 
-    &.-active,
-    &.-transitioning {
+    &.--active,
+    &.--transitioning {
         left: 0;
     }
 
-    &.-active {
+    &.--active {
         opacity: 0.5;
         transition: opacity 0.15s;
     }
 
-    &.-transitioning {
+    &.--transitioning {
         transition: none;
     }
 }

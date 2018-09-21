@@ -1,29 +1,31 @@
-            <div class="footer-block -fullbleed" role="contentinfo">
-                <div class="footer_inner">
-                    <p class="footer_text text _textcenter _nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
+            <div class="footer-block --fullbleed" role="contentinfo">
+                <div class="footer__inner">
+                    <p class="footer__text text __textcenter __nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
                     <?php if (is_front_page()): ?>
-                    <p class="footer_text text _textcenter _nomargin"><a class="footer_link link" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer_link link" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
+                    <p class="footer__text text __textcenter __nomargin"><a class="footer__link link --inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer__link link --inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
-                </div><!--/.footer_inner-->
-            </div><!--/.footer-block.-fullbleed-->
-        </div><!--/.page_container-->
+                </div><!--/.footer__inner-->
+            </div><!--/.footer-block.--fullbleed-->
+        </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
-            <div class="navigation-block -flyout _hidden-xs _noncritical" role="navigation" aria-hidden="true" id="mobile-menu">
+            <div class="navigation-block --flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu">
                 <div class="navigation_inner">
-                    <div class="navigation_search-form_container search-form_container _nomargin">
+                    <div class="navigation__search-form__container search-form__container __nomargin">
                         <?php get_search_form(); ?>
-                    </div><!--/.navigation_search-form_container.-search-form_container._nomargin-->
-                    <?php
-                    wp_nav_menu(array(
-                        "container"      => false,
-                        "depth"          => 3,
-                        "items_wrap"     => "<nav class='navigation_menu-list_container menu-list_container'><ul class='menu-list -navigation -accordion -vertical'>%3\$s</ul></nav>",
-                        "theme_location" => "primary",
-                        "walker"         => new __gulp_init__namespace_menu_walker("accordion"),
-                    ));
-                    ?>
-                </div><!--/.navigation_inner-->
-            </div><!--/.navigation-block.-flyout._hidden-xs._noncritical-->
+                    </div><!--/.navigation__search-form__container.search-form__container.__nomargin-->
+                    <nav class="navigation__menu-list__container menu-list_container">
+                        <?php
+                        wp_nav_menu(array(
+                            "container"      => false,
+                            "depth"          => 3,
+                            "items_wrap"     => "<ul class='menu-list --navigation --accordion --vertical'>%3\$s</ul>",
+                            "theme_location" => "primary",
+                            "walker"         => new __gulp_init__namespace_menu_walker("accordion"),
+                        ));
+                        ?>
+                    </nav><!--/.navigation__menu-list_container.menu-list__container-->
+                </div><!--/.navigation__inner-->
+            </div><!--/.navigation-block.--flyout.__hidden-xs.__noncritical-->
         <?php endif; ?>
         <?php wp_footer(); ?>
     </body>

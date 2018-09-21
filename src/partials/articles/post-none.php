@@ -6,8 +6,8 @@ $error = isset($template_args["error"]) ? $template_args["error"] : false;
 
 <?php if ($error): ?>
     <article class="article<?php echo $class; ?>">
-        <div class="article_content">
-            <p class="article_text text<?php if ($light): ?> _light<?php endif; ?>"><?php echo $error; ?></p>
-        </div><!--/.article_content-->
+        <div class="article__content">
+            <p class="article__text text<?php if ($light): ?> __light<?php endif; ?>"><?php echo $error; ?></p>
+        </div><!--/.article__content-->
     </article><!--/.article-->
 <?php endif; ?>

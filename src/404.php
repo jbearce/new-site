@@ -1,20 +1,20 @@
 <?php get_header(); ?>
-<div class="content-block -fullbleed">
-    <div class="content_inner">
-        <div class="content_post">
+<div class="content-block --fullbleed">
+    <div class="content__inner">
+        <div class="content__post">
             <?php do_action("__gulp_init__namespace_before_content"); ?>
 
-            <article class="content_article article">
-                <header class="article_header">
-                    <h1 class="article_title title"><?php _e("404: Page Not Found", "__gulp_init__namespace"); ?></h1>
-                </header><!--/.article_header-->
-                <div class="article_content">
-                    <p class="article_text text"><?php _e("This page could not be found. It may have been moved or deleted.", "__gulp_init__namespace"); ?></p>
-                </div><!--/.article_content-->
-            </article><!--/.content_article.article-->
+            <article class="content__article article">
+                <header class="article__header">
+                    <h1 class="article__title title"><?php _e("404: Page Not Found", "__gulp_init__namespace"); ?></h1>
+                </header><!--/.article__header-->
+                <div class="article__content">
+                    <p class="article__text text"><?php _e("This page could not be found. It may have been moved or deleted.", "__gulp_init__namespace"); ?></p>
+                </div><!--/.article__content-->
+            </article><!--/.content__article.article-->
 
             <?php do_action("__gulp_init__namespace_after_content"); ?>
-        </div><!--/.content_post-->
-    </div><!--/.content_inner-->
-</div><!--/.content-block.-fullbleed-->
+        </div><!--/.content__post-->
+    </div><!--/.content__inner-->
+</div><!--/.content-block.--fullbleed-->
 <?php get_footer(); ?>

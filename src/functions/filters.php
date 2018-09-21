@@ -96,9 +96,9 @@ function __gulp_init__namespace_add_user_content_classes($content) {
             $existing_classes = $anchor->getAttribute("class") ? $anchor->getAttribute("class") : "";
 
             if (preg_match("/button/i", $existing_classes)) {
-                $anchor->setAttribute("class", "user-content_button {$existing_classes}");
+                $anchor->setAttribute("class", "user-content__button {$existing_classes}");
             } else {
-                $anchor->setAttribute("class", "user-content_link link {$existing_classes}");
+                $anchor->setAttribute("class", "user-content__link link {$existing_classes}");
             }
 
             $existing_rel = $anchor->getAttribute("rel");
@@ -111,133 +111,133 @@ function __gulp_init__namespace_add_user_content_classes($content) {
         $h1s = $DOM->getElementsByTagName("h1");
 
         foreach ($h1s as $h1) {
-            $h1->setAttribute("class", "user-content_title title -h1 {$h1->getAttribute("class")}");
+            $h1->setAttribute("class", "user-content__title title --h1 {$h1->getAttribute("class")}");
         }
 
         $h2s = $DOM->getElementsByTagName("h2");
 
         foreach ($h2s as $h2) {
-            $h2->setAttribute("class", "user-content_title title -h2 {$h2->getAttribute("class")}");
+            $h2->setAttribute("class", "user-content__title title --h2 {$h2->getAttribute("class")}");
         }
 
         $h3s = $DOM->getElementsByTagName("h3");
 
         foreach ($h3s as $h3) {
-            $h3->setAttribute("class", "user-content_title title -h3 {$h3->getAttribute("class")}");
+            $h3->setAttribute("class", "user-content__title title --h3 {$h3->getAttribute("class")}");
         }
 
         $h4s = $DOM->getElementsByTagName("h4");
 
         foreach ($h4s as $h4) {
-            $h4->setAttribute("class", "user-content_title title -h4 {$h4->getAttribute("class")}");
+            $h4->setAttribute("class", "user-content__title title --h4 {$h4->getAttribute("class")}");
         }
 
         $h5s = $DOM->getElementsByTagName("h5");
 
         foreach ($h5s as $h5) {
-            $h5->setAttribute("class", "user-content_title title -h5 {$h5->getAttribute("class")}");
+            $h5->setAttribute("class", "user-content__title title --h5 {$h5->getAttribute("class")}");
         }
 
         $h6s = $DOM->getElementsByTagName("h6");
 
         foreach ($h6s as $h6) {
-            $h6->setAttribute("class", "user-content_title title -h6 {$h6->getAttribute("class")}");
+            $h6->setAttribute("class", "user-content__title title --h6 {$h6->getAttribute("class")}");
         }
 
         $paragraphs = $DOM->getElementsByTagName("p");
 
         foreach ($paragraphs as $paragraph) {
-            $paragraph->setAttribute("class", "user-content_text text {$paragraph->getAttribute("class")}");
+            $paragraph->setAttribute("class", "user-content__text text {$paragraph->getAttribute("class")}");
         }
 
         $ordered_lists = $DOM->getElementsByTagName("ol");
 
         foreach ($ordered_lists as $ordered_list) {
-            $ordered_list->setAttribute("class", "user-content_text text -list -ordered {$ordered_list->getAttribute("class")}");
+            $ordered_list->setAttribute("class", "user-content__text text --list --ordered {$ordered_list->getAttribute("class")}");
         }
 
         $unordered_lists = $DOM->getElementsByTagName("ul");
 
         foreach ($unordered_lists as $unordered_list) {
-            $unordered_list->setAttribute("class", "user-content_text text -list -unordered {$unordered_list->getAttribute("class")}");
+            $unordered_list->setAttribute("class", "user-content__text text --list --unordered {$unordered_list->getAttribute("class")}");
         }
 
         $list_items = $DOM->getElementsByTagName("li");
 
         foreach ($list_items as $list_item) {
-            $list_item->setAttribute("class", "text_list-item {$list_item->getAttribute("class")}");
+            $list_item->setAttribute("class", "text__list-item {$list_item->getAttribute("class")}");
         }
 
         $tables = $DOM->getElementsByTagName("table");
 
         foreach ($tables as $table) {
-            $table->setAttribute("class", "user-content_text text -table {$table->getAttribute("class")}");
+            $table->setAttribute("class", "user-content__text text --table {$table->getAttribute("class")}");
         }
 
         $table_headers = $DOM->getElementsByTagName("thead");
 
         foreach ($table_headers as $table_header) {
-            $table_header->setAttribute("class", "text_header {$table_header->getAttribute("class")}");
+            $table_header->setAttribute("class", "text__header {$table_header->getAttribute("class")}");
         }
 
         $table_bodies = $DOM->getElementsByTagName("tbody");
 
         foreach ($table_bodies as $tbody) {
-            $tbody->setAttribute("class", "text_body {$tbody->getAttribute("class")}");
+            $tbody->setAttribute("class", "text__body {$tbody->getAttribute("class")}");
         }
 
         $table_footers = $DOM->getElementsByTagName("tfoot");
 
         foreach ($table_footers as $table_footer) {
-            $table_footer->setAttribute("class", "text_footer {$table_footer->getAttribute("class")}");
+            $table_footer->setAttribute("class", "text__footer {$table_footer->getAttribute("class")}");
         }
 
         $table_rows = $DOM->getElementsByTagName("tr");
 
         foreach ($table_rows as $table_row) {
-            $table_row->setAttribute("class", "text_row {$table_row->getAttribute("class")}");
+            $table_row->setAttribute("class", "text__row {$table_row->getAttribute("class")}");
         }
 
         $table_cell_headers = $DOM->getElementsByTagName("th");
 
         foreach ($table_cell_headers as $table_cell_header) {
-            $table_cell_header->setAttribute("class", "text_cell -header {$table_cell_header->getAttribute("class")}");
+            $table_cell_header->setAttribute("class", "text__cell --header {$table_cell_header->getAttribute("class")}");
         }
 
         $table_cells = $DOM->getElementsByTagName("td");
 
         foreach ($table_cells as $table_cell) {
-            $table_cell->setAttribute("class", "text_cell {$table_cell->getAttribute("class")}");
+            $table_cell->setAttribute("class", "text__cell {$table_cell->getAttribute("class")}");
         }
 
         $blockquotes = $DOM->getElementsByTagName("blockquote");
 
         foreach ($blockquotes as $blockquote) {
-            $blockquote->setAttribute("class", "user-content_blockquote blockquote {$blockquote->getAttribute("class")}");
+            $blockquote->setAttribute("class", "user-content__blockquote blockquote {$blockquote->getAttribute("class")}");
         }
 
         $horizontal_rules = $DOM->getElementsByTagName("hr");
 
         foreach ($horizontal_rules as $horizontal_rule) {
-            $horizontal_rule->setAttribute("class", "user-content_divider divider {$horizontal_rule->getAttribute("class")}");
+            $horizontal_rule->setAttribute("class", "user-content__divider divider {$horizontal_rule->getAttribute("class")}");
         }
 
         $figures = $DOM->getElementsByTagName("figure");
 
         foreach ($figures as $figure) {
-            $figure->setAttribute("class", "user-content_figure figure {$figure->getAttribute("class")}");
+            $figure->setAttribute("class", "user-content__figure figure {$figure->getAttribute("class")}");
         }
 
         $figcaptions = $DOM->getElementsByTagName("figcaption");
 
         foreach ($figcaptions as $figcaption) {
-            $figcaption->setAttribute("class", "user-content_text text {$figcaption->getAttribute("class")}");
+            $figcaption->setAttribute("class", "user-content__text text {$figcaption->getAttribute("class")}");
         }
 
         $tables = $DOM->getElementsByTagName("table");
 
         $table_container = $DOM->createElement("div");
-        $table_container->setAttribute("class", "user-content_text_table_container text_table_container");
+        $table_container->setAttribute("class", "user-content__text__table__container text__table__container");
 
         foreach ($tables as $table) {
             $table_container_clone = $table_container->cloneNode();
@@ -248,7 +248,7 @@ function __gulp_init__namespace_add_user_content_classes($content) {
         $iframes = $DOM->getElementsByTagName("iframe");
 
         $iframe_container = $DOM->createElement("div");
-        $iframe_container->setAttribute("class", "user-content_iframe_container iframe_container");
+        $iframe_container->setAttribute("class", "user-content__iframe__container iframe__container");
 
         foreach ($iframes as $iframe) {
             $iframe->setAttribute("class", "iframe {$iframe->getAttribute("class")}");
@@ -394,7 +394,7 @@ function __gulp_init__namespace_acrobat_link() {
 
     if ($has_pdf === true) {
         $output .= "<hr class='divider' />";
-        $output .= "<p class='content_text text _small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init__namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+        $output .= "<p class='content__text text __small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init__namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
     }
 
     echo $output;

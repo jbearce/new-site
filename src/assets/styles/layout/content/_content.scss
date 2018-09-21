@@ -10,7 +10,7 @@
     }
 }
 
-.content_inner {
+.content__inner {
     & {
         background: color("background");
         margin: 0 auto;
@@ -21,18 +21,18 @@
 
 /* fullbleed variant */
 
-.content-block.-fullbleed {
+.content-block.--fullbleed {
     & {
         background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 
-    > .content_inner {
+    > .content__inner {
         background: none;
         padding: 0;
     }
 
-    > .content_inner.-fullbleed {
+    > .content__inner.--fullbleed {
         max-width: none;
     }
 }

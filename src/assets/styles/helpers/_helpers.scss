@@ -12,98 +12,98 @@
 
 // generic helpers
 
-._dark {
+.__dark {
     color: color("dark") !important;
 }
 
-._light {
+.__light {
     color: color("light") !important;
 }
 
-._big {
+.__big {
     font-size: 1.25em !important;
 }
 
-._small {
+.__small {
     font-size: 0.75em !important;
 }
 
-._bold {
+.__bold {
     font-weight: 700 !important;
 }
 
-._italic {
+.__italic {
     font-style: italic !important;
 }
 
-._textcenter {
+.__textcenter {
     text-align: center !important;
 }
 
-._textleft {
+.__textleft {
     text-align: left !important;
 }
 
-._textright {
+.__textright {
     text-align: right !important;
 }
 
-._nowrap {
+.__nowrap {
     white-space: nowrap !important;
 }
 
-._center {
+.__center {
     margin-left: auto !important;
     margin-right: auto !important;
 }
 
-._left {
+.__left {
     float: left !important;
 }
 
-._right {
+.__right {
     float: right !important;
 }
 
-._nomargin {
+.__nomargin {
     margin: 0 !important;
 }
 
-._nopadding {
+.__nopadding {
     padding: 0 !important;
 }
 
-._notransform {
+.__notransform {
     transform: none !important;
 }
 
-._notransition {
+.__notransition {
     transition: none !important;
 }
 
-._block {
+.__block {
     display: block !important;
 }
 
-._flex {
+.__flex {
     display: flex !important;
 }
 
-._visuallyhidden {
+.__visuallyhidden {
     left: -999em !important;
     position: absolute !important;
     top: -999em !important;
 }
 
-._primary {
+.__primary {
     color: color("primary") !important;
 }
 
-._accent {
+.__accent {
     color: color("accent") !important;
 }
 
-._warning {
+.__warning {
     color: color("warning") !important;
 }
 
@@ -111,28 +111,28 @@
 
 // when pointer is precise (mouse)
 @media (pointer: fine) {
-    ._touch {
+    .__touch {
         display: none !important;
     }
 }
 
 // when pointer: fine is not supported
 @supports not (pointer: fine) {
-    ._touch {
+    .__touch {
         display: none !important;
     }
 }
 
 // when pointer is inprecise (touch)
 @media (pointer: course) {
-    ._mouse {
+    .__mouse {
         display: none !important;
     }
 }
 
 // when printing
 @media print {
-    ._noprint {
+    .__noprint {
         display: none !important;
     }
 }
@@ -141,7 +141,7 @@
 
 // $xs-break
 
-._visible-xs {
+.__visible-xs {
     @include smaller-than(xs) {
         display: none !important;
     }
@@ -149,7 +149,7 @@
 
 // $s-break
 
-._visible-s {
+.__visible-s {
     @include smaller-than(s) {
         display: none !important;
     }
@@ -157,7 +157,7 @@
 
 // $m-break
 
-._visible-m {
+.__visible-m {
     @include smaller-than(m) {
         display: none !important;
     }
@@ -165,7 +165,7 @@
 
 // $l-break
 
-._visible-l {
+.__visible-l {
     @include smaller-than(l) {
         display: none !important;
     }
@@ -173,7 +173,7 @@
 
 // $xl-break
 
-._visible-xl {
+.__visible-xl {
     @include smaller-than(xl) {
         display: none !important;
     }
@@ -183,7 +183,7 @@
 
 // $xs-break
 
-._hidden-xs {
+.__hidden-xs {
     @include larger-than(xs) {
         display: none !important;
     }
@@ -191,7 +191,7 @@
 
 // $s-break
 
-._hidden-s {
+.__hidden-s {
     @include larger-than(s) {
         display: none !important;
     }
@@ -199,7 +199,7 @@
 
 // $m-break
 
-._hidden-m {
+.__hidden-m {
     @include larger-than(m) {
         display: none !important;
     }
@@ -207,7 +207,7 @@
 
 // $l-break
 
-._hidden-l {
+.__hidden-l {
     @include larger-than(l) {
         display: none !important;
     }
@@ -215,7 +215,7 @@
 
 // $xl-break
 
-._hidden-xl {
+.__hidden-xl {
     @include larger-than(xl) {
         display: none !important;
     }

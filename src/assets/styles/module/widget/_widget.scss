@@ -11,7 +11,7 @@
     }
 }
 
-.widget_title {
+.widget__title {
     & {
         background: color("dark", "tint");
         color: color("light");
@@ -22,7 +22,7 @@
     }
 }
 
-.widget_content {
+.widget__content {
     & {
         padding: remify(10 15, 16);
     }

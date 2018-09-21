@@ -5,26 +5,26 @@ $meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
 ?>
 
 <?php if ($meta): ?>
-    <nav class="menu-list_container<?php echo $class; ?>">
-        <ul class="menu-list -meta<?php if ($light): ?> _light<?php endif; ?>">
+    <nav class="menu-list__container<?php echo $class; ?>">
+        <ul class="menu-list --meta<?php if ($light): ?> __light<?php endif; ?>">
             <?php foreach ($meta as $key => $data): ?>
 
                 <?php if ($data): ?>
-                    <li class="menu-list_item">
+                    <li class="menu-list__item">
 
                         <?php if (isset($data["icon"]) && $data["icon"]): ?>
-                            <i class="far <?php echo $data["icon"]; ?> menu-list_icon"></i>
+                            <i class="menu-list__icon far <?php echo $data["icon"]; ?>"></i>
                         <?php endif; ?>
 
                         <?php if ($key === "date" && isset($data["datetime"]) && $data["datetime"]): ?>
-                            <time class="menu-list_time" datetime="<?php echo $data["datetime"]; ?>">
+                            <time class="menu-list__time" datetime="<?php echo $data["datetime"]; ?>">
                         <?php endif; ?>
 
                         <?php
                         if (isset($data["links"]) && $data["links"]) {
                             foreach ($data["links"] as $index => $link) {
                                 if ($link["url"]) {
-                                    ?><a class="menu-list_link link<?php if ($light): ?> -inherit<?php endif; ?>" href="<?php echo $link["url"]; ?>"<?php if ($link["target"]): ?> target="<?php echo $link["target"]; ?>"<?php endif; ?>><?php
+                                    ?><a class="menu-list__link link<?php if ($light): ?> --inherit<?php endif; ?>" href="<?php echo $link["url"]; ?>"<?php if ($link["target"]): ?> target="<?php echo $link["target"]; ?>"<?php endif; ?>><?php
                                 }
 
                                 if ($link["title"]) {
@@ -32,7 +32,7 @@ $meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
                                 }
 
                                 if ($link["url"]) {
-                                    ?></a><!--/.menu-list_link.link--><?php
+                                    ?></a><!--/.menu-list__link.link--><?php
                                 }
 
                                 if ($index + 1 < count($data["links"])) {
@@ -47,13 +47,13 @@ $meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
                         ?>
 
                         <?php if ($key === "date" && isset($data["datetime"]) && $data["datetime"]): ?>
-                            </time><!--/.menu-list_time-->
+                            </time><!--/.menu-list__time-->
                         <?php endif; ?>
 
-                    </li><!--/.menu-list_item-->
+                    </li><!--/.menu-list__item-->
 
                 <?php endif; ?>
             <?php endforeach; ?>
-        </ul><!--/.menu-list.-meta-->
-    </nav><!--/.article_menu-list_container.menu-list_container-->
+        </ul><!--/.menu-list.--meta-->
+    </nav><!--/.article__menu-list__container.menu-list__container-->
 <?php endif; ?>

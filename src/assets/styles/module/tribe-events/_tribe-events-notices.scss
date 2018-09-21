@@ -15,14 +15,14 @@
     }
 }
 
-.tribe-events-notices_text {
+.tribe-events-notices__text {
     & {
         color: color("light");
         font-size: remify(16, 16);
         margin: 0;
     }
 
-    &.-list.-unordered {
+    &.--list.--unordered {
         list-style: none;
         padding: 0;
     }
