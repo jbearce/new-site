@@ -9,10 +9,10 @@
         -webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
         -moz-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
         appearance: none;
-        background: $background;
-        border: remify(1) solid darken($background_alt, 10);
+        background: color("background");
+        border: remify(1) solid color("background", "shade");
         border-radius: 0;
-        color: $foreground;
+        color: color("foreground");
         display: block;
         font-display: swap;
         font-family: $body-font;
@@ -29,7 +29,7 @@
 
     &:focus,
     &:hover {
-        border-color: $accent;
+        border-color: color("accent");
     }
 }
 

@@ -5,8 +5,8 @@
 html,
 body {
     & {
-        background: $background;
-        color: $foreground;
+        background: color("background");
+        color: color("foreground");
     }
 }
 

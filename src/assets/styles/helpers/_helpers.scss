@@ -13,11 +13,11 @@
 // generic helpers
 
 ._dark {
-    color: $dark !important;
+    color: color("dark") !important;
 }
 
 ._light {
-    color: $light !important;
+    color: color("light") !important;
 }
 
 ._big {
@@ -96,15 +96,15 @@
 }
 
 ._primary {
-    color: $primary !important;
+    color: color("primary") !important;
 }
 
 ._accent {
-    color: $accent !important;
+    color: color("accent") !important;
 }
 
 ._warning {
-    color: $warning !important;
+    color: color("warning") !important;
 }
 
 /* visibility classes */

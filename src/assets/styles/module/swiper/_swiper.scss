@@ -46,7 +46,7 @@
 
 .swiper-caption {
     & {
-        background: $dark;
+        background: color("dark");
         flex: 1 1 auto;
         padding: remify(($content-padding * 0.5) $content-padding);
     }
@@ -65,7 +65,7 @@
     & {
         background: none;
         border: 0;
-        color: $primary;
+        color: color("primary");
         cursor: pointer;
         display: block;
         height: 100%;
@@ -128,7 +128,7 @@
 
 .swiper-pagination-bullet {
     & {
-        background: transparentize($dark, 0.5);
+        background: transparentize(color("dark"), 0.5);
         height: remify(10, 16);
         opacity: 1;
         transition: background-color 0.15s;
@@ -144,6 +144,6 @@
 
 .swiper-pagination-bullet-active {
     & {
-        background-color: $primary;
+        background-color: color("primary");
     }
 }

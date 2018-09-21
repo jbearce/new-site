@@ -6,15 +6,15 @@
 
 .widget {
     & {
-        border: remify(1) solid darken($background_alt, 10);
+        border: remify(1) solid color("background", "shade");
         margin: remify(0 0 25, 16);
     }
 }
 
 .widget_title {
     & {
-        background: $dark_alt;
-        color: $light;
+        background: color("dark", "tint");
+        color: color("light");
         font-size: remify(18, 14);
         font-weight: 400;
         margin-bottom: 0;

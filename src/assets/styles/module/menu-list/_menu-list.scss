@@ -236,7 +236,7 @@
 
 .menu-list.-meta {
     & {
-        color: $foreground_alt;
+        color: color("foreground", "tint");
         font-display: swap;
         font-family: $heading-font;
         font-size: remify(14, 16);
@@ -251,12 +251,12 @@
     }
 
     .menu-list_link {
-        color: $foreground_alt;
+        color: color("foreground", "tint");
         display: inline-block;
     }
 
     .menu-list_link:hover {
-        color: lighten($foreground_alt, 10);
+        color: color("foreground", "tint");
     }
 }
 
@@ -272,7 +272,7 @@
 
     .menu-list_link,
     .menu-list_toggle {
-        color: $light;
+        color: color("light");
         padding: remify(8 16, 20);
         transition: background-color 0.15s;
     }
@@ -285,20 +285,20 @@
     .menu-list_toggle:hover,
     .menu-list_item:hover > .menu-list_toggle,
     .menu-list_item.is-active > .menu-list_toggle {
-        background-color: $accent;
+        background-color: color("accent");
     }
 
     // must be separate from the above ruleset for fallback reasons
 
     .menu-list_item:focus-within > .menu-list_link,
     .menu-list_item:focus-within > .menu-list_toggle {
-        background-color: $accent;
+        background-color: color("accent");
     }
 
     // child
 
     .menu-list.-child {
-        background: transparentize($accent, 0.05);
+        background: transparentize(color("accent"), 0.05);
         font-size: remify(16, 20);
     }
 
@@ -322,20 +322,20 @@
     .menu-list.-child .menu-list_toggle:hover,
     .menu-list.-child:not(.-mega) .menu-list_item:hover > .menu-list_toggle,
     .menu-list.-child:not(.-mega) .menu-list_item.is-active > .menu-list_toggle {
-        background-color: transparentize($light, 0.9);
+        background-color: transparentize(color("light"), 0.9);
     }
 
     // must be separate from the above ruleset for fallback reasons
 
     .menu-list.-child:not(.-mega) .menu-list_item:focus-within > .menu-list_link,
     .menu-list.-child:not(.-mega) .menu-list_item:focus-within > .menu-list_toggle {
-        background-color: transparentize($light, 0.9);
+        background-color: transparentize(color("light"), 0.9);
     }
 
     // child depth 2
 
     .menu-list.-child.-depth-2 {
-        background: linear-gradient(to bottom, transparentize($light, 0.9) 0%, transparentize($light, 0.9) 100%), transparentize($accent, 0.05);
+        background: linear-gradient(to bottom, transparentize(color("light"), 0.9) 0%, transparentize(color("light"), 0.9) 100%), transparentize(color("accent"), 0.05);
         font-size: remify(16, 16);
     }
 
@@ -347,7 +347,7 @@
     /* mega */
 
     .menu-list_container.-mega {
-        background: transparentize($accent, 0.05);
+        background: transparentize(color("accent"), 0.05);
     }
 
     .menu-list.-child.-mega {
@@ -360,7 +360,7 @@
     }
 
     .menu-list.-child.-depth-1.-mega:not(:last-child) {
-        border-right: remify(1) solid darken($accent, 5);
+        border-right: remify(1) solid darken(color("accent"), 5);
     }
 
     .menu-list.-child.-mega.-depth-2 .menu-list_link {
@@ -393,7 +393,7 @@
     }
 
     .menu-list_link.-current {
-        color: $foreground;
+        color: color("foreground");
         cursor: auto;
     }
 }
@@ -409,7 +409,7 @@
     }
 
     .menu-list_link {
-        border-bottom: remify(2) solid $background_alt;
+        border-bottom: remify(2) solid color("background", "shade");
         padding: remify(9 0, 18);
     }
 

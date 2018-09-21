@@ -18,9 +18,9 @@
 
 .search-form_input {
     & {
-        background: $background;
-        border: remify(1) solid $background_alt;
-        color: $foreground;
+        background: color("background");
+        border: remify(1) solid color("background", "shade");
+        color: color("foreground");
         font-display: swap;
         font-family: $body-font;
         font-size: remify(16, 16);
@@ -33,7 +33,7 @@
 
     &:focus,
     &:hover {
-        border-color: $accent;
+        border-color: color("accent");
     }
 }
 
@@ -42,7 +42,7 @@
         background: none;
         border: 0;
         bottom: remify(1);
-        color: $foreground;
+        color: color("foreground");
         cursor: pointer;
         font-size: remify(16, 16);
         margin: 0;
@@ -56,6 +56,6 @@
 
     &:focus,
     &:hover {
-        color: $accent;
+        color: color("accent");
     }
 }

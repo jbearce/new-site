@@ -4,44 +4,73 @@
  * Colors
 \* ------------------------------------------------------------------------ */
 
-$primary: #17AAEC;
-$primary_alt: #57CAFF;
-
-$secondary: #BA3626;
-$secondary_alt: #FF9486;
-
-$tertiary: #84B2AA;
-$tertiary_alt: #CDFBF3;
-
-$quaternary: #ECBF4F;
-$quaternary_alt: #A17300;
-
-$quinary: #966790;
-$quinary_alt: #7D5678;
-
-$senary: #D2732A;
-$senary_alt: #B86425;
-
-$accent: #17AAEC;
-$accent_alt: #57CAFF;
-
-$light: #FFFFFF;
-$light_alt: #DDDDDD;
-
-$dark: #000000;
-$dark_alt: #222222;
-
-$foreground: #222222;
-$foreground_alt: #000000;
-
-$background: #FFFFFF;
-$background_alt: #DDDDDD;
-
-$page_background: #DDDDDD;
-$page_background_alt: #FFFFFF;
-
-$warning: #9F0000;
-$warning_alt: #F83636;
+$colors: (
+    "primary": (
+        tint:  #46BBF0,
+        base:  #17AAEC,
+        shade: #108AC0,
+    ),
+    "secondary": (
+        tint:  #BA3626,
+        base:  #902A1D,
+        shade: #661E14,
+    ),
+    "tertiary": (
+        tint:  #A3C6C0,
+        base:  #84B2AA,
+        shade: #659E94,
+    ),
+    "quaternary": (
+        tint:  #F1D07D,
+        base:  #ECBF4F,
+        shade: #E7AE21,
+    ),
+    "quinary": (
+        tint:  #AB85A6,
+        base:  #966790,
+        shade: #785273,
+    ),
+    "senary": (
+        tint:  #DD8E53,
+        base:  #D2732A,
+        shade: #A85C22,
+    ),
+    "accent": (
+        tint:  #46BBF0,
+        base:  #17AAEC,
+        shade: #108AC0,
+    ),
+    "warning": (
+        tint:  #D20000,
+        base:  #9F0000,
+        shade: #6C0000,
+    ),
+    "foreground": (
+        tint:  #343434,
+        base:  #1A1A1A,
+        shade: #000000,
+    ),
+    "background": (
+        tint:  #FFFFFF,
+        base:  #FFFFFF,
+        shade: #E6E6E6,
+    ),
+    "page_background": (
+        tint:  #F7F7F7,
+        base:  #DDDDDD,
+        shade: #C4C4C4,
+    ),
+    "light": (
+        tint:  #FFFFFF,
+        base:  #FFFFFF,
+        shade: #E6E6E6,
+    ),
+    "dark": (
+        tint:  #1A1A1A,
+        base:  #000000,
+        shade: #000000,
+    ),
+);
 
 /* ------------------------------------------------------------------------ *\
  * Fonts                                                                    *

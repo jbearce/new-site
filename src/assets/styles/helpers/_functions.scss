@@ -8,20 +8,32 @@
 @import "../vendor/_choose-contrast-color";
 @import "../vendor/_inline-svg-function";
 
-// Remove the unit of a length
-// @param  {Number}  $number
-@function strip-unit($number) {
-    @if type-of($number) == "number" and not unitless($number) {
-        $number: $number / ($number * 0 + 1);
-    }
-
-    @return $number;
+/*
+ * Retrieve a color variable
+ *
+ * @param  {string}  $color - The name of the color as defined in _variables
+ * @param  {string}  $tone  - The variant of the color (shade|base|tint)
+ */
+@function color($color, $tone: base) {
+    @return map-get(map-get($colors, $color), $tone);
 }
 
-// Remify
-// @param  {Number}  $size - Array of up to four sizes in PX units
-// @param  {Number}  $base - Font size to base calculations off of
-// @param  {String}  $unit - Either "em" or "rem"
+/*
+ * Remove the unit of a length
+ *
+ * @param  {Number}  $number
+ */
+@function strip-unit($number) {
+    @return if(type-of($number) == "number" and not unitless($number), $number / ($number * 0 +1), $number);
+}
+
+/*
+ * Convert PX units in to EM or REM, relative to a specified base sizes
+ *
+ * @param  {Number}  $size - Array of up to four sizes in PX units
+ * @param  {Number}  $base - Font size to base calculations off of
+ * @param  {String}  $unit - Either "em" or "rem"
+ */
 @function remify($sizes: ($size1, $size2, $size3, $size4), $base: null, $unit: null) {
     $unit: if($unit == null, if($base == null, rem, em), $unit);
     $base: if($base == null, 16, strip-unit($base));
@@ -46,9 +58,12 @@
     @return if(type-of($output) == "string", unquote($output), $output);
 }
 
-// Photoshop Leading => CSS Line Height Conversion
-// @param  {Number}  $size - Value of Leading in Photoshop's Character Panel
-// @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
+/*
+ * Convert Photoshop leading to CSS line-height
+ *
+ * @param  {Number}  $size - Value of Leading in Photoshop's Character Panel
+ * @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
+ */
 @function leading($size, $base: null) {
     $base: if($base == null, 16, strip-unit($base));
     $output: $base + (strip-unit($size) / 2);
@@ -56,19 +71,15 @@
     @return $output;
 }
 
-// Photoshop Tracking => CSS Letter Spacing Conversion
-// @param  {Number}  $size - Value of Tracking in Photoshop's Character Panel
-// @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
+/*
+ * Convert Photoshop tracking to CSS letter-spacing
+ *
+ * @param  {Number}  $size - Value of Tracking in Photoshop's Character Panel
+ * @param  {Number}  $base - Value of Font Size in Photosohp's Character Panel
+ */
 @function tracking($size, $base: null) {
     $base: if($base == null, 16, strip-unit($base));
     $output: ($size / 1000) * strip-unit($base);
 
     @return $output;
-}
-
-// Specify size relative to a value
-// @param  {Number}  $size - Target size in pixels
-// @param  {Number}  $base - Base size in pixels
-@function relative-size($size, $base) {
-    @return $base * ($size / $base);
 }

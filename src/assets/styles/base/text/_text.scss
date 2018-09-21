@@ -6,7 +6,7 @@
 
 .text {
     & {
-        color: $foreground;
+        color: color("foreground");
         display: block;
         font-display: swap;
         font-family: $body-font;
@@ -92,7 +92,7 @@
     }
 
     .text_footer {
-        color: $foreground_alt;
+        color: color("foreground", "tint");
         display: table-footer-group;
         font-style: italic;
     }
@@ -109,7 +109,7 @@
     }
 
     .text_header .text_cell {
-        border-bottom: remify(2) solid $background_alt;
+        border-bottom: remify(2) solid color("background", "tint");
         font-weight: 700;
     }
 
@@ -120,6 +120,6 @@
 
     > .text_row:nth-child(even) .text_cell,
     .text_body .text_row:nth-child(even) .text_cell {
-        background: $background_alt;
+        background: color("background", "tint");
     }
 }

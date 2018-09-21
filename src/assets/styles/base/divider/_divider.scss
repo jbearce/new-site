@@ -6,7 +6,7 @@
 
 .divider {
     & {
-        background: $background_alt;
+        background: color("background", "tint");
         border: 0;
         clear: both;
         height: remify(1);

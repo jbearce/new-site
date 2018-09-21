@@ -12,7 +12,7 @@
 
 .content_inner {
     & {
-        background: $background;
+        background: color("background");
         margin: 0 auto;
         max-width: remify($site-width);
         padding: remify(($content-padding * 0.75) $content-padding);
@@ -23,7 +23,7 @@
 
 .content-block.-fullbleed {
     & {
-        background: $background;
+        background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 

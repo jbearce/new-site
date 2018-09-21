@@ -21,7 +21,7 @@
 
 .article.-excerpt {
     & + & {
-        border-top: remify(1) solid darken($background_alt, 10);
+        border-top: remify(1) solid color("background", "shade");
         padding-top: remify(16, 16);
     }
 

@@ -7,7 +7,7 @@
 html,
 body {
     & {
-        background: $page_background;
+        background: color("page_background");
         height: 100%;
         width: 100%;
     }
@@ -15,7 +15,7 @@ body {
 
 .page_container {
     & {
-        box-shadow: remify(0 0 10, 16) transparentize($dark, 0.75);
+        box-shadow: remify(0 0 10, 16) transparentize(color("dark"), 0.75);
         min-height: 100%;
         overflow: hidden;
         position: relative;
@@ -25,7 +25,7 @@ body {
 
 .page_overlay {
     & {
-        background: $dark;
+        background: color("dark");
         content: "";
         display: block;
         height: 100vh;

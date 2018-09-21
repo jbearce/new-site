@@ -8,7 +8,7 @@
     & {
         background: none;
         border: 0;
-        color: $accent;
+        color: color("accent");
         cursor: pointer;
         font-size: remify(24, 16);
         height: remify(40, 24);

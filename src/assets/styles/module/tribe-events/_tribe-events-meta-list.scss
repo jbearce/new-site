@@ -22,7 +22,7 @@
 
 .tribe-events-meta-list-icon {
     & {
-        color: lighten($foreground, 15);
+        color: color("foreground", "tint");
         left: 0;
         position: absolute;
         top: remify(3, 16);
@@ -31,7 +31,7 @@
 
 .tribe-events-meta-list-small {
     & {
-        color: lighten($foreground, 15);
+        color: color("foreground", "tint");
         display: block;
         font-size: remify(12, 16);
     }

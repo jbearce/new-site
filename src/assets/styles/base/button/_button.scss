@@ -6,9 +6,9 @@
 
 .button {
     & {
-        background: $primary;
+        background: color("primary");
         border: 0;
-        color: $light;
+        color: color("light");
         cursor: pointer;
         display: inline-block;
         font-display: swap;
@@ -26,6 +26,6 @@
 
     &:focus,
     &:hover {
-        background-color: $primary_alt;
+        background-color: color("primary", "tint");
     }
 }

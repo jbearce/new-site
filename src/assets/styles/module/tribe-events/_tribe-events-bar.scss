@@ -6,7 +6,7 @@
 
 .tribe-events-bar {
     & {
-        background: $background_alt;
+        background: color("background", "shade");
         margin: remify(0 0 16, 16);
         position: relative;
         z-index: 2;
@@ -15,9 +15,9 @@
 
 .tribe-bar-collapse-toggle {
     & {
-        background: $background_alt;
+        background: color("background", "shade");
         border: 0;
-        color: $foreground;
+        color: color("foreground");
         cursor: pointer;
         display: block;
         font-family: $body-font;
@@ -34,7 +34,7 @@
     &:focus,
     &:hover,
     &.tribe-bar-filters-open {
-        background-color: darken($background_alt, 5);
+        background-color: color("background", "shade");
     }
 
     .tribe-bar-collapse-toggle-icon {
@@ -48,7 +48,7 @@
 
 .tribe-bar-views {
     & {
-        background: darken($background_alt, 10);
+        background: color("background", "shade");
         font-size: remify(10, 16);
         position: relative;
     }
@@ -62,7 +62,7 @@
 
 .tribe-bar-views-inner {
     & {
-        background: darken($background_alt, 10);
+        background: color("background", "shade");
         left: 0;
         padding: remify(10.5 12, 10);
         position: absolute;
@@ -73,7 +73,7 @@
 
 .tribe-bar-views-label {
     & {
-        color: $foreground;
+        color: color("foreground");
         display: block;
         font-family: $body-font;
         font-size: remify(10, 10);
@@ -85,7 +85,7 @@
 
 .tribe-bar-views-list {
     & {
-        color: $foreground;
+        color: color("foreground");
         display: block;
         font-family: $body-font;
         font-size: remify(14, 10);
@@ -128,7 +128,7 @@
 
 .tribe-bar-filters-label {
     & {
-        color: $foreground;
+        color: color("foreground");
         display: block;
         font-family: $body-font;
         font-size: remify(10, 16);
@@ -140,9 +140,9 @@
 
 .tribe-bar-filters-input {
     & {
-        background: $background;
-        border: remify(1) solid $foreground;
-        color: $foreground;
+        background: color("background");
+        border: remify(1) solid color("foreground");
+        color: color("foreground");
         display: block;
         font-family: $body-font;
         font-size: remify(14, 16);
@@ -154,9 +154,9 @@
 
 .tribe-events-bar-filters-button {
     & {
-        background: $primary;
-        border: remify(1) solid darken($primary, 5);
-        color: $light;
+        background: color("primary");
+        border: remify(1) solid color("primary", "shade");
+        color: color("light");
         cursor: pointer;
         display: block;
         font-family: $body-font;
@@ -171,6 +171,6 @@
 
     &:focus,
     &:hover {
-        background-color: darken($primary, 5);
+        background-color: color("primary", "shade");
     }
 }

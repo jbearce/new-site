@@ -8,7 +8,7 @@
     &,
     &.-h1,
     &.-h2 {
-        color: $primary;
+        color: color("primary");
         font-display: swap;
         font-family: $heading-font;
         font-range: $xs-break $xl-break;
@@ -37,7 +37,7 @@
     &.-h2,
     &.-h4,
     &.-h6 {
-        color: $foreground;
+        color: color("foreground");
     }
 }
 
@@ -51,7 +51,7 @@
 
     &::before,
     &::after {
-        background: darken($background_alt, 10);
+        background: color("background", "shade");
         content: "\0020";
         display: block;
         flex: 1 1 0%;

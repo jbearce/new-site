@@ -6,7 +6,7 @@
 
 .blockquote {
     & {
-        border-left: remify(2) solid $accent;
+        border-left: remify(2) solid color("accent");
         margin: 0;
         padding: remify(0 0 0 24, 16);
     }
