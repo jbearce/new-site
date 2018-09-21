@@ -20,9 +20,13 @@ function get_critical_css($template) {
 function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
     global $post;
 
-    $post_id = $id ? $id : $post->ID;
+    $post_id     = $id ? $id : $post->ID;
     $post_object = get_post($post_id);
-    $excerpt = $post_object->post_excerpt ? $post_object->post_excerpt : wp_trim_words(strip_shortcodes($post_object->post_content), $length, $more);
+    $excerpt     = $post_object->post_excerpt ? $post_object->post_excerpt : wp_trim_words(strip_shortcodes($post_object->post_content), $length, "");
+
+    if ($excerpt) {
+        $excerpt .= $more;
+    }
 
     return $excerpt;
 }
