@@ -7,7 +7,7 @@ module.exports = {
         // task-specific plugins
         const eslint         = require("gulp-eslint");
         const webpack        = require("webpack-stream");
-        const webpack_config = require("../webpack.config.js");
+        // const webpack_config = require("../webpack.config.js");
 
         // lint custom scripts
         const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/**/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor/**/*"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
@@ -25,6 +25,10 @@ module.exports = {
         // process scripts
         const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
             return new Promise((resolve, reject) => {
+                const webpack_config = {
+                    mode: "development",
+                };
+
                 // update webpack config for the current target destination and file name
                 webpack_config.mode   = plugins.argv.dist ? "production" : webpack_config.mode;
                 webpack_config.output = {filename: file_name};
