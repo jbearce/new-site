@@ -8,7 +8,7 @@ import Slideout from "slideout";
 const PANEL        = document.getElementById("page-container");
 const MENU         = document.getElementById("mobile-menu");
 const TOGGLE       = document.querySelector("[data-toggle=mobile-menu]");
-const MOBILE_WIDTH = 768;
+const MOBILE_WIDTH = 768; // @TODO consider switching to checking getComputedStyle(TOGGLE, null).display
 
 // verify that the elements exist
 if (PANEL !== null && MENU !== null && TOGGLE !== null) {
