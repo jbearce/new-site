@@ -54,7 +54,11 @@ function __gulp_init__namespace_enqueue_scripts() {
     /* localize scripts */
 
     $i18n = array(
-        "offline_noty" => __("You appear to be offline right now. Some parts of this site may be unavailable until you come back online.", "__gulp_init__namespace"),
+        "noty" => array(
+            "offline" => array(
+                "text" => __("You appear to be offline right now. Some parts of this site may be unavailable until you come back online.", "__gulp_init__namespace"),
+            ),
+        ),
     );
 
     wp_localize_script("__gulp_init__namespace-scripts-modern", "i18n", $i18n);
