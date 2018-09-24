@@ -23,6 +23,34 @@ function __gulp_init__namespace_http2_push() {
 }
 add_action("wp_enqueue_scripts", "__gulp_init__namespace_http2_push", 999);
 
+// load the "offline" template when the user visits /offline/
+function __gulp_init__namespace_load_offline_template($template) {
+    if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
+        return get_stylesheet_directory() . "/offline.php";
+    }
+
+    return $template;
+}
+add_action("template_include", "__gulp_init__namespace_load_offline_template");
+
+// fix page title on "offline" template
+function __gulp_init__namespace_fix_offline_page_title($title) {
+    if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
+        return $title = sprintf(__("No Internet Connection - %s", "__gulp_init__namespace"), get_bloginfo("name"));
+    }
+
+    return $title;
+}
+add_filter("wpseo_title", "__gulp_init__namespace_fix_offline_page_title");
+
+// fix http status code on "offline" template
+function __gulp_init__namespace_fix_offline_http_status_code() {
+    if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
+        status_header(200);
+    }
+}
+add_action("wp", "__gulp_init__namespace_fix_offline_http_status_code");
+
 // change login logo URL
 function __gulp_init__namespace_login_logo_url() {
     return get_bloginfo("url");
@@ -361,36 +389,38 @@ add_filter("post_thumbnail_html", "__gulp_init__namespace_remove_thumbnail_dimen
 function __gulp_init__namespace_acrobat_link() {
     global $post;
 
-    $has_pdf = false;
-    $content = get_the_content();
-    $fields  = get_fields();
-    $output  = "";
+    if ($post) {
+        $has_pdf = false;
+        $content = get_the_content();
+        $fields  = get_fields();
+        $output  = "";
 
-    if ($content) {
-        preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
-
-        if ($matches) {
-            $has_pdf = true;
-        }
-    }
-
-    if ($fields && !$has_pdf) {
-        foreach ($fields as $field) {
-            preg_match("/\.pdf(?:\'|\"|$)/im", json_encode($field), $matches);
+        if ($content) {
+            preg_match("/\.pdf(?:\'|\")/im", $content, $matches);
 
             if ($matches) {
                 $has_pdf = true;
-                break;
             }
         }
-    }
 
-    if ($has_pdf === true) {
-        $output .= "<hr class='divider' />";
-        $output .= "<p class='content__text text __small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init__namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
-    }
+        if ($fields && !$has_pdf) {
+            foreach ($fields as $field) {
+                preg_match("/\.pdf(?:\'|\"|$)/im", json_encode($field), $matches);
 
-    echo $output;
+                if ($matches) {
+                    $has_pdf = true;
+                    break;
+                }
+            }
+        }
+
+        if ($has_pdf === true) {
+            $output .= "<hr class='divider' />";
+            $output .= "<p class='content__text text __small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init__namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+        }
+
+        echo $output;
+    }
 }
 add_filter("__gulp_init__namespace_after_content", "__gulp_init__namespace_acrobat_link");
 

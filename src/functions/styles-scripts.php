@@ -38,7 +38,7 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_add_inline_script("__gulp_init__namespace-scripts-modern", $critical_scripts);
 
     // Service Worker
-    $service_worker_uri = get_theme_file_uri("assets/scripts/service-worker.js");
+    $service_worker_uri = get_site_url(null, "service-worker.js");
     wp_add_inline_script("__gulp_init__namespace-scripts-modern", apply_filters("__gulp_init__namespace_service_worker_register", "
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {

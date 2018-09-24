@@ -7,7 +7,7 @@ import toolbox from "sw-toolbox";
 ((global) => {
     // disable the service worker for post previews
     global.addEventListener("fetch", (event) => {
-        if (event.request.url.match(/preview=true/)) {
+        if (event.request.url.match(/wp-admin/) || event.request.url.match(/preview=true/)) {
             return;
         }
     });
