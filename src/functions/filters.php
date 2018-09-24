@@ -23,12 +23,6 @@ function __gulp_init__namespace_http2_push() {
 }
 add_action("wp_enqueue_scripts", "__gulp_init__namespace_http2_push", 999);
 
-// adjust WordPress login screen styles
-function __gulp_init__namespace_login_styles() {
-    wp_enqueue_style("__gulp_init__namespace-styles-login", get_bloginfo("template_directory") . "/assets/styles/wp-login.css", array(), "@@version");
-}
-add_action("login_enqueue_scripts", "__gulp_init__namespace_login_styles");
-
 // change login logo URL
 function __gulp_init__namespace_login_logo_url() {
     return get_bloginfo("url");

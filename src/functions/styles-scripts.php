@@ -68,3 +68,9 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_script_add_data("__gulp_init__namespace-scripts-legacy", "conditional", "lte IE 9");
 }
 add_action("wp_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts");
+
+// adjust WordPress login screen styles
+function __gulp_init__namespace_enqueue_scripts_login() {
+    wp_enqueue_style("__gulp_init__namespace-styles-login", get_bloginfo("template_directory") . "/assets/styles/wp-login.css", array(), "@@version");
+}
+add_action("login_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts_login");
