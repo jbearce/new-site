@@ -26,6 +26,7 @@
     "url": "__gulp_init__repository"
   },
   "devDependencies": {
+    "angled-edges": "^2.0.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "browser-sync": "^2.24.7",
@@ -33,6 +34,7 @@
     "del": "^3.0.0",
     "delete-empty": "^2.0.0",
     "eyeglass": "^1.5.0",
+    "eyeglass-inline-svg": "^0.3.1",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-babel": "^7.0.1",

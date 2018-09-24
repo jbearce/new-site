@@ -5,8 +5,9 @@
 \* ------------------------------------------------------------------------ */
 
 // vendor
-@import "../vendor/_choose-contrast-color";
-@import "../vendor/_inline-svg-function";
+
+@import "inline-svg";
+@import "../vendor/_str-replace";
 
 /*
  * Retrieve a color variable

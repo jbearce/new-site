@@ -25,8 +25,7 @@ add_action("wp_enqueue_scripts", "__gulp_init__namespace_http2_push", 999);
 
 // adjust WordPress login screen styles
 function __gulp_init__namespace_login_styles() {
-    echo "<link href='" . get_bloginfo("template_directory") . "/assets/styles/wp-login.css' rel='stylesheet' />";
-    wp_enqueue_script("__gulp_init__namespace_critical_scripts", get_bloginfo("template_directory") . "/assets/scripts/critical.js", array(), false, true);
+    wp_enqueue_style("__gulp_init__namespace-styles-login", get_bloginfo("template_directory") . "/assets/styles/wp-login.css", array(), "@@version");
 }
 add_action("login_enqueue_scripts", "__gulp_init__namespace_login_styles");
 
