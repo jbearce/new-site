@@ -12,7 +12,7 @@
 
 .footer__inner {
     & {
-        background: color("page_background");
+        background: color("page-background");
         margin: 0 auto;
         max-width: remify($site-width);
         padding: remify(($content-padding * 0.75) $content-padding);
@@ -23,7 +23,7 @@
 
 .footer-block.--fullbleed {
     & {
-        background: color("page_background");
+        background: color("page-background");
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 
