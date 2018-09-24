@@ -39,17 +39,17 @@ function __gulp_init__namespace_enqueue_scripts() {
 
     // Service Worker
     $service_worker_uri = get_theme_file_uri("assets/scripts/service-worker.js");
-    wp_add_inline_script("__gulp_init__namespace-scripts-modern", apply_filters("__gulp_init__namespace_service_worker_register", `
-        if ("serviceWorker" in navigator) {
-            window.addEventListener("load", () => {
-                navigator.serviceWorker.register("{$service_worker_uri}").then((registration) => {
-                    console.log("Success: Service worker successfully registered!");
+    wp_add_inline_script("__gulp_init__namespace-scripts-modern", apply_filters("__gulp_init__namespace_service_worker_register", "
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('{$service_worker_uri}').then((registration) => {
+                    console.log('Success: Service worker successfully registered!');
                 }).catch((error) => {
-                    console.log("Error: ", error);
+                    console.log('Error: ', error);
                 });
             });
         }
-    `));
+    "));
 
     /* enqueue everything */
 
