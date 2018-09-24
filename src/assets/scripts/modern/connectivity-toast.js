@@ -9,14 +9,6 @@ let is_offline = false;
 const OFFLINE_NOTY = new Noty({
     text: "You appear to be offline right now. Some parts of this site may be unavailable until you come back online.",
     theme: false,
-    callbacks: {
-        onClose: () => {
-            console.log("attempting to close!");
-        },
-        onShow: () => {
-            console.log("attempting to show!");
-        },
-    },
 });
 
 const UPDATE_STATUS = () => {
