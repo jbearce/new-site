@@ -302,15 +302,18 @@
         font-size: remify(16, 20);
     }
 
-    .menu-list.--child .menu-list__link {
+    .menu-list.--child .menu-list__link,
+    .menu-list.--child .menu-list__toggle {
         padding: remify(4 16, 16);
     }
 
-    .menu-list.--child > .menu-list__item:first-child > .menu-list__link {
+    .menu-list.--child > .menu-list__item:first-child > .menu-list__link,
+    .menu-list.--child > .menu-list__item:first-child > .menu-list__toggle {
         padding-top: remify(8, 16);
     }
 
-    .menu-list.--child > .menu-list__item:last-child > .menu-list__link {
+    .menu-list.--child > .menu-list__item:last-child > .menu-list__link,
+    .menu-list.--child > .menu-list__item:last-child > .menu-list__toggle {
         padding-bottom: remify(8, 16);
     }
 
