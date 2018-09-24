@@ -1,0 +1,32 @@
+// Styles written by __gulp_init__author_name @ __gulp_init__author_company
+
+/* ------------------------------------------------------------------------ *\
+ * Noty (https://ned.im/noty/#/)
+\* ------------------------------------------------------------------------ */
+
+/* stylelint-disable selector-class-pattern */
+
+// Vendor
+
+@import "noty/lib/noty";
+
+// Custom
+
+.noty_bar {
+    & {
+        background-color: color("warning");
+        border-bottom: 0;
+        border-radius: remify(2, 16);
+        box-shadow: remify(0 2 5 0, 16) transparentize(color("dark"), 0.75);
+        margin: remify(5 0, 16);
+    }
+
+    .noty_body {
+        color: color("light");
+        font-display: swap;
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        line-height: remify(24, 16);
+        padding: remify(16 24, 16);
+    }
+}
