@@ -45,6 +45,16 @@
         z-index: 0;
     }
 
+    .admin-bar & {
+        & {
+            padding-top: remify(46);
+        }
+
+        @media screen and (min-width: 783px) {
+            padding-top: remify(32);
+        }
+    }
+
     &:not(.slideout-menu) {
         display: none;
     }
