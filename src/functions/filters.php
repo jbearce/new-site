@@ -26,7 +26,7 @@ add_action("wp_enqueue_scripts", "__gulp_init__namespace_http2_push", 999);
 // load the "offline" template when the user visits /offline/
 function __gulp_init__namespace_load_offline_template($template) {
     if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
-        return get_stylesheet_directory() . "/offline.php";
+        return get_theme_file_path("/offline.php");
     }
 
     return $template;
