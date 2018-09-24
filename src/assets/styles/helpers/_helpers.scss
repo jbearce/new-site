@@ -4,11 +4,17 @@
  * Helpers
 \* ------------------------------------------------------------------------ */
 
+// vendor
+
+@import "inline-svg";
+@import "angled-edges/_angled-edges";
+@import "../vendor/_str-replace";
+
 // imports
 
-@import "_variables";
-@import "_functions";
 @import "_mixins";
+@import "_functions";
+@import "_variables";
 
 // generic helpers
 

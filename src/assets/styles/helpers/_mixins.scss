@@ -4,10 +4,6 @@
  * Mixins
 \* ------------------------------------------------------------------------ */
 
-// vendor
-
-@import "angled-edges/_angled-edges";
-
 // nth-child: https://paulund.co.uk/nth-child-sass-mixins
 
 @mixin first-child() {
