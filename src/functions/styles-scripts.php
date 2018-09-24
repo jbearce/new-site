@@ -42,11 +42,7 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_add_inline_script("__gulp_init__namespace-scripts-modern", apply_filters("__gulp_init__namespace_service_worker_register", "
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('{$service_worker_uri}').then((registration) => {
-                    console.log('Success: Service worker successfully registered!');
-                }).catch((error) => {
-                    console.log('Error: ', error);
-                });
+                navigator.serviceWorker.register('{$service_worker_uri}');
             });
         }
     "));
