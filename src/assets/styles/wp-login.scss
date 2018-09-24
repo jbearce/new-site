@@ -6,7 +6,7 @@
 
 $dark:  color("dark", "tint"); // set to false to disable dark mode
 $light: color("light");
-$base:  color("secondary");
+$base:  color("accent");
 $tint:  lighten(desaturate(adjust-hue($base, 1.6532), 27.2727), 6.6667);
 $shade: darken(adjust-hue($base, 2.5111), 6.4706);
 
