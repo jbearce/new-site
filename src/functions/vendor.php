@@ -7,8 +7,5 @@
 require_once(TEMPLATEPATH . "/functions/vendor/page-for-post-type.php");
 add_action("after_setup_theme", array("Page_For_Post_Type", "get_instance"));
 
-// include wp14050 hotfix
-require_once(TEMPLATEPATH . "/functions/vendor/wp14050-hotfix.php");
-
 // include hm_get_template_part function
 require_once(TEMPLATEPATH . "/functions/vendor/hm-get-template-part.php");
