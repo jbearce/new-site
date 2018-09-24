@@ -64,7 +64,7 @@
             </div><!--/.header-block.--fullbleed-->
             <?php if (has_nav_menu("primary")): ?>
                 <div class="navigation-block --fullbleed __visible-xs __noprint" role="navigation">
-                    <div class="navigation_inner">
+                    <div class="navigation__inner">
                         <nav class="navigation__menu-list_container menu-list__container">
                             <?php
                             wp_nav_menu(array(
