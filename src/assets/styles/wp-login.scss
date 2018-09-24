@@ -4,7 +4,7 @@
 
 /* stylelint-disable no-descending-specificity, selector-max-id, selector-max-type, selector-no-qualifying-type, selector-class-pattern, property-no-vendor-prefix */
 
-$dark:  color("dark", "tint"); // set to a HEX value to enable dark mode
+$dark:  color("dark", "tint"); // set to false to disable dark mode
 $light: color("light");
 $base:  color("accent");
 $tint:  lighten(desaturate(adjust-hue($base, 1.6532), 27.2727), 6.6667);
