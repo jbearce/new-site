@@ -7,7 +7,7 @@ import Noty from "noty";
 let is_offline = false;
 
 const OFFLINE_NOTY = new Noty({
-    text: "You appear to be offline right now. Some parts of this site may be unavailable until you come back online.",
+    text: i18n.offline_noty,
     theme: false,
 });
 

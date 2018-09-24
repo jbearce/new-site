@@ -51,6 +51,15 @@ function __gulp_init__namespace_enqueue_scripts() {
         }
     "));
 
+    /* localize scripts */
+
+    $i18n = array(
+        "offline_noty" => __("You appear to be offline right now. Some parts of this site may be unavailable until you come back online.", "__gulp_init__namespace"),
+    );
+
+    wp_localize_script("__gulp_init__namespace-scripts-modern", "i18n", $i18n);
+    wp_localize_script("__gulp_init__namespace-scripts-legacy", "i18n", $i18n);
+
     /* enqueue everything */
 
     wp_enqueue_style("__gulp_init__namespace-styles-google-fonts");
@@ -60,7 +69,6 @@ function __gulp_init__namespace_enqueue_scripts() {
 
     wp_enqueue_script("__gulp_init__namespace-scripts-modern");
     wp_enqueue_script("__gulp_init__namespace-scripts-legacy");
-    wp_enqueue_script("__gulp_init__namespace-scripts-critical");
 
     /* mark legacy stuff as <= IE9 */
 
