@@ -7,21 +7,26 @@
 function __gulp_init__namespace_set_return_visitor_cookie() {
     if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
 }
-add_action("wp_enqueue_scripts", "__gulp_init__namespace_set_return_visitor_cookie", 999);
+add_action("wp", "__gulp_init__namespace_set_return_visitor_cookie", 10);
 
-// push the CSS & JS over HTTP2
+// push the CSS over HTTP/2
 function __gulp_init__namespace_http2_push() {
     global $wp_styles;
 
     $http2_string = "";
 
     foreach ($wp_styles->queue as $style) {
-        $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$wp_styles->registered[$style]->src}>; rel=preload; as=style";
+        $data = $wp_styles->registered[$style];
+
+        // only push over HTTP/2 if no condtional tags exist (exclude IE styles)
+        if (!isset($data->extra["conditional"])) {
+            $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$data->src}>; rel=preload; as=style";
+        }
     }
 
     header("Link: {$http2_string}");
 }
-add_action("wp_enqueue_scripts", "__gulp_init__namespace_http2_push", 999);
+add_action("wp", "__gulp_init__namespace_http2_push", 20);
 
 // load the "offline" template when the user visits /offline/
 function __gulp_init__namespace_load_offline_template($template) {

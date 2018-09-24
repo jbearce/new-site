@@ -67,7 +67,7 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_style_add_data("__gulp_init__namespace-styles-legacy", "conditional", "lte IE 9");
     wp_script_add_data("__gulp_init__namespace-scripts-legacy", "conditional", "lte IE 9");
 }
-add_action("wp_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts");
+add_action("wp", "__gulp_init__namespace_enqueue_scripts");
 
 // adjust WordPress login screen styles
 function __gulp_init__namespace_enqueue_scripts_login() {
