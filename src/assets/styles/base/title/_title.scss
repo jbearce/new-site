@@ -6,38 +6,50 @@
 
 .title {
     &,
-    &.--h1,
-    &.--h2 {
-        color: color("primary");
+    &.--h1 {
+        color: color("foreground");
         font-display: swap;
         font-family: $heading-font;
         font-range: $xs-break $xl-break;
-        font-size: responsive remify(20, 16) remify(24, 16);
-        font-weight: 700;
-        line-height: remify(30, 20);
-        margin: remify(0 0 10, 20);
+        font-size: responsive remify(40, 16) remify(80, 16);
+        font-weight: 300;
+        line-height: remify(48, 40);
+        margin: remify(0 0 20, 40);
+    }
+
+    &.--h2 {
+        font-range: $xs-break $xl-break;
+        font-size: responsive remify(32, 16) remify(54, 16);
     }
 
     &.--h3,
     &.--h4 {
+        font-weight: 800;
+    }
+
+    &.--h3 {
         font-range: $xs-break $xl-break;
-        font-size: responsive remify(18, 16) remify(21.6, 16);
-        line-height: remify(26, 18);
-        margin: remify(0 0 8, 18);
+        font-size: responsive remify(28, 16) remify(36, 16);
+    }
+
+    &.--h4 {
+        font-size: remify(24, 16);
+        margin-bottom: remify(16, 24);
     }
 
     &.--h5,
     &.--h6 {
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(16, 16) remify(19.2, 16);
-        line-height: remify(24, 16);
-        margin: remify(0 0 8, 16);
+        font-weight: 700;
     }
 
-    &.--h2,
-    &.--h4,
+    &.--h5 {
+        font-size: remify(18, 16);
+        margin-bottom: remify(16, 18);
+    }
+
     &.--h6 {
-        color: color("foreground");
+        font-size: remify(16, 16);
+        margin-bottom: remify(16, 16);
     }
 }
 

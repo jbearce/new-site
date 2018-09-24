@@ -8,14 +8,6 @@
     & {
         border-left: remify(2) solid color("accent");
         margin: 0;
-        padding: remify(0 0 0 24, 16);
-    }
-}
-
-/* tablet variant */
-
-@include larger-than(xs) {
-    .blockquote {
-        padding-left: remify(27, 16);
+        padding: remify(0 0 0 17.6, 16);
     }
 }

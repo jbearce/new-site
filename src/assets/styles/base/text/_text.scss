@@ -10,16 +10,10 @@
         display: block;
         font-display: swap;
         font-family: $body-font;
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(16, 16) remify(18, 16);
+        font-size: remify(16, 16);
         font-weight: 400;
-        line-height: remify(20, 16);
-        margin: remify(0 0 16, 16);
-    }
-
-    .button {
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(14, 16) remify(18, 18);
+        line-height: remify(28, 16);
+        margin: remify(0 0 24, 16);
     }
 
     > .button:last-child {
@@ -39,7 +33,7 @@
 
 .text.--list {
     & {
-        padding: remify(0 0 0 24, 16);
+        padding: remify(0 0 0 17.6, 16);
     }
 
     .text__list-item {
@@ -103,13 +97,14 @@
 
     .text__cell {
         border: 0;
-        padding: remify(6 8, 16);
+        min-width: remify(125, 16);
+        padding: remify(8 12, 16);
         text-align: left;
         vertical-align: top;
     }
 
     .text__header .text__cell {
-        border-bottom: remify(2) solid color("background", "tint");
+        border-bottom: remify(2) solid color("background", "shade");
         font-weight: 700;
     }
 
@@ -120,6 +115,6 @@
 
     > .text__row:nth-child(even) .text__cell,
     .text__body .text__row:nth-child(even) .text__cell {
-        background: color("background", "tint");
+        background: color("background", "shade");
     }
 }
