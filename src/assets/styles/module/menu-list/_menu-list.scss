@@ -312,8 +312,10 @@
         padding-top: remify(8, 16);
     }
 
-    .menu-list.--child > .menu-list__item:last-child > .menu-list__link,
-    .menu-list.--child > .menu-list__item:last-child > .menu-list__toggle {
+    .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__link,
+    .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__toggle,
+    .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__link,
+    .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__toggle {
         padding-bottom: remify(8, 16);
     }
 
