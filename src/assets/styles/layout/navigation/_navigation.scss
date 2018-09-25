@@ -46,7 +46,8 @@
     }
 
     &:not(.slideout-menu) {
-        display: none;
+        left: -999em;
+        top: -999em;
     }
 
     > .navigation__inner {

@@ -8,7 +8,6 @@ import Slideout from "slideout";
 const PANEL        = document.getElementById("page-container");
 const MENU         = document.getElementById("mobile-menu");
 const TOGGLE       = document.querySelector("[data-toggle=mobile-menu]");
-const MOBILE_WIDTH = 768; // @TODO consider switching to checking getComputedStyle(TOGGLE, null).display
 
 // verify that the elements exist
 if (PANEL !== null && MENU !== null && TOGGLE !== null) {
@@ -43,19 +42,19 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
 
     // destroy the menu on desktop
     window.addEventListener("load", () => {
-        if (mobile_menu === null && document.documentElement.clientWidth < MOBILE_WIDTH) {
+        if (mobile_menu === null && getComputedStyle(MENU).display !== "none") {
             mobile_menu = CONSTRUCT_MENU();
         }
     });
 
     // destroy the menu on desktop
     window.addEventListener("resize", () => {
-        const CLIENT_WIDTH = document.documentElement.clientWidth;
+        const MENU_DISPLAY = getComputedStyle(MENU).display;
 
-        if (mobile_menu !== null && CLIENT_WIDTH >= MOBILE_WIDTH) {
+        if (mobile_menu !== null && MENU_DISPLAY === "none") {
             mobile_menu.destroy();
             mobile_menu = null;
-        } else if (mobile_menu === null && CLIENT_WIDTH < MOBILE_WIDTH) {
+        } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
             mobile_menu = CONSTRUCT_MENU();
         }
     });
