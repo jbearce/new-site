@@ -17,6 +17,7 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
     // toggle the menu when clicking on the toggle
     TOGGLE.addEventListener("click", (e) => {
         e.preventDefault();
+        e.stopPropagation();
 
         if (mobile_menu !== null) {
             mobile_menu.toggle();
