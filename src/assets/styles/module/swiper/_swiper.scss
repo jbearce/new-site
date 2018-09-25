@@ -48,7 +48,7 @@
     & {
         background: color("dark");
         flex: 1 1 auto;
-        padding: remify(($content-padding * 0.5) $content-padding);
+        padding: remify(($content-padding * 0.75) $content-padding);
     }
 
     .swiper-caption-inner {
@@ -65,6 +65,12 @@
     & {
         color: color("light");
         font-size: remify(32, 16);
+    }
+}
+
+.swiper-user-content {
+    > :last-child {
+        margin-bottom: 0 !important;
     }
 }
 
