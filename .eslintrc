@@ -6,7 +6,7 @@
         "node": true
     },
     "globals": {
-        "i18n"
+        "l10n"
     },
     "parserOptions": {
         "sourceType": "module"

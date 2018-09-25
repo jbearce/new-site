@@ -49,7 +49,7 @@ function __gulp_init__namespace_enqueue_scripts() {
 
     /* localize scripts */
 
-    $i18n = array(
+    $l10n = array(
         "noty" => array(
             "offline" => array(
                 "text" => __("You appear to be offline right now. Some parts of this site may be unavailable until you come back online.", "__gulp_init__namespace"),
@@ -57,8 +57,8 @@ function __gulp_init__namespace_enqueue_scripts() {
         ),
     );
 
-    wp_localize_script("__gulp_init__namespace-scripts-modern", "i18n", $i18n);
-    wp_localize_script("__gulp_init__namespace-scripts-legacy", "i18n", $i18n);
+    wp_localize_script("__gulp_init__namespace-scripts-modern", "l10n", $l10n);
+    wp_localize_script("__gulp_init__namespace-scripts-legacy", "l10n", $l10n);
 
     /* enqueue everything */
 

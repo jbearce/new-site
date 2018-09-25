@@ -7,7 +7,7 @@ import Noty from "noty";
 let is_offline = false;
 
 const OFFLINE_NOTY = new Noty({
-    text: i18n.noty.offline.text,
+    text: l10n.noty.offline.text,
     theme: false,
 });
 
