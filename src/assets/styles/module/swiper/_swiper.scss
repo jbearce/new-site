@@ -61,6 +61,13 @@
     }
 }
 
+.swiper-title {
+    & {
+        color: color("light");
+        font-size: remify(32, 16);
+    }
+}
+
 .swiper-button {
     & {
         background: none;

@@ -58,7 +58,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 
                                                 <?php if ($image["caption"]): ?>
                                                     <div class="swiper-user-content user-content --light">
-                                                        <?php echo wpautop($image["caption"]); ?>
+                                                        <?php echo apply_filters("the_content", $image["caption"]); ?>
                                                     </div><!--/.swiper-user-content.user-content.--light-->
                                                 <?php endif; ?>
                                             </div><!--/.swiper-caption-inner-->
