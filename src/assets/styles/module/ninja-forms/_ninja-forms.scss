@@ -31,7 +31,7 @@
     .list-radio {
         font-size: remify(16, 16);
         list-style: none;
-        margin-bottom: 0;
+        margin: 0;
         padding: 0;
     }
 }
@@ -112,13 +112,21 @@
  * Opinionated Tweaks
 \* ------------------------------------------------------------------------ */
 
+// required indicator fix
+
+.ninja-forms-req-symbol {
+    & {
+        color: color("warning");
+    }
+}
+
 // list field fix
 
 .nf-field-container {
     .list-checkbox,
     .list-radio {
         font-size: remify(16, 16);
-        margin-bottom: remify(24, 16);
+        margin-bottom: remify(4, 16);
     }
 
     .list-checkbox .input.--checkbox,
@@ -129,17 +137,6 @@
     .list-checkbox .text.--label,
     .list-radio .text.--label {
         margin-bottom: remify(4, 16);
-    }
-}
-
-// touch list field fix
-
-@media (pointer: coarse) {
-    .nf-field-container {
-        .list-checkbox__item:not(:last-child) .text.--label,
-        .list-radio__item:not(:last-child) .text.--label {
-            margin-bottom: remify(24, 16);
-        }
     }
 }
 

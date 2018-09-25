@@ -6,11 +6,8 @@
 
 .input {
     & {
-        -webkit-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
-        -moz-appearance: none; /* stylelint-disable-line property-no-vendor-prefix */
-        appearance: none;
         background: color("background");
-        border: remify(1) solid color("background", "shade");
+        border: remify(1) solid color("dark", "tint");
         border-radius: 0;
         color: color("foreground");
         display: block;
@@ -37,7 +34,6 @@
 .input.--select {
     & {
         cursor: pointer;
-
         // remove Firefox default styles & arrow
         text-indent: 0.01px;
         text-overflow: "";
@@ -46,7 +42,8 @@
     }
 
     &.--arrow {
-        background-image: url("data:image/svg+xml;utf8,<svg width='1792' height='1792' viewBox='0 0 1792 1792' xmlns='http://www.w3.org/2000/svg'><path d='M1408 1088q0 26-19 45l-448 448q-19 19-45 19t-45-19l-448-448q-19-19-19-45t19-45 45-19h896q26 0 45 19t19 45zm0-384q0 26-19 45t-45 19h-896q-26 0-45-19t-19-45 19-45l448-448q19-19 45-19t45 19l448 448q19 19 19 45z'/></svg>");
+        // image path must be relative to gulpfile.js
+        background-image: str-replace(inline-svg-file("./src/assets/media/icon-select.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("foreground")}, "#", "%23")}%22");
         background-position: center right remify(12, 16);
         background-repeat: no-repeat;
         background-size: remify(16 16, 16);
@@ -75,27 +72,16 @@
     }
 
     &.--checkbox:checked {
-        /* bgImage: ignore */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23000000' d='M28.6,3.9L10.2,22.3l-6.8-6.8c-0.3-0.3-0.9-0.3-1.2,0l-2,2c-0.3,0.3-0.3,0.9,0,1.2l9.3,9.3c0.3,0.3,0.9,0.3,1.2,0l21-21 c0.3-0.3,0.3-0.9,0-1.2l-2-2C29.4,3.6,28.9,3.6,28.6,3.9z' /%3E%3C/svg%3E%0A");
+        // image path must be relative to gulpfile.js
+        background-image: str-replace(inline-svg-file("./src/assets/media/icon-check.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("foreground")}, "#", "%23")}%22");
     }
 
     &.--radiobutton:checked {
-        /* bgImage: ignore */
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23000000' d='M16,0C7.2,0,0,7.2,0,16s7.2,16,16,16s16-7.2,16-16S24.8,0,16,0z' /%3E%3C/svg%3E%0A");
+        // image path must be relative to gulpfile.js
+        background-image: str-replace(inline-svg-file("./src/assets/media/icon-radio.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("foreground")}, "#", "%23")}%22");
     }
 
     & + .text.--label {
         display: inline-block;
-    }
-}
-
-/* touch checkbox & radiobutton variants */
-
-@media (pointer: coarse) {
-    .input.--checkbox,
-    .input.--radiobutton {
-        & {
-            font-size: remify(24, 16);
-        }
     }
 }

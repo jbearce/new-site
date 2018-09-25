@@ -4,7 +4,7 @@
  * Normalize
 \* ------------------------------------------------------------------------ */
 
-/* stylelint-disable selector-max-type */
+/* stylelint-disable property-no-vendor-prefix, selector-max-type */
 
 /* These styles are intended to be global */
 
@@ -20,6 +20,16 @@
 *::before,
 *::after {
     box-sizing: border-box;
+}
+
+// remove opinionated default styles on buttons, inputs, and selects
+
+button,
+input,
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 // Set max-height and max-width to 100% on SVGs to fix a bug in Safari (http://stackoverflow.com/a/12631326/654480)
