@@ -18,36 +18,17 @@
 
 .search-form__input {
     & {
-        background: color("background");
-        border: remify(1) solid color("background", "shade");
-        color: color("foreground");
-        font-display: swap;
-        font-family: $body-font;
-        font-size: remify(16, 16);
         margin: 0;
-        outline: none;
-        padding: remify(8 38 8 12, 16);
-        transition: border-color 0.15s;
-        width: 100%;
-    }
-
-    &:focus,
-    &:hover {
-        border-color: color("accent");
+        padding-right: remify(44, 16);
     }
 }
 
 .search-form__button {
     & {
         background: none;
-        border: 0;
-        bottom: remify(1);
         color: color("foreground");
-        cursor: pointer;
-        font-size: remify(16, 16);
         margin: 0;
-        outline: none;
-        padding: remify(10 12, 16);
+        padding: remify(11.2 10, 18);
         position: absolute;
         right: remify(1);
         top: remify(1);
@@ -56,6 +37,7 @@
 
     &:focus,
     &:hover {
+        background: none;
         color: color("accent");
     }
 }

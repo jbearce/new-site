@@ -19,6 +19,7 @@
         margin: remify(0 0 8, 16);
         outline: 0;
         padding: remify(8 12, 16);
+        text-overflow: ellipsis;
         transition: border-color 0.15s, color 0.15s;
         width: 100%;
     }
