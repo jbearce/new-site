@@ -7,27 +7,27 @@
   "theme_color": "@@pwa_theme_color",
   "icons": [
     {
-      "src": "assets/media/icon-pwa-48x48.png",
+      "src": "assets/media/logo-pwa-48x48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "assets/media/icon-pwa-96x96.png",
+      "src": "assets/media/logo-pwa-96x96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "assets/media/icon-pwa-192x192.png",
+      "src": "assets/media/logo-pwa-192x192.png",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "assets/media/icon-pwa-256x256.png",
+      "src": "assets/media/logo-pwa-256x256.png",
       "type": "image/png",
       "sizes": "256x256"
     },
     {
-      "src": "assets/media/icon-pwa-512x512.png",
+      "src": "assets/media/logo-pwa-512x512.png",
       "type": "image/png",
       "sizes": "512x512"
     }
