@@ -163,16 +163,15 @@
 
 .nf-field-container {
     .nf-error-msg {
-        font-size: remify(10, 16);
-        margin-bottom: remify(24, 10);
-        margin-top: remify(-20, 10);
+        font-size: remify(12, 16);
+        margin-bottom: remify(12, 12);
     }
 }
 
 // reCAPTCHA fix
 
 .nf-field-container {
-    .g-recaptcha {
+    .g-recaptcha:not([data-size="invisible"]) {
         margin-bottom: remify(24, 16);
     }
 }
@@ -210,5 +209,12 @@
 
     &.label-right .nf-field-label > .text.--label {
         margin-left: remify(10, 16);
+    }
+
+    // checkbox/radio lists
+
+    &.listcheckbox-container .input.--checkbox,
+    &.listradio-container .input.--radiobutton {
+        margin-right: remify(6, 16);
     }
 }
