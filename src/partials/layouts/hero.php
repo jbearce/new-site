@@ -14,7 +14,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 <?php if ($slideshow || $featured_image): $i = 0; ?>
     <div class="hero-block<?php echo $block_class; ?>" role="region">
         <div class="hero__inner<?php echo $inner_class; ?>">
-            <div class="hero__swiper-container swiper-container --hero<?php echo $swiper_class; ?>">
+            <div class="hero__swiper-container swiper-container --hero<?php echo $swiper_class; ?>" data-slideout-ignore="true">
 
                 <div class="swiper-wrapper">
                     <?php if ($slideshow): ?>
