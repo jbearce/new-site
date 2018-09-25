@@ -264,6 +264,7 @@ function __gulp_init__namespace_add_user_content_classes($content) {
 
         $table_container = $DOM->createElement("div");
         $table_container->setAttribute("class", "user-content__text__table__container text__table__container");
+        $table_container->setAttribute("data-slideout-ignore", "true");
 
         foreach ($tables as $table) {
             $table_container_clone = $table_container->cloneNode();
