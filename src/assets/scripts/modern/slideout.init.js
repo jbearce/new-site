@@ -34,9 +34,10 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
 
     const CONSTRUCT_MENU = () => {
         return new Slideout({
-            duration: 250,
-            menu: MENU,
-            panel: PANEL,
+            duration:   250,
+            itemToMove: "menu",
+            menu:       MENU,
+            panel:      PANEL,
         });
     };
 

@@ -11,3 +11,13 @@
 @import "slideout/index";
 
 // Custom
+
+.slideout-dimmer {
+    & {
+        pointer-events: all;
+    }
+
+    .slideout-open & {
+        z-index: 100000;
+    }
+}

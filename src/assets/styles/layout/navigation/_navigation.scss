@@ -42,17 +42,7 @@
         background: color("accent");
         overscroll-behavior: contain;
         position: fixed;
-        z-index: 0;
-    }
-
-    .admin-bar & {
-        & {
-            padding-top: remify(46);
-        }
-
-        @media screen and (min-width: 783px) {
-            padding-top: remify(32);
-        }
+        z-index: 100001;
     }
 
     &:not(.slideout-menu) {

@@ -100,7 +100,7 @@
     "noty": "^3.1.4",
     "picturefill": "^3.0.2",
     "scroll-hint": "^1.2.0",
-    "slideout": "^1.0.1",
+    "slideout": "github:Mango/slideout#new-features",
     "sw-toolbox": "^3.6.0",
     "swiper": "^4.3.5"
   }
