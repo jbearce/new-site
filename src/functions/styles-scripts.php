@@ -82,3 +82,18 @@ function __gulp_init__namespace_enqueue_scripts_login() {
     wp_enqueue_style("__gulp_init__namespace-styles-login", get_bloginfo("template_directory") . "/assets/styles/wp-login.css", array(), "@@version");
 }
 add_action("login_enqueue_scripts", "__gulp_init__namespace_enqueue_scripts_login");
+
+// add BrowserSync script to the footer when active
+function __gulp_init__namespace_simplify_browsersync() {
+    $browsersync_port    = isset($_SERVER["HTTP_X_BROWSERSYNC_PORT"]) ? $_SERVER["HTTP_X_BROWSERSYNC_PORT"] : false;
+    $browsersync_version = isset($_SERVER["HTTP_X_BROWSERSYNC_VERSION"]) ? $_SERVER["HTTP_X_BROWSERSYNC_VERSION"] : false;
+
+    if ($browsersync_port && $browsersync_version) { ?>
+        <script id="__bs_script__">
+            //<![CDATA[
+                document.write("<script async src='http://HOST:<?php echo $browsersync_port; ?>/browser-sync/browser-sync-client.js?v=<?php echo $browsersync_version; ?>'><\/script>".replace("HOST", location.hostname));
+            //]]>
+        </script>
+    <?php }
+}
+add_action("wp_footer", "__gulp_init__namespace_simplify_browsersync", 999);
