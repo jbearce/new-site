@@ -26,10 +26,12 @@
 
 button,
 input,
-select {
+select,
+textarea {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+    border-radius: 0;
 }
 
 // Set max-height and max-width to 100% on SVGs to fix a bug in Safari (http://stackoverflow.com/a/12631326/654480)
