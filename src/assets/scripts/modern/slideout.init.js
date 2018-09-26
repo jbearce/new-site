@@ -34,10 +34,12 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         }
     });
 
+    // set up a focus trap
     const FOCUS_TRAP = focusTrap("#" + MENU.id, {
         clickOutsideDeactivates: true,
     });
 
+    // create a new slideout instance
     const GET_SLIDEOUT = () => {
         return new Slideout({
             duration:   250,
@@ -47,8 +49,9 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         });
     };
 
+    // construct a slideout instance along with event hooks
     const CONSTRUCT_SLIDEOUT = () => {
-        // construct the menu
+        // get the slideout
         mobile_menu = GET_SLIDEOUT();
 
         // trap focus on open
@@ -64,6 +67,7 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         });
     };
 
+    // completely destroy a slideout instance
     const DESTROY_SLIDEOUT = () => {
         // untrap the focus from the mobile menu
         FOCUS_TRAP.deactivate();
@@ -71,10 +75,11 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         // destroy the menu
         mobile_menu.destroy();
 
-        // reset to null to ensure 'else' works correctly
+        // reset to null to ensure constructing on resize works correctly
         mobile_menu = null;
     };
 
+    // create or destroy a slideout depending on menu display
     const UPDATE_MENU_STATE = () => {
         const MENU_DISPLAY = getComputedStyle(MENU).display;
 
@@ -87,13 +92,9 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         }
     };
 
-    // destroy the menu on desktop
-    window.addEventListener("load", () => {
-        if (mobile_menu === null && getComputedStyle(MENU).display !== "none") {
-            CONSTRUCT_SLIDEOUT();
-        }
-    });
+    // create or destroy a slideout on load
+    window.onload = UPDATE_MENU_STATE();
 
-    // construct or destroy the menu based on browser width
+    // create or destroy a slideout on resize
     window.onresize = debounce(UPDATE_MENU_STATE, 200);
 }
