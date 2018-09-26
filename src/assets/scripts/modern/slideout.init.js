@@ -3,6 +3,7 @@
 // Scripts written by __gulp_init__author_name @ __gulp_init__author_company
 
 import Slideout from "slideout";
+import debounce from "debounce";
 
 // get the elements
 const PANEL        = document.getElementById("page-container");
@@ -41,6 +42,20 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         });
     };
 
+    const UPDATE_MENU_STATE = () => {
+        const MENU_DISPLAY = getComputedStyle(MENU).display;
+
+        // destroy the menu when it's set to display: none
+        if (mobile_menu !== null && MENU_DISPLAY === "none") {
+            mobile_menu.destroy();
+            // reset to null to ensure 'else' works correctly
+            mobile_menu = null;
+        // construct the menu when it's not set to display: none
+        } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
+            mobile_menu = CONSTRUCT_MENU();
+        }
+    };
+
     // destroy the menu on desktop
     window.addEventListener("load", () => {
         if (mobile_menu === null && getComputedStyle(MENU).display !== "none") {
@@ -48,15 +63,6 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         }
     });
 
-    // destroy the menu on desktop
-    window.addEventListener("resize", () => {
-        const MENU_DISPLAY = getComputedStyle(MENU).display;
-
-        if (mobile_menu !== null && MENU_DISPLAY === "none") {
-            mobile_menu.destroy();
-            mobile_menu = null;
-        } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
-            mobile_menu = CONSTRUCT_MENU();
-        }
-    });
+    // construct or destroy the menu based on browser width
+    window.onresize = debounce(UPDATE_MENU_STATE, 200);
 }
