@@ -295,7 +295,7 @@
         background-color: color("accent", "tint");
     }
 
-    // child
+    /* child */
 
     .menu-list.--child {
         background: transparentize(color("accent"), 0.05);
@@ -323,7 +323,7 @@
         padding-bottom: remify(8, 16);
     }
 
-    // child depth 2
+    /* child depth 2 */
 
     .menu-list.--child.--depth-2 {
         background: linear-gradient(to bottom, transparentize(color("light"), 0.9) 0%, transparentize(color("light"), 0.9) 100%), transparentize(color("accent"), 0.05);
@@ -367,6 +367,40 @@
     // accomodate the additional padding on first menu items
     .menu-list.--child.--mega.--depth-2 > .menu-list__item:first-child > .menu-list__link {
         background-position: remify(16 15, 16);
+    }
+
+    /* accordions */
+
+    &.--accordion .menu-list.--child {
+        font-size: remify(20, 20);
+    }
+
+    &.--accordion .menu-list.--child::after {
+        background: color("light");
+        bottom: 0;
+        clear: both;
+        content: "";
+        height: remify(1);
+        left: 0;
+        position: absolute;
+        width: 100%;
+    }
+
+    &.--accordion .menu-list.--child .menu-list__link,
+    &.--accordion .menu-list.--child .menu-list__toggle {
+        padding: remify(8 16, 20);
+    }
+
+    &.--accordion .menu-list.--child > .menu-list__item:first-child > .menu-list__link,
+    &.--accordion .menu-list.--child > .menu-list__item:first-child > .menu-list__toggle {
+        padding-top: remify(16, 20);
+    }
+
+    &.--accordion .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__link,
+    &.--accordion .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__toggle,
+    &.--accordion .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__link,
+    &.--accordion .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__toggle {
+        padding-bottom: remify(16, 20);
     }
 }
 
