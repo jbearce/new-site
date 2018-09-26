@@ -34,7 +34,7 @@ prepros-6.cfg
 .eyeglass_cache
 
 # Configuration settings
-.defaults
+.init
 .bsconfig
 .ftpconfig
 .rsyncconfig

@@ -12,7 +12,7 @@ module.exports = {
         let defaults     = {};
         let project_data = {};
 
-        const get_default_data = (file_name = ".defaults") => {
+        const get_default_data = (file_name = ".init") => {
             return new Promise((resolve) => {
                 // open the file
                 plugins.fs.stat(file_name, (err) => {
