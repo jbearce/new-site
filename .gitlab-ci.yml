@@ -1,0 +1,20 @@
+image: ubuntu:16.04
+
+before_script:
+  - apt-get update -qq && apt-get install -y -qq apt-utils build-essential curl git phantomjs php tar
+  - curl -sL https://deb.nodesource.com/setup_8.x | bash - > /dev/null
+  - apt-get update -qq && apt-get install -y -qq nodejs
+  - node -v
+  - which node
+  - npm -v
+  - which npm
+  - php -v
+  - which php
+  - npm install --global --quiet stylelint eslint phplint
+  - npm install --quiet
+
+code_quality:
+  script:
+    - stylelint "./src/assets/styles/**/*.scss"
+    - eslint "./src/assets/scripts/**/*.js"
+    - phplint "./src/**/*.php"
