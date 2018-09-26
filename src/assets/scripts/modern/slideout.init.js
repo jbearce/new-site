@@ -38,7 +38,7 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         clickOutsideDeactivates: true,
     });
 
-    const CONSTRUCT_MENU = () => {
+    const GET_SLIDEOUT = () => {
         return new Slideout({
             duration:   250,
             itemToMove: "menu",
@@ -47,50 +47,50 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         });
     };
 
+    const CONSTRUCT_SLIDEOUT = () => {
+        // construct the menu
+        mobile_menu = GET_SLIDEOUT();
+
+        // trap focus on open
+        mobile_menu.on("open", () => {
+            MENU.focus();
+            FOCUS_TRAP.activate();
+        });
+
+        // release focus on close
+        mobile_menu.on("close", () => {
+            TOGGLE.focus();
+            FOCUS_TRAP.deactivate();
+        });
+    };
+
+    const DESTROY_SLIDEOUT = () => {
+        // untrap the focus from the mobile menu
+        FOCUS_TRAP.deactivate();
+
+        // destroy the menu
+        mobile_menu.destroy();
+
+        // reset to null to ensure 'else' works correctly
+        mobile_menu = null;
+    };
+
     const UPDATE_MENU_STATE = () => {
         const MENU_DISPLAY = getComputedStyle(MENU).display;
 
         // destroy the menu when it's set to display: none
         if (mobile_menu !== null && MENU_DISPLAY === "none") {
-            // untrap the focus from the mobile menu
-            FOCUS_TRAP.deactivate();
-
-            // destroy the menu
-            mobile_menu.destroy();
-
-            // reset to null to ensure 'else' works correctly
-            mobile_menu = null;
+            DESTROY_SLIDEOUT();
         // construct the menu when it's not set to display: none
         } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
-            // construct the menu
-            mobile_menu = CONSTRUCT_MENU();
-
-            mobile_menu.on("open", () => {
-                MENU.focus();
-                FOCUS_TRAP.activate();
-            });
-
-            mobile_menu.on("close", () => {
-                TOGGLE.focus();
-                FOCUS_TRAP.deactivate();
-            });
+            CONSTRUCT_SLIDEOUT();
         }
     };
 
     // destroy the menu on desktop
     window.addEventListener("load", () => {
         if (mobile_menu === null && getComputedStyle(MENU).display !== "none") {
-            mobile_menu = CONSTRUCT_MENU();
-
-            mobile_menu.on("open", () => {
-                MENU.focus();
-                FOCUS_TRAP.activate();
-            });
-
-            mobile_menu.on("close", () => {
-                TOGGLE.focus();
-                FOCUS_TRAP.deactivate();
-            });
+            CONSTRUCT_SLIDEOUT();
         }
     });
 
