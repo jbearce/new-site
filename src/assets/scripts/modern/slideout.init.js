@@ -7,9 +7,9 @@ import debounce from "debounce";
 import focusTrap from "focus-trap";
 
 // get the elements
-const PANEL        = document.getElementById("page-container");
-const MENU         = document.getElementById("mobile-menu");
-const TOGGLE       = document.querySelector("[data-toggle=mobile-menu]");
+const PANEL  = document.getElementById("page-container");
+const MENU   = document.getElementById("mobile-menu");
+const TOGGLE = document.querySelector("[data-toggle=mobile-menu]");
 
 // verify that the elements exist
 if (PANEL !== null && MENU !== null && TOGGLE !== null) {
