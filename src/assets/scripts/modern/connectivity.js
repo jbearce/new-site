@@ -15,6 +15,8 @@ const UPDATE_STATUS = () => {
     if (typeof navigator.onLine !== "undefined") {
         is_offline = !navigator.onLine;
 
+        document.documentElement.classList.toggle("is-offline", is_offline);
+
         if (is_offline) {
             OFFLINE_NOTY.show();
         } else {
