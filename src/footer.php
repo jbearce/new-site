@@ -8,7 +8,7 @@
             </div><!--/.footer-block.--fullbleed-->
         </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
-            <div class="navigation-block --flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu">
+            <div class="navigation-block --flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0">
                 <div class="navigation_inner">
                     <div class="navigation__search-form__container search-form__container __nomargin">
                         <?php get_search_form(); ?>

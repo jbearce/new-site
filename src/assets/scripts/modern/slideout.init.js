@@ -4,6 +4,7 @@
 
 import Slideout from "slideout";
 import debounce from "debounce";
+import focusTrap from "focus-trap";
 
 // get the elements
 const PANEL        = document.getElementById("page-container");
@@ -33,6 +34,10 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         }
     });
 
+    const FOCUS_TRAP = focusTrap("#" + MENU.id, {
+        clickOutsideDeactivates: true,
+    });
+
     const CONSTRUCT_MENU = () => {
         return new Slideout({
             duration:   250,
@@ -47,12 +52,28 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
 
         // destroy the menu when it's set to display: none
         if (mobile_menu !== null && MENU_DISPLAY === "none") {
+            // untrap the focus from the mobile menu
+            FOCUS_TRAP.deactivate();
+
+            // destroy the menu
             mobile_menu.destroy();
+
             // reset to null to ensure 'else' works correctly
             mobile_menu = null;
         // construct the menu when it's not set to display: none
         } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
+            // construct the menu
             mobile_menu = CONSTRUCT_MENU();
+
+            mobile_menu.on("open", () => {
+                MENU.focus();
+                FOCUS_TRAP.activate();
+            });
+
+            mobile_menu.on("close", () => {
+                TOGGLE.focus();
+                FOCUS_TRAP.deactivate();
+            });
         }
     };
 
@@ -60,6 +81,16 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
     window.addEventListener("load", () => {
         if (mobile_menu === null && getComputedStyle(MENU).display !== "none") {
             mobile_menu = CONSTRUCT_MENU();
+
+            mobile_menu.on("open", () => {
+                MENU.focus();
+                FOCUS_TRAP.activate();
+            });
+
+            mobile_menu.on("close", () => {
+                TOGGLE.focus();
+                FOCUS_TRAP.deactivate();
+            });
         }
     });
 
