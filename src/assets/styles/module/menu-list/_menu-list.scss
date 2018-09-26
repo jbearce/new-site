@@ -298,7 +298,7 @@
     /* child */
 
     .menu-list.--child {
-        background: transparentize(color("accent"), 0.05);
+        background: color("accent", "tint");
         font-size: remify(16, 20);
     }
 
@@ -338,7 +338,7 @@
     /* mega */
 
     .menu-list__container.--mega {
-        background: transparentize(color("accent"), 0.05);
+        background: color("accent", "tint");
     }
 
     .menu-list.--child.--mega {
@@ -351,13 +351,13 @@
     }
 
     .menu-list.--child.--depth-1.--mega:not(:last-child) {
-        border-right: remify(1) solid darken(color("accent"), 5);
+        border-right: remify(1) solid color("accent", "shade");
     }
 
     .menu-list.--child.--mega.--depth-2 .menu-list__link {
         // image path must be relative to gulpfile.js
         background-image: str-replace(inline-svg-file("./src/assets/media/icon-angle-right.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("light")}, "#", "%23")}%22");
-        background-position: remify(16 11, 16);
+        background-position: remify(16 8, 16);
         background-repeat: no-repeat;
         background-size: remify(10 10, 16);
         border-bottom: 0;
@@ -366,7 +366,7 @@
 
     // accomodate the additional padding on first menu items
     .menu-list.--child.--mega.--depth-2 > .menu-list__item:first-child > .menu-list__link {
-        background-position: remify(16 15, 16);
+        background-position: remify(16 12, 16);
     }
 
     /* accordions */
@@ -376,7 +376,7 @@
     }
 
     &.--accordion .menu-list.--child::after {
-        background: color("light");
+        background: color("accent", "shade");
         bottom: 0;
         clear: both;
         content: "";
