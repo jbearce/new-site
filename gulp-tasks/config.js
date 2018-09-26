@@ -13,7 +13,7 @@ module.exports = {
             const data_source = {
                 bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
                 ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/1edc9488cccf2200831b13565a02180fce2afc5a/.ftpconfig",
-                sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/31ade808eb3b90940864271a9236be7c45e8233e/.ftpconfig",
+                sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/b7a06d618468ab82d12a0639a74f7f403e6f8cdc/.ftpconfig",
                 rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/91214db28e8f9cbbecb7f8ddcf5e42cbe5c5b0a8/.rsyncconfig",
             };
 

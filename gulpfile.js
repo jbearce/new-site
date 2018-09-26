@@ -137,19 +137,43 @@ gulp.task("default", ["styles", "scripts", "html", "media"], () => {
     gulp.src("gulpfile.js")
         .pipe(plugins.gulpif(ran_tasks.length, plugins.notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
 
-    // trigger upload task if --upload is passed
-    if (plugins.argv.upload) {
-        config_module.config(gulp, plugins, "ftp").then(() => {
-            return upload_module.upload(gulp, plugins, ran_tasks, on_error);
-        });
-    }
+    // handle optional tasks sequentially
+    new Promise((resolve) => {
+        // trigger upload task if --upload is passed
+        if (plugins.argv.upload) {
+            return config_module.config(gulp, plugins, "ftp").then(() => {
+                return upload_module.upload(gulp, plugins, ran_tasks, on_error);
+            }).then(() => {
+                return resolve();
+            });
+        }
 
-    // trigger rsync task if --rsync is passed
-    if (plugins.argv.rsync) {
-        config_module.config(gulp, plugins, "rsync").then(() => {
-            return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
+        // resole the promise automatically if upload wasn't requested
+        return resolve();
+    }).then(() => {
+        // trigger rsync task if --rsync is passed
+        return new Promise((resolve) => {
+            if (plugins.argv.rsync) {
+                return config_module.config(gulp, plugins, "rsync").then(() => {
+                    return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
+                }).then(() => {
+                    return resolve();
+                });
+            }
+
+            // resole the promise automatically if rsync wasn't requested
+            return resolve();
         });
-    }
+    }).then(() => {
+        // trigger sync task if --sync is passed
+        return new Promise((resolve) => {
+            if (plugins.argv.sync) {
+                plugins.browser_sync.reload();
+            }
+
+            return resolve();
+        });
+    });
 
     // reset ran_tasks array
     ran_tasks.length = 0;

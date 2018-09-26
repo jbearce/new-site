@@ -98,8 +98,6 @@ module.exports = {
             return plugins.merge(binaries, html)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
-                // reload files
-                .pipe(plugins.browser_sync.reload({stream: true}))
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "HTML task complete!", onLast: true})))
                 // push task to ran_tasks array
