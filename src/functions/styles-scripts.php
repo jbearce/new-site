@@ -5,8 +5,6 @@
 
 // enqueue styles & scripts
 function __gulp_init__namespace_enqueue_scripts() {
-    global $template;
-
     /* styles */
 
     // Google fonts
