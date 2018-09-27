@@ -1,24 +1,18 @@
-image: ubuntu:16.04
+image: bitnami/node:8
 
 cache:
   paths:
     - node_modules/
 
 before_script:
-  - apt-get update -qq && apt-get install -y -qq apt-utils build-essential curl git phantomjs php tar
-  - curl -sL https://deb.nodesource.com/setup_8.x | bash - > /dev/null
-  - apt-get update -qq && apt-get install -y -qq nodejs
+  - env DEBIAN_FRONTEND=noninteractive apt-get update -qq && env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php < /dev/null > /dev/null
+  - npm install --quiet --no-save eslint stylelint stylelint-config-standard stylelint-order stylelint-scss
   - node -v
-  - which node
   - npm -v
-  - which npm
   - php -v
-  - which php
-  - npm install --global --quiet stylelint eslint phplint
-  - npm install --quiet
 
 code_quality:
   script:
-    - stylelint "./src/assets/styles/**/*.scss"
-    - eslint "./src/assets/scripts/**/*.js"
-    - phplint "./src/**/*.php"
+    - node node_modules/stylelint/bin/stylelint.js "./src/assets/styles/**/*.scss"
+    - node node_modules/eslint/bin/eslint.js "./src/assets/scripts/**/*.js"
+    - find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
