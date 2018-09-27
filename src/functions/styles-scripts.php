@@ -5,6 +5,8 @@
 
 // enqueue styles & scripts
 function __gulp_init__namespace_enqueue_scripts() {
+    global $template;
+
     /* styles */
 
     // Google fonts
@@ -86,10 +88,11 @@ function __gulp_init__namespace_simplify_browsersync() {
     $browsersync_port    = isset($_SERVER["HTTP_X_BROWSERSYNC_PORT"]) ? $_SERVER["HTTP_X_BROWSERSYNC_PORT"] : false;
     $browsersync_version = isset($_SERVER["HTTP_X_BROWSERSYNC_VERSION"]) ? $_SERVER["HTTP_X_BROWSERSYNC_VERSION"] : false;
 
-    if ($browsersync_port && $browsersync_version) { ?>
+    if ($browsersync_port && $browsersync_version) {
+        $server_protocol = stripos($_SERVER["SERVER_PROTOCOL"], "https") === true ? "https://" : "http://"; ?>
         <script id="__bs_script__">
             //<![CDATA[
-                document.write("<script async src='http://HOST:<?php echo $browsersync_port; ?>/browser-sync/browser-sync-client.js?v=<?php echo $browsersync_version; ?>'><\/script>".replace("HOST", location.hostname));
+                document.write("<script async src='<?php echo $server_protocol; ?>HOST:<?php echo $browsersync_port; ?>/browser-sync/browser-sync-client.js?v=<?php echo $browsersync_version; ?>'><\/script>".replace("HOST", location.hostname));
             //]]>
         </script>
     <?php }
