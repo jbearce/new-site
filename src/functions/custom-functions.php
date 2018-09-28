@@ -238,23 +238,9 @@ function __gulp_init__namespace_get_no_posts_message($queried_object) {
 }
 
 // function to retrieve a bunch of article metadata
-function __gulp_init__namespace_get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
-    // set up some default taxonomies
-    if (empty($taxonomies)) {
-        $taxonomies = array(
-            array(
-                "icon" => "fa-folder",
-                "name" => "category"
-            ),
-            array(
-                "icon" => "fa-tag",
-                "name" => "post_tag"
-            ),
-        );
-    }
-
+function ($post_id, $meta = array()) {
     // grab the date
-    if (!isset($meta["date"])) {
+    if (isset($meta["date"])) {
         $meta["date"] = array(
             "icon"     => "fa-clock",
             "links"    => array(
@@ -269,7 +255,7 @@ function __gulp_init__namespace_get_article_meta($post_id, $taxonomies = array()
     }
 
     // grab the author
-    if (!isset($meta["author"])) {
+    if (isset($meta["author"])) {
         $author_id = get_post_field("post_author", $post_id);
 
         $meta["author"] = array(
@@ -286,7 +272,7 @@ function __gulp_init__namespace_get_article_meta($post_id, $taxonomies = array()
     }
 
     // grab the comments count
-    if (!isset($meta["comments"])) {
+    if (isset($meta["comments"])) {
         $comment_count = get_comments_number($post_id);
 
         $meta["comments"] = array(
@@ -303,8 +289,8 @@ function __gulp_init__namespace_get_article_meta($post_id, $taxonomies = array()
     }
 
     // grab the taxonomy terms
-    if ($taxonomies) {
-        foreach ($taxonomies as $tax) {
+    if (isset($meta["taxonomies"])) {
+        foreach ($meta["taxonomies"] as $tax) {
             if (!isset($meta["tax_{$tax["name"]}"])) {
 
                 $terms = get_the_terms($post_id, $tax["name"]);
