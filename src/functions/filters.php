@@ -26,7 +26,7 @@ function __gulp_init__namespace_http2_push() {
 
     header("Link: {$http2_string}");
 }
-add_action("wp", "__gulp_init__namespace_http2_push", 20);
+add_action("get_header", "__gulp_init__namespace_http2_push", 20);
 
 // load the service-worker.*.js script when the user visits /service-worker.js
 function __gulp_init__namespace_load_service_worker_script($template) {

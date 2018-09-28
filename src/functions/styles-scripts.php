@@ -34,8 +34,10 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_register_script("__gulp_init__namespace-scripts-legacy", get_theme_file_uri(__gulp_init__namespace_get_theme_file_path("assets/scripts/", "legacy.*.js")), array(), "@@version");
 
     // critical scripts
-    $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init__namespace_get_theme_file_path("assets/scripts/", "critical.*.js")));
-    wp_add_inline_script("__gulp_init__namespace-scripts-modern", $critical_scripts);
+    if (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
+        $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init__namespace_get_theme_file_path("assets/scripts/", "critical.*.js")));
+        wp_add_inline_script("__gulp_init__namespace-scripts-modern", $critical_scripts);
+    }
 
     // Service Worker
     $service_worker_uri = get_site_url(null, "service-worker.js");
@@ -75,7 +77,7 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_style_add_data("__gulp_init__namespace-styles-legacy", "conditional", "lte IE 9");
     wp_script_add_data("__gulp_init__namespace-scripts-legacy", "conditional", "lte IE 9");
 }
-add_action("wp", "__gulp_init__namespace_enqueue_scripts");
+add_action("get_header", "__gulp_init__namespace_enqueue_scripts");
 
 // adjust WordPress login screen styles
 function __gulp_init__namespace_enqueue_scripts_login() {

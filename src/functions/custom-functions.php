@@ -9,7 +9,7 @@ function __gulp_init__namespace_get_template_part($file, $template_args = array(
 }
 
 // make overriding hashed file names with a child theme easier
-function __gulp_init__namespace_get_theme_file_path($path, $pattern) {
+function __gulp_init__namespace_get_theme_file_path($path, $pattern, $full_path = false) {
     $file_paths = array();
 
     /* ------------------------------------------------------------------------ *\
@@ -40,7 +40,7 @@ function __gulp_init__namespace_get_theme_file_path($path, $pattern) {
             return filemtime($a) < filemtime($b);
         });
 
-        return $path . basename($file_paths[0]);
+        return $full_path ? $file_paths[0] : $path . basename($file_paths[0]);
     }
 
     return false;
@@ -50,9 +50,9 @@ function __gulp_init__namespace_get_theme_file_path($path, $pattern) {
 function __gulp_init__namespace_get_critical_css($template) {
     $critical_css      = "";
     $current_template  = explode(".", basename($template))[0];
-    $critical_css_path = __gulp_init__namespace_get_theme_file_path("assets/styles/critical/", "{$current_template}.*.css");
+    $critical_css_path = __gulp_init__namespace_get_theme_file_path("assets/styles/critical/", "{$current_template}.css", true);
 
-    if (file_exists($critical_css_path) && !isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) {
+    if (file_exists($critical_css_path) && ((!isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) || (isset($_GET["debug"]) && $_GET["debug"] === "critical_css"))) {
         $critical_css = file_get_contents($critical_css_path);
     }
 
