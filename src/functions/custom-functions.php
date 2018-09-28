@@ -238,7 +238,7 @@ function __gulp_init__namespace_get_no_posts_message($queried_object) {
 }
 
 // function to retrieve a bunch of article metadata
-function ($post_id, $meta = array()) {
+function __gulp_init__namespace_get_article_meta($post_id, $meta = array()) {
     // grab the date
     if (isset($meta["date"])) {
         $meta["date"] = array(
