@@ -67,8 +67,12 @@ module.exports = {
                 .pipe(plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"}))
                 // write sourcemap (if --dist isn't passed)
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
-                // output to compiled directory
-                .pipe(gulp.dest(css_directory));
+                // output styles to compiled directory
+                .pipe(gulp.dest(css_directory))
+                // generate a hash manfiest
+                .pipe(plugins.hash.manifest("./.hashmanifest", {deleteOld: true, sourceDir: css_directory}))
+                // output hash manifest in root
+                .pipe(gulp.dest("."));
         };
 
         // styles task, compiles & prefixes SCSS

@@ -279,19 +279,19 @@
 
     .menu-list__link:focus,
     .menu-list__link:hover,
-    .menu-list__item:hover > .menu-list__link,
-    .menu-list__item.is-active > .menu-list__link,
+    > .menu-list__item:hover > .menu-list__link,
+    > .menu-list__item.is-active > .menu-list__link,
     .menu-list__toggle:focus,
     .menu-list__toggle:hover,
-    .menu-list__item:hover > .menu-list__toggle,
-    .menu-list__item.is-active > .menu-list__toggle {
+    > .menu-list__item:hover > .menu-list__toggle,
+    > .menu-list__item.is-active > .menu-list__toggle {
         background-color: color("accent", "tint");
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item:focus-within > .menu-list__link,
-    .menu-list__item:focus-within > .menu-list__toggle {
+    > .menu-list__item:focus-within > .menu-list__link,
+    > .menu-list__item:focus-within > .menu-list__toggle {
         background-color: color("accent", "tint");
     }
 
@@ -325,19 +325,19 @@
 
     .menu-list.--child .menu-list__link:focus,
     .menu-list.--child .menu-list__link:hover,
-    .menu-list.--child .menu-list__item:hover > .menu-list__link,
-    .menu-list.--child .menu-list__item.is-active > .menu-list__link,
+    .menu-list.--child:not(.--mega) .menu-list__item:hover > .menu-list__link,
+    .menu-list.--child:not(.--mega) .menu-list__item.is-active > .menu-list__link,
     .menu-list.--child .menu-list__toggle:focus,
     .menu-list.--child .menu-list__toggle:hover,
-    .menu-list.--child .menu-list__item:hover > .menu-list__toggle,
-    .menu-list.--child .menu-list__item.is-active > .menu-list__toggle {
+    .menu-list.--child:not(.--mega) .menu-list__item:hover > .menu-list__toggle,
+    .menu-list.--child:not(.--mega) .menu-list__item.is-active > .menu-list__toggle {
         background-color: lighten(color("accent", "tint"), 5);
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list.--child .menu-list__item:focus-within > .menu-list__link,
-    .menu-list.--child .menu-list__item:focus-within > .menu-list__toggle {
+    .menu-list.--child:not(.--mega) .menu-list__item:focus-within > .menu-list__link,
+    .menu-list.--child:not(.--mega) .menu-list__item:focus-within > .menu-list__toggle {
         background-color: lighten(color("accent", "tint"), 5);
     }
 

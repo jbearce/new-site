@@ -41,8 +41,12 @@ module.exports = {
                     .pipe(webpack(webpack_config))
                     // generate a hash and add it to the file name
                     .pipe(plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"}))
-                    // output to compiled directory
+                    // output scripts to compiled directory
                     .pipe(gulp.dest(js_directory))
+                    // generate a hash manfiest
+                    .pipe(plugins.hash.manifest(".hashmanifest", {deleteOld: true, sourceDir: js_directory}))
+                    // output hash manifest in root
+                    .pipe(gulp.dest("."))
                     // reject after errors
                     .on("error", () => {
                         reject(TASK);
