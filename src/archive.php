@@ -35,7 +35,7 @@
                     __gulp_init__namespace_get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "class" => "content__article"));
                 }
             } else {
-                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("class" => "content__article", "error" => get_no_posts_message(get_queried_object())));
+                __gulp_init__namespace_get_template_part("partials/articles/post-none.php", array("class" => "content__article", "error" => __gulp_init__namespace_get_no_posts_message(get_queried_object())));
             }
             ?>
 

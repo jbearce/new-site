@@ -4,8 +4,8 @@ $class     = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
 $light     = isset($template_args["light"]) ? $template_args["light"] : false;
 $permalink = isset($template_args["permalink"]) ? $template_args["permalink"] : ($post ? get_the_permalink($post->ID) : "");
 $title     = isset($template_args["title"]) ? $template_args["title"] : ($post ? $post->post_title : "");
-$meta      = isset($template_args["meta"]) ? $template_args["meta"] : ($post ? get_article_meta($post->ID) : "");
-$excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($post ? get_better_excerpt($post->ID, 55, "&hellip;") : "");
+$meta      = isset($template_args["meta"]) ? $template_args["meta"] : ($post ? __gulp_init__namespace_get_article_meta($post->ID) : "");
+$excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($post ? __gulp_init__namespace_get_the_excerpt($post->ID, 55, "&hellip;") : "");
 ?>
 
 <?php if ($title || $permalink): ?>

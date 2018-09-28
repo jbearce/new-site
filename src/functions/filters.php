@@ -31,7 +31,7 @@ add_action("wp", "__gulp_init__namespace_http2_push", 20);
 // load the service-worker.*.js script when the user visits /service-worker.js
 function __gulp_init__namespace_load_service_worker_script($template) {
     if (isset($_GET["sw_script"]) && $_GET["sw_script"] === "true") {
-        return get_theme_file_path(__gulp_init__namespace_get_theme_file_path_hashed("assets/scripts/", "service-worker.*.js"));
+        return get_theme_file_path(__gulp_init__namespace_get_theme_file_path("assets/scripts/", "service-worker.*.js"));
     }
 
     return $template;
@@ -321,7 +321,7 @@ function __gulp_init__namespace_add_user_content_classes($content) {
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $content = remove_extra_tags($DOM);
+        $content = __gulp_init__namespace_remove_extra_tags($DOM);
     }
 
     return $content;
@@ -368,7 +368,7 @@ function __gulp_init__namespace_lazy_load_images($content) {
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $content = remove_extra_tags($DOM);
+        $content = __gulp_init__namespace_remove_extra_tags($DOM);
     }
 
     return $content;
@@ -394,7 +394,7 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $html = remove_extra_tags($DOM);
+        $html = __gulp_init__namespace_remove_extra_tags($DOM);
     }
 
     return $html;

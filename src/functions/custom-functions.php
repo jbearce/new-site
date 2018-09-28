@@ -9,7 +9,7 @@ function __gulp_init__namespace_get_template_part($file, $template_args = array(
 }
 
 // make overriding hashed file names with a child theme easier
-function __gulp_init__namespace_get_theme_file_path_hashed($path, $pattern) {
+function __gulp_init__namespace_get_theme_file_path($path, $pattern) {
     $file_path = false;
 
     $child_results = glob(get_stylesheet_directory() . "/{$path}{$pattern}");
@@ -28,10 +28,10 @@ function __gulp_init__namespace_get_theme_file_path_hashed($path, $pattern) {
 }
 
 // check if critical styles should be used, and return it if true
-function get_critical_css($template) {
+function __gulp_init__namespace_get_critical_css($template) {
     $critical_css      = "";
     $current_template  = explode(".", basename($template))[0];
-    $critical_css_path = __gulp_init__namespace_get_theme_file_path_hashed("assets/styles/critical/", "{$current_template}.*.css");
+    $critical_css_path = __gulp_init__namespace_get_theme_file_path("assets/styles/critical/", "{$current_template}.*.css");
 
     if (file_exists($critical_css_path) && !isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) {
         $critical_css = file_get_contents($critical_css_path);
@@ -40,8 +40,44 @@ function get_critical_css($template) {
     return $critical_css;
 }
 
+// function to construct an image to make srcsets and lazy loading simpler
+function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = "img") {
+    $element = "<{$tag}";
+
+    // build an srcset
+    if (gettype($src) === "array") { $i = 0;
+        $element .= " src='{$src["1x"]}' srcset='";
+
+        foreach ($src as $dpi => $source) { $i++;
+            $element .= "{$source} {$dpi}" . ($i < count($src) ? ", " : "");
+        }
+
+        $element .= "'";
+    } else {
+        $source_att = $tag === "source" ? "srcset" : "src";
+
+        $element .= " {$source_att}='{$src}'";
+    }
+
+    // add attributes
+    if (!empty($atts)) {
+        foreach ($atts as $att => $value) {
+            $element .= " {$att}='{$value}'";
+        }
+    }
+
+    $element .= " />";
+
+    // lazy load the image
+    if ($lazy && $tag === "img") {
+        $element = apply_filters("__gulp_init__namespace_lazy_load_images", $element);
+    }
+
+    return $element;
+}
+
 // get a nicer excerpt based on post ID
-function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
+function __gulp_init__namespace_get_the_excerpt($id = 0, $length = 55, $more = " [...]") {
     global $post;
 
     $post_id     = $id ? $id : $post->ID;
@@ -56,7 +92,7 @@ function get_better_excerpt($id = 0, $length = 55, $more = " [...]") {
 }
 
 // format an address
-function format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
+function __gulp_init__namespace_format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
     $address = "";
 
     if ($address_1 || $address_2 || $city || $state || $zip_code) {
@@ -111,7 +147,7 @@ function format_address($address_1, $address_2, $city, $state, $zip_code, $break
 }
 
 // get a map url
-function get_map_url($address, $embed = false) {
+function __gulp_init__namespace_get_map_url($address, $embed = false) {
     $address_url = "";
 
     if ($address) {
@@ -126,13 +162,8 @@ function get_map_url($address, $embed = false) {
     return $address_url;
 }
 
-// echo the map url;
-function the_map_url($address) {
-    echo get_map_url($address);
-}
-
 // compare two dates to make sure they're sequential
-function are_dates_sequential($date_start, $date_end = null) {
+function __gulp_init__namespace_are_dates_sequential($date_start, $date_end = null) {
     $date_start = date("Ymd", strtotime($date_start));
     $date_end   = $date_end ? date("Ymd", strtotime($date_end)) : false;
 
@@ -144,7 +175,7 @@ function are_dates_sequential($date_start, $date_end = null) {
 }
 
 // function to remove extra tags (see https://stackoverflow.com/a/6406139/654480)
-function remove_extra_tags($DOM) {
+function __gulp_init__namespace_remove_extra_tags($DOM) {
     $XPath = new DOMXPath($DOM);
 
     $body_contents = $XPath->query("//body/node()");
@@ -161,7 +192,7 @@ function remove_extra_tags($DOM) {
 }
 
 // function to get a "no posts found" message
-function get_no_posts_message($queried_object) {
+function __gulp_init__namespace_get_no_posts_message($queried_object) {
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
     } elseif (is_archive() && isset($queried_object->taxonomy)) {
@@ -207,7 +238,7 @@ function get_no_posts_message($queried_object) {
 }
 
 // function to retrieve a bunch of article metadata
-function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
+function __gulp_init__namespace_get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     // set up some default taxonomies
     if (empty($taxonomies)) {
         $taxonomies = array(
@@ -298,40 +329,4 @@ function get_article_meta($post_id, $taxonomies = array(), $meta = array()) {
     }
 
     return $meta;
-}
-
-// function to construct an image to make srcsets and lazy loading simpler
-function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = "img") {
-    $element = "<{$tag}";
-
-    // build an srcset
-    if (gettype($src) === "array") { $i = 0;
-        $element .= " src='{$src["1x"]}' srcset='";
-
-        foreach ($src as $dpi => $source) { $i++;
-            $element .= "{$source} {$dpi}" . ($i < count($src) ? ", " : "");
-        }
-
-        $element .= "'";
-    } else {
-        $source_att = $tag === "source" ? "srcset" : "src";
-
-        $element .= " {$source_att}='{$src}'";
-    }
-
-    // add attributes
-    if (!empty($atts)) {
-        foreach ($atts as $att => $value) {
-            $element .= " {$att}='{$value}'";
-        }
-    }
-
-    $element .= " />";
-
-    // lazy load the image
-    if ($lazy && $tag === "img") {
-        $element = apply_filters("__gulp_init__namespace_lazy_load_images", $element);
-    }
-
-    return $element;
 }

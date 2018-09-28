@@ -242,7 +242,7 @@ function __gulp_init__namespace_tribe_add_pagination_menu_link_class($html) {
     }
 
     // remove unneeded tags (inserted for parsing reasons)
-    $html = remove_extra_tags($DOM);
+    $html = __gulp_init__namespace_remove_extra_tags($DOM);
 
     return $html;
 }
@@ -263,7 +263,7 @@ function __gulp_init__namespace_tribe_add_title_class_to_date_headers($html) {
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $html = remove_extra_tags($DOM);
+        $html = __gulp_init__namespace_remove_extra_tags($DOM);
     }
 
     return $html;
@@ -282,7 +282,7 @@ function __gulp_init__namespace_tribe_add_text_class_to_excerpt($excerpt) {
     }
 
     // remove unneeded tags (inserted for parsing reasons)
-    $excerpt = remove_extra_tags($DOM);
+    $excerpt = __gulp_init__namespace_remove_extra_tags($DOM);
 
     return $excerpt;
 }
@@ -306,7 +306,7 @@ function __gulp_init__namespace_tribe_add_text_class_to_notices($html) {
     }
 
     // remove unneeded tags (inserted for parsing reasons)
-    $html = remove_extra_tags($DOM);
+    $html = __gulp_init__namespace_remove_extra_tags($DOM);
 
     return $html;
 }
@@ -338,7 +338,7 @@ function __gulp_init__namespace_tribe_add_class_to_featured_image($featured_imag
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $featured_image = remove_extra_tags($DOM);
+        $featured_image = __gulp_init__namespace_remove_extra_tags($DOM);
     }
 
     return $featured_image;

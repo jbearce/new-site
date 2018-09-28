@@ -38,7 +38,7 @@ add_filter("script_loader_tag", "__gulp_init__namespace_make_scripts_async", 10,
 function __gulp_init__namespace_make_styles_async($tag, $handle, $src) {
     global $template;
 
-    $critical_css = get_critical_css($template);
+    $critical_css = __gulp_init__namespace_get_critical_css($template);
 
     if (!is_admin() && $critical_css) {
         return str_replace("rel='stylesheet'", "rel='preload' as='style' onload=\"this.rel='stylesheet'\"", $tag) . "<noscript>{$tag}</noscript>";
