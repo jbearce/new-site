@@ -10,21 +10,40 @@ function __gulp_init__namespace_get_template_part($file, $template_args = array(
 
 // make overriding hashed file names with a child theme easier
 function __gulp_init__namespace_get_theme_file_path($path, $pattern) {
-    $file_path = false;
+    $file_paths = array();
+
+    /* ------------------------------------------------------------------------ *\
+     * @NOTE: We check both the stylesheet directory and the template directory
+     * because we can't know if any matches are going to be found in the
+     * stylesheet diretory before we look for them. If a child theme were
+     * eanbled, but a matching file didn't exist, this function would return
+     * false, even if a matching file did exist in the parent theme. Thus, we
+     * need to check each path individually, rather than only checking the
+     * activte theme with `get_stylesheet_directory()`.
+    \* ------------------------------------------------------------------------ */
 
     $child_results = glob(get_stylesheet_directory() . "/{$path}{$pattern}");
 
     if ($child_results) {
-        $file_path = $path . basename($child_results[0]);
+        $file_paths = $child_results;
     } else {
         $parent_results = glob(get_template_directory() . "/{$path}{$pattern}");
 
         if ($parent_results) {
-            $file_path = $path . basename($parent_results[0]);
+            $file_paths = $parent_results;
         }
     }
 
-    return $file_path;
+    if ($file_paths) {
+        // find the freshest version, in case the old one didn't get deleted
+        usort($file_paths, function($a, $b) {
+            return filemtime($a) < filemtime($b);
+        });
+
+        return $path . basename($file_paths[0]);
+    }
+
+    return false;
 }
 
 // check if critical styles should be used, and return it if true

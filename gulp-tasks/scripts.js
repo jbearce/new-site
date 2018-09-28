@@ -44,7 +44,7 @@ module.exports = {
                     // output scripts to compiled directory
                     .pipe(gulp.dest(js_directory))
                     // generate a hash manfiest
-                    .pipe(plugins.hash.manifest(".hashmanifest", {deleteOld: true, sourceDir: js_directory}))
+                    .pipe(plugins.hash.manifest(".hashmanifest-scripts", {deleteOld: true, sourceDir: js_directory}))
                     // output hash manifest in root
                     .pipe(gulp.dest("."))
                     // reject after errors

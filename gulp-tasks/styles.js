@@ -70,7 +70,7 @@ module.exports = {
                 // output styles to compiled directory
                 .pipe(gulp.dest(css_directory))
                 // generate a hash manfiest
-                .pipe(plugins.hash.manifest("./.hashmanifest", {deleteOld: true, sourceDir: css_directory}))
+                .pipe(plugins.hash.manifest("./.hashmanifest-styles", {deleteOld: true, sourceDir: css_directory}))
                 // output hash manifest in root
                 .pipe(gulp.dest("."));
         };
