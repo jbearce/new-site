@@ -4,7 +4,6 @@
 
 bower_components/
 node_modules/
-dev/
 
 # Windows image file caches
 Thumbs.db
@@ -31,7 +30,7 @@ prepros-6.cfg
 .resources/
 
 # Eyeglass
-.eyeglass_cache
+.eyeglass_cache/
 
 # Configuration settings
 .init
@@ -40,3 +39,6 @@ prepros-6.cfg
 .rsyncconfig
 .hashmanifest-styles
 .hashmanifest-scripts
+
+# Dev files
+dev/
