@@ -5,9 +5,8 @@
 module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const eslint         = require("gulp-eslint");
-        const webpack        = require("webpack-stream");
-        // const webpack_config = require("../webpack.config.js");
+        const eslint  = require("gulp-eslint");
+        const webpack = require("webpack-stream");
 
         // lint custom scripts
         const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/**/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor/**/*"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
@@ -40,6 +39,8 @@ module.exports = {
                     .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
                     // run webpack
                     .pipe(webpack(webpack_config))
+                    // generate a hash and add it to the file name
+                    .pipe(plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"}))
                     // output to compiled directory
                     .pipe(gulp.dest(js_directory))
                     // reject after errors

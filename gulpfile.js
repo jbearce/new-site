@@ -31,6 +31,7 @@ const plugins = {
     file_include: require("gulp-file-include"),
     fs:           require("fs"),
     gulpif:       require("gulp-if"),
+    hash:         require("gulp-hash"),
     is_binary:    require("gulp-is-binary"),
     json:         require("jsonfile"),
     merge:        require("merge-stream"),

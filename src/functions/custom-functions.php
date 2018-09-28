@@ -3,11 +3,35 @@
  * Custom Functions
 \* ------------------------------------------------------------------------ */
 
+// make calls to hm_get_templtae_part easier
+function __gulp_init__namespace_get_template_part($file, $template_args = array(), $cache_args = array()) {
+    hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
+}
+
+// make overriding hashed file names with a child theme easier
+function __gulp_init__namespace_get_theme_file_path_hashed($path, $pattern) {
+    $file_path = false;
+
+    $child_results = glob(get_stylesheet_directory() . "/{$path}{$pattern}");
+
+    if ($child_results) {
+        $file_path = $path . basename($child_results[0]);
+    } else {
+        $parent_results = glob(get_template_directory() . "/{$path}{$pattern}");
+
+        if ($parent_results) {
+            $file_path = $path . basename($parent_results[0]);
+        }
+    }
+
+    return $file_path;
+}
+
 // check if critical styles should be used, and return it if true
 function get_critical_css($template) {
     $critical_css      = "";
     $current_template  = explode(".", basename($template))[0];
-    $critical_css_path = get_theme_file_path("assets/styles/critical/{$current_template}.css");
+    $critical_css_path = __gulp_init__namespace_get_theme_file_path_hashed("assets/styles/critical/", "{$current_template}.*.css");
 
     if (file_exists($critical_css_path) && !isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) {
         $critical_css = file_get_contents($critical_css_path);
@@ -310,9 +334,4 @@ function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = 
     }
 
     return $element;
-}
-
-// make calls to hm_get_templtae_part easier
-function __gulp_init__namespace_get_template_part($file, $template_args = array(), $cache_args = array()) {
-    hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
 }

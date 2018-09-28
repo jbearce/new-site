@@ -28,6 +28,16 @@ function __gulp_init__namespace_http2_push() {
 }
 add_action("wp", "__gulp_init__namespace_http2_push", 20);
 
+// load the service-worker.*.js script when the user visits /service-worker.js
+function __gulp_init__namespace_load_service_worker_script($template) {
+    if (isset($_GET["sw_script"]) && $_GET["sw_script"] === "true") {
+        return get_theme_file_path(__gulp_init__namespace_get_theme_file_path_hashed("assets/scripts/", "service-worker.*.js"));
+    }
+
+    return $template;
+}
+add_action("template_include", "__gulp_init__namespace_load_service_worker_script");
+
 // load the "offline" template when the user visits /offline/
 function __gulp_init__namespace_load_offline_template($template) {
     if (isset($_GET["offline"]) && $_GET["offline"] === "true") {

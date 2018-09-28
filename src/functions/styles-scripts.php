@@ -13,13 +13,13 @@ function __gulp_init__namespace_enqueue_scripts() {
     wp_register_style("__gulp_init__namespace-google-fonts", "https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
 
     // modern styles
-    wp_register_style("__gulp_init__namespace-styles-modern", get_theme_file_uri("assets/styles/modern.css"), array("__gulp_init__namespace-google-fonts"), "@@version");
+    wp_register_style("__gulp_init__namespace-styles-modern", get_theme_file_uri(__gulp_init__namespace_get_theme_file_path_hashed("assets/styles/", "modern.*.css")), array("__gulp_init__namespace-google-fonts"), "@@version");
 
     // legacy styles
-    wp_register_style("__gulp_init__namespace-styles-legacy", get_theme_file_uri("assets/styles/legacy.css"), array("__gulp_init__namespace-styles-modern"), "@@version");
+    wp_register_style("__gulp_init__namespace-styles-legacy", get_theme_file_uri(__gulp_init__namespace_get_theme_file_path_hashed("assets/styles/", "legacy.*.css")), array("__gulp_init__namespace-styles-modern"), "@@version");
 
     // print styles
-    wp_register_style("__gulp_init__namespace-styles-print", get_theme_file_uri("assets/styles/print.css"), array("__gulp_init__namespace-styles-modern"), "@@version", "print");
+    wp_register_style("__gulp_init__namespace-styles-print", get_theme_file_uri(__gulp_init__namespace_get_theme_file_path_hashed("assets/styles/", "print.*.css")), array("__gulp_init__namespace-styles-modern"), "@@version", "print");
 
     // critical styles
     $critical_styles = get_critical_css($template);
@@ -28,13 +28,13 @@ function __gulp_init__namespace_enqueue_scripts() {
     /* scripts */
 
     // modern scripts
-    wp_register_script("__gulp_init__namespace-scripts-modern", get_theme_file_uri("assets/scripts/modern.js"), array(), "@@version", true);
+    wp_register_script("__gulp_init__namespace-scripts-modern", get_theme_file_uri(__gulp_init__namespace_get_theme_file_path_hashed("assets/scripts/", "modern.*.js")), array(), "@@version", true);
 
     // legacy scripts
-    wp_register_script("__gulp_init__namespace-scripts-legacy", get_theme_file_uri("assets/scripts/legacy.js"), array(), "@@version");
+    wp_register_script("__gulp_init__namespace-scripts-legacy", get_theme_file_uri(__gulp_init__namespace_get_theme_file_path_hashed("assets/scripts/", "legacy.*.js")), array(), "@@version");
 
     // critical scripts
-    $critical_scripts = file_get_contents(get_theme_file_path("assets/scripts/critical.js"));
+    $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init__namespace_get_theme_file_path_hashed("assets/scripts/", "critical.*.js")));
     wp_add_inline_script("__gulp_init__namespace-scripts-modern", $critical_scripts);
 
     // Service Worker

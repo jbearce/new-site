@@ -42,6 +42,7 @@
     "gulp-conventional-changelog": "^2.0.1",
     "gulp-eslint": "^4.0.2",
     "gulp-file-include": "^2.0.1",
+    "gulp-hash": "^4.2.2",
     "gulp-htmlmin": "^4.0.0",
     "gulp-if": "^2.0.2",
     "gulp-imagemin": "^4.1.0",
