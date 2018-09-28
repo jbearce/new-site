@@ -35,11 +35,27 @@ module.exports = {
             }
         };
 
+        // get the hashed file name
+        const get_hashed_file_name = (src, directory) => {
+            const all_file_names   = plugins.fs.existsSync(directory) ? plugins.fs.readdirSync(directory) : false;
+            const hashed_file_name = all_file_names ? all_file_names.find((name) => {
+                return name.match(new RegExp(src.split(".")[0] + ".[a-z0-9]{8}.css"));
+            }) : src;
+
+            return hashed_file_name;
+        };
+
         // lint custom styles
-        const lint_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss", "!" + global.settings.paths.src + "/assets/styles/vendor/**/*"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
+        const lint_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
             return gulp.src(source)
+                // prevent breaking on error
+                .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
+                .pipe(plugins.newer({
+                    extra,
+                    dest: css_directory,
+                    map: () => { return get_hashed_file_name(file_name, css_directory); },
+                }))
                 // lint
                 .pipe(stylelint({
                     failAfterError: true,
@@ -56,7 +72,11 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: css_directory + "/" + file_name, extra})))
+                .pipe(plugins.newer({
+                    extra,
+                    dest: css_directory,
+                    map: () => { return get_hashed_file_name(file_name, css_directory); },
+                }))
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
@@ -79,11 +99,6 @@ module.exports = {
         return new Promise ((resolve) => {
             // set CSS directory
             const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
-
-            // clean directory if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del(css_directory + "/**/*");
-            }
 
             if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
                 generate_critical_css(css_directory);

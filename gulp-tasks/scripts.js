@@ -9,12 +9,12 @@ module.exports = {
         const webpack = require("webpack-stream");
 
         // lint custom scripts
-        const lint_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/**/*.js", "!" + global.settings.paths.src + "/assets/scripts/vendor/**/*"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
+        const lint_scripts = (js_directory, compare_file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
+                .pipe(plugins.newer(js_directory + "/" + compare_file_name))
                 // lint all non-vendor scripts
                 .pipe(eslint())
                 // print lint errors
@@ -22,7 +22,7 @@ module.exports = {
         };
 
         // process scripts
-        const process_scripts = (js_directory, file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js"], extra =  [global.settings.paths.src + "/assets/scripts/**/*.js"]) => {
+        const process_scripts = (js_directory, destination_file_name = "modern.js", compare_file_name = "modern.js", source = [global.settings.paths.src + "/assets/scripts/*.js"]) => {
             return new Promise((resolve, reject) => {
                 const webpack_config = {
                     mode: "development",
@@ -30,13 +30,13 @@ module.exports = {
 
                 // update webpack config for the current target destination and file name
                 webpack_config.mode   = plugins.argv.dist ? "production" : webpack_config.mode;
-                webpack_config.output = {filename: file_name};
+                webpack_config.output = {filename: destination_file_name};
 
                 const TASK = gulp.src(source)
                     // prevent breaking on error
                     .pipe(plugins.plumber({errorHandler: on_error}))
                     // check if source is newer than destination
-                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(js_directory + "/" + file_name, extra)))
+                    .pipe(plugins.newer(js_directory + "/" + compare_file_name))
                     // run webpack
                     .pipe(webpack(webpack_config))
                     // generate a hash and add it to the file name
@@ -66,29 +66,29 @@ module.exports = {
             // set the source directory
             const source_directory = global.settings.paths.src + "/assets/scripts";
 
-            // clean directory if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del(js_directory + "/**/*");
-            }
-
             // set up an empty merged stream
             const merged_streams = plugins.merge();
-            // get the script folder list
+            // get the script source folder list
             const script_folders = plugins.fs.readdirSync(source_directory);
+            // get the script destination file list
+            const script_files   = plugins.fs.existsSync(js_directory) ? plugins.fs.readdirSync(js_directory) : false;
 
             // process all the script folders
             const process_script_folders = () => {
                 return new Promise((resolve) => {
-                    const folder = script_folders.shift();
+                    const folder_name = script_folders.shift();
+                    const file_name   = script_files ? script_files.find((name) => {
+                        return name.match(new RegExp(folder_name + ".[a-z0-9]{8}.js"));
+                    }) : folder_name + ".js";
 
                     // lint all scripts, except for critical, update the stream
-                    if (folder !== "critical") {
-                        const linted = lint_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*");
+                    if (folder_name !== "critical") {
+                        const linted = lint_scripts(js_directory, file_name, source_directory + "/" + folder_name + "/**/*");
                         merged_streams.add(linted);
                     }
 
                     // process all scripts, update the stream
-                    process_scripts(js_directory, folder + ".js", source_directory + "/" + folder + "/**/*").then((processed) => {
+                    process_scripts(js_directory, folder_name + ".js", file_name, source_directory + "/" + folder_name + "/**/*").then((processed) => {
                         merged_streams.add(processed);
                         resolve();
                     });
