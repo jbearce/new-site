@@ -9,72 +9,62 @@ module.exports = {
         const sass      = require("gulp-sass");
         const stylelint = require("gulp-stylelint");
 
-        // function to generate critical CSS
-        const generate_critical_css = (css_directory, sitemap = plugins.json.readFileSync("./package.json").templates) => {
-            const critical = require("critical");
+        // styles task, compiles & prefixes SCSS
+        return new Promise ((resolve) => {
+            // set CSS directory
+            const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
-            console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + (((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
+            // generate critical CSS if requested
+            if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
+                const sitemap  = plugins.json.readFileSync("./package.json").templates;
+                const critical = require("critical");
+                const mkdirp   = require("mkdirp");
 
-            // create the "critical" directory
-            plugins.mkdirp(css_directory + "/critical");
+                console.log("Genearting critical CSS, this may take up to " + ((Object.keys(sitemap).length * 30) / 60) + " minute" + (((Object.keys(sitemap).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
 
-            // loop through all the links
-            for (const template in sitemap) {
-                // make sure the key isn't a prototype
-                if (sitemap.hasOwnProperty(template)) {
-                    // generate the critial CSS
-                    critical.generate({
-                        base:       css_directory + "/critical",
-                        dest:       template + ".css",
-                        dimensions: [1920, 1080],
-                        minify:     true,
-                        src:        sitemap[template] + "?disable=critical_css"
-                    });
+                // create the "critical" directory
+                mkdirp(css_directory + "/critical");
+
+                // loop through all the links
+                for (const template in sitemap) {
+                    // make sure the key isn't a prototype
+                    if (sitemap.hasOwnProperty(template)) {
+                        // generate the critial CSS
+                        critical.generate({
+                            base:       css_directory + "/critical",
+                            dest:       template + ".css",
+                            dimensions: [1920, 1080],
+                            minify:     true,
+                            src:        sitemap[template] + "?disable=critical_css"
+                        });
+                    }
                 }
             }
-        };
 
-        // get the hashed file name
-        const get_hashed_file_name = (src, directory) => {
-            const all_file_names   = plugins.fs.existsSync(directory) ? plugins.fs.readdirSync(directory) : false;
-            const hashed_file_name = all_file_names ? all_file_names.find((name) => {
-                return name.match(new RegExp(src.split(".")[0] + ".[a-z0-9]{8}.css"));
-            }) : src;
-
-            return hashed_file_name;
-        };
-
-        // lint custom styles
-        const lint_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/**/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
-            return gulp.src(source)
+            // process styles
+            return gulp.src(global.settings.paths.src + "/assets/styles/*.scss")
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
                 .pipe(plugins.newer({
-                    extra,
+                    extra: global.settings.paths.src + "/assets/styles/**/*.scss",
                     dest: css_directory,
-                    map: () => { return get_hashed_file_name(file_name, css_directory); },
+                    map: (src) => {
+                        const all_file_names   = plugins.fs.existsSync(css_directory) ? plugins.fs.readdirSync(css_directory) : false;
+                        const hashed_file_name = all_file_names ? all_file_names.find((name) => {
+                            return name.match(new RegExp(src.split(".")[0] + ".[a-z0-9]{8}.css"));
+                        }) : src;
+
+                        return hashed_file_name;
+                    },
                 }))
                 // lint
                 .pipe(stylelint({
+                    debug: true,
                     failAfterError: true,
                     reporters: [
                         { formatter: "string", console: true }
                     ],
-                    debug: true
-                }));
-        };
-
-        // process all SCSS in root styles directory
-        const process_styles = (css_directory, file_name = "modern.css", source = [global.settings.paths.src + "/assets/styles/*.scss"], extra = [global.settings.paths.src + "/assets/styles/**/*.scss"]) => {
-            return gulp.src(source)
-                // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
-                // check if source is newer than destination
-                .pipe(plugins.newer({
-                    extra,
-                    dest: css_directory,
-                    map: () => { return get_hashed_file_name(file_name, css_directory); },
                 }))
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
@@ -88,29 +78,6 @@ module.exports = {
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
                 // output styles to compiled directory
                 .pipe(gulp.dest(css_directory))
-                // generate a hash manfiest
-                .pipe(plugins.hash.manifest("./.hashmanifest-styles", {deleteOld: true, sourceDir: css_directory}))
-                // output hash manifest in root
-                .pipe(gulp.dest("."));
-        };
-
-        // styles task, compiles & prefixes SCSS
-        return new Promise ((resolve) => {
-            // set CSS directory
-            const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
-
-            if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
-                generate_critical_css(css_directory);
-            }
-
-            // process all styles
-            const linted    = lint_styles(css_directory);
-            const processed = process_styles(css_directory);
-
-            // merge both steams back in to one
-            return plugins.merge(linted, processed)
-                // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Styles task complete!", onLast: true})))
                 // push task to ran_tasks array
@@ -119,6 +86,11 @@ module.exports = {
                         ran_tasks.push("styles");
                     }
                 })
+                // generate a hash manfiest
+                .pipe(plugins.hash.manifest("./.hashmanifest-styles", {deleteOld: true, sourceDir: css_directory}))
+                // output hash manifest in root
+                .pipe(gulp.dest("."))
+                // resolve the promise
                 .on("end", () => {
                     return resolve();
                 });
