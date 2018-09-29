@@ -4,11 +4,6 @@
 
 module.exports = {
     init(gulp, plugins, on_error) {
-        // task-specific plugins
-        const glob         = require("glob");
-        const delete_empty = require("delete-empty");
-        const remove_code  = require("gulp-remove-code");
-
         let defaults     = {};
         let project_data = {};
 
@@ -19,10 +14,10 @@ module.exports = {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err === null) {
                         defaults = plugins.json.readFileSync(file_name);
-                        resolve();
+                        return resolve();
                     } else {
                         // immediately resolve if file doesn't exist
-                        resolve();
+                        return resolve();
                     }
                 });
             });
@@ -167,12 +162,6 @@ module.exports = {
                             },
                         },
                         {
-                            name:    "remove_modules",
-                            message: "Modules to Remove:",
-                            type:    "checkbox",
-                            choices: ["Resources", "Tribe Events"],
-                        },
-                        {
                             name:     "theme_color",
                             message:  "Theme Color:",
                             type:     "input",
@@ -243,88 +232,8 @@ module.exports = {
                     .pipe(gulp.dest("./"))
                     // resolve the promise
                     .on("end", () => {
-                        resolve();
+                        return resolve();
                     });
-            });
-        };
-
-        // remove modules selected during init
-        const remove_selected_modules = (callback) => {
-            return new Promise ((resolve) => {
-                gulp.src(global.settings.paths.src + "/**/*")
-                    // check if a file is a binary
-                    .pipe(plugins.is_binary())
-                    // skip file if it's a binary
-                    .pipe(plugins.through.obj((file, enc, next) => {
-                        if (file.isBinary()) {
-                            next();
-                            return;
-                        }
-
-                        // go to next file
-                        next(null, file);
-                    }))
-
-                    // remove resource code if selected
-                    .pipe(remove_code({resources_html: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                    .pipe(remove_code({resources_css_js_php: project_data.remove_modules.indexOf("Resources") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
-
-                    // remove tribe code if selected
-                    .pipe(remove_code({tribe_html: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "<!--", commentEnd: "-->"}))
-                    .pipe(remove_code({tribe_css_js_php: project_data.remove_modules.indexOf("Tribe Events") > -1 ? true : false, commentStart: "/*", commentEnd: "*/"}))
-
-                    // output to source directory
-                    .pipe(gulp.dest(global.settings.paths.src)).on("end", () => {
-                        // resolve the promise
-                        resolve();
-                    });
-            }).then(() => {
-                return new Promise ((resolve) => {
-                    // remove any empty files
-                    glob(global.settings.paths.src + "/**/*", (err, files) => {
-                        files.forEach((file) => {
-                            if (plugins.fs.statSync(file).size <= 1) {
-                                plugins.fs.unlinkSync(file);
-                                console.log("\x1b[32m✔\x1b[0m deleted: " + plugins.path.relative(process.cwd(), file));
-                            }
-                        });
-
-                        // resolve the promise
-                        resolve();
-                    });
-                }).then(() => {
-                    // remove any empty folders
-                    return new Promise ((resolve) => {
-                        delete_empty(global.settings.paths.src, () => {
-                            // resolve the promise
-                            resolve();
-                        });
-                    }).then(() => {
-                        // remove any remaining comments
-                        gulp.src(global.settings.paths.src + "/**/*")
-                            // check if a file is a binary
-                            .pipe(plugins.is_binary())
-                            // skip file if it's a binary
-                            .pipe(plugins.through.obj((file, enc, next) => {
-                                if (file.isBinary()) {
-                                    next();
-                                    return;
-                                }
-
-                                // go to next file
-                                next(null, file);
-                            }))
-                            // for comments that are on their own line, remove the entire line, otherwise just delete the comment
-                            .pipe(plugins.replace(/(^((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->))\n$)|(((?:\/\*|<!--)(?:end)?[rR]emoveIf\([^)]+\)(?:\*\/|-->)))/gm, ""))
-                            .pipe(gulp.dest(global.settings.paths.src))
-                            .on("end", () => {
-                                // return the callback
-                                if (typeof callback === "function") {
-                                    return callback();
-                                }
-                            });
-                    });
-                });
             });
         };
 
@@ -334,9 +243,7 @@ module.exports = {
             }).then(() => {
                 return write_project_data();
             }).then(() => {
-                return remove_selected_modules();
-            }).then(() => {
-                resolve();
+                return resolve();
             });
         });
     }
