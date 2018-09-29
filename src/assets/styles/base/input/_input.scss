@@ -43,8 +43,7 @@
     }
 
     &.--arrow {
-        // image path must be relative to gulpfile.js
-        background-image: str-replace(inline-svg-file("./src/assets/media/icon-select.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("foreground")}, "#", "%23")}%22");
+        background-image: svg-load("../media/icon-select.svg", fill=#{color("foreground")},);
         background-position: center right remify(12, 16);
         background-repeat: no-repeat;
         background-size: remify(16 16, 16);
@@ -73,13 +72,11 @@
     }
 
     &.--checkbox:checked {
-        // image path must be relative to gulpfile.js
-        background-image: str-replace(inline-svg-file("./src/assets/media/icon-check.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("foreground")}, "#", "%23")}%22");
+        background-image: svg-load("../media/icon-check.svg", fill=#{color("foreground")},);
     }
 
     &.--radiobutton:checked {
-        // image path must be relative to gulpfile.js
-        background-image: str-replace(inline-svg-file("./src/assets/media/icon-radio.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("foreground")}, "#", "%23")}%22");
+        background-image: svg-load("../media/icon-radio.svg", fill=#{color("foreground")},);
     }
 
     & + .text.--label {

@@ -31,8 +31,6 @@
     "critical": "^1.3.4",
     "del": "^3.0.0",
     "delete-empty": "^2.0.0",
-    "eyeglass": "^1.5.0",
-    "eyeglass-inline-svg": "^0.3.1",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
     "gulp-eslint": "^4.0.2",
@@ -63,6 +61,7 @@
     "postcss-clearfix": "^2.0.1",
     "postcss-easing-gradients": "^1.2.3",
     "postcss-flexibility": "^2.0.0",
+    "postcss-inline-svg": "^3.1.1",
     "postcss-responsive-type": "^1.0.0",
     "request": "^2.88.0",
     "run-sequence": "^2.2.1",
@@ -75,7 +74,6 @@
     "webpack-stream": "^5.1.1",
     "yargs": "^11.0.0"
   },
-  "private": true,
   "dependencies": {
     "@dotsunited/load-css-polyfill": "^1.2.0",
     "debounce": "^1.2.0",
@@ -91,5 +89,6 @@
     "slideout": "github:Mango/slideout#new-features",
     "sw-toolbox": "^3.6.0",
     "swiper": "^4.3.5"
-  }
+  },
+  "private": true
 }

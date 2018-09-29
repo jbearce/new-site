@@ -373,8 +373,7 @@
     }
 
     .menu-list.--child.--mega.--depth-2 .menu-list__link {
-        // image path must be relative to gulpfile.js
-        background-image: str-replace(inline-svg-file("./src/assets/media/icon-angle-right.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("light")}, "#", "%23")}%22");
+        background-image: svg-load("../media/icon-angle-right.svg", fill=#{color("light")},);
         background-position: remify(16 8, 16);
         background-repeat: no-repeat;
         background-size: remify(10 10, 16);
@@ -462,8 +461,7 @@
     }
 
     .menu-list.--child .menu-list__link {
-        // image path must be relative to gulpfile.js
-        background-image: str-replace(inline-svg-file("./src/assets/media/icon-angle-right.svg"), "path", "path%20fill%3D%22#{str-replace(#{color("light", "shade")}, "#", "%23")}%22");
+        background-image: svg-load("../media/icon-angle-right.svg", fill=#{color("light", "shade")},);
         background-position: remify(0 11, 18);
         background-repeat: no-repeat;
         background-size: remify(13.5 13.5, 18);
