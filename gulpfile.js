@@ -44,8 +44,11 @@ const plugins = {
     sourcemaps:   require("gulp-sourcemaps"),
     through:      require("through2"),
     watch:        require("gulp-watch"),
-    browser_sync: require("browser-sync"),
 };
+
+if (plugins.argv.sync) {
+    plugins.browser_sync = require("browser-sync");
+}
 
 // store global environment paths
 global.settings = {
