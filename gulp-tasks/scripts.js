@@ -45,11 +45,11 @@ module.exports = {
                     .pipe(gulp.dest("."))
                     // reject after errors
                     .on("error", () => {
-                        reject(TASK);
+                        return reject(TASK);
                     })
                     // return the task after completion
                     .on("end", () => {
-                        resolve(TASK);
+                        return resolve(TASK);
                     });
             });
         };
@@ -78,9 +78,9 @@ module.exports = {
                     }) : FOLDER_NAME + ".js";
 
                     // process all scripts, update the stream
-                    PROCESS_SCRIPTS(JS_DIRECTORY, FOLDER_NAME + ".js", FILE_NAME, SOURCE_DIRECTORY + "/" + FOLDER_NAME + "/**/*").then((processed) => {
+                    return PROCESS_SCRIPTS(JS_DIRECTORY, FOLDER_NAME + ".js", FILE_NAME, SOURCE_DIRECTORY + "/" + FOLDER_NAME + "/**/*").then((processed) => {
                         MERGED_STREAMS.add(processed);
-                        resolve();
+                        return resolve();
                     });
                 }).then(() => SCRIPT_FOLDERS.length > 0 ? PROCESS_SCRIPT_FOLDERS() : resolve()); // loop again if foldres remain, otherwise resolve
             };
