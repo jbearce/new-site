@@ -41,7 +41,6 @@ const plugins = {
     path:         require("path"),
     plumber:      require("gulp-plumber"),
     prompt:       require("gulp-prompt"),
-    replace:      require("gulp-replace"),
     run_sequence: require("run-sequence"),
     sourcemaps:   require("gulp-sourcemaps"),
     through:      require("through2"),
@@ -82,7 +81,6 @@ const sync_module    = require("./gulp-tasks/sync");
 const upload_module  = require("./gulp-tasks/upload");
 const rsync_module   = require("./gulp-tasks/rsync");
 const config_module  = require("./gulp-tasks/config");
-const build_module   = require("./gulp-tasks/build");
 const init_module    = require("./gulp-tasks/init");
 
 // primary tasks
@@ -125,11 +123,6 @@ gulp.task("init", () => {
 });
 gulp.task("config", () => {
     return config_module.config(gulp, plugins, (plugins.argv.ftp || plugins.argv.sftp ? "ftp" : (plugins.argv.browsersync ? "browsersync" : "")));
-});
-
-// build task
-gulp.task("build", () => {
-    return build_module.build(gulp, plugins, ran_tasks, on_error);
 });
 
 // default task, runs through all primary tasks
