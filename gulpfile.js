@@ -40,7 +40,6 @@ const plugins = {
     path:         require("path"),
     plumber:      require("gulp-plumber"),
     prompt:       require("gulp-prompt"),
-    run_sequence: require("run-sequence"),
     sourcemaps:   require("gulp-sourcemaps"),
     through:      require("through2"),
     watch:        require("gulp-watch"),
@@ -184,8 +183,8 @@ gulp.task("watch", () => {
 
     // watch for any changes
     plugins.watch("./src/**/*", () => {
-        // run through all tasks
-        plugins.run_sequence("default");
+        // start the default task
+        gulp.start("default");
     });
 
     // end the task

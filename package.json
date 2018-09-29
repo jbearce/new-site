@@ -64,7 +64,6 @@
     "postcss-inline-svg": "^3.1.1",
     "postcss-responsive-type": "^1.0.0",
     "request": "^2.88.0",
-    "run-sequence": "^2.2.1",
     "stylelint": "^9.4.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^0.8.1",
