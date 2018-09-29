@@ -103,11 +103,6 @@ gulp.task("media", () => {
 });
 
 // secondary tasks
-gulp.task("sync", () => {
-    return config_module.config(gulp, plugins, "browsersync").then(() => {
-        return sync_module.sync();
-    });
-});
 gulp.task("upload", () => {
     return config_module.config(gulp, plugins, "ftp").then(() => {
         return upload_module.upload(gulp, plugins, ran_tasks, on_error);
