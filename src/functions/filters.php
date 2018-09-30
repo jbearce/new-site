@@ -4,13 +4,13 @@
 \* ------------------------------------------------------------------------ */
 
 // set a cookie after the first load to mark returning visitors
-function __gulp_init__namespace_set_return_visitor_cookie() {
+function __gulp_init_namespace___set_return_visitor_cookie() {
     if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
 }
-add_action("wp", "__gulp_init__namespace_set_return_visitor_cookie", 10);
+add_action("wp", "__gulp_init_namespace___set_return_visitor_cookie", 10);
 
 // push the CSS over HTTP/2
-function __gulp_init__namespace_http2_push() {
+function __gulp_init_namespace___http2_push() {
     global $wp_styles;
 
     $http2_string = "";
@@ -26,102 +26,102 @@ function __gulp_init__namespace_http2_push() {
 
     header("Link: {$http2_string}");
 }
-add_action("get_header", "__gulp_init__namespace_http2_push", 20);
+add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 
 // load the service-worker.*.js script when the user visits /service-worker.js
-function __gulp_init__namespace_load_service_worker_script($template) {
+function __gulp_init_namespace___load_service_worker_script($template) {
     if (isset($_GET["sw_script"]) && $_GET["sw_script"] === "true") {
-        return get_theme_file_path(__gulp_init__namespace_get_theme_file_path("assets/scripts/", "service-worker.*.js"));
+        return get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "service-worker.*.js"));
     }
 
     return $template;
 }
-add_action("template_include", "__gulp_init__namespace_load_service_worker_script");
+add_action("template_include", "__gulp_init_namespace___load_service_worker_script");
 
 // load the "offline" template when the user visits /offline/
-function __gulp_init__namespace_load_offline_template($template) {
+function __gulp_init_namespace___load_offline_template($template) {
     if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
         return get_theme_file_path("/offline.php");
     }
 
     return $template;
 }
-add_action("template_include", "__gulp_init__namespace_load_offline_template");
+add_action("template_include", "__gulp_init_namespace___load_offline_template");
 
 // fix page title on "offline" template
-function __gulp_init__namespace_fix_offline_page_title($title) {
+function __gulp_init_namespace___fix_offline_page_title($title) {
     if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
-        return $title = sprintf(__("No Internet Connection - %s", "__gulp_init__namespace"), get_bloginfo("name"));
+        return $title = sprintf(__("No Internet Connection - %s", "__gulp_init_namespace__"), get_bloginfo("name"));
     }
 
     return $title;
 }
-add_filter("wpseo_title", "__gulp_init__namespace_fix_offline_page_title");
+add_filter("wpseo_title", "__gulp_init_namespace___fix_offline_page_title");
 
 // fix http status code on "offline" template
-function __gulp_init__namespace_fix_offline_http_status_code() {
+function __gulp_init_namespace___fix_offline_http_status_code() {
     if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
         status_header(200);
     }
 }
-add_action("wp", "__gulp_init__namespace_fix_offline_http_status_code");
+add_action("wp", "__gulp_init_namespace___fix_offline_http_status_code");
 
 // change login logo URL
-function __gulp_init__namespace_login_logo_url() {
+function __gulp_init_namespace___login_logo_url() {
     return get_bloginfo("url");
 }
-add_filter("login_headerurl", "__gulp_init__namespace_login_logo_url");
+add_filter("login_headerurl", "__gulp_init_namespace___login_logo_url");
 
 // change login logo title
-function __gulp_init__namespace_login_logo_title() {
+function __gulp_init_namespace___login_logo_title() {
     return get_bloginfo("name");
 }
-add_filter("login_headertitle", "__gulp_init__namespace_login_logo_title");
+add_filter("login_headertitle", "__gulp_init_namespace___login_logo_title");
 
 // add user-content class to TinyMCE body
-function __gulp_init__namespace_tinymce_settings($settings) {
+function __gulp_init_namespace___tinymce_settings($settings) {
     $settings["body_class"] .= " user-content";
     return $settings;
 }
-add_filter("tiny_mce_before_init", "__gulp_init__namespace_tinymce_settings");
+add_filter("tiny_mce_before_init", "__gulp_init_namespace___tinymce_settings");
 
 // fix Ninja Forms HTML field formatting
-function __gulp_init__namespace_ninja_forms_html($default_value, $field_class, $field_settings) {
+function __gulp_init_namespace___ninja_forms_html($default_value, $field_class, $field_settings) {
     if ($field_settings["type"] === "html") {
         $default_value = apply_filters("the_content", $default_value);
     }
 
     return $default_value;
 }
-add_filter("ninja_forms_render_default_value", "__gulp_init__namespace_ninja_forms_html", 10, 3);
+add_filter("ninja_forms_render_default_value", "__gulp_init_namespace___ninja_forms_html", 10, 3);
 
 // fix Ninja Forms not being output when no content exists and selected via meta box
-function __gulp_init__namespace_fix_ninja_forms($content) {
+function __gulp_init_namespace___fix_ninja_forms($content) {
     return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
 }
-add_filter("the_content", "__gulp_init__namespace_fix_ninja_forms", 5);
+add_filter("the_content", "__gulp_init_namespace___fix_ninja_forms", 5);
 
 // delay when shortcodes get expanded
-function __gulp_init__namespace_delay_shortcode_expansion() {
+function __gulp_init_namespace___delay_shortcode_expansion() {
     remove_filter("the_content", "do_shortcode", 11);
     remove_filter("acf_the_content", "do_shortcode", 11);
     add_filter("the_content", "do_shortcode", 25);
     add_filter("acf_the_content", "do_shortcode", 25);
 }
-add_action("wp", "__gulp_init__namespace_delay_shortcode_expansion");
+add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
-function __gulp_init__namespace_fix_shortcodes($content) {
+function __gulp_init_namespace___fix_shortcodes($content) {
     $block = join("|", array("row", "col"));
     $rep = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/","[$2$3]",$content);
     $rep = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/","[/$2]",$rep);
     return $rep;
 }
-add_action("the_content", "__gulp_init__namespace_fix_shortcodes", 15);
-add_action("acf_the_content", "__gulp_init__namespace_fix_shortcodes", 15);
+add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
+add_action("acf_the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
 // add classes to elements
-function __gulp_init__namespace_add_user_content_classes($content) {
+function __gulp_init_namespace___add_user_content_classes($content) {
     if ($content) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
@@ -321,16 +321,16 @@ function __gulp_init__namespace_add_user_content_classes($content) {
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $content = __gulp_init__namespace_remove_extra_tags($DOM);
+        $content = __gulp_init_namespace___remove_extra_tags($DOM);
     }
 
     return $content;
 }
-add_filter("the_content", "__gulp_init__namespace_add_user_content_classes", 20);
-add_filter("acf_the_content", "__gulp_init__namespace_add_user_content_classes", 20);
+add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
 
 // lazy load images
-function __gulp_init__namespace_lazy_load_images($content) {
+function __gulp_init_namespace___lazy_load_images($content) {
     if ($content) {
         $DOM = new DOMDocument();
         $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
@@ -368,18 +368,18 @@ function __gulp_init__namespace_lazy_load_images($content) {
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $content = __gulp_init__namespace_remove_extra_tags($DOM);
+        $content = __gulp_init_namespace___remove_extra_tags($DOM);
     }
 
     return $content;
 }
-add_filter("the_content", "__gulp_init__namespace_lazy_load_images", 20);
-add_filter("acf_the_content", "__gulp_init__namespace_lazy_load_images", 20);
-add_filter("post_thumbnail_html", "__gulp_init__namespace_lazy_load_images", 20);
-add_filter("__gulp_init__namespace_lazy_load_images", "__gulp_init__namespace_lazy_load_images", 20);
+add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
+add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
+add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20);
+add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20);
 
 // remove dimensions from thumbnails
-function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
+function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     global $post;
 
     if ($html) {
@@ -394,15 +394,15 @@ function __gulp_init__namespace_remove_thumbnail_dimensions($html, $post_id, $po
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $html = __gulp_init__namespace_remove_extra_tags($DOM);
+        $html = __gulp_init_namespace___remove_extra_tags($DOM);
     }
 
     return $html;
 }
-add_filter("post_thumbnail_html", "__gulp_init__namespace_remove_thumbnail_dimensions", 10, 3);
+add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions", 10, 3);
 
 // add "Download Adobe Reader" link on all pages that link to PDFs
-function __gulp_init__namespace_acrobat_link() {
+function __gulp_init_namespace___acrobat_link() {
     global $post;
 
     if ($post) {
@@ -432,44 +432,44 @@ function __gulp_init__namespace_acrobat_link() {
 
         if ($has_pdf === true) {
             $output .= "<hr class='divider' />";
-            $output .= "<p class='content__text text __small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init__namespace"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
+            $output .= "<p class='content__text text __small'>" . sprintf(__("Having trouble opening PDFs? %sDownload Adobe Reader here.%s", "__gulp_init_namespace__"), "<a class='text_link link' href='https://get.adobe.com/reader/' target='_blank' rel='noopener'>", "</a>") . "</p>";
         }
 
         echo $output;
     }
 }
-add_filter("__gulp_init__namespace_after_content", "__gulp_init__namespace_acrobat_link");
+add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acrobat_link");
 
 // disable Ninja Forms styles
-function __gulp_init__namespace_dequeue_nf_display() {
+function __gulp_init_namespace___dequeue_nf_display() {
     wp_dequeue_style("nf-display");
 }
-add_action("ninja_forms_enqueue_scripts", "__gulp_init__namespace_dequeue_nf_display", 999);
+add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___dequeue_nf_display", 999);
 
 // redirect to the home template if no front page is set
-function __gulp_init__namespace_home_template_redirect($template) {
+function __gulp_init_namespace___home_template_redirect($template) {
     if (is_front_page() && get_option("show_on_front") != "page") {
         return TEMPLATEPATH . "/home.php";
     } else {
         return $template;
     }
 }
-add_action("template_include", "__gulp_init__namespace_home_template_redirect");
+add_action("template_include", "__gulp_init_namespace___home_template_redirect");
 
 // decode HTML entities in bloginfo("description")
-function __gulp_init__namespace_decode_html_entities_in_blog_description($value, $field) {
+function __gulp_init_namespace___decode_html_entities_in_blog_description($value, $field) {
     if ($field === "description") {
         $value = html_entity_decode($value);
     }
 
     return $value;
 }
-add_filter("bloginfo", "__gulp_init__namespace_decode_html_entities_in_blog_description", 10, 2);
+add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_description", 10, 2);
 
 // replace content with a password form if a post is password protected
-function __gulp_init__namespace_enable_post_password_protection($post_object) {
+function __gulp_init_namespace___enable_post_password_protection($post_object) {
     if (post_password_required($post_object->ID)) {
         $post_object->post_content = get_the_password_form();
     }
 }
-add_action("the_post", "__gulp_init__namespace_enable_post_password_protection");
+add_action("the_post", "__gulp_init_namespace___enable_post_password_protection");

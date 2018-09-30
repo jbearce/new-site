@@ -1,29 +1,29 @@
 {
-  "name": "__gulp_init__npm_name",
+  "name": "__gulp_init_npm_name__",
   "version": "0.1.0",
-  "description": "__gulp_init__description",
-  "homepage": "__gulp_init__homepage_url",
+  "description": "__gulp_init_description__",
+  "homepage": "__gulp_init_homepage_url__",
   "templates": {
-    "front-page": "__gulp_init__homepage_url"
+    "front-page": "__gulp_init_homepage_url__"
   },
-  "progressive-web-app": {
-    "name": "__gulp_init__full_name",
-    "short_name": "__gulp_init__short_name",
-    "theme_color": "__gulp_init__theme_color"
+  "progressiveWebApp": {
+    "name": "__gulp_init_full_name__",
+    "short_name": "__gulp_init_short_name__",
+    "theme_color": "__gulp_init_theme_color__"
   },
   "bugs": {
-    "url": "__gulp_init__repository/issues",
-    "email": "__gulp_init__author_email_address"
+    "url": "__gulp_init_repository__/issues",
+    "email": "__gulp_init_author_email_address__"
   },
   "license": "UNLICENSED",
   "author": {
-    "name": "__gulp_init__author_name @ __gulp_init__author_company",
-    "email": "__gulp_init__author_email_address",
-    "url": "__gulp_init__author_url"
+    "name": "__gulp_init_author_name__ @ __gulp_init_author_company__",
+    "email": "__gulp_init_author_email_address__",
+    "url": "__gulp_init_author_url__"
   },
   "repository": {
     "type": "git",
-    "url": "__gulp_init__repository"
+    "url": "__gulp_init_repository__"
   },
   "devDependencies": {
     "angled-edges": "^2.0.0",
@@ -46,11 +46,13 @@
     "gulp-postcss": "^7.0.1",
     "gulp-prompt": "^1.0.1",
     "gulp-remove-code": "^1.0.2",
+    "gulp-replace": "^1.0.0",
     "gulp-rsync": "0.0.8",
     "gulp-sass": "^3.1.0",
     "gulp-sftp": "^0.1.5",
     "gulp-sourcemaps": "^2.6.4",
     "gulp-stylelint": "^7.0.0",
+    "gulp-template": "^5.0.0",
     "gulp-watch": "^5.0.1",
     "imagemin-pngquant": "^5.0.1",
     "jshint": "^2.9.6",

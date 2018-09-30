@@ -1,11 +1,11 @@
 {
-    "background_color": "@@pwa_theme_color",
+    "background_color": "<%= pwa_theme_color %>",
     "display": "standalone",
-    "name": "@@pwa_name",
+    "name": "<%= pwa_name %>",
     "scope": "/",
-    "short_name": "@@pwa_short_name",
+    "short_name": "<%= pwa_short_name %>",
     "start_url": "/",
-    "theme_color": "@@pwa_theme_color",
+    "theme_color": "<%= pwa_theme_color %>",
     "icons": [
         {
             "src": "assets/media/logo-pwa-48x48.png",

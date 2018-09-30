@@ -4,14 +4,14 @@
 \* ------------------------------------------------------------------------ */
 
 // add row shortcode
-function __gulp_init__namespace_row_shortcode($atts, $content = null) {
+function __gulp_init_namespace___row_shortcode($atts, $content = null) {
     // return the tab wrapper with the menu
     return "<div class='user-content_row row -padded'>" . do_shortcode($content) . "</div>";
 }
-add_shortcode("row", "__gulp_init__namespace_row_shortcode");
+add_shortcode("row", "__gulp_init_namespace___row_shortcode");
 
 // add col shortcode
-function __gulp_init__namespace_col_shortcode($atts , $content = null) {
+function __gulp_init_namespace___col_shortcode($atts , $content = null) {
     extract(shortcode_atts(
         array(
             "mobile"   => "",
@@ -31,4 +31,4 @@ function __gulp_init__namespace_col_shortcode($atts , $content = null) {
     // return the tab wrapper with the menu
     return "<div class='col{$class}'>" . do_shortcode($content) . "</div>";
 }
-add_shortcode("col", "__gulp_init__namespace_col_shortcode");
+add_shortcode("col", "__gulp_init_namespace___col_shortcode");

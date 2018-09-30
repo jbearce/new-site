@@ -28,7 +28,7 @@ if ( $categories ) { $i = 0;
         }
 
         if ( $i + 1 == count( $categories ) ) {
-            $categories_string .= __( 'and', '__gulp_init__namespace' ) . ' ';
+            $categories_string .= __( 'and', '__gulp_init_namespace__' ) . ' ';
         }
     }
 }
@@ -46,7 +46,7 @@ if ( $tags ) { $i = 0;
         }
 
         if ( $i + 1 == count( $tags ) ) {
-            $tags_string .= __( 'and', '__gulp_init__namespace' ) . ' ';
+            $tags_string .= __( 'and', '__gulp_init_namespace__' ) . ' ';
         }
     }
 }

@@ -1,9 +1,11 @@
 // JavaScript Document
 
-// Scripts written by __gulp_init__author_name @ __gulp_init__author_company
+// Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
     init(gulp, plugins, on_error) {
+        const replace = require("gulp-replace");
+
         let defaults     = {};
         let project_data = {};
 
@@ -187,7 +189,7 @@ module.exports = {
 
         // write project data
         const write_project_data = () => {
-            return new Promise((resolve) => {
+            return new Promise((resolve, reject) => {
                 return gulp.src(["./*", "./gulp-tasks/*", "./src/**/*"], {base: "./"})
                     // prevent breaking on error
                     .pipe(plugins.plumber({errorHandler: on_error}))
@@ -203,29 +205,30 @@ module.exports = {
                         // go to next file
                         next(null, file);
                     }))
-                    // replace variables with project data
-                    .pipe(plugins.file_include({
-                        prefix:   "__gulp_init__",
-                        basepath: "@file",
-                        context: {
-                            full_name:       project_data.full_name,
-                            short_name:      project_data.short_name,
-                            npm_name:        project_data.full_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "-"),
-                            namespace:       project_data.short_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "_"),
-                            version:         project_data.version,
-                            description:     project_data.description,
-                            homepage_url:    project_data.homepage,
-                            repository:      project_data.repository.replace(/(\.git$)|(\/$)/, ""),
-                            author_name:     project_data.author_name,
-                            author_email:    project_data.author_email,
-                            author_company:  project_data.author_company,
-                            author_url:      project_data.author_url,
-                            theme_color:     project_data.theme_color,
-                            heading_font:    project_data.heading_font,
-                            body_font:       project_data.body_font,
-                            site_width:      project_data.site_width,
-                            column_gap:      project_data.column_gap,
-                            content_padding: project_data.content_padding,
+                    // replace variables
+                    .pipe(replace(/__gulp_init_[a-z0-9_]+?__/, (match) =>{
+                        const KEYWORD = match.match(/__gulp_init_([a-z0-9_]+?)__/)[1];
+
+                        const REPLACEMENTS = {
+                            full_name:      project_data.full_name,
+                            short_name:     project_data.short_name,
+                            npm_name:       project_data.full_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "-"),
+                            namespace:      project_data.short_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "_"),
+                            version:        project_data.version,
+                            description:    project_data.description,
+                            homepage_url:   project_data.homepage,
+                            repository:     project_data.repository.replace(/(\.git$)|(\/$)/, ""),
+                            author_name:    project_data.author_name,
+                            author_email:   project_data.author_email,
+                            author_company: project_data.author_company,
+                            author_url:     project_data.author_url,
+                            theme_color:    project_data.theme_color,
+                        };
+
+                        if (KEYWORD in REPLACEMENTS) {
+                            return REPLACEMENTS[KEYWORD];
+                        } else {
+                            return reject();
                         }
                     }))
                     // write the file

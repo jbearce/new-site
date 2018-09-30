@@ -9,7 +9,7 @@ $sub_menu = wp_nav_menu(array(
     "sub_menu"             => true,
     "theme_location"       => "primary",
     "tree_mode"            => "viewed",
-    "walker"               => new __gulp_init__namespace_menu_walker(),
+    "walker"               => new __gulp_init_namespace___menu_walker(),
 ));
 
 $sub_menu = preg_match_all("/<a/im", $sub_menu, $matches) > 0 ? $sub_menu : false;

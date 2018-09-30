@@ -4,12 +4,12 @@
 \* ------------------------------------------------------------------------ */
 
 // make calls to hm_get_templtae_part easier
-function __gulp_init__namespace_get_template_part($file, $template_args = array(), $cache_args = array()) {
+function __gulp_init_namespace___get_template_part($file, $template_args = array(), $cache_args = array()) {
     hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
 }
 
 // make overriding hashed file names with a child theme easier
-function __gulp_init__namespace_get_theme_file_path($path, $pattern, $full_path = false) {
+function __gulp_init_namespace___get_theme_file_path($path, $pattern, $full_path = false) {
     $file_paths = array();
 
     /* ------------------------------------------------------------------------ *\
@@ -47,10 +47,10 @@ function __gulp_init__namespace_get_theme_file_path($path, $pattern, $full_path 
 }
 
 // check if critical styles should be used, and return it if true
-function __gulp_init__namespace_get_critical_css($template) {
+function __gulp_init_namespace___get_critical_css($template) {
     $critical_css      = "";
     $current_template  = explode(".", basename($template))[0];
-    $critical_css_path = __gulp_init__namespace_get_theme_file_path("assets/styles/critical/", "{$current_template}.css", true);
+    $critical_css_path = __gulp_init_namespace___get_theme_file_path("assets/styles/critical/", "{$current_template}.css", true);
 
     if (file_exists($critical_css_path) && ((!isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) || (isset($_GET["debug"]) && $_GET["debug"] === "critical_css"))) {
         $critical_css = file_get_contents($critical_css_path);
@@ -60,7 +60,7 @@ function __gulp_init__namespace_get_critical_css($template) {
 }
 
 // function to construct an image to make srcsets and lazy loading simpler
-function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = "img") {
+function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
 
     // build an srcset
@@ -89,14 +89,14 @@ function __gulp_init__namespace_img($src, $atts = array(), $lazy = true, $tag = 
 
     // lazy load the image
     if ($lazy && $tag === "img") {
-        $element = apply_filters("__gulp_init__namespace_lazy_load_images", $element);
+        $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element);
     }
 
     return $element;
 }
 
 // get a nicer excerpt based on post ID
-function __gulp_init__namespace_get_the_excerpt($id = 0, $length = 55, $more = " [...]") {
+function __gulp_init_namespace___get_the_excerpt($id = 0, $length = 55, $more = " [...]") {
     global $post;
 
     $post_id     = $id ? $id : $post->ID;
@@ -111,7 +111,7 @@ function __gulp_init__namespace_get_the_excerpt($id = 0, $length = 55, $more = "
 }
 
 // format an address
-function __gulp_init__namespace_format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
+function __gulp_init_namespace___format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
     $address = "";
 
     if ($address_1 || $address_2 || $city || $state || $zip_code) {
@@ -166,7 +166,7 @@ function __gulp_init__namespace_format_address($address_1, $address_2, $city, $s
 }
 
 // get a map url
-function __gulp_init__namespace_get_map_url($address, $embed = false) {
+function __gulp_init_namespace___get_map_url($address, $embed = false) {
     $address_url = "";
 
     if ($address) {
@@ -182,7 +182,7 @@ function __gulp_init__namespace_get_map_url($address, $embed = false) {
 }
 
 // compare two dates to make sure they're sequential
-function __gulp_init__namespace_are_dates_sequential($date_start, $date_end = null) {
+function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = null) {
     $date_start = date("Ymd", strtotime($date_start));
     $date_end   = $date_end ? date("Ymd", strtotime($date_end)) : false;
 
@@ -194,7 +194,7 @@ function __gulp_init__namespace_are_dates_sequential($date_start, $date_end = nu
 }
 
 // function to remove extra tags (see https://stackoverflow.com/a/6406139/654480)
-function __gulp_init__namespace_remove_extra_tags($DOM) {
+function __gulp_init_namespace___remove_extra_tags($DOM) {
     $XPath = new DOMXPath($DOM);
 
     $body_contents = $XPath->query("//body/node()");
@@ -211,7 +211,7 @@ function __gulp_init__namespace_remove_extra_tags($DOM) {
 }
 
 // function to get a "no posts found" message
-function __gulp_init__namespace_get_no_posts_message($queried_object) {
+function __gulp_init_namespace___get_no_posts_message($queried_object) {
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
     } elseif (is_archive() && isset($queried_object->taxonomy)) {
@@ -236,28 +236,28 @@ function __gulp_init__namespace_get_no_posts_message($queried_object) {
     }
 
     if (!isset($post_type_label)) {
-        $post_type_label = __("posts", "__gulp_init__namespace");
+        $post_type_label = __("posts", "__gulp_init_namespace__");
     }
 
     if (!isset($post_taxonomy_label)) {
-        $post_taxonomy_label = __("taxonomy", "__gulp_init__namespace");
+        $post_taxonomy_label = __("taxonomy", "__gulp_init_namespace__");
     }
 
     if (is_post_type_archive()) {
-        $error_message = sprintf(__("Sorry, no %s could be found.", "__gulp_init__namespace"), $post_type_label);
+        $error_message = sprintf(__("Sorry, no %s could be found.", "__gulp_init_namespace__"), $post_type_label);
     } elseif (is_archive()) {
-        $error_message = sprintf(__("Sorry, no %s could be found in this %s.", "__gulp_init__namespace"), $post_type_label, $post_taxonomy_label);
+        $error_message = sprintf(__("Sorry, no %s could be found in this %s.", "__gulp_init_namespace__"), $post_type_label, $post_taxonomy_label);
     } elseif (is_search()) {
-        $error_message = sprintf(__("Sorry, no %s could be found for the search phrase %s%s.%s", "__gulp_init__namespace"), $post_type_label, "&ldquo;", get_search_query(), "&rdquo;");
+        $error_message = sprintf(__("Sorry, no %s could be found for the search phrase %s%s.%s", "__gulp_init_namespace__"), $post_type_label, "&ldquo;", get_search_query(), "&rdquo;");
     } else {
-        $error_message = sprintf(__("Sorry, no %s could be found matching this criteria.", "__gulp_init__namespace"), $post_type_label);
+        $error_message = sprintf(__("Sorry, no %s could be found matching this criteria.", "__gulp_init_namespace__"), $post_type_label);
     }
 
     return $error_message;
 }
 
 // function to retrieve a bunch of article metadata
-function __gulp_init__namespace_get_article_meta($post_id, $meta = array()) {
+function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
     // grab the date
     if (isset($meta["date"])) {
         $meta["date"] = array(
@@ -299,7 +299,7 @@ function __gulp_init__namespace_get_article_meta($post_id, $meta = array()) {
             "links" => array(
                 array(
                     "url"    => get_comments_link($post_id),
-                    "title"  => sprintf(__("%s comment%s", "__gulp_init__namespace"), $comment_count, ((int) $comment_count !== 1 ? __("s", "__gulp_init__namespace") : "")),
+                    "title"  => sprintf(__("%s comment%s", "__gulp_init_namespace__"), $comment_count, ((int) $comment_count !== 1 ? __("s", "__gulp_init_namespace__") : "")),
                     "target" => "",
                 )
             ),

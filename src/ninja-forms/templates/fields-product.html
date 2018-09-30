@@ -1,12 +1,11 @@
 <script id="tmpl-nf-field-product" type="text/template">
     <div class="nf-product-field {{{ data.renderClasses() }}} nf-text text">
-        {{{ data.renderProduct() }}}
     </div>
 </script>
 
 <script id="tmpl-nf-product-single" type="text/template">
     <span class="nf-product-price-label nf-text text --label">Price:</span>
-    <span class="nf-product-price text">${{{ data.product_price }}}</span>
+    <span class="nf-product-price text">&#36;{{{ data.product_price }}}</span>
     {{{ data.renderProductQuantity() }}}
 </script>
 

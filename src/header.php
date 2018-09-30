@@ -10,19 +10,19 @@
 
         <!-- Android -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-favicon.png" rel="shortcut icon" />
-        <meta name="theme-color" content="@@pwa_theme_color" />
+        <meta name="theme-color" content="<%= pwa_theme_color %>" />
 
         <!-- Safari -->
-        <link rel="mask-icon" href="<?php bloginfo("template_directory"); ?>/assets/media/logo-safari.svg" color="@@pwa_theme_color" />
+        <link rel="mask-icon" href="<?php bloginfo("template_directory"); ?>/assets/media/logo-safari.svg" color="<%= pwa_theme_color %>" />
 
         <!-- iOS -->
         <link href="<?php bloginfo("template_directory"); ?>/assets/media/logo-ios.png" rel="apple-touch-icon" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="@@pwa_theme_color" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="<%= pwa_theme_color %>" />
 
         <!-- Windows -->
         <meta content="no" name="msapplication-tap-highlight" />
-        <meta name="msapplication-navbutton-color" content="@@pwa_theme_color">
-        <meta content="@@pwa_theme_color" name="msapplication-TileColor" />
+        <meta name="msapplication-navbutton-color" content="<%= pwa_theme_color %>">
+        <meta content="<%= pwa_theme_color %>" name="msapplication-TileColor" />
         <meta content="<?php bloginfo("name"); ?>" name="application-name" />
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-128x128.png" name="msapplication-square70x70logo" />
         <meta content="<?php bloginfo("template_directory"); ?>/assets/media/logo-windows-270x270.png" name="msapplication-square150x150logo" />
@@ -52,7 +52,7 @@
                             <?php if (has_nav_menu("primary")): ?>
                                 <button class="header__panel-toggle panel-toggle __hidden-xs" data-toggle="mobile-menu">
                                     <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
-                                    <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init__namespace"); ?></span>
+                                    <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
                                 </button><!--/.header__panel-toggle.panel-toggle.__hidden-xs-->
                             <?php endif; ?>
                             <div class="header__search-form__container search-form__container __nomargin __visible-xs" role="search">
@@ -72,7 +72,7 @@
                                 "depth"          => 3,
                                 "items_wrap"     => "<ul class='menu-list --navigation' data-hover='true' data-touch='true'>%3\$s</ul>",
                                 "theme_location" => "primary",
-                                "walker"         => new __gulp_init__namespace_menu_walker("mega hover touch"),
+                                "walker"         => new __gulp_init_namespace___menu_walker("mega hover touch"),
                             ));
                             ?>
                         </nav><!--/.navigation__menu-list__container.menu-list__container-->

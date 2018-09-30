@@ -5,11 +5,11 @@
 
 // register the menus
 register_nav_menus(array(
-    "primary" => __("Navigation", "__gulp_init__namespace"),
+    "primary" => __("Navigation", "__gulp_init_namespace__"),
 ));
 
 // menu walker
-class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
+class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     // set up a variable to hold the parameters passed to the walker
     private $params;
 
@@ -124,7 +124,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
             $this->is_mega = true;
 
             if ($depth === 0) {
-                $output .= "<button class='menu-list__toggle __visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init__namespace") . "</button>";
+                $output .= "<button class='menu-list__toggle __visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init_namespace__") . "</button>";
                 $output .= "<div class='menu-list__container --mega' aria-hidden='true'>";
             }
         }
@@ -148,7 +148,7 @@ class __gulp_init__namespace_menu_walker extends Walker_Nav_Menu {
                 $toggle_class .= " __visuallyhidden" . (in_array("touch", $params) ? " __mouse" : "");
             }
 
-            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Toggle children", "__gulp_init__namespace") . "</span></button>";
+            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Toggle children", "__gulp_init_namespace__") . "</span></button>";
         }
 
         // set up empty variant class
@@ -228,13 +228,13 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
     // Add the WordPress color picker styles & scripts
-    function __gulp_init__namespace_nav_menu_color_picker() {
+    function __gulp_init_namespace___nav_menu_color_picker() {
         wp_enqueue_style("wp-color-picker");
         wp_enqueue_script("wp-color-picker");
     }
-    add_action("admin_enqueue_scripts", "__gulp_init__namespace_nav_menu_color_picker");
+    add_action("admin_enqueue_scripts", "__gulp_init_namespace___nav_menu_color_picker");
 
-    class __gulp_init__namespace_create_custom_menu_options extends Walker_Nav_Menu_Edit {
+    class __gulp_init_namespace___create_custom_menu_options extends Walker_Nav_Menu_Edit {
         static $displayed_fields = array();
 
         // create an array with all the new fields
@@ -244,7 +244,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                     "locations"   => array("primary"),
                     "type"        => "checkbox",
                     "name"        => "column_start",
-                    "label"       => __("Start a new column here", "__gulp_init__namespace"),
+                    "label"       => __("Start a new column here", "__gulp_init_namespace__"),
                     "description" => "",
                     "scripts"     => "",
                     "styles"      => ".menu-item:not(.menu-item-depth-1) .field-column_start, .menu-item.menu-item-depth-0 + .menu-item.menu-item-depth-1 .field-column_start {display:none;}",
@@ -328,7 +328,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                     $fields_markup .= $field["label"];
                 } elseif ($field["type"] === "color") {
                     $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<span><input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]} __gulp_init__namespace-color-picker' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' /></span>";
+                    $fields_markup .= "<span><input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]} __gulp_init_namespace__-color-picker' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' /></span>";
                 }
 
                 if ($field["description"]) {
@@ -368,7 +368,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                     $field["value"] = "";
 
                     add_action("admin_notices", function () use ($post_object) {
-                        echo "<div class='notice notice-error'><p>" . sprintf(__("Invalid HEX color code entered for '%s' [%s].", "__gulp_init__namespace"), $post_object->post_title, $post_object->ID) . "</p></div>";
+                        echo "<div class='notice notice-error'><p>" . sprintf(__("Invalid HEX color code entered for '%s' [%s].", "__gulp_init_namespace__"), $post_object->post_title, $post_object->ID) . "</p></div>";
                     });
                 }
 
@@ -416,11 +416,11 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             return $args;
         }
     }
-    add_action("init", array("__gulp_init__namespace_create_custom_menu_options", "setup_custom_fields"));
-    add_filter("wp_edit_nav_menu_walker", function () { return "__gulp_init__namespace_create_custom_menu_options"; });
-    add_action("admin_footer", array("__gulp_init__namespace_create_custom_menu_options", "insert_custom_scripts"));
-    add_action("admin_head", array("__gulp_init__namespace_create_custom_menu_options", "insert_custom_styles"));
-    add_filter("manage_nav-menus_columns", array("__gulp_init__namespace_create_custom_menu_options", "insert_custom_screen_options"), 20);
+    add_action("init", array("__gulp_init_namespace___create_custom_menu_options", "setup_custom_fields"));
+    add_filter("wp_edit_nav_menu_walker", function () { return "__gulp_init_namespace___create_custom_menu_options"; });
+    add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_scripts"));
+    add_action("admin_head", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_styles"));
+    add_filter("manage_nav-menus_columns", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_screen_options"), 20);
 }
 
 // add sub_menu options to wp_nav_menu
@@ -429,7 +429,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 // @param  show_parent    {true|false}
 // @param  sub_menu       {true|false}
 // @param  tree_mode      {"all"|"related"|"viewed"}
-function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
+function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
     $root_item_id = 0;
     $post_id_map  = array();
     $loop_limit   = 1000;
@@ -591,4 +591,4 @@ function __gulp_init__namespace_nav_menu_sub_menu($menu_items, $args) {
 
     return $menu_items;
 }
-add_filter("wp_nav_menu_objects", "__gulp_init__namespace_nav_menu_sub_menu", 10, 2);
+add_filter("wp_nav_menu_objects", "__gulp_init_namespace___nav_menu_sub_menu", 10, 2);

@@ -1,11 +1,11 @@
 // JavaScript Document
 
-// Scripts written by __gulp_init__author_name @ __gulp_init__author_company
+// Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 const gulp    = require("gulp");
 const plugins = {
     // general stuff
-    argv:         require("yargs").options({
+    argv:       require("yargs").options({
         "d": {
             alias: "dist",
             type:  "boolean",
@@ -27,22 +27,21 @@ const plugins = {
             type:  "boolean",
         },
     }).argv,
-    del:          require("del"),
-    file_include: require("gulp-file-include"),
-    fs:           require("fs"),
-    gulpif:       require("gulp-if"),
-    hash:         require("gulp-hash"),
-    is_binary:    require("gulp-is-binary"),
-    json:         require("jsonfile"),
-    merge:        require("merge-stream"),
-    newer:        require("gulp-newer"),
-    notify:       require("gulp-notify"),
-    path:         require("path"),
-    plumber:      require("gulp-plumber"),
-    prompt:       require("gulp-prompt"),
-    sourcemaps:   require("gulp-sourcemaps"),
-    through:      require("through2"),
-    watch:        require("gulp-watch"),
+    del:        require("del"),
+    fs:         require("fs"),
+    gulpif:     require("gulp-if"),
+    hash:       require("gulp-hash"),
+    is_binary:  require("gulp-is-binary"),
+    json:       require("jsonfile"),
+    merge:      require("merge-stream"),
+    newer:      require("gulp-newer"),
+    notify:     require("gulp-notify"),
+    path:       require("path"),
+    plumber:    require("gulp-plumber"),
+    prompt:     require("gulp-prompt"),
+    sourcemaps: require("gulp-sourcemaps"),
+    through:    require("through2"),
+    watch:      require("gulp-watch"),
 };
 
 if (plugins.argv.sync) {

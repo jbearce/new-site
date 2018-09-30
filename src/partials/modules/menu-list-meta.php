@@ -39,7 +39,7 @@ $meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
                                     ?>, <?php
 
                                     if ($index + 2 === count($data["links"])) {
-                                        echo __("and", "__gulp_init__namespace") . " ";
+                                        echo __("and", "__gulp_init_namespace__") . " ";
                                     }
                                 }
                             }
