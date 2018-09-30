@@ -206,7 +206,7 @@ module.exports = {
                         next(null, file);
                     }))
                     // replace variables
-                    .pipe(replace(/__gulp_init_[a-z0-9_]+?__/, (match) =>{
+                    .pipe(replace(/__gulp_init_[a-z0-9_]+?__/g, (match) =>{
                         const KEYWORD = match.match(/__gulp_init_([a-z0-9_]+?)__/)[1];
 
                         const REPLACEMENTS = {
