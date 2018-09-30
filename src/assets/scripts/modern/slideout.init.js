@@ -62,7 +62,6 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
 
         // release focus on close
         mobile_menu.on("close", () => {
-            TOGGLE.focus();
             FOCUS_TRAP.deactivate();
         });
     };
