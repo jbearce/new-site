@@ -40,3 +40,9 @@ svg {
     max-height: 100%;
     max-width: 100%;
 }
+
+// Hide outline on focus
+
+:focus {
+    outline: none;
+}
