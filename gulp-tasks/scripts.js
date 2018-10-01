@@ -82,7 +82,7 @@ module.exports = {
                         MERGED_STREAMS.add(processed);
                         return resolve();
                     });
-                }).then(() => SCRIPT_FOLDERS.length > 0 ? PROCESS_SCRIPT_FOLDERS() : resolve()); // loop again if foldres remain, otherwise resolve
+                }).then(() => SCRIPT_FOLDERS.length > 0 ? PROCESS_SCRIPT_FOLDERS() : resolve()); // loop again if folders remain, otherwise resolve
             };
 
             return PROCESS_SCRIPT_FOLDERS().then(() => {
