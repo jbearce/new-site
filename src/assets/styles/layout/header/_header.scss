@@ -21,7 +21,8 @@
 
 .header__logo {
     & {
-        max-width: remify(200, 16);
+        max-width: 100%;
+        width: remify(200, 16);
     }
 }
 

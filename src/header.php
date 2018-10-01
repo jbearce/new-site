@@ -42,24 +42,29 @@
         <div class="page__container" id="page-container">
             <div class="header-block --fullbleed" role="banner">
                 <div class="header__inner">
-                    <div class="header__row row --between --vcenter">
-                        <div class="col-auto">
+                    <div class="header__row row -padded --tight --between --vcenter">
+                        <div class="col-0 __hidden-xs">
+                            <?php if (has_nav_menu("primary")): ?>
+                                <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu">
+                                    <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
+                                    <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
+                                </button><!--/.header__panel-toggle.panel-toggle-->
+                            <?php endif; ?>
+                        </div><!--/.col-0.__hidden-xs-->
+                        <div class="col-auto --nogrow --noshrink">
                             <a class="header__logo logo" href="<?php echo home_url(); ?>">
                                 <img class="logo__image" alt="<?php bloginfo("name"); ?>" src="<?php bloginfo("template_directory"); ?>/assets/media/logo.svg" />
                             </a><!--/.header__logo.logo-->
-                        </div><!--/.col-auto-->
-                        <div class="col-auto --nogrow --noshrink __noprint">
-                            <?php if (has_nav_menu("primary")): ?>
-                                <button class="header__panel-toggle panel-toggle __hidden-xs" data-toggle="mobile-menu">
-                                    <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
-                                    <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
-                                </button><!--/.header__panel-toggle.panel-toggle.__hidden-xs-->
-                            <?php endif; ?>
+                        </div><!--/.col-auto.--nogrow.--noshrink-->
+                        <div class="col-0 __hidden-xs">
+                            <!-- spacer -->
+                        </div><!--/.col-0.__hidden-xs-->
+                        <div class="col-xs-auto --nogrow --noshrink __visible-xs">
                             <div class="header__search-form__container search-form__container __nomargin __visible-xs" role="search">
                                 <?php get_search_form(); ?>
                             </div><!--/.header__search-form__container.search-form__container.__nomargin.__visible-xs-->
-                        </div><!--/.col-auto.--nogrow.--noshrink.__noprint-->
-                    </div><!--/.header__row.row.--between.--vcenter-->
+                        </div><!--/.col-auto.--nogrow.--noshrink.__visible-xs-->
+                    </div><!--/.header__row.row.--padded.--tight.--between.--vcenter-->
                 </div><!--/.header__inner-->
             </div><!--/.header-block.--fullbleed-->
             <?php if (has_nav_menu("primary")): ?>
