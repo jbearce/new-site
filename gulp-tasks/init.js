@@ -6,22 +6,15 @@ module.exports = {
     init(gulp, plugins, on_error) {
         const replace = require("gulp-replace");
 
-        let defaults     = {};
         let project_data = {};
 
-        const get_default_data = (file_name = ".init") => {
+        const get_project_defaults = () => {
             return new Promise((resolve) => {
-                // open the file
-                plugins.fs.stat(file_name, (err) => {
-                    // make sure the file doesn't exist (or otherwise has an error)
-                    if (err === null) {
-                        defaults = plugins.json.readFileSync(file_name);
-                        return resolve();
-                    } else {
-                        // immediately resolve if file doesn't exist
-                        return resolve();
-                    }
-                });
+                if (plugins.fs.existsSync(".init")) {
+                    project_data = plugins.json.readFileSync(".init");
+                }
+
+                resolve();
             });
         };
 
@@ -31,13 +24,12 @@ module.exports = {
                 return gulp.src("./gulpfile.js")
                     // prevent breaking on error
                     .pipe(plugins.plumber({errorHandler: on_error}))
-                    // prompt for project data
-                    .pipe(plugins.prompt.prompt([
+                    // prompt for project data if defaults are not set
+                    .pipe(plugins.gulpif(Object.getOwnPropertyNames(project_data).length === 0, plugins.prompt.prompt([
                         {
                             name:     "full_name",
                             message:  "Project Name:",
                             type:     "input",
-                            default:  "full_name" in defaults ? defaults.full_name : "",
                             validate: (response) => {
                                 if (response.trim().length > 0 && response.match(/\w/)) {
                                     return true;
@@ -50,7 +42,6 @@ module.exports = {
                             name:     "short_name",
                             message:  "Project Short Name:",
                             type:     "input",
-                            default:  "short_name" in defaults ? defaults.short_name : "",
                             validate: (response) => {
                                 if (response.trim().length > 0 && response.match(/\w/)) {
                                     return true;
@@ -63,7 +54,7 @@ module.exports = {
                             name:     "version",
                             message:  "Project Version:",
                             type:     "input",
-                            default:  "version" in defaults ? defaults.version : "0.1.0",
+                            default:  "0.1.0",
                             validate: (response) => {
                                 if (response.match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(-(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*)?(\+[0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*)?$/)) {
                                     return true;
@@ -76,7 +67,6 @@ module.exports = {
                             name:     "description",
                             message:  "Project Description:",
                             type:     "input",
-                            default:  "description" in defaults ? defaults.description : "",
                             validate: (response) => {
                                 if (response.trim().length > 0 && response.match(/\w/)) {
                                     return true;
@@ -89,7 +79,6 @@ module.exports = {
                             name:     "homepage",
                             message:  "Project URL:",
                             type:     "input",
-                            default:  "homepage" in defaults ? defaults.homepage : "",
                             validate: (response) => {
                                 if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/)) {
                                     return true;
@@ -102,7 +91,6 @@ module.exports = {
                             name:     "repository",
                             message:  "Project Repository:",
                             type:     "input",
-                            default:  "repository" in defaults ? defaults.repository : "",
                             validate: (response) => {
                                 if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/)) {
                                     return true;
@@ -115,7 +103,6 @@ module.exports = {
                             name:    "author_name",
                             message: "Author Name:",
                             type:    "input",
-                            default:  "author_name" in defaults ? defaults.author_name : "",
                             validate: (response) => {
                                 if (response.trim().length > 0 && response.match(/\w/)) {
                                     return true;
@@ -128,7 +115,6 @@ module.exports = {
                             name:     "author_email",
                             message:  "Author Email:",
                             type:     "input",
-                            default:  "author_email" in defaults ? defaults.author_email : "",
                             validate: (response) => {
                                 if (response.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
                                     return true;
@@ -141,7 +127,6 @@ module.exports = {
                             name:     "author_company",
                             message:  "Author Company:",
                             type:     "input",
-                            default:  "author_company" in defaults ? defaults.author_company : "",
                             validate: (response) => {
                                 if (response.trim().length > 0 && response.match(/\w/)) {
                                     return true;
@@ -154,7 +139,6 @@ module.exports = {
                             name:     "author_url",
                             message:  "Author URL:",
                             type:     "input",
-                            default:  "author_url" in defaults ? defaults.author_url : "",
                             validate: (response) => {
                                 if (response.match(/^https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_+.~#?&//=]*)$/)) {
                                     return true;
@@ -167,7 +151,7 @@ module.exports = {
                             name:     "theme_color",
                             message:  "Theme Color:",
                             type:     "input",
-                            default:  "theme_color" in defaults ? defaults.theme_color : "#17AAEC",
+                            default:  "#17AAEC",
                             validate: (response) => {
                                 if (response.match(/^#(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$/)) {
                                     return true;
@@ -179,7 +163,11 @@ module.exports = {
                     ], (res) => {
                         // store the project data
                         project_data = res;
-                    }))
+                    })))
+                    // consume the stream the stream
+                    .on("data", () => {
+                        // do nothing
+                    })
                     // resolve the promise
                     .on("end", () => {
                         resolve();
@@ -228,6 +216,7 @@ module.exports = {
                         if (KEYWORD in REPLACEMENTS) {
                             return REPLACEMENTS[KEYWORD];
                         } else {
+                            console.log("Error!" + KEYWORD + " not found in provided project data!");
                             return reject();
                         }
                     }))
@@ -241,7 +230,7 @@ module.exports = {
         };
 
         return new Promise ((resolve) => {
-            get_default_data().then(() => {
+            get_project_defaults().then(() => {
                 return get_project_data();
             }).then(() => {
                 return write_project_data();

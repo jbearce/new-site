@@ -13,12 +13,12 @@
   },
   "bugs": {
     "url": "__gulp_init_repository__/issues",
-    "email": "__gulp_init_author_email_address__"
+    "email": "__gulp_init_author_email__"
   },
   "license": "UNLICENSED",
   "author": {
     "name": "__gulp_init_author_name__ @ __gulp_init_author_company__",
-    "email": "__gulp_init_author_email_address__",
+    "email": "__gulp_init_author_email__",
     "url": "__gulp_init_author_url__"
   },
   "repository": {
