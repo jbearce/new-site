@@ -17,4 +17,4 @@ add_theme_support("automatic-feed-links");
 
 add_theme_support("post-thumbnails");
 
-add_editor_style("assets/styles/editor.css");
+add_editor_style(get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "editor.*.css")));
