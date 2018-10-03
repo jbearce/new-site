@@ -18,10 +18,10 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 
                 <div class="swiper-wrapper">
                     <?php if ($slideshow): ?>
-                        <?php while (have_rows("slideshow")): the_row(); ?>
+                        <?php foreach ($slideshow as $slide): ?>
                             <?php
-                            $image = get_sub_field("image");
-                            $link  = get_sub_field("link");
+                            $image = $slide["image"];
+                            $link  = $slide["link"];
                             ?>
 
                             <?php if ($image): $i++; ?>
@@ -71,7 +71,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 
                                 </figure><!--/.swiper-slide-->
                             <?php endif; ?>
-                        <?php endwhile; ?>
+                        <?php endforeach; ?>
                     <?php elseif ($featured_image): // ($slideshow) ?>
                         <figure class="swiper-slide">
 
