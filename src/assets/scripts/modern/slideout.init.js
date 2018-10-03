@@ -46,6 +46,7 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
             itemToMove: "menu",
             menu:       MENU,
             panel:      PANEL,
+            padding:    280,
         });
     };
 

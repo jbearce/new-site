@@ -9,10 +9,10 @@
         </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
             <div class="navigation-block --flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0">
-                <div class="navigation_inner">
-                    <div class="navigation__search-form__container search-form__container __nomargin">
-                        <?php get_search_form(); ?>
-                    </div><!--/.navigation__search-form__container.search-form__container.__nomargin-->
+                <div class="navigation__inner">
+                    <figure class="navigation__figure">
+                        <img class="navigation__image" src="<?php echo get_theme_file_uri("assets/media/navigation-banner.jpg"); ?>" alt="" />
+                    </figure><!--/.navigation__figure-->
                     <nav class="navigation__menu-list__container menu-list_container">
                         <?php
                         wp_nav_menu(array(

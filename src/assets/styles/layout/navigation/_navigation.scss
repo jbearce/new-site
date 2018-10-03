@@ -19,6 +19,19 @@
     }
 }
 
+.navigation__figure {
+    & {
+        margin: remify(0 0 8, 16);
+    }
+}
+
+.navigation__image {
+    & {
+        display: block;
+        width: 100%;
+    }
+}
+
 /* fullbleed variant */
 
 .navigation-block.--fullbleed {

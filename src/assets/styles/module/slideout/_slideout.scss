@@ -12,6 +12,16 @@
 
 // Custom
 
+.slideout-menu {
+    & {
+        width: 280px;
+    }
+
+    &.slideout-move.slideout-menu-left {
+        left: -280px;
+    }
+}
+
 .slideout-dimmer {
     & {
         pointer-events: all;
