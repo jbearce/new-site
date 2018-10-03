@@ -43,22 +43,26 @@
             <div class="header-block --fullbleed" role="banner">
                 <div class="header__inner">
                     <div class="header__row row -padded --tight --between --vcenter">
-                        <div class="col-0 __hidden-xs">
-                            <?php if (has_nav_menu("primary")): ?>
-                                <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu">
-                                    <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
-                                    <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
-                                </button><!--/.header__panel-toggle.panel-toggle-->
-                            <?php endif; ?>
-                        </div><!--/.col-0.__hidden-xs-->
+                        <div class="col-auto --nogrow --noshrink __hidden-xs">
+                            <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu"<?php if (!has_nav_menu("primary")): ?> style="pointer-events:none;visibility:hidden;"<?php endif; ?>>
+                                <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
+                                <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
+                            </button><!--/.header__panel-toggle.panel-toggle-->
+                        </div><!--/.col-auto.--nogrow.--noshrink.__hidden-xs-->
                         <div class="col-auto --nogrow --noshrink">
                             <a class="header__logo logo" href="<?php echo home_url(); ?>">
                                 <img class="logo__image" alt="<?php bloginfo("name"); ?>" src="<?php echo get_theme_file_uri("assets/media/logo.svg"); ?>" />
                             </a><!--/.header__logo.logo-->
                         </div><!--/.col-auto.--nogrow.--noshrink-->
-                        <div class="col-0 __hidden-xs">
-                            <!-- spacer -->
-                        </div><!--/.col-0.__hidden-xs-->
+                        <div class="col-auto --nogrow --noshrnk __hidden-xs">
+                            <button class="header__panel-toggle panel-toggle" data-toggle="mobile-search">
+                                <i class="panel-toggle__icon fas fa-fw fa-search"></i>
+                                <span class="__visuallyhidden"><?php _e("View Search", "__gulp_init_namespace__"); ?></span>
+                            </button><!--/.header__panel-toggle.panel-toggle-->
+                            <div class="header__search-form__container search-form__container --expandable __nomargin __hidden-xs" role="search" id="mobile-search">
+                                <?php get_search_form(); ?>
+                            </div><!--/.header__search-form__container.search-form__container.--expandable.__nomargin.__hidden-xs-->
+                        </div><!--/.col-auto.--nogrow.--noshrink.__hidden-xs-->
                         <div class="col-xs-auto --nogrow --noshrink __visible-xs">
                             <div class="header__search-form__container search-form__container __nomargin __visible-xs" role="search">
                                 <?php get_search_form(); ?>

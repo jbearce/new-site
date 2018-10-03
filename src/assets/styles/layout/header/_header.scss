@@ -26,6 +26,25 @@
     }
 }
 
+.header__search-form__container {
+    &.--expandable {
+        background: color("background");
+        left: 0;
+        opacity: 0;
+        padding: remify(($content-padding * 0.75) $content-padding);
+        position: absolute;
+        top: -999em;
+        transition: opacity 0.15s, top 0s 0.15s;
+        width: 100%;
+    }
+
+    &.--expandable.is-active {
+        opacity: 1;
+        transition: opacity 0.15s;
+        top: 0;
+    }
+}
+
 /* fullbleed variant */
 
 .header-block.--fullbleed {
