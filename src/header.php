@@ -59,9 +59,11 @@
                                 <i class="panel-toggle__icon fas fa-fw fa-search"></i>
                                 <span class="__visuallyhidden"><?php _e("View Search", "__gulp_init_namespace__"); ?></span>
                             </button><!--/.header__panel-toggle.panel-toggle-->
-                            <div class="header__search-form__container search-form__container --expandable __nomargin __hidden-xs" role="search" id="mobile-search">
-                                <?php get_search_form(); ?>
-                            </div><!--/.header__search-form__container.search-form__container.--expandable.__nomargin.__hidden-xs-->
+                            <?php if (!is_search()): ?>
+                                <div class="header__search-form__container search-form__container --expandable __nomargin __hidden-xs" role="search" id="mobile-search">
+                                    <?php get_search_form(); ?>
+                                </div><!--/.header__search-form__container.search-form__container.--expandable.__nomargin.__hidden-xs-->
+                            <?php endif; ?>
                         </div><!--/.col-auto.--nogrow.--noshrink.__hidden-xs-->
                         <div class="col-xs-auto --nogrow --noshrink __visible-xs">
                             <div class="header__search-form__container search-form__container __nomargin __visible-xs" role="search">

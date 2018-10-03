@@ -4,7 +4,7 @@
         <div class="content__post">
             <?php do_action("__gulp_init_namespace___before_content"); ?>
 
-            <div class="content_search-form__container search-form__container">
+            <div class="content_search-form__container search-form__container" id="mobile-search">
                 <?php get_search_form(); ?>
             </div><!--/.content_search-form__container.search-form__container-->
 
