@@ -35,7 +35,7 @@
 
         <!-- fallback -->
         <noscript>
-            <style>._js {display: none !important;}</style>
+            <style>.__js {display: none !important;}</style>
         </noscript>
     </head>
     <body <?php body_class(); ?>>
