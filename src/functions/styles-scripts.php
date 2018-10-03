@@ -81,7 +81,7 @@ add_action("get_header", "__gulp_init_namespace___enqueue_scripts");
 
 // adjust WordPress login screen styles
 function __gulp_init_namespace___enqueue_scripts_login() {
-    wp_enqueue_style("__gulp_init_namespace__-styles-login", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "wp-login.*.css")), array(), "<%= version %>");
+    wp_enqueue_style("__gulp_init_namespace__-styles-login", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "wp-login.*.css")), array(), "<%= version %>");
 }
 add_action("login_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_login");
 
