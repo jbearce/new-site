@@ -4,7 +4,7 @@
 
 /* stylelint-disable no-descending-specificity, selector-max-id, selector-max-type, selector-no-qualifying-type, selector-class-pattern, property-no-vendor-prefix */
 
-$dark:  color("dark", "tint"); // set to false to disable dark mode
+$dark:  false; // set to a HEX code to enable dark mode
 $light: color("light");
 $base:  color("accent");
 $tint:  lighten(desaturate(adjust-hue($base, 1.6532), 27.2727), 6.6667);
@@ -28,9 +28,7 @@ body.login div#login h1 a {
     }
 }
 
-body.login div#login form#loginform,
-body.login div#login form#registerform,
-body.login div#login form#lostpasswordform {
+body.login div#login form {
     input[type="text"]:focus,
     input[type="search"]:focus,
     input[type="radio"]:focus,
@@ -58,9 +56,7 @@ body.login div#login form#lostpasswordform {
     }
 }
 
-body.login div#login form#loginform p.submit input#wp-submit,
-body.login div#login form#registerform p.submit input#wp-submit,
-body.login div#login form#lostpasswordform p.submit input#wp-submit {
+body.login div#login form input.button {
     & {
         background: $base;
         border-color: darken(adjust-hue($base, 2.315), 3.1373) $shade $shade;
