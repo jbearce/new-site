@@ -20,14 +20,14 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                     <?php if ($slideshow): ?>
                         <?php foreach ($slideshow as $slide): ?>
                             <?php
-                            $image = $slide["image"];
-                            $link  = $slide["link"];
+                            $image = isset($slide["image"]) ? $slide["image"] : false;
+                            $link  = isset($slide["link"]) ? $slide["link"] : false;
                             ?>
 
                             <?php if ($image): $i++; ?>
                                 <figure class="swiper-slide">
 
-                                    <?php if ($link["url"]): ?>
+                                    <?php if ($link && $link["url"]): ?>
                                         <a class="swiper-link link" href="<?php echo $link["url"]; ?>"<?php if ($link["title"]): ?> title="<?php echo $link["title"]; ?>"<?php endif; ?><?php if ($link["target"]): ?> target="<?php echo $link["target"]; ?>"<?php endif; ?>>
                                     <?php endif; ?>
 
@@ -65,7 +65,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                         </figcaption><!--/.swiper-caption-->
                                     <?php endif; ?>
 
-                                    <?php if ($link["url"]): ?>
+                                    <?php if ($link && $link["url"]): ?>
                                         </a><!--/.swiper-link.link-->
                                     <?php endif; ?>
 
