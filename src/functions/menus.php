@@ -25,10 +25,9 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     static $li_count      = 0;
 
     function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
-        // convert the params in to an array
-        $params = explode(" ", $this->params);
+        $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        if (in_array("mega", $params) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
+        if (in_array("mega", $features) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
             foreach ($children_elements[$element->ID] as $child) { $i++;
                 $has_columns = get_post_meta($child->ID, "_menu_item_column_start");
                 $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
@@ -43,11 +42,11 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     }
 
     public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        // convert the params in to an array
-        $params = explode(" ", $this->params);
+        $id_prefix = isset($this->params["id_prefix"]) ? $this->params["id_prefix"] : "";
+        $features  = isset($this->params["features"]) ? $this->params["features"] : array();
 
         // mega menu stuff
-        if (in_array("mega", $params)) {
+        if (in_array("mega", $features)) {
             if ($depth === 0) {
                 self::$li_count = 0;
             }
@@ -86,6 +85,9 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         // convert the clean_classes array in to usable string
         $class_names = " class='" . esc_attr(join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item))) . "'";
 
+        // set up the ID
+        $id = $id_prefix . $item->ID;
+
         // retrieve the URL
         $url = $item->url;
 
@@ -108,8 +110,9 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
 
         // construct the menu item
         $output .= sprintf(
-            "<li%s><a class='menu-list__link link' href='%s'%s%s%s%s>%s</a>%s",
+            "<li%s id='%s'><a class='menu-list__link link' href='%s'%s%s%s%s>%s</a>%s",
             $class_names,
+            $id,
             $url,
             $attr_title,
             $target,
@@ -120,7 +123,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         );
 
         // mega menu stuff
-        if (in_array("mega", $params) && in_array("--mega", $classes)) {
+        if (in_array("mega", $features) && in_array("--mega", $classes)) {
             $this->is_mega = true;
 
             if ($depth === 0) {
@@ -131,21 +134,20 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     }
 
     public function start_lvl(&$output, $depth = 0, $args = array()) {
-        // convert the params in to an array
-        $params = explode(" ", $this->params);
+        $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         // add a toggle button
         $toggle = "";
 
-        if (!$this->is_mega && (in_array("accordion", $params) || in_array("hover", $params) || in_array("touch", $params))) {
+        if (!$this->is_mega && (in_array("accordion", $features) || in_array("hover", $features) || in_array("touch", $features))) {
             $toggle_class = "";
 
-            if (in_array("touch", $params) && !in_array("accordion", $params)) {
+            if (in_array("touch", $features) && !in_array("accordion", $features)) {
                 $toggle_class = " __touch";
             }
 
-            if (in_array("hover", $params) && !in_array("accordion", $params)) {
-                $toggle_class .= " __visuallyhidden" . (in_array("touch", $params) ? " __mouse" : "");
+            if (in_array("hover", $features) && !in_array("accordion", $features)) {
+                $toggle_class .= " __visuallyhidden" . (in_array("touch", $features) ? " __mouse" : "");
             }
 
             $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Toggle children", "__gulp_init_namespace__") . "</span></button>";
@@ -167,9 +169,9 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         if ($this->is_mega) {
             $variant .= " --mega";
         } else {
-            if (in_array("accordion", $params)) {
+            if (in_array("accordion", $features)) {
                 $variant .= " --accordion";
-            } elseif (in_array("hover", $params) || in_array("touch", $params)) {
+            } elseif (in_array("hover", $features) || in_array("touch", $features)) {
                 $variant .= " --overlay" . ($depth >= 1 ? " --flyout" : "");
             }
         }
@@ -178,14 +180,14 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         $data = "";
 
         // add data properties for the menu script to interact with
-        if (in_array("hover", $params) && !$this->is_mega) $data .= " data-hover='true'";
-        if (in_array("touch", $params) && !$this->is_mega) $data .= " data-touch='true'";
+        if (in_array("hover", $features) && !$this->is_mega) $data .= " data-hover='true'";
+        if (in_array("touch", $features) && !$this->is_mega) $data .= " data-touch='true'";
 
         // set up empty aria attribute
         $aria = "";
 
         // add aria attribute if the mega parameter is not passed
-        if (!$this->is_mega && (in_array("hover", $params) || in_array("touch", $params))) {
+        if (!$this->is_mega && (in_array("hover", $features) || in_array("touch", $features))) {
             $aria = " aria-hidden='true'";
         }
 
@@ -199,14 +201,13 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     }
 
     public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        // convert the params in to an array
-        $params = explode(" ", $this->params);
+        $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         // reset the column counter
         $this->column_count = 0;
 
         // mega menu stuff
-        if (in_array("mega", $params)) {
+        if (in_array("mega", $features)) {
             // get the current classes
             $classes = $item->classes ? $item->classes : array();
 

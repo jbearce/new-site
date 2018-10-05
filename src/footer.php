@@ -20,7 +20,12 @@
                             "depth"          => 3,
                             "items_wrap"     => "<ul class='menu-list --navigation --accordion --vertical'>%3\$s</ul>",
                             "theme_location" => "primary",
-                            "walker"         => new __gulp_init_namespace___menu_walker("accordion"),
+                            "walker"         => new __gulp_init_namespace___menu_walker(array(
+                                "id_prefix" => "mobile-nav_",
+                                "features"  => array(
+                                    "accordion",
+                                ),
+                            )),
                         ));
                         ?>
                     </nav><!--/.navigation__menu-list_container.menu-list__container-->

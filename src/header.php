@@ -83,7 +83,14 @@
                                 "depth"          => 3,
                                 "items_wrap"     => "<ul class='menu-list --navigation' data-hover='true' data-touch='true'>%3\$s</ul>",
                                 "theme_location" => "primary",
-                                "walker"         => new __gulp_init_namespace___menu_walker("mega hover touch"),
+                                "walker"         => new __gulp_init_namespace___menu_walker(array(
+                                    "id_prefix" => "desktop-nav_",
+                                    "features"  => array(
+                                        "mega",
+                                        "hover",
+                                        "touch",
+                                    ),
+                                )),
                             ));
                             ?>
                         </nav><!--/.navigation__menu-list__container.menu-list__container-->

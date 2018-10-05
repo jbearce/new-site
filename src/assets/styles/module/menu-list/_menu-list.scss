@@ -137,15 +137,14 @@
 
 .menu-list.--child.--accordion {
     & {
-        max-height: 0;
+        height: 0;
         overflow: hidden;
-        transition: max-height 0.25s, visibility 0s 0.25s;
+        transition: height 0.15s, visibility 0s 0.15s !important; // @NOTE !important required to override transition-to-from-auto inline style
         visibility: hidden;
     }
 
     .menu-list__item.--parent.is-active > & {
-        max-height: remify(1000, 16);
-        transition: max-height 0.25s;
+        transition: height 0.15s !important; // @NOTE !important required to override transition-to-from-auto inline style
         visibility: visible;
     }
 }
