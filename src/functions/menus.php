@@ -27,7 +27,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        if (in_array("mega", $features) && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
+        if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
             foreach ($children_elements[$element->ID] as $child) { $i++;
                 $has_columns = get_post_meta($child->ID, "_menu_item_column_start");
                 $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
@@ -46,7 +46,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         $features  = isset($this->params["features"]) ? $this->params["features"] : array();
 
         // mega menu stuff
-        if (in_array("mega", $features)) {
+        if (in_array("mega", $features) && $depth === 1) {
             if ($depth === 0) {
                 self::$li_count = 0;
             }
@@ -123,7 +123,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         );
 
         // mega menu stuff
-        if (in_array("mega", $features) && in_array("--mega", $classes)) {
+        if (in_array("mega", $features) && $depth === 0 && in_array("--mega", $classes)) {
             $this->is_mega = true;
 
             if ($depth === 0) {
@@ -207,7 +207,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         $this->column_count = 0;
 
         // mega menu stuff
-        if (in_array("mega", $features)) {
+        if (in_array("mega", $features) && $depth === 0) {
             // get the current classes
             $classes = $item->classes ? $item->classes : array();
 
