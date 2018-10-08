@@ -27,7 +27,6 @@ const plugins = {
             type:  "boolean",
         },
     }).argv,
-    del:        require("del"),
     fs:         require("fs"),
     gulpif:     require("gulp-if"),
     hash:       require("gulp-hash"),

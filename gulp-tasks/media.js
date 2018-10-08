@@ -33,12 +33,6 @@ module.exports = {
             // set screenshot directory
             const screenshot_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
-            // clean directories if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del(media_directory + "/**/*");
-                plugins.del(screenshot_directory + "/screenshot.png");
-            }
-
             // process all media
             const media      = process_media(media_directory, global.settings.paths.src + "/assets/media/**/*");
             const screenshot = process_media(screenshot_directory, global.settings.paths.src + "/screenshot.png");

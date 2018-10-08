@@ -82,11 +82,6 @@ module.exports = {
             // set HTML directory
             const html_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
-            // clean directory if --dist is passed
-            if (plugins.argv.dist) {
-                plugins.del([html_directory + "/**/*", "!" + html_directory + "{/assets,/assets/**}"]);
-            }
-
             // process all non-asset files
             const binaries = copy_binaries(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
             const html     = process_html(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
