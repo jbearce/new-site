@@ -26,7 +26,7 @@ remove_action("wp_print_styles", "print_emoji_styles");
 // load scripts asynchronously
 function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
     if (!is_admin()) {
-        return str_replace("<script", "<script defer='defer'", $tag);
+        return str_replace(" src=", " defer='defer' src=", $tag);
         exit;
     }
 
