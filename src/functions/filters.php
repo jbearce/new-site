@@ -31,6 +31,7 @@ add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 // load the service-worker.*.js script when the user visits /service-worker.js
 function __gulp_init_namespace___load_service_worker_script($template) {
     if (isset($_GET["sw_script"]) && $_GET["sw_script"] === "true") {
+        header("Content-Type: application/javascript");
         return get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "service-worker.*.js"));
     }
 
