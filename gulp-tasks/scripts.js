@@ -45,11 +45,11 @@ module.exports = {
                     .pipe(gulp.dest("."))
                     // reject after errors
                     .on("error", () => {
-                        return reject(TASK);
+                        reject(TASK);
                     })
                     // return the task after completion
                     .on("end", () => {
-                        return resolve(TASK);
+                        resolve(TASK);
                     });
             });
         };
@@ -71,8 +71,11 @@ module.exports = {
 
             // process all the script folders
             const PROCESS_SCRIPT_FOLDERS = () => {
-                return new Promise((resolve) => {
+                return Promise.resolve().then(() => {
+                    // shift to the next folder
                     const FOLDER_NAME = SCRIPT_FOLDERS.shift();
+
+                    // find the existing destination script file name
                     const FILE_NAME   = SCRIPT_FILES ? SCRIPT_FILES.find((name) => {
                         return name.match(new RegExp(FOLDER_NAME + ".[a-z0-9]{8}.js"));
                     }) : FOLDER_NAME + ".js";
@@ -80,12 +83,11 @@ module.exports = {
                     // process all scripts, update the stream
                     return PROCESS_SCRIPTS(JS_DIRECTORY, FOLDER_NAME + ".js", FILE_NAME, SOURCE_DIRECTORY + "/" + FOLDER_NAME + "/**/*").then((processed) => {
                         MERGED_STREAMS.add(processed);
-                        return resolve();
                     });
-                }).then(() => SCRIPT_FOLDERS.length > 0 ? PROCESS_SCRIPT_FOLDERS() : resolve()); // loop again if folders remain, otherwise resolve
+                }).then(() => SCRIPT_FOLDERS.length > 0 ? PROCESS_SCRIPT_FOLDERS() : resolve());
             };
 
-            return PROCESS_SCRIPT_FOLDERS().then(() => {
+            PROCESS_SCRIPT_FOLDERS().then(() => {
                 // wrap up
                 return MERGED_STREAMS
                     // prevent breaking on error
@@ -104,8 +106,9 @@ module.exports = {
                             ran_tasks.push("scripts");
                         }
                     })
+                    // resolve the promise on end
                     .on("end", () => {
-                        return resolve();
+                        resolve();
                     });
             });
 
