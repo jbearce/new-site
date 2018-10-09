@@ -12,7 +12,7 @@ module.exports = {
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
             // set CSS directory
-            const css_directory = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
+            const CSS_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
             // generate critical CSS if requested
             if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
@@ -23,7 +23,7 @@ module.exports = {
                 console.log("Genearting critical CSS, this may take up to " + ((Object.keys(SITEMAP).length * 30) / 60) + " minute" + (((Object.keys(SITEMAP).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
 
                 // create the "critical" directory
-                MKDIRP(css_directory + "/critical");
+                MKDIRP(CSS_DIRECTORY + "/critical");
 
                 // loop through all the links
                 for (const TEMPLATE in SITEMAP) {
@@ -31,7 +31,7 @@ module.exports = {
                     if (SITEMAP.hasOwnProperty(TEMPLATE)) {
                         // generate the critial CSS
                         CRITICAL.generate({
-                            base:       css_directory + "/critical",
+                            base:       CSS_DIRECTORY + "/critical",
                             dest:       TEMPLATE + ".css",
                             dimensions: [1920, 1080],
                             minify:     true,
@@ -41,25 +41,19 @@ module.exports = {
                 }
             }
 
+            const ALL_FILE_NAMES   = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
+            const HASHED_FILE_NAME = ALL_FILE_NAMES ? ALL_FILE_NAMES.find((name) => {
+                return name.match(new RegExp(CSS_DIRECTORY.split(".")[0] + ".[a-z0-9]{8}.css"));
+            }) : "modern.css";
+
             // process styles
-            gulp.src(global.settings.paths.src + "/assets/styles/*.scss")
+            gulp.src(global.settings.paths.src + "/assets/styles/**/*.scss")
                 // prevent breaking on error
                 .pipe(plugins.plumber({
                     errorHandler: on_error
                 }))
                 // check if source is newer than destination
-                .pipe(plugins.newer({
-                    extra: global.settings.paths.src + "/assets/styles/**/*.scss",
-                    dest: css_directory,
-                    map: (src) => {
-                        const ALL_FILE_NAMES   = plugins.fs.existsSync(css_directory) ? plugins.fs.readdirSync(css_directory) : false;
-                        const HASHED_FILE_NAME = ALL_FILE_NAMES ? ALL_FILE_NAMES.find((name) => {
-                            return name.match(new RegExp(src.split(".")[0] + ".[a-z0-9]{8}.css"));
-                        }) : src;
-
-                        return HASHED_FILE_NAME;
-                    },
-                }))
+                .pipe(plugins.newer(CSS_DIRECTORY + "/" + HASHED_FILE_NAME))
                 // lint
                 .pipe(STYLELINT({
                     debug: true,
@@ -96,7 +90,7 @@ module.exports = {
                 // write sourcemap (if --dist isn't passed)
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
                 // output styles to compiled directory
-                .pipe(gulp.dest(css_directory))
+                .pipe(gulp.dest(CSS_DIRECTORY))
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), plugins.notify({
                     title:   "Success!",
@@ -112,7 +106,7 @@ module.exports = {
                 // generate a hash manfiest
                 .pipe(plugins.hash.manifest("./.hashmanifest-styles", {
                     deleteOld: true,
-                    sourceDir: css_directory,
+                    sourceDir: CSS_DIRECTORY,
                 }))
                 // output hash manifest in root
                 .pipe(gulp.dest("."))
