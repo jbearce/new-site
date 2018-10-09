@@ -14,33 +14,6 @@ module.exports = {
             // set CSS directory
             const CSS_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
-            // generate critical CSS if requested
-            if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
-                const SITEMAP  = plugins.json.readFileSync("./package.json").templates;
-                const CRITICAL = require("critical");
-                const MKDIRP   = require("mkdirp");
-
-                console.log("Genearting critical CSS, this may take up to " + ((Object.keys(SITEMAP).length * 30) / 60) + " minute" + (((Object.keys(SITEMAP).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
-
-                // create the "critical" directory
-                MKDIRP(CSS_DIRECTORY + "/critical");
-
-                // loop through all the links
-                for (const TEMPLATE in SITEMAP) {
-                    // make sure the key isn't a prototype
-                    if (SITEMAP.hasOwnProperty(TEMPLATE)) {
-                        // generate the critial CSS
-                        CRITICAL.generate({
-                            base:       CSS_DIRECTORY + "/critical",
-                            dest:       TEMPLATE + ".css",
-                            dimensions: [1920, 1080],
-                            minify:     true,
-                            src:        SITEMAP[TEMPLATE] + "?disable=critical_css"
-                        });
-                    }
-                }
-            }
-
             const ALL_FILE_NAMES   = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
             const HASHED_FILE_NAME = ALL_FILE_NAMES ? ALL_FILE_NAMES.find((name) => {
                 return name.match(new RegExp(CSS_DIRECTORY.split(".")[0] + ".[a-z0-9]{8}.css"));

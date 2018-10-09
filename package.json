@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "description": "__gulp_init_description__",
   "homepage": "__gulp_init_homepage_url__",
-  "templates": {
-    "front-page": "__gulp_init_homepage_url__"
-  },
   "progressiveWebApp": {
     "name": "__gulp_init_full_name__",
     "short_name": "__gulp_init_short_name__",
@@ -28,7 +25,6 @@
   "devDependencies": {
     "angled-edges": "^2.0.0",
     "browser-sync": "^2.24.7",
-    "critical": "^1.3.4",
     "delete-empty": "^2.0.0",
     "glob": "^7.1.2",
     "gulp": "^3.9.1",
@@ -56,7 +52,6 @@
     "imagemin-pngquant": "^5.0.1",
     "jsonfile": "^4.0.0",
     "merge-stream": "^1.0.1",
-    "mkdirp": "^0.5.1",
     "pixrem": "^4.0.1",
     "postcss-clearfix": "^2.0.1",
     "postcss-easing-gradients": "^1.2.3",
