@@ -54,7 +54,6 @@
     "gulp-template": "^5.0.0",
     "gulp-watch": "^5.0.1",
     "imagemin-pngquant": "^5.0.1",
-    "jshint": "^2.9.6",
     "jsonfile": "^4.0.0",
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
