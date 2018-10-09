@@ -35,11 +35,16 @@ module.exports = {
             // update webpack config for the current target destination and file name
             WEBPACK_CONFIG.mode = plugins.argv.dist ? "production" : WEBPACK_CONFIG.mode;
 
+            const ALL_FILE_NAMES   = plugins.fs.existsSync(JS_DIRECTORY) ? plugins.fs.readdirSync(JS_DIRECTORY) : false;
+            const HASHED_FILE_NAME = ALL_FILE_NAMES ? ALL_FILE_NAMES.find((name) => {
+                return name.match(new RegExp(JS_DIRECTORY.split(".")[0] + ".[a-z0-9]{8}.js"));
+            }) : "modern.js";
+
             gulp.src(SOURCE_DIRECTORY + "/**/*")
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(JS_DIRECTORY)))
+                .pipe(plugins.newer(JS_DIRECTORY + "/" + HASHED_FILE_NAME))
                 // lint all scripts
                 .pipe(ESLINT())
                 // print lint errors
