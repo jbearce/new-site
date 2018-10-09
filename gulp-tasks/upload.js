@@ -19,7 +19,7 @@ module.exports = {
 
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
-            return gulp.src(upload_directory + "/**/*")
+            gulp.src(upload_directory + "/**/*")
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if files are newer
@@ -38,7 +38,7 @@ module.exports = {
                 })
                 // resolve the promise
                 .on("end", () => {
-                    return resolve();
+                    resolve();
                 });
         });
     }

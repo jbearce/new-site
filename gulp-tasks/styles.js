@@ -42,7 +42,7 @@ module.exports = {
             }
 
             // process styles
-            return gulp.src(global.settings.paths.src + "/assets/styles/*.scss")
+            gulp.src(global.settings.paths.src + "/assets/styles/*.scss")
                 // prevent breaking on error
                 .pipe(plugins.plumber({
                     errorHandler: on_error
@@ -118,7 +118,7 @@ module.exports = {
                 .pipe(gulp.dest("."))
                 // resolve the promise
                 .on("end", () => {
-                    return resolve();
+                    resolve();
                 });
         });
     }

@@ -87,7 +87,7 @@ module.exports = {
             const html     = process_html(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
 
             // merge both steams back in to one
-            return plugins.merge(binaries, html)
+            plugins.merge(binaries, html)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // notify that task is complete, if not part of default or watch
@@ -99,7 +99,7 @@ module.exports = {
                     }
                 })
                 .on("end", () => {
-                    return resolve();
+                    resolve();
                 });
         });
     }
