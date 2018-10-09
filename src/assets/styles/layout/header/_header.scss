@@ -40,8 +40,8 @@
 
     &.--expandable.is-active {
         opacity: 1;
-        transition: opacity 0.15s;
         top: 0;
+        transition: opacity 0.15s;
     }
 }
 
