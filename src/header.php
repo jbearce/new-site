@@ -12,23 +12,15 @@
         <link href="<?php echo get_theme_file_uri("assets/media/logo-favicon.png"); ?>" rel="shortcut icon" />
         <meta name="theme-color" content="<%= pwa_theme_color %>" />
 
-        <!-- Safari -->
-        <link rel="mask-icon" href="<?php echo get_theme_file_uri("assets/media/logo-safari.svg"); ?>" color="<%= pwa_theme_color %>" />
-
         <!-- iOS -->
         <link href="<?php echo get_theme_file_uri("assets/media/logo-ios.png") ?>" rel="apple-touch-icon" />
         <meta name="apple-mobile-web-app-status-bar-style" content="<%= pwa_theme_color %>" />
 
         <!-- Windows -->
-        <meta content="no" name="msapplication-tap-highlight" />
         <meta name="msapplication-navbutton-color" content="<%= pwa_theme_color %>">
-        <meta content="<%= pwa_theme_color %>" name="msapplication-TileColor" />
-        <meta content="<?php bloginfo("name"); ?>" name="application-name" />
-        <meta content="<?php echo get_theme_file_uri("assets/media/logo-windows-128x128.png"); ?>" name="msapplication-square70x70logo" />
-        <meta content="<?php echo get_theme_file_uri("assets/media/logo-windows-270x270.png"); ?>" name="msapplication-square150x150logo" />
-        <meta content="<?php echo get_theme_file_uri("assets/media/logo-windows-558x270.png"); ?>" name="msapplication-wide310x150logo" />
-        <meta content="<?php echo get_theme_file_uri("assets/media/logo-windows-558x558.png"); ?>" name="msapplication-square310x310logo" />
-        <meta content="frequency=30;polling-uri=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>/&id=1;polling-uri2=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=2;polling-uri3=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=3;polling-uri4=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=4;polling-uri5=http://notifications.buildmypinnedsite.com/?feed=<?php bloginfo("rss2_url"); ?>&id=5; cycle=1" name="msapplication-notification" />
+        
+        <!-- Safari -->
+        <link rel="mask-icon" href="<?php echo get_theme_file_uri("assets/media/logo-safari.svg"); ?>" color="<%= pwa_theme_color %>" />
 
         <!-- PWA -->
         <link href="<?php echo get_theme_file_uri("manifest.json"); ?>" rel="manifest" />
