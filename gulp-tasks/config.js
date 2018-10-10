@@ -149,7 +149,7 @@ module.exports = {
             };
 
             // configure the JSON
-            configure_json(".bsconfig", "browsersync", prompts);
+            return configure_json(".bsconfig", "browsersync", prompts);
         }).then(() => {
             // read ftp settings from .ftpconfig
             global.settings.ftp = plugins.json.readFileSync(".ftpconfig");
@@ -185,7 +185,7 @@ module.exports = {
             }
 
             // configure the JSON
-            configure_json(".ftpconfig", "ftp", prompts);
+            return configure_json(".ftpconfig", "ftp", prompts);
         }).then(() => {
             // read ftp settings from .ftpconfig
             global.settings.rsync = plugins.json.readFileSync(".rsyncconfig");
@@ -211,7 +211,7 @@ module.exports = {
             };
 
             // configure the JSON
-            configure_json(".rsyncconfig", "rsync", prompts);
+            return configure_json(".rsyncconfig", "rsync", prompts);
         });
     }
 };
