@@ -39,7 +39,7 @@ module.exports = {
                 return name.match(new RegExp(JS_DIRECTORY.split(".")[0] + ".[a-z0-9]{8}.js"));
             }) : "modern.js";
 
-            gulp.src(SOURCE_DIRECTORY + "/**/*")
+            gulp.src(SOURCE_DIRECTORY + "/**/*.js")
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
