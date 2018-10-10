@@ -18,7 +18,6 @@ module.exports = {
             const SOURCE_DIRECTORY = global.settings.paths.src + "/assets/scripts";
 
             const WEBPACK_CONFIG = {
-                name:   "critical",
                 mode:   "development",
                 entry:   {
                     "critical":       GLOB.sync(SOURCE_DIRECTORY + "/critical/**/*.js"),
