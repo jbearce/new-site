@@ -15,9 +15,13 @@ module.exports = {
             const CSS_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
 
             const ALL_FILE_NAMES   = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
-            const HASHED_FILE_NAME = ALL_FILE_NAMES ? ALL_FILE_NAMES.find((name) => {
-                return name.match(new RegExp(CSS_DIRECTORY.split(".")[0] + ".[a-z0-9]{8}.css"));
-            }) : "modern.css";
+            let hashed_file_name = ALL_FILE_NAMES.length > 0 && ALL_FILE_NAMES.find((name) => {
+                return name.match(new RegExp("[^.]+.[a-z0-9]{8}.css"));
+            });
+
+            if (!hashed_file_name) {
+                hashed_file_name = "modern.css";
+            }
 
             // process styles
             gulp.src(global.settings.paths.src + "/assets/styles/**/*.scss")
@@ -26,7 +30,7 @@ module.exports = {
                     errorHandler: on_error
                 }))
                 // check if source is newer than destination
-                .pipe(plugins.newer(CSS_DIRECTORY + "/" + HASHED_FILE_NAME))
+                .pipe(plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name))
                 // lint
                 .pipe(STYLELINT({
                     debug: true,
