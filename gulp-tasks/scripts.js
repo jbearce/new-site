@@ -19,7 +19,7 @@ module.exports = {
 
             const WEBPACK_CONFIG = {
                 mode:   "development",
-                entry:   {
+                entry:  {
                     "critical":       GLOB.sync(SOURCE_DIRECTORY + "/critical/**/*.js"),
                     "legacy":         GLOB.sync(SOURCE_DIRECTORY + "/legacy/**/*.js"),
                     "modern":         GLOB.sync(SOURCE_DIRECTORY + "/modern/**/*.js"),
