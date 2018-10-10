@@ -20,7 +20,7 @@ $links = isset($template_args["links"]) ? $template_args["links"] : paginate_lin
 
                 <li class="menu-list__item">
                     <?php echo $link; ?>
-                </li><!--/.menu-list__item-->
+                </li>
             <?php endforeach; ?>
         </ul><!--/.menu-list-->
     </nav><!--/.menu-list__container-->

@@ -21,7 +21,7 @@ $events_label = ( 1 === $day['total_events'] ) ? tribe_get_event_label_singular(
 <div class="tribe-events-calendar-daynum" id="tribe-events-daynum-<?php echo $day['daynum-id'] ?>">
 
 	<?php if ( $day['total_events'] > 0 && tribe_events_is_view_enabled( 'day' ) ) : ?>
-		<a class="tribe-events-calendar-link link -inherit" href="<?php echo esc_url( tribe_get_day_link( $day['date'] ) ); ?>"><?php echo $day['daynum'] ?></a>
+		<a class="tribe-events-calendar-link link --inherit" href="<?php echo esc_url( tribe_get_day_link( $day['date'] ) ); ?>"><?php echo $day['daynum'] ?></a>
 	<?php else : ?>
 		<?php echo $day['daynum'] ?>
 	<?php endif; ?>
@@ -33,7 +33,7 @@ $events_label = ( 1 === $day['total_events'] ) ? tribe_get_event_label_singular(
     <?php while ( $day['events']->have_posts() ) : $day['events']->the_post(); ?>
     	<?php tribe_get_template_part( 'month/single', 'event' ) ?>
     <?php endwhile; ?>
-    <div class="_textcenter">
+    <div class="__textcenter">
         <i class="tribe-events-indicator fas fa-fw fa-circle"></i>
     </div>
 <?php endif; ?>

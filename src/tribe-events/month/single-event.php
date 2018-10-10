@@ -224,5 +224,5 @@ $additional_data = array(
 ?>
 
 <div id="tribe-events-event-<?php echo esc_attr( $event_id ); ?>" class="<?php tribe_events_event_classes() ?>" data-tribejson='<?php echo esc_attr( tribe_events_template_data( $post, $additional_data ) ); ?>'>
-	<h3 class="tribe-events-month-event-title<?php if ( $is_all_day ) { ?> tribe-events-all-day<?php } ?>"><a href="<?php echo esc_url( $link ) ?>" class="url tribe-events-month-event-link link -inherit _block"><?php if ( $time_start ) { echo $time_start .' '; } ?><strong class="_bold"><?php echo $title ?></strong></a></h3>
+	<h3 class="tribe-events-month-event-title<?php if ( $is_all_day ) { ?> tribe-events-all-day<?php } ?>"><a href="<?php echo esc_url( $link ) ?>" class="url tribe-events-month-event-link link --inherit __block"><?php if ( $time_start ) { echo $time_start .' '; } ?><strong class="__bold"><?php echo $title ?></strong></a></h3>
 </div><!-- #tribe-events-event-# -->

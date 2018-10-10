@@ -53,13 +53,13 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                                 <?php if ($image["title"]): ?>
                                                     <h6 class="swiper-title title<?php echo !$image["caption"] ? " __nomargin" : ""; ?>">
                                                         <?php echo $image["title"]; ?>
-                                                    </h6><!--/.swiper-title.title-->
+                                                    </h6>
                                                 <?php endif; ?>
 
                                                 <?php if ($image["caption"]): ?>
                                                     <div class="swiper-user-content user-content --light">
                                                         <?php echo apply_filters("the_content", $image["caption"]); ?>
-                                                    </div><!--/.swiper-user-content.user-content-->
+                                                    </div>
                                                 <?php endif; ?>
                                             </div><!--/.swiper-caption-inner-->
                                         </figcaption><!--/.swiper-caption-->
@@ -72,7 +72,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                 </figure><!--/.swiper-slide-->
                             <?php endif; ?>
                         <?php endforeach; ?>
-                    <?php elseif ($featured_image): // ($slideshow) ?>
+                    <?php elseif ($featured_image): ?>
                         <figure class="swiper-slide">
 
                             <picture class="swiper-picture">
@@ -94,8 +94,8 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                     <div class="swiper-caption-inner">
                                         <h1 class="swiper-title title __nomargin" role="heading">
                                             <?php echo $title; ?>
-                                        </h1><!--/.swiper-title.title-->
-                                    </div><!--/.swiper-caption-inner-->
+                                        </h1>
+                                    </div>
                                 </header>
                             <?php endif; ?>
 
@@ -112,12 +112,12 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                         <button class="swiper-button --prev">
                             <i class="swiper-button-icon fas fa-caret-left"></i>
                             <span class="__visuallyhidden"><?php _e("Previous Slide", "__gulp_init_namespace__"); ?></span>
-                        </button><!--/.swiper-button-->
+                        </button>
 
                         <button class="swiper-button --next">
                             <i class="swiper-button-icon fas fa-caret-right"></i>
                             <span class="__visuallyhidden"><?php _e("Next Slide", "__gulp_init_namespace__"); ?></span>
-                        </button><!--/.swiper-button-->
+                        </button>
                     <?php endif; ?>
                 <?php endif; ?>
 

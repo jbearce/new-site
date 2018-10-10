@@ -16,15 +16,15 @@
                     <?php if ($archive_title): ?>
                         <header class="article__header">
                             <h1 class="article__title title"><?php echo $archive_title; ?></h1>
-                        </header><!--/.article__header-->
+                        </header>
                     <?php endif; ?>
 
                     <?php if ($archive_content): ?>
                         <div class="article__content">
                             <div class="article__user-content user-content">
                                 <?php echo apply_filters("the_content", $archive_content); ?>
-                            </div><!--/.article__user-content.user-content-->
-                        </dv><!--/.article__content-->
+                            </div>
+                        </dv>
                     <?php endif; ?>
                 </article><!--/.content__article.article-->
             <?php endif; ?>

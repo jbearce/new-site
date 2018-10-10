@@ -20,7 +20,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title article_title title -h6"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
+	<h3 class="tribe-events-single-section-title article__title title --h6"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
 	<ul class="tribe-events-meta-list">
 		<?php do_action( 'tribe_events_single_meta_organizer_section_start' ); ?>
 
@@ -38,7 +38,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
             <?php if ( ! empty( $phone ) ) : ?>
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon fas fa-fw fa-phone"></i>
-                    <span class="_visuallyhidden"><?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?></span>
+                    <span class="__visuallyhidden"><?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?></span>
                     <?php echo esc_html( $phone ); ?>
     			</li>
 			<?php endif; ?>
@@ -46,7 +46,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 			<?php if ( ! empty( $email ) ) : ?>
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon fas fa-fw fa-envelope"></i>
-                    <span class="_visuallyhidden"><?php esc_html_e( 'Email:', 'the-events-calendar' ) ?></span>
+                    <span class="__visuallyhidden"><?php esc_html_e( 'Email:', 'the-events-calendar' ) ?></span>
                     <?php echo esc_html( $email ); ?>
     			</li>
             <?php endif; ?>
@@ -54,8 +54,8 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 			<?php if ( ! empty( $website ) ) : ?>
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
-                    <span class="_visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                    <a class="tribe-events-meta-list-link link -inherit" href="<?php echo $website; ?>" target="_blank">
+                    <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
+                    <a class="tribe-events-meta-list-link link --inherit" href="<?php echo $website; ?>" target="_blank">
                         <?php echo $website; ?>
                     </a>
     			</li>

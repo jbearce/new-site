@@ -32,7 +32,7 @@ $meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
                                 }
 
                                 if ($link["url"]) {
-                                    ?></a><!--/.menu-list__link.link--><?php
+                                    ?></a><?php
                                 }
 
                                 if ($index + 1 < count($data["links"])) {

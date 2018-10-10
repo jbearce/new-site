@@ -16,7 +16,7 @@
         <\/div>
 
 		<div class="tribe-events-event-body">
-            <ul class="tribe-events-meta-list _nomargin">
+            <ul class="tribe-events-meta-list __nomargin">
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-duration">
                         <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"><\/i>
@@ -51,7 +51,7 @@
         <\/div>
 
 		<div class="tribe-events-event-body">
-            <ul class="tribe-events-meta-list _nomargin">
+            <ul class="tribe-events-meta-list __nomargin">
                 <li class="tribe-event-meta-list-item">
                     <div class="tribe-event-duration">
                         <i class="tribe-events-meta-list-icon far fa-fw fa-clock"><\/i>

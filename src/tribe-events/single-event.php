@@ -26,27 +26,27 @@ $cost = tribe_get_cost() ? tribe_get_cost( null, true ) : false;
 
 <article id="tribe-events-content" class="tribe-events-single tribe-events-article article">
 
-	<p class="tribe-events-back tribe-events_text text">
-		<a class="text_link link" href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
+	<p class="tribe-events-back tribe-events__text text">
+		<a class="text__link link" href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
 	</p>
 
 	<!-- Notices -->
 	<?php tribe_the_notices() ?>
 
-	<?php the_title( '<h1 class="tribe-events-single-event-title article_title title">', '</h1>' ); ?>
+	<?php the_title( '<h1 class="tribe-events-single-event-title article__title title">', '</h1>' ); ?>
 
-    <nav class="article_menu-list_container menu-list_container">
-        <ul class="menu-list -meta">
-            <li class="menu-list_item">
-                <i class="far fa-clock menu-list_icon"></i>
+    <nav class="article__menu-list__container menu-list__container">
+        <ul class="menu-list --meta">
+            <li class="menu-list__item">
+                <i class="far fa-clock menu-list__icon"></i>
                 <?php echo $date[ 'date' ]; ?><?php if ( $date[ 'time' ] ){ echo ', ' . $date[ 'time' ]; } ?>
-            </li><!--/.menu-list_item-->
+            </li>
 
             <?php if ( $cost ) : ?>
-                <li class="menu-list_item">
-                    <i class="far fa-money-bill menu-list_icon"></i>
+                <li class="menu-list__item">
+                    <i class="far fa-money-bill menu-list__icon"></i>
                     <?php echo $cost; ?>
-                </li><!--/.menu-list_item-->
+                </li>
             <?php endif; ?>
         </ul>
     </nav>

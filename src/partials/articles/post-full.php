@@ -15,7 +15,7 @@ $content = isset($template_args["content"]) ? $template_args["content"] : ($post
                 <?php if ($title): ?>
                     <h1 class="article__title title<?php if ($light): ?> __light<?php endif; ?>">
                         <?php echo $title; ?>
-                    </h1><!--/.article__title.title-->
+                    </h1>
                 <?php endif; ?>
 
                 <?php if ($meta): ?>
@@ -28,8 +28,8 @@ $content = isset($template_args["content"]) ? $template_args["content"] : ($post
             <div class="article__content">
                 <div class="article__user-content user-content<?php if ($light): ?> --light<?php endif; ?>">
                     <?php echo $content; ?>
-                </div><!--/.article__user-content.user-content-->
-            </div><!--/.article__content-->
+                </div>
+            </div>
         <?php endif; ?>
 
     </article><!--/.article-->

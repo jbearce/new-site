@@ -20,7 +20,7 @@ $sub_menu = preg_match_all("/<a/im", $sub_menu, $matches) > 0 ? $sub_menu : fals
         <div class="content__sidebar">
             <nav class="content__menu-list_container menu-list__container">
                 <?php echo $sub_menu; ?>
-            </nav><!--/.content_menu-list__container.menu-list__container-->
-        </div><!--/.content__sidebar-->
-    </div><!--/.col-12.col-xs-4-->
-<?php endif; // ($sub_menu) ?>
+            </nav>
+        </div>
+    </div>
+<?php endif; ?>

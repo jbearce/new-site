@@ -13,8 +13,8 @@ $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __
                 <article class="content__article article --introduction">
                     <header class="article__header">
                         <h1 class="article__title title"><?php echo $post_title; ?></h1>
-                    </header><!--/.article__header-->
-                </article><!--/.content__article.article-->
+                    </header>
+                </article>
             <?php endif; ?>
 
             <?php

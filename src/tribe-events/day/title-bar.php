@@ -16,7 +16,7 @@
 
 	<!-- Day Title -->
 	<?php do_action( 'tribe_events_before_the_title' ); ?>
-	<h1 class="tribe-events-page-title title -h1 _textcenter"><?php tribe_events_title() ?></h1>
+	<h1 class="tribe-events-page-title title --h1 __textcenter"><?php tribe_events_title() ?></h1>
 	<?php do_action( 'tribe_events_after_the_title' ); ?>
 
 </div>

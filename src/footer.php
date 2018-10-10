@@ -4,15 +4,15 @@
                     <?php if (is_front_page()): ?>
                     <p class="footer__text text __textcenter __nomargin"><a class="footer__link link --inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer__link link --inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
-                </div><!--/.footer__inner-->
-            </div><!--/.footer-block-->
+                </div>
+            </div>
         </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
             <div class="navigation-block --flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0">
                 <div class="navigation__inner">
                     <figure class="navigation__figure">
                         <img class="navigation__image" src="<?php echo get_theme_file_uri("assets/media/navigation-banner.jpg"); ?>" alt="" />
-                    </figure><!--/.navigation__figure-->
+                    </figure>
                     <nav class="navigation__menu-list__container menu-list_container">
                         <?php
                         wp_nav_menu(array(

@@ -6,7 +6,7 @@
 
             <div class="content_search-form__container search-form__container" id="mobile-search">
                 <?php get_search_form(); ?>
-            </div><!--/.content_search-form__container.search-form__container-->
+            </div>
 
             <?php
             if (have_posts()) {

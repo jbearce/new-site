@@ -21,7 +21,7 @@ $categories = get_the_terms( $event_id, 'tribe_events_cat' );
 
 if ( $categories ) { $i = 0;
     foreach ( $categories as $category ) { $i++;
-        $categories_string .= '<a class="tribe-events-meta-list-link link -inherit" href="' . get_term_link( $category->term_id, $category->taxonomy ) . '">' . $category->name . '</a>';
+        $categories_string .= '<a class="tribe-events-meta-list-link link --inherit" href="' . get_term_link( $category->term_id, $category->taxonomy ) . '">' . $category->name . '</a>';
 
         if ( $i < count( $categories ) ) {
             $categories_string .= ', ';
@@ -39,7 +39,7 @@ $tags = get_the_terms( $event_id, 'post_tag' );
 
 if ( $tags ) { $i = 0;
     foreach ( $tags as $tag ) { $i++;
-        $tags_string .= '<a class="tribe-events-meta-list-link link -inherit" href="' . get_term_link( $tag->term_id, $tag->taxonomy ) . '">' . $tag->name . '</a>';
+        $tags_string .= '<a class="tribe-events-meta-list-link link --inherit" href="' . get_term_link( $tag->term_id, $tag->taxonomy ) . '">' . $tag->name . '</a>';
 
         if ( $i < count( $tags ) ) {
             $tags_string .= ', ';
@@ -53,7 +53,7 @@ if ( $tags ) { $i = 0;
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-details">
-	<h3 class="tribe-events-single-section-title article_title title -h6"> <?php esc_html_e( 'Details', 'the-events-calendar' ) ?> </h3>
+	<h3 class="tribe-events-single-section-title article__title title --h6"> <?php esc_html_e( 'Details', 'the-events-calendar' ) ?> </h3>
 	<ul class="tribe-events-meta-list">
 
 		<?php do_action( 'tribe_events_single_meta_details_section_start' ); ?>
@@ -62,7 +62,7 @@ if ( $tags ) { $i = 0;
 
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"></i>
-                <span class="_visuallyhidden"><?php esc_html_e( 'Date:', 'the-events-calendar' ) ?></span>
+                <span class="__visuallyhidden"><?php esc_html_e( 'Date:', 'the-events-calendar' ) ?></span>
                 <?php echo $date[ 'date' ]; ?>
                 <?php if ( $date[ 'time' ] ) : ?>
                     <span class="tribe-events-meta-list-small">
@@ -77,7 +77,7 @@ if ( $tags ) { $i = 0;
 
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-money-bill"></i>
-                <span class="_visuallyhidden"><?php esc_html_e( 'Cost:', 'the-events-calendar' ) ?></span>
+                <span class="__visuallyhidden"><?php esc_html_e( 'Cost:', 'the-events-calendar' ) ?></span>
                 <?php echo $cost; ?>
             </li>
 
@@ -87,8 +87,8 @@ if ( $tags ) { $i = 0;
 
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
-                <span class="_visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                <a class="tribe-events-meta-list-link link -inherit" href="<?php echo $website; ?>" target="_blank">
+                <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
+                <a class="tribe-events-meta-list-link link --inherit" href="<?php echo $website; ?>" target="_blank">
                     <?php echo $website; ?>
                 </a>
             </li>
@@ -99,7 +99,7 @@ if ( $tags ) { $i = 0;
 
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-folder"></i>
-                <span class="_visuallyhidden"><?php esc_html_e( 'Categories:', 'the-events-calendar' ) ?></span>
+                <span class="__visuallyhidden"><?php esc_html_e( 'Categories:', 'the-events-calendar' ) ?></span>
                 <?php echo $categories_string; ?>
             </li>
 
@@ -109,7 +109,7 @@ if ( $tags ) { $i = 0;
 
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-tag"></i>
-                <span class="_visuallyhidden"><?php esc_html_e( 'Tags:', 'the-events-calendar' ) ?></span>
+                <span class="__visuallyhidden"><?php esc_html_e( 'Tags:', 'the-events-calendar' ) ?></span>
                 <?php echo $tags_string; ?>
             </li>
 
