@@ -54,6 +54,6 @@ $meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
 
                 <?php endif; ?>
             <?php endforeach; ?>
-        </ul><!--/.menu-list.--meta-->
+        </ul><!--/.menu-list-->
     </nav><!--/.article__menu-list__container.menu-list__container-->
 <?php endif; ?>

@@ -14,7 +14,7 @@ $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __
                     <header class="article__header">
                         <h1 class="article__title title"><?php echo $post_title; ?></h1>
                     </header><!--/.article__header-->
-                </article><!--/.content__article.article.--introduction-->
+                </article><!--/.content__article.article-->
             <?php endif; ?>
 
             <?php
@@ -32,5 +32,5 @@ $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __
             <?php do_action("__gulp_init_namespace___after_content"); ?>
         </div><!--/.content__post-->
     </div><!--/.content__inner-->
-</div><!--/.content-block.--fullbleed-->
+</div><!--/.content-block-->
 <?php get_footer(); ?>

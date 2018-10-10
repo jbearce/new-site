@@ -26,7 +26,7 @@
                             </div><!--/.article__user-content.user-content-->
                         </dv><!--/.article__content-->
                     <?php endif; ?>
-                </article><!--/.content__article.article.--introduction-->
+                </article><!--/.content__article.article-->
             <?php endif; ?>
 
             <?php
@@ -44,5 +44,5 @@
             <?php do_action("__gulp_init_namespace___after_content"); ?>
         </div><!--/.content__post-->
     </div><!--/.content__inner-->
-</div><!--/.content-block.--fullbleed-->
+</div><!--/.content-block-->
 <?php get_footer(); ?>

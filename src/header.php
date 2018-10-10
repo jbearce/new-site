@@ -18,7 +18,7 @@
 
         <!-- Windows -->
         <meta name="msapplication-navbutton-color" content="<%= pwa_theme_color %>">
-        
+
         <!-- Safari -->
         <link rel="mask-icon" href="<?php echo get_theme_file_uri("assets/media/logo-safari.svg"); ?>" color="<%= pwa_theme_color %>" />
 
@@ -40,12 +40,12 @@
                                 <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
                                 <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
                             </button><!--/.header__panel-toggle.panel-toggle-->
-                        </div><!--/.col-auto.--nogrow.--noshrink.__hidden-xs-->
+                        </div><!--/.col-auto-->
                         <div class="col-auto --nogrow --noshrink">
                             <a class="header__logo logo" href="<?php echo home_url(); ?>">
                                 <img class="logo__image" alt="<?php bloginfo("name"); ?>" src="<?php echo get_theme_file_uri("assets/media/logo.svg"); ?>" />
                             </a><!--/.header__logo.logo-->
-                        </div><!--/.col-auto.--nogrow.--noshrink-->
+                        </div><!--/.col-auto-->
                         <div class="col-auto --nogrow --noshrnk __hidden-xs">
                             <button class="header__panel-toggle panel-toggle" data-toggle="mobile-search">
                                 <i class="panel-toggle__icon fas fa-fw fa-search"></i>
@@ -54,17 +54,17 @@
                             <?php if (!is_search()): ?>
                                 <div class="header__search-form__container search-form__container --expandable __nomargin __hidden-xs" role="search" id="mobile-search">
                                     <?php get_search_form(); ?>
-                                </div><!--/.header__search-form__container.search-form__container.--expandable.__nomargin.__hidden-xs-->
+                                </div><!--/.header__search-form__container.search-form__container-->
                             <?php endif; ?>
-                        </div><!--/.col-auto.--nogrow.--noshrink.__hidden-xs-->
+                        </div><!--/.col-auto-->
                         <div class="col-xs-auto --nogrow --noshrink __visible-xs">
                             <div class="header__search-form__container search-form__container __nomargin __visible-xs" role="search">
                                 <?php get_search_form(); ?>
-                            </div><!--/.header__search-form__container.search-form__container.__nomargin.__visible-xs-->
-                        </div><!--/.col-auto.--nogrow.--noshrink.__visible-xs-->
-                    </div><!--/.header__row.row.--padded.--tight.--between.--vcenter-->
+                            </div><!--/.header__search-form__container.search-form__container-->
+                        </div><!--/.col-auto-->
+                    </div><!--/.header__row.row-->
                 </div><!--/.header__inner-->
-            </div><!--/.header-block.--fullbleed-->
+            </div><!--/.header-block-->
             <?php if (has_nav_menu("primary")): ?>
                 <div class="navigation-block --fullbleed __visible-xs __noprint" role="navigation">
                     <div class="navigation__inner">
@@ -87,5 +87,5 @@
                             ?>
                         </nav><!--/.navigation__menu-list__container.menu-list__container-->
                     </div><!--/.navigation__inner-->
-                </div><!--/.navigation-block.--fullbleed.__visible-xs.__noprint-->
+                </div><!--/.navigation-block-->
             <?php endif; ?>

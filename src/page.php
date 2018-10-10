@@ -19,7 +19,7 @@
                 </div><!--/.content__post-->
             </div><!--/.col-12.col-xs-8-->
             <?php get_sidebar(); ?>
-        </div><!--/.content_row.row.--padded-->
+        </div><!--/.content_row.row-->
     </div><!--/.content__inner-->
-</div><!--/.content-block.--fullbleed-->
+</div><!--/.content-block-->
 <?php get_footer(); ?>

@@ -5,7 +5,7 @@
                     <p class="footer__text text __textcenter __nomargin"><a class="footer__link link --inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer__link link --inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
                 </div><!--/.footer__inner-->
-            </div><!--/.footer-block.--fullbleed-->
+            </div><!--/.footer-block-->
         </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
             <div class="navigation-block --flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0">
@@ -30,7 +30,7 @@
                         ?>
                     </nav><!--/.navigation__menu-list_container.menu-list__container-->
                 </div><!--/.navigation__inner-->
-            </div><!--/.navigation-block.--flyout.__hidden-xs.__noncritical-->
+            </div><!--/.navigation-block-->
         <?php endif; ?>
         <?php wp_footer(); ?>
     </body>

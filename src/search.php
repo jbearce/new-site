@@ -23,5 +23,5 @@
             <?php do_action("__gulp_init_namespace___after_content"); ?>
         </div><!--/.content__post-->
     </div><!--/.content__inner-->
-</div><!--/.content-block.--fullbleed-->
+</div><!--/.content-block-->
 <?php get_footer(); ?>

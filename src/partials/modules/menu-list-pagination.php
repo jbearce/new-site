@@ -22,6 +22,6 @@ $links = isset($template_args["links"]) ? $template_args["links"] : paginate_lin
                     <?php echo $link; ?>
                 </li><!--/.menu-list__item-->
             <?php endforeach; ?>
-        </ul><!--/.menu-list.--pagination.--center-->
+        </ul><!--/.menu-list-->
     </nav><!--/.menu-list__container-->
 <?php endif; ?>
