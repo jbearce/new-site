@@ -70,7 +70,7 @@ module.exports = {
             const SOURCE_DIRECTORY = global.settings.paths.src + "/assets/scripts";
 
             const WEBPACK_CONFIG = {
-                mode:   "development",
+                mode:   plugins.argv.dist ? "production" : "development",
                 entry:  {
                     "critical":       GLOB.sync(SOURCE_DIRECTORY + "/critical/**/*.js"),
                     "legacy":         GLOB.sync(SOURCE_DIRECTORY + "/legacy/**/*.js"),
@@ -82,9 +82,6 @@ module.exports = {
                     filename: "[name].js",
                 },
             };
-
-            // update webpack config for the current target destination and file name
-            WEBPACK_CONFIG.mode = plugins.argv.dist ? "production" : WEBPACK_CONFIG.mode;
 
             // get a hashed file name to check against
             const ALL_FILE_NAMES = plugins.fs.existsSync(JS_DIRECTORY) ? plugins.fs.readdirSync(JS_DIRECTORY) : false;
