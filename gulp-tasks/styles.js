@@ -30,7 +30,7 @@ module.exports = {
                     errorHandler: on_error
                 }))
                 // check if source is newer than destination
-                .pipe(plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name)))
                 // lint
                 .pipe(STYLELINT({
                     debug: true,
@@ -45,12 +45,10 @@ module.exports = {
                 // initialize sourcemap
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
-                .pipe(plugins.gulpif(plugins.argv.dist, SASS({
+                .pipe(SASS({
                     includePaths: "./node_modules",
-                    outputStyle:  "compressed",
-                }), SASS({
-                    includePaths: "./node_modules",
-                })))
+                    outputStyle:  plugins.argv.dist ? "compressed" : "nested",
+                }))
                 // process post CSS stuff
                 .pipe(POSTCSS([
                     require("pixrem"),

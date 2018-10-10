@@ -47,7 +47,7 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.newer(JS_DIRECTORY + "/" + hashed_file_name))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(JS_DIRECTORY + "/" + hashed_file_name)))
                 // lint all scripts
                 .pipe(ESLINT())
                 // print lint errors
@@ -58,13 +58,6 @@ module.exports = {
                 .pipe(plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"}))
                 // output scripts to compiled directory
                 .pipe(gulp.dest(JS_DIRECTORY))
-                // generate a hash manfiest
-                .pipe(plugins.hash.manifest(".hashmanifest-scripts", {
-                    deleteOld: true,
-                    sourceDir: JS_DIRECTORY
-                }))
-                // output hash manifest in root
-                .pipe(gulp.dest("."))
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), plugins.notify({
                     title:   "Success!",
@@ -77,6 +70,13 @@ module.exports = {
                         ran_tasks.push("scripts");
                     }
                 })
+                // generate a hash manfiest
+                .pipe(plugins.hash.manifest(".hashmanifest-scripts", {
+                    deleteOld: true,
+                    sourceDir: JS_DIRECTORY
+                }))
+                // output hash manifest in root
+                .pipe(gulp.dest("."))
                 // resolve the promise on end
                 .on("end", () => {
                     resolve();
