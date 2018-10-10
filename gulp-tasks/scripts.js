@@ -6,7 +6,6 @@ module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
         const ESLINT  = require("gulp-eslint");
-        const GLOB    = require("glob");
         const WEBPACK = require("webpack-stream");
 
         const CHECK_IF_NEWER = (source = global.settings.paths.src + "/assets/scripts/**/*.js", file_to_check = global.settings.paths.dev + "/assets/scripts/modern.js") => {
@@ -69,19 +68,7 @@ module.exports = {
             // set the source directory
             const SOURCE_DIRECTORY = global.settings.paths.src + "/assets/scripts";
 
-            const WEBPACK_CONFIG = {
-                mode:   plugins.argv.dist ? "production" : "development",
-                entry:  {
-                    "critical":       GLOB.sync(SOURCE_DIRECTORY + "/critical/**/*.js"),
-                    "legacy":         GLOB.sync(SOURCE_DIRECTORY + "/legacy/**/*.js"),
-                    "modern":         GLOB.sync(SOURCE_DIRECTORY + "/modern/**/*.js"),
-                    "service-worker": GLOB.sync(SOURCE_DIRECTORY + "/service-worker/**/*.js"),
-                },
-                output: {
-                    path:     plugins.path.resolve(__dirname, JS_DIRECTORY),
-                    filename: "[name].js",
-                },
-            };
+            const WEBPACK_CONFIG = require("../webpack.config.js").config(plugins, SOURCE_DIRECTORY, JS_DIRECTORY);
 
             // get a hashed file name to check against
             const ALL_FILE_NAMES = plugins.fs.existsSync(JS_DIRECTORY) ? plugins.fs.readdirSync(JS_DIRECTORY) : false;
