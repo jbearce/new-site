@@ -5,6 +5,7 @@
 module.exports = {
     styles(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
+        const GLOB      = require("glob");
         const POSTCSS   = require("gulp-postcss");
         const SASS      = require("gulp-sass");
         const STYLELINT = require("gulp-stylelint");
@@ -73,6 +74,32 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(SASS({
+                    importer: (url, prev, done) => {
+                        // ensure the imported file isn't remote, doesn't have an extension specified, or is a .css file
+                        if (url.match(/^(?!https?:\/\/)[^.]+(\.css)?$/)) {
+                            // get the path to the folder containing the importing file
+                            const PREV_PATH = prev.replace(new RegExp(/\/[^./]+\.(sass|scss)$/), "") + "/";
+
+                            // construct a glob pattern based on the importing path and url to the imported file
+                            const GLOB_PATTERN = (url) => {
+                                const PATH = url.replace(new RegExp(/[^/]+$/), "");
+                                const FILE = url.replace(new RegExp(/^.*\/([^.]+)/), "$1");
+
+                                return "{" + PREV_PATH + "," + "./node_modules/}" + PATH + "?(_)" + FILE + ".css";
+                            };
+
+                            // try to find a matching file
+                            const GLOBBED = GLOB.sync(GLOB_PATTERN(url));
+
+                            // ensure only one result was matched; let node-sass handle the "It's not clear" error
+                            if (GLOBBED.length === 1) {
+                                // return the contents of the imported file
+                                return done({contents: plugins.fs.readFileSync(GLOBBED[0], "utf8")});
+                            }
+                        }
+
+                        return done();
+                    },
                     includePaths: "./node_modules",
                     outputStyle:  plugins.argv.dist ? "compressed" : "nested",
                 }))
