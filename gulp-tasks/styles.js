@@ -5,10 +5,10 @@
 module.exports = {
     styles(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const GLOB      = require("glob");
-        const POSTCSS   = require("gulp-postcss");
-        const SASS      = require("gulp-sass");
-        const STYLELINT = require("gulp-stylelint");
+        const CSS_IMPORTER = require("node-sass-simple-css-importer");
+        const POSTCSS      = require("gulp-postcss");
+        const SASS         = require("gulp-sass");
+        const STYLELINT    = require("gulp-stylelint");
 
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
@@ -74,29 +74,7 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(SASS({
-                    importer: function (url, prev, done) { // eslint-disable-line object-shorthand
-                        const EXT  = plugins.path.extname(url);
-                        const PATH = plugins.path.dirname(url);
-                        const FILE = plugins.path.basename(url, EXT);
-                        const PREV = plugins.path.dirname(prev);
-
-                        // ensure the imported file isn't remote, doesn't have an extension specified, or is a .css file
-                        if (!url.match(/^https?:\/\//) && (EXT === "" || EXT === "css")) {
-                            // build out glob pattern based on PREV and includePaths
-                            const INCLUDE_PATHS = "{" + PREV + "," + this.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
-
-                            // try to find a matching file
-                            const GLOBBED = GLOB.sync(INCLUDE_PATHS + "/" + PATH + "/" + FILE + ".css");
-
-                            // ensure only one result was matched; let node-sass handle the "It's not clear" error
-                            if (GLOBBED.length === 1) {
-                                // return the contents of the imported file
-                                return done({contents: plugins.fs.readFileSync(GLOBBED[0], "utf8")});
-                            }
-                        }
-
-                        return done();
-                    },
+                    importer: CSS_IMPORTER(this),
                     includePaths: "./node_modules",
                     outputStyle:  plugins.argv.dist ? "compressed" : "nested",
                 }))
