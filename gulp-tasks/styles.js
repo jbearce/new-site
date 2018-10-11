@@ -58,7 +58,7 @@ module.exports = {
                     errorHandler: on_error
                 }))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name)))
+                // .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name)))
                 // lint
                 .pipe(STYLELINT({
                     debug: true,
@@ -74,22 +74,19 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(SASS({
-                    importer: (url, prev, done) => {
+                    importer: function (url, prev, done) {
+                        const EXT  = plugins.path.extname(url);
+                        const PATH = plugins.path.dirname(url);
+                        const FILE = plugins.path.basename(url, EXT);
+                        const PREV = plugins.path.dirname(prev);
+
                         // ensure the imported file isn't remote, doesn't have an extension specified, or is a .css file
-                        if (url.match(/^(?!https?:\/\/)[^.]+(\.css)?$/)) {
-                            // get the path to the folder containing the importing file
-                            const PREV_PATH = prev.replace(new RegExp(/\/[^./]+\.(sass|scss)$/), "") + "/";
-
-                            // construct a glob pattern based on the importing path and url to the imported file
-                            const GLOB_PATTERN = (url) => {
-                                const PATH = url.replace(new RegExp(/[^/]+$/), "");
-                                const FILE = url.replace(new RegExp(/^.*\/([^.]+)/), "$1");
-
-                                return "{" + PREV_PATH + "," + "./node_modules/}" + PATH + "?(_)" + FILE + ".css";
-                            };
+                        if (!url.match(/^https?:\/\//) && (EXT === "css" || EXT === "")) {
+                            // build out glob pattern based on PREV and includePaths
+                            const INCLUDE_PATHS = "{" + PREV + "," + this.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
 
                             // try to find a matching file
-                            const GLOBBED = GLOB.sync(GLOB_PATTERN(url));
+                            const GLOBBED = GLOB.sync(INCLUDE_PATHS + "/" + PATH + "/" + FILE + ".css");
 
                             // ensure only one result was matched; let node-sass handle the "It's not clear" error
                             if (GLOBBED.length === 1) {
