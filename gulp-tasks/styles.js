@@ -74,7 +74,7 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(SASS({
-                    importer: function (url, prev, done) {
+                    importer: function (url, prev, done) { // eslint-disable-line object-shorthand
                         const EXT  = plugins.path.extname(url);
                         const PATH = plugins.path.dirname(url);
                         const FILE = plugins.path.basename(url, EXT);
@@ -83,7 +83,7 @@ module.exports = {
                         // ensure the imported file isn't remote, doesn't have an extension specified, or is a .css file
                         if (!url.match(/^https?:\/\//) && (EXT === "css" || EXT === "")) {
                             // build out glob pattern based on PREV and includePaths
-                            const INCLUDE_PATHS = "{" + PREV + "," + this.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
+                            const INCLUDE_PATHS = "{" + PREV + "," + url.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
 
                             // try to find a matching file
                             const GLOBBED = GLOB.sync(INCLUDE_PATHS + "/" + PATH + "/" + FILE + ".css");
