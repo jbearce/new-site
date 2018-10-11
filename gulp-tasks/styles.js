@@ -58,7 +58,7 @@ module.exports = {
                     errorHandler: on_error
                 }))
                 // check if source is newer than destination
-                // .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name)))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name)))
                 // lint
                 .pipe(STYLELINT({
                     debug: true,
@@ -83,7 +83,7 @@ module.exports = {
                         // ensure the imported file isn't remote, doesn't have an extension specified, or is a .css file
                         if (!url.match(/^https?:\/\//) && (EXT === "" || EXT === "css")) {
                             // build out glob pattern based on PREV and includePaths
-                            const INCLUDE_PATHS = "{" + PREV + "," + url.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
+                            const INCLUDE_PATHS = "{" + PREV + "," + this.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
 
                             // try to find a matching file
                             const GLOBBED = GLOB.sync(INCLUDE_PATHS + "/" + PATH + "/" + FILE + ".css");
