@@ -81,7 +81,7 @@ module.exports = {
                         const PREV = plugins.path.dirname(prev);
 
                         // ensure the imported file isn't remote, doesn't have an extension specified, or is a .css file
-                        if (!url.match(/^https?:\/\//) && (EXT === "css" || EXT === "")) {
+                        if (!url.match(/^https?:\/\//) && (EXT === "" || EXT === "css")) {
                             // build out glob pattern based on PREV and includePaths
                             const INCLUDE_PATHS = "{" + PREV + "," + url.options.includePaths.replace(new RegExp(/:/g), ",") + "}";
 
