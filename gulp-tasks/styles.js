@@ -74,7 +74,7 @@ module.exports = {
                 .pipe(plugins.sourcemaps.init())
                 // compile SCSS (compress if --dist is passed)
                 .pipe(SASS({
-                    importer:     CSS_IMPORTER(this),
+                    importer:     CSS_IMPORTER(),
                     includePaths: "./node_modules",
                     outputStyle:  plugins.argv.dist ? "compressed" : "nested",
                 }))
