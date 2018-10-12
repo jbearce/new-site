@@ -347,6 +347,40 @@ add_filter("tribe_event_featured_image", "__gulp_init_namespace___tribe_add_clas
 
 // add 'link' class to tribe events title links
 function __gulp_init_namespace___tribe_add_events_title_link_class($title) {
-    return preg_replace("/<a /", "<a class='title_link link' ", $title);
+    if ($title) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$title}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $anchors = $DOM->getElementsByTagName("a");
+
+        foreach ($anchors as $anchor) {
+            $anchor->setAttribute("class", "title__link link {$anchor->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $title = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
+
+    return $title;
 }
 add_filter("tribe_events_title", "__gulp_init_namespace___tribe_add_events_title_link_class");
+
+// add 'link' class to tribe events title links
+function __gulp_init_namespace___tribe_add_bar_input_class($html) {
+    if ($html) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $inputs = $DOM->getElementsByTagName("input");
+
+        foreach ($inputs as $input) {
+            $input->setAttribute("class", "tribe-bar-filters-input {$input->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $html = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
+
+    return $html;
+}
+add_filter("__gulp_init_namespace___tribe_add_bar_input_class", "__gulp_init_namespace___tribe_add_bar_input_class");

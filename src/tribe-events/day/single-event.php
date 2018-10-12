@@ -71,7 +71,7 @@ if ( $categories ) { $i = 0;
 
                         <?php
                         if ( $venue_link ) {
-                            echo preg_replace("/<a /", "<a class='menu-list__link link' target='_blank' ", $venue_link);
+                            echo apply_filters( '__gulp_init_namespace___menu_list_link', $venue_link );
                         } else {
                             echo $venue;
                         }

@@ -72,7 +72,7 @@ $current_url = tribe_events_get_current_filter_url();
                             <div class="col-12 col-xs-3">
         						<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
         							<label class="tribe-bar-filters-label label-<?php echo esc_attr( $filter['name'] ) ?>" for="<?php echo esc_attr( $filter['name'] ) ?>"><?php echo $filter['caption'] ?></label>
-        							<?php echo preg_replace('/<input /', '<input class="tribe-bar-filters-input" ', $filter['html']) ?>
+        							<?php echo apply_filters( '__gulp_init_namespace___tribe_add_bar_input_class', $filter['html'] ); ?>
         						</div>
                             </div>
     					<?php endforeach; ?>
