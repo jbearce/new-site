@@ -7,6 +7,12 @@
 .user-content {
     /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
+    // tel links
+
+    a[href^="tel:"] {
+        @extend .link;
+    }
+
     // images
 
     img {
