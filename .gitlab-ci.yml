@@ -2,7 +2,7 @@ image: bitnami/node:8
 
 before_script:
   - env DEBIAN_FRONTEND=noninteractive apt-get update -qq && env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php < /dev/null > /dev/null
-  - npm install --quiet --global eslint stylelint; env PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true npm install --quiet --no-save stylelint-config-standard stylelint-order stylelint-scss
+  - npm install --quiet --global eslint stylelint; npm install --quiet --no-save --production stylelint-config-standard stylelint-order stylelint-scss
   - node -v
   - npm -v
   - php -v
