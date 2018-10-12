@@ -482,3 +482,23 @@ function __gulp_init_namespace___enable_post_password_protection($post_object) {
     }
 }
 add_action("the_post", "__gulp_init_namespace___enable_post_password_protection");
+
+// add link classes to __gulp_init_namespace___menu_list_link filtered content
+function __gulp_init_namespace___menu_list_link_classes($links) {
+    if ($links) {
+        $DOM = new DOMDocument();
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$links}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        $anchors = $DOM->getElementsByTagName("a");
+
+        foreach ($anchors as $anchor) {
+            $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $links = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
+
+    return $links;
+}
+add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___menu_list_link_classes");

@@ -1,12 +1,14 @@
 <?php
-$class = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
-$light = isset($template_args["light"]) ? $template_args["light"] : false;
-$meta  = isset($template_args["meta"]) ? $template_args["meta"] : false;
+$class           = isset($template_args["class"]) ? $template_args["class"] : "";
+$container_class = gettype($class) === "array" && key_exists("container", $class) ? " {$class["container"]}" : (gettype($class) === "string" ? " {$class}" : "");
+$list_class      = gettype($class) === "array" && key_exists("list", $class) ? " {$class["list"]}" : "";
+$light           = isset($template_args["light"]) ? $template_args["light"] : false;
+$meta            = isset($template_args["meta"]) ? $template_args["meta"] : false;
 ?>
 
 <?php if ($meta): ?>
-    <nav class="menu-list__container<?php echo $class; ?>">
-        <ul class="menu-list --meta<?php if ($light): ?> __light<?php endif; ?>">
+    <nav class="menu-list__container<?php echo $container_class; ?>">
+        <ul class="menu-list --meta<?php echo $list_class; ?><?php if ($light): ?> __light<?php endif; ?>">
             <?php foreach ($meta as $key => $data): ?>
 
                 <?php if ($data): ?>

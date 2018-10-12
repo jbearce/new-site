@@ -10,7 +10,11 @@
                     <?php
                     if (have_posts()) {
                         while (have_posts()) { the_post();
-                            __gulp_init_namespace___get_template_part("partials/articles/post-full.php", array("post" => $post, "class" => "content__article", "meta" => false));
+                            __gulp_init_namespace___get_template_part("partials/articles/post-full.php", array(
+                                "post"  => $post,
+                                "class" => "content__article",
+                                "meta" => false,
+                            ));
                         }
                     }
                     ?>

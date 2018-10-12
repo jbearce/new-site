@@ -1,27 +1,18 @@
 <?php
-$class = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
-$light = isset($template_args["light"]) ? $template_args["light"] : false;
-$links = isset($template_args["links"]) ? $template_args["links"] : paginate_links(array("type" => "array"));
+$class           = isset($template_args["class"]) ? $template_args["class"] : "";
+$container_class = gettype($class) === "array" && key_exists("container", $class) ? " {$class["container"]}" : (gettype($class) === "string" ? " {$class}" : "");
+$list_class      = gettype($class) === "array" && key_exists("list", $class) ? " {$class["list"]}" : "";
+$light           = isset($template_args["light"]) ? $template_args["light"] : false;
+$links           = isset($template_args["links"]) ? $template_args["links"] : paginate_links(array("type" => "array"));
 ?>
 <?php if ($links): ?>
-    <nav class="menu-list__container<?php echo $class; ?>">
-        <ul class="menu-list --pagination --center">
+    <nav class="menu-list__container<?php echo $container_class; ?>">
+        <ul class="menu-list --pagination<?php echo $list_class; ?>">
             <?php foreach ($links as $link): ?>
-                <?php
-                // replace double quote with single quote for consistancy
-                $link = preg_replace("/\"/", "'", $link);
-
-                // add necessary classes
-                $link = preg_replace("/class=('|\")/", "class='menu-list_link link ", $link);
-
-                // change "current" class to match proper variant structure
-                $link = preg_replace("/current/", "-current", $link);
-                ?>
-
                 <li class="menu-list__item">
-                    <?php echo $link; ?>
+                    <?php echo apply_filters("__gulp_init_namespace___menu_list_link", $link); ?>
                 </li>
             <?php endforeach; ?>
-        </ul><!--/.menu-list-->
-    </nav><!--/.menu-list__container-->
+        </ul>
+    </nav>
 <?php endif; ?>

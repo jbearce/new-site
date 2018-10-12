@@ -3,7 +3,11 @@ $post_id    = get_option("page_for_posts") ? get_post(get_option("page_for_posts
 $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __("Latest Posts", "__gulp_init_namespace__");
 ?>
 <?php get_header(); ?>
-<?php __gulp_init_namespace___get_template_part("partials/layouts/hero.php", array("title" => $post_title)); ?>
+<?php
+__gulp_init_namespace___get_template_part("partials/layouts/hero.php", array(
+    "title" => $post_title
+));
+?>
 <div class="content-block --fullbleed">
     <div class="content__inner">
         <div class="content__post">
@@ -20,10 +24,16 @@ $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    __gulp_init_namespace___get_template_part("partials/articles/post-excerpt.php", array("post" => $post, "class" => "content__article"));
+                    __gulp_init_namespace___get_template_part("partials/articles/post-excerpt.php", array(
+                        "post" => $post,
+                        "class" => "content__article",
+                    ));
                 }
             } else {
-                __gulp_init_namespace___get_template_part("partials/articles/post-none.php", array("class" => "content__article", "error" => __gulp_init_namespace___get_no_posts_message(get_queried_object())));
+                __gulp_init_namespace___get_template_part("partials/articles/post-none.php", array(
+                    "class" => "content__article",
+                    "error" => __gulp_init_namespace___get_no_posts_message(get_queried_object()),
+                ));
             }
             ?>
 

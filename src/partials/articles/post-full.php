@@ -19,7 +19,13 @@ $content = isset($template_args["content"]) ? $template_args["content"] : ($post
                 <?php endif; ?>
 
                 <?php if ($meta): ?>
-                    <?php __gulp_init_namespace___get_template_part("partials/modules/menu-list-meta.php", array("class" => "article__menu-list__container", "light" => $light, "meta" => $meta)); ?>
+                    <?php
+                    __gulp_init_namespace___get_template_part("partials/modules/menu-list-meta.php", array(
+                        "class" => "article__menu-list__container",
+                        "light" => $light,
+                        "meta"  => $meta
+                    ));
+                    ?>
                 <?php endif; ?>
             </header><!--/.article_header-->
         <?php endif; ?>
