@@ -9,6 +9,6 @@ before_script:
 
 code_quality:
   script:
-    - node node_modules/stylelint/bin/stylelint.js "./src/assets/styles/**/*.scss"
-    - node node_modules/eslint/bin/eslint.js "./src/assets/scripts/**/*.js"
+    - stylelint "./src/assets/styles/**/*.scss"
+    - eslint "./src/assets/scripts/**/*.js"
     - find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
