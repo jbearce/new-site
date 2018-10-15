@@ -1,8 +1,6 @@
-image: bitnami/node:8
+image: jacob9230/linter
 
 before_script:
-  - env DEBIAN_FRONTEND=noninteractive apt-get update -qq && env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq php < /dev/null > /dev/null
-  - npm install --quiet --global eslint stylelint; npm install --quiet --no-save --production stylelint-config-standard stylelint-order stylelint-scss
   - node -v
   - npm -v
   - php -v
@@ -11,4 +9,4 @@ code_quality:
   script:
     - stylelint "./src/assets/styles/**/*.scss"
     - eslint "./src/assets/scripts/**/*.js"
-    - find . -type f -name '*.php' -print0 | xargs -0 -n1 -P4 php -l -n | (! grep -v "No syntax errors detected" )
+    - phplint "./src"
