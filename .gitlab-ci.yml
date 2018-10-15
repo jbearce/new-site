@@ -1,6 +1,7 @@
 image: jacob9230/linter
 
 before_script:
+  - rm package-lock.json; npm install --quiet --no-save stylelint-config-standard stylelint-order stylelint-scss
   - node -v
   - npm -v
   - php -v
