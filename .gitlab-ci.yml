@@ -1,7 +1,6 @@
 image: jacob9230/linter
 
 before_script:
-  - npm install --global --quiet eslint stylelint
   - npm install --no-package-lock --no-save --quiet stylelint stylelint-config-standard stylelint-order stylelint-scss
   - node -v
   - npm -v
