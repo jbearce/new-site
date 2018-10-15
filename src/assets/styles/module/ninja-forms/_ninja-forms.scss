@@ -119,7 +119,7 @@
 // column edge alignment fix
 
 .nf-row {
-    & {
+    .nf-has-columns & {
         margin: 0 -5px;
     }
 }
