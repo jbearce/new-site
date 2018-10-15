@@ -1,4 +1,6 @@
 <script id="tmpl-nf-before-fields" type="text/template">
+    <# if( data.fields.map().filter(field => field.attributes.required).length ){ #>
     <div class="nf-form-fields-required nf-text text">{{{ data.renderFieldsMarkedRequired() }}}</div>
+    <# } #>
     {{{ data.beforeFields }}}
 </script>
