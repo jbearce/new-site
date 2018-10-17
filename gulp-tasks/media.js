@@ -5,28 +5,40 @@
 module.exports = {
     media(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const imagemin = require("gulp-imagemin");
-        const pngquant = require("imagemin-pngquant");
+        const IMAGEMIN = require("gulp-imagemin");
+        const PNGQUANT = require("imagemin-pngquant");
 
         // media task, compresses images, copies other media
         return new Promise ((resolve) => {
             // set media directory
-            const media_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+            const MEDIA_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
-            // merge both steams back in to one
-            gulp.src(global.settings.paths.src + "/**/*.{jpg,png,svg}")
+            // copy fonts
+            const COPY_FONTS = gulp.src(global.settings.paths.src + "/assets/media/fonts/**/*.{otf,ttf,woff,woff2}")
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(media_directory)))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(MEDIA_DIRECTORY + "/assets/media/fonts", {extra: [MEDIA_DIRECTORY + "/assets/media/fonts/**/*.{otf,ttf,woff,woff2}"]})))
+                // output to compiled directory
+                .pipe(gulp.dest(MEDIA_DIRECTORY + "/assets/media/fonts"));
+
+            // process images
+            const PROCESS_IMAGES = gulp.src(global.settings.paths.src + "/**/*.{jpg,png,svg}")
+                // prevent breaking on error
+                .pipe(plugins.plumber({errorHandler: on_error}))
+                // check if source is newer than destination
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(MEDIA_DIRECTORY)))
                 // compress images
-                .pipe(imagemin({
+                .pipe(IMAGEMIN({
                     progressive: true,
                     svgoPlugins: [{cleanupIDs: false, removeViewBox: false}],
-                    use:         [pngquant()],
+                    use:         [PNGQUANT()],
                 }))
                 // output to compiled directory
-                .pipe(gulp.dest(media_directory))
+                .pipe(gulp.dest(MEDIA_DIRECTORY));
+
+            // merge both streams back in to one
+            plugins.merge(COPY_FONTS, PROCESS_IMAGES)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // notify that task is complete, if not part of default or watch
