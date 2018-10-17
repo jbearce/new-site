@@ -104,6 +104,16 @@ function __gulp_init_namespace___ninja_forms_html($default_value, $field_class, 
 }
 add_filter("ninja_forms_render_default_value", "__gulp_init_namespace___ninja_forms_html", 10, 3);
 
+// fix Ninja Forms success message formatting
+function __gulp_init_namespace__ninja_forms_success_message($action_settings, $form_id, $action_id, $form_settings) {
+    if ($action_settings["type"] === "successmessage") {
+        $action_settings["success_msg"] = apply_filters("the_content", $action_settings["success_msg"]);
+    }
+
+    return $action_settings;
+}
+add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace__ninja_forms_success_message", 10, 4);
+
 // fix Ninja Forms not being output when no content exists and selected via meta box
 function __gulp_init_namespace___fix_ninja_forms($content) {
     return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
