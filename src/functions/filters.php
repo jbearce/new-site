@@ -360,7 +360,7 @@ function __gulp_init_namespace___lazy_load_images($content) {
         $images = $XPath->query("//img");
 
         foreach ($images as $image) {
-            if ($image->parentNode->nodeName !== "noscript") {
+            if (!preg_match("/wp-caption-image/", $image->getAttribute("class")) && $image->parentNode->nodeName !== "noscript") {
                 $existing_src    = $image->getAttribute("src");
                 $existing_srcset = $image->getAttribute("srcset");
 
@@ -512,3 +512,10 @@ function __gulp_init_namespace___menu_list_link_classes($links) {
     return $links;
 }
 add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___menu_list_link_classes");
+
+// add a class to images within the caption shortcode
+function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $html) {
+    $shcode = preg_replace("/(<img[^>]+class=(?:\"|'))/", "$1wp-caption-image ", $shcode);
+    return $shcode;
+}
+add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
