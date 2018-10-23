@@ -24,6 +24,19 @@ module.exports = {
                 path:     plugins.path.resolve(__dirname, js_directory),
                 filename: "[name].js",
             },
+            module: {
+                rules: [
+                    {
+                        test: /\.js$/,
+                        use: {
+                            loader: "babel-loader",
+                            options: {
+                                presets: ["@babel/preset-env"],
+                            },
+                        },
+                    },
+                ],
+            },
         };
     }
 };
