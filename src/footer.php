@@ -32,7 +32,7 @@
                 </div><!--/.navigation__inner-->
             </div><!--/.navigation-block-->
         <?php endif; ?>
-        <?php __gulp_init_namespace___get_template_part("partials/modules/ios-install-prompt.php"); ?>
+        <?php __gulp_init_namespace___get_template_part("partials/modules/pwa-install-prompt.php"); ?>
         <?php wp_footer(); ?>
     </body>
 </html>
