@@ -8,10 +8,10 @@ module.exports = {
     config(plugins, source_directory, js_directory) {
         const ENTRY = {};
 
-        const SCRIPT_FOLDERS = plugins.fs.readdirSync(source_directory);
+        const SCRIPT_FOLDERS = plugins.fs.existsSync(source_directory) ? plugins.fs.readdirSync(source_directory) : false;
 
         // automatically build entry points based on folders in src/assets/scripts
-        if (SCRIPT_FOLDERS.length > 0) {
+        if (SCRIPT_FOLDERS && SCRIPT_FOLDERS.length > 0) {
             SCRIPT_FOLDERS.forEach((folder) => {
                 ENTRY[folder] = GLOB.sync(source_directory + "/" + folder + "/**/*.js");
             });
