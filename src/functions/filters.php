@@ -30,7 +30,7 @@ add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 
 // load the service-worker.*.js script when the user visits /service-worker.js
 function __gulp_init_namespace___load_service_worker_script($template) {
-    if (isset($_GET["sw_script"]) && $_GET["sw_script"] === "true") {
+    if (get_query_var("sw_script")) {
         return get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "service-worker.*.js"));
     }
 
@@ -40,7 +40,7 @@ add_action("template_include", "__gulp_init_namespace___load_service_worker_scri
 
 // fix http status code and content type headers on "service-worker.js" rewrite
 function __gulp_init_namespace___fix_service_worker_headers() {
-    if (isset($_GET["sw_script"]) && $_GET["sw_script"] === "true") {
+    if (get_query_var("sw_script")) {
         header("Content-Type: application/javascript");
         status_header(200);
     }
@@ -49,7 +49,7 @@ add_action("wp", "__gulp_init_namespace___fix_service_worker_headers");
 
 // load the "offline" template when the user visits /offline/
 function __gulp_init_namespace___load_offline_template($template) {
-    if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
+    if (get_query_var("offline")) {
         return get_theme_file_path("/offline.php");
     }
 
@@ -59,7 +59,7 @@ add_action("template_include", "__gulp_init_namespace___load_offline_template");
 
 // fix page title on "offline" template
 function __gulp_init_namespace___fix_offline_page_title($title) {
-    if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
+    if (get_query_var("offline")) {
         return $title = sprintf(__("No Internet Connection - %s", "__gulp_init_namespace__"), get_bloginfo("name"));
     }
 
@@ -69,7 +69,7 @@ add_filter("wpseo_title", "__gulp_init_namespace___fix_offline_page_title");
 
 // fix http status code on "offline" template
 function __gulp_init_namespace___fix_offline_http_status_code() {
-    if (isset($_GET["offline"]) && $_GET["offline"] === "true") {
+    if (get_query_var("offline")) {
         status_header(200);
     }
 }
