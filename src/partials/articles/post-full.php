@@ -32,7 +32,7 @@ $content = isset($template_args["content"]) ? $template_args["content"] : ($post
 
         <?php if ($content): ?>
             <div class="article__content">
-                <div class="article__user-content user-content<?php if ($light): ?> --light<?php endif; ?>">
+                <div class="article__user-content user-content<?php if ($light): ?> user-content--light<?php endif; ?>">
                     <?php echo $content; ?>
                 </div>
             </div>

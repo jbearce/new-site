@@ -32,7 +32,7 @@
 
 /* select variant */
 
-.input.--select {
+.input--select {
     & {
         cursor: pointer;
         // remove Firefox default styles & arrow
@@ -41,8 +41,10 @@
         // remove IE default styles & arrow
         &::-ms-expand { display: none; }
     }
+}
 
-    &.--arrow {
+.input--arrow {
+    & {
         background-image: svg-load("../media/icon-select.svg", fill=#{color("foreground")},);
         background-position: center right remify(12, 16);
         background-repeat: no-repeat;
@@ -53,8 +55,8 @@
 
 /* checkbox & radiobutton variants */
 
-.input.--checkbox,
-.input.--radiobutton {
+.input--checkbox,
+.input--radiobutton {
     & {
         background-position: center center;
         background-repeat: no-repeat;
@@ -67,19 +69,23 @@
         width: remify(28, 16);
     }
 
-    &.--radiobutton {
+    & + .text--label {
+        display: inline-block;
+    }
+}
+
+.input--checkbox {
+    &:checked {
+        background-image: svg-load("../media/icon-check.svg", fill=#{color("foreground")},);
+    }
+}
+
+.input--radiobutton {
+    & {
         border-radius: 50%;
     }
 
-    &.--checkbox:checked {
-        background-image: svg-load("../media/icon-check.svg", fill=#{color("foreground")},);
-    }
-
-    &.--radiobutton:checked {
+    &:checked {
         background-image: svg-load("../media/icon-radio.svg", fill=#{color("foreground")},);
-    }
-
-    & + .text.--label {
-        display: inline-block;
     }
 }

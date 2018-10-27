@@ -38,7 +38,7 @@
         ],
         "property-no-vendor-prefix": true,
         "selector-attribute-quotes": "always",
-        "selector-class-pattern": "^(--|__)?([a-z][a-z0-9]*(?:(-|__)(?!$))?)+[0-9]*$",
+        "selector-class-pattern": "^(__)?([a-z][a-z0-9]*(?:(-|--|__)(?!$))?)+[0-9]*$",
         "selector-max-id": 0,
         "selector-max-type": [
             0,

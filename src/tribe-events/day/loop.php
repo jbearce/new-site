@@ -34,11 +34,11 @@ $current_timeslot = null;
 	<!-- .tribe-events-day-time-slot -->
 
 	<div class="tribe-events-day-time-slot">
-		<h5 class="tribe-events-title title --h4 --divider"><?php echo $current_timeslot; ?></h5>
+		<h5 class="tribe-events-title title title--h4 title--divider"><?php echo $current_timeslot; ?></h5>
 		<?php endif; ?>
 
 		<!-- Event  -->
-		<article id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?> tribe-events-article article --excerpt">
+		<article id="post-<?php the_ID() ?>" class="<?php tribe_events_event_classes() ?> tribe-events-article article article--excerpt">
 			<?php
 			$event_type = tribe( 'tec.featured_events' )->is_featured( $post->ID ) ? 'featured' : 'event';
 

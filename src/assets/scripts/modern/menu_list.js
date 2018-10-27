@@ -12,7 +12,7 @@ const MENU_LIST_INIT = () => {
     // function to mark elements as inactive
     // @param  {Element}  elem - An element to mark as inactive
     const MARK_MENU_ITEM_INACTIVE = (elem) => {
-        const CHILD_MENU_LISTS = elem.querySelectorAll(".menu-list.--accordion");
+        const CHILD_MENU_LISTS = elem.querySelectorAll(".menu-list--accordion");
 
         elem.classList.remove("is-active");
 
@@ -68,7 +68,7 @@ const MENU_LIST_INIT = () => {
     // @param  {Element}  elem - An element to mark as active
     const MARK_MENU_ITEM_ACTIVE = (elem) => {
         const CHILDREN   = elem.childNodes;
-        const CHILD_MENU = elem.querySelector("#" + elem.id + " > .menu-list.--accordion");
+        const CHILD_MENU = elem.querySelector("#" + elem.id + " > .menu-list--accordion");
 
         elem.classList.add("is-active");
         transition({element: CHILD_MENU, val: "auto"});
@@ -124,7 +124,7 @@ const MENU_LIST_INIT = () => {
             // mark active on touch
             MENU_ITEMS[i].addEventListener("touchstart", (e) => {
                 // check if the element is already active
-                if (MENU_ITEMS[i].classList.contains("--parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
+                if (MENU_ITEMS[i].classList.contains("menu-list__item--parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
                     e.preventDefault();
                     MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
                     MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);

@@ -8,7 +8,7 @@ $meta            = isset($template_args["meta"]) ? $template_args["meta"] : fals
 
 <?php if ($meta): ?>
     <nav class="menu-list__container<?php echo $container_class; ?>">
-        <ul class="menu-list --meta<?php echo $list_class; ?><?php if ($light): ?> __light<?php endif; ?>">
+        <ul class="menu-list menu-list--meta<?php echo $list_class; ?><?php if ($light): ?> __light<?php endif; ?>">
             <?php foreach ($meta as $key => $data): ?>
 
                 <?php if ($data): ?>
@@ -26,7 +26,7 @@ $meta            = isset($template_args["meta"]) ? $template_args["meta"] : fals
                         if (isset($data["links"]) && $data["links"]) {
                             foreach ($data["links"] as $index => $link) {
                                 if ($link["url"]) {
-                                    ?><a class="menu-list__link link<?php if ($light): ?> --inherit<?php endif; ?>" href="<?php echo $link["url"]; ?>"<?php if ($link["target"]): ?> target="<?php echo $link["target"]; ?>"<?php endif; ?>><?php
+                                    ?><a class="menu-list__link link<?php if ($light): ?> link--inherit<?php endif; ?>" href="<?php echo $link["url"]; ?>"<?php if ($link["target"]): ?> target="<?php echo $link["target"]; ?>"<?php endif; ?>><?php
                                 }
 
                                 if ($link["title"]) {

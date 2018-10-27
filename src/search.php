@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="content-block --fullbleed">
+<div class="content-block content-block--fullbleed">
     <div class="content__inner">
         <div class="content__post">
             <?php do_action("__gulp_init_namespace___before_content"); ?>

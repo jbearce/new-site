@@ -5,15 +5,15 @@
 import Swiper from "swiper";
 
 // init swiper
-if (document.querySelectorAll(".swiper-container.--hero .swiper-slide").length > 1) {
-    new Swiper (".swiper-container.--hero", {
+if (document.querySelectorAll(".swiper-container--hero .swiper-slide").length > 1) {
+    new Swiper (".swiper-container--hero", {
         autoplay: {
             delay: 5000,
         },
         loop: true,
         navigation: {
-            nextEl: ".swiper-button.--next",
-            prevEl: ".swiper-button.--prev",
+            nextEl: ".swiper-container--hero .swiper-button--next",
+            prevEl: ".swiper-container--hero .swiper-button--prev",
         },
         pagination: {
             el: ".swiper-pagination",

@@ -39,7 +39,7 @@ $current_url = tribe_events_get_current_filter_url();
 
     		<!-- Views -->
     		<?php if ( count( $views ) > 1 ) { ?>
-                <div class="col-auto --nogrow --noshrink __flex">
+                <div class="col-auto col--nogrow col--noshrink __flex">
         			<div class="tribe-bar-views" id="tribe-bar-views" style="width: 100%;">
         				<div class="tribe-bar-views-inner tribe-clearfix">
         					<h3 class="tribe-events-visuallyhidden __visuallyhidden"><?php esc_html_e( 'Event Views Navigation', 'the-events-calendar' ) ?></h3>
@@ -67,7 +67,7 @@ $current_url = tribe_events_get_current_filter_url();
 		<?php if ( ! empty( $filters ) ) { ?>
 			<div class="tribe-bar-filters">
 				<div class="tribe-bar-filters-inner tribe-clearfix">
-                    <div class="tribe-events-bar__row row --padded">
+                    <div class="tribe-events-bar__row row row--padded">
     					<?php foreach ( $filters as $filter ) : ?>
                             <div class="col-12 col-xs-3">
         						<div class="<?php echo esc_attr( $filter['name'] ) ?>-filter">
@@ -76,7 +76,7 @@ $current_url = tribe_events_get_current_filter_url();
         						</div>
                             </div>
     					<?php endforeach; ?>
-                        <div class="col-12 col-xs-auto --nogrow --noshrink">
+                        <div class="col-12 col-xs-auto col--nogrow col--noshrink">
         					<div class="tribe-bar-submit">
                                 <div class="tribe-bar-filters-label">&nbsp; <!-- spacer --> &nbsp;</div>
         						<input class="tribe-events-bar-filters-button tribe-events-button tribe-no-param" type="submit" name="submit-bar" value="<?php printf( esc_attr__( 'Find %s', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>" />

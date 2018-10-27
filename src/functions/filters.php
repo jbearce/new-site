@@ -153,37 +153,37 @@ function __gulp_init_namespace___add_user_content_classes($content) {
         $h1s = $DOM->getElementsByTagName("h1");
 
         foreach ($h1s as $h1) {
-            $h1->setAttribute("class", "user-content__title title --h1 {$h1->getAttribute("class")}");
+            $h1->setAttribute("class", "user-content__title title title--h1 {$h1->getAttribute("class")}");
         }
 
         $h2s = $DOM->getElementsByTagName("h2");
 
         foreach ($h2s as $h2) {
-            $h2->setAttribute("class", "user-content__title title --h2 {$h2->getAttribute("class")}");
+            $h2->setAttribute("class", "user-content__title title title--h2 {$h2->getAttribute("class")}");
         }
 
         $h3s = $DOM->getElementsByTagName("h3");
 
         foreach ($h3s as $h3) {
-            $h3->setAttribute("class", "user-content__title title --h3 {$h3->getAttribute("class")}");
+            $h3->setAttribute("class", "user-content__title title title--h3 {$h3->getAttribute("class")}");
         }
 
         $h4s = $DOM->getElementsByTagName("h4");
 
         foreach ($h4s as $h4) {
-            $h4->setAttribute("class", "user-content__title title --h4 {$h4->getAttribute("class")}");
+            $h4->setAttribute("class", "user-content__title title title--h4 {$h4->getAttribute("class")}");
         }
 
         $h5s = $DOM->getElementsByTagName("h5");
 
         foreach ($h5s as $h5) {
-            $h5->setAttribute("class", "user-content__title title --h5 {$h5->getAttribute("class")}");
+            $h5->setAttribute("class", "user-content__title title title--h5 {$h5->getAttribute("class")}");
         }
 
         $h6s = $DOM->getElementsByTagName("h6");
 
         foreach ($h6s as $h6) {
-            $h6->setAttribute("class", "user-content__title title --h6 {$h6->getAttribute("class")}");
+            $h6->setAttribute("class", "user-content__title title title--h6 {$h6->getAttribute("class")}");
         }
 
         $paragraphs = $DOM->getElementsByTagName("p");
@@ -195,13 +195,13 @@ function __gulp_init_namespace___add_user_content_classes($content) {
         $ordered_lists = $DOM->getElementsByTagName("ol");
 
         foreach ($ordered_lists as $ordered_list) {
-            $ordered_list->setAttribute("class", "user-content__text text --list --ordered {$ordered_list->getAttribute("class")}");
+            $ordered_list->setAttribute("class", "user-content__text text text--list text--ordered {$ordered_list->getAttribute("class")}");
         }
 
         $unordered_lists = $DOM->getElementsByTagName("ul");
 
         foreach ($unordered_lists as $unordered_list) {
-            $unordered_list->setAttribute("class", "user-content__text text --list --unordered {$unordered_list->getAttribute("class")}");
+            $unordered_list->setAttribute("class", "user-content__text text text--list text--unordered {$unordered_list->getAttribute("class")}");
         }
 
         $list_items = $DOM->getElementsByTagName("li");
@@ -213,7 +213,7 @@ function __gulp_init_namespace___add_user_content_classes($content) {
         $tables = $DOM->getElementsByTagName("table");
 
         foreach ($tables as $table) {
-            $table->setAttribute("class", "user-content__text text --table {$table->getAttribute("class")}");
+            $table->setAttribute("class", "user-content__text text text--table {$table->getAttribute("class")}");
         }
 
         $table_headers = $DOM->getElementsByTagName("thead");
@@ -243,7 +243,7 @@ function __gulp_init_namespace___add_user_content_classes($content) {
         $table_cell_headers = $DOM->getElementsByTagName("th");
 
         foreach ($table_cell_headers as $table_cell_header) {
-            $table_cell_header->setAttribute("class", "text__cell --header {$table_cell_header->getAttribute("class")}");
+            $table_cell_header->setAttribute("class", "text__cell text__cell--header {$table_cell_header->getAttribute("class")}");
         }
 
         $table_cells = $DOM->getElementsByTagName("td");

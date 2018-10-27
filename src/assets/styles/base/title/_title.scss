@@ -6,7 +6,7 @@
 
 .title {
     &,
-    &.--h1 {
+    &.title--h1 {
         color: color("foreground");
         font-display: swap;
         font-family: $heading-font;
@@ -17,37 +17,37 @@
         margin: remify(0 0 20, 40);
     }
 
-    &.--h2 {
+    &.title--h2 {
         font-range: $xs-break $xl-break;
         font-size: responsive remify(32, 16) remify(54, 16);
     }
 
-    &.--h3,
-    &.--h4 {
+    &.title--h3,
+    &.title--h4 {
         font-weight: 800;
     }
 
-    &.--h3 {
+    &.title--h3 {
         font-range: $xs-break $xl-break;
         font-size: responsive remify(28, 16) remify(36, 16);
     }
 
-    &.--h4 {
+    &.title--h4 {
         font-size: remify(24, 16);
         margin-bottom: remify(16, 24);
     }
 
-    &.--h5,
-    &.--h6 {
+    &.title--h5,
+    &.title--h6 {
         font-weight: 700;
     }
 
-    &.--h5 {
+    &.title--h5 {
         font-size: remify(18, 16);
         margin-bottom: remify(16, 18);
     }
 
-    &.--h6 {
+    &.title--h6 {
         font-size: remify(16, 16);
         margin-bottom: remify(16, 16);
     }
@@ -55,7 +55,7 @@
 
 /* divider variant */
 
-.title.--divider {
+.title--divider {
     & {
         align-items: center;
         display: flex;

@@ -9,14 +9,14 @@ $excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($po
 ?>
 
 <?php if ($title || $permalink): ?>
-    <article class="article --excerpt<?php echo $class; ?>">
+    <article class="article article--excerpt<?php echo $class; ?>">
 
         <?php if ($title || $meta): ?>
             <header class="article__header">
                 <?php if ($title): ?>
                     <h3 class="article__title title<?php if ($light): ?> __light<?php endif; ?>">
                         <?php if ($permalink): ?>
-                            <a class="text__link link<?php if ($light): ?> --inherit<?php endif; ?>" href="<?php echo $permalink; ?>">
+                            <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>" href="<?php echo $permalink; ?>">
                         <?php endif; ?>
 
                         <?php echo $title; ?>
@@ -45,7 +45,7 @@ $excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($po
                     <p class="article__text text<?php if ($light): ?> __light<?php endif; ?>">
                         <?php echo $excerpt; ?>
                         <?php if ($permalink): ?>
-                            <a class="text__link link<?php if ($light): ?> --inherit<?php endif; ?>">
+                            <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>">
                                 <?php _e("Read More", "__gulp_init_namespace__"); ?>
                             </a><
                         <?php endif; ?>

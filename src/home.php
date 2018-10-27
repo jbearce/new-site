@@ -8,13 +8,13 @@ __gulp_init_namespace___get_template_part("partials/layouts/hero.php", array(
     "title" => $post_title
 ));
 ?>
-<div class="content-block --fullbleed">
+<div class="content-block content-block--fullbleed">
     <div class="content__inner">
         <div class="content__post">
             <?php do_action("__gulp_init_namespace___before_content"); ?>
 
             <?php if ($post_title): ?>
-                <article class="content__article article --introduction">
+                <article class="content__article article article--introduction">
                     <header class="article__header">
                         <h1 class="article__title title"><?php echo $post_title; ?></h1>
                     </header>

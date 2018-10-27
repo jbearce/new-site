@@ -21,7 +21,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <h3 class="screen-reader-text __visuallyhidden" tabindex="0"><?php echo esc_html( sprintf( esc_html__( '%s List Navigation', 'the-events-calendar' ), $events_label_plural ) ); ?></h3>
 <nav class="tribe-events__menu-list__container menu-list__container">
-    <ul class="tribe-events-sub-nav menu-list --pagination --flex --between">
+    <ul class="tribe-events-sub-nav menu-list menu-list--pagination menu-list--flex menu-list--between">
     	<!-- Left Navigation -->
 
         <li class="<?php echo esc_attr( tribe_left_navigation_classes() ); ?> menu-list_item" aria-label="previous events link">

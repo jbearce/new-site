@@ -36,7 +36,7 @@ $cost = tribe_get_cost() ? tribe_get_cost( null, true ) : false;
 	<?php the_title( '<h1 class="tribe-events-single-event-title article__title title">', '</h1>' ); ?>
 
     <nav class="article__menu-list__container menu-list__container">
-        <ul class="menu-list --meta">
+        <ul class="menu-list menu-list--meta">
             <li class="menu-list__item">
                 <i class="far fa-clock menu-list__icon"></i>
                 <?php echo $date[ 'date' ]; ?><?php if ( $date[ 'time' ] ){ echo ', ' . $date[ 'time' ]; } ?>

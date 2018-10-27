@@ -27,7 +27,7 @@
 }
 
 .header__search-form__container {
-    &.--expandable {
+    &.search-form__container--expandable {
         background: color("background");
         left: 0;
         opacity: 0;
@@ -38,7 +38,7 @@
         width: 100%;
     }
 
-    &.--expandable.is-active {
+    &.search-form__container--expandable.is-active {
         opacity: 1;
         top: 0;
         transition: opacity 0.15s;
@@ -47,7 +47,7 @@
 
 /* fullbleed variant */
 
-.header-block.--fullbleed {
+.header-block--fullbleed {
     & {
         background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
@@ -58,7 +58,7 @@
         padding: 0;
     }
 
-    > .header__inner.--fullbleed {
+    > .header__inner--fullbleed {
         max-width: none;
     }
 }

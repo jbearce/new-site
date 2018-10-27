@@ -7,7 +7,7 @@ $links           = isset($template_args["links"]) ? $template_args["links"] : pa
 ?>
 <?php if ($links): ?>
     <nav class="menu-list__container<?php echo $container_class; ?>">
-        <ul class="menu-list --pagination<?php echo $list_class; ?>">
+        <ul class="menu-list menu-list--pagination<?php echo $list_class; ?>">
             <?php foreach ($links as $link): ?>
                 <li class="menu-list__item">
                     <?php echo apply_filters("__gulp_init_namespace___menu_list_link", $link); ?>

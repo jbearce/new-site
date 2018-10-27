@@ -34,7 +34,7 @@
 
 /* fullbleed variant */
 
-.navigation-block.--fullbleed {
+.navigation-block--fullbleed {
     & {
         background: color("accent");
     }
@@ -43,7 +43,7 @@
         background: none;
     }
 
-    > .navigation__inner.--fullbleed {
+    > .navigation__inner--fullbleed {
         max-width: none;
     }
 }
@@ -66,12 +66,12 @@
 
 /* flyout variant */
 
-.navigation-block.--flyout {
+.navigation-block--flyout {
     & {
         background: color("accent");
         overscroll-behavior: contain;
         position: fixed;
-        z-index: 100001;
+        z-index: 100001 !important;
     }
 
     &:not(.slideout-menu) {

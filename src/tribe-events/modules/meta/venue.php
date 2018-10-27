@@ -19,7 +19,7 @@ $website = tribe_get_venue_website_url( $event_id );
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-venue">
-	<h3 class="tribe-events-single-section-title article__title title --h6"> <?php esc_html_e( tribe_get_venue_label_singular(), 'the-events-calendar' ) ?> </h3>
+	<h3 class="tribe-events-single-section-title article__title title title--h6"> <?php esc_html_e( tribe_get_venue_label_singular(), 'the-events-calendar' ) ?> </h3>
 	<ul class="tribe-events-meta-list">
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
@@ -46,7 +46,7 @@ $website = tribe_get_venue_website_url( $event_id );
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                <a class="tribe-events-meta-list-link link --inherit" href="<?php echo $website; ?>" target="_blank">
+                <a class="tribe-events-meta-list-link link link--inherit" href="<?php echo $website; ?>" target="_blank">
                     <?php echo $website; ?>
                 </a>
             </li>

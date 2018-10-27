@@ -21,7 +21,7 @@
 
 /* fullbleed variant */
 
-.footer-block.--fullbleed {
+.footer-block--fullbleed {
     & {
         background: color("page-background");
         padding: remify(($content-padding * 0.75) $content-padding);
@@ -32,7 +32,7 @@
         padding: 0;
     }
 
-    > .footer__inner.--fullbleed {
+    > .footer__inner--fullbleed {
         max-width: none;
     }
 }

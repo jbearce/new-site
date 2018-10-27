@@ -14,7 +14,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 <?php if ($slideshow || $featured_image): $i = 0; ?>
     <div class="hero-block<?php echo $block_class; ?>" role="region">
         <div class="hero__inner<?php echo $inner_class; ?>">
-            <div class="hero__swiper-container swiper-container --hero<?php echo $swiper_class; ?>" data-slideout-ignore="true">
+            <div class="hero__swiper-container swiper-container swiper-container--hero<?php echo $swiper_class; ?>" data-slideout-ignore="true">
 
                 <div class="swiper-wrapper">
                     <?php if ($slideshow): ?>
@@ -57,7 +57,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                                 <?php endif; ?>
 
                                                 <?php if ($image["caption"]): ?>
-                                                    <div class="swiper-user-content user-content --light">
+                                                    <div class="swiper-user-content user-content user-content--light">
                                                         <?php echo apply_filters("the_content", $image["caption"]); ?>
                                                     </div>
                                                 <?php endif; ?>
@@ -109,12 +109,12 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                     <?php endif; ?>
 
                     <?php if ($pagination): ?>
-                        <button class="swiper-button --prev">
+                        <button class="swiper-button swiper-button--prev">
                             <i class="swiper-button-icon fas fa-caret-left"></i>
                             <span class="__visuallyhidden"><?php _e("Previous Slide", "__gulp_init_namespace__"); ?></span>
                         </button>
 
-                        <button class="swiper-button --next">
+                        <button class="swiper-button swiper-button--next">
                             <i class="swiper-button-icon fas fa-caret-right"></i>
                             <span class="__visuallyhidden"><?php _e("Next Slide", "__gulp_init_namespace__"); ?></span>
                         </button>

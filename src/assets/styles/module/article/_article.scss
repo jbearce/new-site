@@ -19,7 +19,7 @@
 
 /* excerpt variant */
 
-.article.--excerpt {
+.article--excerpt {
     & + & {
         border-top: remify(1) solid color("background", "shade");
         padding-top: remify(16, 16);

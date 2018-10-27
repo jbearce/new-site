@@ -23,7 +23,7 @@
 
 /* label variant */
 
-.text.--label {
+.text--label {
     & {
         cursor: pointer;
     }
@@ -31,7 +31,7 @@
 
 /* list variant */
 
-.text.--list {
+.text--list {
     & {
         padding: remify(0 0 0 17.6, 16);
     }
@@ -47,7 +47,7 @@
 
 /* list ordered variant */
 
-.text.--list.--ordered {
+.text--ordered {
     & {
         list-style: decimal;
     }
@@ -55,7 +55,7 @@
 
 /* list unordered variant */
 
-.text.--list.--unordered {
+.text--unordered {
     & {
         list-style: disc;
     }
@@ -70,7 +70,7 @@
     }
 }
 
-.text.--table {
+.text--table {
     & {
         border-collapse: collapse;
         display: table;
@@ -108,7 +108,7 @@
         font-weight: 700;
     }
 
-    .text__body .text__cell.--header {
+    .text__body .text__cell--header {
         font-weight: 700;
         text-align: left;
     }

@@ -57,7 +57,7 @@ if ( $categories ) { $i = 0;
 	<div class="author <?php echo esc_attr( $has_venue_address ); ?>">
 
         <nav class="article__menu-list__container menu-list__container">
-            <ul class="menu-list --meta">
+            <ul class="menu-list menu-list--meta">
                 <li class="menu-list__item">
                     <i class="far fa-clock menu-list__icon"></i>
                     <a class="menu-list__link link" href="<?php echo $link; ?>">

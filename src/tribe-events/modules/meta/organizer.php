@@ -20,7 +20,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 ?>
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
-	<h3 class="tribe-events-single-section-title article__title title --h6"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
+	<h3 class="tribe-events-single-section-title article__title title title--h6"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
 	<ul class="tribe-events-meta-list">
 		<?php do_action( 'tribe_events_single_meta_organizer_section_start' ); ?>
 
@@ -55,7 +55,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
-                    <a class="tribe-events-meta-list-link link --inherit" href="<?php echo $website; ?>" target="_blank">
+                    <a class="tribe-events-meta-list-link link link--inherit" href="<?php echo $website; ?>" target="_blank">
                         <?php echo $website; ?>
                     </a>
     			</li>

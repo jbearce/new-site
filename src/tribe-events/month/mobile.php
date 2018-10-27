@@ -12,13 +12,13 @@
 
 <script type="text/html" id="tribe_tmpl_month_mobile_day_header">
 	<div class="tribe-mobile-day" data-day="[[=date]]">[[ if(has_events) { ]]
-		<h3 class="tribe-mobile-day-heading title --h2">[[=i18n.for_date]] <span>[[=raw date_name]]<\/span><\/h3>[[ } ]]
+		<h3 class="tribe-mobile-day-heading title title--h2">[[=i18n.for_date]] <span>[[=raw date_name]]<\/span><\/h3>[[ } ]]
 	<\/div>
 </script>
 
 <script type="text/html" id="tribe_tmpl_month_mobile">
 	<div class="tribe-events-mobile tribe-clearfix tribe-events-mobile-event-[[=eventId]][[ if(categoryClasses.length) { ]] [[= categoryClasses]][[ } ]]">
-		<h4 class="summary title --h6 __nomargin">
+		<h4 class="summary title title--h6 __nomargin">
 			<a class="url title__link link" href="[[=permalink]]" title="[[=title]]" rel="bookmark">[[=raw title]]<\/a>
 		<\/h4>
 

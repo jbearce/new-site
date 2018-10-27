@@ -1,5 +1,5 @@
 <?php get_header(); ?>
-<div class="content-block --fullbleed">
+<div class="content-block content-block--fullbleed">
     <div class="content__inner">
         <div class="content__post">
             <?php do_action("__gulp_init_namespace___before_content"); ?>
@@ -11,7 +11,7 @@
             ?>
 
             <?php if ($archive_title || $archive_content): ?>
-                <article class="content__article article --introduction">
+                <article class="content__article article article--introduction">
                     <?php if ($archive_title): ?>
                         <header class="article__header">
                             <h1 class="article__title title"><?php echo $archive_title; ?></h1>

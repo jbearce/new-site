@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <h3 class="screen-reader-text __visuallyhidden" tabindex="0"><?php esc_html_e( 'Day Navigation', 'the-events-calendar' ) ?></h3>
 <nav class="tribe-events__menu-list__container menu-list__container">
-    <ul class="tribe-events-sub-nav menu-list --pagination --flex --between">
+    <ul class="tribe-events-sub-nav menu-list menu-list--pagination menu-list--flex menu-list--between">
 
     	<!-- Previous Page Navigation -->
     	<li class="tribe-events-nav-previous menu-list__item" aria-label="previous day link">

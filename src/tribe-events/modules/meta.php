@@ -13,7 +13,7 @@
 
 <?php do_action( 'tribe_events_single_meta_before' ); ?>
 
-<div class="article__row row --padded">
+<div class="article__row row row--padded">
 
     <?php do_action( 'tribe_events_single_event_meta_primary_section_start' ); ?>
 

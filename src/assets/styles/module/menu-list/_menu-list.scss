@@ -28,7 +28,7 @@
         position: relative;
     }
 
-    &.--parent {
+    &.menu-list__item--parent {
         display: flex;
         flex-wrap: wrap;
     }
@@ -39,7 +39,7 @@
         display: block;
     }
 
-    .menu-list__item.--parent > & {
+    .menu-list__item.menu-list__item--parent > & {
         flex: 1 1 1%;
         min-width: 0;
     }
@@ -67,12 +67,12 @@
 
 /* flex variant */
 
-.menu-list.--flex {
+.menu-list--flex {
     & {
         display: flex;
     }
 
-    &:not(.--between) {
+    &:not(.menu-list--between) {
         text-align: center;
     }
 
@@ -84,14 +84,14 @@
         flex: 1 1 0%;
     }
 
-    &:not(.--between):not(.--center) > .menu-list__item {
+    &:not(.menu-list--between):not(.menu-list--center) > .menu-list__item {
         min-width: 0;
     }
 }
 
 /* flex between variant */
 
-.menu-list.--flex.--between {
+.menu-list--flex.menu-list--between {
     & {
         justify-content: space-between;
     }
@@ -103,7 +103,7 @@
 
 /* flex center variant */
 
-.menu-list.--flex.--center {
+.menu-list--flex.menu-list--center {
     & {
         justify-content: center;
     }
@@ -115,7 +115,7 @@
 
 /* vertical variant */
 
-.menu-list.--vertical {
+.menu-list--vertical {
     > .menu-list__item {
         float: none;
     }
@@ -123,7 +123,7 @@
 
 /* child variant */
 
-.menu-list.--child {
+.menu-list--child {
     & {
         min-width: 100%;
     }
@@ -135,7 +135,7 @@
 
 /* child accordion variant */
 
-.menu-list.--child.--accordion {
+.menu-list--child.menu-list--accordion {
     & {
         height: 0;
         overflow: hidden;
@@ -143,7 +143,7 @@
         visibility: hidden;
     }
 
-    .menu-list__item.--parent.is-active > & {
+    .menu-list__item--parent.is-active > & {
         transition: height 0.15s !important; // @NOTE !important required to override transition-to-from-auto inline style
         visibility: visible;
     }
@@ -151,7 +151,7 @@
 
 /* child overlay variant */
 
-.menu-list.--child.--overlay {
+.menu-list--child.menu-list--overlay {
     & {
         left: -999em;
         opacity: 0;
@@ -161,8 +161,8 @@
         visibility: hidden;
     }
 
-    .menu-list__item.--parent:hover > &,
-    .menu-list__item.--parent.is-active > & {
+    .menu-list__item--parent:hover > &,
+    .menu-list__item--parent.is-active > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -172,7 +172,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item.--parent:focus-within > & {
+    .menu-list__item--parent:focus-within > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -183,16 +183,16 @@
 
 /* child overlay depth 2 variant */
 
-.menu-list.--child.--overlay.--depth-2 {
-    .menu-list__item.--parent:hover > &,
-    .menu-list__item.--parent.is-active > & {
+.menu-list--child.menu-list--overlay.menu-list--depth-2 {
+    .menu-list__item--parent:hover > &,
+    .menu-list__item--parent.is-active > & {
         left: 100%;
         top: 0;
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item.--parent:focus-within > & {
+    .menu-list__item--parent:focus-within > & {
         left: 100%;
         top: 0;
     }
@@ -202,7 +202,7 @@
 
 /* mega variant */
 
-.menu-list__container.--mega {
+.menu-list__container--mega {
     & {
         display: flex;
         left: -999em;
@@ -213,8 +213,8 @@
         visibility: hidden;
     }
 
-    .menu-list__item.--mega.--parent:hover > &,
-    .menu-list__item.--mega.--parent.is-active > & {
+    .menu-list__item--mega.menu-list--parent:hover > &,
+    .menu-list__item--mega.menu-list--parent.is-active > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -222,18 +222,18 @@
         visibility: visible;
     }
 
-    .menu-list.--depth-1 {
+    .menu-list.menu-list--depth-1 {
         flex: 0 0 auto;
     }
 
-    .menu-list.--depth-2 {
+    .menu-list.menu-list--depth-2 {
         flex: 0 0 100%;
     }
 }
 
 /* meta variant */
 
-.menu-list.--meta {
+.menu-list.menu-list--meta {
     & {
         color: color("foreground", "tint");
         font-display: swap;
@@ -261,7 +261,7 @@
 
 /* navigation variant */
 
-.menu-list.--navigation {
+.menu-list.menu-list--navigation {
     & {
         font-display: swap;
         font-family: $body-font;
@@ -296,82 +296,82 @@
 
     /* child */
 
-    .menu-list.--child {
+    .menu-list--child {
         background: color("accent", "tint");
         font-size: remify(16, 20);
     }
 
-    .menu-list.--child.--overlay {
+    .menu-list--child.menu-list--overlay {
         min-width: remify(250, 16);
     }
 
-    .menu-list.--child .menu-list__link,
-    .menu-list.--child .menu-list__toggle {
+    .menu-list--child .menu-list__link,
+    .menu-list--child .menu-list__toggle {
         padding: remify(4 16, 16);
     }
 
-    .menu-list.--child > .menu-list__item:first-child > .menu-list__link,
-    .menu-list.--child > .menu-list__item:first-child > .menu-list__toggle {
+    .menu-list--child > .menu-list__item:first-child > .menu-list__link,
+    .menu-list--child > .menu-list__item:first-child > .menu-list__toggle {
         padding-top: remify(8, 16);
     }
 
-    .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__link,
-    .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__toggle,
-    .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__link,
-    .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__toggle {
+    .menu-list--child:not(.menu-list--mega) > .menu-list__item:last-child > .menu-list__link,
+    .menu-list--child:not(.menu-list--mega) > .menu-list__item:last-child > .menu-list__toggle,
+    .menu-list--child.menu-list--mega > .menu-list__item:not(.menu-list__item--parent):last-child > .menu-list__link,
+    .menu-list--child.menu-list--mega > .menu-list__item:not(.menu-list__item--parent):last-child > .menu-list__toggle {
         padding-bottom: remify(8, 16);
     }
 
-    .menu-list.--child .menu-list__link:focus,
-    .menu-list.--child .menu-list__link:hover,
-    .menu-list.--child:not(.--mega) .menu-list__item:hover > .menu-list__link,
-    .menu-list.--child:not(.--mega) .menu-list__item.is-active > .menu-list__link,
-    .menu-list.--child .menu-list__toggle:focus,
-    .menu-list.--child .menu-list__toggle:hover,
-    .menu-list.--child:not(.--mega) .menu-list__item:hover > .menu-list__toggle,
-    .menu-list.--child:not(.--mega) .menu-list__item.is-active > .menu-list__toggle {
+    .menu-list--child .menu-list__link:focus,
+    .menu-list--child .menu-list__link:hover,
+    .menu-list--child:not(.menu-list--mega) .menu-list__item:hover > .menu-list__link,
+    .menu-list--child:not(.menu-list--mega) .menu-list__item.is-active > .menu-list__link,
+    .menu-list--child .menu-list__toggle:focus,
+    .menu-list--child .menu-list__toggle:hover,
+    .menu-list--child:not(.menu-list--mega) .menu-list__item:hover > .menu-list__toggle,
+    .menu-list--child:not(.menu-list--mega) .menu-list__item.is-active > .menu-list__toggle {
         background-color: lighten(color("accent", "tint"), 5);
     }
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list.--child:not(.--mega) .menu-list__item:focus-within > .menu-list__link,
-    .menu-list.--child:not(.--mega) .menu-list__item:focus-within > .menu-list__toggle {
+    .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__link,
+    .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__toggle {
         background-color: lighten(color("accent", "tint"), 5);
     }
 
     /* child depth 2 */
 
-    .menu-list.--child.--depth-2 {
+    .menu-list--child.menu-list--depth-2 {
         background-color: lighten(color("accent", "tint"), 5);
         font-size: remify(16, 16);
     }
 
     // line up the flyout with its parent
-    .menu-list__item.--parent:not(:first-child) > .menu-list.--child.--depth-2.--overlay {
+    .menu-list__item--parent:not(:first-child) > .menu-list--child.menu-list--depth-2.menu-list--overlay {
         transform: translateY(#{remify(-4, 20)});
     }
 
     /* mega */
 
-    .menu-list__container.--mega {
+    .menu-list__container--mega {
         background: color("accent", "tint");
     }
 
-    .menu-list.--child.--mega {
+    .menu-list--child.menu-list--mega {
         background: none;
     }
 
-    .menu-list.--child.--depth-1.--mega {
+    .menu-list--child.menu-list--depth-1.menu-list--mega {
         min-width: 0;
         width: remify(200, 16);
     }
 
-    .menu-list.--child.--depth-1.--mega:not(:last-child) {
+    .menu-list--child.menu-list--depth-1.menu-list--mega:not(:last-child) {
         border-right: remify(1) solid color("accent", "shade");
     }
 
-    .menu-list.--child.--mega.--depth-2 .menu-list__link {
+    .menu-list--child.menu-list--mega.menu-list--depth-2 .menu-list__link {
         background-image: svg-load("../media/icon-angle-right.svg", fill=#{color("light")},);
         background-position: remify(16 8, 16);
         background-repeat: no-repeat;
@@ -381,17 +381,17 @@
     }
 
     // accomodate the additional padding on first menu items
-    .menu-list.--child.--mega.--depth-2 > .menu-list__item:first-child > .menu-list__link {
+    .menu-list--child.menu-list--mega.menu-list--depth-2 > .menu-list__item:first-child > .menu-list__link {
         background-position: remify(16 12, 16);
     }
 
     /* accordions */
 
-    &.--accordion .menu-list.--child {
+    &.menu-list--accordion .menu-list--child {
         font-size: remify(20, 20);
     }
 
-    &.--accordion .menu-list.--child::after {
+    &.menu-list--accordion .menu-list--child::after {
         background: color("accent", "shade");
         bottom: 0;
         clear: both;
@@ -402,27 +402,27 @@
         width: 100%;
     }
 
-    &.--accordion .menu-list.--child .menu-list__link,
-    &.--accordion .menu-list.--child .menu-list__toggle {
+    &.menu-list--accordion .menu-list--child .menu-list__link,
+    &.menu-list--accordion .menu-list--child .menu-list__toggle {
         padding: remify(8 16, 20);
     }
 
-    &.--accordion .menu-list.--child > .menu-list__item:first-child > .menu-list__link,
-    &.--accordion .menu-list.--child > .menu-list__item:first-child > .menu-list__toggle {
+    &.menu-list--accordion .menu-list--child > .menu-list__item:first-child > .menu-list__link,
+    &.menu-list--accordion .menu-list--child > .menu-list__item:first-child > .menu-list__toggle {
         padding-top: remify(16, 20);
     }
 
-    &.--accordion .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__link,
-    &.--accordion .menu-list.--child:not(.--mega) > .menu-list__item:last-child > .menu-list__toggle,
-    &.--accordion .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__link,
-    &.--accordion .menu-list.--child.--mega > .menu-list__item:not(.--parent):last-child > .menu-list__toggle {
+    &.menu-list--accordion .menu-list--child:not(.menu-list--mega) > .menu-list__item:last-child > .menu-list__link,
+    &.menu-list--accordion .menu-list--child:not(.menu-list--mega) > .menu-list__item:last-child > .menu-list__toggle,
+    &.menu-list--accordion .menu-list--child.menu-list--mega > .menu-list__item:not(.menu-list__item--parent):last-child > .menu-list__link,
+    &.menu-list--accordion .menu-list--child.menu-list--mega > .menu-list__item:not(.menu-list__item--parent):last-child > .menu-list__toggle {
         padding-bottom: remify(16, 20);
     }
 }
 
 /* pagination variant */
 
-.menu-list.--pagination {
+.menu-list--pagination {
     & {
         font-display: swap;
         font-family: $body-font;
@@ -434,7 +434,7 @@
         margin-right: remify(8, 14);
     }
 
-    .menu-list__link.--current {
+    .menu-list__link--current {
         color: color("foreground");
         cursor: auto;
     }
@@ -442,7 +442,7 @@
 
 /* submenu variant */
 
-.menu-list.--submenu {
+.menu-list--submenu {
     & {
         font-display: swap;
         font-family: $body-font;
@@ -455,11 +455,11 @@
         padding: remify(9 0, 18);
     }
 
-    .menu-list.--child {
+    .menu-list--child {
         padding: remify(4.5 0, 18);
     }
 
-    .menu-list.--child .menu-list__link {
+    .menu-list--child .menu-list__link {
         background-image: svg-load("../media/icon-angle-right.svg", fill=#{color("light", "shade")},);
         background-position: remify(0 11, 18);
         background-repeat: no-repeat;
@@ -468,7 +468,7 @@
         padding: remify(4.5 0 4.5 18, 18);
     }
 
-    .menu-list.--child.--depth-2 {
+    .menu-list--child.menu-list--depth-2 {
         padding-left: remify(18, 18);
     }
 }

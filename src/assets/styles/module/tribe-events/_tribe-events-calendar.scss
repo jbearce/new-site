@@ -31,11 +31,11 @@
         height: remify(50, 16);
     }
 
-    &.--heading {
+    &.tribe-events-calendar-cell--heading {
         font-weight: 700;
     }
 
-    .tribe-events-calendar-header &.--heading {
+    .tribe-events-calendar-header &.tribe-events-calendar-cell--heading {
         background: color("background", "shade");
         height: auto;
         text-align: center;

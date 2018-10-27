@@ -21,7 +21,7 @@
 
 /* fullbleed variant */
 
-.content-block.--fullbleed {
+.content-block--fullbleed {
     & {
         background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
@@ -32,7 +32,7 @@
         padding: 0;
     }
 
-    > .content__inner.--fullbleed {
+    > .content__inner--fullbleed {
         max-width: none;
     }
 }

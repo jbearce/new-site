@@ -21,7 +21,7 @@
 
 /* fullbleed variant */
 
-.hero-block.--fullbleed {
+.hero-block--fullbleed {
     & {
         background: color("background");
         padding: remify(($content-padding * 0.75) $content-padding);
@@ -32,7 +32,7 @@
         padding: 0;
     }
 
-    > .hero__inner.--fullbleed {
+    > .hero__inner--fullbleed {
         max-width: none;
     }
 }
