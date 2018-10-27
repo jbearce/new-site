@@ -28,6 +28,12 @@ function __gulp_init_namespace___http2_push() {
 }
 add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 
+// fix http status code on "offline" template
+function __gulp_init_namespace___fix_service_worker_scope() {
+    header("Service-Worker-Allowed: /");
+}
+add_action("wp", "__gulp_init_namespace___fix_service_worker_scope");
+
 // load the "offline" template when the user visits /offline/
 function __gulp_init_namespace___load_offline_template($template) {
     if (get_query_var("offline")) {
