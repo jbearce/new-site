@@ -5,10 +5,10 @@
 module.exports = {
     html(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const template = require("gulp-template");
+        const TEMPLATE = require("gulp-template");
 
         // copy binaries
-        const copy_binaries = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
+        const COPY_BINARIES = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -31,16 +31,16 @@ module.exports = {
         };
 
         // process HTML
-        const process_html = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
+        const PROCESS_HTML = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
             // read data from package.json
-            const name            = plugins.json.readFileSync("./package.json").name;
-            const pwa_name        = plugins.json.readFileSync("./package.json").progressiveWebApp.name;
-            const pwa_short_name  = plugins.json.readFileSync("./package.json").progressiveWebApp.short_name;
-            const pwa_theme_color = plugins.json.readFileSync("./package.json").progressiveWebApp.theme_color;
-            const description     = plugins.json.readFileSync("./package.json").description;
-            const version         = plugins.json.readFileSync("./package.json").version;
-            const repository      = plugins.json.readFileSync("./package.json").repository.url;
-            const license         = plugins.json.readFileSync("./package.json").license;
+            const NAME            = plugins.json.readFileSync("./package.json").name;
+            const PWA_NAME        = plugins.json.readFileSync("./package.json").progressiveWebApp.name;
+            const PWA_SHORT_NAME  = plugins.json.readFileSync("./package.json").progressiveWebApp.short_name;
+            const PWA_THEME_COLOR = plugins.json.readFileSync("./package.json").progressiveWebApp.theme_color;
+            const DESCRIPTION     = plugins.json.readFileSync("./package.json").description;
+            const VERSION         = plugins.json.readFileSync("./package.json").version;
+            const REPOSITORY      = plugins.json.readFileSync("./package.json").repository.url;
+            const LICENSE         = plugins.json.readFileSync("./package.json").license;
 
             return gulp.src(source)
                 // prevent breaking on error
@@ -60,15 +60,15 @@ module.exports = {
                     next(null, file);
                 }))
                 // replace variables
-                .pipe(template({
-                    name,
-                    pwa_name,
-                    pwa_short_name,
-                    pwa_theme_color,
-                    description,
-                    version,
-                    repository,
-                    license,
+                .pipe(TEMPLATE({
+                    name: NAME,
+                    pwa_name: PWA_NAME,
+                    pwa_short_name: PWA_SHORT_NAME,
+                    pwa_theme_color: PWA_THEME_COLOR,
+                    description: DESCRIPTION,
+                    version: VERSION,
+                    repository: REPOSITORY,
+                    license: LICENSE,
                 }))
                 // output to compiled directory
                 .pipe(gulp.dest(html_directory));
@@ -77,14 +77,14 @@ module.exports = {
         // html task, copies binaries, converts includes & variables in HTML
         return new Promise ((resolve) => {
             // set HTML directory
-            const html_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+            const HTML_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
             // process all non-asset files
-            const binaries = copy_binaries(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
-            const html     = process_html(html_directory, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]);
+            const BINARIES = COPY_BINARIES(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}", "!" + global.settings.paths.src + "/**/*.{jpg,png,svg}"]);
+            const HTML     = PROCESS_HTML(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}", "!" + global.settings.paths.src + "/**/*.{jpg,png,svg}"]);
 
             // merge both steams back in to one
-            plugins.merge(binaries, html)
+            plugins.merge(BINARIES, HTML)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // notify that task is complete, if not part of default or watch
