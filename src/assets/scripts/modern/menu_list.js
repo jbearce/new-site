@@ -111,12 +111,12 @@ const MENU_LIST_INIT = () => {
             MENU_ITEMS[i].addEventListener("mouseover", () => {
                 MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
                 MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
-            });
+            }, { passive: true });
 
             // close on mouseout
             MENU_ITEMS[i].addEventListener("mouseout", () => {
                 MARK_MENU_ITEM_INACTIVE(MENU_ITEMS[i]);
-            });
+            }, { passive: true });
         }
 
         // check if the menu is touchable
@@ -138,7 +138,7 @@ const MENU_LIST_INIT = () => {
         // mark inactive on blur (only if no other siblings or children are focused)
         MENU_LINKS[i].addEventListener("blur", () => {
             MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_LINKS[i]);
-        });
+        }, { passive: true });
     }
 
     // handle interactions with menu-list_toggle elements
@@ -157,7 +157,7 @@ const MENU_LIST_INIT = () => {
         // mark inactive on blur (only if no other siblings or children are focused)
         MENU_TOGGLES[i].addEventListener("blur", () => {
             MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_TOGGLES[i]);
-        });
+        }, { passive: true });
     }
 };
 
