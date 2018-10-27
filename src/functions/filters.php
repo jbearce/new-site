@@ -28,25 +28,6 @@ function __gulp_init_namespace___http2_push() {
 }
 add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 
-// load the service-worker.*.js script when the user visits /service-worker.js
-function __gulp_init_namespace___load_service_worker_script($template) {
-    if (get_query_var("sw_script")) {
-        return get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "service-worker.*.js"));
-    }
-
-    return $template;
-}
-add_action("template_include", "__gulp_init_namespace___load_service_worker_script");
-
-// fix http status code and content type headers on "service-worker.js" rewrite
-function __gulp_init_namespace___fix_service_worker_headers() {
-    if (get_query_var("sw_script")) {
-        header("Content-Type: application/javascript");
-        status_header(200);
-    }
-}
-add_action("wp", "__gulp_init_namespace___fix_service_worker_headers");
-
 // load the "offline" template when the user visits /offline/
 function __gulp_init_namespace___load_offline_template($template) {
     if (get_query_var("offline")) {

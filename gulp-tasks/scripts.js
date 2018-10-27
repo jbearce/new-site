@@ -35,8 +35,8 @@ module.exports = {
                 .pipe(ESLINT.format())
                 // run webpack
                 .pipe(WEBPACK(webpack_config))
-                // generate a hash and add it to the file name
-                .pipe(plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"}))
+                // generate a hash and add it to the file name, except service worker
+                .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"})))
                 // output scripts to compiled directory
                 .pipe(gulp.dest(js_directory))
                 // notify that task is complete, if not part of default or watch

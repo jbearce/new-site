@@ -40,14 +40,14 @@ function __gulp_init_namespace___enqueue_scripts() {
     }
 
     // Service Worker
-    $service_worker_uri = get_site_url(null, "service-worker.js");
-    wp_add_inline_script("__gulp_init_namespace__-scripts-modern", apply_filters("__gulp_init_namespace___service_worker_register", "
+    $service_worker_uri = get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "service-worker.js"));
+    wp_add_inline_script("__gulp_init_namespace__-scripts-modern", "
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('{$service_worker_uri}');
             });
         }
-    "));
+    ");
 
     /* localize scripts */
 
