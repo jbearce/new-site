@@ -28,7 +28,7 @@ function __gulp_init_namespace___http2_push() {
 }
 add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 
-// fix http status code on "offline" template
+// change allowed service worker scope to the root
 function __gulp_init_namespace___fix_service_worker_scope() {
     header("Service-Worker-Allowed: /");
 }
