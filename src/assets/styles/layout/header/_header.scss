@@ -24,6 +24,10 @@
         max-width: 100%;
         width: remify(200, 16);
     }
+
+    @include smaller-than(xs) {
+        margin: 0 auto;
+    }
 }
 
 .header__search-form__container {

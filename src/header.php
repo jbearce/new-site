@@ -34,14 +34,14 @@
         <div class="page__container" id="page-container">
             <div class="header-block header-block--fullbleed" role="banner">
                 <div class="header__inner">
-                    <div class="header__row row row--padded row--tight row--between row--vcenter">
+                    <div class="header__row row row--padded row--tight row--vcenter">
                         <div class="col-auto col--nogrow col--noshrink __hidden-xs">
                             <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu"<?php if (!has_nav_menu("primary")): ?> style="pointer-events:none;visibility:hidden;"<?php endif; ?>>
                                 <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
                                 <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
                             </button>
                         </div>
-                        <div class="col-auto col--nogrow col--noshrink">
+                        <div class="col-0">
                             <a class="header__logo logo" href="<?php echo home_url(); ?>">
                                 <img class="logo__image" alt="<?php bloginfo("name"); ?>" src="<?php echo get_theme_file_uri("assets/media/logo.svg"); ?>" />
                             </a>
