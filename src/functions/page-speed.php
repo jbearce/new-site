@@ -39,8 +39,9 @@ function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
     global $template;
 
     $critical_css = __gulp_init_namespace___get_critical_css($template);
+    $is_external  = __gulp_init_namespace___is_external_url($src);
 
-    if (!is_admin() && $critical_css) {
+    if (!is_admin() && ($critical_css || $is_external)) {
         return str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>"; exit;
     }
 

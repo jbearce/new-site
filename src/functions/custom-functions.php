@@ -59,6 +59,24 @@ function __gulp_init_namespace___get_critical_css($template) {
     return $critical_css;
 }
 
+// add function to check if a URL is external
+function __gulp_init_namespace___is_external_url($url) {
+    $components = parse_url($url);
+
+    // check if it's a relative URL
+    if (empty($components["host"])) {
+        return false;
+    }
+
+    // check if it's the current domain
+    if (strcasecmp($components["host"], $_SERVER["SERVER_NAME"]) === 0) {
+        return false;
+    }
+
+    // check if it's a subdomain
+    return strrpos(strtolower($components["host"]), ".{$_SERVER["SERVER_NAME"]}") !== strlen($components["host"]) - strlen(".{$_SERVER["SERVER_NAME"]}");
+}
+
 // function to construct an image to make srcsets and lazy loading simpler
 function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
