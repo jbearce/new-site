@@ -5,29 +5,29 @@
 module.exports = {
     upload(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const ftp  = require("vinyl-ftp");
-        const sftp = require("gulp-sftp");
+        const FTP  = require("vinyl-ftp");
+        const SFTP = require("gulp-sftp");
 
         // set upload directory
-        const upload_directory = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
+        const UPLOAD_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // create FTP connection
-        const ftp_conn = ftp.create(global.settings.ftp);
+        const FTP_CONN = FTP.create(global.settings.ftp);
 
         // create SFTP connection
-        const sftp_conn = sftp(global.settings.ftp);
+        const SFTP_CONN = SFTP(global.settings.ftp);
 
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
-            gulp.src(upload_directory + "/**/*")
+            gulp.src(UPLOAD_DIRECTORY + "/**/*")
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [upload_directory + "/**/*"]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [UPLOAD_DIRECTORY + "/**/*"]})))
                 // check if files are newer
-                .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", ftp_conn.newer(global.settings.ftp.remotePath)))
+                .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
                 // upload changed files
-                .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", ftp_conn.dest(global.settings.ftp.remotePath), sftp_conn))
+                .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // notify that task is complete

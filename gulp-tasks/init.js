@@ -4,11 +4,11 @@
 
 module.exports = {
     init(gulp, plugins, on_error) {
-        const replace = require("gulp-replace");
+        const REPLACE = require("gulp-replace");
 
         let project_data = {};
 
-        const get_project_defaults = () => {
+        const GET_PROJECT_DEFAULTS = () => {
             return new Promise((resolve) => {
                 if (plugins.fs.existsSync(".init")) {
                     project_data = plugins.json.readFileSync(".init");
@@ -19,7 +19,7 @@ module.exports = {
         };
 
         // gather project data
-        const get_project_data = () => {
+        const GET_PROJECT_DATA = () => {
             return new Promise((resolve) => {
                 return gulp.src("./gulpfile.js")
                     // prevent breaking on error
@@ -176,7 +176,7 @@ module.exports = {
         };
 
         // write project data
-        const write_project_data = () => {
+        const WRITE_PROJECT_DATA = () => {
             return new Promise((resolve, reject) => {
                 return gulp.src(["./*", "./gulp-tasks/*", "./src/**/*"], {base: "./"})
                     // prevent breaking on error
@@ -194,7 +194,7 @@ module.exports = {
                         next(null, file);
                     }))
                     // replace variables
-                    .pipe(replace(/__gulp_init_[a-z0-9_]+?__/g, (match) =>{
+                    .pipe(REPLACE(/__gulp_init_[a-z0-9_]+?__/g, (match) =>{
                         const KEYWORD = match.match(/__gulp_init_([a-z0-9_]+?)__/)[1];
 
                         const REPLACEMENTS = {
@@ -230,10 +230,10 @@ module.exports = {
         };
 
         return new Promise ((resolve) => {
-            get_project_defaults().then(() => {
-                return get_project_data();
+            GET_PROJECT_DEFAULTS().then(() => {
+                return GET_PROJECT_DATA();
             }).then(() => {
-                return write_project_data();
+                return WRITE_PROJECT_DATA();
             }).then(() => {
                 return resolve();
             });
