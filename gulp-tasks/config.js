@@ -63,12 +63,12 @@ module.exports = {
 
                 // construct the prompt
                 Object.keys(PROPERTIES).forEach(property => {
-                    prompt[property] = PROPERTIES[property];
+                    PROMPT[property] = PROPERTIES[property];
                 });
 
                 // check if the setting has no value or is explicitly requested
                 if ((requested !== "" && requested === namespace && (global.settings[namespace][option] === "" || CONFIGURED === false)) || gulp.seq.indexOf("config") >= 0 && (requested === "" || requested === namespace) && (global.settings[namespace][option] === "" || plugins.argv[namespace] || CONFIGURED === false)) {
-                    PROMPT.push(prompt);
+                    PROMPTS.push(PROMPT);
                 }
             });
 
