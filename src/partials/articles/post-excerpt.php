@@ -36,7 +36,7 @@ $excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($po
                     ));
                     ?>
                 <?php endif; ?>
-            </header><!--/.article_header-->
+            </header><!--/.article__header-->
         <?php endif; ?>
 
         <?php if ($excerpt): ?>
@@ -47,7 +47,7 @@ $excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($po
                         <?php if ($permalink): ?>
                             <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>">
                                 <?php _e("Read More", "__gulp_init_namespace__"); ?>
-                            </a><
+                            </a>
                         <?php endif; ?>
                     </p>
                 </div>
