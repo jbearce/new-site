@@ -414,7 +414,7 @@ function __gulp_init_namespace___acrobat_link() {
     if ($post) {
         $has_pdf = false;
         $content = get_the_content();
-        $fields  = get_fields();
+        $fields  = function_exists("get_fields") ? get_fields() : false;
         $output  = "";
 
         if ($content) {
