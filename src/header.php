@@ -13,7 +13,38 @@
         <meta name="theme-color" content="<%= pwa_theme_color %>" />
 
         <!-- iOS -->
-        <link href="<?php echo get_theme_file_uri("assets/media/logo-ios.png") ?>" rel="apple-touch-icon" />
+        <link href="<?php echo get_theme_file_uri("assets/media/ios/ios-appicon-180-180.png") ?>" rel="apple-touch-icon" />
+
+        <!-- iPhone 4 -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-640-960.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-960-640.png" media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+
+        <!-- GOOD iPhone 5 -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-640-1136.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-1136-640.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+
+        <!-- iPhone 6 -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-750-1294.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-1294-750.png" media="(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)" />
+
+        <!-- iPhone 6+ -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-1242-2148.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-2148-1242.png" media="(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+
+        <!-- iPhone 8 -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-1125-2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-2436-1125.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)" />
+
+        <!-- iPad 9.7 (2018) -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-1536-2048.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)" />
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-2048-1536.png" media="(min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape)" />
+
+        <!-- iPad Pro 10.5 (2017) -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-1668-2224.png" media="(min-device-width: 834px) and (max-device-width: 834px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+
+        <!-- iPad Pro 12.9 (2017) -->
+        <link rel="apple-touch-startup-image" href="assets/media/ios/ios-launchimage-2048-2732.png" media="(min-device-width: 1024px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait)">
+
         <meta name="apple-mobile-web-app-status-bar-style" content="<%= pwa_theme_color %>" />
 
         <!-- Windows -->
