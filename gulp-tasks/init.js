@@ -10,8 +10,8 @@ module.exports = {
 
         const GET_PROJECT_DEFAULTS = () => {
             return new Promise((resolve) => {
-                if (plugins.fs.existsSync(".init")) {
-                    project_data = plugins.json.readFileSync(".init");
+                if (plugins.fs.existsSync(".config/.init")) {
+                    project_data = plugins.json.readFileSync(".config/.init");
                 }
 
                 resolve();

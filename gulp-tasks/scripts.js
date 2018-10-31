@@ -57,7 +57,7 @@ module.exports = {
                     sourceDir: js_directory,
                 }))
                 // output hash manifest in root
-                .pipe(gulp.dest("."));
+                .pipe(gulp.dest(".config"));
         };
 
         // scripts task, lints, concatenates, & compresses JS

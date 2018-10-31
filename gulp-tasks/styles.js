@@ -108,12 +108,12 @@ module.exports = {
                     }
                 })
                 // generate a hash manfiest
-                .pipe(plugins.hash.manifest("./.hashmanifest-styles", {
+                .pipe(plugins.hash.manifest(".hashmanifest-styles", {
                     deleteOld: true,
                     sourceDir: CSS_DIRECTORY,
                 }))
                 // output hash manifest in root
-                .pipe(gulp.dest("."))
+                .pipe(gulp.dest(".config"))
                 // resolve the promise
                 .on("end", () => {
                     resolve();
