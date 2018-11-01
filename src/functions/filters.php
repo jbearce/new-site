@@ -28,40 +28,6 @@ function __gulp_init_namespace___http2_push() {
 }
 add_action("get_header", "__gulp_init_namespace___http2_push", 20);
 
-// change allowed service worker scope to the root
-function __gulp_init_namespace___fix_service_worker_scope() {
-    header("Service-Worker-Allowed: /");
-}
-add_action("wp", "__gulp_init_namespace___fix_service_worker_scope");
-
-// load the "offline" template when the user visits /offline/
-function __gulp_init_namespace___load_offline_template($template) {
-    if (get_query_var("offline")) {
-        return get_theme_file_path("/offline.php");
-    }
-
-    return $template;
-}
-add_action("template_include", "__gulp_init_namespace___load_offline_template");
-
-// fix page title on "offline" template
-function __gulp_init_namespace___fix_offline_page_title($title) {
-    if (get_query_var("offline")) {
-        return $title = sprintf(__("No Internet Connection - %s", "__gulp_init_namespace__"), get_bloginfo("name"));
-    }
-
-    return $title;
-}
-add_filter("wpseo_title", "__gulp_init_namespace___fix_offline_page_title");
-
-// fix http status code on "offline" template
-function __gulp_init_namespace___fix_offline_http_status_code() {
-    if (get_query_var("offline")) {
-        status_header(200);
-    }
-}
-add_action("wp", "__gulp_init_namespace___fix_offline_http_status_code");
-
 // change login logo URL
 function __gulp_init_namespace___login_logo_url() {
     return get_bloginfo("url");

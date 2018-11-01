@@ -1,34 +1,7 @@
 <!doctype html>
 <html <?php language_attributes(); ?>>
     <head>
-        <!-- settings -->
-        <meta content="text/html;charset=utf-8" http-equiv="content-type" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-
-        <!-- WordPress -->
         <?php wp_head(); ?>
-
-        <!-- Android -->
-        <link href="<?php echo get_theme_file_uri("assets/media/logo-favicon.png"); ?>" rel="shortcut icon" />
-        <meta name="theme-color" content="<%= pwa_theme_color %>" />
-
-        <!-- iOS -->
-        <link href="<?php echo get_theme_file_uri("assets/media/logo-ios.png") ?>" rel="apple-touch-icon" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="<%= pwa_theme_color %>" />
-
-        <!-- Windows -->
-        <meta name="msapplication-navbutton-color" content="<%= pwa_theme_color %>">
-
-        <!-- Safari -->
-        <link rel="mask-icon" href="<?php echo get_theme_file_uri("assets/media/logo-safari.svg"); ?>" color="<%= pwa_theme_color %>" />
-
-        <!-- PWA -->
-        <link href="<?php echo get_theme_file_uri("manifest.json"); ?>" rel="manifest" />
-
-        <!-- fallback -->
-        <noscript>
-            <style>.__js {display: none !important;}</style>
-        </noscript>
     </head>
     <body <?php body_class(); ?>>
         <div class="page__container" id="page-container">
