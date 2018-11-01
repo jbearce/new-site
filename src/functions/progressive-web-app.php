@@ -28,9 +28,10 @@ function __gulp_init_namespace___construct_manifest($template) {
             "theme_color"      => $theme_color ? $theme_color : "<%= pwa_theme_color %>",
             "icons"            => array(
                 array(
-                    "src"   => get_theme_file_uri("assets/media/android/splash-icon-512x512.png"),
-                    "type"  => "image/png",
-                    "sizes" => "512x512",
+                    "src"     => get_theme_file_uri("assets/media/android/splash-icon-512x512.png"),
+                    "type"    => "image/png",
+                    "sizes"   => "512x512",
+                    "purpose" => "maskable",
                 ),
                 array(
                     "src"   => get_theme_file_uri("assets/media/android/launcher-icon-192x192.png"),
