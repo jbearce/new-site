@@ -7,7 +7,7 @@ require_once(get_theme_file_path("/functions/menus.php"));
 require_once(get_theme_file_path("/functions/meta.php"));
 require_once(get_theme_file_path("/functions/page-speed.php"));
 require_once(get_theme_file_path("/functions/post-types.php"));
-require_once(get_theme_file_path("/functions/pwa.php"));
+require_once(get_theme_file_path("/functions/progressive-web-app.php"));
 require_once(get_theme_file_path("/functions/rewrite-rules.php"));
 require_once(get_theme_file_path("/functions/shortcodes.php"));
 require_once(get_theme_file_path("/functions/styles-scripts.php"));
