@@ -14,10 +14,10 @@ function __gulp_init_namespace___construct_manifest($template) {
     if (get_query_var("manifest")) {
         header("Content-Type: application/json");
 
-        $name             = get_bloginfo("name");
-        $short_name       = get_option("name_short");
-        $background_color = get_theme_mod("__gulp_init_namespace___color_pwa_background");
-        $theme_color      = get_theme_mod("__gulp_init_namespace___color_pwa_theme");
+        $name             = function_exists("get_field") ? get_field("full_name", "pwa") : false;
+        $short_name       = function_exists("get_field") ? get_field("short_name", "pwa") : false;
+        $background_color = function_exists("get_field") ? get_field("background_color", "pwa") : false;
+        $theme_color      = function_exists("get_field") ? get_field("theme_color", "pwa") : false;
 
         $manifest = array(
             "start_url"        => "/",

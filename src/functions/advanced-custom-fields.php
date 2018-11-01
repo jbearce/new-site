@@ -3,10 +3,122 @@
  * Functions: Advanced custom Fields
 \* ------------------------------------------------------------------------ */
 
-// Start Options
-if( function_exists('acf_add_options_page') ):
+// Start Progressive Web App
+if( function_exists('acf_add_options_page') && function_exists('acf_add_local_field_group') ):
 
-acf_add_options_page();
+$blog_name = get_bloginfo('name');
+
+acf_add_options_page(array(
+    'page_title' => __('Progressive Web App', '__gulp_init_namespace__'),
+    'menu_slug' => 'pwa',
+    'parent_slug' => 'options-general.php',
+    'post_id' => 'pwa',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_5bdb3c08793a1',
+	'title' => 'Settings: Progressive Web App',
+	'fields' => array(
+		array(
+			'key' => 'field_5bdb3c129bb39',
+			'label' => __('Name', '__gulp_init_namespace__'),
+			'name' => 'full_name',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => $blog_name ? $blog_name : '<%= pwa_name %>',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5bdb3c199bb3a',
+			'label' => __('Short Name', '__gulp_init_namespace__'),
+			'name' => 'short_name',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => $blog_name ? $blog_name : '<%= pwa_short_name %>',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5bdb3c1f9bb3b',
+			'label' => __('Theme Color', '__gulp_init_namespace__'),
+			'name' => 'theme_color',
+			'type' => 'color_picker',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '<%= pwa_theme_color %>',
+		),
+		array(
+			'key' => 'field_5bdb3c299bb3c',
+			'label' => __('Background Color', '__gulp_init_namespace__'),
+			'name' => 'background_color',
+			'type' => 'color_picker',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '<%= pwa_theme_color %>',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+                'param' => 'options_page',
+				'operator' => '==',
+				'value' => 'pwa',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'seamless',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => '',
+	'active' => 1,
+	'description' => '',
+));
 
 endif;
-// End Options
+// End Progressive Web App
+
+// Start Theme Options
+if( function_exists('acf_add_options_page') ):
+
+acf_add_options_page(array(
+    'page_title' => __('Theme Options', '__gulp_init_namespace__'),
+    'menu_slug' => 'theme',
+    'parent_slug' => 'options-general.php',
+    'post_id' => 'theme',
+));
+
+endif;
+// End Theme Options

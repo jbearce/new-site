@@ -15,8 +15,11 @@ function __gulp_init_namespace___add_ios_meta_to_head() {
     // don't print if the user isn't on iOS
     if (!__gulp_init_namespace___is_platform("ios")) return;
 
+    $theme_color = function_exists("get_field") ? get_field("theme_color", "pwa") : false;
+    $theme_color = $theme_color ? $theme_color : "<%= pwa_theme_color %>";
+
     // iOS status bar color
-    echo "<meta name='apple-mobile-web-app-status-bar-style' content='<%= pwa_theme_color %>' />";
+    echo "<meta name='apple-mobile-web-app-status-bar-style' content='{$theme_color}' />";
 
     // iOS home screen icon
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") . "' rel='apple-touch-icon' />";
@@ -134,7 +137,8 @@ add_action("wp_head", "__gulp_init_namespace___add_settings_meta_to_head");
 
 // add the theme color meta tags to the head
 function __gulp_init_namespace___add_theme_color_meta_to_head() {
-    $theme_color = "<%= pwa_theme_color %>";
+    $theme_color = function_exists("get_field") ? get_field("theme_color", "pwa") : false;
+    $theme_color = $theme_color ? $theme_color : "<%= pwa_theme_color %>";
 
     // Chrome
     if (__gulp_init_namespace___is_platform("chrome")) {
