@@ -77,27 +77,44 @@ function __gulp_init_namespace___is_external_url($url) {
     return strrpos(strtolower($components["host"]), ".{$_SERVER["SERVER_NAME"]}") !== strlen($components["host"]) - strlen(".{$_SERVER["SERVER_NAME"]}");
 }
 
-// function to detect if the user is on iOS
-function __gulp_init_namespace___is_ios($user_agent = null) {
+// function to detect the platform a user is on
+function __gulp_init_namespace___is_platfrom($platform, $user_agent = null) {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
 
-    $iPod   = stripos($user_agent, "iPod");
-    $iPhone = stripos($user_agent, "iPhone");
-    $iPad   = stripos($user_agent, "iPad");
-
-    if ($iPod || $iPhone || $iPad) {
-        return true;
+    if ($platform === "android" || (is_array($platform) && in_array("android", $platform))) {
+        if (stripos($user_agent, "Android")) {
+            return true;
+        }
     }
 
-    return false;
-}
+    if ($platform === "chrome" || (is_array($platform) && in_array("chrome", $platform))) {
+        if (stripos($user_agent, "Google Chrome")) {
+            return true;
+        }
+    }
 
-// function to detect if the user is on Android
-function __gulp_init_namespace___is_android($user_agent = null) {
-    $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
+    if ($platform === "edge" || (is_array($platform) && in_array("edge", $platform))) {
+        if (stripos($user_agent, "Edge")) {
+            return true;
+        }
+    }
 
-    if (stripos($user_agent, "Android")) {
-        return true;
+    if ($platform === "ie" || (is_array($platform) && in_array("ie", $platform))) {
+        if (stripos($user_agent, "MSIE") || stripos($user_agent, "Trident")) {
+            return true;
+        }
+    }
+
+    if ($platform === "ios" || (is_array($platform) && in_array("ios", $platform))) {
+        if (stripos($user_agent, "iPod") || stripos($user_agent, "iPhone") || stripos($user_agent, "iPad")) {
+            return true;
+        }
+    }
+
+    if ($platform === "safari" || (is_array($platform) && in_array("safari", $platform))) {
+        if (stripos($user_agent, "Safari")) {
+            return true;
+        }
     }
 
     return false;

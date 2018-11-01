@@ -13,7 +13,7 @@ add_action("wp_head", "__gulp_init_namespace__add_favicon_meta_to_head");
 // add the iOS meta tags to the head
 function __gulp_init_namespace__add_ios_meta_to_head() {
     // don't print if the user isn't on iOS
-    if (!__gulp_init_namespace___is_ios()) return;
+    if (!__gulp_init_namespace___is_platform("ios")) return;
 
     // iOS status bar color
     echo "<meta name='apple-mobile-web-app-status-bar-style' content='<%= pwa_theme_color %>' />";
@@ -136,13 +136,19 @@ add_action("wp_head", "__gulp_init_namespace__add_settings_meta_to_head");
 function __gulp_init_namespace__add_theme_color_meta_to_head() {
     $theme_color = "<%= pwa_theme_color %>";
 
-    // Android
-    echo "<meta name='theme-color' content='{$theme_color}' />\n";
+    // Chrome
+    if (__gulp_init_namespace__is_platform("chrome")) {
+        echo "<meta name='theme-color' content='{$theme_color}' />\n";
+    }
 
-    // Mac
-    echo "<link rel='mask-icon' href='" . get_theme_file_uri("assets/media/safari/mask-icon.svg") . "' color='{$theme_color}' />\n";
+    // Safari
+    if (__gulp_init_namespace___is_platform("safari")) {
+        echo "<link rel='mask-icon' href='" . get_theme_file_uri("assets/media/safari/mask-icon.svg") . "' color='{$theme_color}' />\n";
+    }
 
-    // Windows
-    echo "<meta name='msapplication-navbutton-color' content='{$theme_color}'>\n";
+    // Internet Explorer
+    if (__gulp_init_namespace___is_platform("ie")) {
+        echo "<meta name='msapplication-navbutton-color' content='{$theme_color}'>\n";
+    }
 }
 add_action("wp_head", "__gulp_init_namespace__add_theme_color_meta_to_head");

@@ -1,4 +1,4 @@
-<?php if (__gulp_init_namespace___is_ios()): ?>
+<?php if (__gulp_init_namespace___is_platform("ios")): ?>
     <div class="pwa-install-prompt__container">
         <button class="pwa-install-prompt__overlay"><?php _e("Close", "__gulp_init_namespace__"); ?></button>
         <div class="pwa-install-prompt">
