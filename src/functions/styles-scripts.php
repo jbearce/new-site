@@ -79,6 +79,12 @@ function __gulp_init_namespace___enqueue_scripts() {
 }
 add_action("get_header", "__gulp_init_namespace___enqueue_scripts");
 
+// add noscript tag to the head to hide elemetns with the .__js class if script isn't enabled
+function __gulp_init_namespace__noscript_hide_js_elements() {
+    echo "<noscript><style>.__js {display: none !important;}</style></noscript>\n";
+}
+add_action("wp_head", "__gulp_init_namespace__noscript_hide_js_elements");
+
 // adjust WordPress login screen styles
 function __gulp_init_namespace___enqueue_scripts_login() {
     wp_enqueue_style("__gulp_init_namespace__-styles-login", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "wp-login.*.css")), array(), "<%= version %>");

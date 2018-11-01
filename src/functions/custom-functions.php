@@ -77,6 +77,32 @@ function __gulp_init_namespace___is_external_url($url) {
     return strrpos(strtolower($components["host"]), ".{$_SERVER["SERVER_NAME"]}") !== strlen($components["host"]) - strlen(".{$_SERVER["SERVER_NAME"]}");
 }
 
+// function to detect if the user is on iOS
+function __gulp_init_namespace___is_ios($user_agent = null) {
+    $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
+
+    $iPod   = stripos($user_agent, "iPod");
+    $iPhone = stripos($user_agent, "iPhone");
+    $iPad   = stripos($user_agent, "iPad");
+
+    if ($iPod || $iPhone || $iPad) {
+        return true;
+    }
+
+    return false;
+}
+
+// function to detect if the user is on Android
+function __gulp_init_namespace___is_android($user_agent = null) {
+    $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
+
+    if (stripos($user_agent, "Android")) {
+        return true;
+    }
+
+    return false;
+}
+
 // function to construct an image to make srcsets and lazy loading simpler
 function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
