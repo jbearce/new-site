@@ -78,7 +78,7 @@ function __gulp_init_namespace___is_external_url($url) {
 }
 
 // function to detect the platform a user is on
-function __gulp_init_namespace___is_platfrom($platform, $user_agent = null) {
+function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
 
     if ($platform === "android" || (is_array($platform) && in_array("android", $platform))) {
