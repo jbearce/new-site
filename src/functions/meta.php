@@ -4,14 +4,14 @@
 \* ------------------------------------------------------------------------ */
 
 // add the favicon meta tags to the head
-function __gulp_init_namespace__add_favicon_meta_to_head() {
+function __gulp_init_namespace___add_favicon_meta_to_head() {
     echo "<link href='" . get_theme_file_uri("assets/media/logo-favicon.png") . "' rel='shortcut icon' />\n";
 }
-add_action("admin_head", "__gulp_init_namespace__add_favicon_meta_to_head");
-add_action("wp_head", "__gulp_init_namespace__add_favicon_meta_to_head");
+add_action("admin_head", "__gulp_init_namespace___add_favicon_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_favicon_meta_to_head");
 
 // add the iOS meta tags to the head
-function __gulp_init_namespace__add_ios_meta_to_head() {
+function __gulp_init_namespace___add_ios_meta_to_head() {
     // don't print if the user isn't on iOS
     if (!__gulp_init_namespace___is_platform("ios")) return;
 
@@ -117,27 +117,27 @@ function __gulp_init_namespace__add_ios_meta_to_head() {
         echo "<link href='{$splash_screen["href"]}' media='{$splash_screen["media"]}' rel='apple-touch-startup-image' />\n";
     }
 }
-add_action("wp_head", "__gulp_init_namespace__add_ios_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_ios_meta_to_head");
 
 // add the PWA meta tags to the head
-function __gulp_init_namespace__add_pwa_meta_to_head() {
+function __gulp_init_namespace___add_pwa_meta_to_head() {
     echo "<link href='" . get_theme_file_uri("manifest.json") . "' rel='manifest' />\n";
 }
-add_action("wp_head", "__gulp_init_namespace__add_pwa_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_pwa_meta_to_head");
 
 // add the settings meta tags to the head
-function __gulp_init_namespace__add_settings_meta_to_head() {
+function __gulp_init_namespace___add_settings_meta_to_head() {
     echo "<meta content='text/html;charset=utf-8' http-equiv='content-type' />\n";
     echo "<meta content='width=device-width, initial-scale=1' name='viewport' />\n";
 }
-add_action("wp_head", "__gulp_init_namespace__add_settings_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_settings_meta_to_head");
 
 // add the theme color meta tags to the head
-function __gulp_init_namespace__add_theme_color_meta_to_head() {
+function __gulp_init_namespace___add_theme_color_meta_to_head() {
     $theme_color = "<%= pwa_theme_color %>";
 
     // Chrome
-    if (__gulp_init_namespace__is_platform("chrome")) {
+    if (__gulp_init_namespace___is_platform("chrome")) {
         echo "<meta name='theme-color' content='{$theme_color}' />\n";
     }
 
@@ -151,4 +151,4 @@ function __gulp_init_namespace__add_theme_color_meta_to_head() {
         echo "<meta name='msapplication-navbutton-color' content='{$theme_color}'>\n";
     }
 }
-add_action("wp_head", "__gulp_init_namespace__add_theme_color_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_theme_color_meta_to_head");
