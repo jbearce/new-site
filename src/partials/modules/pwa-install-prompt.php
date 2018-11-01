@@ -2,7 +2,9 @@
     <div class="pwa-install-prompt__container">
         <button class="pwa-install-prompt__overlay"><?php _e("Close", "__gulp_init_namespace__"); ?></button>
         <div class="pwa-install-prompt">
-            <img class="pwa-install-prompt__icon" src="<?php echo get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") ?>" alt="<?php bloginfo("name"); ?>" />
+            <div class="pwa-install-prompt__icon__container">
+                <img class="pwa-install-prompt__icon" src="<?php echo get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") ?>" alt="<?php bloginfo("name"); ?>" />
+            </div>
             <div class="pwa-install-prompt__content">
                 <h3 class="pwa-install-prompt__title"><?php echo sprintf(__("Install %s", "__gulp_init_namespace__"), "<%= pwa_name %>"); ?></h3>
                 <p class="pwa-install-prompt__text"><?php _e("Install this application on your home screen for quick and easy access when you’re on the go.", "__gulp_init_namespace__"); ?></p>
