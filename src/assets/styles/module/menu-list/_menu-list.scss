@@ -55,62 +55,6 @@
     }
 }
 
-/* flex variant */
-
-.menu-list--flex {
-    & {
-        display: flex;
-    }
-
-    &:not(.menu-list--between) {
-        text-align: center;
-    }
-
-    &::after {
-        display: none;
-    }
-
-    > .menu-list__item {
-        flex: 1 1 0%;
-    }
-
-    &:not(.menu-list--between):not(.menu-list--center) > .menu-list__item {
-        min-width: 0;
-    }
-}
-
-/* flex between variant */
-
-.menu-list--flex.menu-list--between {
-    & {
-        justify-content: space-between;
-    }
-
-    > .menu-list__item {
-        flex: 0 0 auto;
-    }
-}
-
-/* flex center variant */
-
-.menu-list--flex.menu-list--center {
-    & {
-        justify-content: center;
-    }
-
-    > .menu-list__item {
-        flex: 0 0 auto;
-    }
-}
-
-/* vertical variant */
-
-.menu-list--vertical {
-    > .menu-list__item {
-        float: none;
-    }
-}
-
 /* accordion variant */
 
 .menu-list--accordion {
@@ -198,6 +142,86 @@
     .menu-list__item--parent:focus-within > & {
         left: 100%;
         top: 0;
+    }
+}
+
+/* flex variant */
+
+.menu-list--flex {
+    & {
+        display: flex;
+    }
+
+    &:not(.menu-list--between) {
+        text-align: center;
+    }
+
+    &::after {
+        display: none;
+    }
+
+    > .menu-list__item {
+        flex: 1 1 0%;
+    }
+
+    &:not(.menu-list--between):not(.menu-list--center) > .menu-list__item {
+        min-width: 0;
+    }
+}
+
+/* flex between variant */
+
+.menu-list--flex.menu-list--between {
+    & {
+        justify-content: space-between;
+    }
+
+    > .menu-list__item {
+        flex: 0 0 auto;
+    }
+}
+
+/* flex center variant */
+
+.menu-list--flex.menu-list--center {
+    & {
+        justify-content: center;
+    }
+
+    > .menu-list__item {
+        flex: 0 0 auto;
+    }
+}
+
+/* flex end variant */
+
+.menu-list--flex.menu-list--end {
+    & {
+        justify-content: flex-end;
+    }
+
+    > .menu-list__item {
+        flex: 0 0 auto;
+    }
+}
+
+/* flex start variant */
+
+.menu-list--flex.menu-list--start {
+    & {
+        justify-content: flex-start;
+    }
+
+    > .menu-list__item {
+        flex: 0 0 auto;
+    }
+}
+
+/* vertical variant */
+
+.menu-list--vertical {
+    > .menu-list__item {
+        float: none;
     }
 }
 
