@@ -27,21 +27,11 @@
         float: left;
         position: relative;
     }
-
-    &.menu-list__item--parent {
-        display: flex;
-        flex-wrap: wrap;
-    }
 }
 
 .menu-list__link {
     & {
         display: block;
-    }
-
-    .menu-list__item.menu-list__item--parent > & {
-        flex: 1 1 1%;
-        min-width: 0;
     }
 }
 
@@ -118,6 +108,19 @@
 .menu-list--vertical {
     > .menu-list__item {
         float: none;
+    }
+}
+
+/* accordion variant */
+
+.menu-list--accordion {
+    .menu-list__item--parent {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .menu-list__item--parent > .menu-list__link {
+        flex: 1 1 0%;
     }
 }
 

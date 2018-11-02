@@ -2,6 +2,7 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
+import "mdn-polyfills/NodeList.prototype.forEach";
 import transition from "transition-to-from-auto";
 
 const MENU_LIST_INIT = () => {
