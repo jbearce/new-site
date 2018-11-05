@@ -30,6 +30,17 @@ module.exports = {
                 .pipe(gulp.dest(html_directory));
         };
 
+        // copy composer
+        const COPY_COMPOSER = (html_directory, source = [global.settings.paths.vendor + "/**/*"]) => {
+            return gulp.src(source)
+                // prevent breaking on error
+                .pipe(plugins.plumber({errorHandler: on_error}))
+                // check if source is newer than destination
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
+                // output to compiled directory
+                .pipe(gulp.dest(html_directory + "/functions"));
+        };
+
         // process HTML
         const PROCESS_HTML = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
             // read data from package.json
@@ -81,10 +92,11 @@ module.exports = {
 
             // process all non-asset files
             const BINARIES = COPY_BINARIES(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}", "!" + global.settings.paths.src + "/**/*.{jpg,png,svg}"]);
+            const COMPOSER = COPY_COMPOSER(HTML_DIRECTORY, [global.settings.paths.vendor + "/**/*"]);
             const HTML     = PROCESS_HTML(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}", "!" + global.settings.paths.src + "/**/*.{jpg,png,svg}"]);
 
             // merge both steams back in to one
-            plugins.merge(BINARIES, HTML)
+            plugins.merge(BINARIES, COMPOSER, HTML)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // notify that task is complete, if not part of default or watch

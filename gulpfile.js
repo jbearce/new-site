@@ -50,9 +50,10 @@ if (plugins.argv.sync) {
 // store global environment paths
 global.settings = {
     paths: {
-        src:  "./src",
-        dev:  "./dev",
-        dist: "./dist",
+        src:    "./src",
+        dev:    "./dev",
+        dist:   "./dist",
+        vendor: "./vendor",
     }
 };
 

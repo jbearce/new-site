@@ -1,9 +1,18 @@
 # https://git-scm.com/docs/gitignore
 
 # Package Managers
+/bower_components/
+/node_modules/
+/vendor/
 
-bower_components/
-node_modules/
+# Resources
+/.resources/
+
+# Configuration settings
+/.config/
+
+# Dev files
+/dev/
 
 # Windows image file caches
 Thumbs.db
@@ -25,12 +34,3 @@ prepros-6.cfg
 # Source Maps
 *.css.map
 *.js.map
-
-# Resources
-.resources/
-
-# Configuration settings
-.config/
-
-# Dev files
-dev/
