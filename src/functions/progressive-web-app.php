@@ -63,13 +63,13 @@ function __gulp_init_namespace___construct_manifest($template) {
         echo json_encode($manifest); exit;
     }
 }
-add_action("wp", "__gulp_init_namespace___construct_manifest");
+add_action("wp", "__gulp_init_namespace___construct_manifest", 0);
 
 // add the PWA meta tags to the head
 function __gulp_init_namespace___add_pwa_meta_to_head() {
     echo "<link href='" . get_theme_file_uri("manifest.json") . "' rel='manifest' />\n";
 }
-add_action("wp_head", "__gulp_init_namespace___add_pwa_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
 
 // add the iOS meta tags to the head
 function __gulp_init_namespace___add_ios_meta_to_head() {
@@ -181,7 +181,7 @@ function __gulp_init_namespace___add_ios_meta_to_head() {
         echo "<link href='{$splash_screen["href"]}' media='{$splash_screen["media"]}' rel='apple-touch-startup-image' />\n";
     }
 }
-add_action("wp_head", "__gulp_init_namespace___add_ios_meta_to_head");
+add_action("wp_head", "__gulp_init_namespace___add_ios_meta_to_head", 0);
 
 // load the "offline" template when the user visits /offline/
 function __gulp_init_namespace___load_offline_template($template) {
