@@ -208,6 +208,8 @@ function __gulp_init_namespace___tribe_remove_content_filters() {
     if (is_tribe_page()) {
         remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         remove_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+        remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
+        remove_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
 add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters", 999);
@@ -217,6 +219,8 @@ function __gulp_init_namespace___tribe_single_content_add_filters() {
     if (is_tribe_page()) {
         add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+        add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
+        add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
 add_action("tribe_events_single_event_before_the_content", "__gulp_init_namespace___tribe_single_content_add_filters");
@@ -226,6 +230,8 @@ function __gulp_init_namespace___tribe_single_content_remove_filters() {
     if (is_tribe_page()) {
         remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         remove_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+        remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
+        remove_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
 add_action("tribe_events_single_event_after_the_content", "__gulp_init_namespace___tribe_single_content_remove_filters");
