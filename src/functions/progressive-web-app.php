@@ -76,102 +76,106 @@ function __gulp_init_namespace___add_ios_meta_to_head() {
     // don't print if the user isn't on iOS
     if (!__gulp_init_namespace___is_platform("ios")) return;
 
-    $theme_color = function_exists("get_field") ? get_field("theme_color", "pwa") : false;
-    $theme_color = $theme_color ? $theme_color : "<%= pwa_theme_color %>";
+    // declare web app support
+    echo "<meta name='apple-mobile-web-app-capable' content='yes' />\n";
 
-    // iOS status bar color
-    echo "<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />";
+    // set status bar color
+    echo "<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />\n";
 
-    // iOS home screen icon
-    echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") . "' rel='apple-touch-icon' />";
+    // set home screen icons
+    echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-76x76.png") . "' rel='apple-touch-icon' sizes='76x76' />\n";
+    echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-120x120.png") . "' rel='apple-touch-icon' sizes='120x120' />\n";
+    echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-152x152.png") . "' rel='apple-touch-icon' sizes='152x152' />\n";
+    echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") . "' rel='apple-touch-icon' sizes='180x180' />\n";
+    echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-1024x1024.png") . "' rel='apple-touch-icon' sizes='1024x1024' />\n";
 
     // array of splash screen images for each iOS device
     $splash_screens = array(
-        "iPhone_4_portrait" => array(
+        "iPhone 4 (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-640x960.png"),
             "media" => "(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPhone_4_landscape" => array(
+        "iPhone 4 (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-960x640.png"),
             "media" => "(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),
-        "iPhone_5_portrait" => array(
+        "iPhone 5 (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-640x1136.png"),
             "media" => "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPhone_5_landscape" => array(
+        "iPhone 5 (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1136x640.png"),
             "media" => "(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),
-        "iPhone_6_6S_7_8_portrait" => array(
+        "iPhone 6, 6S, 7, 8 (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-750x1334.png"),
             "media" => "(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPhone_6_6S_7_8_landscape" => array(
+        "iPhone 6, 6S, 7, 8 (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1334x750.png"),
             "media" => "(device-width: 375px) and (device-height: 667px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),
-        "iPhone_6+_6S+_7+_8+_portrait" => array(
+        "iPhone 6+, 6S+, 7+, 8+ (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1242x2208.png"),
             "media" => "(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)",
         ),
-        "iPhone_6+_6S+_7+_8+_landscape" => array(
+        "iPhone 6+, 6S+, 7+, 8+ (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2208x1242.png"),
             "media" => "(device-width: 414px) and (device-height: 736px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)",
         ),
-        "iPhone_X_XS_portrait" => array(
+        "iPhone X, XS (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1125x2436.png"),
             "media" => "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)",
         ),
-        "iPhone_X_XS_landscape" => array(
+        "iPhone X, XS (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2436x1125.png"),
             "media" => "(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)",
         ),
-        "iPhone_XR_portrait" => array(
+        "iPhone XR (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-828x1792.png"),
             "media" => "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPhone_XR_landscape" => array(
+        "iPhone XR (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1792x828.png"),
             "media" => "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),
-        "iPhone_XS-Max_portrait" => array(
+        "iPhone XS Max (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1242x2688.png"),
             "media" => "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)",
         ),
-        "iPhone_XS-Max_landscape" => array(
+        "iPhone XS Max (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2688x1242.png"),
             "media" => "(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 3) and (orientation: landscape)",
         ),
-        "iPad_1-2-Mini_portrait" => array(
+        "iPad 1, 2, Mini (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-768x1024.png"),
             "media" => "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 1) and (orientation: portrait)",
         ),
-        "iPad_1_2_Mini_landscape" => array(
+        "iPad 1, 2, Mini (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1024x768.png"),
             "media" => "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 1) and (orientation: landscape)",
         ),
-        "iPad_3_4_Air_Mini-2_Pro-9.7_portrait" => array(
+        "iPad 3, 4, Air, Mini 2, Pro 9.7 (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1536x2048.png"),
             "media" => "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPad_3_4_Air_Mini-2_Pro-9.7_landscape" => array(
+        "iPad 3, 4, Air, Mini 2, Pro 9.7 (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2048x1536.png"),
             "media" => "(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),
-        "iPad_Pro-10.5_portrait" => array(
+        "iPad Pro 10.5 (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-1668x2224.png"),
             "media" => "(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPad_Pro-10.5_landscape" => array(
+        "iPad Pro 10.5 (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2224x1668.png"),
             "media" => "(device-width: 834px) and (device-height: 1112px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),
-        "iPad_Pro-12.9_portrait" => array(
+        "iPad Pro 12.9 (portrait)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2048x2732.png"),
             "media" => "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)",
         ),
-        "iPad_Pro-12.9_landscape" => array(
+        "iPad Pro 12.9 (landscape)" => array(
             "href"  => get_theme_file_uri("assets/media/ios/startup-image-2732x2048.png"),
             "media" => "(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: landscape)",
         ),

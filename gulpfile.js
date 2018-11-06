@@ -124,7 +124,7 @@ GULP.task("config", () => {
 GULP.task("default", ["styles", "scripts", "html", "media"], () => {
     // notify that task is complete
     GULP.src("gulpfile.js")
-        .pipe(PLUGINS.gulpif(RAN_TASKS.length, PLUGINS.notify({title: "Success!", message: `${RAN_TASKS.length} task ${(RAN_TASKS.length > 1 ? "s" : "")} complete! [${RAN_TASKS.join(", ")}]`, onLast: true})));
+        .pipe(PLUGINS.gulpif(RAN_TASKS.length, PLUGINS.notify({title: "Success!", message: `${RAN_TASKS.length} task${(RAN_TASKS.length > 1 ? "s" : "")} complete! [${RAN_TASKS.join(", ")}]`, onLast: true})));
 
     // handle optional tasks sequentially
     new Promise((resolve) => {
