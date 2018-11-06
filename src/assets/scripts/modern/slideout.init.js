@@ -35,7 +35,7 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
     });
 
     // set up a focus trap
-    const FOCUS_TRAP = focusTrap("#" + MENU.id, {
+    const FOCUS_TRAP = focusTrap(`#${MENU.id}`, {
         clickOutsideDeactivates: true,
     });
 

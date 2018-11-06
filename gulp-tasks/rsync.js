@@ -11,11 +11,11 @@ module.exports = {
         const RSYNC_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         return new Promise((resolve) => {
-            return gulp.src(RSYNC_DIRECTORY + "/**/*")
+            return gulp.src(`${RSYNC_DIRECTORY}/**/*`)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [RSYNC_DIRECTORY + "/**/*"]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [`${RSYNC_DIRECTORY}/**/*`]})))
                 // rsync files
                 .pipe(RSYNC(global.settings.rsync))
                 // prevent breaking on error

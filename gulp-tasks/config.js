@@ -23,14 +23,14 @@ module.exports = {
             // write the file
             return new Promise((resolve, reject) => {
                 // open the file
-                plugins.fs.stat(".config/" + file_name, (err) => {
+                plugins.fs.stat(`.config/${file_name}`, (err) => {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
                         // get the file contents from the gist_url
                         REQUEST.get(GIST_URL, (error, response, body) => {
                             if (!error && response.statusCode == 200) {
                                 // write the file
-                                plugins.fs.writeFile(".config/" + file_name, body, "utf8", () => {
+                                plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
                                     // resolve the promise
                                     resolve();
                                 });
@@ -49,7 +49,7 @@ module.exports = {
         // configue JSON data
         const CONFIGURE_JSON = (file_name, namespace, options) => {
             const PROMPTS    = [];
-            const CONFIGURED = plugins.json.readFileSync(".config/" + file_name).configured;
+            const CONFIGURED = plugins.json.readFileSync(`.config/${file_name}`).configured;
 
             // construct the prompts
             Object.keys(options).forEach(option => {
@@ -58,7 +58,7 @@ module.exports = {
                 // construct the prompt
                 const PROMPT = {
                     name:    option,
-                    message: namespace + " " + option + ": ",
+                    message: `${namespace} ${option}: `,
                 };
 
                 // construct the prompt

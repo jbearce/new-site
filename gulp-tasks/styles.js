@@ -13,7 +13,7 @@ module.exports = {
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
             // set CSS directory
-            const CSS_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist + "/assets/styles" : global.settings.paths.dev + "/assets/styles";
+            const CSS_DIRECTORY = plugins.argv.dist ? `${global.settings.paths.dist}/assets/styles` : `${global.settings.paths.dev}/assets/styles`;
 
             // generate critical CSS if requested
             if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
@@ -21,10 +21,10 @@ module.exports = {
                 const CRITICAL = require("critical");
                 const MKDIRP   = require("mkdirp");
 
-                console.log("Genearting critical CSS, this may take up to " + ((Object.keys(SITEMAP).length * 30) / 60) + " minute" + (((Object.keys(SITEMAP).length * 30) / 60) !== 1 ? "s" : "") + ", go take a coffee break.");
+                console.log(`Genearting critical CSS, this may take up to ${((Object.keys(SITEMAP).length * 30) / 60)} minute ${(((Object.keys(SITEMAP).length * 30) / 60) !== 1 ? "s" : "")}, go take a coffee break.`);
 
                 // create the "critical" directory
-                MKDIRP(CSS_DIRECTORY + "/critical");
+                MKDIRP(`${CSS_DIRECTORY}/critical`);
 
                 // loop through all the links
                 for (const TEMPLATE in SITEMAP) {
@@ -32,17 +32,18 @@ module.exports = {
                     if (SITEMAP.hasOwnProperty(TEMPLATE)) {
                         // generate the critial CSS
                         CRITICAL.generate({
-                            base:       CSS_DIRECTORY + "/critical",
-                            dest:       TEMPLATE + ".css",
+                            base:       `${CSS_DIRECTORY}/critical`,
+                            dest:       `${TEMPLATE}.css`,
                             dimensions: [1920, 1080],
                             minify:     true,
-                            src:        SITEMAP[TEMPLATE] + "?disable=critical_css"
+                            src:        `${SITEMAP[TEMPLATE]}?disable=critical_css`
                         });
                     }
                 }
             }
 
-            const ALL_FILE_NAMES   = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
+            const ALL_FILE_NAMES = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
+
             let hashed_file_name = ALL_FILE_NAMES.length > 0 && ALL_FILE_NAMES.find((name) => {
                 return name.match(new RegExp("[^.]+.[a-z0-9]{8}.css"));
             });
@@ -52,13 +53,13 @@ module.exports = {
             }
 
             // process styles
-            gulp.src(global.settings.paths.src + "/assets/styles/**/*.scss")
+            gulp.src(`${global.settings.paths.src}/assets/styles/**/*.scss`)
                 // prevent breaking on error
                 .pipe(plugins.plumber({
                     errorHandler: on_error
                 }))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(CSS_DIRECTORY + "/" + hashed_file_name)))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${CSS_DIRECTORY}/${hashed_file_name}`)))
                 // lint
                 .pipe(STYLELINT({
                     debug: true,

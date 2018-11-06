@@ -8,7 +8,7 @@ module.exports = {
         const ESLINT  = require("gulp-eslint");
         const WEBPACK = require("webpack-stream");
 
-        const CHECK_IF_NEWER = (source = global.settings.paths.src + "/assets/scripts/**/*.js", file_to_check = global.settings.paths.dev + "/assets/scripts/modern.js") => {
+        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, file_to_check = `${global.settings.paths.dev}/assets/scripts/modern.js`) => {
             return new Promise((resolve) => {
                 gulp.src(source)
                     // prevent breaking on error
@@ -25,7 +25,7 @@ module.exports = {
             });
         };
 
-        const PROCESS_SCRIPTS = (source = global.settings.paths.src + "/assets/scripts/**/*.js", js_directory = global.settings.paths.dev + "/assets/scripts", webpack_config = {}) => {
+        const PROCESS_SCRIPTS = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, js_directory = `${global.settings.paths.dev}/assets/scripts`, webpack_config = {}) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -63,10 +63,10 @@ module.exports = {
         // scripts task, lints, concatenates, & compresses JS
         return new Promise ((resolve) => {
             // set JS directory
-            const JS_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist + "/assets/scripts" : global.settings.paths.dev + "/assets/scripts";
+            const JS_DIRECTORY = plugins.argv.dist ? `${global.settings.paths.dist}/assets/scripts` : `${global.settings.paths.dev}/assets/scripts`;
 
             // set the source directory
-            const SOURCE_DIRECTORY = global.settings.paths.src + "/assets/scripts";
+            const SOURCE_DIRECTORY = `${global.settings.paths.src}/assets/scripts`;
 
             const WEBPACK_CONFIG = require("../webpack.config.js").config(plugins, SOURCE_DIRECTORY, JS_DIRECTORY);
 
@@ -80,9 +80,9 @@ module.exports = {
                 hashed_file_name = "modern.js";
             }
 
-            CHECK_IF_NEWER(SOURCE_DIRECTORY + "/**/*.js", JS_DIRECTORY + "/" + hashed_file_name).then((compile) => {
+            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.js`, `${JS_DIRECTORY}/${hashed_file_name}`).then((compile) => {
                 if (compile === true) {
-                    PROCESS_SCRIPTS(SOURCE_DIRECTORY + "/**/*.js", JS_DIRECTORY, WEBPACK_CONFIG);
+                    PROCESS_SCRIPTS(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, WEBPACK_CONFIG);
                 }
 
                 resolve();

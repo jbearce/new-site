@@ -216,7 +216,7 @@ module.exports = {
                         if (KEYWORD in REPLACEMENTS) {
                             return REPLACEMENTS[KEYWORD];
                         } else {
-                            console.log("Error!" + KEYWORD + " not found in provided project data!");
+                            console.log(`Error! ${KEYWORD} not found in provided project data!`);
                             return reject();
                         }
                     }))

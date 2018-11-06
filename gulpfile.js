@@ -2,8 +2,8 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-const gulp    = require("gulp");
-const plugins = {
+const GULP    = require("gulp");
+const PLUGINS = {
     // general stuff
     argv:       require("yargs").options({
         "d": {
@@ -43,8 +43,8 @@ const plugins = {
     watch:      require("gulp-watch"),
 };
 
-if (plugins.argv.sync) {
-    plugins.browser_sync = require("browser-sync");
+if (PLUGINS.argv.sync) {
+    PLUGINS.browser_sync = require("browser-sync");
 }
 
 // store global environment paths
@@ -58,11 +58,11 @@ global.settings = {
 };
 
 // store which tasks where ran
-const ran_tasks = [];
+const RAN_TASKS = [];
 
 // error handling
-const on_error = function (err) {
-    plugins.notify.onError({
+const ON_ERROR = function (err) {
+    PLUGINS.notify.onError({
         title:    "Gulp",
         subtitle: "Error!",
         message:  "<%= error.message %>",
@@ -73,65 +73,65 @@ const on_error = function (err) {
 };
 
 // import custom modules
-const styles_module  = require("./gulp-tasks/styles");
-const scripts_module = require("./gulp-tasks/scripts");
-const html_module    = require("./gulp-tasks/html");
-const media_module   = require("./gulp-tasks/media");
-const sync_module    = require("./gulp-tasks/sync");
-const upload_module  = require("./gulp-tasks/upload");
-const rsync_module   = require("./gulp-tasks/rsync");
-const config_module  = require("./gulp-tasks/config");
-const init_module    = require("./gulp-tasks/init");
+const STYLES_MODULE  = require("./gulp-tasks/styles");
+const SCRIPTS_MODULE = require("./gulp-tasks/scripts");
+const HTML_MODULE    = require("./gulp-tasks/html");
+const MEDIA_MODULE   = require("./gulp-tasks/media");
+const SYNC_MODULE    = require("./gulp-tasks/sync");
+const UPLOAD_MODULE  = require("./gulp-tasks/upload");
+const RSYNC_MODULE   = require("./gulp-tasks/rsync");
+const CONFIG_MODULE  = require("./gulp-tasks/config");
+const INIT_MODULE    = require("./gulp-tasks/init");
 
 // primary tasks
-gulp.task("styles", () => {
-    return styles_module.styles(gulp, plugins, ran_tasks, on_error);
+GULP.task("styles", () => {
+    return STYLES_MODULE.styles(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
 });
-gulp.task("scripts", () => {
-    return scripts_module.scripts(gulp, plugins, ran_tasks, on_error);
+GULP.task("scripts", () => {
+    return SCRIPTS_MODULE.scripts(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
 });
-gulp.task("html", () => {
-    return html_module.html(gulp, plugins, ran_tasks, on_error);
+GULP.task("html", () => {
+    return HTML_MODULE.html(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
 });
-gulp.task("php", () => {
-    return html_module.html(gulp, plugins, ran_tasks, on_error);
+GULP.task("php", () => {
+    return HTML_MODULE.html(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
 });
-gulp.task("media", () => {
-    return media_module.media(gulp, plugins, ran_tasks, on_error);
+GULP.task("media", () => {
+    return MEDIA_MODULE.media(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
 });
 
 // secondary tasks
-gulp.task("upload", () => {
-    return config_module.config(gulp, plugins, "ftp").then(() => {
-        return upload_module.upload(gulp, plugins, ran_tasks, on_error);
+GULP.task("upload", () => {
+    return CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
+        return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
     });
 });
-gulp.task("rsync", () => {
-    return config_module.config(gulp, plugins, "rsync").then(() => {
-        return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
+GULP.task("rsync", () => {
+    return CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
+        return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
     });
 });
 
 // configuration tasks
-gulp.task("init", () => {
-    return init_module.init(gulp, plugins, on_error);
+GULP.task("init", () => {
+    return INIT_MODULE.init(GULP, PLUGINS, ON_ERROR);
 });
-gulp.task("config", () => {
-    return config_module.config(gulp, plugins, (plugins.argv.ftp || plugins.argv.sftp ? "ftp" : (plugins.argv.browsersync ? "browsersync" : "")));
+GULP.task("config", () => {
+    return CONFIG_MODULE.config(GULP, PLUGINS, (PLUGINS.argv.ftp || PLUGINS.argv.sftp ? "ftp" : (PLUGINS.argv.browsersync ? "browsersync" : "")));
 });
 
 // default task, runs through all primary tasks
-gulp.task("default", ["styles", "scripts", "html", "media"], () => {
+GULP.task("default", ["styles", "scripts", "html", "media"], () => {
     // notify that task is complete
-    gulp.src("gulpfile.js")
-        .pipe(plugins.gulpif(ran_tasks.length, plugins.notify({title: "Success!", message: ran_tasks.length + " task" + (ran_tasks.length > 1 ? "s" : "") + " complete! [" + ran_tasks.join(", ") + "]", onLast: true})));
+    GULP.src("gulpfile.js")
+        .pipe(PLUGINS.gulpif(RAN_TASKS.length, PLUGINS.notify({title: "Success!", message: `${RAN_TASKS.length} task ${(RAN_TASKS.length > 1 ? "s" : "")} complete! [${RAN_TASKS.join(", ")}]`, onLast: true})));
 
     // handle optional tasks sequentially
     new Promise((resolve) => {
         // trigger upload task if --upload is passed
-        if (plugins.argv.upload) {
-            return config_module.config(gulp, plugins, "ftp").then(() => {
-                return upload_module.upload(gulp, plugins, ran_tasks, on_error);
+        if (PLUGINS.argv.upload) {
+            return CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
+                return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
             }).then(() => {
                 return resolve();
             });
@@ -142,9 +142,9 @@ gulp.task("default", ["styles", "scripts", "html", "media"], () => {
     }).then(() => {
         // trigger rsync task if --rsync is passed
         return new Promise((resolve) => {
-            if (plugins.argv.rsync) {
-                return config_module.config(gulp, plugins, "rsync").then(() => {
-                    return rsync_module.rsync(gulp, plugins, ran_tasks, on_error);
+            if (PLUGINS.argv.rsync) {
+                return CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
+                    return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
                 }).then(() => {
                     return resolve();
                 });
@@ -156,8 +156,8 @@ gulp.task("default", ["styles", "scripts", "html", "media"], () => {
     }).then(() => {
         // trigger sync task if --sync is passed
         return new Promise((resolve) => {
-            if (plugins.argv.sync) {
-                plugins.browser_sync.reload();
+            if (PLUGINS.argv.sync) {
+                PLUGINS.browser_sync.reload();
             }
 
             return resolve();
@@ -165,25 +165,25 @@ gulp.task("default", ["styles", "scripts", "html", "media"], () => {
     });
 
     // reset ran_tasks array
-    ran_tasks.length = 0;
+    RAN_TASKS.length = 0;
 
     // end the task
     return;
 });
 
 // watch task, runs through all primary tasks, triggers when a file is saved
-gulp.task("watch", () => {
+GULP.task("watch", () => {
     // set up a browser_sync server, if --sync is passed
-    if (plugins.argv.sync) {
-        config_module.config(gulp, plugins, "browsersync").then(() => {
-            sync_module.sync(plugins);
+    if (PLUGINS.argv.sync) {
+        CONFIG_MODULE.config(GULP, PLUGINS, "browsersync").then(() => {
+            SYNC_MODULE.sync(PLUGINS);
         });
     }
 
     // watch for any changes
-    plugins.watch("./src/**/*", () => {
+    PLUGINS.watch("./src/**/*", () => {
         // start the default task
-        gulp.start("default");
+        GULP.start("default");
     });
 
     // end the task

@@ -69,7 +69,7 @@ const MENU_LIST_INIT = () => {
     // @param  {Element}  elem - An element to mark as active
     const MARK_MENU_ITEM_ACTIVE = (elem) => {
         const CHILDREN   = elem.childNodes;
-        const CHILD_MENU = elem.querySelector("#" + elem.id + " > .menu-list--accordion");
+        const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion`);
 
         elem.classList.add("is-active");
         transition({element: CHILD_MENU, val: "auto"});

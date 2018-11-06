@@ -14,16 +14,16 @@ module.exports = {
             const MEDIA_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
             // copy fonts
-            const COPY_FONTS = gulp.src(global.settings.paths.src + "/assets/media/fonts/**/*.{otf,ttf,woff,woff2}")
+            const COPY_FONTS = gulp.src(`${global.settings.paths.src}/assets/media/fonts/**/*.{otf,ttf,woff,woff2}`)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(MEDIA_DIRECTORY + "/assets/media/fonts", {extra: [MEDIA_DIRECTORY + "/assets/media/fonts/**/*.{otf,ttf,woff,woff2}"]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${MEDIA_DIRECTORY}/assets/media/fonts`, {extra: [`${MEDIA_DIRECTORY}/assets/media/fonts/**/*.{otf,ttf,woff,woff2}`]})))
                 // output to compiled directory
-                .pipe(gulp.dest(MEDIA_DIRECTORY + "/assets/media/fonts"));
+                .pipe(gulp.dest(`${MEDIA_DIRECTORY}/assets/media/fonts`));
 
             // process images
-            const PROCESS_IMAGES = gulp.src(global.settings.paths.src + "/**/*.{jpg,png,svg}")
+            const PROCESS_IMAGES = gulp.src(`${global.settings.paths.src}/**/*.{jpg,png,svg}`)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination

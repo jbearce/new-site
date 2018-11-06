@@ -8,7 +8,7 @@ module.exports = {
         const TEMPLATE = require("gulp-template");
 
         // copy binaries
-        const COPY_BINARIES = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
+        const COPY_BINARIES = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
@@ -31,18 +31,18 @@ module.exports = {
         };
 
         // copy composer
-        const COPY_COMPOSER = (html_directory, source = [global.settings.paths.vendor + "/**/*"]) => {
+        const COPY_COMPOSER = (html_directory, source = [`${global.settings.paths.vendor}/**/*`]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
                 // output to compiled directory
-                .pipe(gulp.dest(html_directory + "/functions"));
+                .pipe(gulp.dest(`${html_directory}/functions`));
         };
 
         // process HTML
-        const PROCESS_HTML = (html_directory, source = [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}"]) => {
+        const PROCESS_HTML = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`]) => {
             // read data from package.json
             const NAME            = plugins.json.readFileSync("./package.json").name;
             const PWA_NAME        = plugins.json.readFileSync("./package.json").progressiveWebApp.name;
@@ -91,9 +91,9 @@ module.exports = {
             const HTML_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
             // process all non-asset files
-            const BINARIES = COPY_BINARIES(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}", "!" + global.settings.paths.src + "/**/*.{jpg,png,svg}"]);
-            const COMPOSER = COPY_COMPOSER(HTML_DIRECTORY, [global.settings.paths.vendor + "/**/*"]);
-            const HTML     = PROCESS_HTML(HTML_DIRECTORY, [global.settings.paths.src + "/**/*", "!" + global.settings.paths.src + "{/assets,/assets/**}", "!" + global.settings.paths.src + "/**/*.{jpg,png,svg}"]);
+            const BINARIES = COPY_BINARIES(HTML_DIRECTORY, [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]);
+            const COMPOSER = COPY_COMPOSER(HTML_DIRECTORY, [`${global.settings.paths.vendor}/**/*`]);
+            const HTML     = PROCESS_HTML(HTML_DIRECTORY, [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]);
 
             // merge both steams back in to one
             plugins.merge(BINARIES, COMPOSER, HTML)

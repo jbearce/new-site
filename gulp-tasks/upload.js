@@ -19,11 +19,11 @@ module.exports = {
 
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
-            gulp.src(UPLOAD_DIRECTORY + "/**/*")
+            gulp.src(`${UPLOAD_DIRECTORY}/**/*`)
                 // prevent breaking on error
                 .pipe(plugins.plumber({errorHandler: on_error}))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [UPLOAD_DIRECTORY + "/**/*"]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [`${UPLOAD_DIRECTORY}/**/*`]})))
                 // check if files are newer
                 .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
                 // upload changed files
