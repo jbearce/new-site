@@ -88,7 +88,7 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     }
 
     if ($platform === "chrome" || (is_array($platform) && in_array("chrome", $platform))) {
-        if (stripos($user_agent, "Google Chrome")) {
+        if (stripos($user_agent, "Chrome")) {
             return true;
         }
     }
