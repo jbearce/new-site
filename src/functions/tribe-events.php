@@ -244,7 +244,7 @@ function __gulp_init_namespace___tribe_add_pagination_menu_link_class($html) {
     $anchors = $DOM->getElementsByTagName("a");
 
     foreach ($anchors as $anchor) {
-        $anchor->setAttribute("class", "menu-list_link link {$anchor->getAttribute("class")}");
+        $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
     }
 
     // remove unneeded tags (inserted for parsing reasons)
@@ -256,7 +256,7 @@ add_filter("tribe_events_the_previous_month_link", "__gulp_init_namespace___trib
 add_filter("tribe_events_the_next_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
 add_filter("tribe_the_day_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
 
-// add 'title -divider' class to tribe date headers
+// add 'title--divider' class to tribe date headers
 function __gulp_init_namespace___tribe_add_title_class_to_date_headers($html) {
     if ($html) {
         $DOM = new DOMDocument();
@@ -265,7 +265,7 @@ function __gulp_init_namespace___tribe_add_title_class_to_date_headers($html) {
         $h2s = $DOM->getElementsByTagName("h2");
 
         foreach ($h2s as $h2) {
-            $h2->setAttribute("class", "tribe-events-title title -h4 -divider {$h2->getAttribute("class")}");
+            $h2->setAttribute("class", "tribe-events-title title title--h4 title--divider {$h2->getAttribute("class")}");
         }
 
         // remove unneeded tags (inserted for parsing reasons)
@@ -284,7 +284,7 @@ function __gulp_init_namespace___tribe_add_text_class_to_excerpt($excerpt) {
     $paragraphs = $DOM->getElementsByTagName("p");
 
     foreach ($paragraphs as $paragraph) {
-        $paragraph->setAttribute("class", "tribe-events-text_text text {$paragraph->getAttribute("class")}");
+        $paragraph->setAttribute("class", "tribe-events-text__text text {$paragraph->getAttribute("class")}");
     }
 
     // remove unneeded tags (inserted for parsing reasons)
@@ -302,13 +302,13 @@ function __gulp_init_namespace___tribe_add_text_class_to_notices($html) {
     $unordered_lists = $DOM->getElementsByTagName("ul");
 
     foreach ($unordered_lists as $unordered_list) {
-        $unordered_list->setAttribute("class", "tribe-events-notices_text text -list -unordered {$unordered_list->getAttribute("class")}");
+        $unordered_list->setAttribute("class", "tribe-events-notices__text text text--list text--clean __light __nomargin {$unordered_list->getAttribute("class")}");
     }
 
     $list_items = $DOM->getElementsByTagName("li");
 
     foreach ($list_items as $list_item) {
-        $list_item->setAttribute("class", "text_list-item {$list_item->getAttribute("class")}");
+        $list_item->setAttribute("class", "text__list-item {$list_item->getAttribute("class")}");
     }
 
     // remove unneeded tags (inserted for parsing reasons)
@@ -334,13 +334,13 @@ function __gulp_init_namespace___tribe_add_class_to_featured_image($featured_ima
         $divs = $DOM->getElementsByTagName("div");
 
         foreach ($divs as $div) {
-            $div->setAttribute("class", "article_figure {$div->getAttribute("class")}");
+            $div->setAttribute("class", "article__figure {$div->getAttribute("class")}");
         }
 
         $images = $DOM->getElementsByTagName("img");
 
         foreach ($images as $image) {
-            $image->setAttribute("class", "article_image {$image->getAttribute("class")}");
+            $image->setAttribute("class", "article__image {$image->getAttribute("class")}");
         }
 
         // remove unneeded tags (inserted for parsing reasons)
