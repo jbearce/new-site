@@ -29,9 +29,16 @@ input,
 select,
 textarea {
     -webkit-appearance: none;
+    -moz-appearance: none;
     appearance: none;
     border-radius: 0;
     box-shadow: none;
+}
+
+// be extra specific for search fields, as normalize resets them
+
+[type="search"] {
+    -webkit-appearance: none;
 }
 
 // Set max-height and max-width to 100% on SVGs to fix a bug in Safari (http://stackoverflow.com/a/12631326/654480)
