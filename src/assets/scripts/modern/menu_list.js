@@ -24,7 +24,11 @@ const MENU_LIST_INIT = () => {
 
                 // mark the list as hidden
                 elem.setAttribute("aria-hidden", "true");
-                transition({element: elem, val: "0"});
+
+                // collapse the accordion
+                if (elem.classList.contains(".menu-list--accordion")) {
+                    transition({element: elem, val: "0"});
+                }
 
                 // mark all child menu items as hidden
                 if (CHILD_MENU_ITEMS) {
@@ -69,10 +73,15 @@ const MENU_LIST_INIT = () => {
     // @param  {Element}  elem - An element to mark as active
     const MARK_MENU_ITEM_ACTIVE = (elem) => {
         const CHILDREN   = elem.childNodes;
-        const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion`);
+        const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
 
+        // mark the list as active
         elem.classList.add("is-active");
-        transition({element: CHILD_MENU, val: "auto"});
+
+        // transition the accordion
+        if (CHILD_MENU.classList.contains(".menu-list--accordion")) {
+            transition({element: CHILD_MENU, val: "auto"});
+        }
 
         for (let i = 0; i < CHILDREN.length; i++) {
             if (CHILDREN[i].nodeType === 1 && CHILDREN[i].hasAttribute("aria-hidden")) {
