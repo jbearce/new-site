@@ -54,6 +54,7 @@ module.exports = {
                 // generate a hash manfiest
                 .pipe(plugins.hash.manifest(".hashmanifest-scripts", {
                     deleteOld: true,
+                    manifestPath: ".config",
                     sourceDir: js_directory,
                 }))
                 // output hash manifest in root

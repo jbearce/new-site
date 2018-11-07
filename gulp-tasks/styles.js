@@ -111,6 +111,7 @@ module.exports = {
                 // generate a hash manfiest
                 .pipe(plugins.hash.manifest(".hashmanifest-styles", {
                     deleteOld: true,
+                    manifestPath: ".config",
                     sourceDir: CSS_DIRECTORY,
                 }))
                 // output hash manifest in root
