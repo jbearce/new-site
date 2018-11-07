@@ -26,7 +26,7 @@ const MENU_LIST_INIT = () => {
                 elem.setAttribute("aria-hidden", "true");
 
                 // collapse the accordion
-                if (elem.classList.contains(".menu-list--accordion")) {
+                if (elem.classList.contains("menu-list--accordion")) {
                     transition({element: elem, val: "0"});
                 }
 
@@ -79,7 +79,7 @@ const MENU_LIST_INIT = () => {
         elem.classList.add("is-active");
 
         // transition the accordion
-        if (CHILD_MENU.classList.contains(".menu-list--accordion")) {
+        if (CHILD_MENU.classList.contains("menu-list--accordion")) {
             transition({element: CHILD_MENU, val: "auto"});
         }
 
