@@ -73,7 +73,7 @@ module.exports = {
                 // replace variables
                 .pipe(TEMPLATE({
                     name: NAME,
-                    pwa_name: PWA_NAME,
+                    pwa_name: PWA_NAME + (!plugins.argv.dist ? " - DEV" : ""),
                     pwa_short_name: PWA_SHORT_NAME,
                     pwa_theme_color: PWA_THEME_COLOR,
                     description: DESCRIPTION,
