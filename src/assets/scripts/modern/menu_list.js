@@ -13,7 +13,7 @@ const MENU_LIST_INIT = () => {
     // function to mark elements as inactive
     // @param  {Element}  elem - An element to mark as inactive
     const MARK_MENU_ITEM_INACTIVE = (elem) => {
-        const CHILD_MENU_LISTS = elem.querySelectorAll(".menu-list--accordion");
+        const CHILD_MENU_LISTS = elem.querySelectorAll(".menu-list--accordion, .menu-list--overlay");
 
         elem.classList.remove("is-active");
 
