@@ -2,7 +2,6 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-import "mdn-polyfills/NodeList.prototype.forEach";
 import transition from "transition-to-from-auto";
 
 const MENU_LIST_INIT = () => {
@@ -13,30 +12,33 @@ const MENU_LIST_INIT = () => {
     // function to mark elements as inactive
     // @param  {Element}  elem - An element to mark as inactive
     const MARK_MENU_ITEM_INACTIVE = (elem) => {
-        const CHILD_MENU_LISTS = elem.querySelectorAll(".menu-list--accordion, .menu-list--overlay");
+        const CHILDREN    = elem.childNodes;
+        const CHILD_MENUS = elem.querySelectorAll(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
 
+        // mark the item as inactive
         elem.classList.remove("is-active");
 
-        // mark all child menu lists as hidden
-        if (CHILD_MENU_LISTS) {
-            CHILD_MENU_LISTS.forEach((elem) => {
-                const CHILD_MENU_ITEMS = elem.querySelectorAll(".menu-list__item");
+        // close the accordions
+        if (CHILD_MENUS) {
+            for (let i = 0; i < CHILD_MENUS.length; i++) {
+                if (CHILD_MENUS[i].classList.contains("menu-list--accordion")) {
+                    transition({element: CHILD_MENUS[i], val: "0"});
+                }
+            }
+        }
 
-                // mark the list as hidden
-                elem.setAttribute("aria-hidden", "true");
-
-                // collapse the accordion
-                if (elem.classList.contains("menu-list--accordion")) {
-                    transition({element: elem, val: "0"});
+        for (let i = 0; i < CHILDREN.length; i++) {
+            if (CHILDREN[i].nodeType === 1) {
+                // mark the item as hidden
+                if (CHILDREN[i].hasAttribute("aria-hidden")) {
+                    CHILDREN[i].setAttribute("aria-hidden", "true");
                 }
 
-                // mark all child menu items as hidden
-                if (CHILD_MENU_ITEMS) {
-                    CHILD_MENU_ITEMS.forEach((elem) => {
-                        elem.classList.remove("is-active");
-                    });
+                // mark the item as inactive
+                if (CHILDREN[i].classList.contains("is-active")) {
+                    CHILDREN[i].classList.remove("is-active");
                 }
-            });
+            }
         }
     };
 
@@ -45,7 +47,7 @@ const MENU_LIST_INIT = () => {
     const MARK_MENU_ITEM_PARENTS_INACTIVE = (elem) => {
         let parent = elem.parentNode;
 
-        setTimeout(() => {
+        setTimeout(() => { // give it a moment to process
             while (parent && parent.nodeType === 1 && !parent.classList.contains("menu-list__container")) {
                 if (parent.classList.contains("is-active") && !parent.contains(document.activeElement)) {
                     MARK_MENU_ITEM_INACTIVE(parent);
@@ -75,16 +77,17 @@ const MENU_LIST_INIT = () => {
         const CHILDREN   = elem.childNodes;
         const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
 
-        // mark the list as active
+        // mark the item as active
         elem.classList.add("is-active");
 
-        // transition the accordion
-        if (CHILD_MENU.classList.contains("menu-list--accordion")) {
+        // open the accordion
+        if (CHILD_MENU && CHILD_MENU.classList.contains("menu-list--accordion")) {
             transition({element: CHILD_MENU, val: "auto"});
         }
 
         for (let i = 0; i < CHILDREN.length; i++) {
             if (CHILDREN[i].nodeType === 1 && CHILDREN[i].hasAttribute("aria-hidden")) {
+                // mark the item as visible
                 CHILDREN[i].setAttribute("aria-hidden", "false");
             }
         }
