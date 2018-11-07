@@ -240,8 +240,8 @@
         visibility: hidden;
     }
 
-    .menu-list__item--mega.menu-list--parent:hover > &,
-    .menu-list__item--mega.menu-list--parent.is-active > & {
+    .menu-list__item--mega.menu-list__item--parent:hover > &,
+    .menu-list__item--mega.menu-list__item--parent.is-active > & {
         left: 0;
         opacity: 1;
         top: 100%;
