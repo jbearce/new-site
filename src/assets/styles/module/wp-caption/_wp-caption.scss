@@ -1,0 +1,29 @@
+// Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
+
+/* ------------------------------------------------------------------------ *\
+ * WP Caption
+\* ------------------------------------------------------------------------ */
+
+.wp-caption {
+    & {
+        max-width: 100%;
+    }
+}
+
+.wp-caption-image {
+    & {
+        display: block;
+        width: 100%;
+    }
+}
+
+.wp-caption-text {
+    & {
+        color: color("foreground");
+        font-family: $body-font;
+        font-size: remify(16, 16);
+        font-style: italic;
+        line-height: remify(28, 16);
+        margin: remify(28 0 56, 16);
+    }
+}
