@@ -11,7 +11,7 @@ module.exports = {
         const COPY_BINARIES = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`]) => {
             return gulp.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
                 // check if a file is a binary
@@ -34,7 +34,7 @@ module.exports = {
         const COPY_COMPOSER = (html_directory, source = [`${global.settings.paths.vendor}/**/*`]) => {
             return gulp.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
                 // output to compiled directory
@@ -48,7 +48,7 @@ module.exports = {
 
             return gulp.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
                 // check if file is a binary
@@ -91,9 +91,13 @@ module.exports = {
             // merge both steams back in to one
             plugins.merge(BINARIES, COMPOSER, HTML)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "HTML task complete!", onLast: true})))
+                .pipe(plugins.gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), plugins.notify({
+                    title:   "Success!",
+                    message: "HTML task complete!",
+                    onLast:  true,
+                })))
                 // push task to ran_tasks array
                 .on("data", () => {
                     if (ran_tasks.indexOf("html") < 0) {

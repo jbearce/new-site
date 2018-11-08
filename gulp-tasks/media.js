@@ -16,22 +16,22 @@ module.exports = {
             // copy fonts
             const COPY_FONTS = gulp.src(`${global.settings.paths.src}/assets/media/fonts/**/*.{otf,ttf,woff,woff2}`)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${MEDIA_DIRECTORY}/assets/media/fonts`, {extra: [`${MEDIA_DIRECTORY}/assets/media/fonts/**/*.{otf,ttf,woff,woff2}`]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${MEDIA_DIRECTORY}/assets/media/fonts`, { extra: [`${MEDIA_DIRECTORY}/assets/media/fonts/**/*.{otf,ttf,woff,woff2}`] })))
                 // output to compiled directory
                 .pipe(gulp.dest(`${MEDIA_DIRECTORY}/assets/media/fonts`));
 
             // process images
             const PROCESS_IMAGES = gulp.src(`${global.settings.paths.src}/**/*.{jpg,png,svg}`)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(MEDIA_DIRECTORY)))
                 // compress images
                 .pipe(IMAGEMIN({
                     progressive: true,
-                    svgoPlugins: [{cleanupIDs: false, removeViewBox: false}],
+                    svgoPlugins: [{ cleanupIDs: false, removeViewBox: false }],
                     use:         [PNGQUANT()],
                 }))
                 // output to compiled directory
@@ -40,9 +40,13 @@ module.exports = {
             // merge both streams back in to one
             plugins.merge(COPY_FONTS, PROCESS_IMAGES)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), plugins.notify({title: "Success!", message: "Media task complete!", onLast: true})))
+                .pipe(plugins.gulpif(gulp.seq.indexOf("media") > gulp.seq.indexOf("default"), plugins.notify({
+                    title:   "Success!",
+                    message: "Media task complete!",
+                    onLast:  true,
+                })))
                 // push task to ran_tasks array
                 .on("data", () => {
                     if (ran_tasks.indexOf("media") < 0) {

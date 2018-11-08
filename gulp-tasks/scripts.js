@@ -12,7 +12,7 @@ module.exports = {
             return new Promise((resolve) => {
                 gulp.src(source)
                     // prevent breaking on error
-                    .pipe(plugins.plumber({errorHandler: on_error}))
+                    .pipe(plugins.plumber({ errorHandler: on_error }))
                     // check if source is newer than destination
                     .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(file_to_check)))
                     // if source files are newer, then compile
@@ -28,7 +28,7 @@ module.exports = {
         const PROCESS_SCRIPTS = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, js_directory = `${global.settings.paths.dev}/assets/scripts`, webpack_config = {}) => {
             return gulp.src(source)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // lint all scripts
                 .pipe(ESLINT())
                 // print lint errors
@@ -36,7 +36,7 @@ module.exports = {
                 // run webpack
                 .pipe(WEBPACK(webpack_config))
                 // generate a hash and add it to the file name, except service worker
-                .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"})))
+                .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({ template: "<%= name %>.<%= hash %><%= ext %>" })))
                 // output scripts to compiled directory
                 .pipe(gulp.dest(js_directory))
                 // notify that task is complete, if not part of default or watch

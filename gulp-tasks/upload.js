@@ -21,17 +21,21 @@ module.exports = {
         return new Promise ((resolve) => {
             gulp.src(`${UPLOAD_DIRECTORY}/**/*`)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [`${UPLOAD_DIRECTORY}/**/*`]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${UPLOAD_DIRECTORY}/**/*`] })))
                 // check if files are newer
                 .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
                 // upload changed files
                 .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete
-                .pipe(plugins.notify({title: "Success!", message: "Upload task complete!", onLast: true}))
+                .pipe(plugins.notify({
+                    title:   "Success!",
+                    message: "Upload task complete!",
+                    onLast:  true,
+                }))
                 // consume the stream to prevent rvagg/through2#82
                 .on("data", () => {
                     // do nothing

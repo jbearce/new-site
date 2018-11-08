@@ -13,15 +13,19 @@ module.exports = {
         return new Promise((resolve) => {
             return gulp.src(`${RSYNC_DIRECTORY}/`)
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({dest: global.settings.paths.src, extra: [`${RSYNC_DIRECTORY}/**/*`]})))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${RSYNC_DIRECTORY}/**/*`] })))
                 // rsync files
                 .pipe(RSYNC(global.settings.rsync))
                 // prevent breaking on error
-                .pipe(plugins.plumber({errorHandler: on_error}))
+                .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete
-                .pipe(plugins.notify({title: "Success!", message: "Rsync task complete!", onLast: true}))
+                .pipe(plugins.notify({
+                    title:   "Success!",
+                    message: "Rsync task complete!",
+                    onLast:  true,
+                }))
                 // consume the stream to prevent rvagg/through2#82
                 .on("data", () => {
                     // do nothing

@@ -99,13 +99,13 @@ module.exports = {
                             });
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, {spaces: 2});
+                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
                         })).on("end", () => {
                             // mark as configured
                             JSON_DATA[endpoint].configured = true;
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, {spaces: 2});
+                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
 
                             // resolve the promise
                             resolve();

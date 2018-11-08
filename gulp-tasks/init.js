@@ -23,7 +23,7 @@ module.exports = {
             return new Promise((resolve) => {
                 return gulp.src("gulpfile.js")
                     // prevent breaking on error
-                    .pipe(plugins.plumber({errorHandler: on_error}))
+                    .pipe(plugins.plumber({ errorHandler: on_error }))
                     // prompt for project data if defaults are not set
                     .pipe(plugins.gulpif(Object.getOwnPropertyNames(project_data).length === 0, plugins.prompt.prompt([
                         {
