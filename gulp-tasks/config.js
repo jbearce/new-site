@@ -75,10 +75,10 @@ module.exports = {
             return new Promise ((resolve, reject) => {
                 if (PROMPTS.length > 0) {
                     // prompt the user
-                    gulp.src(file_name)
+                    gulp.src(`.config/${file_name}`)
                         .pipe(plugins.prompt.prompt(PROMPTS, (res) => {
                             // read the file to retrieve the JSON data
-                            const JSON_DATA = plugins.json.readFileSync(file_name);
+                            const JSON_DATA = plugins.json.readFileSync(`.config/${file_name}`);
 
                             // update options in JSON data
                             Object.keys(options).forEach(key => {
@@ -93,16 +93,16 @@ module.exports = {
                             });
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(file_name, JSON_DATA, {spaces: 2});
+                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, {spaces: 2});
                         })).on("end", () => {
                             // read the file to retrieve the JSON data
-                            const JSON_DATA = plugins.json.readFileSync(file_name);
+                            const JSON_DATA = plugins.json.readFileSync(`.config/${file_name}`);
 
                             // mark as configured
                             JSON_DATA["configured"] = true;
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(file_name, JSON_DATA, {spaces: 2});
+                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, {spaces: 2});
 
                             // resolve the promise
                             resolve();
