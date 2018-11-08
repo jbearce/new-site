@@ -21,7 +21,7 @@ module.exports = {
         // gather project data
         const GET_PROJECT_DATA = () => {
             return new Promise((resolve) => {
-                return gulp.src("./gulpfile.js")
+                return gulp.src("gulpfile.js")
                     // prevent breaking on error
                     .pipe(plugins.plumber({errorHandler: on_error}))
                     // prompt for project data if defaults are not set
@@ -178,9 +178,9 @@ module.exports = {
         // write project data
         const WRITE_PROJECT_DATA = () => {
             return new Promise((resolve, reject) => {
-                return gulp.src(["./*", "./gulp-tasks/*", "./src/**/*"], {base: "./"})
+                return gulp.src(["*", "gulp-tasks/*", "src/**/*"], { base: "./" })
                     // prevent breaking on error
-                    .pipe(plugins.plumber({errorHandler: on_error}))
+                    .pipe(plugins.plumber({ errorHandler: on_error }))
                     // check if a file is a binary
                     .pipe(plugins.is_binary())
                     // skip file if it's a binary

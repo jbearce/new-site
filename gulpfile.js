@@ -188,7 +188,7 @@ GULP.task("watch", () => {
     }
 
     // watch for any changes
-    PLUGINS.watch("./src/**/*", () => {
+    PLUGINS.watch("src/**/*", () => {
         // start the default task
         GULP.start("default");
     });

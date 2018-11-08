@@ -17,7 +17,7 @@ module.exports = {
 
             // generate critical CSS if requested
             if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
-                const SITEMAP  = plugins.json.readFileSync("./package.json").templates;
+                const SITEMAP  = plugins.json.readFileSync("package.json").templates;
                 const CRITICAL = require("critical");
                 const MKDIRP   = require("mkdirp");
 
@@ -76,7 +76,7 @@ module.exports = {
                 // compile SCSS (compress if --dist is passed)
                 .pipe(SASS({
                     importer:     CSS_IMPORTER(),
-                    includePaths: "./node_modules",
+                    includePaths: "node_modules",
                     outputStyle:  plugins.argv.dist ? "compressed" : "nested",
                 }))
                 // process post CSS stuff

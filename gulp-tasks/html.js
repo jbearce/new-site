@@ -44,14 +44,7 @@ module.exports = {
         // process HTML
         const PROCESS_HTML = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`]) => {
             // read data from package.json
-            const NAME            = plugins.json.readFileSync("./package.json").name;
-            const PWA_NAME        = plugins.json.readFileSync("./package.json").progressiveWebApp.name;
-            const PWA_SHORT_NAME  = plugins.json.readFileSync("./package.json").progressiveWebApp.short_name;
-            const PWA_THEME_COLOR = plugins.json.readFileSync("./package.json").progressiveWebApp.theme_color;
-            const DESCRIPTION     = plugins.json.readFileSync("./package.json").description;
-            const VERSION         = plugins.json.readFileSync("./package.json").version;
-            const REPOSITORY      = plugins.json.readFileSync("./package.json").repository.url;
-            const LICENSE         = plugins.json.readFileSync("./package.json").license;
+            const JSON_DATA = plugins.json.readFileSync("package.json");
 
             return gulp.src(source)
                 // prevent breaking on error
@@ -72,14 +65,14 @@ module.exports = {
                 }))
                 // replace variables
                 .pipe(TEMPLATE({
-                    name: NAME,
-                    pwa_name: PWA_NAME + (!plugins.argv.dist ? " - DEV" : ""),
-                    pwa_short_name: PWA_SHORT_NAME,
-                    pwa_theme_color: PWA_THEME_COLOR,
-                    description: DESCRIPTION,
-                    version: VERSION,
-                    repository: REPOSITORY,
-                    license: LICENSE,
+                    name: JSON_DATA.name,
+                    pwa_name: JSON_DATA.progressiveWebApp.name + (!plugins.argv.dist ? " - DEV" : ""),
+                    pwa_short_name: JSON_DATA.progressiveWebApp.short_name,
+                    pwa_theme_color: JSON_DATA.progressiveWebApp.theme_color,
+                    description: JSON_DATA.description,
+                    version: JSON_DATA.version,
+                    repository: JSON_DATA.repository.url,
+                    license: JSON_DATA.license,
                 }))
                 // output to compiled directory
                 .pipe(gulp.dest(html_directory));
