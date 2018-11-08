@@ -26,6 +26,10 @@ const PLUGINS = {
             alias: "upload",
             type:  "boolean",
         },
+        "z": {
+            alias: "endpoint",
+            type:  "string",
+        },
     }).argv,
     fs:         require("fs"),
     gulpif:     require("gulp-if"),
@@ -42,6 +46,9 @@ const PLUGINS = {
     through:    require("through2"),
     watch:      require("gulp-watch"),
 };
+
+// load .env
+require("dotenv").config({ path: PLUGINS.path.resolve(process.cwd(), ".config/.env") });
 
 if (PLUGINS.argv.sync) {
     PLUGINS.browser_sync = require("browser-sync");
