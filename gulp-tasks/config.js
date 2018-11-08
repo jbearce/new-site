@@ -11,7 +11,7 @@ module.exports = {
         const GENERATE_CONFIG = (file_name, mode = "ftp") => {
             // store array of config file URIs
             const DATA_SOURCE = {
-                bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/7d011d22bef966f06d0c8b84d50891419738ac8b/.bsconfig",
+                bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8b07f8a13d983f0f8bbf89e1d149e551f4cdfa67/.bsconfig",
                 ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/1edc9488cccf2200831b13565a02180fce2afc5a/.ftpconfig",
                 sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/b7a06d618468ab82d12a0639a74f7f403e6f8cdc/.ftpconfig",
                 rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/91214db28e8f9cbbecb7f8ddcf5e42cbe5c5b0a8/.rsyncconfig",
