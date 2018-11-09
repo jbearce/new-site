@@ -23,8 +23,6 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${UPLOAD_DIRECTORY}/**/*`] })))
-                // check if files are newer
                 .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
                 // upload changed files
                 .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
