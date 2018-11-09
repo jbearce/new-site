@@ -71,6 +71,7 @@ Within each folder, each block has its own folder. Within these folders, each br
 
 Breakpoints on this project go from narrow to wide. Each breakpoint is listed below.
 
+| Name | Width  |
 |:----:|:------:|
 | xxxl | 1440px |
 | xxl  | 1366px |
