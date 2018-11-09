@@ -32,7 +32,7 @@ module.exports = {
                 })
                 // resolve the promise
                 .on("end", () => {
-                    return resolve();
+                    resolve();
                 });
         });
     }

@@ -224,7 +224,7 @@ module.exports = {
                     .pipe(gulp.dest("./"))
                     // resolve the promise
                     .on("end", () => {
-                        return resolve();
+                        resolve();
                     });
             });
         };
@@ -235,7 +235,7 @@ module.exports = {
             }).then(() => {
                 return WRITE_PROJECT_DATA();
             }).then(() => {
-                return resolve();
+                resolve();
             });
         });
     }

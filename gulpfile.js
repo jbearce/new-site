@@ -124,7 +124,7 @@ GULP.task("init", () => {
     return INIT_MODULE.init(GULP, PLUGINS, ON_ERROR);
 });
 GULP.task("config", () => {
-    return CONFIG_MODULE.config(GULP, PLUGINS, (PLUGINS.argv.ftp || PLUGINS.argv.sftp ? "ftp" : (PLUGINS.argv.browsersync ? "browsersync" : "")));
+    return CONFIG_MODULE.config(GULP, PLUGINS, (PLUGINS.argv.sync ? "browsersync" : (PLUGINS.argv.upload ? "ftp" : (PLUGINS.argv.rsync ? "rsync" : ""))), true);
 });
 
 // default task, runs through all primary tasks
@@ -143,26 +143,22 @@ GULP.task("default", ["styles", "scripts", "html", "media"], () => {
         if (PLUGINS.argv.upload) {
             return CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
                 return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
-            }).then(() => {
-                return resolve();
             });
         }
 
-        // resole the promise automatically if upload wasn't requested
-        return resolve();
+        // resolve the promise automatically if upload wasn't requested
+        resolve();
     }).then(() => {
         // trigger rsync task if --rsync is passed
         return new Promise((resolve) => {
             if (PLUGINS.argv.rsync) {
                 return CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
                     return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
-                }).then(() => {
-                    return resolve();
                 });
             }
 
-            // resole the promise automatically if rsync wasn't requested
-            return resolve();
+            // resolve the promise automatically if rsync wasn't requested
+            resolve();
         });
     }).then(() => {
         // trigger sync task if --sync is passed
@@ -171,7 +167,7 @@ GULP.task("default", ["styles", "scripts", "html", "media"], () => {
                 PLUGINS.browser_sync.reload();
             }
 
-            return resolve();
+            resolve();
         });
     });
 

@@ -3,9 +3,43 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    config(gulp, plugins, requested = "") {
+    config(gulp, plugins, requested = "", direct_call = false) {
         // task-specific plugins
         const REQUEST = require("request");
+        const MKDIRP  = require("mkdirp");
+
+        // check which .ftpconfig to download
+        const CHECK_FTP_MODE = (mode) => {
+            return new Promise((resolve, reject) => {
+                // if mode is ftp
+                if (mode === "ftp") {
+                    // if ftp is requested, or upload is passed, or is a direct call and nothing else is passed
+                    if (requested === "ftp" || plugins.argv.upload || (direct_call && !plugins.argv.sync && !plugins.argv.rsync)) {
+                        // prompt the user
+                        return gulp.src("gulpfile.js")
+                            .pipe(plugins.prompt.prompt([
+                                {
+                                    name:    "protocol",
+                                    message: "ftp protocol: ",
+                                    default: "ftp",
+                                    type:    "list",
+                                    choices: ["ftp", "sftp"],
+                                }
+                            ], (res) => {
+                                mode = res.protocol;
+                            })).on("end", () => {
+                                // resolve the promise
+                                resolve(mode);
+                            }).on("error", () => {
+                                // reject the promise
+                                reject();
+                            });
+                    }
+                }
+
+                resolve(mode);
+            });
+        };
 
         // generate config.json and start other functions
         const GENERATE_CONFIG = (file_name, mode = "ftp") => {
@@ -19,26 +53,30 @@ module.exports = {
 
             // write the file
             return new Promise((resolve, reject) => {
-                // open the file
-                plugins.fs.stat(`.config/${file_name}`, (err) => {
-                    // make sure the file doesn't exist (or otherwise has an error)
-                    if (err !== null) {
-                        // get the file contents from the gist_url
-                        REQUEST.get(DATA_SOURCE[mode], (error, response, body) => {
-                            if (!error && response.statusCode == 200) {
-                                // write the file
-                                plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
-                                    // resolve the promise
-                                    resolve();
+                MKDIRP(".config", () => {
+                    // open the file
+                    plugins.fs.stat(`.config/${file_name}`, (err) => {
+                        // make sure the file doesn't exist (or otherwise has an error)
+                        if (err !== null) {
+                            // check which FTP mode to use
+                            CHECK_FTP_MODE(mode).then((mode) => {
+                                // get the file contents from the gist_url
+                                REQUEST.get(DATA_SOURCE[mode], (error, response, body) => {
+                                    if (!error && response.statusCode == 200) {
+                                        // write the file
+                                        plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
+                                            resolve();
+                                        });
+                                    } else {
+                                        reject();
+                                    }
                                 });
-                            } else {
-                                reject();
-                            }
-                        });
-                    } else {
-                        // automatically resolve the promise if the file already exists
-                        resolve();
-                    }
+                            });
+                        } else {
+                            // automatically resolve the promise if the file already exists
+                            resolve();
+                        }
+                    });
                 });
             });
         };
@@ -51,26 +89,31 @@ module.exports = {
 
             const PROMPTS = [];
 
-            // construct the prompts
-            Object.keys(options).forEach(option => {
-                const PROPERTIES = options[option];
+            // if no requested, or requsted is current namespace
+            if (["", namespace].indexOf(requested) >= 0) {
 
-                // construct the prompt
-                const PROMPT = {
-                    name:    option,
-                    message: `${namespace} ${option}: `,
-                };
+                // if config is called directly, or it's not configured
+                if (direct_call || !CONFIGURED) {
 
-                // construct the prompt
-                Object.keys(PROPERTIES).forEach(property => {
-                    PROMPT[property] = PROPERTIES[property];
-                });
+                    // construct the prompts
+                    Object.keys(options).forEach(option => {
+                        const PROPERTIES = options[option];
 
-                // check if the setting has no value or is explicitly requested
-                if ((requested !== "" && requested === namespace && (global.settings[namespace][option] === "" || CONFIGURED === false)) || gulp.seq.indexOf("config") >= 0 && (requested === "" || requested === namespace) && (global.settings[namespace][option] === "" || plugins.argv[namespace] || CONFIGURED === false)) {
-                    PROMPTS.push(PROMPT);
+                        // construct the prompt
+                        const PROMPT = {
+                            name:    option,
+                            message: `${namespace} ${option}: `,
+                        };
+
+                        // construct the prompt
+                        Object.keys(PROPERTIES).forEach(property => {
+                            PROMPT[property] = PROPERTIES[property];
+                        });
+
+                        PROMPTS.push(PROMPT);
+                    });
                 }
-            });
+            }
 
             return new Promise ((resolve, reject) => {
                 if (PROMPTS.length > 0) {
@@ -123,11 +166,13 @@ module.exports = {
         // download all config files
         return Promise.all([
             GENERATE_CONFIG(".bsconfig", "browsersync"),
-            GENERATE_CONFIG(".ftpconfig", (plugins.argv["sftp"] ? "sftp" : (plugins.argv["ftps"] ? "ftps" : "ftp"))),
-            GENERATE_CONFIG(".rsyncconfig", "rsync")
+            GENERATE_CONFIG(".ftpconfig", "ftp"),
+            GENERATE_CONFIG(".rsyncconfig", "rsync"),
         ]).then(() => {
             // read browsersync settings from .bsconfig
-            const JSON_DATA             = plugins.json.readFileSync(".config/.bsconfig");
+            const JSON_DATA = plugins.json.readFileSync(".config/.bsconfig");
+
+            // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.browsersync = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
 
             // construct the prompts
@@ -156,7 +201,9 @@ module.exports = {
             return CONFIGURE_JSON(".bsconfig", "browsersync", ENDPOINT, PROMPTS);
         }).then(() => {
             // read ftp settings from .ftpconfig
-            const JSON_DATA     = plugins.json.readFileSync(".config/.ftpconfig");
+            const JSON_DATA = plugins.json.readFileSync(".config/.ftpconfig");
+
+            // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.ftp = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
 
             // construct the prompts
@@ -193,7 +240,9 @@ module.exports = {
             return CONFIGURE_JSON(".ftpconfig", "ftp", ENDPOINT, PROMPTS);
         }).then(() => {
             // read ftp settings from .ftpconfig
-            const JSON_DATA       = plugins.json.readFileSync(".config/.rsyncconfig");
+            const JSON_DATA = plugins.json.readFileSync(".config/.rsyncconfig");
+
+            // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.rsync = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
 
             // construct the prompts
