@@ -158,7 +158,7 @@
 
 ## `.env`
 
-A `.env` file can be set up in `././config` to set the default endpoint for the `upload`, `rsync`, and `sync` tasks. It should be formatted as such:
+A `.env` file can be set up in `./.config` to set the default endpoint for the `upload`, `rsync`, and `sync` tasks. It should be formatted as such:
 
 ```
 ENDPOINT={endpoint_name}
