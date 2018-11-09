@@ -11,33 +11,30 @@ module.exports = {
         // check which .ftpconfig to download
         const CHECK_FTP_MODE = (mode) => {
             return new Promise((resolve, reject) => {
-                // if mode is ftp
-                if (mode === "ftp") {
-                    // if ftp is requested, or upload is passed, or is a direct call and nothing else is passed
-                    if (requested === "ftp" || plugins.argv.upload || (direct_call && !plugins.argv.sync && !plugins.argv.rsync)) {
-                        // prompt the user
-                        return gulp.src("gulpfile.js")
-                            .pipe(plugins.prompt.prompt([
-                                {
-                                    name:    "protocol",
-                                    message: "ftp protocol: ",
-                                    default: "ftp",
-                                    type:    "list",
-                                    choices: ["ftp", "sftp"],
-                                }
-                            ], (res) => {
-                                mode = res.protocol;
-                            })).on("end", () => {
-                                // resolve the promise
-                                resolve(mode);
-                            }).on("error", () => {
-                                // reject the promise
-                                reject();
-                            });
-                    }
+                // if mode is ftp and (ftp is requested, or upload is passed, or is a direct call and nothing else is passed)
+                if (mode === "ftp" && (requested === "ftp" || plugins.argv.upload || (direct_call && !plugins.argv.sync && !plugins.argv.rsync))) {
+                    // prompt the user
+                    return gulp.src("gulpfile.js")
+                        .pipe(plugins.prompt.prompt([
+                            {
+                                name:    "protocol",
+                                message: "ftp protocol: ",
+                                default: "ftp",
+                                type:    "list",
+                                choices: ["ftp", "sftp"],
+                            }
+                        ], (res) => {
+                            mode = res.protocol;
+                        })).on("end", () => {
+                            // resolve the promise
+                            resolve(mode);
+                        }).on("error", () => {
+                            // reject the promise
+                            reject();
+                        });
+                } else {
+                    resolve(mode);
                 }
-
-                resolve(mode);
             });
         };
 
