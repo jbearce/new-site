@@ -30,7 +30,7 @@
 
 ### `gulp styles`
 
-1. Generates critical CSS &ndash; *If `--experimental critical is passed.*
+1. Generates critical CSS &ndash; *If `--experimental critical` is passed.*
 
 2. Checks if styles have been modified, and therefore need to be compiled.
 
