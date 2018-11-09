@@ -11,8 +11,8 @@ const PLUGINS = {
             type:  "boolean",
         },
         "e": {
-            alias: "experimental",
-            type:  "array",
+            alias: "endpoint",
+            type:  "string",
         },
         "r": {
             alias: "rsync",
@@ -26,9 +26,9 @@ const PLUGINS = {
             alias: "upload",
             type:  "boolean",
         },
-        "z": {
-            alias: "endpoint",
-            type:  "string",
+        "x": {
+            alias: "experimental",
+            type:  "array",
         },
     }).argv,
     fs:         require("fs"),
