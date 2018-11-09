@@ -42,7 +42,7 @@ module.exports = {
         };
 
         // process HTML
-        const PROCESS_HTML = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}/assets`]) => {
+        const PROCESS_HTML = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}/assets`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]) => {
             // read data from package.json
             const JSON_DATA = plugins.json.readFileSync("package.json");
 
