@@ -145,7 +145,7 @@
 
 2. Runs through all non-binary files in the repository and replaces `__gulp_init_{variable}__` with the values entered.
 
-*To automate settings, create the file `./.config/.init` with a JSON object containing aligning with the object in the task.*
+*To automate settings, create the file `./.config/.init` with a JSON object aligning with the object in the task.*
 
 ## Flags
 
