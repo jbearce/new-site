@@ -11,14 +11,11 @@ module.exports = {
         const GENERATE_CONFIG = (file_name, mode = "ftp") => {
             // store array of config file URIs
             const DATA_SOURCE = {
-                bs:    "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8fe578c2af7a4d31c2357d1a3c0f2cbc8c1cf42f/.bsconfig",
-                ftp:   "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/7f835b5bb32b00f8941c2cc93177bff5362f87fb/.ftpconfig",
-                sftp:  "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/a914ac95afed13051337cfe1a706afcf6520469e/.ftpconfig",
-                rsync: "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/987c48f67f2a92146d306be470583a247587cfe8/.rsyncconfig",
+                browsersync: "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8fe578c2af7a4d31c2357d1a3c0f2cbc8c1cf42f/.bsconfig",
+                ftp:         "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/7f835b5bb32b00f8941c2cc93177bff5362f87fb/.ftpconfig",
+                sftp:        "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/a914ac95afed13051337cfe1a706afcf6520469e/.ftpconfig",
+                rsync:       "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/987c48f67f2a92146d306be470583a247587cfe8/.rsyncconfig",
             };
-
-            // check which config URI to use
-            const GIST_URL = typeof file_name !== "undefined" ? (file_name === ".bsconfig" ? DATA_SOURCE.bs : (file_name === ".ftpconfig" ? (mode === "sftp" ? DATA_SOURCE.sftp : DATA_SOURCE.ftp) : (mode === "rsync" ? DATA_SOURCE.rsync : ""))) : "";
 
             // write the file
             return new Promise((resolve, reject) => {
@@ -27,7 +24,7 @@ module.exports = {
                     // make sure the file doesn't exist (or otherwise has an error)
                     if (err !== null) {
                         // get the file contents from the gist_url
-                        REQUEST.get(GIST_URL, (error, response, body) => {
+                        REQUEST.get(DATA_SOURCE[mode], (error, response, body) => {
                             if (!error && response.statusCode == 200) {
                                 // write the file
                                 plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
