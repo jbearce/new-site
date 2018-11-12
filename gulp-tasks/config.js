@@ -127,6 +127,9 @@ module.exports = {
                                                 reject();
                                             }
                                         });
+                                    } else {
+                                        // resolve immediately if we're not in the FTP namespace
+                                        resolve();
                                     }
                                 }).then(() => {
                                     // make sure "configured" goes to the bottom of the object
