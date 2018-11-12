@@ -8,14 +8,14 @@ module.exports = {
         const REQUEST = require("request");
         const MKDIRP  = require("mkdirp");
 
-        // store array of config file URIs
+        // store array of gist URIs
         const DATA_SOURCES = {
             browsersync: "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8fe578c2af7a4d31c2357d1a3c0f2cbc8c1cf42f",
             ftp:         "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/3886b5c5c1e6e386fb56eb072d7d87f0952d5128",
             rsync:       "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/987c48f67f2a92146d306be470583a247587cfe8",
         };
 
-        // generate config.json and start other functions
+        // generate .config folder
         const GENERATE_CONFIG = (file_name, mode = "ftp") => {
             // write the file
             return new Promise((resolve, reject) => {
@@ -24,7 +24,7 @@ module.exports = {
                     plugins.fs.stat(`.config/${file_name}`, (err) => {
                         // make sure the file doesn't exist (or otherwise has an error)
                         if (err !== null) {
-                            // get the file contents from the gist_url
+                            // get the file contents from the gist URI
                             REQUEST.get(`${DATA_SOURCES[mode]}/${file_name}`, (error, response, body) => {
                                 if (!error && response.statusCode == 200) {
                                     // write the file
@@ -90,8 +90,13 @@ module.exports = {
 
                                 // add the endpoint to the JSON data if it doesn't exist
                                 if (!JSON_DATA[endpoint]) {
-                                    JSON_DATA[endpoint]            = Object.assign({}, JSON_DATA.default);
-                                    JSON_DATA[endpoint].configured = false;
+                                    if (namespace === "ftp") {
+                                        // ftp is handled special
+                                        JSON_DATA[endpoint] = Object.assign({}, global.settings.ftp);
+                                    } else {
+                                        // clone the existing data
+                                        JSON_DATA[endpoint] = Object.assign({}, JSON_DATA.default);
+                                    }
                                 }
 
                                 // update the data
@@ -110,10 +115,10 @@ module.exports = {
 
                                     // if a new endpoints data is FTP or SFTP, retrieve the remaining options
                                     if (namespace === "ftp") {
-                                        // get the file contents from the gist_url
+                                        // get the protocol-specific fields from the gist URI
                                         REQUEST.get(`${DATA_SOURCES.ftp}/.${JSON_DATA[endpoint].protocol}specific`, (error, response, body) => {
                                             if (!error && response.statusCode == 200) {
-                                                // add the protocol specific JSON data t othe object
+                                                // add the protocol specific JSON data to the object
                                                 JSON_DATA[endpoint] = Object.assign(JSON_DATA[endpoint], JSON.parse(body));
 
                                                 // resolve the promise
@@ -162,7 +167,7 @@ module.exports = {
 
             // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.browsersync = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
-
+        }).then(() => {
             // construct the prompts
             const PROMPTS = {
                 proxy: {
@@ -191,16 +196,19 @@ module.exports = {
             // read ftp settings from .ftpconfig
             const JSON_DATA = plugins.json.readFileSync(".config/.ftpconfig");
 
-            // check if the endpoint exists or not
-            const IS_NEW_ENDPOINT = !JSON_DATA[ENDPOINT] ? true : false;
+            // get the FTP data from the endpoint if it exists
+            global.settings.ftp = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : false;
 
-            // get the FTP data from the endpoint, or otherwise the default
-            global.settings.ftp = !IS_NEW_ENDPOINT ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
-
-            if (IS_NEW_ENDPOINT) {
-                global.settings.ftp.configured = false;
+            // if the endpoint doesn't exist, get the default FTP data from the gist URI
+            if (!global.settings.ftp) {
+                // get the file contents from the gist URI
+                REQUEST.get(`${DATA_SOURCES.ftp}/.ftpconfig`, (error, response, body) => {
+                    if (!error && response.statusCode == 200) {
+                        global.settings.ftp = JSON.parse(body).default;
+                    }
+                });
             }
-
+        }).then(() => {
             // construct the prompts
             const PROMPTS = {
                 protocol: {
@@ -208,6 +216,12 @@ module.exports = {
                     type:    "list",
                     choices: ["ftp", "sftp"],
                     suffix: "(Once configured, an endpoints protocol cannot be changed)",
+                },
+                secure: {
+                    default: global.settings.ftp.secure === true ? 0 : 1,
+                    type:    "list",
+                    choices: ["true", "false"],
+                    when:    data => data.protocol === "ftp",
                 },
                 host: {
                     default: global.settings.ftp.host,
@@ -222,16 +236,8 @@ module.exports = {
                     type:    "password",
                 },
                 remotePath: {
-                    default: global.settings.ftp.remotePath,
-                    type:    "input",
-                },
-                secure: {
-                    default: global.settings.ftp.secure === true ? 0 : 1,
-                    type:    "list",
-                    choices: ["true", "false"],
-                    when: (data) => {
-                        return data.protocol === "ftp";
-                    }
+                    default:  global.settings.ftp.remotePath,
+                    type:     "input",
                 },
             };
 
@@ -252,7 +258,7 @@ module.exports = {
 
             // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.rsync = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
-
+        }).then(() => {
             // construct the prompts
             const PROMPTS = {
                 destination: {
@@ -266,10 +272,12 @@ module.exports = {
                 hostname: {
                     default: global.settings.rsync.hostname,
                     type:    "input",
+                    suffix:  "(Set to false to rsync locally)",
                 },
                 username: {
                     default: global.settings.rsync.username,
                     type:    "input",
+                    when:    data => data.hostname !== "false",
                 },
             };
 
