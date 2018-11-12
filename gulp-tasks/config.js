@@ -167,7 +167,7 @@ module.exports = {
 
             // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.browsersync = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
-        }).then(() => {
+
             // construct the prompts
             const PROMPTS = {
                 proxy: {
@@ -199,15 +199,23 @@ module.exports = {
             // get the FTP data from the endpoint if it exists
             global.settings.ftp = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : false;
 
-            // if the endpoint doesn't exist, get the default FTP data from the gist URI
-            if (!global.settings.ftp) {
-                // get the file contents from the gist URI
-                REQUEST.get(`${DATA_SOURCES.ftp}/.ftpconfig`, (error, response, body) => {
-                    if (!error && response.statusCode == 200) {
-                        global.settings.ftp = JSON.parse(body).default;
-                    }
-                });
-            }
+            return new Promise((resolve, reject) => {
+                // if the endpoint doesn't exist, get the default FTP data from the gist URI
+                if (!global.settings.ftp) {
+                    // get the file contents from the gist URI
+                    REQUEST.get(`${DATA_SOURCES.ftp}/.ftpconfig`, (error, response, body) => {
+                        if (!error && response.statusCode == 200) {
+                            global.settings.ftp = JSON.parse(body).default;
+                            resolve();
+                        } else {
+                            reject();
+                        }
+                    });
+                } else {
+                    // automatically resolve the promise if the settings already exist
+                    resolve();
+                }
+            });
         }).then(() => {
             // construct the prompts
             const PROMPTS = {
@@ -258,7 +266,7 @@ module.exports = {
 
             // get the data from the intended endpoint, or if it doesn't exist, default
             global.settings.rsync = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
-        }).then(() => {
+
             // construct the prompts
             const PROMPTS = {
                 destination: {
