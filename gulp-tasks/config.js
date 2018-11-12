@@ -8,46 +8,15 @@ module.exports = {
         const REQUEST = require("request");
         const MKDIRP  = require("mkdirp");
 
-        // check which .ftpconfig to download
-        const CHECK_FTP_MODE = (mode) => {
-            return new Promise((resolve, reject) => {
-                // if mode is ftp and (ftp is requested, or upload is passed, or is a direct call and nothing else is passed)
-                if (mode === "ftp" && (requested === "ftp" || plugins.argv.upload || (direct_call && !plugins.argv.sync && !plugins.argv.rsync))) {
-                    // prompt the user
-                    return gulp.src("gulpfile.js")
-                        .pipe(plugins.prompt.prompt([
-                            {
-                                name:    "protocol",
-                                message: "ftp protocol: ",
-                                default: "ftp",
-                                type:    "list",
-                                choices: ["ftp", "sftp"],
-                            }
-                        ], (res) => {
-                            mode = res.protocol;
-                        })).on("end", () => {
-                            // resolve the promise
-                            resolve(mode);
-                        }).on("error", () => {
-                            // reject the promise
-                            reject();
-                        });
-                } else {
-                    resolve(mode);
-                }
-            });
+        // store array of config file URIs
+        const DATA_SOURCES = {
+            browsersync: "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8fe578c2af7a4d31c2357d1a3c0f2cbc8c1cf42f",
+            ftp:         "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/3886b5c5c1e6e386fb56eb072d7d87f0952d5128",
+            rsync:       "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/987c48f67f2a92146d306be470583a247587cfe8",
         };
 
         // generate config.json and start other functions
         const GENERATE_CONFIG = (file_name, mode = "ftp") => {
-            // store array of config file URIs
-            const DATA_SOURCE = {
-                browsersync: "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8fe578c2af7a4d31c2357d1a3c0f2cbc8c1cf42f/.bsconfig",
-                ftp:         "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/7f835b5bb32b00f8941c2cc93177bff5362f87fb/.ftpconfig",
-                sftp:        "https://gist.githubusercontent.com/JacobDB/cad97b5c4e947b40e3b54c6022fec887/raw/a914ac95afed13051337cfe1a706afcf6520469e/.ftpconfig",
-                rsync:       "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/987c48f67f2a92146d306be470583a247587cfe8/.rsyncconfig",
-            };
-
             // write the file
             return new Promise((resolve, reject) => {
                 MKDIRP(".config", () => {
@@ -55,19 +24,16 @@ module.exports = {
                     plugins.fs.stat(`.config/${file_name}`, (err) => {
                         // make sure the file doesn't exist (or otherwise has an error)
                         if (err !== null) {
-                            // check which FTP mode to use
-                            CHECK_FTP_MODE(mode).then((mode) => {
-                                // get the file contents from the gist_url
-                                REQUEST.get(DATA_SOURCE[mode], (error, response, body) => {
-                                    if (!error && response.statusCode == 200) {
-                                        // write the file
-                                        plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
-                                            resolve();
-                                        });
-                                    } else {
-                                        reject();
-                                    }
-                                });
+                            // get the file contents from the gist_url
+                            REQUEST.get(`${DATA_SOURCES[mode]}/${file_name}`, (error, response, body) => {
+                                if (!error && response.statusCode == 200) {
+                                    // write the file
+                                    plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
+                                        resolve();
+                                    });
+                                } else {
+                                    reject();
+                                }
                             });
                         } else {
                             // automatically resolve the promise if the file already exists
@@ -138,11 +104,36 @@ module.exports = {
                             // update file with new JSON data
                             plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
                         })).on("end", () => {
-                            // mark as configured
-                            JSON_DATA[endpoint].configured = true;
+                            // mark new endpoints as configured
+                            if (JSON_DATA[endpoint].configured === false) {
+                                new Promise((resolve, reject) => {
 
-                            // update file with new JSON data
-                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
+                                    // if a new endpoints data is FTP or SFTP, retrieve the remaining options
+                                    if (namespace === "ftp") {
+                                        // get the file contents from the gist_url
+                                        REQUEST.get(`${DATA_SOURCES.ftp}/.${JSON_DATA[endpoint].protocol}specific`, (error, response, body) => {
+                                            if (!error && response.statusCode == 200) {
+                                                // add the protocol specific JSON data t othe object
+                                                JSON_DATA[endpoint] = Object.assign(JSON_DATA[endpoint], JSON.parse(body));
+
+                                                // resolve the promise
+                                                resolve();
+                                            } else {
+                                                reject();
+                                            }
+                                        });
+                                    }
+                                }).then(() => {
+                                    // make sure "configured" goes to the bottom of the object
+                                    delete JSON_DATA[endpoint].configured;
+
+                                    // mark as configured
+                                    JSON_DATA[endpoint].configured = true;
+
+                                    // update file with new JSON data
+                                    plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
+                                });
+                            }
 
                             // resolve the promise
                             resolve();
@@ -200,11 +191,24 @@ module.exports = {
             // read ftp settings from .ftpconfig
             const JSON_DATA = plugins.json.readFileSync(".config/.ftpconfig");
 
-            // get the data from the intended endpoint, or if it doesn't exist, default
-            global.settings.ftp = JSON_DATA[ENDPOINT] ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
+            // check if the endpoint exists or not
+            const IS_NEW_ENDPOINT = !JSON_DATA[ENDPOINT] ? true : false;
+
+            // get the FTP data from the endpoint, or otherwise the default
+            global.settings.ftp = !IS_NEW_ENDPOINT ? JSON_DATA[ENDPOINT] : JSON_DATA.default;
+
+            if (IS_NEW_ENDPOINT) {
+                global.settings.ftp.configured = false;
+            }
 
             // construct the prompts
             const PROMPTS = {
+                protocol: {
+                    default: global.settings.ftp.protocol === "ftp" ? 0 : 1,
+                    type:    "list",
+                    choices: ["ftp", "sftp"],
+                    suffix: "(Once configured, an endpoints protocol cannot be changed)",
+                },
                 host: {
                     default: global.settings.ftp.host,
                     type:    "input",
@@ -225,12 +229,19 @@ module.exports = {
                     default: global.settings.ftp.secure === true ? 0 : 1,
                     type:    "list",
                     choices: ["true", "false"],
+                    when: (data) => {
+                        return data.protocol === "ftp";
+                    }
                 },
             };
 
-            // don't prompt for protocol for SFTP
-            if (global.settings.ftp.protocol === "sftp") {
-                delete PROMPTS.secure;
+            // don't allow changing of protocol once configured
+            if (global.settings.ftp.configured) {
+                if (global.settings.ftp.protocol === "ftp") {
+                    delete PROMPTS.protocol.choices[1];
+                } else if (global.settings.ftp.protocol === "sftp") {
+                    delete PROMPTS.protocol.choices[0];
+                }
             }
 
             // configure the JSON
