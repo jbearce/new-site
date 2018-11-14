@@ -183,9 +183,10 @@ GULP.task("watch", () => {
         });
     }
 
+    // watch for any changes
     const WATCHER = GULP.watch("src/**/*");
 
-    // watch for any changes
+    // run default task on any change
     WATCHER.on("all", () => {
         GULP.task("default")();
     });
