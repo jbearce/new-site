@@ -7,15 +7,17 @@ module.exports = {
         // task-specific plugins
         const RSYNC = require("gulp-rsync");
 
-        // set upload directory
-        const RSYNC_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
-
         return new Promise((resolve) => {
-            return gulp.src(`${RSYNC_DIRECTORY}/`)
+            return gulp.src(global.settings.rsync.root)
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
+                // notify that `root` needs set to `dist` if `dist` is passed and it's not equal to `globla.settings.paths.dist`
+                .pipe(plugins.gulpif(plugins.argv.dist && global.settings.rsync.root !== global.settings.paths.dist, plugins.notify({
+                    title: "Notice!",
+                    message: `It appears that --dist was passed, but the rsync root is set to '${global.settings.rsync.root}'.`,
+                })))
                 // check if files are newer
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${RSYNC_DIRECTORY}/**/*`] })))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${global.settings.rsync.root}/**/*`] })))
                 // rsync files
                 .pipe(RSYNC(global.settings.rsync))
                 // prevent breaking on error
