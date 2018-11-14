@@ -140,22 +140,24 @@ GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "med
     return new Promise((resolve) => {
         // trigger upload task if --upload is passed
         if (PLUGINS.argv.upload) {
-            return CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
+            CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
                 return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+            }).then(() => {
+                resolve();
             });
         } else {
-            // resolve the promise automatically if upload wasn't requested
             resolve();
         }
     }).then(() => {
         // trigger rsync task if --rsync is passed
         return new Promise((resolve) => {
             if (PLUGINS.argv.rsync) {
-                return CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
+                CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
                     return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+                }).then(() => {
+                    resolve();
                 });
             } else {
-                // resolve the promise automatically if rsync wasn't requested
                 resolve();
             }
         });

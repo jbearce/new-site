@@ -4,18 +4,20 @@
 
 module.exports = {
     upload(gulp, plugins, ran_tasks, on_error) {
+        const PROTOCOL = global.settings.ftp.protocol;
+        
         // task-specific plugins
-        const FTP  = require("vinyl-ftp");
-        const SFTP = require("gulp-sftp");
+        const FTP  = PROTOCOL === "ftp" ? require("vinyl-ftp") : false;
+        const SFTP = PROTOCOL === "sftp" ? require("gulp-sftp") : false;
 
         // set upload directory
         const UPLOAD_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
         // create FTP connection
-        const FTP_CONN = FTP.create(global.settings.ftp);
+        const FTP_CONN = PROTOCOL === "ftp" ? FTP.create(global.settings.ftp) : false;
 
         // create SFTP connection
-        const SFTP_CONN = SFTP(global.settings.ftp);
+        const SFTP_CONN = PROTOCOL === "sftp" ? SFTP(global.settings.ftp) : false;
 
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
@@ -23,11 +25,9 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if files are newer
-                .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
+                .pipe(plugins.gulpif(PROTOCOL === "ftp", FTP_CONN.newer(global.settings.ftp.remotePath)))
                 // upload changed files
-                .pipe(plugins.gulpif(global.settings.ftp.protocol !== "sftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
-                // prevent breaking on error
-                .pipe(plugins.plumber({ errorHandler: on_error }))
+                .pipe(plugins.gulpif(PROTOCOL === "ftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
                 // notify that task is complete
                 .pipe(plugins.notify({
                     title:   "Success!",
