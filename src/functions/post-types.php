@@ -1,7 +1,7 @@
 <?php
 /* ------------------------------------------------------------------------ *\
  * Functions: Post Types
-\* ------------------------------------------------------------------------ *//*removeIf(resources_css_js_php)*/
+\* ------------------------------------------------------------------------ */
 
 // register resource post type
 function __gulp_init_namespace___create_resource_post_type() {
@@ -78,4 +78,3 @@ function __gulp_init_namespace___create_resource_post_type() {
     );
 }
 add_action("init", "__gulp_init_namespace___create_resource_post_type");
-/*endRemoveIf(resources_css_js_php)*/

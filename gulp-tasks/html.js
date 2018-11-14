@@ -93,7 +93,7 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("html") > gulp.seq.indexOf("default"), plugins.notify({
+                .pipe(plugins.gulpif(plugins.argv._.indexOf("html") > plugins.argv._.indexOf("default"), plugins.notify({
                     title:   "Success!",
                     message: "HTML task complete!",
                     onLast:  true,

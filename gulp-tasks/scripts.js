@@ -40,7 +40,7 @@ module.exports = {
                 // output scripts to compiled directory
                 .pipe(gulp.dest(js_directory))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("scripts") > gulp.seq.indexOf("default"), plugins.notify({
+                .pipe(plugins.gulpif(plugins.argv._.indexOf("scripts") > plugins.argv._.indexOf("default"), plugins.notify({
                     title:   "Success!",
                     message: "Scripts task complete!",
                     onLast:  true,

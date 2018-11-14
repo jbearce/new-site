@@ -97,7 +97,7 @@ module.exports = {
                 // output styles to compiled directory
                 .pipe(gulp.dest(CSS_DIRECTORY))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(gulp.seq.indexOf("styles") > gulp.seq.indexOf("default"), plugins.notify({
+                .pipe(plugins.gulpif(plugins.argv._.indexOf("styles") > plugins.argv._.indexOf("default"), plugins.notify({
                     title:   "Success!",
                     message: "Styles task complete!",
                     onLast:  true,

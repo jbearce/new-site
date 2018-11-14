@@ -44,7 +44,6 @@ const PLUGINS = {
     prompt:     require("gulp-prompt"),
     sourcemaps: require("gulp-sourcemaps"),
     through:    require("through2"),
-    watch:      require("gulp-watch"),
 };
 
 // load .env
@@ -128,7 +127,7 @@ GULP.task("config", () => {
 });
 
 // default task, runs through all primary tasks
-GULP.task("default", ["styles", "scripts", "html", "media"], () => {
+GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "media"), function finalize() {
     // notify that task is complete
     GULP.src("gulpfile.js")
         .pipe(PLUGINS.gulpif(RAN_TASKS.length, PLUGINS.notify({
@@ -138,16 +137,16 @@ GULP.task("default", ["styles", "scripts", "html", "media"], () => {
         })));
 
     // handle optional tasks sequentially
-    new Promise((resolve) => {
+    return new Promise((resolve) => {
         // trigger upload task if --upload is passed
         if (PLUGINS.argv.upload) {
             return CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
                 return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
             });
+        } else {
+            // resolve the promise automatically if upload wasn't requested
+            resolve();
         }
-
-        // resolve the promise automatically if upload wasn't requested
-        resolve();
     }).then(() => {
         // trigger rsync task if --rsync is passed
         return new Promise((resolve) => {
@@ -155,10 +154,10 @@ GULP.task("default", ["styles", "scripts", "html", "media"], () => {
                 return CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
                     return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
                 });
+            } else {
+                // resolve the promise automatically if rsync wasn't requested
+                resolve();
             }
-
-            // resolve the promise automatically if rsync wasn't requested
-            resolve();
         });
     }).then(() => {
         // trigger sync task if --sync is passed
@@ -167,30 +166,28 @@ GULP.task("default", ["styles", "scripts", "html", "media"], () => {
                 PLUGINS.browser_sync.reload();
             }
 
+            // reset ran_tasks array
+            RAN_TASKS.length = 0;
+
             resolve();
         });
     });
-
-    // reset ran_tasks array
-    RAN_TASKS.length = 0;
-
-    // end the task
-    return;
-});
+}));
 
 // watch task, runs through all primary tasks, triggers when a file is saved
 GULP.task("watch", () => {
     // set up a browser_sync server, if --sync is passed
     if (PLUGINS.argv.sync) {
         CONFIG_MODULE.config(GULP, PLUGINS, "browsersync").then(() => {
-            SYNC_MODULE.sync(PLUGINS);
+            SYNC_MODULE.sync(GULP, PLUGINS);
         });
     }
 
+    const WATCHER = GULP.watch("src/**/*");
+
     // watch for any changes
-    PLUGINS.watch("src/**/*", () => {
-        // start the default task
-        GULP.start("default");
+    WATCHER.on("all", () => {
+        GULP.task("default")();
     });
 
     // end the task
