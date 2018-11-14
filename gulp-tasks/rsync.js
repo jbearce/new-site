@@ -14,7 +14,7 @@ module.exports = {
                 // notify that `root` needs set to `dist` if `dist` is passed and it's not equal to `globla.settings.paths.dist`
                 .pipe(plugins.gulpif(plugins.argv.dist && global.settings.rsync.root !== global.settings.paths.dist, plugins.notify({
                     title: "Notice!",
-                    message: `It appears that --dist was passed, but the rsync root is set to '${global.settings.rsync.root}'.`,
+                    message: `\x1b[33mIt appears that --dist was passed, but the rsync root is set to '${global.settings.rsync.root}'.`,
                 })))
                 // check if files are newer
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${global.settings.rsync.root}/**/*`] })))
