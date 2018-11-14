@@ -8,15 +8,19 @@ module.exports = {
         const ESLINT  = require("gulp-eslint");
         const WEBPACK = require("webpack-stream");
 
-        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, file_to_check = `${global.settings.paths.dev}/assets/scripts/modern.js`) => {
+        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, folder_name = `${global.settings.paths.dev}/assets/scripts/`, file_name = "modern.js") => {
             return new Promise((resolve) => {
                 gulp.src(source)
                     // prevent breaking on error
                     .pipe(plugins.plumber({ errorHandler: on_error }))
                     // check if source is newer than destination
-                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(file_to_check)))
+                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folder_name}/${file_name}`)))
                     // if source files are newer, then compile
                     .on("data", () => {
+                        // delete the folder, becuase it's being replaced
+                        plugins.del(folder_name);
+
+                        // resolve the promise
                         resolve(true);
                     })
                     .on("end", () => {
@@ -26,39 +30,36 @@ module.exports = {
         };
 
         const PROCESS_SCRIPTS = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, js_directory = `${global.settings.paths.dev}/assets/scripts`, webpack_config = {}) => {
-            return gulp.src(source)
-                // prevent breaking on error
-                .pipe(plugins.plumber({ errorHandler: on_error }))
-                // lint all scripts
-                .pipe(ESLINT())
-                // print lint errors
-                .pipe(ESLINT.format())
-                // run webpack
-                .pipe(WEBPACK(webpack_config))
-                // generate a hash and add it to the file name, except service worker
-                .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({ template: "<%= name %>.<%= hash %><%= ext %>" })))
-                // output scripts to compiled directory
-                .pipe(gulp.dest(js_directory))
-                // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(plugins.argv._.indexOf("scripts") > plugins.argv._.indexOf("default"), plugins.notify({
-                    title:   "Success!",
-                    message: "Scripts task complete!",
-                    onLast:  true,
-                })))
-                // push task to ran_tasks array
-                .on("data", () => {
-                    if (ran_tasks.indexOf("scripts") < 0) {
-                        ran_tasks.push("scripts");
-                    }
-                })
-                // generate a hash manfiest
-                .pipe(plugins.hash.manifest(".hashmanifest-scripts", {
-                    deleteOld: true,
-                    manifestPath: ".config",
-                    sourceDir: js_directory,
-                }))
-                // output hash manifest in root
-                .pipe(gulp.dest(".config"));
+            return new Promise((resolve) => {
+                gulp.src(source)
+                    // prevent breaking on error
+                    .pipe(plugins.plumber({ errorHandler: on_error }))
+                    // lint all scripts
+                    .pipe(ESLINT())
+                    // print lint errors
+                    .pipe(ESLINT.format())
+                    // run webpack
+                    .pipe(WEBPACK(webpack_config))
+                    // generate a hash and add it to the file name, except service worker
+                    .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({ template: "<%= name %>.<%= hash %><%= ext %>" })))
+                    // output scripts to compiled directory
+                    .pipe(gulp.dest(js_directory))
+                    // notify that task is complete, if not part of default or watch
+                    .pipe(plugins.gulpif(plugins.argv._.indexOf("scripts") > plugins.argv._.indexOf("default"), plugins.notify({
+                        title: "Success!",
+                        message: "Scripts task complete!",
+                        onLast: true,
+                    })))
+                    // push task to ran_tasks array
+                    .on("data", () => {
+                        if (ran_tasks.indexOf("scripts") < 0) {
+                            ran_tasks.push("scripts");
+                        }
+                    })
+                    .on("end", () => {
+                        resolve();
+                    });
+            });
         };
 
         // scripts task, lints, concatenates, & compresses JS
@@ -81,12 +82,14 @@ module.exports = {
                 hashed_file_name = "modern.js";
             }
 
-            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.js`, `${JS_DIRECTORY}/${hashed_file_name}`).then((compile) => {
+            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, hashed_file_name).then((compile) => {
                 if (compile === true) {
-                    PROCESS_SCRIPTS(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, WEBPACK_CONFIG);
+                    PROCESS_SCRIPTS(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, WEBPACK_CONFIG).then(() => {
+                        resolve();
+                    });
+                } else {
+                    resolve();
                 }
-
-                resolve();
             });
 
         });

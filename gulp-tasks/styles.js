@@ -10,10 +10,96 @@ module.exports = {
         const SASS         = require("gulp-sass");
         const STYLELINT    = require("gulp-stylelint");
 
+        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, folder_name = `${global.settings.paths.dev}/assets/scripts/`, file_name = "modern.css") => {
+            return new Promise((resolve) => {
+                gulp.src(source)
+                    // prevent breaking on error
+                    .pipe(plugins.plumber({ errorHandler: on_error }))
+                    // check if source is newer than destination
+                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folder_name}/${file_name}`)))
+                    // if source files are newer, then compile
+                    .on("data", () => {
+                        // delete the folder, becuase it's being replaced
+                        plugins.del(folder_name);
+
+                        // resolve the promise
+                        resolve(true);
+                    })
+                    .on("end", () => {
+                        resolve(false);
+                    });
+            });
+        };
+
+        const PROCESS_STYLES = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, css_directory = `${global.settings.paths.dev}/assets/styles`) => {
+            return new Promise((resolve) => {
+                // process styles
+                gulp.src(source)
+                    // prevent breaking on error
+                    .pipe(plugins.plumber({
+                        errorHandler: on_error
+                    }))
+                    // lint
+                    .pipe(STYLELINT({
+                        debug: true,
+                        failAfterError: true,
+                        reporters: [
+                            {
+                                console: true,
+                                formatter: "string",
+                            },
+                        ],
+                    }))
+                    // initialize sourcemap
+                    .pipe(plugins.sourcemaps.init())
+                    // compile SCSS (compress if --dist is passed)
+                    .pipe(SASS({
+                        importer: CSS_IMPORTER(),
+                        includePaths: "node_modules",
+                        outputStyle: plugins.argv.dist ? "compressed" : "nested",
+                    }))
+                    // process post CSS stuff
+                    .pipe(POSTCSS([
+                        require("pixrem"),
+                        require("postcss-clearfix"),
+                        require("postcss-easing-gradients"),
+                        require("postcss-inline-svg"),
+                        require("postcss-flexibility"),
+                        require("postcss-responsive-type"),
+                    ]))
+                    // generate a hash and add it to the file name
+                    .pipe(plugins.hash({
+                        template: "<%= name %>.<%= hash %><%= ext %>",
+                    }))
+                    // write sourcemap (if --dist isn't passed)
+                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
+                    // output styles to compiled directory
+                    .pipe(gulp.dest(css_directory))
+                    // notify that task is complete, if not part of default or watch
+                    .pipe(plugins.gulpif(plugins.argv._.indexOf("styles") > plugins.argv._.indexOf("default"), plugins.notify({
+                        title: "Success!",
+                        message: "Styles task complete!",
+                        onLast: true,
+                    })))
+                    // push task to ran_tasks array
+                    .on("data", () => {
+                        if (ran_tasks.indexOf("styles") < 0) {
+                            ran_tasks.push("styles");
+                        }
+                    })
+                    .on("end", () => {
+                        resolve();
+                    });
+            });
+        };
+
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
             // set CSS directory
             const CSS_DIRECTORY = plugins.argv.dist ? `${global.settings.paths.dist}/assets/styles` : `${global.settings.paths.dev}/assets/styles`;
+
+            // set the source directory
+            const SOURCE_DIRECTORY = `${global.settings.paths.src}/assets/styles`;
 
             // generate critical CSS if requested
             if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
@@ -52,74 +138,15 @@ module.exports = {
                 hashed_file_name = "modern.css";
             }
 
-            // process styles
-            gulp.src(`${global.settings.paths.src}/assets/styles/**/*.scss`)
-                // prevent breaking on error
-                .pipe(plugins.plumber({
-                    errorHandler: on_error
-                }))
-                // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${CSS_DIRECTORY}/${hashed_file_name}`)))
-                // lint
-                .pipe(STYLELINT({
-                    debug: true,
-                    failAfterError: true,
-                    reporters: [
-                        {
-                            console: true,
-                            formatter: "string",
-                        },
-                    ],
-                }))
-                // initialize sourcemap
-                .pipe(plugins.sourcemaps.init())
-                // compile SCSS (compress if --dist is passed)
-                .pipe(SASS({
-                    importer:     CSS_IMPORTER(),
-                    includePaths: "node_modules",
-                    outputStyle:  plugins.argv.dist ? "compressed" : "nested",
-                }))
-                // process post CSS stuff
-                .pipe(POSTCSS([
-                    require("pixrem"),
-                    require("postcss-clearfix"),
-                    require("postcss-easing-gradients"),
-                    require("postcss-inline-svg"),
-                    require("postcss-flexibility"),
-                    require("postcss-responsive-type"),
-                ]))
-                // generate a hash and add it to the file name
-                .pipe(plugins.hash({
-                    template: "<%= name %>.<%= hash %><%= ext %>",
-                }))
-                // write sourcemap (if --dist isn't passed)
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
-                // output styles to compiled directory
-                .pipe(gulp.dest(CSS_DIRECTORY))
-                // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(plugins.argv._.indexOf("styles") > plugins.argv._.indexOf("default"), plugins.notify({
-                    title:   "Success!",
-                    message: "Styles task complete!",
-                    onLast:  true,
-                })))
-                // push task to ran_tasks array
-                .on("data", () => {
-                    if (ran_tasks.indexOf("styles") < 0) {
-                        ran_tasks.push("styles");
-                    }
-                })
-                // generate a hash manfiest
-                .pipe(plugins.hash.manifest(".hashmanifest-styles", {
-                    deleteOld: true,
-                    manifestPath: ".config",
-                    sourceDir: CSS_DIRECTORY,
-                }))
-                // output hash manifest in root
-                .pipe(gulp.dest(".config"))
-                // resolve the promise
-                .on("end", () => {
+            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY, hashed_file_name).then((compile) => {
+                if (compile === true) {
+                    PROCESS_STYLES(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY).then(() => {
+                        resolve();
+                    });
+                } else {
                     resolve();
-                });
+                }
+            });
         });
     }
 };
