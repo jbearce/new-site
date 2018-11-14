@@ -9,6 +9,7 @@ module.exports = {
         const POSTCSS      = require("gulp-postcss");
         const SASS         = require("gulp-sass");
         const STYLELINT    = require("gulp-stylelint");
+        const TOUCH        = require("gulp-touch-fd");
 
         const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, folder_name = `${global.settings.paths.dev}/assets/scripts/`, file_name = "modern.css") => {
             return new Promise((resolve) => {
@@ -75,6 +76,8 @@ module.exports = {
                     .pipe(plugins.gulpif(!plugins.argv.dist, plugins.sourcemaps.write()))
                     // output styles to compiled directory
                     .pipe(gulp.dest(css_directory))
+                    // update the mtime to prevent gulpjs/gulp#1461
+                    .pipe(TOUCH())
                     // notify that task is complete, if not part of default or watch
                     .pipe(plugins.gulpif(plugins.argv._.indexOf("styles") > plugins.argv._.indexOf("default"), plugins.notify({
                         title: "Success!",
