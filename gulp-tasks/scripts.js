@@ -9,22 +9,30 @@ module.exports = {
         const WEBPACK = require("webpack-stream");
 
         const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, folder_name = `${global.settings.paths.dev}/assets/scripts/`, file_name = "modern.js") => {
+            let clean = false;
+
             return new Promise((resolve) => {
                 gulp.src(source)
                     // prevent breaking on error
                     .pipe(plugins.plumber({ errorHandler: on_error }))
                     // check if source is newer than destination
                     .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folder_name}/${file_name}`)))
-                    // if source files are newer, then compile
+                    // if source files are newer, then mark the destination for cleaning
                     .on("data", () => {
-                        // delete the folder, becuase it's being replaced
-                        plugins.del(folder_name);
-
-                        // resolve the promise
-                        resolve(true);
+                        clean = true;
                     })
+                    // clean the directory if necessary and resolve the promsie
                     .on("end", () => {
-                        resolve(false);
+                        if (clean) {
+                            // delete the folder, becuase it's being replaced
+                            plugins.del(folder_name).then(() => {
+                                // resolve the promise, compile
+                                resolve(true);
+                            });
+                        } else {
+                            // resolve the promise, don't compile
+                            resolve(false);
+                        }
                     });
             });
         };
