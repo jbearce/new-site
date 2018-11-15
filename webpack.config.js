@@ -13,7 +13,7 @@ module.exports = {
         // automatically build entry points based on folders in src/assets/scripts
         if (SCRIPT_FOLDERS && SCRIPT_FOLDERS.length > 0) {
             SCRIPT_FOLDERS.forEach((folder) => {
-                ENTRY[folder] = GLOB.sync(source_directory + "/" + folder + "/**/*.js");
+                ENTRY[folder] = GLOB.sync(`${source_directory}/${folder}/**/*.js`);
             });
         }
 
