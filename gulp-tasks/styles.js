@@ -113,7 +113,7 @@ module.exports = {
             const SOURCE_DIRECTORY = `${global.settings.paths.src}/assets/styles`;
 
             // generate critical CSS if requested
-            if (plugins.argv.experimental && plugins.argv.experimental.length > 0 && plugins.argv.experimental.includes("critical")) {
+            if (plugins.argv.experimental && plugins.argv.experimental.includes("critical")) {
                 const SITEMAP  = plugins.json.readFileSync("package.json").templates;
                 const CRITICAL = require("critical");
                 const MKDIRP   = require("mkdirp");
