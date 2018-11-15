@@ -5,8 +5,9 @@
 module.exports = {
     scripts(gulp, plugins, ran_tasks, on_error) {
         // task-specific plugins
-        const ESLINT  = require("gulp-eslint");
-        const WEBPACK = require("webpack-stream");
+        const ESLINT         = require("gulp-eslint");
+        const WEBPACK        = require("webpack");
+        const WEBPACK_STREAM = require("webpack-stream");
 
         const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, folder_name = `${global.settings.paths.dev}/assets/scripts/`, file_name = "modern.js") => {
             let clean = false;
@@ -47,7 +48,7 @@ module.exports = {
                     // print lint errors
                     .pipe(ESLINT.format())
                     // run webpack
-                    .pipe(WEBPACK(webpack_config))
+                    .pipe(WEBPACK_STREAM(webpack_config, WEBPACK))
                     // generate a hash and add it to the file name, except service worker
                     .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({ template: "<%= name %>.<%= hash %><%= ext %>" })))
                     // output scripts to compiled directory
