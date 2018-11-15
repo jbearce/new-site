@@ -93,14 +93,14 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(plugins.argv._.indexOf("html") > plugins.argv._.indexOf("default"), plugins.notify({
+                .pipe(plugins.gulpif(plugins.argv._.includes("html"), plugins.notify({
                     title:   "Success!",
                     message: "HTML task complete!",
                     onLast:  true,
                 })))
                 // push task to ran_tasks array
                 .on("data", () => {
-                    if (ran_tasks.indexOf("html") < 0) {
+                    if (!ran_tasks.includes("html")) {
                         ran_tasks.push("html");
                     }
                 })

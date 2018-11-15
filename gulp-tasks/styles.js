@@ -41,7 +41,6 @@ module.exports = {
         };
 
         const PROCESS_STYLES = (source = `${global.settings.paths.src}/assets/styles/*.scss`, css_directory = `${global.settings.paths.dev}/assets/styles`) => {
-            console.log("processing...");
             return new Promise((resolve) => {
                 // process styles
                 gulp.src(source)
@@ -88,14 +87,14 @@ module.exports = {
                     // update the mtime to prevent gulpjs/gulp#1461
                     .pipe(TOUCH())
                     // notify that task is complete, if not part of default or watch
-                    .pipe(plugins.gulpif(plugins.argv._.indexOf("styles") > plugins.argv._.indexOf("default"), plugins.notify({
+                    .pipe(plugins.gulpif(plugins.argv._.includes("styles"), plugins.notify({
                         title: "Success!",
                         message: "Styles task complete!",
                         onLast: true,
                     })))
                     // push task to ran_tasks array
                     .on("data", () => {
-                        if (ran_tasks.indexOf("styles") < 0) {
+                        if (!ran_tasks.includes("styles")) {
                             ran_tasks.push("styles");
                         }
                     })

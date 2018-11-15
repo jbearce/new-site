@@ -42,14 +42,14 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete, if not part of default or watch
-                .pipe(plugins.gulpif(plugins.argv._.indexOf("media") > plugins.argv._.indexOf("default"), plugins.notify({
+                .pipe(plugins.gulpif(plugins.argv._.includes("media"), plugins.notify({
                     title:   "Success!",
                     message: "Media task complete!",
                     onLast:  true,
                 })))
                 // push task to ran_tasks array
                 .on("data", () => {
-                    if (ran_tasks.indexOf("media") < 0) {
+                    if (!ran_tasks.includes("media")) {
                         ran_tasks.push("media");
                     }
                 })

@@ -53,7 +53,7 @@ module.exports = {
             const PROMPTS = [];
 
             // if no requested, or requsted is current namespace
-            if (["", namespace].indexOf(requested) >= 0) {
+            if (["", namespace].includes(requested)) {
 
                 // if config is called directly, or it's not configured
                 if (direct_call || !CONFIGURED) {
