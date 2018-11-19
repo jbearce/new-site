@@ -483,3 +483,12 @@ function __gulp_init_namespace___move_nf_front_end_datepicker_script() {
     if ($key) $script->deps[$key] = "nf-front-end-deps";
 }
 add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___move_nf_front_end_datepicker_script");
+
+// enable force HTTPS and HSTS if the site is served over HTTPS
+function __gulp_init_namespace___enable_https_directives($value) {
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+        return true;
+    }
+}
+add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_0_is_enabled", "__gulp_init_namespace___enable_https_directives");
+add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_0_is_enabled", "__gulp_init_namespace___enable_https_directives");
