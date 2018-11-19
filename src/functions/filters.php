@@ -472,3 +472,14 @@ function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $
     return $shcode;
 }
 add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
+
+// change when nf-front-end--datepicker gets enqueued
+function __gulp_init_namespace___move_nf_front_end_datepicker_script() {
+    global $wp_scripts;
+
+    $script = $wp_scripts->query("nf-front-end--datepicker", "registered");
+    $key    = $script ? array_search("nf-front-end", $script->deps) : false;
+
+    if ($key) $script->deps[$key] = "nf-front-end-deps";
+}
+add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___move_nf_front_end_datepicker_script");
