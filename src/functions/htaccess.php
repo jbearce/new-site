@@ -1,9 +1,9 @@
 <?php
 /* ------------------------------------------------------------------------ *\
- * .htaccess settings
+ * .htaccess directives
 \* ------------------------------------------------------------------------ */
 
-// Add HTML5 Boilerplate .htaccess settings
+// Add HTML5 Boilerplate .htaccess directives
 function __gulp_init_namespace___add_html5_boilerplate_directives($rules) {
     $boilerplate = array(
         "CROSS-ORIGIN"                        => array(),
@@ -1564,6 +1564,7 @@ EOF;
 }
 add_filter("mod_rewrite_rules", "__gulp_init_namespace___add_html5_boilerplate_directives");
 
+// set Service-Worker-Allowed header for service-worker.js in order to allow `/` scope
 function __gulp_init_namespace___set_service_worker_allowed_scope($rules) {
     $rules .= <<<EOF
 \n# ######################################################################
