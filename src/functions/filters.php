@@ -490,5 +490,5 @@ function __gulp_init_namespace___enable_https_directives($value) {
         return true;
     }
 }
-add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_0_is_enabled", "__gulp_init_namespace___enable_https_directives");
-add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_0_is_enabled", "__gulp_init_namespace___enable_https_directives");
+add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_is_enabled", "__gulp_init_namespace___enable_https_directives");
+add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_is_enabled", "__gulp_init_namespace___enable_https_directives");

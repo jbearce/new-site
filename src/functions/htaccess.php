@@ -1538,8 +1538,10 @@ EOF;
             }
 
             foreach ($directives["directives"] as $i => $directive) {
-                $enabled = apply_filters("__gulp_init_namespace___htaccess_" . sanitize_title($section) . "_" . sanitize_title($label) . "_{$i}_is_enabled", $directive["enabled"]);
+                $enabled = apply_filters("__gulp_init_namespace___htaccess_" . sanitize_title($section) . "_" . sanitize_title($label) . (count($directives["directives"]) > 1 ? "_{$i}" : "") . "_is_enabled", $directive["enabled"]);
                 $value   = $enabled ? $directive["directive"] : preg_replace("/^/m", "# ", $directive["directive"]);
+
+                echo "__gulp_init_namespace___htaccess_" . sanitize_title($section) . "_" . sanitize_title($label) . (count($directives["directives"]) > 1 ? "_{$i}" : "") . "_is_enabled\n\n";
 
                 if (count($directives["directives"]) > 1 && $i > 0) {
                     $custom_directives .= "\n# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -\n";
