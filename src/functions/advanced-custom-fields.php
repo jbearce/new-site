@@ -6,9 +6,10 @@
 /* FILTERS */
 
 // delay when shortcodes get expanded
-function __gulp_init_namespace___acf_delay_shortcode_expansion() {
+function __gulp_init_namespace___acf_delay_shortcode_expansion($value = false) {
     remove_filter("acf_the_content", "do_shortcode", 11);
-    add_filter("acf_the_content", "do_shortcode", 25);
+	add_filter("acf_the_content", "do_shortcode", 25);
+	if ($value !== false) return $value;
 }
 add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___acf_delay_shortcode_expansion");
 
