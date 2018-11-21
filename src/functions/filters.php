@@ -477,7 +477,6 @@ add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_sh
 function __gulp_init_namespace___fix_ninja_forms_scripts_order() {
     global $wp_scripts;
 
-
     // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
     $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
 
