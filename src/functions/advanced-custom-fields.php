@@ -3,6 +3,8 @@
  * Functions: Advanced custom Fields
 \* ------------------------------------------------------------------------ */
 
+/* FILTERS */
+
 // delay when shortcodes get expanded
 function __gulp_init_namespace___acf_delay_shortcode_expansion() {
     remove_filter("acf_the_content", "do_shortcode", 11);
@@ -18,6 +20,8 @@ add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes"
 
 // lazy load images
 add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
+
+/* REGISTRATIONS */
 
 // Start Progressive Web App
 if( function_exists('acf_add_options_page') && function_exists('acf_add_local_field_group') ):
