@@ -56,7 +56,15 @@ add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
 function __gulp_init_namespace___fix_shortcodes($content) {
-    $block = join("|", array("row", "col"));
+    global $shortcode_tags;
+
+    $shortcodes = array();
+
+    foreach ($shortcode_tags as $tag => $data) {
+        $shortcodes[] = $tag;
+    }
+
+    $block = join("|", $shortcodes);
     $rep = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/", "[$2$3]",$content);
     $rep = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/", "[/$2]",$rep);
     return $rep;
