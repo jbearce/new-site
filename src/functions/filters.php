@@ -47,41 +47,12 @@ function __gulp_init_namespace___tinymce_settings($settings) {
 }
 add_filter("tiny_mce_before_init", "__gulp_init_namespace___tinymce_settings");
 
-// fix Ninja Forms HTML field formatting
-function __gulp_init_namespace___ninja_forms_html($default_value, $field_class, $field_settings) {
-    if ($field_settings["type"] === "html") {
-        $default_value = apply_filters("the_content", $default_value);
-    }
-
-    return $default_value;
-}
-add_filter("ninja_forms_render_default_value", "__gulp_init_namespace___ninja_forms_html", 10, 3);
-
-// fix Ninja Forms success message formatting
-function __gulp_init_namespace___ninja_forms_success_message($action_settings, $form_id, $action_id, $form_settings) {
-    if ($action_settings["type"] === "successmessage") {
-        $action_settings["success_msg"] = apply_filters("the_content", $action_settings["success_msg"]);
-    }
-
-    return $action_settings;
-}
-add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_success_message", 10, 4);
-
-// fix Ninja Forms not being output when no content exists and selected via meta box
-function __gulp_init_namespace___fix_ninja_forms($content) {
-    return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
-}
-add_filter("the_content", "__gulp_init_namespace___fix_ninja_forms", 5);
-
 // delay when shortcodes get expanded
 function __gulp_init_namespace___delay_shortcode_expansion() {
     remove_filter("the_content", "do_shortcode", 11);
-    remove_filter("acf_the_content", "do_shortcode", 11);
     add_filter("the_content", "do_shortcode", 25);
-    add_filter("acf_the_content", "do_shortcode", 25);
 }
 add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
-add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
 function __gulp_init_namespace___fix_shortcodes($content) {
@@ -91,7 +62,6 @@ function __gulp_init_namespace___fix_shortcodes($content) {
     return $rep;
 }
 add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
-add_action("acf_the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
 // add classes to elements
 function __gulp_init_namespace___add_user_content_classes($content) {
@@ -300,7 +270,6 @@ function __gulp_init_namespace___add_user_content_classes($content) {
     return $content;
 }
 add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
 
 // lazy load images
 function __gulp_init_namespace___lazy_load_images($content) {
@@ -347,7 +316,6 @@ function __gulp_init_namespace___lazy_load_images($content) {
     return $content;
 }
 add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
 add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20);
 add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20);
 
@@ -413,12 +381,6 @@ function __gulp_init_namespace___acrobat_link() {
 }
 add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acrobat_link");
 
-// disable Ninja Forms styles
-function __gulp_init_namespace___dequeue_nf_display() {
-    wp_dequeue_style("nf-display");
-}
-add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___dequeue_nf_display", 999);
-
 // redirect to the home template if no front page is set
 function __gulp_init_namespace___home_template_redirect($template) {
     if (is_front_page() && get_option("show_on_front") != "page") {
@@ -473,42 +435,6 @@ function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $
     return $shcode;
 }
 add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
-
-// change order of Ninja Forms scripts so that `nf-front-end` always comes after all dependencies
-function __gulp_init_namespace___fix_ninja_forms_scripts_order() {
-    global $wp_scripts;
-
-    // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
-    $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
-
-    // change all `nf-front-end` dependencies to `nf-front-end-deps`
-    foreach ($wp_scripts->registered as $script) {
-        if (preg_match($pattern, $script->handle)) {
-            $key = $script ? array_search("nf-front-end", $script->deps) : false;
-
-            if ($key !== false) {
-                $script->deps[$key] = "nf-front-end-deps";
-            }
-        }
-    }
-
-    $last_nf_key      = false;
-    $front_end_nf_key = array_search("nf-front-end", $wp_scripts->queue);
-
-    // find the nast `nf-` prefixed script in the queue
-    foreach ($wp_scripts->queue as $key => $handle) {
-        if (preg_match($pattern, $handle)) {
-            $last_nf_key = $key;
-        }
-    }
-
-    // move `nf-front-end` just after the last `nf-` prefixed script in the queue
-    if ($last_nf_key !== false) {
-        unset($wp_scripts->queue[$front_end_nf_key]);
-        array_splice($wp_scripts->queue, $last_nf_key, 0, "nf-front-end");
-    }
-}
-add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___fix_ninja_forms_scripts_order");
 
 // enable force HTTPS and HSTS if the site is served over HTTPS
 function __gulp_init_namespace___enable_https_directives($value) {

@@ -3,6 +3,22 @@
  * Functions: Advanced custom Fields
 \* ------------------------------------------------------------------------ */
 
+// delay when shortcodes get expanded
+function __gulp_init_namespace___acf_delay_shortcode_expansion() {
+    remove_filter("acf_the_content", "do_shortcode", 11);
+    add_filter("acf_the_content", "do_shortcode", 25);
+}
+add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___acf_delay_shortcode_expansion");
+
+// remove wpautop stuff from shortcodes
+add_action("acf_the_content", "__gulp_init_namespace___fix_shortcodes", 15);
+
+// add classes to elements
+add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+
+// lazy load images
+add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
+
 // Start Progressive Web App
 if( function_exists('acf_add_options_page') && function_exists('acf_add_local_field_group') ):
 

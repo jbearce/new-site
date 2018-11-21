@@ -14,4 +14,5 @@ require_once(get_theme_file_path("/functions/shortcodes.php"));
 require_once(get_theme_file_path("/functions/styles-scripts.php"));
 require_once(get_theme_file_path("/functions/theme-features.php"));
 require_once(get_theme_file_path("/functions/advanced-custom-fields.php"));
+require_once(get_theme_file_path("/functions/ninja-forms.php"));
 require_once(get_theme_file_path("/functions/tribe-events.php"));
