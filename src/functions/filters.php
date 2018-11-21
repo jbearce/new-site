@@ -474,7 +474,7 @@ function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $
 add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
 
 // change order of Ninja Forms scripts so that `nf-front-end` always comes after all dependencies
-function __gulp_init_namespace___fix_ninja_forms_scripts() {
+function __gulp_init_namespace___fix_ninja_forms_scripts_order() {
     global $wp_scripts;
 
 
@@ -508,7 +508,7 @@ function __gulp_init_namespace___fix_ninja_forms_scripts() {
         array_splice($wp_scripts->queue, $last_nf_key, 0, "nf-front-end");
     }
 }
-add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___fix_ninja_forms_scripts");
+add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___fix_ninja_forms_scripts_order");
 
 // enable force HTTPS and HSTS if the site is served over HTTPS
 function __gulp_init_namespace___enable_https_directives($value) {
