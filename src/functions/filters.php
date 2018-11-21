@@ -81,12 +81,13 @@ function __gulp_init_namespace___delay_shortcode_expansion() {
     add_filter("acf_the_content", "do_shortcode", 25);
 }
 add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
+add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
 function __gulp_init_namespace___fix_shortcodes($content) {
     $block = join("|", array("row", "col"));
-    $rep = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/","[$2$3]",$content);
-    $rep = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/","[/$2]",$rep);
+    $rep = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/", "[$2$3]",$content);
+    $rep = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/", "[/$2]",$rep);
     return $rep;
 }
 add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
