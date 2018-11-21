@@ -473,16 +473,42 @@ function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $
 }
 add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
 
-// change when nf-front-end--datepicker gets enqueued
-function __gulp_init_namespace___move_nf_front_end_datepicker_script() {
+// change order of Ninja Forms scripts so that `nf-front-end` always comes after all dependencies
+function __gulp_init_namespace___fix_ninja_forms_scripts() {
     global $wp_scripts;
 
-    $script = $wp_scripts->query("nf-front-end--datepicker", "registered");
-    $key    = $script ? array_search("nf-front-end", $script->deps) : false;
 
-    if ($key) $script->deps[$key] = "nf-front-end-deps";
+    // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
+    $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
+
+    // change all `nf-front-end` dependencies to `nf-front-end-deps`
+    foreach ($wp_scripts->registered as $script) {
+        if (preg_match($pattern, $script->handle)) {
+            $key = $script ? array_search("nf-front-end", $script->deps) : false;
+
+            if ($key !== false) {
+                $script->deps[$key] = "nf-front-end-deps";
+            }
+        }
+    }
+
+    $last_nf_key      = false;
+    $front_end_nf_key = array_search("nf-front-end", $wp_scripts->queue);
+
+    // find the nast `nf-` prefixed script in the queue
+    foreach ($wp_scripts->queue as $key => $handle) {
+        if (preg_match($pattern, $handle)) {
+            $last_nf_key = $key;
+        }
+    }
+
+    // move `nf-front-end` just after the last `nf-` prefixed script in the queue
+    if ($last_nf_key !== false) {
+        unset($wp_scripts->queue[$front_end_nf_key]);
+        array_splice($wp_scripts->queue, $last_nf_key, 0, "nf-front-end");
+    }
 }
-add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___move_nf_front_end_datepicker_script");
+add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___fix_ninja_forms_scripts");
 
 // enable force HTTPS and HSTS if the site is served over HTTPS
 function __gulp_init_namespace___enable_https_directives($value) {
