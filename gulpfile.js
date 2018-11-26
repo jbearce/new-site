@@ -83,17 +83,14 @@ const ON_ERROR = function (err) {
 
 // set up a custom notifier to support toasts on WSL
 const CUSTOM_NOTIFIER = function (options, callback) {
-    // check if BURNTTOAST is set to true in .config/.env
-    if (process.env.BURNTTOAST === "true") {
-        // translate the Unix path to Windows
-        exec(`wslpath -w ${options.appIcon}`, (error, stdout) => {
-            // ensure that no control (i.e. color) characters exist in the message string, otherwise the toast won't show
-            options.message = options.message.replace(/[\x00-\x1F\x7F-\x9F]\[[0-9]+m/g, ""); // eslint-disable-line no-control-regex
+    // translate the Unix path to Windows
+    exec(`wslpath -w ${options.appIcon}`, (error, stdout) => {
+        // ensure that no control (i.e. color) characters exist in the message string, otherwise the toast won't show
+        options.message = options.message.replace(/[\x00-\x1F\x7F-\x9F]\[[0-9]+m/g, ""); // eslint-disable-line no-control-regex
 
-            // show the toast
-            exec(`powershell.exe -command "New-BurntToastNotification -AppLogo '${stdout}' -Text '${options.title}', '${options.message}'"`);
-        });
-    }
+        // show the toast
+        exec(`powershell.exe -command "New-BurntToastNotification -AppLogo '${stdout}' -Text '${options.title}', '${options.message}'"`);
+    });
 
     callback();
 };
@@ -154,7 +151,7 @@ GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "med
             appIcon:  PLUGINS.path.resolve("./src/assets/media/logo-favicon.png"),
             title:   "Success!",
             message: `${RAN_TASKS.length} task${(RAN_TASKS.length === 1 ? "" : "s")} complete! [${RAN_TASKS.join(", ")}]`,
-            notifier: CUSTOM_NOTIFIER,
+            notifier: process.env.BURNTTOAST === "true" ? CUSTOM_NOTIFIER : false,
             onLast:   true,
         })));
 

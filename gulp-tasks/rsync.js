@@ -16,7 +16,7 @@ module.exports = {
                     appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
                     title:    "Notice!",
                     message:  `\x1b[33mIt appears that --dist was passed, but the rsync root is set to '${global.settings.rsync.root}'.`,
-                    notifier: custom_notifier,
+                    notifier: process.env.BURNTTOAST === "true" ? custom_notifier : false,
                 })))
                 // check if files are newer
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer({ dest: global.settings.paths.src, extra: [`${global.settings.rsync.root}/**/*`] })))
@@ -28,7 +28,7 @@ module.exports = {
                 .pipe(plugins.notify({
                     title:    "Success!",
                     message:  "Rsync task complete!",
-                    notifier: custom_notifier,
+                    notifier: process.env.BURNTTOAST === "true" ? custom_notifier : false,
                     onLast:   true,
                 }))
                 // consume the stream to prevent rvagg/through2#82

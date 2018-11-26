@@ -37,7 +37,7 @@ module.exports = {
                     appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
                     title:    "Error!",
                     message:  "\x1b[31mNo proxy is defined in .bsconfig! Try running gulp config --browsersync",
-                    notifier: custom_notifier,
+                    notifier: process.env.BURNTTOAST === "true" ? custom_notifier : false,
                 }));
         }
     }

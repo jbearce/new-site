@@ -33,7 +33,7 @@ module.exports = {
                     appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
                     title:    "Success!",
                     message:  "Upload task complete!",
-                    notifier: custom_notifier,
+                    notifier: process.env.BURNTTOAST === "true" ? custom_notifier : false,
                     onLast:   true,
                 }))
                 // consume the stream to prevent rvagg/through2#82
