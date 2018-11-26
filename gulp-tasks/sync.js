@@ -3,7 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    sync(gulp, plugins) {
+    sync(gulp, plugins, custom_notifier) {
         // retrieve the version number
         const BROWSERSYNC_VERSION = require("browser-sync/package.json").version;
 
@@ -34,8 +34,10 @@ module.exports = {
         } else {
             return gulp.src(".config/.bsconfig")
                 .pipe(plugins.notify({
-                    title: "Error!",
-                    message: "\x1b[31mNo proxy is defined in .bsconfig! Try running gulp config --browsersync",
+                    appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
+                    title:    "Error!",
+                    message:  "\x1b[31mNo proxy is defined in .bsconfig! Try running gulp config --browsersync",
+                    notifier: custom_notifier,
                 }));
         }
     }

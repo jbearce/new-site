@@ -3,7 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    scripts(gulp, plugins, ran_tasks, on_error) {
+    scripts(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
         const ESLINT         = require("gulp-eslint");
         const WEBPACK        = require("webpack");
@@ -55,9 +55,11 @@ module.exports = {
                     .pipe(gulp.dest(js_directory))
                     // notify that task is complete, if not part of default or watch
                     .pipe(plugins.gulpif(plugins.argv._.includes("scripts"), plugins.notify({
-                        title: "Success!",
-                        message: "Scripts task complete!",
-                        onLast: true,
+                        appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
+                        title:    "Success!",
+                        message:  "Scripts task complete!",
+                        notifier: custom_notifier,
+                        onLast:   true,
                     })))
                     // push task to ran_tasks array
                     .on("data", () => {

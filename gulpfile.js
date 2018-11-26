@@ -47,6 +47,8 @@ const PLUGINS = {
     through:    require("through2"),
 };
 
+const { exec } = require("child_process");
+
 // load .env
 require("dotenv").config({ path: PLUGINS.path.resolve(process.cwd(), ".config/.env") });
 
@@ -79,6 +81,23 @@ const ON_ERROR = function (err) {
     this.emit("end");
 };
 
+// set up a custom notifier to support toasts on WSL
+const CUSTOM_NOTIFIER = function (options, callback) {
+    // check if BURNTTOAST is set to true in .config/.env
+    if (process.env.BURNTTOAST === "true") {
+        // translate the Unix path to Windows
+        exec(`wslpath -w ${options.appIcon}`, (error, stdout) => {
+            // ensure that no control (i.e. color) characters exist in the message string, otherwise the toast won't show
+            options.message = options.message.replace(/[\x00-\x1F\x7F-\x9F]\[[0-9]+m/g, ""); // eslint-disable-line no-control-regex
+
+            // show the toast
+            exec(`powershell.exe -command "New-BurntToastNotification -AppLogo '${stdout}' -Text '${options.title}', '${options.message}'"`);
+        });
+    }
+
+    callback();
+};
+
 // import custom modules
 const STYLES_MODULE  = require("./gulp-tasks/styles");
 const SCRIPTS_MODULE = require("./gulp-tasks/scripts");
@@ -92,30 +111,30 @@ const INIT_MODULE    = require("./gulp-tasks/init");
 
 // primary tasks
 GULP.task("styles", () => {
-    return STYLES_MODULE.styles(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+    return STYLES_MODULE.styles(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
 });
 GULP.task("scripts", () => {
-    return SCRIPTS_MODULE.scripts(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+    return SCRIPTS_MODULE.scripts(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
 });
 GULP.task("html", () => {
-    return HTML_MODULE.html(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+    return HTML_MODULE.html(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
 });
 GULP.task("php", () => {
-    return HTML_MODULE.html(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+    return HTML_MODULE.html(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
 });
 GULP.task("media", () => {
-    return MEDIA_MODULE.media(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+    return MEDIA_MODULE.media(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
 });
 
 // secondary tasks
 GULP.task("upload", () => {
     return CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
-        return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+        return UPLOAD_MODULE.upload(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
     });
 });
 GULP.task("rsync", () => {
     return CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
-        return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+        return RSYNC_MODULE.rsync(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
     });
 });
 
@@ -132,9 +151,11 @@ GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "med
     // notify that task is complete
     GULP.src("gulpfile.js")
         .pipe(PLUGINS.gulpif(RAN_TASKS.length, PLUGINS.notify({
+            appIcon:  PLUGINS.path.resolve("./src/assets/media/logo-favicon.png"),
             title:   "Success!",
-            message: `${RAN_TASKS.length} task${(RAN_TASKS.length > 1 ? "s" : "")} complete! [${RAN_TASKS.join(", ")}]`,
-            onLast:  true,
+            message: `${RAN_TASKS.length} task${(RAN_TASKS.length === 1 ? "" : "s")} complete! [${RAN_TASKS.join(", ")}]`,
+            notifier: CUSTOM_NOTIFIER,
+            onLast:   true,
         })));
 
     // handle optional tasks sequentially
@@ -142,7 +163,7 @@ GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "med
         // trigger upload task if --upload is passed
         if (PLUGINS.argv.upload) {
             CONFIG_MODULE.config(GULP, PLUGINS, "ftp").then(() => {
-                return UPLOAD_MODULE.upload(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+                return UPLOAD_MODULE.upload(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
             }).then(() => {
                 resolve();
             });
@@ -154,7 +175,7 @@ GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "med
         return new Promise((resolve) => {
             if (PLUGINS.argv.rsync) {
                 CONFIG_MODULE.config(GULP, PLUGINS, "rsync").then(() => {
-                    return RSYNC_MODULE.rsync(GULP, PLUGINS, RAN_TASKS, ON_ERROR);
+                    return RSYNC_MODULE.rsync(GULP, PLUGINS, CUSTOM_NOTIFIER, RAN_TASKS, ON_ERROR);
                 }).then(() => {
                     resolve();
                 });
@@ -182,7 +203,7 @@ GULP.task("watch", () => {
     // set up a browser_sync server, if --sync is passed
     if (PLUGINS.argv.sync) {
         CONFIG_MODULE.config(GULP, PLUGINS, "browsersync").then(() => {
-            SYNC_MODULE.sync(GULP, PLUGINS);
+            SYNC_MODULE.sync(GULP, PLUGINS, CUSTOM_NOTIFIER);
         });
     }
 

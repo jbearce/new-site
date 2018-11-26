@@ -3,7 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    media(gulp, plugins, ran_tasks, on_error) {
+    media(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
         const IMAGEMIN = require("gulp-imagemin");
         const PNGQUANT = require("imagemin-pngquant");
@@ -43,9 +43,11 @@ module.exports = {
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // notify that task is complete, if not part of default or watch
                 .pipe(plugins.gulpif(plugins.argv._.includes("media"), plugins.notify({
-                    title:   "Success!",
-                    message: "Media task complete!",
-                    onLast:  true,
+                    appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
+                    title:    "Success!",
+                    message:  "Media task complete!",
+                    notifier: custom_notifier,
+                    onLast:   true,
                 })))
                 // push task to ran_tasks array
                 .on("data", () => {

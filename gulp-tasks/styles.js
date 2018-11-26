@@ -3,7 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    styles(gulp, plugins, ran_tasks, on_error) {
+    styles(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
         const CSS_IMPORTER = require("node-sass-simple-css-importer");
         const POSTCSS      = require("gulp-postcss");
@@ -88,9 +88,11 @@ module.exports = {
                     .pipe(TOUCH())
                     // notify that task is complete, if not part of default or watch
                     .pipe(plugins.gulpif(plugins.argv._.includes("styles"), plugins.notify({
-                        title: "Success!",
-                        message: "Styles task complete!",
-                        onLast: true,
+                        appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
+                        title:    "Success!",
+                        message:  "Styles task complete!",
+                        notifier: custom_notifier,
+                        onLast:   true,
                     })))
                     // push task to ran_tasks array
                     .on("data", () => {

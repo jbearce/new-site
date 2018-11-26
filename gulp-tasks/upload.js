@@ -3,7 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    upload(gulp, plugins, ran_tasks, on_error) {
+    upload(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         const PROTOCOL = global.settings.ftp.protocol;
         
         // task-specific plugins
@@ -30,9 +30,11 @@ module.exports = {
                 .pipe(plugins.gulpif(PROTOCOL === "ftp", FTP_CONN.dest(global.settings.ftp.remotePath), SFTP_CONN))
                 // notify that task is complete
                 .pipe(plugins.notify({
-                    title:   "Success!",
-                    message: "Upload task complete!",
-                    onLast:  true,
+                    appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
+                    title:    "Success!",
+                    message:  "Upload task complete!",
+                    notifier: custom_notifier,
+                    onLast:   true,
                 }))
                 // consume the stream to prevent rvagg/through2#82
                 .on("data", () => {
