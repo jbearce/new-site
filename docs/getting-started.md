@@ -336,7 +336,7 @@ BurntToast is a PowerShell module that enables sending toast notifications from 
 
 1. Download the [latest version of BurntToast](https://github.com/Windos/BurntToast/releases) ([v0.6.2](https://github.com/Windos/BurntToast/releases/download/v0.6.2/BurntToast.zip) at time of writing).
 
-2. Right click on BurntToast.zip, and select "Properties." Check the box next to "Unblock" to enable the module to execute.
+2. Right click on BurntToast.zip, and select "Properties." Check the box next to "Unblock" to ensure it will extract correctly.
 
 3. Extra BurntToast to `C:\Users\[User]\Documents\WindowsPowerShell\modules\BurntToast` (you may have to create these directories if they don't exist).
 
