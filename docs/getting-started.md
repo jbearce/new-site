@@ -14,6 +14,8 @@
 - [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Windows 10)
 - [Node Version Manager](https://github.com/creationix/nvm#installation) (Mac, Linux, WSL)
 - [LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04) (Mac, Linux, WSL)
+- [libnotify-bin](https://packages.ubuntu.com/xenial/libnotify-bin) (Linux, WSL)
+- [BurntToast](https://github.com/Windos/BurntToast) (WSL)
 
 ## Installation
 
@@ -323,3 +325,43 @@ A local environment may be not be needed, depending on what you're trying to do 
 2. Navigate to Appearance > Themes.
 
 3. Click "Activate" under "__gulp_init_full_name__."
+
+## Enable Toast Notifications
+
+When a gulp task completes, a notification can appear indicating which tasks have been ran. This should work automatically on Mac and Windows, but Linux and WSL may require installing [libnotify-bin](https://packages.ubuntu.com/xenial/libnotify-bin), and WSL will require installing [BurntToast](https://github.com/Windos/BurntToast).
+
+### BurntToast
+
+BurntToast is a PowerShell module that enables sending toast notifications from the command line. This project can utilize BurntToast as a bridge for toast notifications from WSL to Windows. To install and enable BurntToast, take the following steps:
+
+1. Download the [latest version of BurntToast](https://github.com/Windos/BurntToast/releases) ([v0.6.2](https://github.com/Windos/BurntToast/releases/download/v0.6.2/BurntToast.zip) at time of writing).
+
+2. Right click on BurntToast.zip, and select "Properties." Check the box next to "Unblock" to enable the module to execute.
+
+3. Extra BurntToast to `C:\Users\[User]\Documents\WindowsPowerShell\modules\BurntToast` (you may have to create these directories if they don't exist).
+
+4. If your execution policy is set to `Restricted`, `AllSigned`, or `Undefined`, you'll need to change it to at least `RemoteSigned` in order to execute BurntToast. Open an elevated PowerShell window, and adjust your execution policy.
+
+      ```ps
+      Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
+      ```
+
+5. In an eleveated PowerShell window, import the BurntToast module.
+
+      ```ps
+      Import-Module BurntToast
+      ```
+
+6. Verify that BurntToast is working correctly. You should receive a toast notification labeled "Default Notification."
+
+      ```ps
+      New-BurntToastNotification
+      ```
+
+7. In order for this repository to use BurntToast, a variable needs defined in `.config/.env`. If this file doesn't exist, you may need to create it. In `.config/.env`, set `BURNTTOAST=true`.
+
+      ```
+      BURNTTOAST=true
+      ```
+
+8. In WSL, browse to this repository and run `rm -rf dev; gulp` to verify that BurntToast is sending notifications.
