@@ -452,3 +452,42 @@ function __gulp_init_namespace___enable_https_directives($value) {
 }
 add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_is_enabled", "__gulp_init_namespace___enable_https_directives");
 add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_is_enabled", "__gulp_init_namespace___enable_https_directives");
+
+// use the `__gulp_init_npm_name__-dev` theme when logged in as an administrator and `?theme=dev` is passed durring the session
+function __gulp_init_namespace__enable_conditional_dev_theme($theme) {
+    // only do this for admins
+    if ($theme && current_user_can("manage_options")) {
+        // start a session if one hasn't already been started
+        if (session_status() == PHP_SESSION_NONE) session_start();
+
+        // check if the user has requested the dev theme or to unset
+        if (isset($_GET["theme"])) {
+            if ($_GET["theme"] === "dev") {
+                $_SESSION["theme"] = "dev";
+            } elseif ($_GET["theme"] === "unset") {
+                unset($_SESSION["theme"]);
+            }
+        }
+
+        // check if the user has requested the dev theme
+        if (isset($_SESSION["theme"]) && $_SESSION["theme"] === "dev") {
+            // make sure not to "double-dev" the theme name
+            $dev_theme = preg_match("/-dev$/", $theme) ? $theme : "{$theme}-dev";
+
+            // verify that the theme exists
+            $theme_exists = is_dir(get_home_path() . "wp-content/themes/{$dev_theme}");
+
+            if ($theme_exists) {
+                $theme = "{$theme}-dev";
+            } else {
+                trigger_error("The theme '{$dev_theme}' does not exist.");
+            }
+        }
+    }
+
+    return $theme;
+}
+add_filter("pre_option_stylesheet", "__gulp_init_namespace__enable_conditional_dev_theme");
+add_filter("option_stylesheet", "__gulp_init_namespace__enable_conditional_dev_theme");
+add_filter("option_template", "__gulp_init_namespace__enable_conditional_dev_theme");
+add_filter("template", "__gulp_init_namespace__enable_conditional_dev_theme");
