@@ -6,6 +6,7 @@
 - [Recommended Software](docs/getting-started.md#recommended-software)
 - [Installation](docs/getting-started.md#installation)
 - [Setting up a local environment](docs/getting-started.md#setting-up-a-local-environment)
+- [Enabling Toast Notifications](docs/getting-started.md#enabling-toast-notifications)
 
 ## Gulp
 

@@ -326,7 +326,7 @@ A local environment may be not be needed, depending on what you're trying to do 
 
 3. Click "Activate" under "__gulp_init_full_name__."
 
-## Enable Toast Notifications
+## Enabling Toast Notifications
 
 When a gulp task completes, a notification can appear indicating which tasks have been ran. This should work automatically on Mac and Windows, but Linux and WSL may require installing [libnotify-bin](https://packages.ubuntu.com/xenial/libnotify-bin), and WSL will require installing [BurntToast](https://github.com/Windos/BurntToast).
 
