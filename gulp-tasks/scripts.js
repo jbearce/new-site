@@ -3,21 +3,21 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    scripts(gulp, plugins, custom_notifier, ran_tasks, on_error) {
+    scripts(gulp, plugins, customNotifier, ranTasks, onError) {
         // task-specific plugins
-        const ESLINT         = require("gulp-eslint");
-        const WEBPACK        = require("webpack");
-        const WEBPACK_STREAM = require("webpack-stream");
+        const eslint = require("gulp-eslint");
+        const webpack = require("webpack");
+        const webpackStream = require("webpack-stream");
 
-        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, folder_name = `${global.settings.paths.dev}/assets/scripts/`, file_name = "modern.js") => {
+        const checkIfNewer = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, folderName = `${global.settings.paths.dev}/assets/scripts/`, fileName = "modern.js") => {
             let clean = false;
 
             return new Promise((resolve) => {
                 gulp.src(source)
                     // prevent breaking on error
-                    .pipe(plugins.plumber({ errorHandler: on_error }))
+                    .pipe(plugins.plumber({errorHandler: onError}))
                     // check if source is newer than destination
-                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folder_name}/${file_name}`)))
+                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folderName}/${fileName}`)))
                     // if source files are newer, then mark the destination for cleaning
                     .on("data", () => {
                         clean = true;
@@ -26,7 +26,7 @@ module.exports = {
                     .on("end", () => {
                         if (clean) {
                             // delete the folder, becuase it's being replaced
-                            plugins.del(folder_name).then(() => {
+                            plugins.del(folderName).then(() => {
                                 // resolve the promise, compile
                                 resolve(true);
                             });
@@ -38,19 +38,19 @@ module.exports = {
             });
         };
 
-        const PROCESS_SCRIPTS = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, js_directory = `${global.settings.paths.dev}/assets/scripts`, webpack_config = {}) => {
+        const processScripts = (source = `${global.settings.paths.src}/assets/scripts/**/*.js`, js_directory = `${global.settings.paths.dev}/assets/scripts`, webpack_config = {}) => {
             return new Promise((resolve) => {
                 gulp.src(source)
                     // prevent breaking on error
-                    .pipe(plugins.plumber({ errorHandler: on_error }))
+                    .pipe(plugins.plumber({errorHandler: onError}))
                     // lint all scripts
-                    .pipe(ESLINT())
+                    .pipe(eslint())
                     // print lint errors
-                    .pipe(ESLINT.format())
+                    .pipe(eslint.format())
                     // run webpack
-                    .pipe(WEBPACK_STREAM(webpack_config, WEBPACK))
+                    .pipe(webpackStream(webpack_config, webpack))
                     // generate a hash and add it to the file name, except service worker
-                    .pipe(plugins.gulpif(file => file.basename !== "service-worker.js", plugins.hash({ template: "<%= name %>.<%= hash %><%= ext %>" })))
+                    .pipe(plugins.gulpif((file) => file.basename !== "service-worker.js", plugins.hash({template: "<%= name %>.<%= hash %><%= ext %>"})))
                     // output scripts to compiled directory
                     .pipe(gulp.dest(js_directory))
                     // notify that task is complete, if not part of default or watch
@@ -58,13 +58,13 @@ module.exports = {
                         appIcon:  plugins.path.resolve("./src/assets/media/logo-favicon.png"),
                         title:    "Success!",
                         message:  "Scripts task complete!",
-                        notifier: process.env.BURNTTOAST === "true" ? custom_notifier : false,
+                        notifier: process.env.BURNTTOAST === "true" ? customNotifier : false,
                         onLast:   true,
                     })))
-                    // push task to ran_tasks array
+                    // push task to ranTasks array
                     .on("data", () => {
-                        if (!ran_tasks.includes("scripts")) {
-                            ran_tasks.push("scripts");
+                        if (!ranTasks.includes("scripts")) {
+                            ranTasks.push("scripts");
                         }
                     })
                     .on("end", () => {
@@ -74,7 +74,7 @@ module.exports = {
         };
 
         // scripts task, lints, concatenates, & compresses JS
-        return new Promise ((resolve) => {
+        return new Promise((resolve) => {
             // set JS directory
             const JS_DIRECTORY = plugins.argv.dist ? `${global.settings.paths.dist}/assets/scripts` : `${global.settings.paths.dev}/assets/scripts`;
 
@@ -85,24 +85,23 @@ module.exports = {
 
             // get a hashed file name to check against
             const ALL_FILE_NAMES = plugins.fs.existsSync(JS_DIRECTORY) ? plugins.fs.readdirSync(JS_DIRECTORY) : false;
-            let hashed_file_name = ALL_FILE_NAMES.length > 0 && ALL_FILE_NAMES.find((name) => {
+            let hashedFileName = ALL_FILE_NAMES.length > 0 && ALL_FILE_NAMES.find((name) => {
                 return name.match(new RegExp("[^.]+.[a-z0-9]{8}.js"));
             });
 
-            if (!hashed_file_name) {
-                hashed_file_name = "modern.js";
+            if (!hashedFileName) {
+                hashedFileName = "modern.js";
             }
 
-            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, hashed_file_name).then((compile) => {
+            checkIfNewer(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, hashedFileName).then((compile) => {
                 if (compile === true) {
-                    PROCESS_SCRIPTS(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, WEBPACK_CONFIG).then(() => {
+                    processScripts(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, WEBPACK_CONFIG).then(() => {
                         resolve();
                     });
                 } else {
                     resolve();
                 }
             });
-
         });
-    }
+    },
 };

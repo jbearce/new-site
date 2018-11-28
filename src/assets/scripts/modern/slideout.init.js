@@ -7,30 +7,30 @@ import debounce from "debounce";
 import focusTrap from "focus-trap";
 
 // get the elements
-const PANEL  = document.getElementById("page-container");
-const MENU   = document.getElementById("mobile-menu");
+const PANEL = document.getElementById("page-container");
+const MENU = document.getElementById("mobile-menu");
 const TOGGLE = document.querySelector("[data-toggle=mobile-menu]");
 
 // verify that the elements exist
 if (PANEL !== null && MENU !== null && TOGGLE !== null) {
     // initialize the menu
-    let mobile_menu = null;
+    let mobileMenu = null;
 
     // toggle the menu when clicking on the toggle
     TOGGLE.addEventListener("click", (e) => {
         e.preventDefault();
         e.stopPropagation();
 
-        if (mobile_menu !== null) {
-            mobile_menu.toggle();
+        if (mobileMenu !== null) {
+            mobileMenu.toggle();
         }
     });
 
     // close the menu when it's open and the content is clicked
     PANEL.addEventListener("click", (e) => {
-        if (mobile_menu !== null && e.target !== TOGGLE && mobile_menu.isOpen()) {
+        if (mobileMenu !== null && e.target !== TOGGLE && mobileMenu.isOpen()) {
             e.preventDefault();
-            mobile_menu.close();
+            mobileMenu.close();
         }
     });
 
@@ -40,7 +40,7 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
     });
 
     // create a new slideout instance
-    const GET_SLIDEOUT = () => {
+    const getSlideout = () => {
         return new Slideout({
             duration:   250,
             itemToMove: "menu",
@@ -51,50 +51,50 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
     };
 
     // construct a slideout instance along with event hooks
-    const CONSTRUCT_SLIDEOUT = () => {
+    const constructSlideout = () => {
         // get the slideout
-        mobile_menu = GET_SLIDEOUT();
+        mobileMenu = getSlideout();
 
         // trap focus on open
-        mobile_menu.on("open", () => {
+        mobileMenu.on("open", () => {
             MENU.focus();
             FOCUS_TRAP.activate();
         });
 
         // release focus on close
-        mobile_menu.on("close", () => {
+        mobileMenu.on("close", () => {
             FOCUS_TRAP.deactivate();
         });
     };
 
     // completely destroy a slideout instance
-    const DESTROY_SLIDEOUT = () => {
+    const destroySlideout = () => {
         // untrap the focus from the mobile menu
         FOCUS_TRAP.deactivate();
 
         // destroy the menu
-        mobile_menu.destroy();
+        mobileMenu.destroy();
 
         // reset to null to ensure constructing on resize works correctly
-        mobile_menu = null;
+        mobileMenu = null;
     };
 
     // create or destroy a slideout depending on menu display
-    const UPDATE_MENU_STATE = () => {
+    const updateMenuState = () => {
         const MENU_DISPLAY = getComputedStyle(MENU).display;
 
         // destroy the menu when it's set to display: none
-        if (mobile_menu !== null && MENU_DISPLAY === "none") {
-            DESTROY_SLIDEOUT();
+        if (mobileMenu !== null && MENU_DISPLAY === "none") {
+            destroySlideout();
         // construct the menu when it's not set to display: none
-        } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
-            CONSTRUCT_SLIDEOUT();
+        } else if (mobileMenu === null && MENU_DISPLAY !== "none") {
+            constructSlideout();
         }
     };
 
     // create or destroy a slideout on load
-    window.onload = UPDATE_MENU_STATE();
+    window.onload = updateMenuState();
 
     // create or destroy a slideout on resize
-    window.onresize = debounce(UPDATE_MENU_STATE, 200);
+    window.onresize = debounce(updateMenuState, 200);
 }

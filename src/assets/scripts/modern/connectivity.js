@@ -4,7 +4,7 @@
 
 import Noty from "noty";
 
-let is_offline = false;
+let ifOffline = false;
 
 const OFFLINE_NOTY = new Noty({
     callbacks: {
@@ -13,17 +13,17 @@ const OFFLINE_NOTY = new Noty({
             document.cookie = `__gulp_init_namespace___offline_noty_dismissed=true; max-age=${(60 * 60 * 6)}`;
         },
     },
-    text: l10n.noty.offline.text,
+    text:  l10n.noty.offline.text,
     theme: false,
 });
 
-const UPDATE_STATUS = () => {
+const updateStatus = () => {
     if (typeof navigator.onLine !== "undefined") {
-        is_offline = !navigator.onLine;
+        ifOffline = !navigator.onLine;
 
-        document.documentElement.classList.toggle("is-offline", is_offline);
+        document.documentElement.classList.toggle("is-offline", ifOffline);
 
-        if (is_offline) {
+        if (ifOffline) {
             // check a cookie so the user isn't nagged on every page load
             if (!document.cookie.match(/__gulp_init_namespace___offline_noty_dismissed=true/)) {
                 OFFLINE_NOTY.show();
@@ -38,9 +38,9 @@ const UPDATE_STATUS = () => {
 };
 
 const CHECK_CONNECTIVITY = () => {
-    UPDATE_STATUS();
-    window.addEventListener("online", UPDATE_STATUS);
-    window.addEventListener("offline", UPDATE_STATUS);
+    updateStatus();
+    window.addEventListener("online", updateStatus);
+    window.addEventListener("offline", updateStatus);
 };
 
 window.addEventListener("load", CHECK_CONNECTIVITY);

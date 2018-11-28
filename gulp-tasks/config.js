@@ -3,10 +3,10 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    config(gulp, plugins, requested = "", direct_call = false) {
+    config(gulp, plugins, requested = "", directCall = false) {
         // task-specific plugins
         const REQUEST = require("request");
-        const MKDIRP  = require("mkdirp");
+        const mkdirp = require("mkdirp");
 
         // store array of gist URIs
         const DATA_SOURCES = {
@@ -16,19 +16,19 @@ module.exports = {
         };
 
         // generate .config folder
-        const GENERATE_CONFIG = (file_name, mode = "ftp") => {
+        const generateConfig = (fileName, mode = "ftp") => {
             // write the file
             return new Promise((resolve, reject) => {
-                MKDIRP(".config", () => {
+                mkdirp(".config", () => {
                     // open the file
-                    plugins.fs.stat(`.config/${file_name}`, (err) => {
+                    plugins.fs.stat(`.config/${fileName}`, (err) => {
                         // make sure the file doesn't exist (or otherwise has an error)
                         if (err !== null) {
                             // get the file contents from the gist URI
-                            REQUEST.get(`${DATA_SOURCES[mode]}/${file_name}`, (error, response, body) => {
+                            REQUEST.get(`${DATA_SOURCES[mode]}/${fileName}`, (error, response, body) => {
                                 if (!error && response.statusCode == 200) {
                                     // write the file
-                                    plugins.fs.writeFile(`.config/${file_name}`, body, "utf8", () => {
+                                    plugins.fs.writeFile(`.config/${fileName}`, body, "utf8", () => {
                                         resolve();
                                     });
                                 } else {
@@ -36,7 +36,7 @@ module.exports = {
                                 }
                             });
                         } else {
-                            // automatically resolve the promise if the file already exists
+                            // Automatically resolve the promise if the file already exists
                             resolve();
                         }
                     });
@@ -45,21 +45,19 @@ module.exports = {
         };
 
         // configue JSON data
-        const CONFIGURE_JSON = (file_name, namespace, endpoint, options) => {
+        const configureJSON = (fileName, namespace, endpoint, options) => {
             // check if the intended endpoint has been configured
-            const JSON_DATA  = plugins.json.readFileSync(`.config/${file_name}`);
+            const JSON_DATA = plugins.json.readFileSync(`.config/${fileName}`);
             const CONFIGURED = JSON_DATA[endpoint] ? JSON_DATA[endpoint].configured : false;
 
             const PROMPTS = [];
 
             // if no requested, or requsted is current namespace
             if (["", namespace].includes(requested)) {
-
                 // if config is called directly, or it's not configured
-                if (direct_call || !CONFIGURED) {
-
+                if (directCall || !CONFIGURED) {
                     // construct the prompts
-                    Object.keys(options).forEach(option => {
+                    Object.keys(options).forEach((option) => {
                         const PROPERTIES = options[option];
 
                         // construct the prompt
@@ -69,7 +67,7 @@ module.exports = {
                         };
 
                         // construct the prompt
-                        Object.keys(PROPERTIES).forEach(property => {
+                        Object.keys(PROPERTIES).forEach((property) => {
                             PROMPT[property] = PROPERTIES[property];
                         });
 
@@ -78,13 +76,13 @@ module.exports = {
                 }
             }
 
-            return new Promise ((resolve, reject) => {
+            return new Promise((resolve, reject) => {
                 if (PROMPTS.length > 0) {
                     // prompt the user
-                    gulp.src(`.config/${file_name}`)
+                    gulp.src(`.config/${fileName}`)
                         .pipe(plugins.prompt.prompt(PROMPTS, (res) => {
                             // update options in JSON data
-                            Object.keys(options).forEach(key => {
+                            Object.keys(options).forEach((key) => {
                                 // turn stringy true/false values in to booleans
                                 const VALUE = res[key] === "true" ? true : (res[key] === "false" ? false : res[key]);
 
@@ -107,12 +105,11 @@ module.exports = {
                             });
 
                             // update file with new JSON data
-                            plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
+                            plugins.json.writeFileSync(`.config/${fileName}`, JSON_DATA, {spaces: 2});
                         })).on("end", () => {
                             // mark new endpoints as configured
                             if (JSON_DATA[endpoint].configured === false) {
                                 new Promise((resolve, reject) => {
-
                                     // if a new endpoints data is FTP or SFTP, retrieve the remaining options
                                     if (namespace === "ftp") {
                                         // get the protocol-specific fields from the gist URI
@@ -139,7 +136,7 @@ module.exports = {
                                     JSON_DATA[endpoint].configured = true;
 
                                     // update file with new JSON data
-                                    plugins.json.writeFileSync(`.config/${file_name}`, JSON_DATA, { spaces: 2 });
+                                    plugins.json.writeFileSync(`.config/${fileName}`, JSON_DATA, {spaces: 2});
                                 });
                             }
 
@@ -161,9 +158,9 @@ module.exports = {
 
         // download all config files
         return Promise.all([
-            GENERATE_CONFIG(".bsconfig", "browsersync"),
-            GENERATE_CONFIG(".ftpconfig", "ftp"),
-            GENERATE_CONFIG(".rsyncconfig", "rsync"),
+            generateConfig(".bsconfig", "browsersync"),
+            generateConfig(".ftpconfig", "ftp"),
+            generateConfig(".rsyncconfig", "rsync"),
         ]).then(() => {
             // read browsersync settings from .bsconfig
             const JSON_DATA = plugins.json.readFileSync(".config/.bsconfig");
@@ -194,7 +191,7 @@ module.exports = {
             };
 
             // configure the JSON
-            return CONFIGURE_JSON(".bsconfig", "browsersync", ENDPOINT, PROMPTS);
+            return configureJSON(".bsconfig", "browsersync", ENDPOINT, PROMPTS);
         }).then(() => {
             // read ftp settings from .ftpconfig
             const JSON_DATA = plugins.json.readFileSync(".config/.ftpconfig");
@@ -226,13 +223,13 @@ module.exports = {
                     default: global.settings.ftp.protocol === "ftp" ? 0 : 1,
                     type:    "list",
                     choices: ["ftp", "sftp"],
-                    suffix: "(Once configured, an endpoints protocol cannot be changed)",
+                    suffix:  "(Once configured, an endpoints protocol cannot be changed)",
                 },
                 secure: {
                     default: global.settings.ftp.secure === true ? 0 : 1,
                     type:    "list",
                     choices: ["true", "false"],
-                    when:    data => data.protocol === "ftp",
+                    when:    (data) => data.protocol === "ftp",
                 },
                 host: {
                     default: global.settings.ftp.host,
@@ -247,8 +244,8 @@ module.exports = {
                     type:    "password",
                 },
                 remotePath: {
-                    default:  global.settings.ftp.remotePath,
-                    type:     "input",
+                    default: global.settings.ftp.remotePath,
+                    type:    "input",
                 },
             };
 
@@ -262,7 +259,7 @@ module.exports = {
             }
 
             // configure the JSON
-            return CONFIGURE_JSON(".ftpconfig", "ftp", ENDPOINT, PROMPTS);
+            return configureJSON(".ftpconfig", "ftp", ENDPOINT, PROMPTS);
         }).then(() => {
             // read ftp settings from .ftpconfig
             const JSON_DATA = plugins.json.readFileSync(".config/.rsyncconfig");
@@ -288,12 +285,12 @@ module.exports = {
                 username: {
                     default: global.settings.rsync.username,
                     type:    "input",
-                    when:    data => data.hostname !== "false",
+                    when:    (data) => data.hostname !== "false",
                 },
             };
 
             // configure the JSON
-            return CONFIGURE_JSON(".rsyncconfig", "rsync", ENDPOINT, PROMPTS);
+            return configureJSON(".rsyncconfig", "rsync", ENDPOINT, PROMPTS);
         });
-    }
+    },
 };

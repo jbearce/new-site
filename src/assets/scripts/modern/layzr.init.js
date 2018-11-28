@@ -2,10 +2,10 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-import Layzr from "layzr.js";
+import layzr from "layzr.js";
 
 // init Layzr
 document.addEventListener("DOMContentLoaded", () => {
-    const INSTANCE = Layzr();
+    const INSTANCE = layzr();
     INSTANCE.update().check().handlers(true);
 });

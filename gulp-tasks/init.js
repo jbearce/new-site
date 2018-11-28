@@ -3,15 +3,15 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 module.exports = {
-    init(gulp, plugins, on_error) {
-        const REPLACE = require("gulp-replace");
+    init(gulp, plugins, onError) {
+        const replace = require("gulp-replace");
 
-        let project_data = {};
+        let projectData = {};
 
-        const GET_PROJECT_DEFAULTS = () => {
+        const getProjectDefaults = () => {
             return new Promise((resolve) => {
                 if (plugins.fs.existsSync(".config/.init")) {
-                    project_data = plugins.json.readFileSync(".config/.init");
+                    projectData = plugins.json.readFileSync(".config/.init");
                 }
 
                 resolve();
@@ -19,13 +19,13 @@ module.exports = {
         };
 
         // gather project data
-        const GET_PROJECT_DATA = () => {
+        const getProjectData = () => {
             return new Promise((resolve) => {
                 return gulp.src("gulpfile.js")
                     // prevent breaking on error
-                    .pipe(plugins.plumber({ errorHandler: on_error }))
+                    .pipe(plugins.plumber({errorHandler: onError}))
                     // prompt for project data if defaults are not set
-                    .pipe(plugins.gulpif(Object.getOwnPropertyNames(project_data).length === 0, plugins.prompt.prompt([
+                    .pipe(plugins.gulpif(Object.getOwnPropertyNames(projectData).length === 0, plugins.prompt.prompt([
                         {
                             name:     "full_name",
                             message:  "Project Name:",
@@ -100,9 +100,9 @@ module.exports = {
                             },
                         },
                         {
-                            name:    "author_name",
-                            message: "Author Name:",
-                            type:    "input",
+                            name:     "author_name",
+                            message:  "Author Name:",
+                            type:     "input",
                             validate: (response) => {
                                 if (response.trim().length > 0 && response.match(/\w/)) {
                                     return true;
@@ -121,7 +121,7 @@ module.exports = {
                                 } else {
                                     return "Please enter a valid email address.";
                                 }
-                            }
+                            },
                         },
                         {
                             name:     "author_company",
@@ -162,7 +162,7 @@ module.exports = {
                         },
                     ], (res) => {
                         // store the project data
-                        project_data = res;
+                        projectData = res;
                     })))
                     // consume the stream the stream
                     .on("data", () => {
@@ -176,11 +176,11 @@ module.exports = {
         };
 
         // write project data
-        const WRITE_PROJECT_DATA = () => {
+        const writeProjectData = () => {
             return new Promise((resolve, reject) => {
-                return gulp.src(["*", "gulp-tasks/*", "src/**/*"], { base: "./" })
+                return gulp.src(["*", "gulp-tasks/*", "src/**/*"], {base: "./"})
                     // prevent breaking on error
-                    .pipe(plugins.plumber({ errorHandler: on_error }))
+                    .pipe(plugins.plumber({errorHandler: onError}))
                     // check if a file is a binary
                     .pipe(plugins.is_binary())
                     // skip file if it's a binary
@@ -194,23 +194,23 @@ module.exports = {
                         next(null, file);
                     }))
                     // replace variables
-                    .pipe(REPLACE(/__gulp_init_[a-z0-9_]+?__/g, (match) =>{
+                    .pipe(replace(/__gulp_init_[a-z0-9_]+?__/g, (match) =>{
                         const KEYWORD = match.match(/__gulp_init_([a-z0-9_]+?)__/)[1];
 
                         const REPLACEMENTS = {
-                            full_name:      project_data.full_name,
-                            short_name:     project_data.short_name,
-                            npm_name:       project_data.full_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "-"),
-                            namespace:      project_data.short_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "_"),
-                            version:        project_data.version,
-                            description:    project_data.description,
-                            homepage_url:   project_data.homepage,
-                            repository:     project_data.repository.replace(/(\.git$)|(\/$)/, ""),
-                            author_name:    project_data.author_name,
-                            author_email:   project_data.author_email,
-                            author_company: project_data.author_company,
-                            author_url:     project_data.author_url,
-                            theme_color:    project_data.theme_color,
+                            full_name:      projectData.full_name,
+                            short_name:     projectData.short_name,
+                            npm_name:       projectData.full_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "-"),
+                            namespace:      projectData.short_name.toLowerCase().replace(/[^A-Za-z ]/, "").replace(/ /g, "_"),
+                            version:        projectData.version,
+                            description:    projectData.description,
+                            homepage_url:   projectData.homepage,
+                            repository:     projectData.repository.replace(/(\.git$)|(\/$)/, ""),
+                            author_name:    projectData.author_name,
+                            author_email:   projectData.author_email,
+                            author_company: projectData.author_company,
+                            author_url:     projectData.author_url,
+                            theme_color:    projectData.theme_color,
                         };
 
                         if (KEYWORD in REPLACEMENTS) {
@@ -229,14 +229,14 @@ module.exports = {
             });
         };
 
-        return new Promise ((resolve) => {
-            GET_PROJECT_DEFAULTS().then(() => {
-                return GET_PROJECT_DATA();
+        return new Promise((resolve) => {
+            getProjectDefaults().then(() => {
+                return getProjectData();
             }).then(() => {
-                return WRITE_PROJECT_DATA();
+                return writeProjectData();
             }).then(() => {
                 resolve();
             });
         });
-    }
+    },
 };

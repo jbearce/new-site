@@ -2,6 +2,6 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-import pwaInstallPrompt from "pwa-install-prompt";
+import PWA_INSTALL_PROMPT from "pwa-install-prompt";
 
-new pwaInstallPrompt();
+new PWA_INSTALL_PROMPT();

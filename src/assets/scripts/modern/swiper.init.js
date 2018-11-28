@@ -6,17 +6,17 @@ import Swiper from "swiper";
 
 // init swiper
 if (document.querySelectorAll(".swiper-container--hero .swiper-slide").length > 1) {
-    new Swiper (".swiper-container--hero", {
+    new Swiper(".swiper-container--hero", {
         autoplay: {
             delay: 5000,
         },
-        loop: true,
+        loop:       true,
         navigation: {
             nextEl: ".swiper-container--hero .swiper-button--next",
             prevEl: ".swiper-container--hero .swiper-button--prev",
         },
         pagination: {
-            el: ".swiper-pagination",
+            el:        ".swiper-pagination",
             clickable: true,
         },
         speed: 150,

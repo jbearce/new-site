@@ -4,15 +4,15 @@
 
 import transition from "transition-to-from-auto";
 
-const MENU_LIST_INIT = () => {
-    const MENU_ITEMS   = document.querySelectorAll(".menu-list__item");
-    const MENU_LINKS   = document.querySelectorAll(".menu-list__link");
+const menuListInit = () => {
+    const MENU_ITEMS = document.querySelectorAll(".menu-list__item");
+    const MENU_LINKS = document.querySelectorAll(".menu-list__link");
     const MENU_TOGGLES = document.querySelectorAll(".menu-list__toggle");
 
     // function to mark elements as inactive
     // @param  {Element}  elem - An element to mark as inactive
-    const MARK_MENU_ITEM_INACTIVE = (elem) => {
-        const CHILDREN    = elem.childNodes;
+    const markMenuItemInactive = (elem) => {
+        const CHILDREN = elem.childNodes;
         const CHILD_MENUS = elem.querySelectorAll(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
 
         // mark the item as inactive
@@ -44,13 +44,13 @@ const MENU_LIST_INIT = () => {
 
     // function to mark parent elements as inactive
     // @param  {Element}  elem - An element to mark parents inactive
-    const MARK_MENU_ITEM_PARENTS_INACTIVE = (elem) => {
+    const markMenuItemParentsInactive = (elem) => {
         let parent = elem.parentNode;
 
         setTimeout(() => { // give it a moment to process
             while (parent && parent.nodeType === 1 && !parent.classList.contains("menu-list__container")) {
                 if (parent.classList.contains("is-active") && !parent.contains(document.activeElement)) {
-                    MARK_MENU_ITEM_INACTIVE(parent);
+                    markMenuItemInactive(parent);
                 }
 
                 parent = parent.parentNode;
@@ -60,21 +60,21 @@ const MENU_LIST_INIT = () => {
 
     // function to mark sibling elements as inactive
     // @param  {Element}  elem - An element to mark siblings inactive
-    const MARK_MENU_ITEM_SIBLINGS_INACTIVE = (elem) => {
+    const markMenuItemSiblingsInactive = (elem) => {
         const SIBLINGS = elem.parentNode.childNodes;
 
         // mark all siblings as inactive
         for (let i = 0; i < SIBLINGS.length; i++) {
             if (SIBLINGS[i].nodeType === 1 && SIBLINGS[i] !== elem) {
-                MARK_MENU_ITEM_INACTIVE(SIBLINGS[i]);
+                markMenuItemInactive(SIBLINGS[i]);
             }
         }
     };
 
     // function to mark elements as active
     // @param  {Element}  elem - An element to mark as active
-    const MARK_MENU_ITEM_ACTIVE = (elem) => {
-        const CHILDREN   = elem.childNodes;
+    const markMenuItemActive = (elem) => {
+        const CHILDREN = elem.childNodes;
         const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
 
         // mark the item as active
@@ -95,23 +95,23 @@ const MENU_LIST_INIT = () => {
 
     // handle touch away from menu-list elements
     document.addEventListener("touchstart", (e) => {
-        let parent_element = e.target.parentElement;
-        let clicked_on_menu = false;
+        let parentElement = e.target.parentElement;
+        let clickedOnMenu = false;
 
         // loop through all parent elements until it is determiend if a menu was in the stack
-        while (parent_element && clicked_on_menu === false) {
-            if (parent_element.classList.contains("menu-list") || parent_element.dataset.menu === "true" || e.target.dataset.menu === "true") {
-                clicked_on_menu = true;
+        while (parentElement && clickedOnMenu === false) {
+            if (parentElement.classList.contains("menu-list") || parentElement.dataset.menu === "true" || e.target.dataset.menu === "true") {
+                clickedOnMenu = true;
             }
 
-            parent_element = parent_element.parentElement;
+            parentElement = parentElement.parentElement;
         }
 
         // close all menus if a menu wasn't clicked
         // @TODO make sure the touched menu-list is active
-        if (clicked_on_menu === false) {
+        if (clickedOnMenu === false) {
             for (let i = 0; i < MENU_ITEMS.length; i++) {
-                MARK_MENU_ITEM_INACTIVE(MENU_ITEMS[i]);
+                markMenuItemInactive(MENU_ITEMS[i]);
             }
         }
     });
@@ -122,14 +122,14 @@ const MENU_LIST_INIT = () => {
         if (MENU_ITEMS[i].parentElement.dataset.hover === "true") {
             // open on mouseover
             MENU_ITEMS[i].addEventListener("mouseover", () => {
-                MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
-                MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
-            }, { passive: true });
+                markMenuItemSiblingsInactive(MENU_ITEMS[i]);
+                markMenuItemActive(MENU_ITEMS[i]);
+            }, {passive: true});
 
             // close on mouseout
             MENU_ITEMS[i].addEventListener("mouseout", () => {
-                MARK_MENU_ITEM_INACTIVE(MENU_ITEMS[i]);
-            }, { passive: true });
+                markMenuItemInactive(MENU_ITEMS[i]);
+            }, {passive: true});
         }
 
         // check if the menu is touchable
@@ -139,8 +139,8 @@ const MENU_LIST_INIT = () => {
                 // check if the element is already active
                 if (MENU_ITEMS[i].classList.contains("menu-list__item--parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
                     e.preventDefault();
-                    MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
-                    MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
+                    markMenuItemSiblingsInactive(MENU_ITEMS[i]);
+                    markMenuItemActive(MENU_ITEMS[i]);
                 }
             });
         }
@@ -150,8 +150,8 @@ const MENU_LIST_INIT = () => {
     for (let i = 0; i < MENU_LINKS.length; i++) {
         // mark inactive on blur (only if no other siblings or children are focused)
         MENU_LINKS[i].addEventListener("blur", () => {
-            MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_LINKS[i]);
-        }, { passive: true });
+            markMenuItemParentsInactive(MENU_LINKS[i]);
+        }, {passive: true});
     }
 
     // handle interactions with menu-list_toggle elements
@@ -161,18 +161,18 @@ const MENU_LIST_INIT = () => {
             e.preventDefault();
 
             if (MENU_TOGGLES[i].parentNode.classList.contains("is-active")) {
-                MARK_MENU_ITEM_INACTIVE(MENU_TOGGLES[i].parentNode);
+                markMenuItemInactive(MENU_TOGGLES[i].parentNode);
             } else {
-                MARK_MENU_ITEM_ACTIVE(MENU_TOGGLES[i].parentNode);
+                markMenuItemActive(MENU_TOGGLES[i].parentNode);
             }
         });
 
         // mark inactive on blur (only if no other siblings or children are focused)
         MENU_TOGGLES[i].addEventListener("blur", () => {
-            MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_TOGGLES[i]);
-        }, { passive: true });
+            markMenuItemParentsInactive(MENU_TOGGLES[i]);
+        }, {passive: true});
     }
 };
 
 // init the function
-MENU_LIST_INIT();
+menuListInit();
