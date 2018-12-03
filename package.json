@@ -78,6 +78,7 @@
   },
   "dependencies": {
     "@dotsunited/load-css-polyfill": "^1.2.0",
+    "@fortawesome/fontawesome-pro": "^5.5.0",
     "debounce": "^1.2.0",
     "fg-loadcss": "^2.0.1",
     "flexibility": "^2.0.1",

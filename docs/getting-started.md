@@ -16,6 +16,7 @@
 - [LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04) (Mac, Linux, WSL)
 - [libnotify-bin](https://packages.ubuntu.com/xenial/libnotify-bin) (Linux, WSL)
 - [BurntToast](https://github.com/Windos/BurntToast) (WSL)
+- [FontAwesome 5 Pro](https://fontawesome.com/pro) (all)
 
 ## Installation
 
@@ -365,3 +366,38 @@ BurntToast is a PowerShell module that enables sending toast notifications from 
       ```
 
 8. In WSL, browse to this repository and run `rm -rf dev; gulp` to verify that BurntToast is sending notifications.
+
+### FontAwesome 5 Pro
+
+This project utlizes FontAwesome 5 Pro by default, but may not come preconfigured for installation from FontAwesome's private NPM repository. If when running `npm install` for the first time, you receive an error `404 Not Found: @fortawesome/fontawesome-pro@latest` or similar, follow the [guide to using NPM](https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers#installing-pro) in FontAwesome's documentation. If you don't have access to the Pro version of FontAwesome, speak with your lead developer about obtaining a key, or otherwise, if this is a new project, consider either replacing FontAwesome 5 Pro with FontAwesome 5 Free, or removing FontAwesome entirely from this project.
+
+#### Replacing FontAwesome 5 Pro with FontAwesome 5 Free
+
+To replace FontAwesome 5 Pro with FontAwesome 5 Free, run the follow commands in your terminal:
+
+```sh
+npm uninstall --save @fortawesome/fontawesome-pro
+npm install --save @fortawesome/fontawesome-free
+```
+
+Then, in `./src/assets/scripts/modern/fontawesome.init.js`, replace the import lines with:
+
+```js
+import "@fortawesome/fontawesome-free";
+import "@fortawesome/fontawesome-free/js/solid";
+import "@fortawesome/fontawesome-free/js/regular";
+import "@fortawesome/fontawesome-free/js/brands";
+```
+You may then need to replace any broken icons in the theme with free equivalents.
+
+#### Removing FontAwesome
+
+To remove FontAwesome entirely, first uninstall the module.
+
+```sh
+npm uninstall --save @fortawesome/fontawesome-pro
+```
+
+Then, delete `./src/assets/scripts/modern/fontawesome.init.js`.
+
+You may then need to delete any icons in the theme, and possibly replace then with an alternative icon system.

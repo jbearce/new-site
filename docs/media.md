@@ -30,9 +30,9 @@ Within the media folder, there are folders named `android`, `ios`, and `safari`.
 
 8. Copy your 2048x2048 logo image, resize it to 512x512, and save it named `splash-icon-512x512.png`.
 
-9. Replace each image in `assets/media/android` with the icons you've generated.
+9. Replace each image in `./src/assets/media/android` with the icons you've generated.
 
-10. Copy the 144x144 icon, rename it to `logo-favicon.png`, and resize it to 128x128. Replace `logo-favicon.png` in the `assets/media/` with it.
+10. Copy the 144x144 icon, rename it to `logo-favicon.png`, and resize it to 128x128. Replace `logo-favicon.png` in the `./src/assets/media/` with it.
 
 ### iOS
 
@@ -52,15 +52,29 @@ Within the media folder, there are folders named `android`, `ios`, and `safari`.
 
 3. Edit the SVG to remove everything except for the `<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">` and the `<path>`.
 
-4. Replace `assets/media/safari/mask-icon.svg` with the version you've just created.
+4. Replace `./src/assets/media/safari/mask-icon.svg` with the version you've just created.
 
-### Adding custom FontAwesome icons
+### FontAwesome Icons
+
+This project uses FontAwesome 5 Pro by default. To use an icon, please refer to [FontAwesome's icon list](https://fontawesome.com/icons).
+
+#### Configuring FontAwesome Pro
+
+This project uses FontAweseom 5 Pro, but may not come with an `.npmrc` preconfigured. Please refer to the [getting started](getting-started.md#fontawesome-5-pro) guide for more information on configuring FontAwesome 5 Pro.
+
+#### Custom Icons
 
 Icons should be prioritized as FontAwesome icons, but if a corresponding icons isn't defined in FontAwesome, or a specific icon is required to be used, a custom FontAwesome icon can be set up as long as you have a single-path SVG for the icon, using FontAwesome's [`library.add()` API](https://fontawesome.com/how-to-use/with-the-api/methods/library-add).
 
-For example, to create a custom icon to represent this projects logo (a rocket, by default), create a new file at `./src/assets/scripts/modern/fontawesome.custom.js`, and define the icon as demonstrated below. Note that multiple icons can be dfined, as `library.add()` accepts an object containing multiple icons.
+For example, to create a custom icon to represent this projects logo (a rocket, by default), open `./src/assets/scripts/modern/fontawesome.init.js`, and define the icon as demonstrated below. Note that multiple icons can be defined, as `library.add()` accepts an object containing multiple icons.
 
 ```js
+// JavaScript Document
+
+// Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
+
+import "@fortawesome/fontawesome-pro";
+
 document.addEventListener("DOMContentLoaded", function () {
     window.FontAwesome.library.add({
         "__gulp_init_npm_name__": { // icon name
@@ -88,7 +102,7 @@ To use the new icon, reference it like any other FontAwesome icon, except utiliz
 
 Many third-party scripts have custom stylesheets which have associated images that also need imported in order to function properly.
 
-After installing a JavaScript library, check to see if it has an associated images that also needs imported. If it does, copy the images in to `assets/media/venodor`. Then open up the associated stylesheet under `modules` with the library name, and import the fix the image references like so:
+After installing a JavaScript library, check to see if it has an associated images that also needs imported. If it does, copy the images in to `.src/assets/media/vendor`. Then open up the associated stylesheet under `./src/assets/styles/modules` with the library name, and import the fix the image references like so:
 
 ```scss
 .third-party-selector {
@@ -98,4 +112,4 @@ After installing a JavaScript library, check to see if it has an associated imag
 }
 ```
 
-If you're not sure if the library you're using has any associated images, open up the `node_modules` folder, browse to the libraries folder, and look for any stylesheets. If one exists, open it, and look for any uses of `background-image`. If any exist, copy the images in `assets/media/vendor`, then copy the selector for that rule, and use it in place of `.third-party-selector` in the example above.
+If you're not sure if the library you're using has any associated images, open up the `node_modules` folder, browse to the libraries folder, and look for any stylesheets. If one exists, open it, and look for any uses of `background-image`. If any exist, copy the images in `./src/assets/media/vendor`, then copy the selector for that rule, and use it in place of `.third-party-selector` in the example above.
