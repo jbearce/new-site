@@ -42,7 +42,7 @@ New modifiers should be placed within their parent block or element stylehseet, 
 
 #### Helpers
 
-*Helpers* are global modifiers that can be used in conjunction with any other class.
+Helpers are global modifiers that can be used in conjunction with any other class.
 
 This is a custom feature for our projects, and not a part of native BEM. Helpers are simple things, such as setting `font-color: #FFF`, `text-decoration: underline`, or `margin: 0`. Helpers are always suffixed with `!important`, to ensure that they are always applied. *Helpers should never be overridden.*
 
@@ -73,15 +73,17 @@ Breakpoints on this project go from narrow to wide. Each breakpoint is listed be
 
 | Name | Width  |
 |:----:|:------:|
-| xxxl | 1440px |
-| xxl  | 1366px |
-| xl   | 1280px |
-| l    | 1024px |
-| m    | 960px  |
-| s    | 853px  |
-| xs   | 768px  |
-| xxs  | 640px  |
 | xxxs | 480px  |
+| xxs  | 640px  |
+| xs   | 768px  |
+| s    | 853px  |
+| m    | 960px  |
+| l    | 1024px |
+| xl   | 1280px |
+| xxl  | 1366px |
+| xxxl | 1440px |
+
+Two custom mixins exist for handling breakpoints &ndash; `larger-than($width)` for `min-width` breakpoitns, and `smaller-than($width)` for `max-width` breakpoints. `smaller-than()` automatically removes 1px from the specified width, to ensure it does not overlap with `larger-than` breakpoints with the same width spcified. For example, `smaller-than(xs)` will apply when the browser is <= 767px wide, and `larger-than(xs)` will apply when the browser is >= 768px wide.
 
 In most cases, breakpoints should be targeted by including a new file for each breakpoint in `views/_screen_{breakpoint}.scss`. The rare exception to this is when applying a style that needs to revert upon hitting a breakpoint.
 
