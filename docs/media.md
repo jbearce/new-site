@@ -58,7 +58,7 @@ Within the media folder, there are folders named `android`, `ios`, and `safari`.
 
 Icons should be prioritized as FontAwesome icons, but if a corresponding icons isn't defined in FontAwesome, or a specific icon is required to be used, a custom FontAwesome icon can be set up as long as you have a single-path SVG for the icon, using FontAwesome's [`library.add()` API](https://fontawesome.com/how-to-use/with-the-api/methods/library-add).
 
-For example, to create a add a custom icon to represent this projects logo (a rocket, by default), create a new file at `./src/assets/scripts/modern/fontawesome.custom.js`, and define the icon as demonstrated below. Note that multiple icons can be dfined, as `library.add()` accepts an object containing multiple icons.
+For example, to create a custom icon to represent this projects logo (a rocket, by default), create a new file at `./src/assets/scripts/modern/fontawesome.custom.js`, and define the icon as demonstrated below. Note that multiple icons can be dfined, as `library.add()` accepts an object containing multiple icons.
 
 ```js
 document.addEventListener("DOMContentLoaded", function () {
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 ```
 
-To use the new icon, you would add the following wherever you wanted it to appear.
+To use the new icon, reference it like any other FontAwesome icon, except utilize the prefix and named as defined in `fontawesome.custom.js`.
 
 ```html
 <i class="fac fa-__gulp_init_npm_name__"></i>
