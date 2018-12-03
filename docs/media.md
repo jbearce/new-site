@@ -56,16 +56,16 @@ Within the media folder, there are folders named `android`, `ios`, and `safari`.
 
 ### Adding custom FontAwesome icons
 
-Icons should be prioritized as FontAwesome icons, but if a corresponding icons isn't defined in FontAwesome, or a specific icon is required to be used, a custom FontAwesome icon can be set up as long as you have a single-path SVG for the icon.
+Icons should be prioritized as FontAwesome icons, but if a corresponding icons isn't defined in FontAwesome, or a specific icon is required to be used, a custom FontAwesome icon can be set up as long as you have a single-path SVG for the icon, using FontAwesome's [library.add API](https://fontawesome.com/how-to-use/with-the-api/methods/library-add).
 
-For example, if you wanted to create a custom icon to represent the projects logo, you could do so by creating a file named `fontawesome.custom.js` in `./src/assets/scripts/modern`, and placing the following code in it.
+For example, to create a add a custom icon to represent this projects logo (a rocket, by default),
 
 ```js
 document.addEventListener("DOMContentLoaded", function () {
     window.FontAwesome.library.add({
-        "__gulp_init_npm_name__": {
-            iconName: "__gulp_init_npm_name__",
-            prefix: "fac",
+        "__gulp_init_npm_name__": { // icon name
+            iconName: "__gulp_init_npm_name__", // icon name
+            prefix: "fac", // icon prefix
             icon: [
                 512, // viewbox x
                 512, // viewbox y
@@ -76,6 +76,12 @@ document.addEventListener("DOMContentLoaded", function () {
         },
     });
 });
+```
+
+To use the new icon, you would add the following wherever you wanted it to appear.
+
+```html
+<i class="fac fa-__gulp_init_npm_name__"></i>
 ```
 
 ## Adding third-party media
