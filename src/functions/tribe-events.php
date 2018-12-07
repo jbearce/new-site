@@ -238,19 +238,29 @@ add_action("tribe_events_single_event_after_the_content", "__gulp_init_namespace
 
 // add 'menu-list_link link' to list of classes for tribe monthly pagination link
 function __gulp_init_namespace___tribe_add_pagination_menu_link_class($html) {
-    $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    if ($html) {
+        $DOM = new DOMDocument();
 
-    $anchors = $DOM->getElementsByTagName("a");
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
 
-    foreach ($anchors as $anchor) {
-        $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
+
+        $anchors = $DOM->getElementsByTagName("a");
+
+        foreach ($anchors as $anchor) {
+            $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $html = __gulp_init_namespace___remove_extra_tags($DOM);
+
+        return $html;
     }
-
-    // remove unneeded tags (inserted for parsing reasons)
-    $html = __gulp_init_namespace___remove_extra_tags($DOM);
-
-    return $html;
 }
 add_filter("tribe_events_the_previous_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
 add_filter("tribe_events_the_next_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
@@ -260,7 +270,15 @@ add_filter("tribe_the_day_link", "__gulp_init_namespace___tribe_add_pagination_m
 function __gulp_init_namespace___tribe_add_title_class_to_date_headers($html) {
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $h2s = $DOM->getElementsByTagName("h2");
 
@@ -278,17 +296,27 @@ add_filter("tribe_events_list_the_date_headers", "__gulp_init_namespace___tribe_
 
 // add 'tribe-events-text_text text' class to tribe excerpts
 function __gulp_init_namespace___tribe_add_text_class_to_excerpt($excerpt) {
-    $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html><body>{$excerpt}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    if ($excerpt) {
+        $DOM = new DOMDocument();
 
-    $paragraphs = $DOM->getElementsByTagName("p");
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
 
-    foreach ($paragraphs as $paragraph) {
-        $paragraph->setAttribute("class", "tribe-events-text__text text {$paragraph->getAttribute("class")}");
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$excerpt}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
+
+        $paragraphs = $DOM->getElementsByTagName("p");
+
+        foreach ($paragraphs as $paragraph) {
+            $paragraph->setAttribute("class", "tribe-events-text__text text {$paragraph->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $excerpt = __gulp_init_namespace___remove_extra_tags($DOM);
     }
-
-    // remove unneeded tags (inserted for parsing reasons)
-    $excerpt = __gulp_init_namespace___remove_extra_tags($DOM);
 
     return $excerpt;
 }
@@ -296,23 +324,33 @@ add_filter("tribe_events_get_the_excerpt", "__gulp_init_namespace___tribe_add_te
 
 // add text classes to tribe notices
 function __gulp_init_namespace___tribe_add_text_class_to_notices($html) {
-    $DOM = new DOMDocument();
-    $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+    if ($html) {
+        $DOM = new DOMDocument();
 
-    $unordered_lists = $DOM->getElementsByTagName("ul");
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
 
-    foreach ($unordered_lists as $unordered_list) {
-        $unordered_list->setAttribute("class", "tribe-events-notices__text text text--list text--clean __light __nomargin {$unordered_list->getAttribute("class")}");
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
+
+        $unordered_lists = $DOM->getElementsByTagName("ul");
+
+        foreach ($unordered_lists as $unordered_list) {
+            $unordered_list->setAttribute("class", "tribe-events-notices__text text text--list text--clean __light __nomargin {$unordered_list->getAttribute("class")}");
+        }
+
+        $list_items = $DOM->getElementsByTagName("li");
+
+        foreach ($list_items as $list_item) {
+            $list_item->setAttribute("class", "text__list-item {$list_item->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $html = __gulp_init_namespace___remove_extra_tags($DOM);
     }
-
-    $list_items = $DOM->getElementsByTagName("li");
-
-    foreach ($list_items as $list_item) {
-        $list_item->setAttribute("class", "text__list-item {$list_item->getAttribute("class")}");
-    }
-
-    // remove unneeded tags (inserted for parsing reasons)
-    $html = __gulp_init_namespace___remove_extra_tags($DOM);
 
     return $html;
 }
@@ -327,9 +365,17 @@ add_filter("tribe_events_list_show_ical_link", "__gulp_init_namespace___tribe_di
 
 // add proper classes to Tribe featured images
 function __gulp_init_namespace___tribe_add_class_to_featured_image($featured_image) {
-    if (is_singular("tribe_events")) {
+    if (is_singular("tribe_events") && $featured_image) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$featured_image}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$featured_image}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $divs = $DOM->getElementsByTagName("div");
 
@@ -355,7 +401,15 @@ add_filter("tribe_event_featured_image", "__gulp_init_namespace___tribe_add_clas
 function __gulp_init_namespace___tribe_add_events_title_link_class($title) {
     if ($title) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$title}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$title}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -375,7 +429,15 @@ add_filter("tribe_events_title", "__gulp_init_namespace___tribe_add_events_title
 function __gulp_init_namespace___tribe_add_bar_input_class($html) {
     if ($html) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $inputs = $DOM->getElementsByTagName("input");
 

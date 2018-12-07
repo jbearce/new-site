@@ -1,37 +1,24 @@
 // Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-@import "helpers/_helpers";
+.editor-writing-flow {
+    @import "helpers/_mixins";
+    @import "helpers/_functions";
+    @import "helpers/_variables";
+    @import "base/normalize/_normalize";
+    @import "base/align/_align";
+    @import "base/divider/_divider";
+    @import "base/link/_link";
+    @import "base/button/_button";
+    @import "base/title/_title";
+    @import "base/text/_text";
+    @import "base/input/_input";
+    @import "base/blockquote/_blockquote";
 
-html,
-body {
-    & {
-        background: color("background");
-        color: color("foreground");
-    }
-}
-
-html {
-    & {
-        padding: remify(20 25, 16);
-    }
-}
-
-@import "base/normalize/_normalize";
-@import "base/grid/_grid";
-@import "base/link/_link";
-@import "base/title/_title";
-@import "base/text/_text";
-@import "base/input/_input";
-@import "base/button/_button";
-@import "base/blockquote/_blockquote";
-@import "base/divider/_divider";
-@import "base/user-content/_user-content";
-
-.user-content {
     a:not(.button) {
         @extend .link;
     }
 
+    .editor-post-title__input,
     h1,
     h2,
     h3,
@@ -41,6 +28,7 @@ html {
         @extend .title;
     }
 
+    .editor-post-title__input,
     h1 {
         @extend .title--h1;
     }

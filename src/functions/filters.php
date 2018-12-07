@@ -40,13 +40,6 @@ function __gulp_init_namespace___login_logo_title() {
 }
 add_filter("login_headertitle", "__gulp_init_namespace___login_logo_title");
 
-// add user-content class to TinyMCE body
-function __gulp_init_namespace___tinymce_settings($settings) {
-    $settings["body_class"] .= " user-content";
-    return $settings;
-}
-add_filter("tiny_mce_before_init", "__gulp_init_namespace___tinymce_settings");
-
 // delay when shortcodes get expanded
 function __gulp_init_namespace___delay_shortcode_expansion() {
     remove_filter("the_content", "do_shortcode", 11);
@@ -58,24 +51,36 @@ add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 function __gulp_init_namespace___fix_shortcodes($content) {
     global $shortcode_tags;
 
-    $shortcodes = array();
+    if (!is_admin() && $content && $shortcode_tags) {
+        $shortcodes = array();
 
-    foreach ($shortcode_tags as $tag => $data) {
-        $shortcodes[] = $tag;
+        foreach ($shortcode_tags as $tag => $data) {
+            $shortcodes[] = $tag;
+        }
+
+        $block = join("|", $shortcodes);
+
+        $content = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/", "[$2$3]", $content);
+        $content = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/", "[/$2]", $content);
     }
 
-    $block = join("|", $shortcodes);
-    $rep = preg_replace("/(<p>)?\[($block)(\s[^\]]+)?\](<\/p>|<br \/>)?/", "[$2$3]",$content);
-    $rep = preg_replace("/(<p>)?\[\/($block)](<\/p>|<br \/>)?/", "[/$2]",$rep);
-    return $rep;
+    return $content;
 }
 add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
 // add classes to elements
 function __gulp_init_namespace___add_user_content_classes($content) {
-    if ($content) {
+    if (!is_admin() && $content) {
         $DOM = new DOMDocument();
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
         $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -281,9 +286,17 @@ add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20
 
 // lazy load images
 function __gulp_init_namespace___lazy_load_images($content) {
-    if ($content) {
+    if (!is_admin() && $content) {
         $DOM = new DOMDocument();
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
         $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         // XPath required otherwise an infinite loop occurs
         $XPath = new DOMXPath($DOM);
@@ -329,11 +342,17 @@ add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___
 
 // remove dimensions from thumbnails
 function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
-    global $post;
+    if (!is_admin() && $html) {
+        global $post;
 
-    if ($html) {
-        $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $images = $DOM->getElementsByTagName("img");
 
@@ -421,7 +440,15 @@ add_action("the_post", "__gulp_init_namespace___enable_post_password_protection"
 function __gulp_init_namespace___menu_list_link_classes($links) {
     if ($links) {
         $DOM = new DOMDocument();
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$links}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$links}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $anchors = $DOM->getElementsByTagName("a");
 
