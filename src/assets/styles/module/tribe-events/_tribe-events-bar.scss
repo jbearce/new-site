@@ -6,8 +6,6 @@
 
 .tribe-events-bar {
     & {
-        background: color("background", "shade");
-        margin: remify(0 0 16, 16);
         position: relative;
         z-index: 2;
     }
@@ -15,15 +13,17 @@
 
 .tribe-bar-collapse-toggle {
     & {
+        align-items: center;
         background: color("background", "shade");
         border: 0;
         color: color("foreground");
         cursor: pointer;
-        display: block;
+        display: flex;
         font-family: $body-font;
         font-size: remify(16, 16);
         font-weight: 700;
-        margin: 0;
+        justify-content: space-between;
+        margin: remify(0 0 16, 16);
         padding: remify(16 24, 16);
         text-align: left;
         text-transform: uppercase;
@@ -44,85 +44,52 @@
     &.tribe-bar-filters-open .tribe-bar-collapse-toggle-icon {
         transform: rotate(-180deg);
     }
-}
 
-.tribe-bar-views {
-    & {
-        background: color("background", "shade");
-        font-size: remify(10, 16);
-        position: relative;
-    }
-
-    &::before {
-        content: "";
-        display: block;
-        width: remify(100, 8);
-    }
-}
-
-.tribe-bar-views-inner {
-    & {
-        background: color("background", "shade");
-        left: 0;
-        padding: remify(10.5 12, 10);
-        position: absolute;
-        top: 0;
-        width: 100%;
-    }
-}
-
-.tribe-bar-views-label {
-    & {
-        color: color("foreground");
-        display: block;
-        font-family: $body-font;
-        font-size: remify(10, 10);
-        font-weight: 700;
-        text-transform: uppercase;
-        width: remify(75, 10);
-    }
-}
-
-.tribe-bar-views-list {
-    & {
-        color: color("foreground");
-        display: block;
-        font-family: $body-font;
-        font-size: remify(14, 10);
-        list-style: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    .tribe-bar-views-option {
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
         display: none;
     }
+}
 
-    .tribe-bar-views-open & .tribe-bar-views-option,
-    .tribe-bar-views-option.tribe-bar-active {
-        display: block;
+.tribe-bar-form {
+    &.tribe-bar-full,
+    &.tribe-bar-mini {
+        display: flex;
     }
+}
 
-    /* stylelint-disable selector-max-type */
-
-    a {
-        color: inherit;
-        display: block;
-        text-decoration: none;
+.tribe-bar-filters-wrap {
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
+        flex: 1 1 0%;
     }
-
-    /* stylelint-enable selector-max-type */
 }
 
 .tribe-bar-filters {
     & {
+        background: color("background", "shade");
         display: none;
+        margin: remify(0 0 16, 16);
     }
 }
 
 .tribe-bar-filters-inner {
     & {
         padding: remify(16 24, 16);
+    }
+
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
+        align-items: flex-end;
+        display: flex;
+    }
+}
+
+.tribe-bar-filters-filter {
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
+        flex: 1 1 0%;
+        margin-right: remify(10, 16);
     }
 }
 
@@ -152,7 +119,7 @@
     }
 }
 
-.tribe-events-bar-filters-button {
+.tribe-bar-filters-button {
     & {
         background: color("primary");
         border: remify(1) solid color("primary", "shade");
@@ -172,5 +139,117 @@
     &:focus,
     &:hover {
         background-color: color("primary", "shade");
+    }
+
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
+        flex: 0 0 auto;
+        width: auto;
+    }
+}
+
+.tribe-bar-views {
+    & {
+        background: darken(color("background", "shade"), 10);
+        margin: remify(0 0 16, 16);
+        padding: remify(16 13.5, 16);
+        position: relative;
+    }
+
+    [class*="tribe-icon-"] {
+        display: inline-block;
+        height: remify(16, 16);
+        margin-right: remify(4, 16);
+        width: remify(16, 16);
+    }
+
+    .tribe-icon-day {
+        background-image: svg-load("../media/tribe-icon-day.svg", fill=#{color("foreground")});
+    }
+
+    .tribe-icon-list {
+        background-image: svg-load("../media/tribe-icon-list.svg", fill=#{color("foreground")});
+    }
+
+    .tribe-icon-month {
+        background-image: svg-load("../media/tribe-icon-month.svg", fill=#{color("foreground")});
+    }
+
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
+        flex: 0 0 auto;
+        width: remify(115, 16);
+    }
+}
+
+.tribe-bar-views-list {
+    & {
+        display: none;
+    }
+}
+
+.tribe-bar-views-label {
+    & {
+        color: color("foreground");
+        display: block;
+        font-family: $body-font;
+        font-size: remify(10, 16);
+        font-weight: 700;
+        margin: remify(0 0 2, 10);
+        padding: remify(0 10.5, 10);
+        text-transform: uppercase;
+    }
+}
+
+.tribe-bar-views-toggle {
+    & {
+        align-items: center;
+        background: none;
+        border: 0;
+        color: color("foreground");
+        cursor: pointer;
+        display: flex;
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        margin: 0;
+        padding: remify(8 10.5, 14);
+        text-align: left;
+        width: 100%;
+    }
+
+    [class*="tribe-icon-"] {
+        flex: 0 0 auto;
+    }
+}
+
+.tribe-bar-views-list {
+    & {
+        background: darken(color("background", "shade"), 10);
+        left: 0;
+        list-style: none;
+        margin: 0;
+        padding: remify(16 13.5, 16);
+        position: absolute;
+        // top: 100%;
+        width: 100%;
+    }
+
+    .tribe-bar-views-option {
+        align-items: center;
+        background: none;
+        border: 0;
+        color: color("foreground");
+        cursor: pointer;
+        display: flex;
+        font-family: $body-font;
+        font-size: remify(14, 16);
+        margin: 0;
+        padding: remify(3.5 10.5, 14);
+        text-align: left;
+        width: 100%;
+    }
+
+    [class*="tribe-icon-"] {
+        flex: 0 0 auto;
     }
 }
