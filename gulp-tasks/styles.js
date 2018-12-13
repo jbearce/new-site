@@ -40,7 +40,7 @@ module.exports = {
             });
         };
 
-        const PROCESS_STYLES = (source = `${global.settings.paths.src}/assets/styles/*.scss`, css_directory = `${global.settings.paths.dev}/assets/styles`) => {
+        const PROCESS_STYLES = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, css_directory = `${global.settings.paths.dev}/assets/styles`) => {
             return new Promise((resolve) => {
                 // process styles
                 gulp.src(source)
@@ -153,7 +153,7 @@ module.exports = {
 
             CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY, hashed_file_name).then((compile) => {
                 if (compile === true) {
-                    PROCESS_STYLES(`${SOURCE_DIRECTORY}/*.scss`, CSS_DIRECTORY).then(() => {
+                    PROCESS_STYLES(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY).then(() => {
                         resolve();
                     });
                 } else {
