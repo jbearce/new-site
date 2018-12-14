@@ -425,7 +425,7 @@ function __gulp_init_namespace___tribe_add_events_title_link_class($title) {
 }
 add_filter("tribe_events_title", "__gulp_init_namespace___tribe_add_events_title_link_class");
 
-// add 'link' class to tribe events title links
+// add 'input' class to tribe events bar inputs
 function __gulp_init_namespace___tribe_add_bar_input_class($html) {
     if ($html) {
         $DOM = new DOMDocument();
