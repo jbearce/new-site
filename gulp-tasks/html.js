@@ -5,10 +5,13 @@
 module.exports = {
     html(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
+        const MKDIRP   = require("mkdirp");
+        const MOMENT   = require("moment");
         const TEMPLATE = require("gulp-template");
+        const WP_POT   = require("wp-pot");
 
         // copy binaries
-        const COPY_BINARIES = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`]) => {
+        const COPY_BINARIES = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]) => {
             return gulp.src(source)
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
@@ -42,7 +45,7 @@ module.exports = {
         };
 
         // process HTML
-        const PROCESS_HTML = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}/assets`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]) => {
+        const PROCESS_HTML = (html_directory, source = [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]) => {
             // read data from package.json
             const JSON_DATA = plugins.json.readFileSync("package.json");
 
@@ -78,15 +81,36 @@ module.exports = {
                 .pipe(gulp.dest(html_directory));
         };
 
+        // generate translation file
+        const GENERATE_POT = (html_directory, source = `${global.settings.paths.src}/**/*.php`) => {
+            const PACKAGE_DATA = plugins.json.readFileSync("package.json");
+
+            MKDIRP(`${html_directory}/languages`, () => {
+                WP_POT({
+                    bugReport:      PACKAGE_DATA.bugs.url,
+                    destFile:       `${html_directory}/languages/__gulp_init_namespace__.pot`,
+                    domain:         "__gulp_init_namespace__",
+                    lastTranslator: `${PACKAGE_DATA.author.name} <${PACKAGE_DATA.author.email}>`,
+                    package:        PACKAGE_DATA.progressiveWebApp.name,
+                    relativeTo:     global.settings.paths.src,
+                    src:            source,
+                    headers: {
+                        "POT-Creation-Date": PACKAGE_DATA.creationDate,
+                        "PO-Revision-Date": MOMENT().format("Y-MM-DD HH:mmZ"),
+                    },
+                });
+            });
+        };
+
         // html task, copies binaries, converts includes & variables in HTML
         return new Promise ((resolve) => {
             // set HTML directory
             const HTML_DIRECTORY = plugins.argv.dist ? global.settings.paths.dist : global.settings.paths.dev;
 
             // process all non-asset files
-            const BINARIES = COPY_BINARIES(HTML_DIRECTORY, [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]);
-            const COMPOSER = COPY_COMPOSER(HTML_DIRECTORY, [`${global.settings.paths.vendor}/**/*`]);
-            const HTML     = PROCESS_HTML(HTML_DIRECTORY, [`${global.settings.paths.src}/**/*`, `!${global.settings.paths.src}{/assets,/assets/**}`, `!${global.settings.paths.src}/**/*.{jpg,png,svg}`]);
+            const BINARIES = COPY_BINARIES(HTML_DIRECTORY);
+            const COMPOSER = COPY_COMPOSER(HTML_DIRECTORY);
+            const HTML     = PROCESS_HTML(HTML_DIRECTORY);
 
             // merge both steams back in to one
             plugins.merge(BINARIES, COMPOSER, HTML)
@@ -102,6 +126,10 @@ module.exports = {
                 })))
                 // push task to ran_tasks array
                 .on("data", () => {
+                    // generate translation file
+                    GENERATE_POT(HTML_DIRECTORY);
+
+                    // mark the task as ran
                     if (!ran_tasks.includes("html")) {
                         ran_tasks.push("html");
                     }

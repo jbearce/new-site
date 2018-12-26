@@ -5,6 +5,7 @@
 module.exports = {
     init(gulp, plugins, on_error) {
         const REPLACE = require("gulp-replace");
+        const MOMENT  = require("moment");
 
         let project_data = {};
 
@@ -211,6 +212,7 @@ module.exports = {
                             author_company: project_data.author_company,
                             author_url:     project_data.author_url,
                             theme_color:    project_data.theme_color,
+                            creation_date:  MOMENT().format("Y-MM-DD HH:mmZ"),
                         };
 
                         if (KEYWORD in REPLACEMENTS) {

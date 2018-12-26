@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "__gulp_init_description__",
   "homepage": "__gulp_init_homepage_url__",
+  "creationDate": "__gulp_init_creation_date__",
   "templates": {
     "front-page": "__gulp_init_homepage_url__"
   },
@@ -54,10 +55,12 @@
     "gulp-stylelint": "^8.0.0",
     "gulp-template": "^5.0.0",
     "gulp-touch-fd": "^2.0.0",
+    "gulp-wp-pot": "^2.3.3",
     "imagemin-pngquant": "^6.0.0",
     "jsonfile": "^5.0.0",
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
+    "moment": "^2.23.0",
     "node-sass-simple-css-importer": "^0.1.0",
     "pixrem": "^4.0.1",
     "postcss-clearfix": "^2.0.1",
