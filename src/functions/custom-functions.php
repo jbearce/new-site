@@ -360,7 +360,7 @@ function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
             "links" => array(
                 array(
                     "url"    => get_comments_link($post_id),
-                    "title"  => sprintf(__("%s comment%s", "__gulp_init_namespace__"), $comment_count, ((int) $comment_count !== 1 ? __("s", "__gulp_init_namespace__") : "")),
+                    "title"  => sprintf(_n("%s comment", "%s comments", $comment_count, "__gulp_init_namespace__"), $comment_count),
                     "target" => "",
                 )
             ),
