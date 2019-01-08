@@ -44,7 +44,10 @@ function __gulp_init_namespace___enqueue_scripts() {
     wp_add_inline_script("__gulp_init_namespace__-scripts-modern", "
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
-                navigator.serviceWorker.register('{$service_worker_uri}', { scope: '/' });
+                navigator.serviceWorker.register('{$service_worker_uri}', { scope: '/' }).then(function (registration) {
+                    // attempt to update the service worker
+                    registration.update();
+                });
             });
         }
     ");
