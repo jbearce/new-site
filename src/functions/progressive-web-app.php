@@ -35,7 +35,7 @@ function __gulp_init_namespace___construct_manifest($template) {
                     "purpose"  => "any",
                 ),
                 array(
-                    "src"      => get_theme_file_uri("assets/media/android/splash-icon-192x192.png"),
+                    "src"      => get_theme_file_uri("assets/media/android/launcher-icon-192x192.png"),
                     "type"     => "image/png",
                     "sizes"    => "192x192",
                     "platform" => "android",
