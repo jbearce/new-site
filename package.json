@@ -87,6 +87,7 @@
     "flexibility": "^2.0.1",
     "focus-trap": "^3.0.0",
     "gutenberg-web-type": "^1.2.3",
+    "in-vp": "^1.0.0",
     "layzr.js": "^2.2.2",
     "mdn-polyfills": "^5.13.0",
     "normalize-scss": "^7.0.1",

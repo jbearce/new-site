@@ -3,6 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 import transition from "transition-to-from-auto";
+import inViewport from "in-vp";
 
 const MENU_LIST_INIT = () => {
     const MENU_ITEMS   = document.querySelectorAll(".menu-list__item");
@@ -13,16 +14,21 @@ const MENU_LIST_INIT = () => {
     // @param  {Element}  elem - An element to mark as inactive
     const MARK_MENU_ITEM_INACTIVE = (elem) => {
         const CHILDREN    = elem.childNodes;
-        const CHILD_MENUS = elem.querySelectorAll(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
+        const CHILD_MENUS = elem.querySelectorAll(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay, #${elem.id} > .menu-list__container--mega`);
 
         // mark the item as inactive
         elem.classList.remove("is-active");
 
-        // close the accordions
         if (CHILD_MENUS) {
             for (let i = 0; i < CHILD_MENUS.length; i++) {
+                // close the accordions
                 if (CHILD_MENUS[i].classList.contains("menu-list--accordion")) {
                     transition({element: CHILD_MENUS[i], val: "0"});
+                }
+
+                // remove the "reverse" class
+                if (CHILD_MENUS[i].classList.contains("menu-list--reverse")) {
+                    CHILD_MENUS[i].classList.remove("menu-list--reverse");
                 }
             }
         }
@@ -75,7 +81,7 @@ const MENU_LIST_INIT = () => {
     // @param  {Element}  elem - An element to mark as active
     const MARK_MENU_ITEM_ACTIVE = (elem) => {
         const CHILDREN   = elem.childNodes;
-        const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay`);
+        const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay, #${elem.id} > .menu-list__container--mega`);
 
         // mark the item as active
         elem.classList.add("is-active");
@@ -83,6 +89,15 @@ const MENU_LIST_INIT = () => {
         // open the accordion
         if (CHILD_MENU && CHILD_MENU.classList.contains("menu-list--accordion")) {
             transition({element: CHILD_MENU, val: "auto"});
+        }
+
+        // flip the overlay if it's partially out of the viewport
+        if (CHILD_MENU && (CHILD_MENU.classList.contains("menu-list--overlay") || CHILD_MENU.classList.contains("menu-list__container--mega"))) {
+            const IN_VIEWPORT = inViewport(CHILD_MENU);
+
+            if (IN_VIEWPORT.fully === false) {
+                CHILD_MENU.classList.add("menu-list--reverse");
+            }
         }
 
         for (let i = 0; i < CHILDREN.length; i++) {

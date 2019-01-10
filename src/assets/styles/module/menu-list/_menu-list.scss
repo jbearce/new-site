@@ -145,6 +145,48 @@
     }
 }
 
+/* child overlay reverse variant */
+
+.menu-list--child.menu-list--overlay.menu-list--reverse {
+    & {
+        left: auto;
+        right: 999em;
+        transition: right 0s 0.15s, opacity 0.15s, top 0s 0.15s, visibility 0s 0.15s;
+    }
+
+    .menu-list__item--parent:hover > &,
+    .menu-list__item--parent.is-active > & {
+        left: auto;
+        right: 0;
+        transition: opacity 0.15s;
+    }
+
+    // must be separate from the above ruleset for fallback reasons
+
+    .menu-list__item--parent:focus-within > & {
+        left: auto;
+        right: 0;
+        transition: opacity 0.15s;
+    }
+}
+
+/* child overlay reverse depth 2 variant */
+
+.menu-list--child.menu-list--overlay.menu-list--reverse.menu-list--depth-2 {
+    .menu-list__item--parent:hover > &,
+    .menu-list__item--parent.is-active > & {
+        right: 100%;
+        top: 0;
+    }
+
+    // must be separate from the above ruleset for fallback reasons
+
+    .menu-list__item--parent:focus-within > & {
+        right: 100%;
+        top: 0;
+    }
+}
+
 /* flex variant */
 
 .menu-list--flex {
@@ -249,12 +291,43 @@
         visibility: visible;
     }
 
+    // must be separate from the above ruleset for fallback reasons
+
+    .menu-list__item--mega.menu-list__item--parent:focus-within > & {
+        left: 0;
+        top: 100%;
+    }
+
     .menu-list.menu-list--depth-1 {
         flex: 0 0 auto;
     }
 
     .menu-list.menu-list--depth-2 {
         flex: 0 0 100%;
+    }
+}
+
+/* mega reverse variant */
+
+.menu-list__container--mega.menu-list--reverse { // technically not a valid class name, but it's easier this way
+    & {
+        left: auto;
+        right: 999em;
+        transition: right 0s 0.15s, opacity 0.15s, top 0s 0.15s, visibility 0s 0.15s;
+    }
+
+    .menu-list__item--mega.menu-list__item--parent:hover > &,
+    .menu-list__item--mega.menu-list__item--parent.is-active > & {
+        left: auto;
+        right: 0;
+        transition: opacity 0.15s;
+    }
+
+    // must be separate from the above ruleset for fallback reasons
+
+    .menu-list__item--mega.menu-list__item--parent:focus-within > & {
+        left: auto;
+        right: 0;
     }
 }
 
