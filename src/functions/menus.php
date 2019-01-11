@@ -10,162 +10,216 @@ register_nav_menus(array(
 
 // menu walker
 class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
-    // set up a variable to hold the parameters passed to the walker
+    /**
+     * Set up a variable to hold the parameters passed to the walker
+     */
     private $params;
 
-    // store the paramters in an accessible way
+    /**
+     * Store parameters in a more accessible way
+     */
     public function __construct($params = "") {
         $this->params = $params;
     }
 
-    // set up mega menu variables
+    /**
+     * Set up variables for mega menu features
+     */
     private $is_mega      = false;
     private $column_limit = 3;
     private $column_count = 0;
-    static $li_count      = 0;
+    private $item_count   = 0;
 
-    function display_element ($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
+    /**
+     * Check if the current item contains mega menu columns
+     */
+    function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
             foreach ($children_elements[$element->ID] as $child) { $i++;
-                $has_columns = get_post_meta($child->ID, "_menu_item_column_start");
-                $parent_id = get_post_meta($child->ID, "_menu_item_menu_item_parent");
+                /**
+                 * Only check meta keys past the first item to (slightly) improve performance
+                 */
+                if ($i > 1) {
+                    $has_columns = get_post_meta($child->ID, "_menu_item_column_start", true);
+                    $parent_id   = get_post_meta($child->ID, "_menu_item_menu_item_parent", true);
 
-                if ($i > 1 && $has_columns[0] === "true" && intval($parent_id[0]) === $element->ID) {
-                    array_push($element->classes, "menu-list__item--mega"); break;
+                    if ($has_columns === "true" && intval($parent_id) === $element->ID) {
+                        $this->is_mega = true;
+                    }
                 }
             }
         }
 
+        /**
+         * Pass on the element as is
+         */
         return parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
     }
 
+    /**
+     * Construct a menu item
+     */
     public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
-        $id_prefix = isset($this->params["id_prefix"]) ? $this->params["id_prefix"] : "";
+        $id_prefix = isset($this->params["id_prefix"]) ? $this->params["id_prefix"] : "menu-item-";
         $features  = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        // mega menu stuff
-        if (in_array("mega", $features) && $depth === 1) {
-            if ($depth === 0) {
-                self::$li_count = 0;
-            }
-
-            if ($depth === 1 && self::$li_count === 1) {
-                $this->column_count++;
-            }
-
-            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column_start", true) && self::$li_count !== 1 && $this->column_count < $this->column_limit) {
-                $output .= "</ul><ul class='menu-list menu-list--vertical menu-list--child menu-list--depth-1 menu-list--mega'>";
-                $this->column_count++;
-            }
-
-            self::$li_count++;
-        }
-
-        // get the current classes
+        /**
+         * Get the array of classes for the current menu item
+         */
         $classes = $item->classes ? $item->classes : array();
 
-        // add the menu-list_item class if the classes array contains menu-item
-        if (in_array("menu-item", $classes) && !in_array("menu-list__item", $classes))
-            $classes[] = "menu-list__item";
+        /**
+         * Handle splitting drop downs for mega menus
+         */
+        if (in_array("mega", $features) && $this->is_mega) {
+            /**
+             * Reset the item counter if it's reached the top
+             */
+            if ($depth === 0) $this->item_count = 0;
 
-        // add the is-viewed class if the page is currently be viewed
-        if (in_array("current_page_item", $classes) && !in_array("is-viewed", $classes))
-            $classes[] = "is-viewed";
+            /**
+             * Reset the column counter if it's the first li in a drop down
+             */
+            if ($depth === 1 && $this->item_count === 1) $this->column_count = 0;
 
-        // add the is-viewed class if the page is currently be viewed
-        if (in_array("current_page_item", $classes) && !in_array("is-viewed", $classes))
-            $classes[] = "is-viewed";
+            /**
+             * Add the `menu-list__item--mega` class if it's the top
+             */
+            if ($depth === 0) $classes[] = "menu-list__item--mega";
 
-        // add a the -parent class if the page has children
-        if (in_array("menu-item-has-children", $classes) && !in_array("menu-list__item--parent", $classes))
-            $classes[] = "menu-list__item--parent";
+            /**
+             * Split the menu if it's a drop down, a split has been requested, it's
+             * not the first li, and the column limit hasn't been reached
+             */
+            if ($depth === 1 && get_post_meta($item->ID, "_menu_item_column_start", true) && $this->item_count > 1 && $this->column_count < $this->column_limit) {
+                $output .= "</ul><ul class='menu-list menu-list--vertical menu-list--child menu-list--depth-1 menu-list--mega'>";
 
-        // convert the clean_classes array in to usable string
+                /**
+                 * Increment the column counter
+                 */
+                $this->column_count++;
+            }
+
+            /**
+             * Increment the item counter
+             */
+            $this->item_count++;
+        }
+
+        /**
+         * Set up custom classes for "transpiling"
+         */
+        $custom_classes = array(
+            array(
+                "original" => "menu-item",
+                "custom"   => "menu-list__item",
+            ),
+            array(
+                "original" => "current_page_item",
+                "custom"   => "is-viewed",
+            ),
+            array(
+                "original" => "menu-item-has-children",
+                "custom"   => "menu-list__item--parent",
+            ),
+        );
+
+        /**
+         * "Transpile" WordPress classes to custom classes
+         */
+        foreach ($custom_classes as $class) {
+            if (in_array($class["original"], $classes) && !in_array($class["custom"], $classes)) {
+                $classes[] = $class["custom"];
+            }
+        }
+
+        /**
+         * Construct a class attribute
+         */
         $class_names = " class='" . esc_attr(join(" ", apply_filters("nav_menu_css_class", array_filter($classes), $item))) . "'";
 
-        // set up the ID
-        $id = $id_prefix . $item->ID;
+        /**
+         * Set up the ID in such as way as to prevent conflicts
+         */
+        $item_id = "{$id_prefix}{$item->ID}";
 
-        // retrieve the URL
-        $url = $item->url;
-
-        // retrieve and sanitize the title attribute
+        /**
+         * Construct a title attribute if specified
+         */
         $attr_title = $item->attr_title ? " title='" . htmlentities($item->attr_title, ENT_QUOTES) . "'" : "";
 
-        // retrieve the target
+        /**
+         * Construct a target attribute if specified
+         */
         $target = $item->target ? " target='{$item->target}'" : "";
 
-        // retrieve and sanitize the rel attribute
+        /**
+         * Construct a rel attribute if specified
+         */
         $xfn = $item->xfn ? " rel='" . htmlentities($item->xfn, ENT_QUOTES) . "'" : "";
 
-        // retrieve the title
-        $title = $item->title;
+        /**
+         * Construct an aria-description attribute if enabled and specified
+         */
+        $aria = array(
+            "describedby" => in_array("description", $features) && $item->description ? " aria-describedby='{$item_id}_description'" : "",
+            "description" => in_array("description", $features) && $item->description ? " <span class='menu-item__description' id='{$item_id}_description'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "",
+        );
 
-        // retrieve and sanitize the description
-        $uniqid           = uniqid("menu-list__description__");
-        $aria_describedby = $item->description ? " aria-describedby='{$uniqid}'" : "";
-        $description      = $item->description ? " <span class='menu-item__description' id='{$uniqid}'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "";
-
-        // construct the menu item
+        /**
+         * Construct the menu item
+         */
         $output .= sprintf(
             "<li%s id='%s'><a class='menu-list__link link' href='%s'%s%s%s%s>%s</a>%s",
             $class_names,
-            $id,
-            $url,
+            $item_id,
+            $item->url,
             $attr_title,
             $target,
             $xfn,
-            $aria_describedby,
-            $title,
-            $description
+            $aria["describedby"],
+            $item->title,
+            $aria["description"]
         );
-
-        // mega menu stuff
-        if (in_array("mega", $features) && $depth === 0 && in_array("menu-list__item--mega", $classes)) {
-            $this->is_mega = true;
-
-            if ($depth === 0) {
-                $output .= "<button class='menu-list__toggle __visuallyhidden'>" . __("Toggle children (mega)", "__gulp_init_namespace__") . "</button>";
-                $output .= "<div class='menu-list__container menu-list__container--mega' aria-hidden='true'>";
-            }
-        }
     }
 
+    /**
+     * Construct the sub-menu ul
+     */
     public function start_lvl(&$output, $depth = 0, $args = array()) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        // add a toggle button
+        /**
+         * Set up a variable to contain a toggle button
+         */
         $toggle = "";
 
-        if (!$this->is_mega && (in_array("accordion", $features) || in_array("hover", $features) || in_array("touch", $features))) {
+        if (in_array("accordion", $features) || in_array("hover", $features) || in_array("touch", $features)) {
             $toggle_class = "";
 
-            if (in_array("touch", $features) && !in_array("accordion", $features)) {
-                $toggle_class = " __touch";
-            }
-
+            /**
+             * Add the __visuallyhidden class if it's a hover-based menu
+             */
             if (in_array("hover", $features) && !in_array("accordion", $features)) {
-                $toggle_class .= " __visuallyhidden" . (in_array("touch", $features) ? " __mouse" : "");
+                $toggle_class .= " __visuallyhidden";
             }
 
-            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Toggle children", "__gulp_init_namespace__") . "</span></button>";
+            /**
+             * Construct a toggle
+             */
+            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Show Children", "__gulp_init_namespace__") . "</span></button>";
         }
 
-        // set up empty variant class
-        $variant = "";
+        /**
+         * Add a class based on depth
+         */
+        $variant = " menu-list--depth-" . ($depth + 1);
 
-        // add a -tier class indicting the depth
-        if ($depth === 0) {
-            $variant .= " menu-list--depth-1";
-        } elseif ($depth === 1) {
-            $variant .= " menu-list--depth-2";
-        } elseif ($depth > 1) {
-            $variant .= " menu-list--depth-" . ($depth + 1);
-        }
-
-        // add the appropriate variant class
+        /**
+         * Add classes based on features
+         */
         if ($this->is_mega) {
             $variant .= " menu-list--mega";
         } else {
@@ -176,49 +230,66 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
             }
         }
 
-        // set up empty data attribute
-        $data = "";
+        /**
+         * Set up a variable to contain custom attributes
+         */
+        $attr = "";
 
-        // add data properties for the menu script to interact with
-        if (in_array("hover", $features) && !$this->is_mega) $data .= " data-hover='true'";
-        if (in_array("touch", $features) && !$this->is_mega) $data .= " data-touch='true'";
+        /**
+         * Construct data attributes for the menu script to read
+         */
+        if (in_array("hover", $features)) $attr .= " data-hover='true'";
+        if (in_array("touch", $features)) $attr .= " data-touch='true'";
 
-        // set up empty aria attribute
-        $aria = "";
+        /**
+         * Construct an aria-hidden if appropriate
+         */
+        $attr = in_array("hover", $features) || in_array("touch", $features) ? " aria-hidden='true'" : "";
 
-        // add aria attribute if the mega parameter is not passed
-        if (!$this->is_mega && (in_array("hover", $features) || in_array("touch", $features))) {
-            $aria = " aria-hidden='true'";
+        /**
+         * Construct a container for mega menus at depth 0
+         */
+        if (in_array("mega", $features) && $this->is_mega && $depth === 0) {
+            /**
+             * Append the container to the toggle
+             */
+            $toggle .= "<div class='menu-list__container menu-list__container--mega'{$attr}>";
+
+            /**
+             * Reset data and aria as they should not be applied to lists within a mega menu
+             */
+            $attr = "";
         }
 
-        // construct the menu list
-        $output .= "{$toggle}<ul class='menu-list menu-list--vertical menu-list--child{$variant}'{$data}{$aria}>";
+        /**
+         * Custruct the ul
+         */
+        $output .= "{$toggle}<ul class='menu-list menu-list--vertical menu-list--child{$variant}'{$attr}>";
     }
 
+    /**
+     * Construct the closing sub-menu ul
+     */
     public function end_lvl(&$output, $depth = 0, $args = array()) {
-        // close the menu list
         $output .= "</ul>";
     }
 
+    /**
+     * Construct the closing li
+     */
     public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        // reset the column counter
-        $this->column_count = 0;
-
-        // mega menu stuff
-        if (in_array("mega", $features) && $depth === 0) {
-            // get the current classes
-            $classes = $item->classes ? $item->classes : array();
-
-            if (in_array("menu-list__item--mega", $classes)) {
-                $this->is_mega = false;
-
-                $output .= "</div>";
-            }
+        /**
+         * Close the container for mega menus
+         */
+        if (in_array("mega", $features) && $this->is_mega && $depth === 0) {
+            $output .= "</div>";
         }
 
-        // close the menu item
+        /**
+         * Close the menu item
+         */
         $output .= "</li>";
     }
 }
