@@ -1,14 +1,10 @@
-# __gulp_init_full_name__
+# new-site
 
-An awesome new WordPress theme built just for __gulp_init_full_name__!
-
----
+This is the framework off of which I build all of my websites.
 
 ## Using This project
 
 If you choose to use this repository as a basis for a new project, please be sure to remove any references to Weblinx, Inc. in the project.
-
-I'd love to see what gets built with this, so feel free to tweet your site @JacobTheDev :)
 
 ## License
 

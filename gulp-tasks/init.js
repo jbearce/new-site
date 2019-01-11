@@ -101,6 +101,12 @@ module.exports = {
                             },
                         },
                         {
+                            name:     "ci_badge",
+                            message:  "CI Badge:",
+                            type:     "input",
+                            default:  "[![pipeline status](${repository}/badges/master/pipeline.svg)](${repository}/commits/master)",
+                        },
+                        {
                             name:    "author_name",
                             message: "Author Name:",
                             type:    "input",
@@ -219,7 +225,7 @@ module.exports = {
                             return REPLACEMENTS[KEYWORD];
                         } else {
                             console.log(`Error! ${KEYWORD} not found in provided project data!`);
-                            return reject();
+                            reject();
                         }
                     }))
                     // write the file
@@ -231,11 +237,28 @@ module.exports = {
             });
         };
 
+        // write the README
+        const WRITE_README = () => {
+            return new Promise((resolve, reject) => {
+                const CI_BADGE = project_data.ci_badge && project_data.ci_badge != false ? `${project_data.ci_badge.replace(/\${repository}/g, project_data.repository)}\n\n` : "";
+
+                plugins.fs.writeFile("./README.md", `# ${project_data.full_name}\n\n${CI_BADGE}${project_data.description}\n`, (err) => {
+                    if (!err) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                });
+            });
+        };
+
         return new Promise ((resolve) => {
             GET_PROJECT_DEFAULTS().then(() => {
                 return GET_PROJECT_DATA();
             }).then(() => {
                 return WRITE_PROJECT_DATA();
+            }).then(() => {
+                return WRITE_README();
             }).then(() => {
                 resolve();
             });
