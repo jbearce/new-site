@@ -16,7 +16,7 @@
     "url": "__gulp_init_repository__/issues",
     "email": "__gulp_init_author_email__"
   },
-  "license": "UNLICENSED",
+  "license": "__gulp_init_license__",
   "author": {
     "name": "__gulp_init_author_name__ @ __gulp_init_author_company__",
     "email": "__gulp_init_author_email__",
@@ -69,6 +69,8 @@
     "postcss-inline-svg": "^3.1.1",
     "postcss-responsive-type": "^1.0.0",
     "request": "^2.88.0",
+    "spdx-license-ids": "^3.0.3",
+    "spdx-license-list": "^5.0.0",
     "stylelint": "^9.8.0",
     "stylelint-config-standard": "^18.2.0",
     "stylelint-order": "^1.0.0",

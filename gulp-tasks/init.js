@@ -6,6 +6,7 @@ module.exports = {
     init(gulp, plugins, on_error) {
         const REPLACE = require("gulp-replace");
         const MOMENT  = require("moment");
+        const SPDX    = require("spdx-license-list/full");
 
         let project_data = {};
 
@@ -105,6 +106,20 @@ module.exports = {
                             message:  "CI Badge:",
                             type:     "input",
                             default:  "[![pipeline status](${repository}/badges/master/pipeline.svg)](${repository}/commits/master)",
+                        },
+                        {
+                            name:     "license",
+                            message:  "License:",
+                            type:     "text",
+                            validate: (response) => {
+                                if (response in SPDX) {
+                                    return true;
+                                } else if (response === "" || response === "UNLICENSED") {
+                                    return true;
+                                } else {
+                                    return "Please enter a valid SPDX license, or UNLICENSED for no license.";
+                                }
+                            }
                         },
                         {
                             name:    "author_name",
@@ -213,6 +228,7 @@ module.exports = {
                             description:    project_data.description,
                             homepage_url:   project_data.homepage,
                             repository:     project_data.repository.replace(/(\.git$)|(\/$)/, ""),
+                            license:        project_data.license,
                             author_name:    project_data.author_name,
                             author_email:   project_data.author_email,
                             author_company: project_data.author_company,
@@ -252,6 +268,30 @@ module.exports = {
             });
         };
 
+        // write the LICENSE
+        const WRITE_LICENSE = () => {
+            return new Promise((resolve, reject) => {
+                let license = {
+                    name:        "UNLICESNED",
+                    url:         "",
+                    osiApproved: false,
+                    licenseText: `Copyright (c) ${MOMENT().format("Y")} ${project_data.full_name} <${project_data.homepage}>\n\n${project_data.full_name} retains all rights to this website and does not permit distribution, reproduction, or derivative works.\n`,
+                };
+
+                if (project_data.license && project_data.license !== "UNLICENSED") {
+                    license = SPDX[project_data.license];
+                }
+
+                plugins.fs.writeFile("./LICENSE.md", `${license.licenseText}\n`, (err) => {
+                    if (!err) {
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                });
+            });
+        };
+
         return new Promise ((resolve) => {
             GET_PROJECT_DEFAULTS().then(() => {
                 return GET_PROJECT_DATA();
@@ -259,6 +299,8 @@ module.exports = {
                 return WRITE_PROJECT_DATA();
             }).then(() => {
                 return WRITE_README();
+            }).then(() => {
+                return WRITE_LICENSE();
             }).then(() => {
                 resolve();
             });
