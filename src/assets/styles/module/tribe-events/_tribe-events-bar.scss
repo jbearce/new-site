@@ -164,15 +164,15 @@
     }
 
     .tribe-icon-day {
-        background-image: svg-load("../media/tribe-icon-day.svg", fill=#{color("foreground")});
+        background-image: svg-load("../media/vendor/tribe-icon-day.svg", fill=#{color("foreground")});
     }
 
     .tribe-icon-list {
-        background-image: svg-load("../media/tribe-icon-list.svg", fill=#{color("foreground")});
+        background-image: svg-load("../media/vendor/tribe-icon-list.svg", fill=#{color("foreground")});
     }
 
     .tribe-icon-month {
-        background-image: svg-load("../media/tribe-icon-month.svg", fill=#{color("foreground")});
+        background-image: svg-load("../media/vendor/tribe-icon-month.svg", fill=#{color("foreground")});
     }
 
     .tribe-bar-full &,

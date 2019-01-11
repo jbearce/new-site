@@ -45,7 +45,7 @@
 
 .input--arrow {
     & {
-        background-image: svg-load("../media/icon-select.svg", fill=#{color("foreground")},);
+        background-image: svg-load("../media/vendor/fas-sort.svg", fill=#{color("foreground")});
         background-position: center right remify(12, 16);
         background-repeat: no-repeat;
         background-size: remify(16 16, 16);
@@ -76,7 +76,7 @@
 
 .input--checkbox {
     &:checked {
-        background-image: svg-load("../media/icon-check.svg", fill=#{color("foreground")},);
+        background-image: svg-load("../media/vendor/fas-check.svg", fill=#{color("foreground")});
     }
 }
 
@@ -86,6 +86,6 @@
     }
 
     &:checked {
-        background-image: svg-load("../media/icon-radio.svg", fill=#{color("foreground")},);
+        background-image: svg-load("../media/vendor/fas-circle.svg", fill=#{color("foreground")});
     }
 }

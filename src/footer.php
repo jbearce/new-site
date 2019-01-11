@@ -32,7 +32,8 @@
                 </div><!--/.navigation__inner-->
             </div><!--/.navigation-block-->
         <?php endif; ?>
-        <?php __gulp_init_namespace___get_template_part("partials/modules/pwa-install-prompt.php"); ?>
+        <?php __gulp_init_namespace___get_template_part("partials/vendor/photoswipe.php"); ?>
+        <?php __gulp_init_namespace___get_template_part("partials/vendor/pwa-install-prompt.php"); ?>
         <?php wp_footer(); ?>
     </body>
 </html>

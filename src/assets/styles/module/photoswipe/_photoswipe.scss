@@ -1,0 +1,54 @@
+// Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
+
+/* ------------------------------------------------------------------------ *\
+ * PhotoSwipe (http://photoswipe.com/)
+\* ------------------------------------------------------------------------ */
+
+/* stylelint-disable selector-class-pattern */
+
+// Vendor
+
+@import "photoswipe/dist/photoswipe";
+@import "photoswipe/dist/default-skin/default-skin";
+
+// Custom
+
+.pswp {
+    & {
+        z-index: 100000;
+    }
+}
+
+.pswp__button,
+.pswp__button--arrow--left::before,
+.pswp__button--arrow--right::before {
+    & {
+        background-image: url("../media/vendor/photoswipe-default-skin.png");
+    }
+}
+
+.pswp__button--arrow--left,
+.pswp__button--arrow--right {
+    & {
+        background: none;
+    }
+}
+
+@media (-webkit-min-device-pixel-ratio: 1.1), (-webkit-min-device-pixel-ratio: 1.09375), (min-resolution: 105dpi), (min-resolution: 1.1dppx) {
+    .pswp--svg .pswp__button,
+    .pswp--svg .pswp__button--arrow--left::before,
+    .pswp--svg .pswp__button--arrow--right::before {
+        background-image: svg-load("../media/vendor/photoswipe-default-skin.svg");
+    }
+
+    .pswp--svg .pswp__button--arrow--left,
+    .pswp--svg .pswp__button--arrow--right {
+        background: none;
+    }
+}
+
+.pswp__preloader--active .pswp__preloader__icn {
+    & {
+        background-image: url("../media/vendor/photoswipe-preloader.gif");
+    }
+}

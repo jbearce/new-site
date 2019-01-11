@@ -53,7 +53,7 @@ function __gulp_init_namespace___ninja_forms_format_html($default_value, $field_
 
     return $default_value;
 }
-add_filter("ninja_forms_render_default_value", "__gulp_init_namespace___ninja_forms_html", 10, 3);
+add_filter("ninja_forms_render_default_value", "__gulp_init_namespace___ninja_forms_format_html", 10, 3);
 
 // fix success message formatting
 function __gulp_init_namespace___ninja_forms_format_success_message($action_settings, $form_id, $action_id, $form_settings) {

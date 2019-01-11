@@ -24,7 +24,7 @@ body.login div#login p.message {
 
 body.login div#login h1 a {
     & {
-        background-image: svg-load("../media/safari/mask-icon.svg", fill=#{$base},);
+        background-image: svg-load("../media/safari/mask-icon.svg", fill=#{$base});
     }
 }
 

@@ -472,7 +472,7 @@
     }
 
     .menu-list--child.menu-list--mega.menu-list--depth-2 .menu-list__link {
-        background-image: svg-load("../media/icon-angle-right.svg", fill=#{color("light")},);
+        background-image: svg-load("../media/vendor/fas-angle-right.svg", fill=#{color("light")});
         background-position: remify(16 8, 16);
         background-repeat: no-repeat;
         background-size: remify(10 10, 16);
@@ -560,7 +560,7 @@
     }
 
     .menu-list--child .menu-list__link {
-        background-image: svg-load("../media/icon-angle-right.svg", fill=#{color("light", "shade")},);
+        background-image: svg-load("../media/vendor/fas-angle-right.svg", fill=#{color("light", "shade")});
         background-position: remify(0 11, 18);
         background-repeat: no-repeat;
         background-size: remify(13.5 13.5, 18);

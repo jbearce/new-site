@@ -82,10 +82,14 @@ function __gulp_init_namespace___add_user_content_classes($content) {
         // reset errors to get around HTML5 warnings...
         libxml_clear_errors();
 
+        $home_url = home_url();
+
         $anchors = $DOM->getElementsByTagName("a");
 
         foreach ($anchors as $anchor) {
             $existing_classes = $anchor->getAttribute("class") ? $anchor->getAttribute("class") : "";
+            $existing_href    = $anchor->getAttribute("href");
+            $existing_rel     = $anchor->getAttribute("rel");
 
             if (preg_match("/button/i", $existing_classes)) {
                 $anchor->setAttribute("class", "user-content__button {$existing_classes}");
@@ -93,7 +97,20 @@ function __gulp_init_namespace___add_user_content_classes($content) {
                 $anchor->setAttribute("class", "user-content__link link {$existing_classes}");
             }
 
-            $existing_rel = $anchor->getAttribute("rel");
+            if (preg_match("/(jpg|jpeg|png|gif)$/i", $existing_href)) {
+                $document_root = $_SERVER["DOCUMENT_ROOT"];
+
+                $img_path = realpath($document_root . parse_url($existing_href, PHP_URL_PATH));
+
+                if (file_exists($img_path)) {
+                    $img_size = getimagesize($img_path);
+
+                    if ($img_size) {
+                        $anchor->setAttribute("data-size", "{$img_size[0]}x{$img_size[1]}");
+                        $anchor->setAttribute("class", "photoswipe {$existing_classes}");
+                    }
+                }
+            }
 
             if (!$existing_rel) {
                 $anchor->setAttribute("rel", "noopener");
