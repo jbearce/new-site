@@ -24,7 +24,6 @@
                                 "id_prefix" => "mobile-nav_",
                                 "features"  => array(
                                     "accordion",
-                                    "touch",
                                 ),
                             )),
                         ));
