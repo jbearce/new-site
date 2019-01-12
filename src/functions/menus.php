@@ -244,7 +244,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Construct an aria-hidden if appropriate
          */
-        $attr = in_array("hover", $features) || in_array("touch", $features) ? " aria-hidden='true'" : "";
+        $attr .= in_array("hover", $features) || in_array("touch", $features) ? " aria-hidden='true'" : "";
 
         /**
          * Construct a container for mega menus at depth 0
