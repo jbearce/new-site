@@ -283,6 +283,11 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
          */
         if (in_array("mega", $features) && $this->is_mega && $depth === 0) {
             $output .= "</div>";
+
+            /**
+             * Reset mega menu status
+             */
+            $this->is_mega = false;
         }
     }
 
