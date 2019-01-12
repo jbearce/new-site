@@ -173,9 +173,14 @@ MENU_LISTS.forEach((MENU_LIST) => {
         document.addEventListener(EVENT, (e) => {
             if (LIST_ITEM.classList.contains("is-active")) {
                 /**
+                 * Get the event path
+                 */
+                const PATH = e.path || (e.composedPath && e.composedPath());
+
+                /**
                  * Determine if the LIST_ITEM is in the path of touched elements
                  */
-                const LIST_ITEM_TOUCHED = e.path.some((ELEMENT) => {
+                const LIST_ITEM_TOUCHED = PATH.some((ELEMENT) => {
                     if (LIST_ITEM === ELEMENT) {
                         return true;
                     }
