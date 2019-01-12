@@ -46,7 +46,7 @@
                             wp_nav_menu(array(
                                 "container"      => false,
                                 "depth"          => 3,
-                                "items_wrap"     => "<ul class='menu-list menu-list--navigation' data-hover='true' data-touch='true'>%3\$s</ul>",
+                                "items_wrap"     => "<ul class='menu-list menu-list--navigation'>%3\$s</ul>",
                                 "theme_location" => "primary",
                                 "walker"         => new __gulp_init_namespace___menu_walker(array(
                                     "id_prefix" => "desktop-nav_",

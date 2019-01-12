@@ -5,189 +5,189 @@
 import transition from "transition-to-from-auto";
 import inViewport from "in-vp";
 
-const MENU_LIST_INIT = () => {
-    const MENU_ITEMS   = document.querySelectorAll(".menu-list__item");
-    const MENU_LINKS   = document.querySelectorAll(".menu-list__link");
-    const MENU_TOGGLES = document.querySelectorAll(".menu-list__toggle");
+/**
+ * Create an array of attribtes to target lists for
+ */
+const ATTRIBUTES = {
+    classes:  ["menu-list", "menu-list__container--mega"],
+    datasets: ["accordion", "hover", "touch"],
+};
 
-    // function to mark elements as inactive
-    // @param  {Element}  elem - An element to mark as inactive
-    const MARK_MENU_ITEM_INACTIVE = (elem) => {
-        const CHILDREN    = elem.childNodes;
-        const CHILD_MENUS = elem.querySelectorAll(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay, #${elem.id} > .menu-list__container--mega`);
+const SELECTOR = [];
 
-        // mark the item as inactive
-        elem.classList.remove("is-active");
-
-        if (CHILD_MENUS) {
-            for (let i = 0; i < CHILD_MENUS.length; i++) {
-                // close the accordions
-                if (CHILD_MENUS[i].classList.contains("menu-list--accordion")) {
-                    transition({element: CHILD_MENUS[i], val: "0"});
-                }
-
-                // remove the "reverse" class
-                if (CHILD_MENUS[i].classList.contains("menu-list--reverse")) {
-                    CHILD_MENUS[i].classList.remove("menu-list--reverse");
-                }
-            }
-        }
-
-        for (let i = 0; i < CHILDREN.length; i++) {
-            if (CHILDREN[i].nodeType === 1) {
-                // mark the item as hidden
-                if (CHILDREN[i].hasAttribute("aria-hidden")) {
-                    CHILDREN[i].setAttribute("aria-hidden", "true");
-                }
-
-                // mark the item as inactive
-                if (CHILDREN[i].classList.contains("is-active")) {
-                    CHILDREN[i].classList.remove("is-active");
-                }
-            }
-        }
-    };
-
-    // function to mark parent elements as inactive
-    // @param  {Element}  elem - An element to mark parents inactive
-    const MARK_MENU_ITEM_PARENTS_INACTIVE = (elem) => {
-        let parent = elem.parentNode;
-
-        setTimeout(() => { // give it a moment to process
-            while (parent && parent.nodeType === 1 && !parent.classList.contains("menu-list__container")) {
-                if (parent.classList.contains("is-active") && !parent.contains(document.activeElement)) {
-                    MARK_MENU_ITEM_INACTIVE(parent);
-                }
-
-                parent = parent.parentNode;
-            }
-        }, 10);
-    };
-
-    // function to mark sibling elements as inactive
-    // @param  {Element}  elem - An element to mark siblings inactive
-    const MARK_MENU_ITEM_SIBLINGS_INACTIVE = (elem) => {
-        const SIBLINGS = elem.parentNode.childNodes;
-
-        // mark all siblings as inactive
-        for (let i = 0; i < SIBLINGS.length; i++) {
-            if (SIBLINGS[i].nodeType === 1 && SIBLINGS[i] !== elem) {
-                MARK_MENU_ITEM_INACTIVE(SIBLINGS[i]);
-            }
-        }
-    };
-
-    // function to mark elements as active
-    // @param  {Element}  elem - An element to mark as active
-    const MARK_MENU_ITEM_ACTIVE = (elem) => {
-        const CHILDREN   = elem.childNodes;
-        const CHILD_MENU = elem.querySelector(`#${elem.id} > .menu-list--accordion, #${elem.id} > .menu-list--overlay, #${elem.id} > .menu-list__container--mega`);
-
-        // mark the item as active
-        elem.classList.add("is-active");
-
-        // open the accordion
-        if (CHILD_MENU && CHILD_MENU.classList.contains("menu-list--accordion")) {
-            transition({element: CHILD_MENU, val: "auto"});
-        }
-
-        // flip the overlay if it's partially out of the viewport
-        if (CHILD_MENU && (CHILD_MENU.classList.contains("menu-list--overlay") || CHILD_MENU.classList.contains("menu-list__container--mega"))) {
-            const IN_VIEWPORT = inViewport(CHILD_MENU);
-
-            if (IN_VIEWPORT.fully === false) {
-                CHILD_MENU.classList.add("menu-list--reverse");
-            }
-        }
-
-        for (let i = 0; i < CHILDREN.length; i++) {
-            if (CHILDREN[i].nodeType === 1 && CHILDREN[i].hasAttribute("aria-hidden")) {
-                // mark the item as visible
-                CHILDREN[i].setAttribute("aria-hidden", "false");
-            }
-        }
-    };
-
-    // handle touch away from menu-list elements
-    document.addEventListener("touchstart", (e) => {
-        let parent_element = e.target.parentElement;
-        let clicked_on_menu = false;
-
-        // loop through all parent elements until it is determiend if a menu was in the stack
-        while (parent_element && clicked_on_menu === false) {
-            if (parent_element.classList.contains("menu-list") || parent_element.dataset.menu === "true" || e.target.dataset.menu === "true") {
-                clicked_on_menu = true;
-            }
-
-            parent_element = parent_element.parentElement;
-        }
-
-        // close all menus if a menu wasn't clicked
-        // @TODO make sure the touched menu-list is active
-        if (clicked_on_menu === false) {
-            for (let i = 0; i < MENU_ITEMS.length; i++) {
-                MARK_MENU_ITEM_INACTIVE(MENU_ITEMS[i]);
-            }
-        }
+/**
+ * Create an array out of the CLASSES and DATAS in order to reduce duplicate code.
+ */
+ATTRIBUTES.classes.forEach((CLASS) => {
+    ATTRIBUTES.datasets.forEach((DATA) => {
+        SELECTOR.push(`.${CLASS}[data-${DATA}=true]`);
     });
+});
 
-    // handle interactions with menu-list_item elements
-    for (let i = 0; i < MENU_ITEMS.length; i++) {
-        // check if the menu is hoverable
-        if (MENU_ITEMS[i].parentElement.dataset.hover === "true") {
-            // open on mouseover
-            MENU_ITEMS[i].addEventListener("mouseover", () => {
-                MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
-                MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
-            }, { passive: true });
+/**
+ * Find all MENU_LISTS which can be hovered or touched
+ */
+const MENU_LISTS = document.querySelectorAll(SELECTOR.join());
 
-            // close on mouseout
-            MENU_ITEMS[i].addEventListener("mouseout", () => {
-                MARK_MENU_ITEM_INACTIVE(MENU_ITEMS[i]);
-            }, { passive: true });
-        }
+/**
+ * Mark an item active
+ *
+ * @param {Object} LIST_ITEM - A DOM object to mark as active
+ * @param {Object} MENU_LIST - A DOM object to mark as visible and reverse based on viewport
+ * @param {Boolean} EVENT - An event to prevent from firing
+ */
+const MARK_ACTIVE = (LIST_ITEM, MENU_LIST, EVENT = false) => {
+    /**
+     * Prevent the EVENT from finishing unless the LIST_ITEM is already active
+     */
+    if (EVENT && !LIST_ITEM.classList.contains("is-active")) {
+        EVENT.preventDefault();
+    }
 
-        // check if the menu is touchable
-        if (MENU_ITEMS[i].parentElement.dataset.touch === "true") {
-            // mark active on touch
-            MENU_ITEMS[i].addEventListener("touchstart", (e) => {
-                // check if the element is already active
-                if (MENU_ITEMS[i].classList.contains("menu-list__item--parent") && !MENU_ITEMS[i].classList.contains("is-active")) {
-                    e.preventDefault();
-                    MARK_MENU_ITEM_SIBLINGS_INACTIVE(MENU_ITEMS[i]);
-                    MARK_MENU_ITEM_ACTIVE(MENU_ITEMS[i]);
-                }
+    /**
+     * Mark the LIST_ITEM as active
+     */
+    LIST_ITEM.classList.add("is-active");
+
+    /**
+     * Transition open the MENU_LIST if it's an accordion
+     */
+    if (MENU_LIST.dataset.accordion === "true") {
+        transition({ element: MENU_LIST, val: "auto" });
+    }
+
+    /**
+     * Mark the MENU_LIST as aria-hidden="false"
+     */
+    MENU_LIST.setAttribute("aria-hidden", "false");
+
+    /**
+     * Reverse the MENU_LIST if it's not fully within the viewport
+     */
+    if (inViewport(MENU_LIST).fully === false) {
+        MENU_LIST.classList.add("menu-list--reverse");
+    }
+};
+
+/**
+ * Mark an item and its children inactive
+ *
+ * @param {Object} LIST_ITEM - A DOM object to mark as inactive
+ * @param {Object} MENU_LIST - A DOM object to mark as hidden and unreverse
+ */
+const MARK_INACTIVE = (LIST_ITEM, MENU_LIST) => {
+    /**
+     * Find any active CHILDREN
+     */
+    const CHILDREN = LIST_ITEM.querySelectorAll("is-active");
+
+    /**
+     * Recursively mark active CHILDREN as inactive
+     */
+    if (CHILDREN.length > 0) {
+        CHILDREN.foreach((CHILD) => {
+            MARK_INACTIVE(CHILD);
+        });
+    }
+
+    /**
+     * Mark the LIST_ITEM as inactive
+     */
+    LIST_ITEM.classList.remove("is-active");
+
+    /**
+     * Transition open the MENU_LIST if it's an accordion
+     */
+    if (MENU_LIST.dataset.accordion === "true") {
+        transition({ element: MENU_LIST, val: 0 });
+    }
+
+    /**
+     * Mark the MENU_LIST as aria-hidden="false"
+     */
+    MENU_LIST.setAttribute("aria-hidden", "true");
+
+    /**
+     * Unreverse the MENU_LIST
+     */
+    MENU_LIST.classList.remove("menu-list--reverse");
+};
+
+/**
+ * Store various events to listen for
+ */
+const EVENTS = {
+    document:  ["click", "touchstart"],
+    list_item: {
+        activate: {
+            accordion: "touchstart",
+            hover:     "mouseenter",
+            touch:     "touchstart",
+        },
+        deactivate: ["mouseleave"],
+    },
+};
+
+/**
+ * Listen for interactions on each menu
+ */
+MENU_LISTS.forEach((MENU_LIST) => {
+    const LIST_ITEM   = MENU_LIST.closest(".menu-list__item");
+    const MENU_TOGGLE = LIST_ITEM.querySelector(".menu-list__toggle");
+
+    /**
+     * Mark the LIST_ITEM as active when moused into or touched
+     */
+    for (const DATA in EVENTS.list_item.activate) {
+        if (MENU_LIST.dataset[DATA] === "true") {
+            LIST_ITEM.addEventListener(EVENTS.list_item.activate[DATA], (e) => {
+                MARK_ACTIVE(LIST_ITEM, MENU_LIST, e);
             });
         }
     }
 
-    // handle interactions with menu-list_link elements
-    for (let i = 0; i < MENU_LINKS.length; i++) {
-        // mark inactive on blur (only if no other siblings or children are focused)
-        MENU_LINKS[i].addEventListener("blur", () => {
-            MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_LINKS[i]);
-        }, { passive: true });
-    }
+    /**
+     * Mark the LIST_ITEM as inactive when moused away
+     */
+    EVENTS.list_item.deactivate.forEach((EVENT) => {
+        LIST_ITEM.addEventListener(EVENT, () => {
+            MARK_INACTIVE(LIST_ITEM, MENU_LIST);
+        });
+    });
 
-    // handle interactions with menu-list_toggle elements
-    for (let i = 0; i < MENU_TOGGLES.length; i++) {
-        // mark active on click
-        MENU_TOGGLES[i].addEventListener("click", (e) => {
-            e.preventDefault();
+    /**
+     * Mark the LIST_ITEM as active or inactive when MENU_TOGGLE is clicked
+     */
+    MENU_TOGGLE.addEventListener("click", () => {
+        if (!LIST_ITEM.classList.contains("is-active")) {
+            MARK_ACTIVE(LIST_ITEM, MENU_LIST);
+        } else {
+            MARK_INACTIVE(LIST_ITEM, MENU_LIST);
+        }
+    });
 
-            if (MENU_TOGGLES[i].parentNode.classList.contains("is-active")) {
-                MARK_MENU_ITEM_INACTIVE(MENU_TOGGLES[i].parentNode);
-            } else {
-                MARK_MENU_ITEM_ACTIVE(MENU_TOGGLES[i].parentNode);
+    /**
+     * Mark the LIST_ITEM as inactive when clicked away or touched away
+     */
+    EVENTS.document.forEach((EVENT) => {
+        document.addEventListener(EVENT, (e) => {
+            if (LIST_ITEM.classList.contains("is-active")) {
+                /**
+                 * Determine if the LIST_ITEM is in the path of touched elements
+                 */
+                const LIST_ITEM_TOUCHED = e.path.some((ELEMENT) => {
+                    if (LIST_ITEM === ELEMENT) {
+                        return true;
+                    }
+                });
+
+                /**
+                 * Mark the LIST_ITEM as inactive if it's not in the path of touched elements
+                 */
+                if (!LIST_ITEM_TOUCHED) {
+                    MARK_INACTIVE(LIST_ITEM, MENU_LIST);
+                }
             }
         });
-
-        // mark inactive on blur (only if no other siblings or children are focused)
-        MENU_TOGGLES[i].addEventListener("blur", () => {
-            MARK_MENU_ITEM_PARENTS_INACTIVE(MENU_TOGGLES[i]);
-        }, { passive: true });
-    }
-};
-
-// init the function
-MENU_LIST_INIT();
+    });
+});

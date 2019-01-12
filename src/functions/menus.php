@@ -238,6 +238,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Construct data attributes for the menu script to read
          */
+        if (in_array("accordion", $features)) $attr .= " data-accordion='true'";
         if (in_array("hover", $features)) $attr .= " data-hover='true'";
         if (in_array("touch", $features)) $attr .= " data-touch='true'";
 
