@@ -119,9 +119,10 @@ const MARK_INACTIVE = (LIST_ITEM, MENU_LIST) => {
 const EVENTS = {
     document:  ["click", "touchstart"],
     list_item: {
-        activate:   {
-            hover: "mouseenter",
-            touch: "touchstart",
+        activate: {
+            accordion: "touchstart",
+            hover:     "mouseenter",
+            touch:     "touchstart",
         },
         deactivate: ["mouseleave"],
     },
