@@ -271,14 +271,12 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
      * Construct the closing sub-menu ul
      */
     public function end_lvl(&$output, $depth = 0, $args = array()) {
-        $output .= "</ul>";
-    }
-
-    /**
-     * Construct the closing li
-     */
-    public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
+
+        /**
+         * Close the list
+         */
+        $output .= "</ul>";
 
         /**
          * Close the container for mega menus
@@ -286,7 +284,12 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         if (in_array("mega", $features) && $this->is_mega && $depth === 0) {
             $output .= "</div>";
         }
+    }
 
+    /**
+     * Construct the closing li
+     */
+    public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
         /**
          * Close the menu item
          */
