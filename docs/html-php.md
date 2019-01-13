@@ -40,6 +40,6 @@ library();
 
 ### Filters, Functions, etc.
 
-Small filters and functions taken from sites like Stack Overflow should be cleaned up to match the style of this project. Function prefixes like `mytheme` should be changed to `__gulp_init_namespace__`, Single quotes should be changed to double, tabs changed to 4 spaces, and so on.
+Small filters and functions taken from sites like Stack Overflow should be cleaned up to match the style of this project. Function prefixes like `mytheme` should be changed to `__gulp_init_namespace__`, single quotes should be changed to double, tabs changed to 4 spaces, and so on.
 
 Once cleaned up, filters, functions, etc. can be placed in their respective files within `./src/functions`.
