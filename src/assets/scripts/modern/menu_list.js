@@ -114,10 +114,21 @@ const MARK_INACTIVE = (LIST_ITEM, MENU_LIST) => {
 };
 
 /**
+ * Compare two sets of coordinates to determine if the user dragged
+ *
+ * @param {Object} START_COORDS - The coordinates where the user started their touch
+ * @param {Object} END_COORDS - The coordinates where the user ended their touch
+ * @param {Integer} THRESHOLD - The minimum distance in pixels to mark something as dragged
+ */
+const DID_USER_DRAG = (START_COORDS, END_COORDS, THRESHOLD = 10) => {
+    return Math.abs(END_COORDS.clientX - START_COORDS.clientX) > THRESHOLD || Math.abs(END_COORDS.clientY - START_COORDS.clientY) > THRESHOLD;
+};
+
+/**
  * Store various events to listen for
  */
 const EVENTS = {
-    document:  ["click", "touchend"],
+    document:  ["click", "touchstart", "touchend"],
     list_item: {
         activate: {
             accordion: ["touchstart", "touchend"],
@@ -136,43 +147,38 @@ MENU_LISTS.forEach((MENU_LIST) => {
     const MENU_TOGGLE = LIST_ITEM.querySelector(".menu-list__toggle");
 
     /**
+     * Set up an object to track touches
+     */
+    let start_coords = {clientX: 0, clientY: 0};
+    let end_coords   = {clientX: 0, clientY: 0};
+
+    /**
      * Mark the LIST_ITEM as active when moused into or touched
      */
     for (const MODE in EVENTS.list_item.activate) {
         if (MENU_LIST.dataset[MODE] === "true") {
-            /**
-             * Set up an object to track touches
-             */
-            const START = {x: 0, y: 0};
 
             for (const EVENT in EVENTS.list_item.activate[MODE]) {
                 LIST_ITEM.addEventListener(EVENTS.list_item.activate[MODE][EVENT], (e) => {
-                    let scrolled = false;
-
                     /**
                      * Store the touchstart position
                      */
                     if (e.type === "touchstart") {
-                        START.x = e.touches[0].clientX;
-                        START.y = e.touches[0].clientY;
+                        start_coords = e.touches[0];
                     }
 
                     /**
-                     * Compare the touchstart position to the touchend position,
-                     * and if either differs by more than 10, prevent the item
-                     * from being marked active.
+                     * Store the touchend position
                      */
                     if (e.type === "touchend") {
-                        if (Math.abs(e.changedTouches[0].clientX - START.x) > 10 || Math.abs(e.changedTouches[0].clientY - START.y) > 10) {
-                            scrolled = true;
-                        }
+                        end_coords = e.changedTouches[0];
                     }
 
                     /**
                      * Mark the item as active if the event isn't touchstart and
-                     * the user wasn't trying to scroll
+                     * the user didn't drag their touch
                      */
-                    if (e.type !== "touchstart" && !scrolled) {
+                    if (e.type !== "touchstart" && !DID_USER_DRAG(start_coords, end_coords)) {
                         MARK_ACTIVE(LIST_ITEM, MENU_LIST, e);
                     }
                 });
@@ -215,15 +221,28 @@ MENU_LISTS.forEach((MENU_LIST) => {
                  * Determine if the LIST_ITEM is in the path of touched elements
                  */
                 const LIST_ITEM_TOUCHED = PATH.some((ELEMENT) => {
-                    if (LIST_ITEM === ELEMENT) {
-                        return true;
-                    }
+                    return LIST_ITEM === ELEMENT;
                 });
 
                 /**
-                 * Mark the LIST_ITEM as inactive if it's not in the path of touched elements
+                 * Store the touchstart position
                  */
-                if (!LIST_ITEM_TOUCHED) {
+                if (e.type === "touchstart") {
+                    start_coords = e.touches[0];
+                }
+
+                /**
+                 * Store the touchend position
+                 */
+                if (e.type === "touchend") {
+                    end_coords = e.changedTouches[0];
+                }
+
+                /**
+                 * Mark the LIST_ITEM as inactive if it's not in the path of
+                 * touched elements, and the user didn't drag their touch
+                 */
+                if (!LIST_ITEM_TOUCHED && !DID_USER_DRAG(start_coords, end_coords)) {
                     MARK_INACTIVE(LIST_ITEM, MENU_LIST);
                 }
             }
