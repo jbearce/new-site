@@ -117,7 +117,7 @@ const MARK_INACTIVE = (LIST_ITEM, MENU_LIST) => {
  * Store various events to listen for
  */
 const EVENTS = {
-    document:  ["click", "touchstart"],
+    document:  ["click", "touchend"],
     list_item: {
         activate: {
             accordion: ["touchstart", "touchend"],
@@ -145,7 +145,7 @@ MENU_LISTS.forEach((MENU_LIST) => {
              */
             const START = {x: 0, y: 0};
 
-            for (const EVENT in EVENTS.list_item.active[MODE]) {
+            for (const EVENT in EVENTS.list_item.activate[MODE]) {
                 LIST_ITEM.addEventListener(EVENTS.list_item.activate[MODE][EVENT], (e) => {
                     let scrolled = false;
 
@@ -153,8 +153,8 @@ MENU_LISTS.forEach((MENU_LIST) => {
                      * Store the touchstart position
                      */
                     if (e.type === "touchstart") {
-                        START.x = e.touches.clientX;
-                        START.y = e.touches.clientY;
+                        START.x = e.touches[0].clientX;
+                        START.y = e.touches[0].clientY;
                     }
 
                     /**
@@ -163,11 +163,15 @@ MENU_LISTS.forEach((MENU_LIST) => {
                      * from being marked active.
                      */
                     if (e.type === "touchend") {
-                        if (Math.abs(e.touches.clientX - START.x) > 10 || Math.abs(e.touches.clientY - START.y) > 10) {
+                        if (Math.abs(e.changedTouches[0].clientX - START.x) > 10 || Math.abs(e.changedTouches[0].clientY - START.y) > 10) {
                             scrolled = true;
                         }
                     }
 
+                    /**
+                     * Mark the item as active if the event isn't touchstart and
+                     * the user wasn't trying to scroll
+                     */
                     if (e.type !== "touchstart" && !scrolled) {
                         MARK_ACTIVE(LIST_ITEM, MENU_LIST, e);
                     }
