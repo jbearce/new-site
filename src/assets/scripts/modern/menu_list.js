@@ -120,9 +120,9 @@ const EVENTS = {
     document:  ["click", "touchstart"],
     list_item: {
         activate: {
-            accordion: "touchstart",
-            hover:     "mouseenter",
-            touch:     "touchstart",
+            accordion: ["touchstart", "touchend"],
+            hover:     ["mouseenter"],
+            touch:     ["touchstart", "touchend"],
         },
         deactivate: ["mouseleave"],
     },
@@ -138,11 +138,41 @@ MENU_LISTS.forEach((MENU_LIST) => {
     /**
      * Mark the LIST_ITEM as active when moused into or touched
      */
-    for (const DATA in EVENTS.list_item.activate) {
-        if (MENU_LIST.dataset[DATA] === "true") {
-            LIST_ITEM.addEventListener(EVENTS.list_item.activate[DATA], (e) => {
-                MARK_ACTIVE(LIST_ITEM, MENU_LIST, e);
-            });
+    for (const MODE in EVENTS.list_item.activate) {
+        if (MENU_LIST.dataset[MODE] === "true") {
+            /**
+             * Set up an object to track touches
+             */
+            const START = {x: 0, y: 0};
+
+            for (const EVENT in EVENTS.list_item.active[MODE]) {
+                LIST_ITEM.addEventListener(EVENTS.list_item.activate[MODE][EVENT], (e) => {
+                    let scrolled = false;
+
+                    /**
+                     * Store the touchstart position
+                     */
+                    if (e.type === "touchstart") {
+                        START.x = e.touches.clientX;
+                        START.y = e.touches.clientY;
+                    }
+
+                    /**
+                     * Compare the touchstart position to the touchend position,
+                     * and if either differs by more than 10, prevent the item
+                     * from being marked active.
+                     */
+                    if (e.type === "touchend") {
+                        if (Math.abs(e.touches.clientX - START.x) > 10 || Math.abs(e.touches.clientY - START.y) > 10) {
+                            scrolled = true;
+                        }
+                    }
+
+                    if (e.type !== "touchstart" && !scrolled) {
+                        MARK_ACTIVE(LIST_ITEM, MENU_LIST, e);
+                    }
+                });
+            }
         }
     }
 
