@@ -12,7 +12,7 @@ For the most part, utilizing ESLint should ensure that your code follows the sta
 
 ## Creating new master scripts
 
-New master scripts should generally be avoided, but if the need arises to create one, simply create a new folder in `./src/assets/scripts` and all the script files within it will be compiled to a file bearing the same name as the folder (i.e. `./src/assets/scripts/modern/**/*.js` outputs to `./dev/assets/scripts/modern.js`).
+New master scripts should generally be avoided, but if the need arises to create one, simply create a new folder in `./src/assets/scripts` and all the script files within it will be compiled to a file bearing the same name as the folder (i.e. `./src/assets/scripts/modern/**/*.js` outputs to `./dev/assets/scripts/modern.js`). The new script will then need registered and enqueud in `./src/functions/styles-scripts.php`.
 
 ## Adding third-party scripts
 
