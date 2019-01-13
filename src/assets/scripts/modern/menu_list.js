@@ -142,8 +142,8 @@ const EVENTS = {
 /**
  * Set up an object to track touches
  */
-let start_coords = {clientX: 0, clientY: 0};
-let end_coords   = {clientX: 0, clientY: 0};
+let start_coords = { clientX: 0, clientY: 0 };
+let end_coords   = { clientX: 0, clientY: 0 };
 
 /**
  * Listen for interactions on each menu
