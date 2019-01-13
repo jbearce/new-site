@@ -192,7 +192,7 @@ MENU_LISTS.forEach((MENU_LIST) => {
     EVENTS.list_item.deactivate.forEach((EVENT) => {
         LIST_ITEM.addEventListener(EVENT, () => {
             MARK_INACTIVE(LIST_ITEM, MENU_LIST);
-        });
+        }, { passive: true });
     });
 
     /**
@@ -246,6 +246,6 @@ MENU_LISTS.forEach((MENU_LIST) => {
                     MARK_INACTIVE(LIST_ITEM, MENU_LIST);
                 }
             }
-        });
+        }, { passive: true });
     });
 });
