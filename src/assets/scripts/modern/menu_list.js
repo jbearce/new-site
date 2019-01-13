@@ -140,17 +140,17 @@ const EVENTS = {
 };
 
 /**
+ * Set up an object to track touches
+ */
+let start_coords = {clientX: 0, clientY: 0};
+let end_coords   = {clientX: 0, clientY: 0};
+
+/**
  * Listen for interactions on each menu
  */
 MENU_LISTS.forEach((MENU_LIST) => {
     const LIST_ITEM   = MENU_LIST.closest(".menu-list__item");
     const MENU_TOGGLE = LIST_ITEM.querySelector(".menu-list__toggle");
-
-    /**
-     * Set up an object to track touches
-     */
-    let start_coords = {clientX: 0, clientY: 0};
-    let end_coords   = {clientX: 0, clientY: 0};
 
     /**
      * Mark the LIST_ITEM as active when moused into or touched
