@@ -19,5 +19,5 @@ if (SEARCH_TOGGLE && SEARCH_FORM && SEARCH_INPUT) {
             SEARCH_FORM.classList.remove("is-active");
             SEARCH_TOGGLE.focus();
         }
-    });
+    }, { passive: true });
 }

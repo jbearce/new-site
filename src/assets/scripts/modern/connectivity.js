@@ -39,8 +39,8 @@ const UPDATE_STATUS = () => {
 
 const CHECK_CONNECTIVITY = () => {
     UPDATE_STATUS();
-    window.addEventListener("online", UPDATE_STATUS);
-    window.addEventListener("offline", UPDATE_STATUS);
+    window.addEventListener("online", UPDATE_STATUS, { passive: true });
+    window.addEventListener("offline", UPDATE_STATUS, { passive: true });
 };
 
-window.addEventListener("load", CHECK_CONNECTIVITY);
+window.addEventListener("load", CHECK_CONNECTIVITY, { passive: true });
