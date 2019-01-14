@@ -12,8 +12,6 @@ const OPEN_PHOTOSWIPE = (items, index = 0, msrc = false) => {
         showHideOpacity: true,
     });
 
-    console.log(GALLERY);
-
     GALLERY.init();
 };
 
@@ -37,8 +35,6 @@ if (PSWP_LINKS.length > 0) {
 
             const CHILD_IMAGE = PSWP_LINKS[i].querySelector("img");
             const CHILD_IMAGE_SRC = CHILD_IMAGE ? CHILD_IMAGE.currentSrc : false;
-
-            console.log(CHILD_IMAGE_SRC);
 
             OPEN_PHOTOSWIPE(PSWP_ITEMS, i, CHILD_IMAGE_SRC);
         });

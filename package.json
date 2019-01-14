@@ -101,6 +101,7 @@
     "pwa-install-prompt": "^1.0.2",
     "scroll-hint": "^1.2.1",
     "slideout": "github:Mango/slideout#new-features",
+    "superslide.js": "github:JacobDB/SuperSlide.js",
     "sw-toolbox": "^3.6.0",
     "swiper": "^4.4.2",
     "transition-to-from-auto": "^0.5.2"
