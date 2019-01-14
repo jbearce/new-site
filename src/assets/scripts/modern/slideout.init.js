@@ -5,6 +5,7 @@
 import Slideout from "slideout";
 import debounce from "debounce";
 import focusTrap from "focus-trap";
+import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 
 // get the elements
 const PANEL  = document.getElementById("page-container");
@@ -55,22 +56,53 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         // get the slideout
         mobile_menu = GET_SLIDEOUT();
 
-        // trap focus on open
         mobile_menu.on("open", () => {
+            /**
+             * Focus the menu
+             */
             MENU.focus();
+
+            /**
+             * Trap the focus
+             */
             FOCUS_TRAP.activate();
+
+            /**
+             * Disable scrolling on the body
+             */
+            disableBodyScroll(MENU);
+
+            /**
+             * Disable touch interactions on the menu
+             */
+            mobile_menu.disableTouch();
         });
 
-        // release focus on close
         mobile_menu.on("close", () => {
+            /**
+             * Release the focus
+             */
             FOCUS_TRAP.deactivate();
+
+            /**
+             * Enable scrolling on the body
+             */
+            enableBodyScroll(MENU);
+
+            /**
+             * Enable touch interactions on the menu
+             */
+            mobile_menu.enableTouch();
         });
     };
 
     // completely destroy a slideout instance
     const DESTROY_SLIDEOUT = () => {
-        // untrap the focus from the mobile menu
+        // release the focus from the mobile menu
         FOCUS_TRAP.deactivate();
+
+        // enable scrolling the body
+        enableBodyScroll(MENU);
 
         // destroy the menu
         mobile_menu.destroy();
