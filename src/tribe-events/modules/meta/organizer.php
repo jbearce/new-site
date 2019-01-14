@@ -28,7 +28,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 			<?php if ( ! $organizer ) continue; ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon fas fa-fw fa-user"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-user-circle"></i>
 				<?php echo tribe_get_organizer_link( $organizer ) ?>
 			</li>
 		<?php endforeach; ?>
