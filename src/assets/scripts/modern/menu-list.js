@@ -2,8 +2,8 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-import transition from "transition-to-from-auto";
 import inViewport from "in-vp";
+import transition from "transition-to-from-auto";
 
 /**
  * Create an array of attribtes to target lists for

@@ -12,35 +12,25 @@ const PANEL  = document.getElementById("page-container");
 const MENU   = document.getElementById("mobile-menu");
 const TOGGLE = document.querySelector("[data-toggle=mobile-menu]");
 
-// verify that the elements exist
+/**
+ * Verify that elements exist
+ */
 if (PANEL !== null && MENU !== null && TOGGLE !== null) {
-    // initialize the menu
+    /**
+     * Set up a variable to hold the SlideOut instance
+     */
     let mobile_menu = null;
 
-    // toggle the menu when clicking on the toggle
-    TOGGLE.addEventListener("click", (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-
-        if (mobile_menu !== null) {
-            mobile_menu.toggle();
-        }
-    });
-
-    // close the menu when it's open and the content is clicked
-    PANEL.addEventListener("click", (e) => {
-        if (mobile_menu !== null && e.target !== TOGGLE && mobile_menu.isOpen()) {
-            e.preventDefault();
-            mobile_menu.close();
-        }
-    });
-
-    // set up a focus trap
+    /**
+     * Set up a focus trap
+     */
     const FOCUS_TRAP = focusTrap(`#${MENU.id}`, {
         clickOutsideDeactivates: true,
     });
 
-    // create a new slideout instance
+    /**
+     * Function to create a new slideout instance
+     */
     const GET_SLIDEOUT = () => {
         return new Slideout({
             duration:   250,
@@ -51,7 +41,9 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         });
     };
 
-    // construct a slideout instance along with event hooks
+    /**
+     * Function to construct a slideout instance and apply event hooks
+     */
     const CONSTRUCT_SLIDEOUT = () => {
         // get the slideout
         mobile_menu = GET_SLIDEOUT();
@@ -96,37 +88,80 @@ if (PANEL !== null && MENU !== null && TOGGLE !== null) {
         });
     };
 
-    // completely destroy a slideout instance
+    /**
+     * Completely destroy a slideout instance
+     */
     const DESTROY_SLIDEOUT = () => {
-        // release the focus from the mobile menu
+        /**
+         * Release the focus
+         */
         FOCUS_TRAP.deactivate();
 
-        // enable scrolling the body
+        /**
+         * Enable scrolling on the body
+         */
         enableBodyScroll(MENU);
 
-        // destroy the menu
+        /**
+         * Destroy the slideout
+         */
         mobile_menu.destroy();
 
-        // reset to null to ensure constructing on resize works correctly
+        /**
+         * Result the mobile menu to ensure constructing on resize works properly
+         */
         mobile_menu = null;
     };
 
-    // create or destroy a slideout depending on menu display
+    /**
+     * Create or destroy the SlideOut instance depending on the menu's display
+     */
     const UPDATE_MENU_STATE = () => {
         const MENU_DISPLAY = getComputedStyle(MENU).display;
 
-        // destroy the menu when it's set to display: none
+        /**
+         * Destroy the SlideOut when it's display: none;
+         */
         if (mobile_menu !== null && MENU_DISPLAY === "none") {
             DESTROY_SLIDEOUT();
-        // construct the menu when it's not set to display: none
+        /**
+         * Construct the SlideOut when it's nont display: none;
+         */
         } else if (mobile_menu === null && MENU_DISPLAY !== "none") {
             CONSTRUCT_SLIDEOUT();
         }
     };
 
-    // create or destroy a slideout on load
+    /**
+     * Toggle the slideout when clicking the menu icon
+     */
+    TOGGLE.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (mobile_menu !== null) {
+            mobile_menu.toggle();
+        }
+    });
+
+    /**
+     * Close the menu when it's open and the content is clicked
+     */
+    PANEL.addEventListener("click", (e) => {
+        if (mobile_menu !== null && e.target !== TOGGLE && mobile_menu.isOpen()) {
+            e.preventDefault();
+
+            mobile_menu.close();
+        }
+    });
+
+    /**
+     * Create or destroy the SlideOut on window load
+     */
     window.onload = UPDATE_MENU_STATE();
 
-    // create or destroy a slideout on resize
+    /**
+     * Create or destroy the SlideOut on window resize
+     */
     window.onresize = debounce(UPDATE_MENU_STATE, 200);
 }
