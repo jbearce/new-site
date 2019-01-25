@@ -151,6 +151,32 @@
     .tribe-events-event-body {
         padding: remify(15 10, 16);
     }
+
+    /* first day of the week -- prevent bleeding off the left side of the screen */
+
+    .tribe-events-calendar-cell:first-child & {
+        left: 0;
+        transform: translateY(#{remify(-10, 16)});
+    }
+
+    .tribe-events-calendar-cell:first-child &::after {
+        left: 35px;
+        transform: none;
+    }
+
+    /* last day of the week -- prevent bleeding off the right side of the screen */
+
+    .tribe-events-calendar-cell:last-child & {
+        left: auto;
+        right: 0;
+        transform: translateY(#{remify(-10, 16)});
+    }
+
+    .tribe-events-calendar-cell:last-child &::after {
+        left: auto;
+        right: 35px;
+        transform: none;
+    }
 }
 
 /* stylelint-disable selector-max-id */
