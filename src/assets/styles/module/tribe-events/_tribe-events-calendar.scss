@@ -10,10 +10,8 @@
         font-family: $body-font;
         font-size: remify(16, 16);
         margin: remify(0 0 16, 16);
-        position: relative;
         table-layout: fixed;
         width: 100%;
-        z-index: 10;
     }
 }
 
@@ -55,6 +53,7 @@
     .hentry {
         & {
             position: relative;
+            z-index: 2;
         }
 
         @include smaller-than(s, true) {
@@ -104,6 +103,12 @@
 
     .tribe-events-calendar-cell.tribe-events-past & {
         opacity: 0.5;
+    }
+}
+
+.tribe-events-viewmore {
+    & {
+        font-size: remify(12, 16);
     }
 }
 
