@@ -106,6 +106,53 @@ module.exports = {
             });
         };
 
+        // generate critical CSS
+        const GENERATE_CRITICAL_CSS = (css_directory = `${global.settings.paths.dev}/assets/styles`) => {
+            return new Promise((resolve) => {
+
+                const CRITICAL = require("critical");
+                const MKDIRP   = require("mkdirp");
+                const MOMENT   = require("moment");
+
+                const SITEMAP     = plugins.json.readFileSync("package.json").templates;
+                const KEYS        = Object.keys(SITEMAP);
+                const ESTIMATE    = MOMENT.duration((Object.keys(SITEMAP).length * 30) / 60, "m");
+                const EST_MOMENT  = Math.floor(ESTIMATE.asHours()) + MOMENT.utc(ESTIMATE.asMilliseconds()).format("h:m:s");
+                const EST_ARRAY   = EST_MOMENT.split(":");
+                const ACCUMULATOR = [];
+
+                console.log(`  Genearting critical CSS, this may take up to ${EST_ARRAY[1]}m ${EST_ARRAY[2]}s, go get some ☕`);
+
+                // create the "critical" directory
+                MKDIRP(`${css_directory}/critical`);
+
+                for (let i = 0, p = Promise.resolve(); i < KEYS.length; i++) {
+                    ACCUMULATOR.push(p = p.then(() => new Promise(resolve =>
+                        (() => {
+                            console.log(`  \u001b[33m! \u001b[0mGenerating ${css_directory}/critical/${KEYS[i]}.css from ${SITEMAP[KEYS[i]]}`);
+
+                            CRITICAL.generate({
+                                base: `${css_directory}/critical`,
+                                dest: `${KEYS[i]}.css`,
+                                dimensions: [1920, 1080],
+                                ignore: ["@font-face", "@import"],
+                                minify: true,
+                                src: `${SITEMAP[KEYS[i]]}?disable=critical_css`
+                            }).then(() => {
+                                console.log("  \u001b[32m✔\u001b[0m Success!");
+
+                                resolve();
+                            });
+                        })()
+                    )));
+                }
+
+                Promise.all(ACCUMULATOR).then(() => {
+                    resolve(true);
+                });
+            });
+        };
+
         // styles task, compiles & prefixes SCSS
         return new Promise ((resolve) => {
             // set CSS directory
@@ -113,33 +160,6 @@ module.exports = {
 
             // set the source directory
             const SOURCE_DIRECTORY = `${global.settings.paths.src}/assets/styles`;
-
-            // generate critical CSS if requested
-            if (plugins.argv.experimental && plugins.argv.experimental.includes("critical")) {
-                const SITEMAP  = plugins.json.readFileSync("package.json").templates;
-                const CRITICAL = require("critical");
-                const MKDIRP   = require("mkdirp");
-
-                console.log(`Genearting critical CSS, this may take up to ${((Object.keys(SITEMAP).length * 30) / 60)} minute ${(((Object.keys(SITEMAP).length * 30) / 60) !== 1 ? "s" : "")}, go take a coffee break.`);
-
-                // create the "critical" directory
-                MKDIRP(`${CSS_DIRECTORY}/critical`);
-
-                // loop through all the links
-                for (const TEMPLATE in SITEMAP) {
-                    // make sure the key isn't a prototype
-                    if (SITEMAP.hasOwnProperty(TEMPLATE)) {
-                        // generate the critial CSS
-                        CRITICAL.generate({
-                            base:       `${CSS_DIRECTORY}/critical`,
-                            dest:       `${TEMPLATE}.css`,
-                            dimensions: [1920, 1080],
-                            minify:     true,
-                            src:        `${SITEMAP[TEMPLATE]}?disable=critical_css`
-                        });
-                    }
-                }
-            }
 
             const ALL_FILE_NAMES = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
 
@@ -151,15 +171,23 @@ module.exports = {
                 hashed_file_name = "modern.css";
             }
 
-            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY, hashed_file_name).then((compile) => {
-                if (compile === true) {
-                    PROCESS_STYLES(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY).then(() => {
+            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY, hashed_file_name)
+                .then((compile) => {
+                    if (plugins.argv.experimental && plugins.argv.experimental.includes("critical")) {
+                        return GENERATE_CRITICAL_CSS(CSS_DIRECTORY).then(() => compile);
+                    } else {
+                        return Promise.resolve(compile);
+                    }
+                })
+                .then((compile) => {
+                    if (compile === true) {
+                        return PROCESS_STYLES(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY);
+                    } else {
                         resolve();
-                    });
-                } else {
+                    }
+                }).then(() => {
                     resolve();
-                }
-            });
+                });
         });
     }
 };

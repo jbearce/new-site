@@ -13,7 +13,7 @@ function __gulp_init_namespace___enqueue_scripts() {
     wp_register_style("__gulp_init_namespace__-google-fonts", "https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
 
     // modern styles
-    wp_register_style("__gulp_init_namespace__-styles-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "modern.*.css")), array("__gulp_init_namespace__-google-fonts"), "<%= version %>");
+    wp_register_style("__gulp_init_namespace__-styles-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "modern.*.css")), array(), "<%= version %>");
 
     // legacy styles
     wp_register_style("__gulp_init_namespace__-styles-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "legacy.*.css")), array("__gulp_init_namespace__-styles-modern"), "<%= version %>");
@@ -70,10 +70,13 @@ function __gulp_init_namespace___enqueue_scripts() {
 
     /* enqueue everything */
 
-    wp_enqueue_style("__gulp_init_namespace__-styles-google-fonts");
     wp_enqueue_style("__gulp_init_namespace__-styles-modern");
     wp_enqueue_style("__gulp_init_namespace__-styles-legacy");
     wp_enqueue_style("__gulp_init_namespace__-styles-print");
+
+    if (!(isset($_GET["disable"]) && $_GET["disable"] === "critical_css") ) {
+        wp_enqueue_style("__gulp_init_namespace__-styles-google-fonts");
+    }
 
     wp_enqueue_script("__gulp_init_namespace__-scripts-fontawesome");
     wp_enqueue_script("__gulp_init_namespace__-scripts-modern");
