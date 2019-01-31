@@ -21,18 +21,22 @@ const UPDATE_STATUS = () => {
     if (typeof navigator.onLine !== "undefined") {
         is_offline = !navigator.onLine;
 
-        document.documentElement.classList.toggle("is-offline", is_offline);
-
         if (is_offline) {
             // check a cookie so the user isn't nagged on every page load
-            if (!document.cookie.match(/__gulp_init_namespace___offline_noty_dismissed=true/)) {
+            if (!document.cookie.match(/fvpd_offline_noty_dismissed=true/)) {
                 OFFLINE_NOTY.show();
             }
+
+            // add is-offline class
+            document.documentElement.classList.add("is-offline");
         } else {
             OFFLINE_NOTY.close();
 
             // set the cookie to false so that prompt will appear again next time they go offline
-            document.cookie = `__gulp_init_namespace___offline_noty_dismissed=false; max-age=${(60 * 60 * 6)}`;
+            document.cookie = `fvpd_offline_noty_dismissed=false; max-age=${(60 * 60 * 6)}`;
+
+            // remove is-offline class
+            document.documentElement.classList.remove("is-offline");
         }
     }
 };
