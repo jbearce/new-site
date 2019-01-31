@@ -8,4 +8,4 @@ import Layzr from "layzr.js";
 document.addEventListener("DOMContentLoaded", () => {
     const INSTANCE = Layzr();
     INSTANCE.update().check().handlers(true);
-}, { passive: true });
+});

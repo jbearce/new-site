@@ -209,7 +209,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
             /**
              * Construct a toggle
              */
-            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down'></i><span class='__visuallyhidden'>" . __("Show Children", "__gulp_init_namespace__") . "</span></button>";
+            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down' aria-hidden='true'></i><span class='__visuallyhidden'>" . __("Show Children", "__gulp_init_namespace__") . "</span></button>";
         }
 
         /**
