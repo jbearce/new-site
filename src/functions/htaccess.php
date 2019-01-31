@@ -1196,7 +1196,7 @@ EOF;
 
     $directives[1] = array(
         "description" => $directive_description,
-        "enabled"     => false,
+        "enabled"     => true,
         "directive"   => $directive_value,
     );
 
