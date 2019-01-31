@@ -10,3 +10,49 @@
 @import "views/_screen_xl";
 @import "views/_screen_xxl";
 @import "views/_screen_xxxl";
+
+@for $i from 1 through 12 {
+    .col-#{$i} {
+        max-width: ($i / 12) * 100%;
+    }
+}
+
+@include larger-than(xs) {
+    @for $i from 1 through 12 {
+        .col-xs-#{$i} {
+            max-width: ($i / 12) * 100%;
+        }
+    }
+}
+
+@include larger-than(s) {
+    @for $i from 1 through 12 {
+        .col-s-#{$i} {
+            max-width: ($i / 12) * 100%;
+        }
+    }
+}
+
+@include larger-than(m) {
+    @for $i from 1 through 12 {
+        .col-m-#{$i} {
+            max-width: ($i / 12) * 100%;
+        }
+    }
+}
+
+@include larger-than(l) {
+    @for $i from 1 through 12 {
+        .col-l-#{$i} {
+            max-width: ($i / 12) * 100%;
+        }
+    }
+}
+
+@include larger-than(xl) {
+    @for $i from 1 through 12 {
+        .col-xl-#{$i} {
+            max-width: ($i / 12) * 100%;
+        }
+    }
+}
