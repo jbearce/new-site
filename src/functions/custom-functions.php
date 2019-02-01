@@ -77,6 +77,11 @@ function __gulp_init_namespace___is_external_url($url) {
     return strrpos(strtolower($components["host"]), ".{$_SERVER["SERVER_NAME"]}") !== strlen($components["host"]) - strlen(".{$_SERVER["SERVER_NAME"]}");
 }
 
+// determine if an asset is outside of the theme
+function __gulp_init_namespace___is_other_asset($url) {
+    return strpos($url, get_template_directory_uri()) !== 0;
+}
+
 // function to detect the platform a user is on
 function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
