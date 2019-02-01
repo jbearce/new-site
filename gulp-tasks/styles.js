@@ -11,33 +11,82 @@ module.exports = {
         const STYLELINT    = require("gulp-stylelint");
         const TOUCH        = require("gulp-touch-fd");
 
-        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, folder_name = `${global.settings.paths.dev}/assets/styles/`, file_name = "modern.css") => {
-            let clean = false;
+        const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, folder_name = `${global.settings.paths.dev}/assets/styles/`, master_files = []) => {
+            /**
+             * Collect promises
+             */
+            const COLLECTOR = [];
 
-            return new Promise((resolve) => {
-                gulp.src(source)
-                    // prevent breaking on error
-                    .pipe(plugins.plumber({ errorHandler: on_error }))
-                    // check if source is newer than destination
-                    .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folder_name}/${file_name}`)))
-                    // if source files are newer, then mark the destination for cleaning
-                    .on("data", () => {
-                        clean = true;
-                    })
-                    // clean the directory if necessary and resolve the promsie
-                    .on("end", () => {
-                        if (clean) {
-                            // delete the folder, becuase it's being replaced
-                            plugins.del(folder_name).then(() => {
-                                // resolve the promise, compile
-                                resolve(true);
+            /**
+             * Read all files in the destination folder
+             */
+            const DEST_FILES = plugins.fs.existsSync(folder_name) ? plugins.fs.readdirSync(folder_name) : false;
+
+            /**
+             * If no destination files exist, immeidately return
+             */
+            if (!DEST_FILES || DEST_FILES.length <= 0) {
+                return Promise.resolve(false);
+            }
+
+            /**
+             * Check if each master file is newer
+             */
+            master_files.forEach((master_file) => {
+                /**
+                 * Find hashed file name
+                 */
+                const MATCH = DEST_FILES.filter((dest_file) => {
+                    return dest_file.match(new RegExp(`^${master_file.split(".")[0]}`));
+                });
+
+                if (MATCH.length > 0) {
+                    /**
+                     * Store the check for later
+                     */
+                    COLLECTOR.push(new Promise((resolve) => {
+                        /**
+                         * Check if each matched file is old
+                         */
+                        gulp.src(source)
+                            // prevent breaking on error
+                            .pipe(plugins.plumber({ errorHandler: on_error }))
+                            // check if source is newer than destination
+                            .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${folder_name}/${MATCH[0]}`)))
+                            // if source files are newer, then mark the destination for cleaning
+                            .on("data", () => {
+                                resolve(MATCH[0]);
+                            }).on("end", () => {
+                                resolve(false);
                             });
-                        } else {
-                            // resolve the promise, don't compile
-                            resolve(false);
-                        }
-                    });
+                    }));
+                }
             });
+
+            /**
+             * Wait for all files to be checked
+             */
+            return Promise.all(COLLECTOR)
+                .then((old_files) => {
+                    /**
+                     * Filter out any 'false' old files
+                     */
+                    old_files = old_files.filter(file_name => file_name !== false);
+
+                    /**
+                     * Delete the old files if they exist
+                     */
+                    if (old_files.length > 0) {
+                        old_files.forEach((file) => {
+                            plugins.del(`${folder_name}/${file}`);
+                        });
+                    }
+
+                    /**
+                     * Return the old files
+                     */
+                    return Promise.resolve(old_files);
+                });
         };
 
         const PROCESS_STYLES = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, css_directory = `${global.settings.paths.dev}/assets/styles`) => {
@@ -161,26 +210,27 @@ module.exports = {
             // set the source directory
             const SOURCE_DIRECTORY = `${global.settings.paths.src}/assets/styles`;
 
-            const ALL_FILE_NAMES = plugins.fs.existsSync(CSS_DIRECTORY) ? plugins.fs.readdirSync(CSS_DIRECTORY) : false;
+            // read the contents of the source directory
+            const ALL_FILES = plugins.fs.readdirSync(SOURCE_DIRECTORY);
 
-            let hashed_file_name = ALL_FILE_NAMES.length > 0 && ALL_FILE_NAMES.find((name) => {
-                return name.match(new RegExp("[^.]+.[a-z0-9]{8}.css"));
+            // filter out everything exccept SCSS files
+            const MASTER_FILES = ALL_FILES.filter((file_name) => {
+                return file_name.match(/\.scss$/);
             });
 
-            if (!hashed_file_name) {
-                hashed_file_name = "modern.css";
-            }
-
-            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY, hashed_file_name)
-                .then((compile) => {
+            CHECK_IF_NEWER(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY, MASTER_FILES)
+                .then((old_files) => {
                     if (plugins.argv.experimental && plugins.argv.experimental.includes("critical")) {
-                        return GENERATE_CRITICAL_CSS(CSS_DIRECTORY).then(() => compile);
+                        return GENERATE_CRITICAL_CSS(CSS_DIRECTORY).then(() => old_files);
                     } else {
-                        return Promise.resolve(compile);
+                        return Promise.resolve(old_files);
                     }
                 })
-                .then((compile) => {
-                    if (compile === true) {
+                .then((old_files) => {
+                    /**
+                     * Compile if any old files are found, or if no files exist
+                     */
+                    if (old_files.length > 0 || old_files === false) {
                         return PROCESS_STYLES(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY);
                     } else {
                         resolve();
