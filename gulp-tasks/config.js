@@ -11,7 +11,7 @@ module.exports = {
         // store array of gist URIs
         const DATA_SOURCES = {
             browsersync: "https://gist.githubusercontent.com/JacobDB/63852a9ad21207ed195aa1fd75bfeeb8/raw/8fe578c2af7a4d31c2357d1a3c0f2cbc8c1cf42f",
-            ftp:         "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/3886b5c5c1e6e386fb56eb072d7d87f0952d5128",
+            ftp:         "https://gist.githubusercontent.com/JacobDB/b41b59c11f10e6b5e4fe5bc4ab40d805/raw/64d5d5234c47db9c0274c6ecc1f9d943f7b1a5b1",
             rsync:       "https://gist.githubusercontent.com/JacobDB/71f24559e2291c07256edf8a48028ae5/raw/987c48f67f2a92146d306be470583a247587cfe8",
         };
 

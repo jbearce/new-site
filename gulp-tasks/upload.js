@@ -5,7 +5,7 @@
 module.exports = {
     upload(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         const PROTOCOL = global.settings.ftp.protocol;
-        
+
         // task-specific plugins
         const FTP  = PROTOCOL === "ftp" ? require("vinyl-ftp") : false;
         const SFTP = PROTOCOL === "sftp" ? require("gulp-sftp") : false;
@@ -15,6 +15,11 @@ module.exports = {
 
         // create FTP connection
         const FTP_CONN = PROTOCOL === "ftp" ? FTP.create(global.settings.ftp) : false;
+
+        // delete old files
+        if (PROTOCOL === "ftp" && global.settings.ftp.clean === true) {
+            FTP_CONN.clean(`${global.settings.ftp.remotePath}/**`, UPLOAD_DIRECTORY);
+        }
 
         // create SFTP connection
         const SFTP_CONN = PROTOCOL === "sftp" ? SFTP(global.settings.ftp) : false;
