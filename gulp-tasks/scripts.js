@@ -149,15 +149,17 @@ module.exports = {
                     /**
                      * Filter out unchanged files from the Webpack entry
                      */
-                    MASTER_FILES.forEach((master_file) => {
-                        const CHANGED = old_files.filter((old_file) => {
-                            return old_file.match(new RegExp(`^${master_file}`));
-                        });
+                    if (old_files !== false) {
+                        MASTER_FILES.forEach((master_file) => {
+                            const CHANGED = old_files.filter((old_file) => {
+                                return old_file.match(new RegExp(`^${master_file}`));
+                            });
 
-                        if (CHANGED.length <= 0) {
-                            delete WEBPACK_CONFIG.entry[master_file];
-                        }
-                    });
+                            if (CHANGED.length <= 0) {
+                                delete WEBPACK_CONFIG.entry[master_file];
+                            }
+                        });
+                    }
 
                     PROCESS_SCRIPTS(`${SOURCE_DIRECTORY}/**/*.js`, JS_DIRECTORY, WEBPACK_CONFIG).then(() => {
                         resolve();
