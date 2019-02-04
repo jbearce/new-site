@@ -139,13 +139,13 @@ module.exports = {
             const WEBPACK_CONFIG = require("../webpack.config.js").config(plugins, SOURCE_DIRECTORY, JS_DIRECTORY);
 
             // read the contents of the source directory
-            const MASTER_FILES = plugins.fs.readdirSync(SOURCE_DIRECTORY);
+            const MASTER_FILES = plugins.fs.existsSync(SOURCE_DIRECTORY) ? plugins.fs.readdirSync(SOURCE_DIRECTORY) : [];
 
             CHECK_IF_NEWER(SOURCE_DIRECTORY, JS_DIRECTORY, MASTER_FILES).then((old_files) => {
                 /**
                  * Compile if any old files are found, or if no files exist
                  */
-                if (old_files.length > 0 || old_files === false) {
+                if ((old_files.length > 0 || old_files === false) && MASTER_FILES.length > 0) {
                     /**
                      * Filter out unchanged files from the Webpack entry
                      */

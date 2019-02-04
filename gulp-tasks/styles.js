@@ -211,7 +211,7 @@ module.exports = {
             const SOURCE_DIRECTORY = `${global.settings.paths.src}/assets/styles`;
 
             // read the contents of the source directory
-            const ALL_FILES = plugins.fs.readdirSync(SOURCE_DIRECTORY);
+            const ALL_FILES =  plugins.fs.existsSync(SOURCE_DIRECTORY) ? plugins.fs.readdirSync(SOURCE_DIRECTORY) : [];
 
             // filter out everything exccept SCSS files
             const MASTER_FILES = ALL_FILES.filter((file_name) => {
@@ -230,7 +230,7 @@ module.exports = {
                     /**
                      * Compile if any old files are found, or if no files exist
                      */
-                    if (old_files.length > 0 || old_files === false) {
+                    if ((old_files.length > 0 || old_files === false) && MASTER_FILES.length > 0) {
                         return PROCESS_STYLES(`${SOURCE_DIRECTORY}/**/*.scss`, CSS_DIRECTORY);
                     } else {
                         resolve();
