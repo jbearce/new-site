@@ -9,7 +9,7 @@ function __gulp_init_namespace___get_template_part($file, $template_args = array
 }
 
 // make overriding hashed file names with a child theme easier
-function __gulp_init_namespace___get_theme_file_path($path, $pattern, $full_path = false) {
+function __gulp_init_namespace___get_theme_file_path($path, $pattern, $skip_child_theme = false, $full_path = false) {
     $file_paths = array();
 
     /* ------------------------------------------------------------------------ *\
@@ -24,7 +24,7 @@ function __gulp_init_namespace___get_theme_file_path($path, $pattern, $full_path
 
     $child_results = glob(get_stylesheet_directory() . "/{$path}{$pattern}");
 
-    if ($child_results) {
+    if (!$skip_child_theme && $child_results) {
         $file_paths = $child_results;
     } else {
         $parent_results = glob(get_template_directory() . "/{$path}{$pattern}");
