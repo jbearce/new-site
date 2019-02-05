@@ -6,7 +6,6 @@ module.exports = {
     media(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
         const IMAGEMIN = require("gulp-imagemin");
-        const PNGQUANT = require("imagemin-pngquant");
 
         // media task, compresses images, copies other media
         return new Promise ((resolve) => {
@@ -29,11 +28,17 @@ module.exports = {
                 // check if source is newer than destination
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(MEDIA_DIRECTORY)))
                 // compress images
-                .pipe(IMAGEMIN({
-                    progressive: true,
-                    svgoPlugins: [{ cleanupIDs: false, removeViewBox: false }],
-                    use:         [PNGQUANT()],
-                }))
+                .pipe(IMAGEMIN([
+                    IMAGEMIN.jpegtran({
+                        progressive: true
+                    }),
+                    IMAGEMIN.svgo({
+                        plugins: [
+                            { cleanupIDs: false },
+                            { removeViewBox: false },
+                        ],
+                    })
+                ]))
                 // output to compiled directory
                 .pipe(gulp.dest(MEDIA_DIRECTORY));
 

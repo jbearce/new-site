@@ -56,7 +56,6 @@
     "gulp-template": "^5.0.0",
     "gulp-touch-fd": "^2.0.0",
     "gulp-wp-pot": "^2.3.3",
-    "imagemin-pngquant": "^6.0.0",
     "jsonfile": "^5.0.0",
     "merge-stream": "^1.0.1",
     "mkdirp": "^0.5.1",
