@@ -45,8 +45,8 @@
     }
 
     &.mobile-active {
-        @include smaller-than(s, true) {
-            background: mix(color("background"), color("primary"));
+        @include smaller-than(xs, true) {
+            background: color("primary", "tint");
         }
     }
 
@@ -56,13 +56,13 @@
             z-index: 2;
         }
 
-        @include smaller-than(s, true) {
+        @include smaller-than(xs, true) {
             display: none;
         }
     }
 
     .tribe-events-indicator {
-        @include larger-than(s, false) {
+        @include larger-than(xs, false) {
             display: none;
         }
     }
