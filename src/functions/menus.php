@@ -334,6 +334,62 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             );
         }
 
+        // get a specific custom field template
+        static function get_custom_field_template($type = null) {
+            $templates = array(
+                "label"         => "",
+                "description"   => "",
+                "checkbox"      => "",
+                "color"         => "",
+                "radio"         => "",
+                "radio_option"  => "",
+                "select"        => "",
+                "select_option" => "",
+                "text"          => "",
+                "textarea"      => "",
+            );
+
+            $templates["label"]         .= "<p class='field-{{ field_name } description description-wide'>";
+            $templates["label"]         .= "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>";
+            $templates["label"]         .= "{{ field_markup }}";
+            $templates["label"]         .= "</label>";
+            $templates["label"]         .= "</p>";
+
+            $templates["description"]   .= "<span class='description'>{{ field_description }}</span>";
+
+            $templates["checkbox"]      .= "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='checkbox'{{ item_checked }} />";
+            $templates["checkbox"]      .= "{{ field_label }}";
+
+            $templates["color"]         .= "{{ field_label }}<br>";
+            $templates["color"]         .= "<span><input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }} __gulp_init_namespace__-color-picker' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' /></span>";
+
+            $templates["radio"]         .= "{{ field_options }}";
+
+            $templates["radio_option"]  .= "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}'>";
+            $templates["radio_option"]  .= "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ option_value }}' type='radio'{{ option_checked }} />";
+            $templates["radio_option"]  .= "{{ option_label }}";
+            $templates["radio_option"]  .= "</label>&nbsp;&nbsp;";
+
+            $templates["select"]        .= "{{ field_label }}<br>";
+            $templates["select"]        .= "<select id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'{{ field_multiple }}>";
+            $templates["select"]        .= "{{ field_options }}";
+            $templates["select"]        .= "</select>";
+
+            $templates["select_option"] .= "<option value='{{ option_value }}'{{ option_selected }}>{{ option_label }}</option>";
+
+            $templates["text"]          .= "{{ field_label }}<br>";
+            $templates["text"]          .= "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' />";
+
+            $templates["textarea"]      .= "{{ field_label }}<br>";
+            $templates["textarea"]      .= "<textarea id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'>{{ item_value }}</textarea>";
+
+            if ($type !== null) {
+                return $templates[$type];
+            } else {
+                return $templates;
+            }
+        }
+
         // append the new fields to the menu system
         function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
             $all_menus      = get_nav_menu_locations();
@@ -345,6 +401,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
             // get the menu item
             parent::start_el($item_output, $item, $depth, $args);
+
+            // retrieve the label template
+            $template_label = self::get_custom_field_template("label");
 
             // set up each new custom field
             foreach ($custom_fields as $field) {
@@ -375,53 +434,79 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 }
 
                 // retrieve the existing value from the database
-                $field["meta_value"] = get_post_meta($item->ID, "_menu_item_{$field["name"]}", true);
+                $item_value = get_post_meta($item->ID, "_menu_item_{$field["name"]}", true);
 
-                $fields_markup .= "<p class='field-{$field["name"]} description description-wide'>";
-                $fields_markup .= "<label for='edit-menu-item-{$field["name"]}-{$item->ID}'>";
+                // retrieve the template for the given field type
+                $template = self::get_custom_field_template($field["type"]);
 
-                if ($field["type"] === "text") {
-                    $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' />";
-                } elseif ($field["type"] === "textarea") {
-                    $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<textarea id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'>{$field["meta_value"]}</textarea>";
-                } elseif ($field["type"] === "select") {
-                    $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<select id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]}' rows='3' col='20' name='menu-item-{$field["name"]}[{$item->ID}]'" . (isset($field["multiple"]) && $field["multiple"] === true ? " multiple" : "") . ">";
+                // duplicate the template
+                $markup = $template;
+
+                // replace shared placeholdres
+                $markup = str_replace("{{ item_id }}", $item->ID, $markup);
+                $markup = str_replace("{{ item_value }}", $item_value, $markup);
+                $markup = str_replace("{{ item_checked }}", checked($item_value, isset($field["value"]) ? $field["value"] : false, false), $markup);
+                $markup = str_replace("{{ field_label }}", $field["label"], $markup);
+                $markup = str_replace("{{ field_name }}", $field["name"], $markup);
+                $markup = str_replace("{{ field_multiple }}", (isset($field["multiple"]) && $field["multiple"] === "true" ? "multiple" : ""), $markup);
+
+                // apply special replacements for `radio` and `select` fields
+                if ($field["type"] === "radio" || $field["type"] === "select") {
+                    $template_option = self::get_custom_field_template("{$field["type"]}_option");
+
+                    $field_options = "";
 
                     foreach ($field["options"] as $value => $label) {
-                        $fields_markup .= "<option value='{$value}'" . ($field["meta_value"] === $value ? " selected='selected'" : "") . ">{$label}</option>";
+                        // duplicate the template
+                        $markup_option = $template_option;
+
+                        // replace placeholders with actual values
+                        $markup_option = str_replace("{{ field_name }}", $field["name"], $markup_option);
+                        $markup_option = str_replace("{{ item_id }}", $item->ID, $markup_option);
+                        $markup_option = str_replace("{{ option_label }}", $label, $markup_option);
+                        $markup_option = str_replace("{{ option_value }}", $value, $markup_option);
+                        $markup_option = str_replace("{{ option_value_sanitized }}", sanitize_title($value), $markup_option);
+                        $markup_option = str_replace("{{ option_checked }}", checked($item_value, $value, false), $markup_option);
+                        $markup_option = str_replace("{{ option_selected }}", ($item_value === $value ? " selected" : ""), $markup_option);
+
+                        // append the option
+                        $field_options .= $markup_option;
                     }
 
-                    $fields_markup .= "</select>";
-                } elseif ($field["type"] === "radio") {
-                    $fields_markup .= "{$field["label"]}<br>";
-
-                    foreach ($field["options"] as $value => $label) {
-                        $fields_markup .= "<label for='edit-menu-item-{$field["name"]}-{$item->ID}-" . sanitize_title($value) . "'>";
-                        $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}-" . sanitize_title($value) . "' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$value}' type='radio'" . checked($field["meta_value"], $value, false) . " />";
-                        $fields_markup .= $label;
-                        $fields_markup .= "</label>&nbsp;&nbsp;";
-                    }
-                } elseif ($field["type"] === "checkbox") {
-                    $fields_markup .= "<input id='edit-menu-item-{$field["name"]}-{$item->ID}' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["value"]}' type='checkbox'" . checked($field["meta_value"], $field["value"], false) . " />";
-                    $fields_markup .= $field["label"];
-                } elseif ($field["type"] === "color") {
-                    $fields_markup .= "{$field["label"]}<br>";
-                    $fields_markup .= "<span><input id='edit-menu-item-{$field["name"]}-{$item->ID}' class='widefat edit-menu-item-{$field["name"]} __gulp_init_namespace__-color-picker' name='menu-item-{$field["name"]}[{$item->ID}]' value='{$field["meta_value"]}' type='text' /></span>";
+                    // replace the {{ field_options }} placeholder with `<option>` elements
+                    $markup = str_replace("{{ field_options }}", $field_options, $markup);
                 }
 
+                // apply special replacements for fields with `description` values
                 if ($field["description"]) {
+                    // retrieve the template for descriptions
+                    $template_description = self::get_custom_field_template("description");
+
+                    // add a line break after radio or checkbox fields
                     if (in_array($field["type"], array("radio", "checkbox"))) {
-                        $fields_markup .= "<br>";
+                        $markup .= "<br>";
                     }
 
-                    $fields_markup .= "<span class='description'>{$field["description"]}</span>";
+                    // duplicate the template
+                    $markup_description = $template_description;
+
+                    // replace the placeholder
+                    $markup_description = str_replace("{{ field_description }}", $field["description"], $markup_description);
+
+                    // append to the markup
+                    $markup .= $markup_description;
                 }
 
-                $fields_markup .= "</label>";
-                $fields_markup .= "</p>";
+                // duplicate the label template
+                $markup_label = $template_label;
+
+                // replace the placeholders
+                $markup_label = str_replace("{{ field_name }}", $field["name"], $markup_label);
+                $markup_label = str_replace("{{ item_id }}", $item->ID, $markup_label);
+                $markup_label = str_replace("{{ field_markup }}", $markup, $markup_label);
+
+                // append to the fields markup
+                $fields_markup .= $markup_label;
             }
 
             // insert the new markup before the fieldset tag
