@@ -97,6 +97,12 @@ function __gulp_init_namespace___enqueue_scripts_login() {
 }
 add_action("login_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_login");
 
+// add wp-admin scripts
+function __gulp_init_namespace___enqueue_scripts_admin() {
+    wp_enqueue_script("__gulp_init_namespace__-scripts-wp-admin", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "wp-admin.*.js", true)), array(), "<%= version %>", true);
+}
+add_action("admin_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_admin");
+
 // add BrowserSync script to the footer when active
 function __gulp_init_namespace___simplify_browsersync() {
     $browsersync_port    = isset($_SERVER["HTTP_X_BROWSERSYNC_PORT"]) ? $_SERVER["HTTP_X_BROWSERSYNC_PORT"] : false;
