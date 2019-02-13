@@ -343,7 +343,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                                    "</label>" .
                                    "</p>",
                 "description"   => "<span class='description'>{{ field_description }}</span>",
-                "checkbox"      => "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='checkbox'{{ item_checked }} />" .
+                "checkbox"      => "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ field_value }}' type='checkbox'{{ item_checked }} />" .
                                    "{{ field_label }}",
                 "color"         => "{{ field_label }}<br>" .
                                    "<span><input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }} __gulp_init_namespace__-color-picker' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' /></span>",
@@ -379,6 +379,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $markup = str_replace("{{ field_label }}", $field["label"], $markup);
             $markup = str_replace("{{ field_name }}", $field["name"], $markup);
             $markup = str_replace("{{ field_multiple }}", (isset($field["multiple"]) && $field["multiple"] === "true" ? "multiple" : ""), $markup);
+            $markup = str_replace("{{ field_value }}", isset($field["value"]) ? $field["value"] : null, $markup);
 
             // apply special replacements for `radio` and `select` fields
             if ($field["type"] === "radio" || $field["type"] === "select") {
