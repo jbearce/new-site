@@ -13,13 +13,18 @@ body {
     }
 }
 
+body {
+    & {
+        overflow-x: hidden;
+    }
+}
+
 .page__container {
     & {
         background: color("page-background");
         display: flex;
         flex-direction: column;
         min-height: 100vh;
-        overflow: hidden;
         position: relative;
         width: 100%;
     }
