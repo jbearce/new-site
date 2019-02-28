@@ -5,6 +5,9 @@
     </head>
     <body <?php body_class(); ?>>
         <div class="page__container" id="page-container">
+            <a class="skip-links" href="#content">
+                <?php _e("Skip to content", "__gulp_init_namespace__"); ?>
+            </a>
             <div class="header-block header-block--fullbleed" role="banner">
                 <div class="header__inner">
                     <div class="header__row row row--padded row--tight row--vcenter">
@@ -62,3 +65,4 @@
                     </div><!--/.navigation__inner-->
                 </div><!--/.navigation-block-->
             <?php endif; ?>
+            <div id="content" tabindex="0">

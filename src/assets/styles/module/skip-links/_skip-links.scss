@@ -1,0 +1,29 @@
+// Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
+
+/* ------------------------------------------------------------------------ *\
+ * Skip Links
+\* ------------------------------------------------------------------------ */
+
+.skip-links {
+    & {
+        background: color("accent");
+        border: remify(1) solid color("accent", "shade");
+        border-radius: remify(4);
+        color: color("light");
+        font-family: $heading-font;
+        font-size: remify(16, 16);
+        font-weight: 700;
+        left: -999em;
+        padding: remify(8 12, 16);
+        position: fixed;
+        text-decoration: none;
+        top: -999em;
+        z-index: 999;
+    }
+
+    &:focus {
+        left: remify(20, 16);
+        top: remify(20, 16);
+        visibility: visible;
+    }
+}

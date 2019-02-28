@@ -122,7 +122,6 @@ module.exports = {
                         require("postcss-clearfix"),
                         require("postcss-easing-gradients"),
                         require("postcss-inline-svg"),
-                        require("postcss-flexibility"),
                         require("postcss-responsive-type"),
                     ]))
                     // generate a hash and add it to the file name

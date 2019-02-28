@@ -1,3 +1,4 @@
+            </div><!--/#content-->
             <div class="footer-block footer-block--fullbleed" role="contentinfo">
                 <div class="footer__inner">
                     <p class="footer__text text __textcenter __nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
