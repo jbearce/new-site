@@ -535,3 +535,6 @@ add_filter("pre_option_stylesheet", "__gulp_init_namespace__enable_conditional_d
 add_filter("option_stylesheet", "__gulp_init_namespace__enable_conditional_dev_theme");
 add_filter("option_template", "__gulp_init_namespace__enable_conditional_dev_theme");
 add_filter("template", "__gulp_init_namespace__enable_conditional_dev_theme");
+
+// disable xmlrpc.php
+add_filter("xmlrpc_enabled", "__return_false");
