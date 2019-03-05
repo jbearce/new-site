@@ -169,7 +169,7 @@ module.exports = {
                 const EST_ARRAY   = EST_MOMENT.split(":");
                 const ACCUMULATOR = [];
 
-                console.log(`  Genearting critical CSS, this may take up to ${EST_ARRAY[1]}m ${EST_ARRAY[2]}s, go get some ☕`);
+                console.log(`  Generating critical CSS, this may take up to ${EST_ARRAY[1]}m ${EST_ARRAY[2]}s, go get some ☕`);
 
                 // create the "critical" directory
                 MKDIRP(`${css_directory}/critical`);
