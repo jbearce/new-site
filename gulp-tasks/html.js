@@ -39,7 +39,7 @@ module.exports = {
                 // prevent breaking on error
                 .pipe(plugins.plumber({ errorHandler: on_error }))
                 // check if source is newer than destination
-                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(html_directory)))
+                .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(`${html_directory}/functions`)))
                 // output to compiled directory
                 .pipe(gulp.dest(`${html_directory}/functions`));
         };
