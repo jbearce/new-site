@@ -252,3 +252,10 @@
         flex: 0 0 auto;
     }
 }
+
+.tribe-filter-live .datepicker {
+    & {
+        color: color("foreground");
+        font-family: $body-font;
+    }
+}

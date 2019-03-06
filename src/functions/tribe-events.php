@@ -195,10 +195,14 @@ function get_tribe_date_and_time_strings($event_id) {
 
 /* FILTERS */
 
-// dequeue & deregister tribe calendar styles
+// dequeue & deregister tribe calendar styles, keep bootstrap datepicker
 function __gulp_init_namespace___tribe_dequeue_calendar_styles() {
     wp_dequeue_style("tribe-events-calendar-style", 999);
     wp_deregister_style("tribe-events-calendar-style");
+
+    if (is_tribe_page()) {
+        wp_enqueue_style("tribe-events-bootstrap-datepicker-css");
+    }
 }
 add_action("wp_enqueue_scripts", "__gulp_init_namespace___tribe_dequeue_calendar_styles");
 
