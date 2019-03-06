@@ -3,6 +3,11 @@
  * Tribe Events
 \* ------------------------------------------------------------------------ */
 
+// die if Tribe isn't installed
+if (!function_exists("tribe_get_events")) {
+    die();
+}
+
 /* FUNCTIONS */
 
 // determine if the current page is a tribe page
@@ -452,3 +457,35 @@ function __gulp_init_namespace___tribe_add_bar_input_class($html) {
     return $html;
 }
 add_filter("__gulp_init_namespace___tribe_add_bar_input_class", "__gulp_init_namespace___tribe_add_bar_input_class");
+
+/**
+ * Remove recurring events duplicates from search results
+ * @see https://www.relevanssi.com/knowledge-base/showing-one-recurring-event/
+ */
+function __gulp_init_namespace___relevanssi_cull_recurring_events($hits) {
+    $ok_results     = array();
+    $posts_seen     = array();
+    $index_by_title = array();
+    $date_by_title  = array();
+
+    $i = 0;
+
+    foreach ($hits[0] as $hit) {
+        if (!isset($posts_seen[$hit->post_title])) {
+            $ok_results[]                     = $hit;
+            $date_by_title[$hit->post_title]  = get_post_meta($hit->ID, "_EventStartDate", true);
+            $index_by_title[$hit->post_title] = $i;
+            $posts_seen[$hit->post_title]     = true;
+            $i++;
+        } elseif (get_post_meta($hit->ID, "_EventStartDate", true) < $date_by_title[$hit->post_title]) {
+            if (strtotime(get_post_meta($hit->ID, "_EventStartDate", true)) < time()) continue;
+            $date_by_title[$hit->post_title]               = get_post_meta($hit->ID, "_EventStartDate", true);
+            $ok_results[$index_by_title[$hit->post_title]] = $hit;
+        }
+    }
+
+    $hits[0] = $ok_results;
+
+    return $hits;
+}
+add_filter("relevanssi_hits_filter", "__gulp_init_namespace___relevanssi_cull_recurring_events");
