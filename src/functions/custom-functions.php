@@ -401,3 +401,10 @@ function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
 
     return $meta;
 }
+
+// wrapper around ACF's get_field to prevent erroring if ACF isn't installed
+function __gulp_init_namespace___get_field($name, $post_id = null) {
+    if (funtion_exists("get_field")) {
+        return get_field($name, $post_id);
+    }
+}

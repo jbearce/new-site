@@ -14,10 +14,10 @@ function __gulp_init_namespace___construct_manifest($template) {
     if (get_query_var("manifest")) {
         header("Content-Type: application/json");
 
-        $name             = function_exists("get_field") ? get_field("full_name", "pwa") : false;
-        $short_name       = function_exists("get_field") ? get_field("short_name", "pwa") : false;
-        $background_color = function_exists("get_field") ? get_field("background_color", "pwa") : false;
-        $theme_color      = function_exists("get_field") ? get_field("theme_color", "pwa") : false;
+        $name             = __gulp_init_namespace___get_field("full_name", "pwa");
+        $short_name       = __gulp_init_namespace___get_field("short_name", "pwa");
+        $background_color = __gulp_init_namespace___get_field("background_color", "pwa");
+        $theme_color      = __gulp_init_namespace___get_field("theme_color", "pwa");
 
         $manifest = array(
             "start_url"        => "/",

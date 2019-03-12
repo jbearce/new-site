@@ -13,7 +13,7 @@ add_action("wp_head", "__gulp_init_namespace___add_favicon_meta_to_head", 0);
 
 // add the theme color meta tags to the head
 function __gulp_init_namespace___add_theme_color_meta_to_head() {
-    $theme_color = function_exists("get_field") ? get_field("theme_color", "pwa") : false;
+    $theme_color = __gulp_init_namespace___get_field("theme_color", "pwa");
     $theme_color = $theme_color ? $theme_color : "<%= pwa_theme_color %>";
 
     // Chrome

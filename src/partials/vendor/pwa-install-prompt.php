@@ -1,6 +1,6 @@
 <?php if (__gulp_init_namespace___is_platform("ios")): ?>
 <?php
-$pwa_name = function_exists("get_field") ? get_field("full_name", "pwa", false) : false;
+$pwa_name = __gulp_init_namespace___get_field("full_name", "pwa", false);
 $pwa_name = $pwa_name ? $pwa_name : "<%= pwa_name %>";
 ?>
     <div class="pwa-install-prompt__container">

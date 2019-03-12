@@ -6,7 +6,7 @@ $inner_class    = gettype($class) === "array" && key_exists("inner", $class) ? "
 $swiper_class   = gettype($class) === "array" && key_exists("swiper", $class) ? " {$class["swiper"]}" : "";
 $navigation     = isset($template_args["navigation"]) ? $template_args["navigation"] : false;
 $pagination     = isset($template_args["pagination"]) ? $template_args["pagination"] : false;
-$slideshow      = isset($template_args["slideshow"]) ? $template_args["slideshow"] : ($post && function_exists("get_field") ? get_field("slideshow", $post->ID) : false);
+$slideshow      = isset($template_args["slideshow"]) ? $template_args["slideshow"] : ($post ? __gulp_init_namespace___get_field("slideshow", $post->ID) : false);
 $image_size     = isset($template_args["image_size"]) ? $template_args["image_size"] : "hero";
 $featured_image = isset($template_args["featured_image"]) ? $template_args["featured_image"] : ($post && has_post_thumbnail($post->ID) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_large")[0]) : false);
 $title          = isset($template_args["title"]) ? $template_args["title"] : false;
