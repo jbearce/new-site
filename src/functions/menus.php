@@ -196,8 +196,15 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
          */
         $toggle = "";
 
-        if (in_array("accordion", $features)) {
+        if (in_array("accordion", $features) || in_array("hover", $features) || in_array("touch", $features)) {
             $toggle_class = "";
+
+            /**
+             * Add the __visuallyhidden class if it's a hover-based menu
+             */
+            if (in_array("hover", $features) && !in_array("accordion", $features)) {
+                $toggle_class .= " __visuallyhidden";
+            }
 
             /**
              * Construct a toggle
