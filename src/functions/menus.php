@@ -29,6 +29,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     private $column_limit = 3;
     private $column_count = 0;
     private $item_count   = 0;
+    private $current_item = 0;
 
     /**
      * Check if the current item contains mega menu columns
@@ -169,6 +170,11 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         );
 
         /**
+         * Update the current item
+         */
+        $this->current_item = $item_id;
+
+        /**
          * Construct the menu item
          */
         $output .= sprintf(
@@ -191,6 +197,10 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     public function start_lvl(&$output, $depth = 0, $args = array()) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
+        // echo "<pre>";
+        // print_r($this->current_item);
+        // echo "</pre>";
+
         /**
          * Set up a variable to contain a toggle button
          */
@@ -209,7 +219,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
             /**
              * Construct a toggle
              */
-            $toggle .= "<button class='menu-list__toggle{$toggle_class}'><i class='toggle__icon far fa-angle-down' aria-hidden='true'></i><span class='__visuallyhidden'>" . __("Show Children", "__gulp_init_namespace__") . "</span></button>";
+            $toggle .= "<button class='menu-list__toggle{$toggle_class}' id='{$this->current_item}_toggle' aria-controls='{$this->current_item}_child'><i class='toggle__icon far fa-angle-down' aria-hidden='true'></i><span class='__visuallyhidden'>" . __("Show child links", "__gulp_init_namespace__") . "</span></button>";
         }
 
         /**
@@ -245,7 +255,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Construct an aria-hidden if appropriate
          */
-        $attr .= in_array("hover", $features) || in_array("touch", $features) ? " aria-hidden='true'" : "";
+        $attr .= in_array("hover", $features) || in_array("touch", $features) ? " aria-hidden='true' aria-controlledby='{$this->current_item}_toggle' aria-live='polite'" : "";
 
         /**
          * Construct a container for mega menus at depth 0
@@ -265,7 +275,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Custruct the ul
          */
-        $output .= "{$toggle}<ul class='menu-list menu-list--vertical menu-list--child{$variant}'{$attr}>";
+        $output .= "{$toggle}<ul id='{$this->current_item}_child' class='menu-list menu-list--vertical menu-list--child{$variant}'{$attr}>";
     }
 
     /**

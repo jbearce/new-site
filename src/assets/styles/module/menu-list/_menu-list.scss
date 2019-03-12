@@ -119,7 +119,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item--parent:focus-within > & {
+    .no-javascript .menu-list__item--parent:focus-within > & {
         left: 0;
         opacity: 1;
         top: 100%;
@@ -139,7 +139,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item--parent:focus-within > & {
+    .no-javascript .menu-list__item--parent:focus-within > & {
         left: 100%;
         top: 0;
     }
@@ -163,7 +163,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item--parent:focus-within > & {
+    .no-javascript .menu-list__item--parent:focus-within > & {
         left: auto;
         right: 0;
         transition: opacity 0.15s;
@@ -181,7 +181,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item--parent:focus-within > & {
+    .no-javascript .menu-list__item--parent:focus-within > & {
         right: 100%;
         top: 0;
     }
@@ -293,9 +293,12 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item--mega.menu-list__item--parent:focus-within > & {
+    .no-javascript .menu-list__item--mega.menu-list__item--parent:focus-within > & {
         left: 0;
+        opacity: 1;
         top: 100%;
+        transition: opacity 0.15s;
+        visibility: visible;
     }
 
     .menu-list.menu-list--depth-1 {
@@ -325,7 +328,7 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list__item--mega.menu-list__item--parent:focus-within > & {
+    .no-javascript .menu-list__item--mega.menu-list__item--parent:focus-within > & {
         left: auto;
         right: 0;
     }
@@ -389,8 +392,8 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    > .menu-list__item:focus-within > .menu-list__link,
-    > .menu-list__item:focus-within > .menu-list__toggle {
+    .no-javascript & > .menu-list__item:focus-within > .menu-list__link,
+    .no-javascript & > .menu-list__item:focus-within > .menu-list__toggle {
         background-color: color("accent", "tint");
     }
 
@@ -435,8 +438,8 @@
 
     // must be separate from the above ruleset for fallback reasons
 
-    .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__link,
-    .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__toggle {
+    .no-javascript & .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__link,
+    .no-javascript & .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__toggle {
         background-color: lighten(color("accent", "tint"), 5);
     }
 
