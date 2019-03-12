@@ -50,6 +50,7 @@ svg {
 
 // Hide outline on focus
 
-:focus {
+/* Remove outline for non-keyboard :focus */
+*:focus:not(.focus-visible) {
     outline: none;
 }
