@@ -419,10 +419,11 @@ function __gulp_init_namespace___get_article_meta($post_id, $meta = array())
 }
 
 // wrapper around ACF's get_field to prevent erroring if ACF isn't installed
-function __gulp_init_namespace___get_field($name, $post_id = null)
-{
-    if (funtion_exists("get_field")) {
+function __gulp_init_namespace___get_field($name, $post_id = null) {
+    if (function_exists("get_field")) {
         return get_field($name, $post_id);
+    } else {
+        return false;
     }
 }
 
@@ -430,6 +431,6 @@ function __gulp_init_namespace___get_field($name, $post_id = null)
 function __gulp_init_namespace___get_menu_title($location) {
     $locations = get_nav_menu_locations();
     $menu      = get_term($locations[$location], "nav_menu");
-    
+
     return $menu->name;
 }
