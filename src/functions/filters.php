@@ -360,6 +360,8 @@ add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___
 // remove dimensions from thumbnails
 function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     if (!is_admin() && $html) {
+        $DOM = new DOMDocument();
+        
         global $post;
 
         // disable errors to get around HTML5 warnings...
