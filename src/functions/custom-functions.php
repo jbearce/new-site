@@ -1,88 +1,156 @@
 <?php
  /* ------------------------------------------------------------------------ *\
  * Custom Functions
-\* ------------------------------------------------------------------------ */
+ \* ------------------------------------------------------------------------ */
 
-// make calls to hm_get_templtae_part easier
+/**
+ * Require a partial using hm_get_template_part, after first locating the path to the template
+ *
+ * @param string file  The path to the template file, relative to the theme root
+ * @param array template_args  An array of values to pass to the template
+ * @param array cache_args
+ *
+ * @return void
+ */
 function __gulp_init_namespace___get_template_part($file, $template_args = array(), $cache_args = array()) {
     hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
 }
 
-// make overriding hashed file names with a child theme easier
-function __gulp_init_namespace___get_theme_file_path($path, $pattern, $skip_child_theme = false, $full_path = false) {
+/**
+ * Get the path to the most recent version of a file given a glob (i.e. modern.*.css => modern.17ee0314.css)
+ *
+ * @param string path  Glob pattern for file to search for
+ * @param boolean skip_child_theme  Optionally ignore child theme overrides
+ * @param boolean full_path  Optionally return the full server path
+ *
+ * @return string
+ */
+function __gulp_init_namespace___get_theme_file_path($path, $skip_child_theme = false, $full_path = false) {
     $file_paths = array();
 
-    /* ------------------------------------------------------------------------ *\
-     * @NOTE: We check both the stylesheet directory and the template directory
-     * because we can't know if any matches are going to be found in the
-     * stylesheet diretory before we look for them. If a child theme were
-     * eanbled, but a matching file didn't exist, this function would return
-     * false, even if a matching file did exist in the parent theme. Thus, we
-     * need to check each path individually, rather than only checking the
-     * activte theme with `get_stylesheet_directory()`.
-    \* ------------------------------------------------------------------------ */
+    /**
+     * Both stylesheet_directory and template_directory need to be checked
+     * in order to account for the possibilty of child theme overrides.
+     */
 
-    $child_results = glob(get_stylesheet_directory() . "/{$path}{$pattern}");
-
-    if (!$skip_child_theme && $child_results) {
+    /**
+     * Check the child theme first, unless instructed to skip
+     */
+    if ($child_results = !$skip_child_theme ? glob(get_stylesheet_directory() . "/{$path}") : false) {
         $file_paths = $child_results;
-    } else {
-        $parent_results = glob(get_template_directory() . "/{$path}{$pattern}");
+    }
 
-        if ($parent_results) {
-            $file_paths = $parent_results;
-        }
+    /**
+     * If no matching files were found in the child theme, check the parent theme
+     */
+    if (!$file_paths && $parent_results = glob(get_template_directory() . "/{$path}")) {
+        $file_paths = $parent_results;
     }
 
     if ($file_paths) {
-        // find the freshest version, in case the old one didn't get deleted
+        /**
+         * Sort the matches by date to get the most recently modified copy
+         */
         usort($file_paths, function ($a, $b) {
             return filemtime($a) < filemtime($b);
         });
 
-        return $full_path ? $file_paths[0] : $path . basename($file_paths[0]);
+        /**
+         * Return the path to the most recently edited file, either as a full server path,
+         * or relative to the theme directory
+         */
+        return $full_path ? $file_paths[0] : dirname($path) . "/" . basename($file_paths[0]);
     }
 
-    return false;
+    return "";
 }
 
-// check if critical styles should be used, and return it if true
+/**
+ * Retrieve critical styles for a given template
+ *
+ * @param string template  The file name of the template styles should be retrieved for
+ *
+ * @return string
+ */
 function __gulp_init_namespace___get_critical_css($template) {
-    $critical_css      = "";
-    $current_template  = explode(".", basename($template))[0];
-    $critical_css_path = __gulp_init_namespace___get_theme_file_path("assets/styles/critical/", "{$current_template}.css", true);
+    /**
+     * Immediately stop if the user has visited previously or Critical CSS is explicity
+     * disabled by the user via `$_GET["disable"]`, and the user hasn't requested to
+     * debug the critical CSS.
+     */
+    if ((isset($_COOKIE["return_visitor"]) || (isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) && !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
+        return "";
+    }
 
-    if (file_exists($critical_css_path) && ((!isset($_COOKIE["return_visitor"]) && !(isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) || (isset($_GET["debug"]) && $_GET["debug"] === "critical_css"))) {
+    $critical_css = "";
+
+    /**
+     * Construct the potential path to the critical CSS file for the template, check if it
+     * exists, and if it does, get its contents.
+     */
+    if ($critical_css_path = __gulp_init_namespace___get_theme_file_path("assets/styles/critical/",  explode(".", basename($template))[0] . ".css", true) && file_exists($critical_css_path)) {
         $critical_css = file_get_contents($critical_css_path);
     }
 
     return $critical_css;
 }
 
-// add function to check if a URL is external
+/**
+ * Check if a given URL points to an external website
+ *
+ * @param string url  URL to identify
+ *
+ * @return boolean
+ */
 function __gulp_init_namespace___is_external_url($url) {
     $components = parse_url($url);
 
-    // check if it's a relative URL
+    /**
+     * Check if the URL is relative
+     */
     if (empty($components["host"])) {
         return false;
     }
 
-    // check if it's the current domain
+    /**
+     * Check if the domain name matches the current domain name
+     */
     if (strcasecmp($components["host"], $_SERVER["SERVER_NAME"]) === 0) {
         return false;
     }
 
-    // check if it's a subdomain
-    return strrpos(strtolower($components["host"]), ".{$_SERVER["SERVER_NAME"]}") !== strlen($components["host"]) - strlen(".{$_SERVER["SERVER_NAME"]}");
+    /**
+     * Check if the domain name is a subdomain of the current domain name
+     */
+    if (strrpos(strtolower($components["host"]), ".{$_SERVER["SERVER_NAME"]}") === strlen($components["host"]) - strlen(".{$_SERVER["SERVER_NAME"]}")) {
+        return false;
+    }
+
+    /**
+     * Return true for all other cases
+     */
+    return true;
 }
 
-// determine if an asset is outside of the theme
+/**
+ * Check if a given asset is outside of the active theme's directory
+ *
+ * @param string url  URL to check the location of
+ *
+ * @return boolean
+ */
 function __gulp_init_namespace___is_other_asset($url) {
     return strpos($url, get_template_directory_uri()) !== 0;
 }
 
-// function to detect the platform a user is on
+/**
+ * Check what platform a given user agent belongs to
+ *
+ * @param string platform  A specific platform to check against (android|chrome|edge|ie|ios|safari)
+ * @param string user_agent  A user agent to compare against a given platform
+ *
+ * @return boolean
+ */
 function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
 
@@ -126,10 +194,24 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
 }
 
 // function to construct an image to make srcsets and lazy loading simpler
+/**
+ * Construct markup for a lazy loaded image
+ *
+ * @param mixed src  The URL to a given image, or an array of URLs to a set of images, keyed with the dpi `array("1x" => "image.jpg", "2x" => "image@2x.jpg)`
+ * @param array atts  A set of attributes to apply to the element
+ * @param boolean lazy  Whether or not to lazy load the image
+ * @param string tag
+ *
+ * @return string
+ */
 function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
 
-    // build an srcset
+    /**
+     * If provided URL is an array, consturct an `src` attribute pointing
+     * to the `1x` resolution, and an srcset containing each possible
+     * resolution.
+     */
     if (gettype($src) === "array") {
         $i = 0;
         $element .= " src='{$src["1x"]}' srcset='";
@@ -140,13 +222,19 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
         }
 
         $element .= "'";
+    /**
+     * Otherwise, simply construct a single `src` or `srcset` containing
+     * provided URL.
+     */
     } else {
         $source_att = $tag === "source" ? "srcset" : "src";
 
         $element .= " {$source_att}='{$src}'";
     }
 
-    // add attributes
+    /**
+     * Append each custom attribute to the element
+     */
     if (!empty($atts)) {
         foreach ($atts as $att => $value) {
             $element .= " {$att}='{$value}'";
@@ -155,7 +243,9 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
 
     $element .= " />";
 
-    // lazy load the image
+    /**
+     * Run through the lazy loader filter
+     */
     if ($lazy && $tag === "img") {
         $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element);
     }

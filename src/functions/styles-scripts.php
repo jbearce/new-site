@@ -13,13 +13,13 @@ function __gulp_init_namespace___enqueue_scripts() {
     wp_register_style("__gulp_init_namespace__-google-fonts", "https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
 
     // modern styles
-    wp_register_style("__gulp_init_namespace__-styles-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "modern.*.css", true)), array("__gulp_init_namespace__-google-fonts"), "<%= version %>");
+    wp_register_style("__gulp_init_namespace__-styles-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/modern.*.css", true)), array("__gulp_init_namespace__-google-fonts"), "<%= version %>");
 
     // legacy styles
-    wp_register_style("__gulp_init_namespace__-styles-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "legacy.*.css", true)), array("__gulp_init_namespace__-styles-modern"), "<%= version %>");
+    wp_register_style("__gulp_init_namespace__-styles-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/legacy.*.css", true)), array("__gulp_init_namespace__-styles-modern"), "<%= version %>");
 
     // print styles
-    wp_register_style("__gulp_init_namespace__-styles-print", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "print.*.css", true)), array("__gulp_init_namespace__-styles-modern"), "<%= version %>", "print");
+    wp_register_style("__gulp_init_namespace__-styles-print", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/print.*.css", true)), array("__gulp_init_namespace__-styles-modern"), "<%= version %>", "print");
 
     // critical styles
     $critical_styles = __gulp_init_namespace___get_critical_css($template);
@@ -28,22 +28,22 @@ function __gulp_init_namespace___enqueue_scripts() {
     /* scripts */
 
     // FontAwesome scripts
-    wp_register_script("__gulp_init_namespace__-scripts-fontawesome", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "fontawesome.*.js", true)), array(), "<%= version %>", true);
+    wp_register_script("__gulp_init_namespace__-scripts-fontawesome", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/fontawesome.*.js", true)), array(), "<%= version %>", true);
 
     // modern scripts
-    wp_register_script("__gulp_init_namespace__-scripts-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "modern.*.js", true)), array(), "<%= version %>", true);
+    wp_register_script("__gulp_init_namespace__-scripts-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/modern.*.js", true)), array(), "<%= version %>", true);
 
     // legacy scripts
-    wp_register_script("__gulp_init_namespace__-scripts-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "legacy.*.js", true)), array(), "<%= version %>");
+    wp_register_script("__gulp_init_namespace__-scripts-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/legacy.*.js", true)), array(), "<%= version %>");
 
     // critical scripts
     if (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
-        $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "critical.*.js", true)));
+        $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/critical.*.js", true)));
         wp_add_inline_script("__gulp_init_namespace__-scripts-modern", $critical_scripts);
     }
 
     // Service Worker
-    $service_worker_uri = get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "service-worker.js", true));
+    $service_worker_uri = get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/service-worker.js", true));
     wp_add_inline_script("__gulp_init_namespace__-scripts-modern", "
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function () {
@@ -93,13 +93,13 @@ add_action("wp_head", "__gulp_init_namespace___noscript_hide_js_elements");
 
 // adjust WordPress login screen styles
 function __gulp_init_namespace___enqueue_scripts_login() {
-    wp_enqueue_style("__gulp_init_namespace__-styles-login", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "wp-login.*.css", true)), array(), "<%= version %>");
+    wp_enqueue_style("__gulp_init_namespace__-styles-login", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/wp-login.*.css", true)), array(), "<%= version %>");
 }
 add_action("login_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_login");
 
 // add wp-admin scripts
 function __gulp_init_namespace___enqueue_scripts_admin() {
-    wp_enqueue_script("__gulp_init_namespace__-scripts-wp-admin", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/", "wp-admin.*.js", true)), array(), "<%= version %>", true);
+    wp_enqueue_script("__gulp_init_namespace__-scripts-wp-admin", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/wp-admin.*.js", true)), array(), "<%= version %>", true);
 }
 add_action("admin_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_admin");
 
@@ -121,6 +121,6 @@ add_action("wp_footer", "__gulp_init_namespace___simplify_browsersync", 999);
 
 // add editor styles to Gutenberg
 function __gulp_init_namespace___gutenberg_styles() {
-	 wp_enqueue_style("__gulp_init_namespace__-styles-editor", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/", "editor.*.css", true)), false, '<%= version %>' );
+	 wp_enqueue_style("__gulp_init_namespace__-styles-editor", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true)), false, "<%= version %>");
 }
 add_action("enqueue_block_editor_assets", "__gulp_init_namespace___gutenberg_styles");
