@@ -4,14 +4,12 @@
 \* ------------------------------------------------------------------------ */
 
 // make calls to hm_get_templtae_part easier
-function __gulp_init_namespace___get_template_part($file, $template_args = array(), $cache_args = array())
-{
+function __gulp_init_namespace___get_template_part($file, $template_args = array(), $cache_args = array()) {
     hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
 }
 
 // make overriding hashed file names with a child theme easier
-function __gulp_init_namespace___get_theme_file_path($path, $pattern, $skip_child_theme = false, $full_path = false)
-{
+function __gulp_init_namespace___get_theme_file_path($path, $pattern, $skip_child_theme = false, $full_path = false) {
     $file_paths = array();
 
     /* ------------------------------------------------------------------------ *\
@@ -49,8 +47,7 @@ function __gulp_init_namespace___get_theme_file_path($path, $pattern, $skip_chil
 }
 
 // check if critical styles should be used, and return it if true
-function __gulp_init_namespace___get_critical_css($template)
-{
+function __gulp_init_namespace___get_critical_css($template) {
     $critical_css      = "";
     $current_template  = explode(".", basename($template))[0];
     $critical_css_path = __gulp_init_namespace___get_theme_file_path("assets/styles/critical/", "{$current_template}.css", true);
@@ -63,8 +60,7 @@ function __gulp_init_namespace___get_critical_css($template)
 }
 
 // add function to check if a URL is external
-function __gulp_init_namespace___is_external_url($url)
-{
+function __gulp_init_namespace___is_external_url($url) {
     $components = parse_url($url);
 
     // check if it's a relative URL
@@ -82,14 +78,12 @@ function __gulp_init_namespace___is_external_url($url)
 }
 
 // determine if an asset is outside of the theme
-function __gulp_init_namespace___is_other_asset($url)
-{
+function __gulp_init_namespace___is_other_asset($url) {
     return strpos($url, get_template_directory_uri()) !== 0;
 }
 
 // function to detect the platform a user is on
-function __gulp_init_namespace___is_platform($platform, $user_agent = null)
-{
+function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
 
     if ($platform === "android" || (is_array($platform) && in_array("android", $platform))) {
@@ -132,8 +126,7 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null)
 }
 
 // function to construct an image to make srcsets and lazy loading simpler
-function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img")
-{
+function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
 
     // build an srcset
@@ -171,8 +164,7 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
 }
 
 // get a nicer excerpt based on post ID
-function __gulp_init_namespace___get_the_excerpt($id = 0, $length = 55, $more = " [...]")
-{
+function __gulp_init_namespace___get_the_excerpt($id = 0, $length = 55, $more = " [...]") {
     global $post;
 
     $post_id     = $id ? $id : $post->ID;
@@ -187,8 +179,7 @@ function __gulp_init_namespace___get_the_excerpt($id = 0, $length = 55, $more = 
 }
 
 // format an address
-function __gulp_init_namespace___format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1)
-{
+function __gulp_init_namespace___format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
     $address = "";
 
     if ($address_1 || $address_2 || $city || $state || $zip_code) {
@@ -243,8 +234,7 @@ function __gulp_init_namespace___format_address($address_1, $address_2, $city, $
 }
 
 // get a map url
-function __gulp_init_namespace___get_map_url($address, $embed = false)
-{
+function __gulp_init_namespace___get_map_url($address, $embed = false) {
     $address_url = "";
 
     if ($address) {
@@ -260,8 +250,7 @@ function __gulp_init_namespace___get_map_url($address, $embed = false)
 }
 
 // compare two dates to make sure they're sequential
-function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = null)
-{
+function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = null) {
     $date_start = date("Ymd", strtotime($date_start));
     $date_end   = $date_end ? date("Ymd", strtotime($date_end)) : false;
 
@@ -273,8 +262,7 @@ function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = n
 }
 
 // function to remove extra tags (see https://stackoverflow.com/a/6406139/654480)
-function __gulp_init_namespace___remove_extra_tags($DOM)
-{
+function __gulp_init_namespace___remove_extra_tags($DOM) {
     $XPath = new DOMXPath($DOM);
 
     $body_contents = $XPath->query("//body/node()");
@@ -291,8 +279,7 @@ function __gulp_init_namespace___remove_extra_tags($DOM)
 }
 
 // function to get a "no posts found" message
-function __gulp_init_namespace___get_no_posts_message($queried_object)
-{
+function __gulp_init_namespace___get_no_posts_message($queried_object) {
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
     } elseif (is_archive() && isset($queried_object->taxonomy)) {
@@ -338,8 +325,7 @@ function __gulp_init_namespace___get_no_posts_message($queried_object)
 }
 
 // function to retrieve a bunch of article metadata
-function __gulp_init_namespace___get_article_meta($post_id, $meta = array())
-{
+function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
     // grab the date
     if (isset($meta["date"])) {
         $meta["date"] = array(
