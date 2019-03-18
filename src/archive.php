@@ -23,7 +23,7 @@
                             <div class="article__user-content user-content">
                                 <?php echo apply_filters("the_content", $archive_content); ?>
                             </div>
-                        </dv>
+                        </div>
                     <?php endif; ?>
                 </article><!--/.content__article.article-->
             <?php endif; ?>
