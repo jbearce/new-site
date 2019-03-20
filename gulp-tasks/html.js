@@ -86,19 +86,23 @@ module.exports = {
             const PACKAGE_DATA = plugins.json.readFileSync("package.json");
 
             MKDIRP(`${html_directory}/languages`, () => {
-                WP_POT({
-                    bugReport:      PACKAGE_DATA.bugs.url,
-                    destFile:       `${html_directory}/languages/__gulp_init_namespace__.pot`,
-                    domain:         "__gulp_init_namespace__",
-                    lastTranslator: `${PACKAGE_DATA.author.name} <${PACKAGE_DATA.author.email}>`,
-                    package:        PACKAGE_DATA.progressiveWebApp.name,
-                    relativeTo:     global.settings.paths.src,
-                    src:            source,
-                    headers: {
-                        "POT-Creation-Date": PACKAGE_DATA.creationDate,
-                        "PO-Revision-Date": MOMENT().format("Y-MM-DD HH:mmZ"),
-                    },
-                });
+                try {
+                    WP_POT({
+                        bugReport: PACKAGE_DATA.bugs.url,
+                        destFile: `${html_directory}/languages/__gulp_init_namespace__.pot`,
+                        domain: "__gulp_init_namespace__",
+                        lastTranslator: `${PACKAGE_DATA.author.name} <${PACKAGE_DATA.author.email}>`,
+                        package: PACKAGE_DATA.progressiveWebApp.name,
+                        relativeTo: global.settings.paths.src,
+                        src: source,
+                        headers: {
+                            "POT-Creation-Date": PACKAGE_DATA.creationDate,
+                            "PO-Revision-Date": MOMENT().format("Y-MM-DD HH:mmZ"),
+                        },
+                    });
+                } catch (error) {
+                    console.log(error);
+                }
             });
         };
 
