@@ -193,7 +193,6 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     return false;
 }
 
-// function to construct an image to make srcsets and lazy loading simpler
 /**
  * Construct markup for a lazy loaded image
  *
@@ -253,16 +252,107 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
     return $element;
 }
 
-// get a nicer excerpt based on post ID
-function __gulp_init_namespace___get_the_excerpt($id = 0, $length = 55, $more = " [...]") {
+/**
+ * Get a specific number of sentences in a given string
+ *
+ * @param string content  Block of text of which to extract sentences from
+ */
+function __gulp_init_namespace___get_sentences($content, $length = 2) {
+    /**
+     * Remove any HTML tags from the content, and count the total number of sentences
+     */
+    $content   = preg_replace("/\s+/", " ", strip_tags($content));
+    $sentences = preg_split("/(\.|\?|\!)(\s)/", $content);
+
+    /**
+     * Return the stripped content if less than $lenght sentences exist in the content
+     */
+    if (count($sentences) <= $length) {
+        return $content;
+    }
+
+    /**
+     * Track where the $length sentence ends
+     */
+    $stop_at = 0;
+
+    /**
+     * Loop through sentences to find the strpos of the $length sentence
+     */
+    foreach ($sentences as $i => $sentence) {
+        $stop_at += strlen($sentence);
+
+        if ($i >= $length - 1)
+            break;
+    }
+
+    $stop_at += ($length * 2);
+
+    return trim(substr($content, 0, $stop_at));
+}
+
+/**
+ * Get an excerpt of a specific length, and append it with a 'read more' string
+ *
+ * @param integer id  The post ID of which to get the excerpt of
+ * @param array options  List of options describing how the excerpt should be determined
+ */
+function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
     global $post;
 
-    $post_id     = $id ? $id : $post->ID;
-    $post_object = get_post($post_id);
-    $excerpt     = $post_object->post_excerpt ? $post_object->post_excerpt : wp_trim_words(strip_shortcodes($post_object->post_content), $length, "");
+    $defaults = array(
+        "truncate" => array(
+            "count" => 55,
+            "mode"  => "words",
+        ),
+        "suffix"   => array(
+            "value"    => " [...]",
+            "optional" => false,
+        ),
+    );
 
-    if ($excerpt) {
-        $excerpt .= $more;
+    /**
+     * Merge the defaults with the input
+     */
+    $options = array_replace_recursive($defaults, $options);
+
+    /**
+     * @todo
+     * - combine $length and $mode in to one variable
+     * - adjust $more so that it can be excluded (optionally) if the trimmed excerpt is the same as the original excerpt
+     */
+    $post_id     = $id ? $id : ($post ? $post->ID : false);
+    $post_object = $post_id ? get_post($post_id) : false;
+
+    /**
+     * Return false if no post could be found
+     */
+    if (!$post_object) {
+        return false;
+    }
+
+    /**
+     * Get the excerpt and content, stripping them both of shortcodes
+     */
+    $excerpt = strip_shortcodes($post_object->post_excerpt);
+    $content = strip_shortcodes($post_object->post_content);
+
+    /**
+     * If excerpt is empty, create one from the content
+     */
+    if (!$excerpt) {
+        if ($options["truncate"]["mode"] === "words") {
+            $excerpt = wp_trim_words($content, $options["truncate"]["count"], "");
+        } elseif ($options["truncate"]["mode"] === "sentences") {
+            $excerpt = __gulp_init_namespace___get_sentences($content, $options["truncate"]["count"]);
+        }
+    }
+
+    /**
+     * Append the suffix, unless it's optional and the excerpt matches the content
+     */
+    if ($options["suffix"]["value"] && !($options["suffix"]["optional"] && $excerpt === $content)) {
+        $excerpt .= $options["suffix"]["value"];
     }
 
     return $excerpt;
