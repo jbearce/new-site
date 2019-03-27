@@ -31,7 +31,7 @@ const MENU_LISTS = document.querySelectorAll(SELECTORS.join());
 
 /**
  * Update the label for a MENU_TOGGLE
- * 
+ *
  * @param {Object} MENU_TOGGLE - A DOM object to update the label on
  */
 const UPDATE_LABEL = (MENU_TOGGLE) => {
