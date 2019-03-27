@@ -1,6 +1,6 @@
 // JavaScript Document
 
-// Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
+// Scripts written by Jacob Bearce @ Weblinx, Inc.
 
 import inViewport from "in-vp";
 import transition from "transition-to-from-auto";
@@ -13,30 +13,45 @@ const ATTRIBUTES = {
     datasets: ["accordion", "hover", "touch"],
 };
 
-const SELECTOR = [];
+const SELECTORS = [];
 
 /**
  * Create an array out of the CLASSES and DATAS in order to reduce duplicate code.
  */
 ATTRIBUTES.classes.forEach((CLASS) => {
     ATTRIBUTES.datasets.forEach((DATA) => {
-        SELECTOR.push(`.${CLASS}[data-${DATA}=true]`);
+        SELECTORS.push(`.${CLASS}[data-${DATA}=true]`);
     });
 });
 
 /**
  * Find all MENU_LISTS which can be hovered or touched
  */
-const MENU_LISTS = document.querySelectorAll(SELECTOR.join());
+const MENU_LISTS = document.querySelectorAll(SELECTORS.join());
+
+/**
+ * Update the label for a MENU_TOGGLE
+ * 
+ * @param {Object} MENU_TOGGLE - A DOM object to update the label on
+ */
+const UPDATE_LABEL = (MENU_TOGGLE) => {
+    const LABEL = MENU_TOGGLE.querySelector("span.__visuallyhidden");
+    const TEXT  = LABEL.innerHTML;
+    const NEXT  = LABEL.dataset.alt;
+
+    LABEL.innerHTML   = NEXT;
+    LABEL.dataset.alt = TEXT;
+};
 
 /**
  * Mark an item active
  *
  * @param {Object} LIST_ITEM - A DOM object to mark as active
  * @param {Object} MENU_LIST - A DOM object to mark as visible and reverse based on viewport
+ * @param {Object} MENU_TOGGLE - A DOM object to update the label on
  * @param {Boolean} EVENT - An event to prevent from firing
  */
-const MARK_ACTIVE = (LIST_ITEM, MENU_LIST, EVENT = false) => {
+const MARK_ACTIVE = (LIST_ITEM, MENU_LIST, MENU_TOGGLE, EVENT = false) => {
     /**
      * Prevent the EVENT from finishing unless the LIST_ITEM is already active
      */
@@ -67,6 +82,11 @@ const MARK_ACTIVE = (LIST_ITEM, MENU_LIST, EVENT = false) => {
     if (inViewport(MENU_LIST).fully === false) {
         MENU_LIST.classList.add("menu-list--reverse");
     }
+
+    /**
+     * Update the MENU_TOGGLE label
+     */
+    UPDATE_LABEL(MENU_TOGGLE);
 };
 
 /**
@@ -74,8 +94,9 @@ const MARK_ACTIVE = (LIST_ITEM, MENU_LIST, EVENT = false) => {
  *
  * @param {Object} LIST_ITEM - A DOM object to mark as inactive
  * @param {Object} MENU_LIST - A DOM object to mark as hidden and unreverse
+ * @param {Object} MENU_TOGGLE - A DOM object to update the label on
  */
-const MARK_INACTIVE = (LIST_ITEM, MENU_LIST) => {
+const MARK_INACTIVE = (LIST_ITEM, MENU_LIST, MENU_TOGGLE) => {
     /**
      * Find any active CHILDREN
      */
@@ -111,6 +132,11 @@ const MARK_INACTIVE = (LIST_ITEM, MENU_LIST) => {
      * Unreverse the MENU_LIST
      */
     MENU_LIST.classList.remove("menu-list--reverse");
+
+    /**
+     * Update the MENU_TOGGLE label
+     */
+    UPDATE_LABEL(MENU_TOGGLE);
 };
 
 /**
@@ -135,7 +161,7 @@ const EVENTS = {
             hover:     ["mouseenter"],
             touch:     ["touchstart", "touchend"],
         },
-        deactivate: ["mouseleave"],
+        deactivate: ["focusout", "mouseleave"],
     },
 };
 
@@ -179,7 +205,7 @@ MENU_LISTS.forEach((MENU_LIST) => {
                      * the user didn't drag their touch
                      */
                     if (e.type !== "touchstart" && !DID_USER_DRAG(start_coords, end_coords)) {
-                        MARK_ACTIVE(LIST_ITEM, MENU_LIST, e);
+                        MARK_ACTIVE(LIST_ITEM, MENU_LIST, MENU_TOGGLE, e);
                     }
                 });
             }
@@ -190,8 +216,16 @@ MENU_LISTS.forEach((MENU_LIST) => {
      * Mark the LIST_ITEM as inactive when moused away
      */
     EVENTS.list_item.deactivate.forEach((EVENT) => {
-        LIST_ITEM.addEventListener(EVENT, () => {
-            MARK_INACTIVE(LIST_ITEM, MENU_LIST);
+        LIST_ITEM.addEventListener(EVENT, (e) => {
+            /**
+             * Don't close the menu on focusout if the next focused
+             * element is within the current list item!
+             */
+            if (EVENT === "focusout" && LIST_ITEM.contains(e.relatedTarget)) {
+                return;
+            }
+
+            MARK_INACTIVE(LIST_ITEM, MENU_LIST, MENU_TOGGLE);
         }, { passive: true });
     });
 
@@ -200,9 +234,9 @@ MENU_LISTS.forEach((MENU_LIST) => {
      */
     MENU_TOGGLE.addEventListener("click", () => {
         if (!LIST_ITEM.classList.contains("is-active")) {
-            MARK_ACTIVE(LIST_ITEM, MENU_LIST);
+            MARK_ACTIVE(LIST_ITEM, MENU_LIST, MENU_TOGGLE);
         } else {
-            MARK_INACTIVE(LIST_ITEM, MENU_LIST);
+            MARK_INACTIVE(LIST_ITEM, MENU_LIST, MENU_TOGGLE);
         }
     });
 
@@ -243,7 +277,7 @@ MENU_LISTS.forEach((MENU_LIST) => {
                  * touched elements, and the user didn't drag their touch
                  */
                 if (!LIST_ITEM_TOUCHED && !DID_USER_DRAG(start_coords, end_coords)) {
-                    MARK_INACTIVE(LIST_ITEM, MENU_LIST);
+                    MARK_INACTIVE(LIST_ITEM, MENU_LIST, MENU_TOGGLE);
                 }
             }
         }, { passive: true });
