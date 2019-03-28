@@ -11,7 +11,7 @@
 
 $event_id = Tribe__Main::post_id_helper();
 
-$date    = get_tribe_date_and_time_strings( $event_id );
+$date    = __gulp_init_namespace___get_tribe_date_and_time_strings( $event_id );
 $cost    = tribe_get_cost() ? tribe_get_cost( null, true ) : false;
 $website = strip_tags( tribe_get_event_website_link() );
 

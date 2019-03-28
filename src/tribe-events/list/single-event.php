@@ -17,7 +17,7 @@ $event_id    = get_the_ID();
 
 $link        = tribe_get_event_link( $event_id );
 $title       = get_the_title( $event_id );
-$date        = get_tribe_date_and_time_strings( $event_id );
+$date        = __gulp_init_namespace___get_tribe_date_and_time_strings( $event_id );
 $venue       = tribe_get_venue( $event_id );
 $venue_link  = tribe_get_venue_website_link( $event_id, $venue );
 $cost        = tribe_get_cost() ? tribe_get_cost( null, true ) : false;

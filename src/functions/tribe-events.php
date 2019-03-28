@@ -11,7 +11,7 @@ if (!function_exists("tribe_get_events")) {
 /* FUNCTIONS */
 
 // determine if the current page is a tribe page
-function is_tribe_page() {
+function __gulp_init_namespace___is_tribe_page() {
     $queried_object = get_queried_object();
 
     $post_id = isset($post) ? $post->ID : (isset($queried_object->ID) ? $queried_object->ID : 0);
@@ -143,7 +143,7 @@ function is_tribe_page() {
 }
 
 // retrieve a date and time string
-function get_tribe_date_and_time_strings($event_id) {
+function __gulp_init_namespace___get_tribe_date_and_time_strings($event_id) {
     $is_all_day   = tribe_event_is_all_day($event_id);
     $is_multiday  = tribe_event_is_multiday($event_id);
 
@@ -200,7 +200,7 @@ function __gulp_init_namespace___tribe_dequeue_calendar_styles() {
     wp_dequeue_style("tribe-events-calendar-style", 999);
     wp_deregister_style("tribe-events-calendar-style");
 
-    if (is_tribe_page()) {
+    if (__gulp_init_namespace___is_tribe_page()) {
         wp_enqueue_style("tribe-events-bootstrap-datepicker-css");
     }
 }
@@ -214,7 +214,7 @@ add_action("tribe_events_promo_banner", "__gulp_init_namespace___tribe_disable_p
 
 // remove __gulp_init_namespace___add_user_content_classes from tribe events pages
 function __gulp_init_namespace___tribe_remove_content_filters() {
-    if (is_tribe_page()) {
+    if (__gulp_init_namespace___is_tribe_page()) {
         remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
@@ -224,7 +224,7 @@ add_action("__gulp_init_namespace___before_content", "__gulp_init_namespace___tr
 
 // add __gulp_init_namespace___add_user_content_classes filter to the_content before tribe events single content
 function __gulp_init_namespace___tribe_single_content_add_filters() {
-    if (is_tribe_page()) {
+    if (__gulp_init_namespace___is_tribe_page()) {
         add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }

@@ -27,7 +27,7 @@ $event_id   = "{$post->ID}-{$day['daynum']}";
 $is_all_day = tribe_event_is_all_day($event_id);
 $link       = tribe_get_event_link( $post );
 $title      = get_the_title( $post );
-$date       = get_tribe_date_and_time_strings( $post->ID );
+$date       = __gulp_init_namespace___get_tribe_date_and_time_strings( $post->ID );
 $time_start = ! $is_all_day ? tribe_get_start_date( $post->ID, false, ( tribe_get_start_date( $post->ID, false, 'i' ) == '00' ? 'ga' : 'g:ia' ) ) : false;
 $venue      = tribe_get_venue( $post->ID );
 $address    = strip_tags( tribe_get_full_address( $post->ID ) );
