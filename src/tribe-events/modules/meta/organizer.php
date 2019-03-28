@@ -21,7 +21,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 
 <div class="tribe-events-meta-group tribe-events-meta-group-organizer">
 	<h3 class="tribe-events-single-section-title article__title title title--h6"><?php echo tribe_get_organizer_label( ! $multiple ); ?></h3>
-	<ul class="tribe-events-meta-list">
+	<ul class="tribe-events-meta-list article__text text">
 		<?php do_action( 'tribe_events_single_meta_organizer_section_start' ); ?>
 
 		<?php foreach ( $organizer_ids as $organizer ) : ?>

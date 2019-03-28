@@ -54,7 +54,7 @@ if ( $tags ) { $i = 0;
 
 <div class="tribe-events-meta-group tribe-events-meta-group-details">
 	<h3 class="tribe-events-single-section-title article__title title title--h6"> <?php esc_html_e( 'Details', 'the-events-calendar' ) ?> </h3>
-	<ul class="tribe-events-meta-list">
+	<ul class="tribe-events-meta-list article__text text">
 
 		<?php do_action( 'tribe_events_single_meta_details_section_start' ); ?>
 
