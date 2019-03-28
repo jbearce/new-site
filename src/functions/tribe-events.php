@@ -216,34 +216,21 @@ add_action("tribe_events_promo_banner", "__gulp_init_namespace___tribe_disable_p
 function __gulp_init_namespace___tribe_remove_content_filters() {
     if (is_tribe_page()) {
         remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-        remove_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-        remove_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
-add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters", 999);
+add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters");
+add_action("__gulp_init_namespace___before_content", "__gulp_init_namespace___tribe_remove_content_filters");
 
 // add __gulp_init_namespace___add_user_content_classes filter to the_content before tribe events single content
 function __gulp_init_namespace___tribe_single_content_add_filters() {
     if (is_tribe_page()) {
         add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-        add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-        add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
 add_action("tribe_events_single_event_before_the_content", "__gulp_init_namespace___tribe_single_content_add_filters");
-
-// remove __gulp_init_namespace___add_user_content_classes filter from the_content after tribe events single content
-function __gulp_init_namespace___tribe_single_content_remove_filters() {
-    if (is_tribe_page()) {
-        remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-        remove_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-        remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-        remove_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
-    }
-}
-add_action("tribe_events_single_event_after_the_content", "__gulp_init_namespace___tribe_single_content_remove_filters");
+add_action("__gulp_init_namespace___after_content", "__gulp_init_namespace___tribe_single_content_add_filters");
 
 // add 'menu-list_link link' to list of classes for tribe monthly pagination link
 function __gulp_init_namespace___tribe_add_pagination_menu_link_class($html) {
