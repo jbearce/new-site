@@ -61,7 +61,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $date[ 'date' ] ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"></i>
+                <i class="tribe-events-meta-list-icon far fa-fw fa-clock"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Date:', 'the-events-calendar' ) ?></span>
                 <?php echo $date[ 'date' ]; ?>
                 <?php if ( $date[ 'time' ] ) : ?>

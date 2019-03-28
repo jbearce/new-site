@@ -19,7 +19,7 @@
             <ul class="tribe-events-meta-list __nomargin">
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-duration">
-                        <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"><\/i>
+                        <i class="tribe-events-meta-list-icon far fa-fw fa-clock"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-date-time">[[=raw date]][[ if(typeof time === 'string' && time.length) { ]] <span class="tribe-events-meta-list-small">[[=raw time]]<\/span>[[ } ]]<\/abbr>
                     <\/div>
                 <\/li>
