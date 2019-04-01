@@ -16,7 +16,7 @@ $sub_menu = has_nav_menu("primary") ? wp_nav_menu(array(
 <?php if ($sub_menu): ?>
     <div class="col-12 col-xs-4">
         <div class="content__sidebar">
-            <nav class="content__menu-list_container menu-list__container">
+            <nav class="content__menu-list__container menu-list__container">
                 <?php echo $sub_menu; ?>
             </nav>
         </div>

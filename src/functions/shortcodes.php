@@ -5,8 +5,16 @@
 
 // add row shortcode
 function __gulp_init_namespace___row_shortcode($atts, $content = null) {
-    // return the tab wrapper with the menu
-    return "<div class='user-content_row row -padded'>" . do_shortcode($content) . "</div>";
+    extract(shortcode_atts(
+        array(
+            "class" => false,
+        ),
+        $atts
+    ));
+
+    $value = $class !== false ? " {$class}" : " row--padded";
+
+    return "<div class='user-content__row row{$value}'>" . do_shortcode($content) . "</div>";
 }
 add_shortcode("row", "__gulp_init_namespace___row_shortcode");
 
@@ -18,17 +26,16 @@ function __gulp_init_namespace___col_shortcode($atts , $content = null) {
             "tablet"   => "",
             "notebook" => "",
             "desktop"  => "",
-            "variant"  => "",
-        ), $atts)
-    );
+            "class"    => "",
+        ), $atts
+    ));
 
-    $class =  $mobile   ? "-{$mobile}"         : "-auto";
-    $class .= $tablet   ? " col-xs-{$tablet}"  : "";
-    $class .= $notebook ? " col-l-{$notebook}" : "";
-    $class .= $desktop  ? " col-xl-{$desktop}" : "";
-    $class .= $variant  ? " $variant"          : "";
+    $value =  $mobile   ? "-{$mobile}"         : "-auto";
+    $value .= $tablet   ? " col-xs-{$tablet}"  : "";
+    $value .= $notebook ? " col-l-{$notebook}" : "";
+    $value .= $desktop  ? " col-xl-{$desktop}" : "";
+    $value .= $class    ? " $class"            : "";
 
-    // return the tab wrapper with the menu
-    return "<div class='col{$class}'>" . do_shortcode($content) . "</div>";
+    return "<div class='col{$value}'>" . do_shortcode($content) . "</div>";
 }
 add_shortcode("col", "__gulp_init_namespace___col_shortcode");
