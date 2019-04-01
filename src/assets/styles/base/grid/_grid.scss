@@ -12,6 +12,16 @@
         flex-wrap: wrap;
     }
 
+    &.row--grid {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+
+    &.row--grid.row--equal {
+        grid-auto-columns: 1fr;
+        grid-auto-rows: 1fr;
+    }
+
     & > [class*="col-"] {
         flex-grow: 1;
         flex-shrink: 1;
@@ -145,6 +155,7 @@
 @for $i from 0 through 12 {
     .col-#{$i} {
         flex-basis: ($i / 12) * 100%;
+        grid-column: span $i;
     }
 }
 
@@ -158,6 +169,7 @@
     @for $i from 0 through 12 {
         .col-xs-#{$i} {
             flex-basis: ($i / 12) * 100%;
+            grid-column: span $i;
         }
     }
 }
@@ -172,6 +184,7 @@
     @for $i from 0 through 12 {
         .col-s-#{$i} {
             flex-basis: ($i / 12) * 100%;
+            grid-column: span $i;
         }
     }
 }
@@ -186,6 +199,7 @@
     @for $i from 0 through 12 {
         .col-m-#{$i} {
             flex-basis: ($i / 12) * 100%;
+            grid-column: span $i;
         }
     }
 }
@@ -200,6 +214,7 @@
     @for $i from 0 through 12 {
         .col-l-#{$i} {
             flex-basis: ($i / 12) * 100%;
+            grid-column: span $i;
         }
     }
 }
@@ -214,6 +229,7 @@
     @for $i from 0 through 12 {
         .col-xl-#{$i} {
             flex-basis: ($i / 12) * 100%;
+            grid-column: span $i;
         }
     }
 }
