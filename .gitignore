@@ -11,6 +11,12 @@
 # Configuration settings
 /.config/
 
+# VS Code settings
+/.vscode/
+
+# Server files
+/.public_html/
+
 # Dev files
 /dev/
 
@@ -34,3 +40,6 @@ prepros-6.cfg
 # Source Maps
 *.css.map
 *.js.map
+
+# Log files
+*.log
