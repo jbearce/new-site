@@ -6,6 +6,7 @@ module.exports = {
     styles(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
         const CSS_IMPORTER = require("node-sass-simple-css-importer");
+        const HASH         = require("gulp-hash");
         const POSTCSS      = require("gulp-postcss");
         const SASS         = require("gulp-sass");
         const STYLELINT    = require("gulp-stylelint");
@@ -125,7 +126,7 @@ module.exports = {
                         require("postcss-responsive-type"),
                     ]))
                     // generate a hash and add it to the file name
-                    .pipe(plugins.hash({
+                    .pipe(HASH({
                         template: "<%= name %>.<%= hash %><%= ext %>",
                     }))
                     // write sourcemap (if --dist isn't passed)
