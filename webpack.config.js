@@ -18,12 +18,9 @@ module.exports = {
         }
 
         return {
-            mode:   plugins.argv.dist ? "production" : "development",
+            devtool: plugins.argv.dist ? false : "source-map",
             entry:  ENTRY,
-            output: {
-                path:     plugins.path.resolve(__dirname, js_directory),
-                filename: "[name].js",
-            },
+            mode:   plugins.argv.dist ? "production" : "development",
             module: {
                 rules: [
                     {
@@ -36,6 +33,12 @@ module.exports = {
                         },
                     },
                 ],
+            },
+            output: {
+                path:     plugins.path.resolve(__dirname, js_directory),
+                filename: (DATA) => {
+                    return DATA.chunk.name !== "service-worker" ? "[name].[chunkhash:8].js" : "[name].js";
+                },
             },
         };
     }
