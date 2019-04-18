@@ -6,7 +6,7 @@
 
 .search-form__container {
     & {
-        margin: remify(0 0 20, 16);
+        margin: remify(0 0 15, 16);
     }
 }
 
@@ -19,7 +19,7 @@
 .search-form__input {
     & {
         margin: 0;
-        padding-right: remify(44, 16);
+        padding-right: remify(42.6667, 13.33333333333333);
     }
 }
 
@@ -28,10 +28,10 @@
         background: none;
         color: color("foreground");
         margin: 0;
-        padding: remify(11.2 10, 18);
+        padding: remify(12.05 15, 18);
         position: absolute;
-        right: remify(1);
-        top: remify(1);
+        right: remify(2);
+        top: remify(2);
         transition: color 0.15s;
     }
 
