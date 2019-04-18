@@ -155,7 +155,53 @@
 
 .ninja-forms-req-symbol {
     & {
-        color: color("warning");
+        color: color("error");
+    }
+}
+
+// help tooltip fix
+
+.ninja-forms-help-symbol {
+    & {
+        cursor: pointer;
+        position: relative;
+    }
+}
+
+.ninja-forms-help-tooltip {
+    & {
+        background: color("dark", "tint");
+        border-radius: remify(6, 14);
+        bottom: 130%;
+        font-size: remify(14, 16);
+        left: 50%;
+        opacity: 0;
+        padding: remify(10, 14);
+        position: absolute;
+        text-align: center;
+        transform: translateX(-50%) translateY(50%);
+        transition: opacity 0.15s, transform 0.15s;
+        width: remify(200, 14);
+    }
+
+    .ninja-forms-help-symbol.is-active & {
+        opacity: 1;
+        transform: translateX(-50%);
+    }
+
+    &::after {
+        border-left: remify(6, 16) solid transparent;
+        border-right: remify(6, 16) solid transparent;
+        border-top: remify(6, 16) solid color("dark", "tint");
+        content: "";
+        left: 50%;
+        position: absolute;
+        top: 100%;
+        transform: translateX(-50%);
+    }
+
+    .ninja-forms-user-content > :last-child {
+        margin-bottom: 0 !important;
     }
 }
 
@@ -187,20 +233,25 @@
     }
 }
 
-// description fix
+// error fix
 
-.nf-field-container {
-    .nf-user-content {
-        margin-top: remify(-20, 16);
+.nf-error-msg {
+    & {
+        color: color("error", "tint");
     }
 }
 
-// error fix
+.nf-error .input {
+    & {
+        @extend .input--error !optional;
+    }
+}
 
-.nf-field-container {
-    .nf-error-msg {
-        font-size: remify(12, 16);
-        margin-bottom: remify(12, 12);
+// success fix
+
+.nf-pass .input {
+    & {
+        @extend .input--success !optional;
     }
 }
 
@@ -209,6 +260,14 @@
 .nf-field-container {
     .g-recaptcha:not([data-size="invisible"]) {
         margin-bottom: remify(24, 16);
+    }
+}
+
+// label display
+
+.nf-field-container {
+    .text--label {
+        display: inline-block;
     }
 }
 

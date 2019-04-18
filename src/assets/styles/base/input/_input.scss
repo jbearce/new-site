@@ -7,26 +7,57 @@
 .input {
     & {
         background: color("background");
-        border: remify(1) solid color("dark", "tint");
-        border-radius: 0;
+        border: remify(2) solid color("background", "shade");
+        border-radius: remify(6, 13.33333333333333);
         color: color("foreground");
         display: block;
         font-display: swap;
         font-family: $body-font;
-        font-size: remify(16, 16);
+        font-size: remify(13.33333333333333, 16);
         font-weight: 400;
-        line-height: remify(28, 16);
-        margin: remify(0 0 8, 16);
+        line-height: remify(21, 13.33333333333333);
+        margin: remify(0 0 9.999999999999999);
         outline: 0;
-        padding: remify(8 12, 16);
+        padding: remify(10 15, 13.33333333333333);
         text-overflow: ellipsis;
-        transition: border-color 0.15s, color 0.15s;
+        transition: background-color 0.15s, background-size 0.15s, border-color 0.15s, color 0.15s;
         width: 100%;
     }
 
-    &:focus,
-    &:hover {
+    &:active,
+    &:focus {
         border-color: color("accent");
+    }
+
+    &::placeholder {
+        color: color("foreground", "tint");
+        opacity: 1;
+    }
+}
+
+/* disabled variant */
+
+.input--disabled {
+    & {
+        background-color: mix(color("background"), color("background", "shade"));
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
+}
+
+/* error variant */
+
+.input--error {
+    & {
+        border-color: color("error");
+    }
+}
+
+/* success variant */
+
+.input--success {
+    & {
+        border-color: color("success");
     }
 }
 
@@ -35,6 +66,7 @@
 .input--select {
     & {
         cursor: pointer;
+        padding: remify(10 11 8, 13.33333333333333);
         // remove Firefox default styles & arrow
         text-indent: 0.01px;
         text-overflow: "";
@@ -46,10 +78,10 @@
 .input--arrow {
     & {
         background-image: svg-load("../media/vendor/fas-sort.svg", fill=#{color("foreground")});
-        background-position: center right remify(12, 16);
+        background-position: center right remify(15, 13.33333333333333);
         background-repeat: no-repeat;
-        background-size: remify(16 16, 16);
-        padding-right: remify(48, 16);
+        background-size: remify(16 16, 13.33333333333333);
+        padding-right: remify(42, 13.33333333333333);
     }
 }
 
@@ -60,13 +92,18 @@
     & {
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: remify(16 16, 16);
+        background-size: remify(0 0, 13.33333333333333);
+        border-width: remify(1);
         cursor: pointer;
         display: inline-block;
-        height: remify(28, 16);
+        height: remify(24, 13.33333333333333);
         padding: 0;
         vertical-align: middle;
-        width: remify(28, 16);
+        width: remify(24, 13.33333333333333);
+    }
+
+    &:checked {
+        background-size: remify(16 16, 13.33333333333333);
     }
 
     & + .text--label {
@@ -75,17 +112,19 @@
 }
 
 .input--checkbox {
+    & {
+        background-image: svg-load("../media/vendor/fas-check.svg", fill=#{color("light")});
+    }
+
     &:checked {
-        background-image: svg-load("../media/vendor/fas-check.svg", fill=#{color("foreground")});
+        background-color: color("accent");
+        border-color: color("accent");
     }
 }
 
 .input--radiobutton {
     & {
+        background-image: svg-load("../media/vendor/fas-circle.svg", fill=#{color("accent")});
         border-radius: 50%;
-    }
-
-    &:checked {
-        background-image: svg-load("../media/vendor/fas-circle.svg", fill=#{color("foreground")});
     }
 }

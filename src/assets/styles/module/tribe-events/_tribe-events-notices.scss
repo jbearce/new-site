@@ -6,8 +6,8 @@
 
 .tribe-events-notices {
     & {
-        background: color("warning");
-        border: remify(1) solid color("warning", "shade");
+        background: color("error");
+        border: remify(1) solid color("error", "shade");
         border-radius: remify(8, 16);
         color: color("light");
         font-size: remify(16, 16);

@@ -40,10 +40,15 @@ $colors: (
         base:  #448AFF,
         shade: #005ECB,
     ),
-    "warning": (
+    "error": (
         tint:  #FF5F52,
         base:  #C62828,
         shade: #8E0000,
+    ),
+    "success": (
+        tint:  #52FFA2,
+        base:  #28C665,
+        shade: #008E37,
     ),
     "foreground": (
         tint:  #484848,

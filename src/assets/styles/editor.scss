@@ -1,6 +1,9 @@
 // Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-.editor-writing-flow {
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic");
+
+.editor-writing-flow,
+.mce-content-body {
     @import "helpers/_mixins";
     @import "helpers/_functions";
     @import "helpers/_variables";
@@ -30,27 +33,27 @@
 
     .editor-post-title__input,
     h1 {
-        @extend .title--h1;
+        @extend .title--h1 !optional;
     }
 
     h2 {
-        @extend .title--h2;
+        @extend .title--h2 !optional;
     }
 
     h3 {
-        @extend .title--h3;
+        @extend .title--h3 !optional;
     }
 
     h4 {
-        @extend .title--h4;
+        @extend .title--h4 !optional;
     }
 
     h5 {
-        @extend .title--h5;
+        @extend .title--h5 !optional;
     }
 
     h6 {
-        @extend .title--h6;
+        @extend .title--h6 !optional;
     }
 
     p,
@@ -62,56 +65,56 @@
 
     ol,
     ul {
-        @extend .text--list;
+        @extend .text--list !optional;
     }
 
     ol li,
     ul li {
-        @extend .text__list-item;
+        @extend .text__list-item !optional;
     }
 
     ol {
-        @extend .text--ordered;
+        @extend .text--ordered !optional;
     }
 
     ul {
-        @extend .text--list;
+        @extend .text--list !optional;
     }
 
     table {
-        @extend .text--table;
+        @extend .text--table !optional;
     }
 
     table thead {
-        @extend .text__header;
+        @extend .text__header !optional;
     }
 
     table tbody {
-        @extend .text__body;
+        @extend .text__body !optional;
     }
 
     table tfoot {
-        @extend .text__footer;
+        @extend .text__footer !optional;
     }
 
     table tr {
-        @extend .text__row;
+        @extend .text__row !optional;
     }
 
     table td,
     table th {
-        @extend .text__cell;
+        @extend .text__cell !optional;
     }
 
     table th {
-        @extend .text__cell--header;
+        @extend .text__cell--header !optional;
     }
 
     blockquote {
-        @extend .blockquote;
+        @extend .blockquote !optional;
     }
 
     hr {
-        @extend .divider;
+        @extend .divider !optional;
     }
 }

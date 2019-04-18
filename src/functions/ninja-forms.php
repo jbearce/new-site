@@ -45,15 +45,29 @@ function __gulp_init_namespace___ninja_forms_fix_scripts_order() {
 }
 add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fix_scripts_order");
 
-// fix HTML field formatting
-function __gulp_init_namespace___ninja_forms_format_html($default_value, $field_class, $field_settings) {
-    if ($field_settings["type"] === "html") {
-        $default_value = apply_filters("the_content", $default_value);
+// fix various HTML field formatting
+function __gulp_init_namespace___ninja_forms_format_html($fields) {
+    foreach ($fields as $key => $field) {
+        if (isset($field["desc_text"]) && trim($field["desc_text"])) {
+            $fields[$key]["desc_text"] = apply_filters("the_content", $field["desc_text"]);
+        }
+
+        if (isset($field["help_text"]) && trim($field["help_text"])) {
+            $fields[$key]["help_text"] = apply_filters("the_content", $field["help_text"]);
+        }
+
+        if (isset($field["type"]) && $field["type"] === "html" && isset($field["value"]) && trim($field["value"])) {
+            $fields[$key]["value"] = apply_filters("the_content", $field["value"]);
+        }
     }
 
-    return $default_value;
+    // echo "<pre>";
+    // print_r($fields);
+    // echo "</pre>";
+
+    return $fields;
 }
-add_filter("ninja_forms_render_default_value", "__gulp_init_namespace___ninja_forms_format_html", 10, 3);
+add_filter("ninja_forms_display_fields", "__gulp_init_namespace___ninja_forms_format_html", 10, 1);
 
 // fix success message formatting
 function __gulp_init_namespace___ninja_forms_format_success_message($action_settings, $form_id, $action_id, $form_settings) {

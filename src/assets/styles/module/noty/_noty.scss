@@ -14,7 +14,7 @@
 
 .noty_bar {
     & {
-        background-color: color("warning");
+        background-color: color("error");
         border-bottom: 0;
         border-radius: remify(2, 16);
         box-shadow: remify(0 2 5 0, 16) transparentize(color("dark"), 0.75);

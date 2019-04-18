@@ -5,51 +5,48 @@
 \* ------------------------------------------------------------------------ */
 
 .title {
-    &,
-    &.title--h1 {
+    & {
         color: color("foreground");
         font-display: swap;
         font-family: $heading-font;
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(40, 16) remify(80, 16);
-        font-weight: 300;
-        line-height: remify(48, 40);
-        margin: remify(0 0 20, 40);
-    }
-
-    &.title--h2 {
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(32, 16) remify(54, 16);
-    }
-
-    &.title--h3,
-    &.title--h4 {
-        font-weight: 800;
-    }
-
-    &.title--h3 {
-        font-range: $xs-break $xl-break;
-        font-size: responsive remify(28, 16) remify(36, 16);
-    }
-
-    &.title--h4 {
-        font-size: remify(24, 16);
-        margin-bottom: remify(16, 24);
-    }
-
-    &.title--h5,
-    &.title--h6 {
+        font-size: remify(48, 16);
         font-weight: 700;
+        line-height: remify(57.6, 48);
+        margin: remify(0 0 10);
     }
+}
 
-    &.title--h5 {
+.title--h2 {
+    & {
+        font-size: remify(32, 16);
+    }
+}
+
+.title--h3 {
+    & {
+        font-size: remify(24, 16);
+    }
+}
+
+.title--h4 {
+    & {
+        font-size: remify(20, 16);
+    }
+}
+
+.title--h5 {
+    & {
         font-size: remify(18, 16);
-        margin-bottom: remify(16, 18);
+        font-weight: 600;
     }
+}
 
-    &.title--h6 {
+.title--h6 {
+    & {
         font-size: remify(16, 16);
-        margin-bottom: remify(16, 16);
+        font-weight: 600;
+        margin-bottom: 0;
+        text-transform: uppercase;
     }
 }
 

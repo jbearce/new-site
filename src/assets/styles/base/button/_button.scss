@@ -8,23 +8,32 @@
     & {
         background: color("primary");
         border: 0;
+        border-radius: remify(6, 16);
         color: color("light");
         cursor: pointer;
         display: inline-block;
         font-display: swap;
         font-family: $heading-font;
-        font-size: remify(18, 16);
-        font-weight: 700;
-        line-height: remify(21.6, 18);
-        margin: remify(0 0 9, 18);
+        font-size: remify(16, 16);
+        font-weight: 600;
+        line-height: remify(19.2, 16);
+        margin: remify(0 0 20, 16);
         outline: 0;
-        padding: remify(9 27, 18);
+        padding: remify(15 18, 16);
         text-decoration: none;
         transition: background-color 0.15s;
     }
 
-    &:focus,
-    &:hover {
-        background-color: color("primary", "tint");
+    &:active {
+        background-color: color("primary", "shade");
+    }
+}
+
+/* disabled variant */
+
+.button--disabled {
+    & {
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 }

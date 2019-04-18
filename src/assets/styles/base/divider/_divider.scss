@@ -6,11 +6,11 @@
 
 .divider {
     & {
-        background: color("background", "tint");
+        background: color("primary");
         border: 0;
         clear: both;
-        height: remify(1);
-        margin: remify(0 0 20, 16);
+        height: remify(2);
+        margin: remify(15 0, 16);
         width: 100%;
     }
 }

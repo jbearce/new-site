@@ -10,7 +10,7 @@ function __gulp_init_namespace___enqueue_scripts() {
     /* styles */
 
     // Google fonts
-    wp_register_style("__gulp_init_namespace__-google-fonts", "https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,700,700italic");
+    wp_register_style("__gulp_init_namespace__-google-fonts", "https://fonts.googleapis.com/css?family=Open+Sans:400,400italic,600,600italic,700,700italic");
 
     // modern styles
     wp_register_style("__gulp_init_namespace__-styles-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/modern.*.css", true)), array("__gulp_init_namespace__-google-fonts"), "<%= version %>");
@@ -124,3 +124,9 @@ function __gulp_init_namespace___gutenberg_styles() {
 	 wp_enqueue_style("__gulp_init_namespace__-styles-editor", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true)), false, "<%= version %>");
 }
 add_action("enqueue_block_editor_assets", "__gulp_init_namespace___gutenberg_styles");
+
+// add editor styles to Classic Editor
+function __gulp_init_namespace___editor_styles() {
+    add_editor_style(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true));
+}
+add_action("init", "__gulp_init_namespace___editor_styles");

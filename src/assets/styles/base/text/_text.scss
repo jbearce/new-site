@@ -12,12 +12,21 @@
         font-family: $body-font;
         font-size: remify(16, 16);
         font-weight: 400;
-        line-height: remify(28, 16);
-        margin: remify(0 0 24, 16);
+        line-height: remify(24, 16);
+        margin: remify(0 0 15, 16);
     }
 
     > .button:last-child {
         margin-bottom: 0 !important;
+    }
+}
+
+/* selection styles (no where else to put this */
+
+::selection {
+    & {
+        background-color: color("accent");
+        color: color("light");
     }
 }
 
@@ -26,6 +35,7 @@
 .text--label {
     & {
         cursor: pointer;
+        font-weight: 600;
     }
 }
 
@@ -33,7 +43,7 @@
 
 .text--list {
     & {
-        padding: remify(0 0 0 17.6, 16);
+        padding: remify(0 0 0 32, 16);
     }
 
     .text__list-item {
@@ -41,7 +51,7 @@
     }
 
     .text__list-item:not(:last-child) {
-        margin-bottom: remify(8, 16);
+        margin-bottom: remify(4, 16);
     }
 }
 
@@ -98,23 +108,38 @@
     .text__cell {
         border: 0;
         min-width: remify(125, 16);
-        padding: remify(8 12, 16);
+        padding: remify(10 15, 16);
         text-align: left;
         vertical-align: top;
     }
 
-    .text__header .text__cell {
-        border-bottom: remify(2) solid color("background", "shade");
+    .text__header .text__cell,
+    .text__body .text__cell--header {
         font-weight: 700;
     }
 
     .text__body .text__cell--header {
-        font-weight: 700;
         text-align: left;
+    }
+
+    .text__header + .text__body > .text__row:first-child > .text__cell {
+        border-top: remify(2) solid mix(color("primary", "tint"), color("background"));
     }
 
     > .text__row:nth-child(even) .text__cell,
     .text__body .text__row:nth-child(even) .text__cell {
-        background: color("background", "shade");
+        background: mix(color("primary", "tint"), color("background"));
+    }
+
+    > .text__row:nth-child(even) .text__cell:first-child,
+    .text__body .text__row:nth-child(even) .text__cell:first-child {
+        border-bottom-left-radius: remify(6);
+        border-top-left-radius: remify(6);
+    }
+
+    > .text__row:nth-child(even) .text__cell:last-child,
+    .text__body .text__row:nth-child(even) .text__cell:last-child {
+        border-bottom-right-radius: remify(6);
+        border-top-right-radius: remify(6);
     }
 }
