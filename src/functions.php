@@ -1,6 +1,9 @@
 <?php
 $template_directory = get_template_directory();
 
+if (file_exists("{$template_directory}/functions/autoload.php")) {
+    require_once("{$template_directory}/functions/autoload.php");
+}
 require_once("{$template_directory}/functions/vendor.php");
 require_once("{$template_directory}/functions/custom-functions.php");
 require_once("{$template_directory}/functions/filters.php");
