@@ -152,6 +152,28 @@ To use the `remify()` function, you simply provide it the size as you normally w
 }
 ```
 
+### `em` vs `rem` with `remify()`
+
+`remify()` can output either `em` or `rem` units depending on the settings provided to it. `rem` should typically be used when specifying values that ***don't*** depend on the elements font size (for example, the `max-width` or `padding` of a `layout`). `em` should typically be used when speicfying values that ***do*** depend on the elements font size (for example, `line-height` or `margin-bottom` on a `base`).
+
+If you only supply `remify()` with one paramter (the size value(s)), `rem` units will be returned. If you specify two values (the size value(s) and the base size), `em` units will be returned. You can override either of these by providing a third parameter (the unit) to the function, specifying either `em` or `rem`. See the examples below.
+
+```scss
+.hero__inner {
+    & {
+        max-width: remify(1280); // will output 80rem
+    }
+}
+
+.hero__text {
+    & {
+        font-size: remify(18); // will output 1.125rem
+        line-height: remify(22.5, 18); // will output 1.25em
+        margin-bottom: remify(8, 16, "rem"); // will output 0.5rem
+    }
+}
+```
+
 ## Adding third-party stylesheets
 
 Many third-party scripts have associated stylesheets that also need imported in order to function properly. Luckily, our custom importer makes this very easy, as it already knows to look in `node_modules` when you use `@import`.
