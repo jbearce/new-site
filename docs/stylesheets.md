@@ -127,7 +127,7 @@ Throughout the code of this project, you may notice custom functions or mixins b
 
 `remify()` is used to convert `px` units in to `em` or `rem` units. The first parameter is up to four numbers representing desired widths in pixels, much like `margin` or `padding`. The second parameter is the font-size to base the conversion off of.
 
-If you're unfamiliar with the concept of `em` and `rem` units, the basic breakdown is that they are used to proportionality scale sizing based on the font size of the elements parent. As such, `1em` is equal to the `font-size` of the element it is applied to, or `16` if the element and all of its parents lack a set `font-size`. If this still doesn't make sense, check out [this article on SitePoint](https://www.sitepoint.com/understanding-and-using-rem-units-in-css/).
+If you're unfamiliar with the concept of `em` and `rem` units, the basic breakdown is that they are used to proportionality scale sizing based on the font size of the elements parent. As such, `1em` is equal to the `font-size` of the element it is applied to, or `16` if the element and all of its parents lack a set font size. `em` units are relative to the current elements font size, and `rem` units are relative to the root elements (typically `<html>`) font size. If this still doesn't make sense, check out [this article on SitePoint](https://www.sitepoint.com/understanding-and-using-rem-units-in-css/).
 
 To use the `remify()` function, you simply provide it the size as you normally would, and set the second parameter to the elements font size. See the example below.
 
