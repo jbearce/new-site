@@ -28,18 +28,21 @@ function __gulp_init_namespace___enqueue_scripts() {
     /* scripts */
 
     // FontAwesome scripts
-    wp_register_script("__gulp_init_namespace__-scripts-fontawesome", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/fontawesome.*.js", true)), array(), "<%= version %>", true);
+    wp_register_script("__gulp_init_namespace__-scripts-fontawesome", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/fontawesome.*.js", true)), array(), "<%= version %>");
 
     // modern scripts
-    wp_register_script("__gulp_init_namespace__-scripts-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/modern.*.js", true)), array(), "<%= version %>", true);
+    wp_register_script("__gulp_init_namespace__-scripts-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/modern.*.js", true)), array(), "<%= version %>");
 
     // legacy scripts
     wp_register_script("__gulp_init_namespace__-scripts-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/legacy.*.js", true)), array(), "<%= version %>");
 
+    // dummy hook for inline scripts in the footer
+    wp_register_script("__gulp_init_namespace__-scripts-footer-hook", "", [], "", true);
+
     // critical scripts
     if (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
         $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/critical.*.js", true)));
-        wp_add_inline_script("__gulp_init_namespace__-scripts-modern", $critical_scripts);
+        wp_add_inline_script("__gulp_init_namespace__-scripts-footer-hook", $critical_scripts);
     }
 
     // Service Worker
@@ -73,6 +76,7 @@ function __gulp_init_namespace___enqueue_scripts() {
     wp_enqueue_style("__gulp_init_namespace__-styles-modern");
     wp_enqueue_style("__gulp_init_namespace__-styles-print");
 
+    wp_enqueue_script("__gulp_init_namespace__-scripts-footer-hook");
     wp_enqueue_script("__gulp_init_namespace__-scripts-fontawesome");
     wp_enqueue_script("__gulp_init_namespace__-scripts-modern");
 
