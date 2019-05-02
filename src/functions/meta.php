@@ -11,6 +11,13 @@ add_action("admin_head", "__gulp_init_namespace___add_favicon_meta_to_head", 0);
 add_action("login_head", "__gulp_init_namespace___add_favicon_meta_to_head", 0);
 add_action("wp_head", "__gulp_init_namespace___add_favicon_meta_to_head", 0);
 
+// disable Turbolinks on WordPress admin pages
+function __gulp_init_namespacde___no_turbolinks_on_admin() {
+    echo "<meta name='turbolinks-cache-control' content='no-cache'>";
+}
+add_action("admin_head", "__gulp_init_namespacde___no_turbolinks_on_admin");
+add_action("login_head", "__gulp_init_namespacde___no_turbolinks_on_admin");
+
 // add the theme color meta tags to the head
 function __gulp_init_namespace___add_theme_color_meta_to_head() {
     $theme_color = __gulp_init_namespace___get_field("theme_color", "pwa");

@@ -1,5 +1,5 @@
             </div><!--/#content-->
-            <div class="footer-block footer-block--fullbleed" role="contentinfo">
+            <div class="footer-block footer-block--fullbleed" role="contentinfo" data-turbolinks-permanent>
                 <div class="footer__inner">
                     <p class="footer__text text __textcenter __nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
                     <?php if (is_front_page()): ?>
@@ -9,7 +9,7 @@
             </div>
         </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
-            <div class="navigation-block navigation-block--flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0">
+            <div class="navigation-block navigation-block--flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0" data-turbolinks-permanent>
                 <div class="navigation__inner">
                     <figure class="navigation__figure">
                         <img class="navigation__image" src="<?php echo get_theme_file_uri("assets/media/navigation-banner.jpg"); ?>" alt="" />

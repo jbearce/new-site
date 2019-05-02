@@ -3,7 +3,7 @@
 $pwa_name = __gulp_init_namespace___get_field("full_name", "pwa", false);
 $pwa_name = $pwa_name ? $pwa_name : "<%= pwa_name %>";
 ?>
-    <div class="pwa-install-prompt__container">
+    <div class="pwa-install-prompt__container" data-turbolinks-permanent>
         <button class="pwa-install-prompt__overlay"><?php _e("Close", "__gulp_init_namespace__"); ?></button>
         <div class="pwa-install-prompt">
             <div class="pwa-install-prompt__icon__container">

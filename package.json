@@ -96,6 +96,7 @@
     "mdn-polyfills": "^5.13.0",
     "normalize-scss": "^7.0.1",
     "noty": "^3.2.0-beta",
+    "nprogress": "^0.2.0",
     "photoswipe": "^4.1.3",
     "picturefill": "^3.0.3",
     "pwa-install-prompt": "^1.0.2",
@@ -103,7 +104,8 @@
     "slideout": "github:Mango/slideout#new-features",
     "sw-toolbox": "^3.6.0",
     "swiper": "^4.4.2",
-    "transition-to-from-auto": "^0.5.2"
+    "transition-to-from-auto": "^0.5.2",
+    "turbolinks": "^5.2.0"
   },
   "optionalDependencies": {
     "critical": "^1.3.4"

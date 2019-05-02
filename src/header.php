@@ -5,10 +5,10 @@
     </head>
     <body <?php body_class(); ?>>
         <div class="page__container" id="page-container">
-            <a class="skip-links" href="#content">
+            <a class="skip-links" href="#content" data-turbolinks-permanent>
                 <?php _e("Skip to content", "__gulp_init_namespace__"); ?>
             </a>
-            <div class="header-block header-block--fullbleed" role="banner">
+            <div class="header-block header-block--fullbleed" role="banner" data-turbolinks-permanent>
                 <div class="header__inner">
                     <div class="header__row row row--padded row--tight row--vcenter">
                         <div class="col-auto col--nogrow col--noshrink __hidden-xs">
@@ -42,7 +42,7 @@
                 </div><!--/.header__inner-->
             </div><!--/.header-block-->
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block navigation-block--fullbleed __visible-xs __noprint" role="navigation">
+                <div class="navigation-block navigation-block--fullbleed __visible-xs __noprint" role="navigation" data-turbolinks-permanent>
                     <div class="navigation__inner">
                         <nav class="navigation__menu-list__container menu-list__container">
                             <?php
