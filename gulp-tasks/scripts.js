@@ -82,6 +82,7 @@ module.exports = {
                     if (old_files.length > 0) {
                         old_files.forEach((file) => {
                             plugins.del(`${folder_name}/${file}`);
+                            plugins.del(`${folder_name}/${file}.map`);
                         });
                     }
 
