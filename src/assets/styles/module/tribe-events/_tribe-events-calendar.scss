@@ -50,6 +50,18 @@
         }
     }
 
+    @media screen and (max-width: 1023px) {
+        .tribe-day-full {
+            display: none;
+        }
+    }
+
+    @media screen and (min-width: 1024px) {
+        .tribe-day-short {
+            display: none;
+        }
+    }
+
     .hentry {
         & {
             position: relative;

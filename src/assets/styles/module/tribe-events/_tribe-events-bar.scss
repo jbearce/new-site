@@ -59,6 +59,10 @@
 }
 
 .tribe-bar-filters-wrap {
+    & {
+        position: relative;
+    }
+
     .tribe-bar-full &,
     .tribe-bar-mini & {
         flex: 1 1 0%;
@@ -70,6 +74,14 @@
         background: color("background", "shade");
         display: none;
         margin: remify(0 0 16, 16);
+        width: 100%;
+        z-index: 10;
+    }
+
+    @media screen and (max-width: 1187px) {
+        left: 0;
+        position: absolute;
+        top: 100%;
     }
 }
 
