@@ -61,10 +61,6 @@ function __gulp_init_namespace___ninja_forms_format_html($fields) {
         }
     }
 
-    // echo "<pre>";
-    // print_r($fields);
-    // echo "</pre>";
-
     return $fields;
 }
 add_filter("ninja_forms_display_fields", "__gulp_init_namespace___ninja_forms_format_html", 10, 1);
