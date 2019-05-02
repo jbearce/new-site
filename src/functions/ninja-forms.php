@@ -49,15 +49,15 @@ add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fi
 function __gulp_init_namespace___ninja_forms_format_html($fields) {
     foreach ($fields as $key => $field) {
         if (isset($field["desc_text"]) && trim($field["desc_text"])) {
-            $fields[$key]["desc_text"] = apply_filters("the_content", $field["desc_text"]);
+            $fields[$key]["desc_text"] = apply_filters("the_content", stripslashes($field["desc_text"]));
         }
 
         if (isset($field["help_text"]) && trim($field["help_text"])) {
-            $fields[$key]["help_text"] = apply_filters("the_content", $field["help_text"]);
+            $fields[$key]["help_text"] = apply_filters("the_content", stripslashes($field["help_text"]));
         }
 
         if (isset($field["type"]) && $field["type"] === "html" && isset($field["value"]) && trim($field["value"])) {
-            $fields[$key]["value"] = apply_filters("the_content", $field["value"]);
+            $fields[$key]["value"] = apply_filters("the_content", stripslashes($field["value"]));
         }
     }
 
