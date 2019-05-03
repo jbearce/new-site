@@ -201,7 +201,7 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
  * @param boolean lazy  Whether or not to lazy load the image
  * @param string tag
  *
- * @return string
+ * @return string  HTML tag for displaying the image
  */
 function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
     $element = "<{$tag}";
@@ -256,6 +256,8 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
  * Get a specific number of sentences in a given string
  *
  * @param string content  Block of text of which to extract sentences from
+ * 
+ * @return string  The sentences requested
  */
 function __gulp_init_namespace___get_sentences($content, $length = 2) {
     /**
@@ -296,6 +298,8 @@ function __gulp_init_namespace___get_sentences($content, $length = 2) {
  *
  * @param integer id  The post ID of which to get the excerpt of
  * @param array options  List of options describing how the excerpt should be determined
+ * 
+ * @return string  The post excerpt
  */
 function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
     global $post;
@@ -358,62 +362,104 @@ function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
     return $excerpt;
 }
 
-// format an address
-function __gulp_init_namespace___format_address($address_1, $address_2, $city, $state, $zip_code, $break_mode = 1) {
-    $address = "";
+/**
+ * Format an address in to a human readable format
+ *
+ * @param array address  An array keyed with `line_1`, `line_2`, `city`, `state`, and `zip_code`
+ * @param int lines  Number of lines between 1 and 3 to format the address in to
+ *
+ * @return string Huamn readable address
+ */
+function __gulp_init_namespace___format_address($address = array(), $lines = 1) {
+    $output = "";
 
-    if ($address_1 || $address_2 || $city || $state || $zip_code) {
-        if ($address_1) {
-            $address .= $address_1;
+    /**
+     * Immediately return empty if no address provided
+     */
+    if (empty($address)) {
+        return $output;
+    }
 
-            if ($address_2 || $city || $state || $zip_code) {
-                if ($break_mode !== 1 && !($address_2 && $break_mode === 2)) {
-                    $address .= "<br />";
-                } else {
-                    $address .= ", ";
-                }
+    /**
+     * Add missing keys
+     */
+    if (!isset($address["line_1"])) {
+        $address["line_1"] = "";
+    }
+
+    if (!isset($address["line_2"])) {
+        $address["line_2"] = "";
+    }
+
+    if (!isset($address["city"])) {
+        $address["city"] = "";
+    }
+
+    if (!isset($address["state"])) {
+        $address["state"] = "";
+    }
+
+    if (!isset($address["zip_code"])) {
+        $address["zip_code"] = "";
+    }
+
+    if ($address["line_1"]) {
+        $output .= $address["line_1"];
+
+        if ($address["line_2"] || $address["city"] || $address["state"] || $address["zip_code"]) {
+            if ($lines !== 1 && !($address["line_2"] && $lines === 2)) {
+                $output .= "<br />";
+            } else {
+                $output .= ", ";
             }
-        }
-
-        if ($address_2) {
-            $address .= $address_2;
-
-            if ($city || $state || $zip_code) {
-                if ($break_mode !== 1) {
-                    $address .= "<br />";
-                } else {
-                    $address .= ", ";
-                }
-            }
-        }
-
-        if ($city) {
-            $address .= $city;
-
-            if ($state) {
-                $address .= ", ";
-            } elseif ($zip_code) {
-                $address .= " ";
-            }
-        }
-
-        if ($state) {
-            $address .= $state;
-
-            if ($zip_code) {
-                $address .= " ";
-            }
-        }
-
-        if ($zip_code) {
-            $address .= $zip_code;
         }
     }
 
-    return $address;
+    if ($address["line_2"]) {
+        $output .= $address["line_2"];
+
+        if ($address["city"] || $address["state"] || $address["zip_code"]) {
+            if ($lines !== 1) {
+                $output .= "<br />";
+            } else {
+                $output .= ", ";
+            }
+        }
+    }
+
+    if ($address["city"]) {
+        $output .= $address["city"];
+
+        if ($address["state"]) {
+            $output .= ", ";
+        } elseif ($address["zip_code"]) {
+            $output .= " ";
+        }
+    }
+
+    if ($address["state"]) {
+        $output .= $address["state"];
+
+        if ($address["zip_code"]) {
+            $output .= " ";
+        }
+    }
+
+    if ($address["zip_code"]) {
+        $output .= $address["zip_code"];
+    }
+
+    return $output;
 }
 
-// get a map url
+/**
+ * Given an address, return a URL to a map, appropriate for the users platform
+ *
+ * @param string address  A single line, human readable address.
+ * @param boolean embed  Return an embeddable Google Maps URL for an iframe
+ * 
+ * @return string  The URL to the address
+ */
 function __gulp_init_namespace___get_map_url($address, $embed = false) {
     $address_url = "";
 
@@ -429,7 +475,14 @@ function __gulp_init_namespace___get_map_url($address, $embed = false) {
     return $address_url;
 }
 
-// compare two dates to make sure they're sequential
+/**
+ * Compare two dates to see if one comes immediately after the other
+ *
+ * @param string date_start  The first date to compare against
+ * @param string date_end  The second date to compare against
+ *
+ * @return boolean  `true` if dates are sequential, `false` otherwise
+ */
 function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = null) {
     $date_start = date("Ymd", strtotime($date_start));
     $date_end   = $date_end ? date("Ymd", strtotime($date_end)) : false;
@@ -441,7 +494,15 @@ function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = n
     }
 }
 
-// function to remove extra tags (see https://stackoverflow.com/a/6406139/654480)
+/**
+ * Remove extra tags added for use with DOMDocument
+ *
+ * @see https://stackoverflow.com/a/6406139/654480
+ *
+ * @param object DOM  DOMDocument object
+ *
+ * @return string  Formatted HTML
+ */
 function __gulp_init_namespace___remove_extra_tags($DOM) {
     $XPath = new DOMXPath($DOM);
 
@@ -458,7 +519,13 @@ function __gulp_init_namespace___remove_extra_tags($DOM) {
     return $html;
 }
 
-// function to get a "no posts found" message
+/**
+ * Get a unique "No posts found" mesage for various types of pages
+ *
+ * @param object queried_object  The result of get_queried_object()
+ *
+ * @return string  A message detailing that no posts could be found for the current context
+ */
 function __gulp_init_namespace___get_no_posts_message($queried_object) {
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
@@ -504,7 +571,14 @@ function __gulp_init_namespace___get_no_posts_message($queried_object) {
     return $error_message;
 }
 
-// function to retrieve a bunch of article metadata
+/**
+ * Construct an array of metadata for display on posts
+ *
+ * @param int post_id  An ID for a post
+ * @param array meta  An array keyed with `date`, `author`, `comments`, and `taxonomies`, used to determine which meta to return
+ *
+ * @return array  An array containing metadata and related icons and labels
+ */
 function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
     // grab the date
     if (isset($meta["date"])) {
@@ -584,7 +658,14 @@ function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
     return $meta;
 }
 
-// wrapper around ACF's get_field to prevent erroring if ACF isn't installed
+/**
+ * Wrapper around ACF's `get_field` to ensure errors don't occur if ACF isn't active
+ *
+ * @param string name  ACF field name
+ * @param int post_id  An ID for a post
+ * 
+ * @return array  The field value
+ */
 function __gulp_init_namespace___get_field($name, $post_id = null) {
     if (function_exists("get_field")) {
         return get_field($name, $post_id);
@@ -593,7 +674,13 @@ function __gulp_init_namespace___get_field($name, $post_id = null) {
     }
 }
 
-// function to retrieve a menu title by location
+/**
+ * Retrieve a menu tiel from the database given the location the menu is assigned to
+ *
+ * @param string location  Menu location
+ *
+ * @return string  The name of the menu
+ */
 function __gulp_init_namespace___get_menu_title($location) {
     $locations = get_nav_menu_locations();
     $menu      = get_term($locations[$location], "nav_menu");

@@ -3,7 +3,9 @@
  * Functions: Page Speed
 \* ------------------------------------------------------------------------ */
 
-// remove version strings
+/**
+ * Remove version strings
+ */
 function __gulp_init_namespace___remove_script_version($src) {
     $parts = explode("?ver", $src);
     return $parts[0];
@@ -11,19 +13,26 @@ function __gulp_init_namespace___remove_script_version($src) {
 add_filter("script_loader_src", "__gulp_init_namespace___remove_script_version", 15, 1);
 add_filter("style_loader_src", "__gulp_init_namespace___remove_script_version", 15, 1);
 
-// disable oEmbed
-function __gulp_init_namespace___stop_loading_wp_embed() {
+/**
+ * Disable scripts that WordPress inserts which aren't used by this theme
+ */
+function __gulp_init_namespace___wp_disable_default_scripts() {
     if (!is_admin()) {
+        wp_deregister_style("wp-block-library");
         wp_deregister_script("wp-embed");
     }
 }
-add_action("init", "__gulp_init_namespace___stop_loading_wp_embed");
+add_action("init", "__gulp_init_namespace___wp_disable_default_scripts");
 
-// disable Emoji
+/**
+ * Disable Emoji
+ */
 remove_action("wp_head", "print_emoji_detection_script", 7);
 remove_action("wp_print_styles", "print_emoji_styles");
 
-// load scripts asynchronously
+/**
+ * Load all JavaScript asynchronously
+ */
 function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
     if (!is_admin()) {
         return str_replace(" src=", " defer='defer' src=", $tag);
@@ -34,7 +43,9 @@ function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
 }
 add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async", 10, 3);
 
-// load styles asynchronously
+/**
+ * Load styles asynchronously when critical CSS is present
+ */
 function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
     global $pagenow;
     global $template;
@@ -51,7 +62,10 @@ function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
 }
 add_filter("style_loader_tag", "__gulp_init_namespace___make_styles_async", 10, 3);
 
-// create a local copy of Google Analytics instead and serve that for caching purposes
+/**
+ * Cache Google Analytics JavaScript to better control how it loads
+ * (updates every 2 hours)
+ */
 function __gulp_init_namespace___cache_google_analytics($url) {
     $local_path = WP_CONTENT_DIR . "/cache/scripts/analytics.js";
 
