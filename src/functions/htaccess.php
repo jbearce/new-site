@@ -803,8 +803,8 @@ prefix for "well-known locations" (e.g.: `/.well-known/manifest.json`,
 `/.well-known/keybase.txt`), and therefore, access to its visible
 content should not be blocked.
 
-**WEBLINX MODIFICATION:** `/.gitlab/` has been added to the exclusion
-list in order to facilitate continuous deployment.
+**MODIFICATION:** `/.gitlab/` has been added to the exclusion list in
+order to facilitate continuous deployment.
 
 https://www.mnot.net/blog/2010/04/07/well-known
 https://tools.ietf.org/html/rfc5785
