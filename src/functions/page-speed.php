@@ -53,7 +53,7 @@ add_filter("style_loader_tag", "__gulp_init_namespace___make_styles_async", 10, 
 
 // create a local copy of Google Analytics instead and serve that for caching purposes
 function __gulp_init_namespace___cache_google_analytics($url) {
-    $local_path = ABSPATH . "analytics.js";
+    $local_path = WP_CONTENT_DIR . "/cache/scripts/analytics.js";
 
     if (!file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {
         $curl = curl_init();
@@ -66,9 +66,17 @@ function __gulp_init_namespace___cache_google_analytics($url) {
 
         curl_close($curl);
 
+        if (!is_dir(WP_CONTENT_DIR . "/cache")) {
+            mkdir(WP_CONTENT_DIR . "/cache");
+        }
+
+        if (!is_dir(WP_CONTENT_DIR . "/cache/scripts")) {
+            mkdir(WP_CONTENT_DIR . "/cache/scripts");
+        }
+
         file_put_contents($local_path, $script);
     }
 
-    return home_url("/analytics.js");
+    return WP_CONTENT_URL . "/cache/scripts/analytics.js";
 }
 add_filter("gadwp_analytics_script_path", "__gulp_init_namespace___cache_google_analytics");
