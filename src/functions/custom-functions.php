@@ -256,7 +256,7 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
  * Get a specific number of sentences in a given string
  *
  * @param string content  Block of text of which to extract sentences from
- * 
+ *
  * @return string  The sentences requested
  */
 function __gulp_init_namespace___get_sentences($content, $length = 2) {
@@ -298,7 +298,7 @@ function __gulp_init_namespace___get_sentences($content, $length = 2) {
  *
  * @param integer id  The post ID of which to get the excerpt of
  * @param array options  List of options describing how the excerpt should be determined
- * 
+ *
  * @return string  The post excerpt
  */
 function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
@@ -457,7 +457,7 @@ function __gulp_init_namespace___format_address($address = array(), $lines = 1) 
  *
  * @param string address  A single line, human readable address.
  * @param boolean embed  Return an embeddable Google Maps URL for an iframe
- * 
+ *
  * @return string  The URL to the address
  */
 function __gulp_init_namespace___get_map_url($address, $embed = false) {
@@ -663,7 +663,7 @@ function __gulp_init_namespace___get_article_meta($post_id, $meta = array()) {
  *
  * @param string name  ACF field name
  * @param int post_id  An ID for a post
- * 
+ *
  * @return array  The field value
  */
 function __gulp_init_namespace___get_field($name, $post_id = null) {
