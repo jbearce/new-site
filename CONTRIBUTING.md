@@ -14,7 +14,7 @@
 - [Issues](docs/git.md#issues)
 - [Branching](docs/git.md#branching)
 - [Commit Formatting](docs/git.md#commit-formatting)
-- [Merge/Pull Requests](docs/git.md#merge-pull-requests)
+- [Merge/Pull Requests](docs/git.md#mergepull-requests)
 
 ## Gulp
 
