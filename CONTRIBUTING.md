@@ -8,6 +8,14 @@
 - [Setting up a local environment](docs/getting-started.md#setting-up-a-local-environment)
 - [Enabling Toast Notifications](docs/getting-started.md#enabling-toast-notifications)
 
+## Git
+
+- [Quick Reference](docs/git.md#quick-reference)
+- [Issues](docs/git.md#issues)
+- [Branching](docs/git.md#branching)
+- [Commit Formatting](docs/git.md#commit-formatting)
+- [Merge/Pull Requests](docs/git.md#merge-pull-requests)
+
 ## Gulp
 
 - [Quick reference](docs/gulp.md#quick-reference)
