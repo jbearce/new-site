@@ -42,6 +42,13 @@
 - [Methodology](docs/media.md#methodology)
 - [Adding third-party media](docs/media.md#adding-third-party-media)
 
+## Deployment
+
+- [Quick reference](docs/deployment.md#quick-reference)
+- [Development Releases](docs/deployment.md#development-releases)
+- [Distribution Releases](docs/deployment.md#distribution-releases)
+- [Continuous Deployment](docs/deployment.md#continuous-deployment)
+
 ---
 
 ## Need help?
