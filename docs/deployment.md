@@ -42,7 +42,7 @@ To create a `dist` package, follow the steps below:
 
 10. Push up the change to `release` with `git push origin release --follow-tags`.
 
-11. Open the repository, and create a new merge/pull request from `release` in to `master`. Assign the merge/pull request to a user who is in charge of the repository. They can then handle the last step, listed below.
+11. Open the repository, and [create a new merge/pull request](git.md#mergepull-requests) from `release` in to `master`. Assign the merge/pull request to a user who is in charge of the repository. They can then handle the last step, listed below.
 
 12. If you are in charge of the repository, wait for any CI pipelines to finish, and then merge the release in to master.
 
