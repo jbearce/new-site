@@ -34,10 +34,10 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
      * Check if the current item contains mega menu columns
      */
-    function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
+    function display_element($element, &$children_elements, $max_depth, $depth, $args, &$output) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
+        if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && !$children_elements[$element->ID]) { $i = 0;
             foreach ($children_elements[$element->ID] as $child) { $i++;
                 /**
                  * Only check meta keys past the first item to (slightly) improve performance
@@ -62,7 +62,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
      * Construct a menu item
      */
-    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+    public function start_el(&$output, $item, $depth = 0) {
         $id_prefix = isset($this->params["id_prefix"]) ? $this->params["id_prefix"] : "menu-item-";
         $features  = isset($this->params["features"]) ? $this->params["features"] : array();
 
@@ -78,17 +78,23 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
             /**
              * Reset the item counter if it's reached the top
              */
-            if ($depth === 0) $this->item_count = 0;
+            if ($depth === 0) {
+                $this->item_count = 0;
+            }
 
             /**
              * Reset the column counter if it's the first li in a drop down
              */
-            if ($depth === 1 && $this->item_count === 1) $this->column_count = 0;
+            if ($depth === 1 && $this->item_count === 1) {
+                $this->column_count = 0;
+            }
 
             /**
              * Add the `menu-list__item--mega` class if it's the top
              */
-            if ($depth === 0) $classes[] = "menu-list__item--mega";
+            if ($depth === 0) {
+                $classes[] = "menu-list__item--mega";
+            }
 
             /**
              * Split the menu if it's a drop down, a split has been requested, it's
@@ -194,7 +200,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
      * Construct the sub-menu ul
      */
-    public function start_lvl(&$output, $depth = 0, $args = array()) {
+    public function start_lvl(&$output, $depth = 0) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         /**
@@ -244,9 +250,15 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Construct data attributes for the menu script to read
          */
-        if (in_array("accordion", $features)) $attr .= " data-accordion='true'";
-        if (in_array("hover", $features)) $attr .= " data-hover='true'";
-        if (in_array("touch", $features)) $attr .= " data-touch='true'";
+        if (in_array("accordion", $features)) {
+            $attr .= " data-accordion='true'";
+        }
+        if (in_array("hover", $features)) {
+            $attr .= " data-hover='true'";
+        }
+        if (in_array("touch", $features)) {
+            $attr .= " data-touch='true'";
+        }
 
         /**
          * Construct an aria-hidden if appropriate
@@ -277,7 +289,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
      * Construct the closing sub-menu ul
      */
-    public function end_lvl(&$output, $depth = 0, $args = array()) {
+    public function end_lvl(&$output, $depth = 0) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         /**
@@ -301,7 +313,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
      * Construct the closing li
      */
-    public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+    public function end_el(&$output) {
         /**
          * Close the menu item
          */
@@ -322,7 +334,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     add_action("admin_enqueue_scripts", "__gulp_init_namespace___nav_menu_color_picker");
 
     class __gulp_init_namespace___create_custom_menu_options extends Walker_Nav_Menu_Edit {
-        static $displayed_fields = array();
+        private static $displayed_fields = array();
 
         // create an array with all the new fields
         static function get_custom_fields() {
@@ -343,30 +355,30 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         // get a specific custom field template
         static function get_custom_field($field, $item = null) {
             $templates = array(
-                "label"         => "<p class='field-{{ field_name }} description description-wide hidden-field' data-locations='{{ field_locations }}'>" .
-                                   "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>" .
-                                   "{{ field_markup }}" .
-                                   "</label>" .
-                                   "</p>",
+                "label"         => "<p class='field-{{ field_name }} description description-wide hidden-field' data-locations='{{ field_locations }}'>
+                                   <label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>
+                                   {{ field_markup }}
+                                   </label>
+                                   </p>",
                 "description"   => "<span class='description'>{{ field_description }}</span>",
-                "checkbox"      => "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ field_value }}' type='checkbox'{{ item_checked }} />" .
-                                   "{{ field_label }}",
-                "color"         => "{{ field_label }}<br>" .
-                                   "<span><input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }} __gulp_init_namespace__-color-picker' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' /></span>",
+                "checkbox"      => "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ field_value }}' type='checkbox'{{ item_checked }} />
+                                   {{ field_label }}",
+                "color"         => "{{ field_label }}<br>
+                                   <span><input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }} __gulp_init_namespace__-color-picker' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' /></span>",
                 "radio"         => "{{ field_options }}",
-                "radio_option"  => "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}'>" .
-                                   "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ option_value }}' type='radio'{{ option_checked }} />" .
-                                   "{{ option_label }}" .
-                                   "</label>&nbsp;&nbsp;",
-                "select"        => "{{ field_label }}<br>" .
-                                   "<select id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'{{ field_multiple }}>" .
-                                   "{{ field_options }}" .
-                                   "</select>",
+                "radio_option"  => "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}'>
+                                   <input id='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ option_value }}' type='radio'{{ option_checked }} />
+                                   {{ option_label }}
+                                   </label>&nbsp;&nbsp;",
+                "select"        => "{{ field_label }}<br>
+                                   <select id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'{{ field_multiple }}>
+                                   {{ field_options }}
+                                   </select>",
                 "select_option" => "<option value='{{ option_value }}'{{ option_selected }}>{{ option_label }}</option>",
-                "text"          => "{{ field_label }}<br>" .
-                                   "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' />",
-                "textarea"      => "{{ field_label }}<br>" .
-                                   "<textarea id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'>{{ item_value }}</textarea>",
+                "text"          => "{{ field_label }}<br>
+                                   <input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' />",
+                "textarea"      => "{{ field_label }}<br>
+                                   <textarea id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'>{{ item_value }}</textarea>",
             );
 
             // retrieve the existing value from the database
@@ -447,7 +459,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         }
 
         // append the new fields to the menu system
-        function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+        function start_el(&$output, $item, $depth = 0, $args = array()) {
             $all_menus      = get_nav_menu_locations();
             $assigned_menus = get_the_terms($item->ID, "nav_menu");
 
@@ -469,12 +481,15 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                             if (isset($all_menus[$location])) {
                                 foreach ($assigned_menus as $assigned_menu) {
                                     if ($assigned_menu->term_id === $all_menus[$location]) {
-                                        $hidden = ""; break;
+                                        $hidden = "";
+                                        break;
                                     }
                                 }
                             }
 
-                            if ($hidden === "") break;
+                            if ($hidden === "") {
+                                break;
+                            }
                         }
                     }
                 }
@@ -497,7 +512,9 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // save the new fields
         static function save_field_data($post_id) {
-            if (get_post_type($post_id) !== "nav_menu_item") return;
+            if (get_post_type($post_id) !== "nav_menu_item") {
+                return;
+            }
 
             $post_object   = get_post($post_id);
             $custom_fields = self::get_custom_fields();
@@ -512,7 +529,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 if ($field["type"] === "color" && $field["value"] !== "" && !preg_match("/^#[a-f0-9]{6}$/i", $field["value"])) {
                     $field["value"] = "";
 
-                    add_action("admin_notices", function () use ($post_object) {
+                    add_action("admin_notices", static function () use ($post_object) {
                         echo "<div class='notice notice-error'><p>" . sprintf(__("Invalid HEX color code entered for '%s' [%s].", "__gulp_init_namespace__"), $post_object->post_title, $post_object->ID) . "</p></div>";
                     });
                 }
@@ -523,11 +540,11 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // add the save function to the save_post action
         static function setup_custom_fields() {
-            add_action("save_post", array(__CLASS__, "save_field_data"));
+            add_action("save_post", array("__gulp_init_namespace___create_custom_menu_options", "save_field_data"));
         }
 
         // localize the custom fields to wp-admin.js
-        static function localize_custom_fields() {
+        static function localizeCustomFields() {
             $all_custom_fields = self::get_custom_fields();
 
             $l10n = array(
@@ -542,7 +559,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         }
 
         // insert field custom scripts in to the admin footer
-        static function insert_custom_scripts() {
+        static function insertCustomScripts() {
             $custom_fields = self::get_custom_fields();
 
             foreach ($custom_fields as $field) {
@@ -553,7 +570,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         }
 
         // insert field custom styles in to the admin header
-        static function insert_custom_styles() {
+        static function insertCustomStyles() {
             $custom_fields = self::get_custom_fields();
 
             foreach ($custom_fields as $field) {
@@ -564,7 +581,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         }
 
         // insert the screen options
-        static function insert_custom_screen_options($args) {
+        static function insertCustomScreenOptions($args) {
             $custom_fields = self::get_custom_fields();
 
             foreach ($custom_fields as $field) {
@@ -577,21 +594,25 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         }
     }
     add_action("init", array("__gulp_init_namespace___create_custom_menu_options", "setup_custom_fields"));
-    add_filter("wp_edit_nav_menu_walker", function () { return "__gulp_init_namespace___create_custom_menu_options"; });
-    add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "localize_custom_fields"));
-    add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_scripts"));
-    add_action("admin_head", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_styles"));
-    add_filter("manage_nav-menus_columns", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_screen_options"), 20);
+    add_filter("wp_edit_nav_menu_walker", static function () {
+        return "__gulp_init_namespace___create_custom_menu_options";
+    });
+    add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "localizeCustomFields"));
+    add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "insertCustomScripts"));
+    add_action("admin_head", array("__gulp_init_namespace___create_custom_menu_options", "insertCustomStyles"));
+    add_filter("manage_nav-menus_columns", array("__gulp_init_namespace___create_custom_menu_options", "insertCustomScreenOptions"), 20);
 }
 
-// add sub_menu options to wp_nav_menu
-// @param  direct_parent  {true|false}
-// @param  parent_id      {int}
-// @param  show_parent    {true|false}
-// @param  sub_menu       {true|false}
-// @param  tree_mode      {"all"|"related"|"viewed"}
+/**
+ * Add sub_menu options to wp_nav_menu
+ *
+ * @param  direct_parent  {true|false}
+ * @param  parent_id      {int}
+ * @param  show_parent    {true|false}
+ * @param  sub_menu       {true|false}
+ * @param  tree_mode      {"all"|"related"|"viewed"}
+ */
 function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
-    $root_item_id = 0;
     $post_id_map  = array();
     $loop_limit   = 1000;
 
@@ -609,18 +630,6 @@ function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
         // create an array containing menu_item_id => post_id
         foreach ($menu_items as $menu_item) {
             $post_id_map[$menu_item->ID] = (int) $menu_item->object_id;
-        }
-
-        // determine the root_item_id
-        foreach ($menu_items as $menu_item) {
-            // if a parent ID is set, just use that
-            if ($settings["parent_id"]) {
-                if ($post_id_map[$menu_item->ID] === $settings["parent_id"]) {
-                    $root_item_id = $menu_item->ID; break;
-                }
-            } elseif ($menu_item->current) {
-                $root_item_id = $menu_item->menu_item_parent ? $menu_item->menu_item_parent : $menu_item->ID; break;
-            }
         }
 
         // if tree_mode is not all, remove any menu_items that aren't in the viewed tree
@@ -673,7 +682,9 @@ function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
                             $parent_item_id = (int) $menu_item->menu_item_parent;
 
                             // prevent 0 (root) from being added to viewed_ancestor_ids
-                            if ($parent_item_id === 0) break;
+                            if ($parent_item_id === 0) {
+                                break;
+                            }
 
                             // add the parent item id to viewed_ancestor_ids and break the loop
                             if (!in_array($parent_item_id, $viewed_ancestor_ids)) {
@@ -752,4 +763,4 @@ function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
 
     return $menu_items;
 }
-add_filter("wp_nav_menu_objects", "__gulp_init_namespace___nav_menu_sub_menu", 10, 2);
+add_filter("wp_nav_menu_objects", "__gulp_init_namespace___nav_menu_sub_menu");

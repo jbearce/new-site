@@ -11,7 +11,7 @@ add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___ninja_forms_d
 
 // change order of scripts so that `nf-front-end` always comes after all dependencies
 function __gulp_init_namespace___ninja_forms_fix_scripts_order() {
-    global $wp_scripts;
+    $wp_scripts = $GLOBALS["wp_scripts"];
 
     // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
     $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
@@ -63,17 +63,17 @@ function __gulp_init_namespace___ninja_forms_format_html($fields) {
 
     return $fields;
 }
-add_filter("ninja_forms_display_fields", "__gulp_init_namespace___ninja_forms_format_html", 10, 1);
+add_filter("ninja_forms_display_fields", "__gulp_init_namespace___ninja_forms_format_html");
 
 // fix success message formatting
-function __gulp_init_namespace___ninja_forms_format_success_message($action_settings, $form_id, $action_id, $form_settings) {
+function __gulp_init_namespace___ninja_forms_format_success_message($action_settings) {
     if ($action_settings["type"] === "successmessage") {
         $action_settings["success_msg"] = apply_filters("the_content", $action_settings["success_msg"]);
     }
 
     return $action_settings;
 }
-add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_format_success_message", 10, 4);
+add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_format_success_message");
 
 // fix Ninja Forms not being output when no content exists and selected via meta box
 function __gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content($content) {

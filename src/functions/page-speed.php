@@ -33,7 +33,7 @@ remove_action("wp_print_styles", "print_emoji_styles");
 /**
  * Load all JavaScript asynchronously
  */
-function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
+function __gulp_init_namespace___make_scripts_async($tag) {
     if (!is_admin()) {
         return str_replace(" src=", " defer='defer' src=", $tag);
         exit;
@@ -41,21 +41,21 @@ function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
 
     return $tag;
 }
-add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async", 10, 3);
+add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async");
 
 /**
  * Load styles asynchronously when critical CSS is present
  */
 function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
-    global $pagenow;
-    global $template;
+    $pagenow  = $GLOBALS["pagenow"];
+    $template = $GLOBALS["template"];
 
     $critical_css = __gulp_init_namespace___get_critical_css($template);
     $is_external  = __gulp_init_namespace___is_external_url($src);
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
     if (!is_admin() && $pagenow !== "wp-login.php" && ($critical_css || $is_external || $is_other)) {
-        return str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>"; exit;
+        return str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>";
     }
 
     return $tag;

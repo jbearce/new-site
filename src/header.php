@@ -27,7 +27,7 @@
                                 <i class="panel-toggle__icon fas fa-fw fa-search"></i>
                                 <span class="__visuallyhidden"><?php _e("View Search", "__gulp_init_namespace__"); ?></span>
                             </button>
-                            <?php if (!is_search()): ?>
+                            <?php if (! is_search()): ?>
                                 <div class="header__search-form__container search-form__container search-form__container--expandable __nomargin __hidden-xs" role="search" id="mobile-search">
                                     <?php get_search_form(); ?>
                                 </div>

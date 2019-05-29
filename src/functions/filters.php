@@ -5,13 +5,15 @@
 
 // set a cookie after the first load to mark returning visitors
 function __gulp_init_namespace___set_return_visitor_cookie() {
-    if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
+    if (!isset($_COOKIE["return_visitor"])) {
+        setcookie("return_visitor", "true", time() + 604800);
+    }
 }
-add_action("wp", "__gulp_init_namespace___set_return_visitor_cookie", 10);
+add_action("wp", "__gulp_init_namespace___set_return_visitor_cookie");
 
 // push the CSS over HTTP/2
 function __gulp_init_namespace___http2_push() {
-    global $wp_styles;
+    $wp_styles = $GLOBALS["wp_styles"];
 
     $http2_string = "";
 
@@ -49,7 +51,7 @@ add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
 function __gulp_init_namespace___fix_shortcodes($content) {
-    global $shortcode_tags;
+    $shortcode_tags = $GLOBALS["shortcode_tags"];
 
     if (!is_admin() && $content && $shortcode_tags) {
         $shortcodes = array();
@@ -81,8 +83,6 @@ function __gulp_init_namespace___add_user_content_classes($content) {
 
         // reset errors to get around HTML5 warnings...
         libxml_clear_errors();
-
-        $home_url = home_url();
 
         $anchors = $DOM->getElementsByTagName("a");
 
@@ -117,40 +117,40 @@ function __gulp_init_namespace___add_user_content_classes($content) {
             }
         }
 
-        $h1s = $DOM->getElementsByTagName("h1");
+        $heading1s = $DOM->getElementsByTagName("h1");
 
-        foreach ($h1s as $h1) {
-            $h1->setAttribute("class", "user-content__title title title--h1 {$h1->getAttribute("class")}");
+        foreach ($heading1s as $heading1) {
+            $heading1->setAttribute("class", "user-content__title title title--h1 {$heading1->getAttribute("class")}");
         }
 
-        $h2s = $DOM->getElementsByTagName("h2");
+        $heading2s = $DOM->getElementsByTagName("h2");
 
-        foreach ($h2s as $h2) {
-            $h2->setAttribute("class", "user-content__title title title--h2 {$h2->getAttribute("class")}");
+        foreach ($heading2s as $heading2) {
+            $heading2->setAttribute("class", "user-content__title title title--h2 {$heading2->getAttribute("class")}");
         }
 
-        $h3s = $DOM->getElementsByTagName("h3");
+        $heading3s = $DOM->getElementsByTagName("h3");
 
-        foreach ($h3s as $h3) {
-            $h3->setAttribute("class", "user-content__title title title--h3 {$h3->getAttribute("class")}");
+        foreach ($heading3s as $heading3) {
+            $heading3->setAttribute("class", "user-content__title title title--h3 {$heading3->getAttribute("class")}");
         }
 
-        $h4s = $DOM->getElementsByTagName("h4");
+        $heading4s = $DOM->getElementsByTagName("h4");
 
-        foreach ($h4s as $h4) {
-            $h4->setAttribute("class", "user-content__title title title--h4 {$h4->getAttribute("class")}");
+        foreach ($heading4s as $heading4) {
+            $heading4->setAttribute("class", "user-content__title title title--h4 {$heading4->getAttribute("class")}");
         }
 
-        $h5s = $DOM->getElementsByTagName("h5");
+        $heading5s = $DOM->getElementsByTagName("h5");
 
-        foreach ($h5s as $h5) {
-            $h5->setAttribute("class", "user-content__title title title--h5 {$h5->getAttribute("class")}");
+        foreach ($heading5s as $heading5) {
+            $heading5->setAttribute("class", "user-content__title title title--h5 {$heading5->getAttribute("class")}");
         }
 
-        $h6s = $DOM->getElementsByTagName("h6");
+        $heading6s = $DOM->getElementsByTagName("h6");
 
-        foreach ($h6s as $h6) {
-            $h6->setAttribute("class", "user-content__title title title--h6 {$h6->getAttribute("class")}");
+        foreach ($heading6s as $heading6) {
+            $heading6->setAttribute("class", "user-content__title title title--h6 {$heading6->getAttribute("class")}");
         }
 
         $paragraphs = $DOM->getElementsByTagName("p");
@@ -358,11 +358,11 @@ add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20
 add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20);
 
 // remove dimensions from thumbnails
-function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
+function __gulp_init_namespace___remove_thumbnail_dimensions($html) {
     if (!is_admin() && $html) {
         $DOM = new DOMDocument();
 
-        global $post;
+        $post = $GLOBALS["post"];
 
         // disable errors to get around HTML5 warnings...
         libxml_use_internal_errors(true);
@@ -386,11 +386,11 @@ function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $p
 
     return $html;
 }
-add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions", 10, 3);
+add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions");
 
 // add "Download Adobe Reader" link on all pages that link to PDFs
 function __gulp_init_namespace___acrobat_link() {
-    global $post;
+    $post = $GLOBALS["post"];
 
     if ($post) {
         $has_pdf = false;
@@ -445,7 +445,7 @@ function __gulp_init_namespace___decode_html_entities_in_blog_description($value
 
     return $value;
 }
-add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_description", 10, 2);
+add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_description");
 
 // replace content with a password form if a post is password protected
 function __gulp_init_namespace___enable_post_password_protection($post_object) {
@@ -484,15 +484,14 @@ function __gulp_init_namespace___menu_list_link_classes($links) {
 add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___menu_list_link_classes");
 
 // add a class to images within the caption shortcode
-function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $html) {
-    $shcode = preg_replace("/(<img[^>]+class=(?:\"|'))/", "$1wp-caption-image ", $shcode);
-    return $shcode;
+function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode) {
+    return preg_replace("/(<img[^>]+class=(?:\"|'))/", "$1wp-caption-image ", $shcode);
 }
-add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
+add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class");
 
 // enable force HTTPS and HSTS if the site is served over HTTPS
-function __gulp_init_namespace___enable_https_directives($value) {
-    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+function __gulp_init_namespace___enable_https_directives() {
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
         return true;
     }
 }

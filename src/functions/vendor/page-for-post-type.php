@@ -185,7 +185,8 @@ class Page_For_Post_Type {
 	 * @param $args
 	 */
 	public function update_post_type( $post_type, $args ) {
-		global $wp_post_types, $wp_rewrite;
+		$wp_post_types = $GLOBALS["wp_post_types"];
+        $wp_rewrite    = $GLOBALS["wp_rewrite"];
 
 		$post_type_page = get_option( "page_for_{$post_type}" );
 
@@ -261,7 +262,7 @@ class Page_For_Post_Type {
 	 * @return array
 	 */
 	public function filter_wp_nav_menu_objects( $sorted_items, $args ) {
-		global $wp_query;
+		$wp_query = $GLOBALS["wp_query"];
 
 		$queried_object = get_queried_object();
 

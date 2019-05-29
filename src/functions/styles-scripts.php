@@ -5,7 +5,7 @@
 
 // enqueue styles & scripts
 function __gulp_init_namespace___enqueue_scripts() {
-    global $template;
+    $template = $GLOBALS["template"];
 
     /* styles */
 
@@ -22,8 +22,9 @@ function __gulp_init_namespace___enqueue_scripts() {
     wp_register_style("__gulp_init_namespace__-styles-print", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/print.*.css", true)), array("__gulp_init_namespace__-styles-modern"), "<%= version %>", "print");
 
     // critical styles
-    $critical_styles = __gulp_init_namespace___get_critical_css($template);
-    if ($critical_styles) wp_add_inline_style("__gulp_init_namespace__-styles-modern", $critical_styles);
+    if ($critical_styles = __gulp_init_namespace___get_critical_css($template)) {
+        wp_add_inline_style("__gulp_init_namespace__-styles-modern", $critical_styles);
+    }
 
     /* scripts */
 

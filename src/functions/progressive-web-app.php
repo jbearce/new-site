@@ -10,7 +10,7 @@ function __gulp_init_namespace___fix_service_worker_scope() {
 add_action("wp", "__gulp_init_namespace___fix_service_worker_scope");
 
 // construct a manifest when the user visits {theme_folder}/manifest.json
-function __gulp_init_namespace___construct_manifest($template) {
+function __gulp_init_namespace___construct_manifest() {
     if (get_query_var("manifest")) {
         header("Content-Type: application/json");
 
@@ -359,7 +359,8 @@ function __gulp_init_namespace___construct_manifest($template) {
             ),
         );
 
-        echo json_encode($manifest); exit;
+        echo json_encode($manifest);
+        exit;
     }
 }
 add_action("wp", "__gulp_init_namespace___construct_manifest", 0);
@@ -375,7 +376,9 @@ add_action("wp_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
 // add the iOS meta tags to the head
 function __gulp_init_namespace___add_ios_meta_to_head() {
     // don't print if the user isn't on iOS
-    if (!__gulp_init_namespace___is_platform("ios")) return;
+    if (!__gulp_init_namespace___is_platform("ios")) {
+        return;
+    }
 
     // declare web app support
     echo "<meta name='apple-mobile-web-app-capable' content='yes' />\n";

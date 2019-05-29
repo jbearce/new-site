@@ -5,7 +5,7 @@
 
 // die if Tribe isn't installed
 if (!function_exists("tribe_get_events")) {
-    die();
+    exit;
 }
 
 /* FUNCTIONS */
@@ -13,7 +13,6 @@ if (!function_exists("tribe_get_events")) {
 // determine if the current page is a tribe page
 function __gulp_init_namespace___is_tribe_page() {
     $queried_object = get_queried_object();
-
 
     $post_id = isset($post) ? $post->ID : (isset($queried_object->ID) ? $queried_object->ID : 0);
     $term_id = isset($queried_object->term_id) ? $queried_object->term_id : 0;
@@ -306,7 +305,7 @@ function __gulp_init_namespace___tribe_dequeue_calendar_styles() {
 add_action("wp_enqueue_scripts", "__gulp_init_namespace___tribe_dequeue_calendar_styles");
 
 // remove the tribe events promo
-function __gulp_init_namespace___tribe_disable_promo($echo) {
+function __gulp_init_namespace___tribe_disable_promo() {
     return false;
 }
 add_action("tribe_events_promo_banner", "__gulp_init_namespace___tribe_disable_promo");
@@ -355,9 +354,7 @@ function __gulp_init_namespace___tribe_add_pagination_menu_link_class($html) {
         }
 
         // remove unneeded tags (inserted for parsing reasons)
-        $html = __gulp_init_namespace___remove_extra_tags($DOM);
-
-        return $html;
+        return __gulp_init_namespace___remove_extra_tags($DOM);
     }
 }
 add_filter("tribe_events_the_previous_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
@@ -378,10 +375,10 @@ function __gulp_init_namespace___tribe_add_title_class_to_date_headers($html) {
         // reset errors to get around HTML5 warnings...
         libxml_clear_errors();
 
-        $h2s = $DOM->getElementsByTagName("h2");
+        $heading2s = $DOM->getElementsByTagName("h2");
 
-        foreach ($h2s as $h2) {
-            $h2->setAttribute("class", "tribe-events-title title title--h4 title--divider {$h2->getAttribute("class")}");
+        foreach ($heading2s as $heading2) {
+            $heading2->setAttribute("class", "tribe-events-title title title--h4 title--divider {$heading2->getAttribute("class")}");
         }
 
         // remove unneeded tags (inserted for parsing reasons)
@@ -571,7 +568,10 @@ function __gulp_init_namespace___relevanssi_cull_recurring_events($hits) {
             $posts_seen[$hit->post_title]     = true;
             $i++;
         } elseif (get_post_meta($hit->ID, "_EventStartDate", true) < $date_by_title[$hit->post_title]) {
-            if (strtotime(get_post_meta($hit->ID, "_EventStartDate", true)) < time()) continue;
+            if (strtotime(get_post_meta($hit->ID, "_EventStartDate", true)) < time()) {
+                continue;
+            }
+
             $date_by_title[$hit->post_title]               = get_post_meta($hit->ID, "_EventStartDate", true);
             $ok_results[$index_by_title[$hit->post_title]] = $hit;
         }

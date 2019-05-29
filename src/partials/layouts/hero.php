@@ -51,7 +51,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                         <figcaption class="swiper-caption">
                                             <div class="swiper-caption-inner">
                                                 <?php if ($image["title"]): ?>
-                                                    <h6 class="swiper-title title<?php echo !$image["caption"] ? " __nomargin" : ""; ?>">
+                                                    <h6 class="swiper-title title<?php echo ! $image["caption"] ? " __nomargin" : ""; ?>">
                                                         <?php echo $image["title"]; ?>
                                                     </h6>
                                                 <?php endif; ?>
