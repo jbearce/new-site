@@ -7,15 +7,20 @@
  * Push CSS over HTTP/2
  */
 function __gulp_init_namespace___http2_push() {
-    global $wp_styles;
-
     $http2_string = "";
 
-    foreach ($wp_styles->queue as $style) {
-        $data = $wp_styles->registered[$style];
+    foreach ($GLOBALS["wp_scripts"]->queue as $script) {
+        $data = $GLOBALS["wp_scripts"]->registered[$script];
 
-        // only push over HTTP/2 if no condtional tags exist (exclude IE styles)
-        if (!isset($data->extra["conditional"])) {
+        if ($data->src && !isset($data->extra["conditional"])) {
+            $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$data->src}>; rel=preload; as=script";
+        }
+    }
+
+    foreach ($GLOBALS["wp_styles"]->queue as $style) {
+        $data = $GLOBALS["wp_styles"]->registered[$style];
+
+        if ($data->src && !isset($data->extra["conditional"])) {
             $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$data->src}>; rel=preload; as=style";
         }
     }
