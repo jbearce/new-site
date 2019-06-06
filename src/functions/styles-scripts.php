@@ -87,7 +87,7 @@ function __gulp_init_namespace___enqueue_scripts() {
         wp_enqueue_script("__gulp_init_namespace__-scripts-legacy");
     }
 }
-add_action("get_header", "__gulp_init_namespace___enqueue_scripts");
+add_action("wp_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts");
 
 // add noscript tag to the head to hide elemetns with the .__js class if script isn't enabled
 function __gulp_init_namespace___noscript_hide_js_elements() {

@@ -4,6 +4,27 @@
 \* ------------------------------------------------------------------------ */
 
 /**
+ * Push CSS over HTTP/2
+ */
+function __gulp_init_namespace___http2_push() {
+    global $wp_styles;
+
+    $http2_string = "";
+
+    foreach ($wp_styles->queue as $style) {
+        $data = $wp_styles->registered[$style];
+
+        // only push over HTTP/2 if no condtional tags exist (exclude IE styles)
+        if (!isset($data->extra["conditional"])) {
+            $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$data->src}>; rel=preload; as=style";
+        }
+    }
+
+    header("Link: {$http2_string}");
+}
+add_action("wp_enqueue_scripts", "__gulp_init_namespace___http2_push", 11);
+
+/**
  * Remove version strings
  */
 function __gulp_init_namespace___remove_script_version($src) {
