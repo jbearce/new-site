@@ -71,11 +71,12 @@ function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
     global $pagenow;
     global $template;
 
+    $is_login     = (isset($_SERVER["SCRIPT_URI"]) && $_SERVER["SCRIPT_URI"] === wp_login_url()) || $pagenow === "wp-login.php";
     $critical_css = __gulp_init_namespace___get_critical_css($template);
     $is_external  = __gulp_init_namespace___is_external_url($src);
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
-    if (!is_admin() && $pagenow !== "wp-login.php" && ($critical_css || $is_external || $is_other)) {
+    if (!is_admin() && !$is_login && ($critical_css || $is_external || $is_other)) {
         return str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>"; exit;
     }
 
