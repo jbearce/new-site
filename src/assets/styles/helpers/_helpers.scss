@@ -128,7 +128,7 @@
 }
 
 // when pointer is inprecise (touch)
-@media (pointer: course) {
+@media (pointer: coarse) {
     .__mouse {
         display: none !important;
     }
