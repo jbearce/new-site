@@ -2,11 +2,12 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-const SEARCH_TOGGLE = document.querySelector("[data-toggle=mobile-search]");
-const SEARCH_FORM   = document.querySelector("#mobile-search");
-const SEARCH_INPUT  = SEARCH_FORM ? SEARCH_FORM.querySelector("input[type=search]") : false;
+const SEARCH_TOGGLE   = document.querySelector("[data-toggle=mobile-search]");
+const SEARCH_FORM     = document.querySelector("#mobile-search");
+const SEARCH_INPUT    = SEARCH_FORM ? SEARCH_FORM.querySelector("input[type=search]") : false;
+const SEARCH_ELEMENTS = SEARCH_FORM ? SEARCH_FORM.querySelectorAll("*") : false;
 
-if (SEARCH_TOGGLE && SEARCH_FORM && SEARCH_INPUT) {
+if (SEARCH_TOGGLE && SEARCH_FORM && SEARCH_INPUT && SEARCH_ELEMENTS) {
     SEARCH_TOGGLE.addEventListener("click", (e) => {
         e.preventDefault();
 
@@ -14,10 +15,14 @@ if (SEARCH_TOGGLE && SEARCH_FORM && SEARCH_INPUT) {
         SEARCH_INPUT.focus();
     });
 
-    SEARCH_INPUT.addEventListener("blur", () => {
-        if (!SEARCH_INPUT.value) {
-            SEARCH_FORM.classList.remove("is-active");
-            SEARCH_TOGGLE.focus();
-        }
-    }, { passive: true });
+    SEARCH_ELEMENTS.forEach((element) => {
+        element.addEventListener("blur", () => {
+            setTimeout(() => {
+                if (!SEARCH_FORM.contains(document.activeElement)) {
+                    SEARCH_FORM.classList.remove("is-active");
+                    SEARCH_TOGGLE.focus();
+                }
+            }, 100);
+        }, { passive: true });
+    });
 }
