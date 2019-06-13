@@ -96,16 +96,26 @@ $content-padding: 25;
  * Break Points                                                             *
 \* ------------------------------------------------------------------------ */
 
+$xxxl-break: 1440em / 16;
+$xxl-break:  1366em / 16;
+$xl-break:   1280em / 16;
+$l-break:    1024em / 16;
+$m-break:    960em / 16;
+$s-break:    853em / 16;
+$xs-break:   768em / 16;
+$xxs-break:  640em / 16;
+$xxxs-break: 480em / 16;
+
 $breakpoints: (
-    xxxl: 1440em / 16,
-    xxl:  1366em / 16,
-    xl:   1280em / 16,
-    l:    1024em / 16,
-    m:    960em / 16,
-    s:    853em / 16,
-    xs:   768em / 16,
-    xxs:  640em / 16,
-    xxxs: 480em / 16,
+    xxxl: $xxxl-break,
+    xxl:  $xxl-break,
+    xl:   $xl-break,
+    l:    $l-break,
+    m:    $m-break,
+    s:    $s-break,
+    xs:   $xs-break,
+    xxs:  $xxs-break,
+    xxxs: $xxxs-break,
 );
 
 /* ------------------------------------------------------------------------ *\
