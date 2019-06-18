@@ -29,6 +29,12 @@ body {
         width: 100%;
     }
 
+    #content { // stylelint-disable-line
+        display: flex;
+        flex: 1 0 auto;
+        flex-direction: column;
+    }
+
     .content-block {
         flex: 1 0 auto;
     }
