@@ -366,35 +366,35 @@
 
 .menu-list.menu-list--navigation {
     & {
+        background: color("accent");
         font-display: swap;
         font-family: $body-font;
         font-size: remify(20, 16);
         font-weight: 400;
     }
 
-    .menu-list__link,
-    .menu-list__toggle {
-        color: color("light");
-        padding: remify(8 16, 20);
+    .menu-list__item {
         transition: background-color 0.15s;
     }
 
-    .menu-list__link:focus,
-    .menu-list__link:hover,
-    > .menu-list__item:hover > .menu-list__link,
-    > .menu-list__item.is-active > .menu-list__link,
-    .menu-list__toggle:focus,
-    .menu-list__toggle:hover,
-    > .menu-list__item:hover > .menu-list__toggle,
-    > .menu-list__item.is-active > .menu-list__toggle {
+    .menu-list__item.is-active,
+    .menu-list__item:focus-within,
+    .menu-list__item:hover {
         background-color: color("accent", "tint");
     }
 
-    // must be separate from the above ruleset for fallback reasons
+    .menu-list__link,
+    .menu-list__toggle {
+        & {
+            color: color("light");
+            padding: remify(8 16, 20);
+            transition: background-color 0.6s;
+        }
 
-    .no-javascript & > .menu-list__item:focus-within > .menu-list__link,
-    .no-javascript & > .menu-list__item:focus-within > .menu-list__toggle {
-        background-color: color("accent", "tint");
+        &:active {
+            background-color: transparentize(color("light"), 0.8);
+            transition: background-color 0.3s;
+        }
     }
 
     /* child */
@@ -406,6 +406,12 @@
 
     .menu-list--child.menu-list--overlay {
         min-width: remify(250, 16);
+    }
+
+    .menu-list--child .menu-list__item.is-active,
+    .menu-list--child .menu-list__item:focus-within,
+    .menu-list--child .menu-list__item:hover {
+        background-color: transparentize(color("light"), 0.8);
     }
 
     .menu-list--child .menu-list__link,
@@ -425,28 +431,10 @@
         padding-bottom: remify(8, 16);
     }
 
-    .menu-list--child .menu-list__link:focus,
-    .menu-list--child .menu-list__link:hover,
-    .menu-list--child:not(.menu-list--mega) .menu-list__item:hover > .menu-list__link,
-    .menu-list--child:not(.menu-list--mega) .menu-list__item.is-active > .menu-list__link,
-    .menu-list--child .menu-list__toggle:focus,
-    .menu-list--child .menu-list__toggle:hover,
-    .menu-list--child:not(.menu-list--mega) .menu-list__item:hover > .menu-list__toggle,
-    .menu-list--child:not(.menu-list--mega) .menu-list__item.is-active > .menu-list__toggle {
-        background-color: lighten(color("accent", "tint"), 5);
-    }
-
-    // must be separate from the above ruleset for fallback reasons
-
-    .no-javascript & .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__link,
-    .no-javascript & .menu-list--child:not(.menu-list--mega) .menu-list__item:focus-within > .menu-list__toggle {
-        background-color: lighten(color("accent", "tint"), 5);
-    }
-
     /* child depth 2 */
 
     .menu-list--child.menu-list--depth-2 {
-        background-color: lighten(color("accent", "tint"), 5);
+        background-image: linear-gradient(to right, transparentize(color("light"), 0.8) 0%, transparentize(color("light"), 0.8) 100%);
         font-size: remify(16, 16);
     }
 
@@ -458,7 +446,7 @@
     /* mega */
 
     .menu-list__container--mega {
-        background: color("accent", "tint");
+        background-color: inherit;
     }
 
     .menu-list--child.menu-list--mega {
