@@ -203,7 +203,7 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
  *
  * @return string  HTML tag for displaying the image
  */
-function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
+function __gulp_init_namespace___img($src, $atts = array(), $lazy = "swiper", $tag = "img") {
     $element = "<{$tag}";
 
     /**
@@ -245,8 +245,8 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
     /**
      * Run through the lazy loader filter
      */
-    if ($lazy && $tag === "img") {
-        $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element);
+    if ($lazy) {
+        $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element, $lazy);
     }
 
     return $element;

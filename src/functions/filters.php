@@ -283,7 +283,7 @@ function __gulp_init_namespace___add_user_content_classes($content) {
 add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
 
 // lazy load images
-function __gulp_init_namespace___lazy_load_images($content) {
+function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {
     if (!is_admin() && $content) {
         $DOM = new DOMDocument();
 
@@ -299,7 +299,7 @@ function __gulp_init_namespace___lazy_load_images($content) {
         // XPath required otherwise an infinite loop occurs
         $XPath = new DOMXPath($DOM);
 
-        $images = $XPath->query("//img");
+        $images = $XPath->query("//*[self::img or self::source]");
 
         foreach ($images as $image) {
             if (!preg_match("/wp-caption-image/", $image->getAttribute("class")) && $image->parentNode->nodeName !== "noscript") {
@@ -314,7 +314,12 @@ function __gulp_init_namespace___lazy_load_images($content) {
                 // change src to data-normal
                 if ($existing_src) {
                     $image->removeAttribute("src");
-                    $image->setAttribute("data-normal", $existing_src);
+
+                    if ($mode === "swiper") {
+                        $image->setAttribute("data-src", $existing_src);
+                    } else {
+                        $image->setAttribute("data-normal", $existing_src);
+                    }
                 }
 
                 // change srcset to data-srcset
@@ -336,7 +341,7 @@ function __gulp_init_namespace___lazy_load_images($content) {
 }
 add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
 add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20);
-add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20);
+add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20, 2);
 
 // remove dimensions from thumbnails
 function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $post_image_id) {

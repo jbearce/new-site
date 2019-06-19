@@ -10,6 +10,7 @@ if (document.querySelectorAll(".swiper-container--hero .swiper-slide").length > 
         autoplay: {
             delay: 5000,
         },
+        lazy: true,
         loop: true,
         navigation: {
             nextEl: ".swiper-container--hero .swiper-button--next",
