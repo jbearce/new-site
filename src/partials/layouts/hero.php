@@ -10,8 +10,10 @@ $slideshow      = isset($template_args["slideshow"]) ? $template_args["slideshow
 $image_size     = isset($template_args["image_size"]) ? $template_args["image_size"] : "hero";
 $featured_image = isset($template_args["featured_image"]) ? $template_args["featured_image"] : ($post && has_post_thumbnail($post->ID) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_large")[0]) : false);
 $title          = isset($template_args["title"]) ? $template_args["title"] : false;
+
+$slide_count = $slideshow ? count($slideshow) : 0;
 ?>
-<?php if ($slideshow || $featured_image): $i = 0; ?>
+<?php if ($slideshow || $featured_image): ?>
     <div class="hero-block<?php echo $block_class; ?>" role="region">
         <div class="hero__inner<?php echo $inner_class; ?>">
             <div class="hero__swiper-container swiper-container swiper-container--hero<?php echo $swiper_class; ?>" data-slideout-ignore="true">
@@ -24,7 +26,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                             $link  = isset($slide["link"]) ? $slide["link"] : false;
                             ?>
 
-                            <?php if ($image): $i++; ?>
+                            <?php if ($image): ?>
                                 <figure class="swiper-slide">
 
                                     <?php if ($link && $link["url"]): ?>
@@ -34,15 +36,15 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                                     <?php if ($image["sizes"]["{$image_size}"]): ?>
                                         <picture class="swiper-picture">
                                             <?php if ($image["sizes"]["{$image_size}_large"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), "swiper", "source"); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), ($slide_count > 1 ? "swiper" : false), "source"); ?>
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}_medium"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_medium"], array("class" => "swiper-lazy", "media" => "(min-width: 40em)"), "swiper", "source"); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_medium"], array("class" => "swiper-lazy", "media" => "(min-width: 40em)"), ($slide_count > 1 ? "swiper" : false), "source"); ?>
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], array("alt" => $image["alt"], "class" => "swiper-image swiper-lazy"), "swiper"); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], array("alt" => $image["alt"], "class" => "swiper-image swiper-lazy"), ($slide_count > 1 ? "swiper" : "layzr")); ?>
                                                 <div class="swiper-lazy-preloader"></div>
                                             <?php endif; ?>
                                         </picture><!--/.swiper-picture-->
@@ -78,15 +80,15 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
 
                             <picture class="swiper-picture">
                                 <?php if ($featured_image["large"]): ?>
-                                    <?php echo __gulp_init_namespace___img($featured_image["large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), "swiper", "source"); ?>
+                                    <?php echo __gulp_init_namespace___img($featured_image["large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), false, "source"); ?>
                                 <?php endif; ?>
 
                                 <?php if ($featured_image["medium"]): ?>
-                                    <?php echo __gulp_init_namespace___img($featured_image["medium"], array("class" => "swiper-lazy", "media" => "(min-width: 40em)"), "swiper", "source"); ?>
+                                    <?php echo __gulp_init_namespace___img($featured_image["medium"], array("class" => "swiper-lazy", "media" => "(min-width: 40em)"), false, "source"); ?>
                                 <?php endif; ?>
 
                                 <?php if ($featured_image["small"]): ?>
-                                    <?php echo __gulp_init_namespace___img($featured_image["small"], array("alt" => $featured_image["alt"], "class" => "swiper-image swiper-lazy"), "swiper"); ?>
+                                    <?php echo __gulp_init_namespace___img($featured_image["small"], array("alt" => $featured_image["alt"], "class" => "swiper-image swiper-lazy")); ?>
                                     <div class="swiper-lazy-preloader"></div>
                                 <?php endif; ?>
                             </picture><!--/.swiper-picture-->
@@ -105,7 +107,7 @@ $title          = isset($template_args["title"]) ? $template_args["title"] : fal
                     <?php endif; ?>
                 </div> <!--/.swiper-wrapper-->
 
-                <?php if ($slideshow && ($navigation || $pagination) && $i > 1): ?>
+                <?php if ($slideshow && ($navigation || $pagination) && $slide_count > 1): ?>
                     <?php if ($navigation): ?>
                         <div class="swiper-pagination"></div>
                     <?php endif; ?>
