@@ -1,20 +1,31 @@
 <script id="tmpl-nf-field-listradio" type="text/template">
-    <ul class="list-radio">
+    <ul class="list-radio" aria-describedby="nf-error-{{{ data.id }}}">
         {{{ data.renderOptions() }}}
     </ul>
 </script>
 
 <script id='tmpl-nf-field-listradio-option' type='text/template'>
-    <li class="list-radio_item">
-        <input type="radio" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked' : '' }}} nf-input input input--radiobutton" value="{{{ data.value }}}" {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'checked="checked"' : '' }}}>
-        <label for="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" class="{{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked-label' : '' }}} nf-text text text--label">{{{ data.label }}}</label>
+    <# if ( ! data.visible ) { return '' } #>
+    <li class="list-radio__item">
+        <input type="radio"
+               id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}"
+               name="nf-field-{{{ data.fieldID }}}"
+               class="{{{ data.classes }}} nf-element {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked' : '' }}} nf-input input input--radiobutton" value="{{{ data.value }}}" {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'checked="checked"' : '' }}}
+            aria-labelledby="nf-label-class-field-{{{ data.fieldID }}}-{{{ data.index }}}"
+            <# if( data.required ) { #>
+            required
+            <# } #>
+        >
+        <label for="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}"
+               id="nf-label-class-field-{{{ data.fieldID }}}-{{{ data.index }}}" class="{{{ ( data.value == data.currentValue  || 1
+                       ==
+               data.selected ) ? 'nf-checked-label' : '' }}} nf-text text text--label">{{{ data.label }}}</label>
     </li>
 </script>
 
 <script id='tmpl-nf-field-listradio-other' type='text/template'>
-    <li class="list-radio_item">
-        <input type="radio" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input input--radiobutton" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}>
-        <label class="nf-text text text--label">Other {{{ data.renderOtherText() }}}</label>
+    <li class="list-radio__item">
+        <input type="radio" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input input--radiobutton" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}> <label class="nf-text text text--label">Other {{{ data.renderOtherText() }}}</label>
     </li>
 </script>
 

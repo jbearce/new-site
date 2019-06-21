@@ -1,5 +1,9 @@
 <script id="tmpl-nf-field-textarea" type="text/template">
-    <textarea id="nf-field-{{{ data.id }}}" name="nf-field-{{{ data.id }}}" class="{{{ data.renderClasses() }}} nf-element nf-input input input--textarea" {{{ data.renderPlaceholder() }}}" {{{ data.maybeDisabled() }}} {{{ data.maybeDisableAutocomplete() }}} {{{ data.maybeInputLimit() }}}>{{{ data.value }}}</textarea>
+    <textarea id="nf-field-{{{ data.id }}}" name="nf-field-{{{ data.id }}}" aria-invalid="false" aria-describedby="nf-error-{{{ data.id }}}" class="{{{ data.renderClasses() }}} nf-element nf-input input input--textarea" {{{ data.renderPlaceholder() }}} {{{ data.maybeDisabled() }}} {{{ data.maybeDisableAutocomplete() }}} {{{ data.maybeInputLimit() }}}
+        aria-labelledby="nf-label-field-{{{ data.id }}}"
+
+        {{{ data.maybeRequired() }}}
+    >{{{ data.value }}}</textarea>
 </script>
 
 <!-- Rich Text Editor Templates -->
@@ -23,7 +27,7 @@
         Text
         <input type="url" class="widefat code link-text"> <br />
         <label>
-            <input type="checkbox" class="link-new-window"> Open in new window
+            <input type="checkbox" class="link-new-window"> {{{ nfi18n.fieldsTextareaOpenNewWindow }}}
         </label>
         <input type="button" class="cancel-link extra" value="Cancel">
         <input type="button" class="insert-link extra" value="Insert">

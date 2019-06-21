@@ -5,17 +5,17 @@
 </script>
 
 <script id="tmpl-nf-product-single" type="text/template">
-    <span class="nf-product-price-label nf-text text text--label">Price:</span>
-    <span class="nf-product-price text">&#36;{{{ data.product_price }}}</span>
+    <span class="nf-product-price-label nf-text text text--label">{{{ nfi18n.fieldsProductsPrice }}}</span>
+    <span class="nf-product-price text">{{{ data.renderCurrencyFormatting( data.product_price ) }}}</span>
     {{{ data.renderProductQuantity() }}}
 </script>
 
 <script id="tmpl-nf-product-dropdown" type="text/template">
     <span for="nf-field-{{{ data.id }}}">
-        <select id="nf-field-{{{ data.id }}}" name="nf-field-{{{ data.id }}}" class="{{{ data.renderClasses() }}} nf-element nf-input input input--select input--arrow">
-            {{{ data.renderOptions() }}}
-            {{{ data.renderProductQuantity() }}}
-        </select>
+    <select id="nf-field-{{{ data.id }}}" name="nf-field-{{{ data.id }}}" class="{{{ data.renderClasses() }}} nf-element nf-input input input--select input--arrow">
+        {{{ data.renderOptions() }}}
+        {{{ data.renderProductQuantity() }}}
+    </select>
     </span>
 </script>
 
@@ -24,6 +24,6 @@
 </script>
 
 <script id="tmpl-nf-product-quantity" type="text/template">
-    <span class="nf-product-quantity-label nf-text text text--label">Quantity:</span>
+    <span class="nf-product-quantity-label nf-text text text--label">{{{ nfi18n.fieldsProductsQuantity }}}</span>
     <span class="nf-product-quantity"><input id="nf-field-qty-{{{ data.id }}}" name="nf-field-qty-{{{ data.id }}}" class="nf-field-qty nf-element nf-input input input--number" type="number" min="0" size="10" value="{{{ data.value }}}"></span></span>
 </script>
