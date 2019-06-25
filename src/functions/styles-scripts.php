@@ -21,10 +21,6 @@ function __gulp_init_namespace___enqueue_scripts() {
     // print styles
     wp_register_style("__gulp_init_namespace__-styles-print", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/print.*.css", true)), array("__gulp_init_namespace__-styles-modern"), "<%= version %>", "print");
 
-    // critical styles
-    $critical_styles = __gulp_init_namespace___get_critical_css($template);
-    if ($critical_styles) wp_add_inline_style("__gulp_init_namespace__-styles-modern", $critical_styles);
-
     /* scripts */
 
     // FontAwesome scripts

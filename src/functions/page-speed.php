@@ -90,6 +90,20 @@ function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
 add_filter("style_loader_tag", "__gulp_init_namespace___make_styles_async", 10, 3);
 
 /**
+ * Add critical CSS to the top of wp_head
+ */
+function __gulp_init_namespace___critical_css() {
+    global $template;
+
+    // critical styles
+    $critical_styles = __gulp_init_namespace___get_critical_css($template);
+    if ($critical_styles) {
+        echo "<style type='text/css'>{$critical_styles}</style>";
+    }
+}
+add_action("wp_head", "__gulp_init_namespace___critical_css", 5, 0);
+
+/**
  * Cache Google Analytics JavaScript to better control how it loads
  * (updates every 2 hours)
  */

@@ -8,17 +8,17 @@
     & {
         background: color("background");
         border: remify(2) solid color("background", "shade");
-        border-radius: remify(6, 13.33333333333333);
+        border-radius: remify(6, 14);
         color: color("foreground");
         display: block;
         font-display: swap;
         font-family: $body-font;
-        font-size: remify(13.33333333333333, 16);
+        font-size: remify(14, 16);
         font-weight: 400;
-        line-height: remify(21, 13.33333333333333);
+        line-height: remify(21, 14);
         margin: remify(0 0 9.999999999999999);
         outline: 0;
-        padding: remify(10 15, 13.33333333333333);
+        padding: remify(10 15, 14);
         text-overflow: ellipsis;
         transition: background-color 0.15s, background-size 0.15s, border-color 0.15s, color 0.15s;
         width: 100%;
@@ -66,7 +66,7 @@
 .input--select {
     & {
         cursor: pointer;
-        padding: remify(10 11 8, 13.33333333333333);
+        padding: remify(10 11 8, 14);
         // remove Firefox default styles & arrow
         text-indent: 0.01px;
         text-overflow: "";
@@ -78,10 +78,10 @@
 .input--arrow {
     & {
         background-image: svg-load("../media/vendor/fas-sort.svg", fill=#{color("foreground")});
-        background-position: center right remify(15, 13.33333333333333);
+        background-position: center right remify(15, 14);
         background-repeat: no-repeat;
-        background-size: remify(16 16, 13.33333333333333);
-        padding-right: remify(42, 13.33333333333333);
+        background-size: remify(16 16, 14);
+        padding-right: remify(42, 14);
     }
 }
 
@@ -90,20 +90,34 @@
 .input--checkbox,
 .input--radiobutton {
     & {
-        background-position: center center;
-        background-repeat: no-repeat;
-        background-size: remify(0 0, 13.33333333333333);
         border-width: remify(1);
         cursor: pointer;
         display: inline-block;
-        height: remify(24, 13.33333333333333);
+        height: remify(24, 14);
+        overflow: hidden;
         padding: 0;
+        position: relative;
         vertical-align: middle;
-        width: remify(24, 13.33333333333333);
+        width: remify(24, 14);
     }
 
-    &:checked {
-        background-size: remify(16 16, 13.33333333333333);
+    &::after {
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: remify(16 16, 14);
+        content: "";
+        display: block;
+        height: 100%;
+        left: -999em;
+        position: absolute;
+        top: 0;
+        transition: background-color 0.15s, left 0s 0.15s, transform 0.15s;
+        width: 100%;
+    }
+
+    &:checked::after {
+        left: 0;
+        transition: background-color 0.15s, transform 0.15s;
     }
 
     & + .text--label {
@@ -112,19 +126,32 @@
 }
 
 .input--checkbox {
-    & {
-        background-image: svg-load("../media/vendor/fas-check.svg", fill=#{color("light")});
-    }
-
     &:checked {
         background-color: color("accent");
         border-color: color("accent");
+    }
+
+    &::after {
+        background-image: svg-load("../media/vendor/fas-check.svg", fill=#{color("light")});
+        transform: rotate(90deg);
+    }
+
+    &:checked::after {
+        transform: rotate(0);
     }
 }
 
 .input--radiobutton {
     & {
-        background-image: svg-load("../media/vendor/fas-circle.svg", fill=#{color("accent")});
         border-radius: 50%;
+    }
+
+    &::after {
+        background-image: svg-load("../media/vendor/fas-circle.svg", fill=#{color("accent")});
+        transform: scale(0);
+    }
+
+    &:checked::after {
+        transform: scale(1);
     }
 }
