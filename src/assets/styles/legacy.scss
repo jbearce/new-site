@@ -1,15 +1,8 @@
 // Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-@import "helpers/_helpers";
-@import "views/_screen_xxxs";
-@import "views/_screen_xxs";
-@import "views/_screen_xs";
-@import "views/_screen_s";
-@import "views/_screen_m";
-@import "views/_screen_l";
-@import "views/_screen_xl";
-@import "views/_screen_xxl";
-@import "views/_screen_xxxl";
+@import "helpers/_mixins";
+@import "helpers/_functions";
+@import "helpers/_variables";
 
 @for $i from 1 through 12 {
     .col-#{$i} {
