@@ -19,7 +19,7 @@ add_filter("login_headerurl", "__gulp_init_namespace___login_logo_url");
 function __gulp_init_namespace___login_logo_title() {
     return get_bloginfo("name");
 }
-add_filter("login_headertitle", "__gulp_init_namespace___login_logo_title");
+add_filter("login_headertext", "__gulp_init_namespace___login_logo_title");
 
 // delay when shortcodes get expanded
 function __gulp_init_namespace___delay_shortcode_expansion() {
