@@ -3,31 +3,42 @@
  * Functions: Page Speed
 \* ------------------------------------------------------------------------ */
 
+
 /**
- * Push CSS over HTTP/2
+ * Push assets and preconnections over HTTP/2
  */
-function __gulp_init_namespace___http2_push() {
-    $http2_string = "";
+function __gulp_init_namespace___resource_hints($urls, $relation_type) {
+    if ($relation_type === "preconnect") {
+        $urls[] = "https://www.google-analytics.com";
+        $urls[] = "https://www.gstatic.com";
+        $urls[] = "https://www.google.com";
+    }
 
-    foreach ($GLOBALS["wp_scripts"]->queue as $script) {
-        $data = $GLOBALS["wp_scripts"]->registered[$script];
+    if ($relation_type === "prefetch") {
+        if ($GLOBALS["wp_scripts"]) {
+            foreach ($GLOBALS["wp_scripts"]->queue as $script) {
+                $data = $GLOBALS["wp_scripts"]->registered[$script];
 
-        if ($data->src && !isset($data->extra["conditional"])) {
-            $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$data->src}>; rel=preload; as=script";
+                if ($data->src && !isset($data->extra["conditional"])) {
+                    $urls[] = $data->src;
+                }
+            }
+        }
+
+        if ($GLOBALS["wp_styles"]) {
+            foreach ($GLOBALS["wp_styles"]->queue as $style) {
+                $data = $GLOBALS["wp_styles"]->registered[$style];
+
+                if ($data->src && !isset($data->extra["conditional"])) {
+                    $urls[] = $data->src;
+                }
+            }
         }
     }
 
-    foreach ($GLOBALS["wp_styles"]->queue as $style) {
-        $data = $GLOBALS["wp_styles"]->registered[$style];
-
-        if ($data->src && !isset($data->extra["conditional"])) {
-            $http2_string .= ($http2_string !== "" ? ", " : "") . "<{$data->src}>; rel=preload; as=style";
-        }
-    }
-
-    header("Link: {$http2_string}");
+    return $urls;
 }
-add_action("wp_enqueue_scripts", "__gulp_init_namespace___http2_push", 11);
+add_filter("wp_resource_hints", "__gulp_init_namespace___resource_hints", 10, 2);
 
 /**
  * Remove version strings
