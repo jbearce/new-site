@@ -84,11 +84,13 @@ function __gulp_init_namespace___get_critical_css($template) {
 
     $critical_css = "";
 
+    $critical_css_path = __gulp_init_namespace___get_theme_file_path("assets/styles/critical/" .  explode(".", basename($template))[0] . ".css", false, true);
+
     /**
      * Construct the potential path to the critical CSS file for the template, check if it
      * exists, and if it does, get its contents.
      */
-    if ($critical_css_path = __gulp_init_namespace___get_theme_file_path("assets/styles/critical/",  explode(".", basename($template))[0] . ".css", true) && file_exists($critical_css_path)) {
+    if (file_exists($critical_css_path)) {
         $critical_css = file_get_contents($critical_css_path);
     }
 

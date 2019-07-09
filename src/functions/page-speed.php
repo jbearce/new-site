@@ -3,7 +3,6 @@
  * Functions: Page Speed
 \* ------------------------------------------------------------------------ */
 
-
 /**
  * Push assets and preconnections over HTTP/2
  */
