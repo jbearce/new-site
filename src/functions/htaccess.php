@@ -701,7 +701,7 @@ EOF;
 
     $directives[0] = array(
         "description" => "",
-        "enabled"     => true,
+        "enabled"     => false,
         "directive"   => $directive,
     );
 
