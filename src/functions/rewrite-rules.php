@@ -3,12 +3,26 @@
  * Functions: Rewrites
 \* ------------------------------------------------------------------------ */
 
-// set up rewirte rules for PWA functionality
+/**
+ * Add various rewrite rules
+ */
 function __gulp_init_namespace___pwa_rewrite_rules() {
+    /**
+     * Point to manifest generator at /manifest.json
+     */
     add_rewrite_endpoint("manifest", EP_NONE);
     add_rewrite_rule("manifest\.json$", "index.php?manifest=true", "top");
 
+    /**
+     * Load offline template at /offline/
+     */
     add_rewrite_endpoint("offline", EP_NONE);
     add_rewrite_rule("offline/?$", "index.php?offline=true", "top");
+
+    /**
+     * Rewrite requests to /media/ to /wp-content/themes/__gulp_init_namespace__/assets/media/
+     * to ensure no 404s occur when critical CSS is included
+     */
+    add_rewrite_rule("media/(.*)$", parse_url(get_stylesheet_directory_uri(), PHP_URL_PATH) . "/assets/media/$1", "top");
 }
 add_action("init", "__gulp_init_namespace___pwa_rewrite_rules");
