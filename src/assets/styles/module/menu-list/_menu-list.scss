@@ -336,7 +336,7 @@
 
 /* meta variant */
 
-.menu-list.menu-list--meta {
+.menu-list--meta {
     & {
         color: color("foreground", "tint");
         font-family: $heading-font;
@@ -363,7 +363,7 @@
 
 /* navigation variant */
 
-.menu-list.menu-list--navigation {
+.menu-list--navigation {
     & {
         background: color("accent");
         font-family: $body-font;
