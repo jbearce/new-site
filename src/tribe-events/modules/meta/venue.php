@@ -24,7 +24,7 @@ $website = tribe_get_venue_website_url( $event_id );
 		<?php do_action( 'tribe_events_single_meta_venue_section_start' ) ?>
 
         <li class="tribe-events-meta-list-item">
-            <i class="tribe-events-meta-list-icon fas fa-fw fa-map-marker-alt"></i>
+            <i class="tribe-events-meta-list-icon far fa-fw fa-map-marker-alt"></i>
             <span class="__visuallyhidden"><?php esc_html_e( 'Address:', 'the-events-calendar' ) ?></span>
             <?php echo tribe_get_venue() ?>
             <?php if ( tribe_address_exists() ) : ?>
@@ -36,7 +36,7 @@ $website = tribe_get_venue_website_url( $event_id );
 
 		<?php if ( ! empty( $phone ) ): ?>
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon fas fa-fw fa-phone"></i>
+                <i class="tribe-events-meta-list-icon far fa-fw fa-phone"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?></span>
                 <?php echo esc_html( $phone ); ?>
             </li>
@@ -44,7 +44,7 @@ $website = tribe_get_venue_website_url( $event_id );
 
 		<?php if ( ! empty( $website ) ): ?>
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
+                <i class="tribe-events-meta-list-icon far fa-fw fa-mouse-pointer"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
                 <a class="tribe-events-meta-list-link link link--inherit" href="<?php echo $website; ?>" target="_blank">
                     <?php echo $website; ?>

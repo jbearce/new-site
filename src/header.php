@@ -13,7 +13,7 @@
                     <div class="header__row row row--padded row--tight row--vcenter">
                         <div class="col-auto col--nogrow col--noshrink __hidden-xs">
                             <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu"<?php if (!has_nav_menu("primary")): ?> style="pointer-events:none;visibility:hidden;"<?php endif; ?>>
-                                <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
+                                <i class="panel-toggle__icon far fa-fw fa-bars"></i>
                                 <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
                             </button>
                         </div>
@@ -24,7 +24,7 @@
                         </div>
                         <div class="col-auto col--nogrow col--noshrnk __hidden-xs">
                             <button class="header__panel-toggle panel-toggle" data-toggle="mobile-search">
-                                <i class="panel-toggle__icon fas fa-fw fa-search"></i>
+                                <i class="panel-toggle__icon far fa-fw fa-search"></i>
                                 <span class="__visuallyhidden"><?php _e("View Search", "__gulp_init_namespace__"); ?></span>
                             </button>
                             <?php if (!is_search()): ?>

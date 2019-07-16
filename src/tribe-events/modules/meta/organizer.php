@@ -28,7 +28,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 			<?php if ( ! $organizer ) continue; ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon fas fa-fw fa-user-circle"></i>
+                <i class="tribe-events-meta-list-icon far fa-fw fa-user-circle"></i>
 				<?php echo tribe_get_organizer_link( $organizer ) ?>
 			</li>
 		<?php endforeach; ?>
@@ -37,7 +37,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 
             <?php if ( ! empty( $phone ) ) : ?>
                 <li class="tribe-events-meta-list-item">
-                    <i class="tribe-events-meta-list-icon fas fa-fw fa-phone"></i>
+                    <i class="tribe-events-meta-list-icon far fa-fw fa-phone"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?></span>
                     <?php echo esc_html( $phone ); ?>
     			</li>
@@ -45,7 +45,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 
 			<?php if ( ! empty( $email ) ) : ?>
                 <li class="tribe-events-meta-list-item">
-                    <i class="tribe-events-meta-list-icon fas fa-fw fa-envelope"></i>
+                    <i class="tribe-events-meta-list-icon far fa-fw fa-envelope"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Email:', 'the-events-calendar' ) ?></span>
                     <?php echo esc_html( $email ); ?>
     			</li>
@@ -53,7 +53,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 
 			<?php if ( ! empty( $website ) ) : ?>
                 <li class="tribe-events-meta-list-item">
-                    <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
+                    <i class="tribe-events-meta-list-icon far fa-fw fa-mouse-pointer"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
                     <a class="tribe-events-meta-list-link link link--inherit" href="<?php echo $website; ?>" target="_blank">
                         <?php echo $website; ?>

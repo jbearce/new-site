@@ -67,7 +67,7 @@ if ( $categories ) { $i = 0;
 
                 <?php if ( $venue ) : ?>
                     <li class="menu-list__item">
-                        <i class="fas fa-map-marker-alt menu-list__icon"></i>
+                        <i class="far fa-map-marker-alt menu-list__icon"></i>
 
                         <?php
                         if ( $venue_link ) {
@@ -88,7 +88,7 @@ if ( $categories ) { $i = 0;
 
                 <?php if ( $categories_string ) : ?>
                     <li class="menu-list__item">
-                        <i class="fas fa-folder menu-list__icon"></i>
+                        <i class="far fa-folder menu-list__icon"></i>
                         <?php echo $categories_string; ?>
                     </li>
                 <?php endif; ?>
