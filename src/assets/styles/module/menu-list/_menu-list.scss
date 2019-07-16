@@ -339,7 +339,6 @@
 .menu-list.menu-list--meta {
     & {
         color: color("foreground", "tint");
-        font-display: swap;
         font-family: $heading-font;
         font-size: remify(14, 16);
         font-weight: 700;
@@ -367,7 +366,6 @@
 .menu-list.menu-list--navigation {
     & {
         background: color("accent");
-        font-display: swap;
         font-family: $body-font;
         font-size: remify(20, 16);
         font-weight: 400;
@@ -515,7 +513,6 @@
 
 .menu-list--pagination {
     & {
-        font-display: swap;
         font-family: $body-font;
         font-size: remify(14, 16);
         font-weight: 400;
@@ -535,7 +532,6 @@
 
 .menu-list--submenu {
     & {
-        font-display: swap;
         font-family: $body-font;
         font-size: remify(18, 16);
         font-weight: 400;

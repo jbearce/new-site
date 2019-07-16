@@ -7,7 +7,6 @@
 .title {
     & {
         color: color("foreground");
-        font-display: swap;
         font-family: $heading-font;
         font-size: remify(48, 16);
         font-weight: 700;
