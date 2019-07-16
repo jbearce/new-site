@@ -21,6 +21,7 @@ get_extended_template_part("layout", "hero", array(
                             get_extended_template_part("article" ,"post-full", array(
                                 "post"  => $post,
                                 "class" => "content__article",
+                                "meta"  => $post->post_type === "post" ? true : false,
                             ));
                         }
                     }

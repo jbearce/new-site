@@ -7,9 +7,11 @@ import { library, dom } from "@fortawesome/fontawesome-svg-core";
 import { faAngleDown      as farFaAngleDown      } from "@fortawesome/pro-regular-svg-icons/faAngleDown";
 import { faCalendar       as farFaCalendar       } from "@fortawesome/pro-regular-svg-icons/faCalendar";
 import { faClock          as farFaClock          } from "@fortawesome/pro-regular-svg-icons/faClock";
+import { faComment        as farFaComment        } from "@fortawesome/pro-regular-svg-icons/faComment";
 import { faFolder         as farFaFolder         } from "@fortawesome/pro-regular-svg-icons/faFolder";
 import { faQuestionCircle as farFaQuestionCircle } from "@fortawesome/pro-regular-svg-icons/faQuestionCircle";
 import { faSearch         as farFaSearch         } from "@fortawesome/pro-regular-svg-icons/faSearch";
+import { faTag            as farFaTag            } from "@fortawesome/pro-regular-svg-icons/faTag";
 import { faMoneyBill      as farFaMoneyBill      } from "@fortawesome/pro-regular-svg-icons/faMoneyBill";
 import { faUserCircle     as farFaUserCircle     } from "@fortawesome/pro-regular-svg-icons/faUserCircle";
 
@@ -31,7 +33,7 @@ import { faUserCircle   as fasFaUserCircle   } from "@fortawesome/pro-solid-svg-
 /**
  * Add regular icons
  */
-library.add(farFaAngleDown, farFaCalendar, farFaClock, farFaFolder, farFaQuestionCircle, farFaSearch, farFaMoneyBill, farFaUserCircle);
+library.add(farFaAngleDown, farFaCalendar, farFaClock, farFaComment, farFaFolder, farFaQuestionCircle, farFaSearch, farFaTag, farFaMoneyBill, farFaUserCircle);
 
 /**
  * Add solid icons

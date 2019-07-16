@@ -25,8 +25,9 @@ get_extended_template_part("layout", "hero", array(
             if (have_posts()) {
                 while (have_posts()) { the_post();
                     get_extended_template_part("article", "post-excerpt", array(
-                        "post" => $post,
+                        "post"  => $post,
                         "class" => "content__article",
+                        "meta"  => true,
                     ));
                 }
             } else {

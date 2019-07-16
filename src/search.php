@@ -12,8 +12,9 @@
             if (have_posts()) {
                 while (have_posts()) { the_post();
                     get_extended_template_part("article", "post-excerpt", array(
-                        "post" => $post,
+                        "post"  => $post,
                         "class" => "content__article",
+                        "meta"  => $post->post_type === "post" ? true : false,
                     ));
                 }
             } else {

@@ -34,6 +34,7 @@
                     get_extended_template_part("article", "post-excerpt", array(
                         "post"  => $post,
                         "class" => "content__article",
+                        "meta"  => $post->post_type === "post" ? true : false,
                     ));
                 }
             } else {

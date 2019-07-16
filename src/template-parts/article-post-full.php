@@ -3,7 +3,7 @@ $post    = isset($this->vars["post"]) ? $this->vars["post"] : false;
 $class   = isset($this->vars["class"]) ? " {$this->vars["class"]}" : "";
 $light   = isset($this->vars["light"]) ? $this->vars["light"] : false;
 $title   = isset($this->vars["title"]) ? $this->vars["title"] : ($post ? $post->post_title : "");
-$meta    = isset($this->vars["meta"]) ? $this->vars["meta"] : ($post ? __gulp_init_namespace___get_article_meta($post->ID, array("date", "author", "comments", "taxonomies" => array(array("icon" => "fa-folder", "name" => "category"), array("icon" => "fa-tag", "name" => "post_tag")))) : false);
+$meta    = isset($this->vars["meta"]) ? $this->vars["meta"] : false;
 $content = isset($this->vars["content"]) ? $this->vars["content"] : ($post ? apply_filters("the_content", $post->post_content) : "");
 ?>
 
@@ -21,9 +21,9 @@ $content = isset($this->vars["content"]) ? $this->vars["content"] : ($post ? app
                 <?php if ($meta): ?>
                     <?php
                     get_extended_template_part("menu-list", "meta", array(
+                        "post"  => $post,
                         "class" => "article__menu-list__container",
                         "light" => $light,
-                        "meta"  => $meta
                     ));
                     ?>
                 <?php endif; ?>
