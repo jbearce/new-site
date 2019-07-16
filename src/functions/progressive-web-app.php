@@ -9,7 +9,7 @@ function __gulp_init_namespace___fix_service_worker_scope() {
 }
 add_action("wp", "__gulp_init_namespace___fix_service_worker_scope");
 
-// construct a manifest when the user visits {theme_folder}/manifest.json
+// construct a manifest when the user visits /manifest.json
 function __gulp_init_namespace___construct_manifest($template) {
     if (get_query_var("manifest")) {
         $name             = __gulp_init_namespace___get_field("full_name", "pwa");
@@ -364,7 +364,7 @@ add_action("wp", "__gulp_init_namespace___construct_manifest");
 
 // add the PWA meta tags to the head
 function __gulp_init_namespace___add_pwa_meta_to_head() {
-    echo "<link href='" . get_theme_file_uri("manifest.json") . "' rel='manifest' />\n";
+    echo "<link href='" . home_url("manifest.json") . "' rel='manifest' />\n";
 }
 add_action("admin_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
 add_action("login_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
