@@ -192,7 +192,7 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
  *
  * @return string  HTML tag for displaying the image
  */
-function __gulp_init_namespace___img($src, $atts = array(), $lazy = "swiper", $tag = "img") {
+function __gulp_init_namespace___img($src, $atts = array(), $lazy = "layzr", $tag = "img") {
     $element = "<{$tag}";
 
     /**

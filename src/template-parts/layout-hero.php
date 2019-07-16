@@ -35,6 +35,7 @@ $slide_count = $slideshow ? count($slideshow) : 0;
 
                                     <?php if ($image["sizes"]["{$image_size}"]): ?>
                                         <picture class="swiper-picture">
+
                                             <?php if ($image["sizes"]["{$image_size}_large"]): ?>
                                                 <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), ($slide_count > 1 ? "swiper" : false), "source"); ?>
                                             <?php endif; ?>
@@ -45,8 +46,12 @@ $slide_count = $slideshow ? count($slideshow) : 0;
 
                                             <?php if ($image["sizes"]["{$image_size}"]): ?>
                                                 <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], array("alt" => $image["alt"], "class" => "swiper-image swiper-lazy"), ($slide_count > 1 ? "swiper" : "layzr")); ?>
+                                            <?php endif; ?>
+
+                                            <?php if ($slide_count > 1): ?>
                                                 <div class="swiper-lazy-preloader"></div>
                                             <?php endif; ?>
+
                                         </picture><!--/.swiper-picture-->
                                     <?php endif; ?>
 
@@ -79,6 +84,7 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                         <figure class="swiper-slide">
 
                             <picture class="swiper-picture">
+
                                 <?php if ($featured_image["large"]): ?>
                                     <?php echo __gulp_init_namespace___img($featured_image["large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), false, "source"); ?>
                                 <?php endif; ?>
@@ -89,8 +95,8 @@ $slide_count = $slideshow ? count($slideshow) : 0;
 
                                 <?php if ($featured_image["small"]): ?>
                                     <?php echo __gulp_init_namespace___img($featured_image["small"], array("alt" => $featured_image["alt"], "class" => "swiper-image swiper-lazy")); ?>
-                                    <div class="swiper-lazy-preloader"></div>
                                 <?php endif; ?>
+
                             </picture><!--/.swiper-picture-->
 
                             <?php if ($title): ?>
