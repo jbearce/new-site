@@ -3,9 +3,9 @@
  * Tribe Events
 \* ------------------------------------------------------------------------ */
 
-// die if Tribe isn't installed
+// stop if Tribe isn't installed
 if (!function_exists("tribe_get_events")) {
-    die();
+    return;
 }
 
 /* FUNCTIONS */
