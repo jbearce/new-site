@@ -3,12 +3,6 @@
  * Functions: Menus
 \* ------------------------------------------------------------------------ */
 
-// change allowed service worker scope to the root
-function __gulp_init_namespace___fix_service_worker_scope() {
-    header("Service-Worker-Allowed: /");
-}
-add_action("wp", "__gulp_init_namespace___fix_service_worker_scope");
-
 // construct a manifest when the user visits /manifest.json
 function __gulp_init_namespace___construct_manifest($template) {
     if (get_query_var("manifest")) {
