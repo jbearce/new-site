@@ -1,7 +1,7 @@
 <?php
-$class = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
-$light = isset($template_args["light"]) ? $template_args["light"] : false;
-$error = isset($template_args["error"]) ? $template_args["error"] : false;
+$class = isset($this->vars["class"]) ? " {$this->vars["class"]}" : "";
+$light = isset($this->vars["light"]) ? $this->vars["light"] : false;
+$error = isset($this->vars["error"]) ? $this->vars["error"] : false;
 ?>
 
 <?php if ($error): ?>

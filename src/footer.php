@@ -34,8 +34,8 @@
                 </div><!--/.navigation__inner-->
             </div><!--/.navigation-block-->
         <?php endif; ?>
-        <?php __gulp_init_namespace___get_template_part("partials/vendor/photoswipe.php"); ?>
-        <?php __gulp_init_namespace___get_template_part("partials/vendor/pwa-install-prompt.php"); ?>
+        <?php get_extended_template_part("vendor", "photoswipe"); ?>
+        <?php get_extended_template_part("vendor", "pwa-install-prompt"); ?>
         <?php wp_footer(); ?>
     </body>
 </html>

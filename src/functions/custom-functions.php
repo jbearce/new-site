@@ -4,19 +4,6 @@
  \* ------------------------------------------------------------------------ */
 
 /**
- * Require a partial using hm_get_template_part, after first locating the path to the template
- *
- * @param string file  The path to the template file, relative to the theme root
- * @param array template_args  An array of values to pass to the template
- * @param array cache_args
- *
- * @return void
- */
-function __gulp_init_namespace___get_template_part($file, $template_args = array(), $cache_args = array()) {
-    hm_get_template_part(get_theme_file_path($file), $template_args, $cache_args);
-}
-
-/**
  * Get the path to the most recent version of a file given a glob (i.e. modern.*.css => modern.17ee0314.css)
  *
  * @param string path  Glob pattern for file to search for

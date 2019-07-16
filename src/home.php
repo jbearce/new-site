@@ -4,7 +4,7 @@ $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __
 ?>
 <?php get_header(); ?>
 <?php
-__gulp_init_namespace___get_template_part("partials/layouts/hero.php", array(
+get_extended_template_part("layout", "hero", array(
     "title" => $post_title
 ));
 ?>
@@ -24,20 +24,20 @@ __gulp_init_namespace___get_template_part("partials/layouts/hero.php", array(
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    __gulp_init_namespace___get_template_part("partials/articles/post-excerpt.php", array(
+                    get_extended_template_part("article", "post-excerpt", array(
                         "post" => $post,
                         "class" => "content__article",
                     ));
                 }
             } else {
-                __gulp_init_namespace___get_template_part("partials/articles/post-none.php", array(
+                get_extended_template_part("article", "post-none", array(
                     "class" => "content__article",
                     "error" => __gulp_init_namespace___get_no_posts_message(get_queried_object()),
                 ));
             }
             ?>
 
-            <?php __gulp_init_namespace___get_template_part("partials/modules/menu-list-pagination.php"); ?>
+            <?php get_extended_template_part("menu-list", "pagination"); ?>
 
             <?php do_action("__gulp_init_namespace___after_content"); ?>
         </div><!--/.content__post-->

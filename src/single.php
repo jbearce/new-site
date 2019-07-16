@@ -1,6 +1,6 @@
 <?php get_header(); ?>
 <?php
-__gulp_init_namespace___get_template_part("partials/layouts/hero.php", array(
+get_extended_template_part("layout", "hero", array(
     "post"  => $post,
     "class" => array(
         "block" => "hero-block--fullbleed __nopadding",
@@ -18,7 +18,7 @@ __gulp_init_namespace___get_template_part("partials/layouts/hero.php", array(
                     <?php
                     if (have_posts()) {
                         while (have_posts()) { the_post();
-                            __gulp_init_namespace___get_template_part("partials/articles/post-full.php", array(
+                            get_extended_template_part("article" ,"post-full", array(
                                 "post"  => $post,
                                 "class" => "content__article",
                             ));

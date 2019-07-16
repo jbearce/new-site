@@ -1,11 +1,11 @@
 <?php
-$post      = isset($template_args["post"]) ? $template_args["post"] : false;
-$class     = isset($template_args["class"]) ? " {$template_args["class"]}" : "";
-$light     = isset($template_args["light"]) ? $template_args["light"] : false;
-$permalink = isset($template_args["permalink"]) ? $template_args["permalink"] : ($post ? get_the_permalink($post->ID) : false);
-$title     = isset($template_args["title"]) ? $template_args["title"] : ($post ? $post->post_title : false);
-$meta      = isset($template_args["meta"]) ? $template_args["meta"] : ($post ? __gulp_init_namespace___get_article_meta($post->ID, array("date", "author", "comments", "taxonomies" => array(array("icon" => "fa-folder", "name" => "category"), array("icon" => "fa-tag", "name" => "post_tag")))) : false);
-$excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($post ? __gulp_init_namespace___get_the_excerpt($post->ID, array("truncate" => array("count" => 55), "suffix" => array("value" => "&hellip;", "optional" => true))) : false);
+$post      = isset($this->vars["post"]) ? $this->vars["post"] : false;
+$class     = isset($this->vars["class"]) ? " {$this->vars["class"]}" : "";
+$light     = isset($this->vars["light"]) ? $this->vars["light"] : false;
+$permalink = isset($this->vars["permalink"]) ? $this->vars["permalink"] : ($post ? get_the_permalink($post->ID) : false);
+$title     = isset($this->vars["title"]) ? $this->vars["title"] : ($post ? $post->post_title : false);
+$meta      = isset($this->vars["meta"]) ? $this->vars["meta"] : ($post ? __gulp_init_namespace___get_article_meta($post->ID, array("date", "author", "comments", "taxonomies" => array(array("icon" => "fa-folder", "name" => "category"), array("icon" => "fa-tag", "name" => "post_tag")))) : false);
+$excerpt   = isset($this->vars["excerpt"]) ? $this->vars["excerpt"] : ($post ? __gulp_init_namespace___get_the_excerpt($post->ID, array("truncate" => array("count" => 55), "suffix" => array("value" => "&hellip;", "optional" => true))) : false);
 ?>
 
 <?php if ($title || $permalink): ?>
@@ -29,7 +29,7 @@ $excerpt   = isset($template_args["excerpt"]) ? $template_args["excerpt"] : ($po
 
                 <?php if ($meta): ?>
                     <?php
-                    __gulp_init_namespace___get_template_part("partials/modules/menu-list-meta.php", array(
+                    get_extended_template_part("menu-list", "meta", array(
                         "class" => "article__menu-list__container",
                         "light" => $light,
                         "meta"  => $meta

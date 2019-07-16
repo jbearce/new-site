@@ -1,9 +1,9 @@
 <?php
-$class           = isset($template_args["class"]) ? $template_args["class"] : "";
+$class           = isset($this->vars["class"]) ? $this->vars["class"] : "";
 $container_class = gettype($class) === "array" && key_exists("container", $class) ? " {$class["container"]}" : (gettype($class) === "string" ? " {$class}" : "");
 $list_class      = gettype($class) === "array" && key_exists("list", $class) ? " {$class["list"]}" : "";
-$light           = isset($template_args["light"]) ? $template_args["light"] : false;
-$meta            = isset($template_args["meta"]) ? $template_args["meta"] : false;
+$light           = isset($this->vars["light"]) ? $this->vars["light"] : false;
+$meta            = isset($this->vars["meta"]) ? $this->vars["meta"] : false;
 ?>
 
 <?php if ($meta): ?>

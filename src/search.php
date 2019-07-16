@@ -11,20 +11,20 @@
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    __gulp_init_namespace___get_template_part("partials/articles/post-excerpt.php", array(
+                    get_extended_template_part("article", "post-excerpt", array(
                         "post" => $post,
                         "class" => "content__article",
                     ));
                 }
             } else {
-                __gulp_init_namespace___get_template_part("partials/articles/post-none.php", array(
+                get_extended_template_part("article", "post-none", array(
                     "class" => "content__article",
                     "error" => !get_search_query() ? __("No search phrase was entered.", "__gulp_init_namespace__") : __gulp_init_namespace___get_no_posts_message(get_queried_object()),
                 ));
             }
             ?>
 
-            <?php __gulp_init_namespace___get_template_part("partials/modules/menu-list-pagination.php"); ?>
+            <?php get_extended_template_part("menu-list", "pagination"); ?>
 
             <?php do_action("__gulp_init_namespace___after_content"); ?>
         </div><!--/.content__post-->

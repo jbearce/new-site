@@ -1,15 +1,15 @@
 <?php
-$post           = isset($template_args["post"]) ? $template_args["post"] : false;
-$class          = isset($template_args["class"]) ? $template_args["class"] : "";
+$post           = isset($this->vars["post"]) ? $this->vars["post"] : false;
+$class          = isset($this->vars["class"]) ? $this->vars["class"] : "";
 $block_class    = gettype($class) === "array" && key_exists("block", $class) ? " {$class["block"]}" : (gettype($class) === "string" ? " {$class}" : "");
 $inner_class    = gettype($class) === "array" && key_exists("inner", $class) ? " {$class["inner"]}" : "";
 $swiper_class   = gettype($class) === "array" && key_exists("swiper", $class) ? " {$class["swiper"]}" : "";
-$navigation     = isset($template_args["navigation"]) ? $template_args["navigation"] : false;
-$pagination     = isset($template_args["pagination"]) ? $template_args["pagination"] : false;
-$slideshow      = isset($template_args["slideshow"]) ? $template_args["slideshow"] : ($post ? __gulp_init_namespace___get_field("slideshow", $post->ID) : false);
-$image_size     = isset($template_args["image_size"]) ? $template_args["image_size"] : "hero";
-$featured_image = isset($template_args["featured_image"]) ? $template_args["featured_image"] : ($post && has_post_thumbnail($post->ID) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_large")[0]) : false);
-$title          = isset($template_args["title"]) ? $template_args["title"] : false;
+$navigation     = isset($this->vars["navigation"]) ? $this->vars["navigation"] : false;
+$pagination     = isset($this->vars["pagination"]) ? $this->vars["pagination"] : false;
+$slideshow      = isset($this->vars["slideshow"]) ? $this->vars["slideshow"] : ($post ? __gulp_init_namespace___get_field("slideshow", $post->ID) : false);
+$image_size     = isset($this->vars["image_size"]) ? $this->vars["image_size"] : "hero";
+$featured_image = isset($this->vars["featured_image"]) ? $this->vars["featured_image"] : ($post && has_post_thumbnail($post->ID) ? array("alt" => get_post_meta(get_post_thumbnail_id($post->ID), "_wp_attachment_image_alt", true), "small" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}")[0], "medium" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_medium")[0], "large" => wp_get_attachment_image_src(get_post_thumbnail_id($post->ID), "{$image_size}_large")[0]) : false);
+$title          = isset($this->vars["title"]) ? $this->vars["title"] : false;
 
 $slide_count = $slideshow ? count($slideshow) : 0;
 ?>
