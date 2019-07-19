@@ -54,4 +54,53 @@ If this project uses Continuous Deployment, the live theme folder should be a sy
 
 If Continuous Deployment isn't already set up, and you'd like to enable it, follow the steps below.
 
-WIP
+**Note:** This is assuming you're using GitLab CI for deployment.
+
+1. Download and extract the latest version of [git-deploy](https://github.com/vicenteguerra/git-deploy/archive/master.zip).
+
+2. Delete `.gitignore`, `_config.yml`, and `README.md`.
+
+3. Rename `deploy.sample.php` to `deploy.php`.
+
+4. Open `delopy.php` in a text editor such as VS Code.
+
+5. In the GitLab repository, navigate to Settings > Repository > Deploy Tokens.
+
+6. Create a new deploy token with the following settings:
+
+    - **Name:** Production
+    - **Expires at:** [ blank ]
+    - **Username:** [ blank ]
+    - **Scopes:** [x] read_repository
+
+7. Make note of the username and token output.
+
+8. Copy the secret token in to `deploy.php`, as `TOKEN`.
+
+9. Copy the HTTPS clone URL to the repository in to `deploy.php` as `REMOTE_REPOSITORY`.
+
+10. Just after the `https://` in `REMOTE_REPOSITORY`, add your saved username and token like so: `gitlab+deploy-token-123:g430vdsj07jDSFj93g21@` (**note:** The username and token must be seperated by `:`, and `@` must appear immediately following the token).
+
+11. In `deploy.php`, change `DIR` to `{$_SERVER["DOCUMENT_ROOT"]}/.gitlab/repository/`.
+
+12. Download my [custom initialization script](https://gist.githubusercontent.com/JacobDB/606aba6b93ef6d58a56e45f8873f9ade/raw/5f9404127c7128b1c002231fa33f754e3209c3ab/init.php).
+
+13. Replace the settings at the top with the same settings in `deploy.php`.
+
+14. Connect to your hosting environment, and at the server root, create a directory named `.gitlab`.
+
+15. Make sure that `wp-content/themes/__gulp_init_npm_name__` does not exist on the server. If it does, either remove it or rename it.
+
+16. Upload `init.php` to `.gitlab`.
+
+17. Navigate to your domain `/.gitlab/init.php` in your browser. This should run the initial clone and set up a symlink to your theme at `wp-content/themes/__gulp_init_npm_name__`.
+
+18. Upload `.htaccess`, `deploy.php`, and `deployer.php` to `.gitlab`, and ensure that `init.php` was deleted.
+
+19. Log in to WordPress and make sure that your new theme is activated and working correctly.
+
+20. Returning to the GitLab repository, navigate to Operations > Environments.
+
+21. Create a new environment named "Production", or if one already exists, edit it. Change "External URL" to point to your domain name, **including a trailing slash**. For example, `https://www.example.com/`.
+
+Going forward, whenever a change gets pushed to or merged in to master, you will be able to manually trigger the `deploy` pipeline to automatically fetch the latest code from GitLab! This will appear in GitLab under CI / CD > Pipelines. On the right side of the screen, a "Play" icon will appaer. Clicking this, you can click "deploy" to run the deployment task.

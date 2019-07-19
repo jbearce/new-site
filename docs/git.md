@@ -2,7 +2,9 @@
 
 ## Quick Reference
 
-WIP
+- If an issue had time quoted to a client, add the time estimate with `/estimate 10h 30m 15s`.
+- Assign one label of each "Status," "Priority," and "Type."
+- Use "present imperative tense" for commit messages.
 
 ## Issues
 
@@ -36,7 +38,7 @@ This project uses a variation of ["Sane" labels](https://medium.com/@dave_lunny/
 
 Commit messages should be descriptive, but concise. They should describe what the commit does in an easily understandable manor, so as not to confuse any future developers reading through past commits.
 
-Commits should be formatted in the present imperative tense. This is because when you commit something, you are describing the action of the commit, not you did before the commit. Git itself recommends and uses present imperative tense, so matching that style is ideal.
+Commits should be formatted in the present imperative tense. This is because when you commit something, you are describing the action of the commit, not what you did before the commit. Git itself recommends and uses present imperative tense, so matching that style is ideal.
 
 When a commit is in relation to a specific issue, that issue should be mentioned after a semicolon at the end of the message, with either "Address" or "Close" prefixing it. "Address" should be used if the commit partially addresses an issue, but doesn't completely solve it. "Close" should be used if the commit completely addresses all aspects of the issue.
 
@@ -56,9 +58,9 @@ Some examples appear below.
 
 **Bad commit messages:**
 
-- `Changed color of links from red to green`
-- `Fixed a thing`
-- `Allow user to set link color via a setting; Fixed #17`
+- `Changed color of links from red to green` &ndash; **This message is past tense.**
+- `Fix a thing` &ndash; **This message is too vague.**
+- `Allow user to set link color via a setting (this fixes #17)` &ndash; **Issue reference should appear as `; Close #17`.**
 
 ## Branching
 
@@ -84,7 +86,7 @@ Briefly describe the change in the "Title" field, and provide any relevant detai
   - Status
   - Type
 - Source branch (should always be your new branch)
-- Tarbet branch (should always be `release`)
+- Target branch (should always be `release`)
 - [x] Delete Delete source branch when merge request is accepted.
 - [ ] Squash commits when merge request is accepted.
 

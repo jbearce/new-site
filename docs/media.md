@@ -2,7 +2,9 @@
 
 ## Quick reference
 
-WIP
+- Avoid adding media if at all possible.
+- Use FontAwesome for icons.
+- Any third-party media should be added under `./src/assets/media/vendor`.
 
 ## Methodology
 
@@ -12,47 +14,63 @@ In general, as few images as possible should be included with the theme. If an i
 
 Within the media folder, there are folders named `android`, `ios`, and `safari`. Each of these folders contains a number of images that will need modified when the project is first set up, or a logo change occurs.
 
-### Android
+### Android & iOS
 
-1. If possible, take the icon from the project logo, make it solid white, and export it as a transaprent PNG sized 2048x2048. If there is no icon in the logo, simply use what is available. If the logo isn't well suited to being set to solid white, use it as-is.
+To facilitate icon creation for Android & iOS, I wrote a custom CLI module called [pwa-icon-generator](https://www.npmjs.com/package/pwa-icon-generator). Using this tool, we can very quickly generate all the necessary icons for Android and iOS.
 
-2. Navigate to [Android Asset Studio](https://jgilfelt.github.io/AndroidAssetStudio/icons-launcher.html), and upload the logo you've just created.
+1. Open Terminal.
 
-3. Adjust the padding slider until the icon looks reasonable placed with some decent breathing room.
+2. Install the CLI tool.
 
-4. Unders "Shape," Choose "CIRCLE."
+    ```sh
+    npm install --global pwa-icon-generator
+    ```
 
-5. Set the background color to the primary or accent color of the theme, depending on which appears to be more brand-relevant.
+3. Create a source icon in an image editing application such as Photoshop or Affinity Photo.
 
-6. Download the ZIP file that gets generated.
+    1. Create a new document sized 2048x2048.
 
-7. Extract the ZIP file, and rename each image file as the images are named in the `android` folder.
+    2. Add your custom icon to the document, and center it.
 
-8. Copy your 2048x2048 logo image, resize it to 512x512, and save it named `splash-icon-512x512.png`.
+    3. Resize the icon to 2040 in its longest dimension.
 
-9. Replace each image in `./src/assets/media/android` with the icons you've generated.
+    4. If possible, overlay the icon with solid white. Depending on the complexity of the icon, this may not work well, so use your best judgment.
 
-10. Copy the 144x144 icon, rename it to `logo-favicon.png`, and resize it to 128x128. Replace `logo-favicon.png` in the `./src/assets/media/` with it.
+    5. Save the icon as `source.png`.
 
-### iOS
+4. In terminal, change directory to the location the icon is saved.
 
-1. Use your 2048x2048 logo from the Android section, or otherwise create a new one.
+5. Run the command `generate-icons --icon source.png --color $THEME_COLOR`, replacing `$THEME_COLOR` with the HEX code (without the `#`) for the theme color of the website, typically found in `package.json` (**NOTE:** If you could not overlay the icon with solid white, use `FFFFFF` as the background color.).
 
-2. Open each image in the `ios` folder, and paste the new logo as a new layer over it.
+6. Once complete, copy the contents of the `media` directory in to `./src/assets/media`, replacing the existing `ios` and `android` directories.
 
-3. Size the larger dimension of the logo to 50% the smaller dimension of the image. For example, if your logo is 2048x2048, and the image is 2732x2048, the logo should be resized to 1024x1024.
+### Favicon
 
-4. Create a new layer under the logo, and fill it in with the primary or accent color of the theme, depending on which appears to be more brand-relevant.
+Google recommends using a 144x144 favicon, which luckily got generated for Android already.
+
+1. Copy the `./src/assets/media/android/launcher-icon-144x144.png` to `./src/assets/media/logo-favicon.png`.
 
 ### Safari
 
-1. Create a 16x16 version of the logo that is a single path and solid black.
+Pinned tabs in Safari can offer their own custom SVG favicons. These icons must be a single path on a canvas sized 16x16.
 
-2. Export it as an SVG named `mask-icon.svg`.
+1. Open a vector editing application, such as Adobe Illustrator or Affinity designer.
 
-3. Edit the SVG to remove everything except for the `<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">` and the `<path>`.
+2. Create a new document sized 16x16.
 
-4. Replace `./src/assets/media/safari/mask-icon.svg` with the version you've just created.
+3. Add your cusotm icon to the document, and center it.
+
+4. Make sure that the icon is merged in to a single path.
+
+5. Resize the icon to 14.5 in its longest dimension.
+
+6. Set the fill on the icon to solid black.
+
+7. Export the icon to `./src/assets/media/safari/mask-icon.svg`.
+
+8. In a text editor such as VS Code, open `mask-icon.svg`.
+
+9. Clean out everything except the singular `<path>` and the containing `<svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">`.
 
 ### FontAwesome Icons
 
@@ -73,7 +91,7 @@ For example, to create a custom icon to represent this projects logo (a rocket, 
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
-import "@fortawesome/fontawesome-pro";
+import { library, dom } from "@fortawesome/fontawesome-svg-core";
 
 document.addEventListener("DOMContentLoaded", function () {
     window.FontAwesome.library.add({

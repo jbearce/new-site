@@ -1,8 +1,9 @@
 ## Quick reference
 
-WIP
-
 - [BEM Documentation](http://getbem.com/)
+- "Layout" blocks are top-level element such as the header or footer.
+- "Module" blocks are components of layouts, such as a search form or article.
+- "Base" blocks are core buliding blocks of modules, such as titles or inputs.
 
 ## Methodology
 

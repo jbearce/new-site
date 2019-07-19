@@ -2,27 +2,60 @@
 
 ## Required Software
 
+- [PHP 7+](https://help.ubuntu.com/lts/serverguide/php.html)
 - [Node.js v8+](https://nodejs.org/en/download/)
+- [Composer v1.8+](https://getcomposer.org/doc/00-intro.md)
 - [Gulp CLI v2+](https://gulpjs.com/)
 - [Git v2.7+](https://git-scm.com/)
 - [OpenSSH Client](https://help.ubuntu.com/lts/serverguide/openssh-server.html)
 
 ## Recommended Software
 
-- [Atom](https://atom.io/)
+- [VS Code](https://code.visualstudio.com/)
 - [Hyper](https://hyper.is/)
 - [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Windows 10)
 - [Node Version Manager](https://github.com/creationix/nvm#installation) (Mac, Linux, WSL)
 - [LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04) (Mac, Linux, WSL)
 - [libnotify-bin](https://packages.ubuntu.com/xenial/libnotify-bin) (Linux, WSL)
 - [BurntToast](https://github.com/Windos/BurntToast) (WSL)
-- [FontAwesome 5 Pro](https://fontawesome.com/pro) (all)
 
 ## Installation
 
 This guide assumes that you're running Bash on Ubuntu 16.04; instructions may differ for Mac & Windows. If running Windows 10, it is highly recommend that you first follow [Microsoft's guide to enable the Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) for optimal compatibility.
 
-### Step 1: Install Node.js
+### Step 1: Install PHP
+
+1. Open Terminal.
+
+2. Update the apt repository.
+
+    ```sh
+    sudo apt-get update
+    ```
+
+3. Install PHP and some related extensions.
+
+    ```sh
+    sudo apt-get install php php-mysql libapache2-mod-php php-cli php-cgi php-gd
+    ```
+
+### Step 2: Install Composer
+
+1. Open Terminal.
+
+2. Download and run the Composer installation script.
+
+    ```sh
+    curl -o- https://getcomposer.org/installer | php
+    ```
+
+3. Move `composer.phar` to your global path.
+
+    ```sh
+    mv composer.phar /usr/local/bin/composer
+    ```
+
+### Step 3: Install Node.js
 
 1. Open Terminal.
 
@@ -42,7 +75,7 @@ This guide assumes that you're running Bash on Ubuntu 16.04; instructions may di
 
 5. Verify that Node.js was successfully installed by running `node -v`. If `node: command not found` is returned, or otherwise no version information is returned, close out of all terminal windows and start a new session.
 
-### Step 2: Install the Gulp command line interface
+### Step 4: Install the Gulp command line interface
 
 1. Open Terminal.
 
@@ -54,7 +87,7 @@ This guide assumes that you're running Bash on Ubuntu 16.04; instructions may di
 
 3. Verify that gulp-cli was successfully installed by running `gulp -v`. If `gulp: command not found` is returned, or otherwise no version information is returned, close out of all terminal windows and start a new session.
 
-### Step 3: Install Git
+### Step 5: Install Git
 
 1. Open Terminal.
 
@@ -78,7 +111,7 @@ This guide assumes that you're running Bash on Ubuntu 16.04; instructions may di
     git config --global user.email "your_email@example.com"
     ```
 
-### Step 4: Set up SSH
+### Step 6: Set up SSH
 
 1. Open Terminal.
 
@@ -118,7 +151,7 @@ This guide assumes that you're running Bash on Ubuntu 16.04; instructions may di
 
 13. If prompted, confirm your GitHub password.
 
-### Step 5: Clone the Repository
+### Step 7: Clone the Repository
 
 1. Navigate to the main page of the repository.
 
@@ -138,7 +171,25 @@ This guide assumes that you're running Bash on Ubuntu 16.04; instructions may di
 
 7. Press **Enter**. Your local clone will be created.
 
-### Step 6: Install Node Modules
+### Step 8: Install Composer libraries
+
+1. Open Terminal.
+
+2. Change the current working directory to the location where you cloned the repository.
+
+    ```sh
+    cd ~/Repositories/__gulp_init_npm_name__
+    ```
+
+3. Install the required composer libraries.
+
+    ```sh
+    composer install
+    ```
+
+4. Verify that a `vendor` folder appears at the root of the the repository.
+
+### Step 9: Install Node Modules
 
 1. Open Terminal.
 
@@ -220,33 +271,23 @@ A local environment may be not be needed, depending on what you're trying to do 
     exit;
     ```
 
-### Install PHP
+### Verify PHP
 
-1. Update the apt repository.
+1. [Install PHP](#install-php)
 
-    ```sh
-    sudo apt-get update
-    ```
-
-2. Install PHP and some related extensions.
-
-    ```sh
-    sudo apt-get install php php-mysql libapache2-mod-php php-cli php-cgi php-gd
-    ```
-
-3. Create a test PHP file.
+2. Create a test PHP file.
 
     ```sh
     sudo nano /var/www/html/index.php
     ```
 
-4. Add a call to `phpinfo()` to the file.
+3. Add a call to `phpinfo()` to the file.
 
     ```php
     <?php phpinfo(); ?>
     ```
 
-5. Visit http://localhost/index.php. You should be greeted with "PHP Version..."
+4. Visit http://localhost/index.php. You should be greeted with "PHP Version..."
 
 ### Create a new database for WordPress
 
@@ -388,6 +429,7 @@ import "@fortawesome/fontawesome-free/js/solid";
 import "@fortawesome/fontawesome-free/js/regular";
 import "@fortawesome/fontawesome-free/js/brands";
 ```
+
 You may then need to replace any broken icons in the theme with free equivalents.
 
 #### Removing FontAwesome
