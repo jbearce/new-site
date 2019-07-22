@@ -1,0 +1,6 @@
+{
+    "allow-prerelease": true,
+    "merge-prerelease": true,
+    "git-branch": "master",
+    "git-template": "__gulp_init_repository__/compare/[prev]...[next]"
+}
