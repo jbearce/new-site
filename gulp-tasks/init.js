@@ -200,7 +200,7 @@ module.exports = {
         // write project data
         const WRITE_PROJECT_DATA = () => {
             return new Promise((resolve, reject) => {
-                return gulp.src(["*", "gulp-tasks/*", "src/**/*"], { base: "./" })
+                return gulp.src(["*", ".*", "gulp-tasks/*", "src/**/*"], { base: "./" })
                     // prevent breaking on error
                     .pipe(plugins.plumber({ errorHandler: on_error }))
                     // check if a file is a binary
