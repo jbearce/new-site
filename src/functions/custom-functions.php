@@ -4,6 +4,47 @@
  \* ------------------------------------------------------------------------ */
 
 /**
+ * Wrapper around ACF's `get_field` to ensure errors don't occur if ACF isn't active
+ *
+ * @param string name  ACF field name
+ * @param int post_id  An ID for a post
+ *
+ * @return array  The field value
+ */
+function __gulp_init_namespace___get_field($name, $post_id = null) {
+    if (function_exists("get_field")) {
+        return get_field($name, $post_id);
+    } else {
+        return false;
+    }
+}
+
+/**
+ * Remove extra tags added for use with DOMDocument
+ *
+ * @see https://stackoverflow.com/a/6406139/654480
+ *
+ * @param object DOM  DOMDocument object
+ *
+ * @return string  Formatted HTML
+ */
+function __gulp_init_namespace___remove_extra_tags($DOM) {
+    $XPath = new DOMXPath($DOM);
+
+    $body_contents = $XPath->query("//body/node()");
+
+    $html = "";
+
+    if ($body_contents) {
+        foreach ($body_contents as $element) {
+            $html .= $DOM->saveHTML($element);
+        }
+    }
+
+    return $html;
+}
+
+/**
  * Get the path to the most recent version of a file given a glob (i.e. modern.*.css => modern.17ee0314.css)
  *
  * @param string path  Glob pattern for file to search for
@@ -484,31 +525,6 @@ function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = n
 }
 
 /**
- * Remove extra tags added for use with DOMDocument
- *
- * @see https://stackoverflow.com/a/6406139/654480
- *
- * @param object DOM  DOMDocument object
- *
- * @return string  Formatted HTML
- */
-function __gulp_init_namespace___remove_extra_tags($DOM) {
-    $XPath = new DOMXPath($DOM);
-
-    $body_contents = $XPath->query("//body/node()");
-
-    $html = "";
-
-    if ($body_contents) {
-        foreach ($body_contents as $element) {
-            $html .= $DOM->saveHTML($element);
-        }
-    }
-
-    return $html;
-}
-
-/**
  * Get a unique "No posts found" mesage for various types of pages
  *
  * @param object queried_object  The result of get_queried_object()
@@ -558,22 +574,6 @@ function __gulp_init_namespace___get_no_posts_message($queried_object) {
     }
 
     return $error_message;
-}
-
-/**
- * Wrapper around ACF's `get_field` to ensure errors don't occur if ACF isn't active
- *
- * @param string name  ACF field name
- * @param int post_id  An ID for a post
- *
- * @return array  The field value
- */
-function __gulp_init_namespace___get_field($name, $post_id = null) {
-    if (function_exists("get_field")) {
-        return get_field($name, $post_id);
-    } else {
-        return false;
-    }
 }
 
 /**

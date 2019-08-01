@@ -3,6 +3,18 @@
  * Functions: Filters
 \* ------------------------------------------------------------------------ */
 
+// enable force HTTPS and HSTS if the site is served over HTTPS
+function __gulp_init_namespace___enable_https_directives($value) {
+    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
+        return true;
+    }
+}
+add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_is_enabled", "__gulp_init_namespace___enable_https_directives");
+add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_is_enabled", "__gulp_init_namespace___enable_https_directives");
+
+// disable xmlrpc.php
+add_filter("xmlrpc_enabled", "__return_false");
+
 // set a cookie after the first load to mark returning visitors
 function __gulp_init_namespace___set_return_visitor_cookie() {
     if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
@@ -20,6 +32,14 @@ function __gulp_init_namespace___login_logo_title() {
     return get_bloginfo("name");
 }
 add_filter("login_headertext", "__gulp_init_namespace___login_logo_title");
+
+// replace content with a password form if a post is password protected
+function __gulp_init_namespace___enable_post_password_protection($post_object) {
+    if (post_password_required($post_object->ID)) {
+        $post_object->post_content = get_the_password_form();
+    }
+}
+add_action("the_post", "__gulp_init_namespace___enable_post_password_protection");
 
 // delay when shortcodes get expanded
 function __gulp_init_namespace___delay_shortcode_expansion() {
@@ -343,6 +363,13 @@ add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
 add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20);
 add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20, 2);
 
+// add a class to images within the caption shortcode
+function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $html) {
+    $shcode = preg_replace("/(<img[^>]+class=(?:\"|'))/", "$1wp-caption-image ", $shcode);
+    return $shcode;
+}
+add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
+
 // remove dimensions from thumbnails
 function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $post_image_id) {
     if (!is_admin() && $html) {
@@ -373,6 +400,54 @@ function __gulp_init_namespace___remove_thumbnail_dimensions($html, $post_id, $p
     return $html;
 }
 add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions", 10, 3);
+
+// add link classes to __gulp_init_namespace___menu_list_link filtered content
+function __gulp_init_namespace___menu_list_link_classes($links) {
+    if ($links) {
+        $DOM = new DOMDocument();
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$links}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
+
+        $anchors = $DOM->getElementsByTagName("a");
+
+        foreach ($anchors as $anchor) {
+            $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $links = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
+
+    return $links;
+}
+add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___menu_list_link_classes");
+
+// redirect to the home template if no front page is set
+function __gulp_init_namespace___home_template_redirect($template) {
+    if (is_front_page() && get_option("show_on_front") != "page") {
+        return TEMPLATEPATH . "/home.php";
+    } else {
+        return $template;
+    }
+}
+add_action("template_include", "__gulp_init_namespace___home_template_redirect");
+
+// decode HTML entities in bloginfo("description")
+function __gulp_init_namespace___decode_html_entities_in_blog_description($value, $field) {
+    if ($field === "description") {
+        $value = html_entity_decode($value);
+    }
+
+    return $value;
+}
+add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_description", 10, 2);
 
 // add "Download Adobe Reader" link on all pages that link to PDFs
 function __gulp_init_namespace___acrobat_link() {
@@ -412,78 +487,3 @@ function __gulp_init_namespace___acrobat_link() {
     }
 }
 add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acrobat_link");
-
-// redirect to the home template if no front page is set
-function __gulp_init_namespace___home_template_redirect($template) {
-    if (is_front_page() && get_option("show_on_front") != "page") {
-        return TEMPLATEPATH . "/home.php";
-    } else {
-        return $template;
-    }
-}
-add_action("template_include", "__gulp_init_namespace___home_template_redirect");
-
-// decode HTML entities in bloginfo("description")
-function __gulp_init_namespace___decode_html_entities_in_blog_description($value, $field) {
-    if ($field === "description") {
-        $value = html_entity_decode($value);
-    }
-
-    return $value;
-}
-add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_description", 10, 2);
-
-// replace content with a password form if a post is password protected
-function __gulp_init_namespace___enable_post_password_protection($post_object) {
-    if (post_password_required($post_object->ID)) {
-        $post_object->post_content = get_the_password_form();
-    }
-}
-add_action("the_post", "__gulp_init_namespace___enable_post_password_protection");
-
-// add link classes to __gulp_init_namespace___menu_list_link filtered content
-function __gulp_init_namespace___menu_list_link_classes($links) {
-    if ($links) {
-        $DOM = new DOMDocument();
-
-        // disable errors to get around HTML5 warnings...
-        libxml_use_internal_errors(true);
-
-        // load in content
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$links}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
-
-        // reset errors to get around HTML5 warnings...
-        libxml_clear_errors();
-
-        $anchors = $DOM->getElementsByTagName("a");
-
-        foreach ($anchors as $anchor) {
-            $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
-        }
-
-        // remove unneeded tags (inserted for parsing reasons)
-        $links = __gulp_init_namespace___remove_extra_tags($DOM);
-    }
-
-    return $links;
-}
-add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___menu_list_link_classes");
-
-// add a class to images within the caption shortcode
-function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $html) {
-    $shcode = preg_replace("/(<img[^>]+class=(?:\"|'))/", "$1wp-caption-image ", $shcode);
-    return $shcode;
-}
-add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10, 2);
-
-// enable force HTTPS and HSTS if the site is served over HTTPS
-function __gulp_init_namespace___enable_https_directives($value) {
-    if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] == "on") {
-        return true;
-    }
-}
-add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_is_enabled", "__gulp_init_namespace___enable_https_directives");
-add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_is_enabled", "__gulp_init_namespace___enable_https_directives");
-
-// disable xmlrpc.php
-add_filter("xmlrpc_enabled", "__return_false");
