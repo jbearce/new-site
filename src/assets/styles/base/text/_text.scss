@@ -20,15 +20,6 @@
     }
 }
 
-/* selection styles (no where else to put this */
-
-::selection {
-    & {
-        background-color: color("accent");
-        color: color("light");
-    }
-}
-
 /* label variant */
 
 .text--label {
