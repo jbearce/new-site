@@ -48,6 +48,12 @@ function __gulp_init_namespace___delay_shortcode_expansion() {
 }
 add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
+// filter out   and   characters on post save
+function __gulp_init_namespace___remove_sep_characters($content) {
+    return preg_replace("/( | )/", "", $content);
+}
+add_filter("content_save_pre", "__gulp_init_namespace___remove_sep_characters");
+
 // remove wpautop stuff from shortcodes
 function __gulp_init_namespace___fix_shortcodes($content) {
     global $shortcode_tags;

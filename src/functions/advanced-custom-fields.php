@@ -5,11 +5,21 @@
 
 /* FILTERS */
 
+// filter out   and   characters on field save
+function __gulp_init_namespace___acf_remove_sep_characters($value, $post_id, $field) {
+    if (is_string($value)) {
+        $value = bag_solutions_remove_sep_characters($value);
+    }
+
+    return $value;
+}
+add_filter("acf/update_value", "__gulp_init_namespace___acf_remove_sep_characters", 10, 3);
+
 // delay when shortcodes get expanded
 function __gulp_init_namespace___acf_delay_shortcode_expansion($value = false) {
     remove_filter("acf_the_content", "do_shortcode", 11);
-	add_filter("acf_the_content", "do_shortcode", 25);
-	if ($value !== false) return $value;
+    add_filter("acf_the_content", "do_shortcode", 25);
+    if ($value !== false) return $value;
 }
 add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___acf_delay_shortcode_expansion");
 

@@ -48,22 +48,6 @@
     }
 }
 
-.navigation__search-form__container {
-    .search-form__input {
-        border-color: color("light");
-    }
-
-    .search-form__input:focus,
-    .search-form__input:hover {
-        border-color: color("accent", "shade");
-    }
-
-    .search-form__button:focus,
-    .search-form__button:hover {
-        color: color("accent", "shade");
-    }
-}
-
 /* flyout variant */
 
 .navigation-block--flyout {
