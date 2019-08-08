@@ -8,7 +8,7 @@
 // filter out   and   characters on field save
 function __gulp_init_namespace___acf_remove_sep_characters($value, $post_id, $field) {
     if (is_string($value)) {
-        $value = bag_solutions_remove_sep_characters($value);
+        $value = __gulp_init_namespace___remove_sep_characters($value);
     }
 
     return $value;
