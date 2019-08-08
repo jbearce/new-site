@@ -89,8 +89,6 @@ function __gulp_init_namespace___add_user_content_classes($content) {
         // reset errors to get around HTML5 warnings...
         libxml_clear_errors();
 
-        $home_url = home_url();
-
         $anchors = $DOM->getElementsByTagName("a");
 
         foreach ($anchors as $anchor) {
@@ -250,17 +248,28 @@ function __gulp_init_namespace___add_user_content_classes($content) {
             $figcaption->setAttribute("class", "user-content__text text {$figcaption->getAttribute("class")}");
         }
 
-        $tables = $DOM->getElementsByTagName("table");
+        // remove unneeded tags (inserted for parsing reasons)
+        $content = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
 
-        $table_container = $DOM->createElement("div");
-        $table_container->setAttribute("class", "user-content__text__table__container text__table__container");
-        $table_container->setAttribute("data-slideout-ignore", "true");
+    return $content;
+}
+add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
-        foreach ($tables as $table) {
-            $table_container_clone = $table_container->cloneNode();
-            $table->parentNode->replaceChild($table_container_clone, $table);
-            $table_container_clone->appendChild($table);
-        }
+// enable responsive iframes
+function __gulp_init_namespace___responsive_iframes($content) {
+    if (!is_admin() && $content) {
+        $DOM = new DOMDocument();
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
 
         $iframes = $DOM->getElementsByTagName("iframe");
 
@@ -306,7 +315,41 @@ function __gulp_init_namespace___add_user_content_classes($content) {
 
     return $content;
 }
-add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+add_filter("the_content", "__gulp_init_namespace___responsive_iframes", 20);
+
+// enable responsive tables
+function __gulp_init_namespace___responsive_tables($content) {
+    if (!is_admin() && $content) {
+        $DOM = new DOMDocument();
+
+        // disable errors to get around HTML5 warnings...
+        libxml_use_internal_errors(true);
+
+        // load in content
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        // reset errors to get around HTML5 warnings...
+        libxml_clear_errors();
+
+        $tables = $DOM->getElementsByTagName("table");
+
+        $table_container = $DOM->createElement("div");
+        $table_container->setAttribute("class", "user-content__text__table__container text__table__container");
+        $table_container->setAttribute("data-slideout-ignore", "true");
+
+        foreach ($tables as $table) {
+            $table_container_clone = $table_container->cloneNode();
+            $table->parentNode->replaceChild($table_container_clone, $table);
+            $table_container_clone->appendChild($table);
+        }
+
+        // remove unneeded tags (inserted for parsing reasons)
+        $content = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
+
+    return $content;
+}
+add_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
 
 // lazy load images
 function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {

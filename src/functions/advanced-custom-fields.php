@@ -29,6 +29,12 @@ add_action("acf_the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 // add classes to elements
 add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
 
+// enable responsive iframes
+add_filter("acf_the_content", "__gulp_init_namespace___responsive_iframes", 20);
+
+// enable responsive tables
+add_filter("acf_the_content", "__gulp_init_namespace___responsive_tables", 20);
+
 // lazy load images
 add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
 
