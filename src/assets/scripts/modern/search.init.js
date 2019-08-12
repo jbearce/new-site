@@ -2,6 +2,8 @@
 
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
+import "mdn-polyfills/NodeList.prototype.forEach";
+
 const SEARCH_TOGGLE   = document.querySelector("[data-toggle=mobile-search]");
 const SEARCH_FORM     = document.querySelector("#mobile-search");
 const SEARCH_INPUT    = SEARCH_FORM ? SEARCH_FORM.querySelector("input[type=search]") : false;

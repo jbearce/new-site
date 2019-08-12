@@ -2,6 +2,8 @@
 
 // Scripts written by Jacob Bearce @ Weblinx, Inc.
 
+import "mdn-polyfills/NodeList.prototype.forEach";
+
 let i = 0;
 
 const LIMIT = 10;
