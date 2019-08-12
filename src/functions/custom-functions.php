@@ -237,28 +237,23 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = "layzr", $ta
     $element = "<{$tag}";
 
     /**
-     * If provided URL is an array, consturct an `src` attribute pointing
-     * to the `1x` resolution, and an srcset containing each possible
-     * resolution.
+     * If provided URL is an array, consturct an `srcset` attribute pointing
+     * to the `1x` resolution, and an srcset containing each possible resolution.
      */
     if (gettype($src) === "array") {
         $i = 0;
-        $element .= " src='{$src["1x"]}' srcset='";
+        $element .= " srcset='";
 
-        foreach ($src as $dpi => $source) {
-            $i++;
-            $element .= "{$source} {$dpi}" . ($i < count($src) ? ", " : "");
+        foreach ($src as $dpi => $source) { $i++;
+            $element .= esc_url($source) . " " . esc_attr($dpi) . ($i < count($src) ? ", " : "");
         }
 
         $element .= "'";
     /**
-     * Otherwise, simply construct a single `src` or `srcset` containing
-     * provided URL.
+     * Otherwise, simply construct a single `srcset` containing the provided URL.
      */
     } else {
-        $source_att = $tag === "source" ? "srcset" : "src";
-
-        $element .= " {$source_att}='{$src}'";
+        $element .= " srcset='" . esc_url($src) . "'";
     }
 
     /**
@@ -266,7 +261,7 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = "layzr", $ta
      */
     if (!empty($atts)) {
         foreach ($atts as $att => $value) {
-            $element .= " {$att}='{$value}'";
+            $element .= " " . esc_attr($att) . "='" . esc_attr($value) . "'";
         }
     }
 
