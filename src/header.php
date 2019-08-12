@@ -19,7 +19,7 @@
                         </div>
                         <div class="col-0">
                             <a class="header__logo logo" href="<?php echo home_url(); ?>">
-                                <img class="logo__image" alt="<?php bloginfo("name"); ?>" src="<?php echo get_theme_file_uri("assets/media/logo.svg"); ?>" />
+                                <img class="logo__image" alt="<?php bloginfo("name"); ?>" srcset="<?php echo get_theme_file_uri("assets/media/logo.svg"); ?>" />
                             </a>
                         </div>
                         <div class="col-auto col--nogrow col--noshrnk __hidden-xs">

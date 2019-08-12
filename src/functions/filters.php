@@ -375,6 +375,22 @@ function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {
                 $existing_src    = $image->getAttribute("src");
                 $existing_srcset = $image->getAttribute("srcset");
 
+                /**
+                 * Add an `src` if the mode is layzr, as it's requried for layzr
+                 */
+                if ($mode === "layzr" && !$existing_src && $existing_srcset) {
+                    $source   =  $existing_srcset;
+                    $exploded = explode(" ", $source);
+
+                    if ($exploded[0] && filter_var($exploded[0], FILTER_VALIDATE_URL)) {
+                        $source = $exploded[0];
+                    }
+
+                    $image->setAttribute("src", $source);
+
+                    $existing_src = $image->getAttribute("src");
+                }
+
                 // add noscript before images
                 $noscript = $DOM->createElement("noscript");
                 $noscript->appendChild($image->cloneNode());

@@ -38,15 +38,15 @@ $platform_ie = __gulp_init_namespace___is_platform("ie");
                                         <picture class="swiper-picture">
 
                                             <?php if ($image["sizes"]["{$image_size}_large"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), ($slide_count > 1 && !$platform_ie ? "swiper" : false), "source"); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_large"], array("class" => "swiper-lazy", "media" => "(min-width: 64em)"), ($slide_count > 1 ? "swiper" : false), "source"); ?>
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}_medium"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_medium"], array("class" => "swiper-lazy", "media" => "(min-width: 40em)"), ($slide_count > 1 && !$platform_ie ? "swiper" : false), "source"); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_medium"], array("class" => "swiper-lazy", "media" => "(min-width: 40em)"), ($slide_count > 1 ? "swiper" : false), "source"); ?>
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], array("alt" => $image["alt"], "class" => "swiper-image swiper-lazy"), (!$platform_ie ? ($slide_count > 1 ? "swiper" : "layzr") : false)); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], array("alt" => $image["alt"], "class" => "swiper-image swiper-lazy"), ($slide_count > 1 ? "swiper" : "layzr")); ?>
                                             <?php endif; ?>
 
                                             <?php if ($slide_count > 1 && !$platform_ie): ?>

@@ -270,7 +270,7 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = "layzr", $ta
     /**
      * Run through the lazy loader filter
      */
-    if ($lazy) {
+    if ($lazy && !__gulp_init_namespace___is_platform("ie")) {
         $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element, $lazy);
     }
 

@@ -7,7 +7,7 @@ $pwa_name = $pwa_name ? $pwa_name : "<%= pwa_name %>";
         <button class="pwa-install-prompt__overlay"><?php _e("Close", "__gulp_init_namespace__"); ?></button>
         <div class="pwa-install-prompt">
             <div class="pwa-install-prompt__icon__container">
-                <img class="pwa-install-prompt__icon" src="<?php echo get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") ?>" alt="<?php bloginfo("name"); ?>" />
+                <img class="pwa-install-prompt__icon" srcset="<?php echo get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") ?>" alt="<?php bloginfo("name"); ?>" />
             </div>
             <div class="pwa-install-prompt__content">
                 <h3 class="pwa-install-prompt__title"><?php echo sprintf(__("Install %s", "__gulp_init_namespace__"), $pwa_name); ?></h3>
