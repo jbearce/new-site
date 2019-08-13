@@ -8,9 +8,8 @@ import Swiper from "swiper";
 if (document.querySelectorAll(".swiper-container--hero .swiper-slide").length > 1) {
     new Swiper (".swiper-container--hero", {
         autoplay: {
-            delay: 5000,
+            delay: 15000,
         },
-        lazy: true,
         loop: true,
         navigation: {
             nextEl: ".swiper-container--hero .swiper-button--next",

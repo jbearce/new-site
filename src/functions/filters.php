@@ -352,7 +352,7 @@ function __gulp_init_namespace___responsive_tables($content) {
 add_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
 
 // lazy load images
-function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {
+function __gulp_init_namespace___lazy_load_images($content) {
     if (!is_admin() && $content) {
         $DOM = new DOMDocument();
 
@@ -375,36 +375,15 @@ function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {
                 $existing_src    = $image->getAttribute("src");
                 $existing_srcset = $image->getAttribute("srcset");
 
-                /**
-                 * Add an `src` if the mode is layzr, as it's requried for layzr
-                 */
-                if ($mode === "layzr" && !$existing_src && $existing_srcset) {
-                    $source   =  $existing_srcset;
-                    $exploded = explode(" ", $source);
-
-                    if ($exploded[0] && filter_var($exploded[0], FILTER_VALIDATE_URL)) {
-                        $source = $exploded[0];
-                    }
-
-                    $image->setAttribute("src", $source);
-
-                    $existing_src = $image->getAttribute("src");
-                }
-
                 // add noscript before images
                 $noscript = $DOM->createElement("noscript");
                 $noscript->appendChild($image->cloneNode());
                 $image->parentNode->insertBefore($noscript, $image);
 
-                // change src to data-normal
+                // change src to data-src
                 if ($existing_src) {
                     $image->removeAttribute("src");
-
-                    if ($mode === "swiper") {
-                        $image->setAttribute("data-src", $existing_src);
-                    } else {
-                        $image->setAttribute("data-normal", $existing_src);
-                    }
+                    $image->setAttribute("data-src", $existing_src);
                 }
 
                 // change srcset to data-srcset
@@ -413,8 +392,19 @@ function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {
                     $image->setAttribute("data-srcset", $existing_srcset);
                 }
 
-                // add _js class
-                $image->setAttribute("class", "_js {$image->getAttribute("class")}");
+                $height = $image->getAttribute("height");
+                $width  = $image->getAttribute("width");
+
+                // add intrinsicsize if height and width exist
+                if ($height && $width) {
+                    $image->setAttribute("intrinsicsize", "{$width}x{$height}");
+                }
+
+                // add loading="lazy"
+                $image->setAttribute("loading", "lazy");
+
+                // add lazyload and __js classes
+                $image->setAttribute("class", "lazyload __js {$image->getAttribute("class")}");
             }
         }
 
@@ -424,9 +414,9 @@ function __gulp_init_namespace___lazy_load_images($content, $mode = "layzr") {
 
     return $content;
 }
-add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20);
-add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20, 2);
+add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20, 1);
+add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20, 1);
+add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20, 1);
 
 // add a class to images within the caption shortcode
 function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode, $html) {

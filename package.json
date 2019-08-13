@@ -93,7 +93,7 @@
     "focus-visible": "^5.0.2",
     "gutenberg-web-type": "^1.2.3",
     "in-vp": "^1.1.0",
-    "layzr.js": "^2.2.2",
+    "lazysizes": "^5.1.1",
     "mdn-polyfills": "^5.18.0",
     "normalize-scss": "^7.0.1",
     "noty": "^3.2.0-beta",
