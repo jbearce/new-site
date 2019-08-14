@@ -45,6 +45,36 @@ function __gulp_init_namespace___ninja_forms_fix_scripts_order() {
 }
 add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fix_scripts_order");
 
+// fix page title on "ninja forms" pages
+function __gulp_init_namespace___ninja_forms_fix_wpseo_title($title) {
+    global $wpdb;
+
+    if ($public_link_key = get_query_var("nf_public_link")) {
+        $query      = $wpdb->prepare("SELECT `parent_id` FROM {$wpdb->prefix}nf3_form_meta WHERE `key` = 'public_link_key' AND `value` = %s", $public_link_key);
+        $results    = $wpdb->get_col($query);
+        $form_id    = reset($results);
+
+        $query      = $wpdb->prepare("SELECT `title` FROM {$wpdb->prefix}nf3_forms WHERE `id` = %s", $form_id);
+        $results    = $wpdb->get_col($query);
+        $form_title = reset($results);
+
+        $title = sanitize_text_field($form_title) . " - " . get_bloginfo("name");
+    }
+
+    return $title;
+}
+add_filter("wpseo_title", "__gulp_init_namespace___ninja_forms_fix_wpseo_title");
+
+// redirect to the page template if a ninja form is being viewed
+function __gulp_init_namespace___ninja_forms_fix_template($template) {
+    if (get_query_var("nf_public_link")) {
+        $template = locate_template(array("page.php", "index.php"));
+    }
+
+    return $template;
+}
+add_filter("template_include", "__gulp_init_namespace___ninja_forms_fix_template");
+
 // fix various HTML field formatting
 function __gulp_init_namespace___ninja_forms_format_html($fields) {
     foreach ($fields as $key => $field) {

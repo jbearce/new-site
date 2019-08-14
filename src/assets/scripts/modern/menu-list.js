@@ -2,12 +2,13 @@
 
 // Scripts written by Jacob Bearce @ Weblinx, Inc.
 
-import inViewport from "in-vp";
-import transition from "transition-to-from-auto";
 import "mdn-polyfills/Array.prototype.forEach";
 import "mdn-polyfills/Element.prototype.closest";
 import "mdn-polyfills/NodeList.prototype.forEach";
 import "mdn-polyfills/Object.assign";
+
+import inViewport from "in-vp";
+import transition from "transition-to-from-auto";
 
 /**
  * Create an array of attribtes to target lists for

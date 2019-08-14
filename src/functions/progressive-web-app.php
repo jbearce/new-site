@@ -493,17 +493,17 @@ add_action("wp_head", "__gulp_init_namespace___add_ios_meta_to_head", 0);
 // load the "offline" template when the user visits /offline/
 function __gulp_init_namespace___load_offline_template($template) {
     if (get_query_var("offline")) {
-        return get_theme_file_path("/offline.php");
+        $template = get_theme_file_path("/offline.php");
     }
 
     return $template;
 }
-add_action("template_include", "__gulp_init_namespace___load_offline_template");
+add_filter("template_include", "__gulp_init_namespace___load_offline_template");
 
 // fix page title on "offline" template
 function __gulp_init_namespace___fix_offline_page_title($title) {
     if (get_query_var("offline")) {
-        return $title = sprintf(__("No Internet Connection - %s", "__gulp_init_namespace__"), get_bloginfo("name"));
+        $title = sprintf(__("No Internet Connection - %s", "__gulp_init_namespace__"), get_bloginfo("name"));
     }
 
     return $title;

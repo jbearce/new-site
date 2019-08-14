@@ -487,12 +487,12 @@ add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___me
 // redirect to the home template if no front page is set
 function __gulp_init_namespace___home_template_redirect($template) {
     if (is_front_page() && get_option("show_on_front") != "page") {
-        return TEMPLATEPATH . "/home.php";
-    } else {
-        return $template;
+        $template = locate_template(array("home.php", "page.php", "index.php"));
     }
+
+    return $template;
 }
-add_action("template_include", "__gulp_init_namespace___home_template_redirect");
+add_filter("template_include", "__gulp_init_namespace___home_template_redirect");
 
 // decode HTML entities in bloginfo("description")
 function __gulp_init_namespace___decode_html_entities_in_blog_description($value, $field) {
