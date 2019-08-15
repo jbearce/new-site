@@ -77,6 +77,8 @@ add_filter("template_include", "__gulp_init_namespace___ninja_forms_fix_template
 
 // fix various HTML field formatting
 function __gulp_init_namespace___ninja_forms_format_html($fields) {
+    if (is_admin()) return;
+
     foreach ($fields as $key => $field) {
         if (isset($field["desc_text"]) && trim($field["desc_text"])) {
             $fields[$key]["desc_text"] = apply_filters("the_content", stripslashes($field["desc_text"]));
