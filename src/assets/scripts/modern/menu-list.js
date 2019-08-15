@@ -212,7 +212,7 @@ MENU_LISTS.forEach((MENU_LIST) => {
                     if (e.type !== "touchstart" && !DID_USER_DRAG(start_coords, end_coords)) {
                         MARK_ACTIVE(LIST_ITEM, MENU_LIST, MENU_TOGGLE, e);
                     }
-                });
+                }, { passive: false });
             }
         }
     }
