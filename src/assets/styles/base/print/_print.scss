@@ -4,7 +4,7 @@
  * Print
 \* ------------------------------------------------------------------------ */
 
-/* stylelint-disable selector-no-qualifying-type, selector-max-type */
+/* stylelint-disable selector-class-pattern, selector-no-qualifying-type, selector-max-type */
 
 /* These styles are intended to be global */
 
@@ -16,6 +16,10 @@ $font-body: "Open Sans", sans-serif;
 @import "gutenberg-web-type/src/style/gutenberg.scss";
 
 // Custom
+
+.btnToggleGrid {
+    background-image: url("../media/vendor/gutenberg-grid-icons.png");
+}
 
 a[href^="//"]::after {
     content: " (" attr(href) ")";
