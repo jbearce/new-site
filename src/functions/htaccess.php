@@ -803,8 +803,8 @@ prefix for "well-known locations" (e.g.: `/.well-known/manifest.json`,
 `/.well-known/keybase.txt`), and therefore, access to its visible
 content should not be blocked.
 
-**MODIFICATION:** `/.gitlab/` has been added to the exclusion list in
-order to facilitate continuous deployment.
+**MODIFICATION:** `/.github/` and `/.gitlab/` have been added to the
+exclusion list in order to facilitate continuous deployment.
 
 https://www.mnot.net/blog/2010/04/07/well-known
 https://tools.ietf.org/html/rfc5785
@@ -813,6 +813,7 @@ EOF;
     $directive_value = <<<EOF
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteCond %{REQUEST_URI} "!(^|/)\.github/([^./]+./?)+$" [NC]
     RewriteCond %{REQUEST_URI} "!(^|/)\.gitlab/([^./]+./?)+$" [NC]
     RewriteCond %{REQUEST_URI} "!(^|/)\.well-known/([^./]+./?)+$" [NC]
     RewriteCond %{SCRIPT_FILENAME} -d [OR]
