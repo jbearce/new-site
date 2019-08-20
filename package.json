@@ -106,7 +106,6 @@
     "slideout": "github:Mango/slideout#new-features",
     "swiper": "^4.5.0",
     "transition-to-from-auto": "^0.5.2",
-    "workbox-cacheable-response": "^4.3.1",
     "workbox-expiration": "^4.3.1",
     "workbox-precaching": "^4.3.1",
     "workbox-routing": "^4.3.1",
