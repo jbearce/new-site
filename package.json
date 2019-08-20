@@ -92,19 +92,25 @@
     "focus-trap": "^5.0.2",
     "focus-visible": "^5.0.2",
     "gutenberg-web-type": "^1.2.3",
+    "i": "^0.3.6",
     "in-vp": "^1.1.1",
     "lazysizes": "^5.1.1",
     "mdn-polyfills": "^5.18.0",
     "normalize-scss": "^7.0.1",
     "noty": "^3.2.0-beta",
+    "npm": "^6.10.3",
     "photoswipe": "^4.1.3",
     "picturefill": "^3.0.3",
     "pwa-install-prompt": "^1.1.0",
     "scroll-hint": "^1.2.4",
     "slideout": "github:Mango/slideout#new-features",
-    "sw-toolbox": "^3.6.0",
     "swiper": "^4.5.0",
-    "transition-to-from-auto": "^0.5.2"
+    "transition-to-from-auto": "^0.5.2",
+    "workbox-cacheable-response": "^4.3.1",
+    "workbox-expiration": "^4.3.1",
+    "workbox-precaching": "^4.3.1",
+    "workbox-routing": "^4.3.1",
+    "workbox-strategies": "^4.3.1"
   },
   "optionalDependencies": {
     "critical": "^1.3.4"

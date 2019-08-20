@@ -24,6 +24,7 @@ module.exports = {
             module:  {
                 rules: [
                     {
+                        exclude: /workbox|service-worker/,
                         test: /\.m?js$/,
                         use: {
                             loader: "babel-loader",
