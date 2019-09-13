@@ -43,3 +43,6 @@ prepros-6.cfg
 
 # Log files
 *.log
+
+# phplint-cache
+.phplint-cache
