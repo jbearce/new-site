@@ -3,17 +3,17 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 const GLOB = require("glob");
-const PATH = require("path");
 
 module.exports = {
     config(plugins, source_directory, js_directory) {
         const ENTRY = {};
 
-        const FILES = GLOB.sync(`${source_directory}/*.js`);
+        const SCRIPT_FOLDERS = plugins.fs.existsSync(source_directory) ? plugins.fs.readdirSync(source_directory) : false;
 
-        if (FILES.length > 0) {
-            FILES.forEach((file) => {
-                ENTRY[PATH.basename(file, ".js")] = file;
+        // automatically build entry points based on folders in src/assets/scripts
+        if (SCRIPT_FOLDERS && SCRIPT_FOLDERS.length > 0) {
+            SCRIPT_FOLDERS.forEach((folder) => {
+                ENTRY[folder] = GLOB.sync(`${source_directory}/${folder}/**/*.js`);
             });
         }
 
