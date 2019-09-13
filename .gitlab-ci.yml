@@ -4,14 +4,13 @@ code_quality:
   stage: test
   before_script:
     - npm install --no-package-lock --no-save --quiet stylelint stylelint-config-standard stylelint-order stylelint-scss
-    - composer install
     - node -v
     - npm -v
     - php -v
   script:
     - stylelint "./src/assets/styles/**/*.scss"
     - eslint "./src/assets/scripts/**/*.js"
-    - ./vendor/overtrue/phplint/bin/phplint "./src/**/*.php"
+    - phplint "./src"
 
 deploy:
   stage: deploy
