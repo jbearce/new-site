@@ -70,7 +70,7 @@ remove_action("wp_print_styles", "print_emoji_styles");
  * Load all JavaScript asynchronously
  */
 function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
-    if (!is_admin()) {
+    if (!is_admin() && !in_array($handle, array())) {
         return str_replace(" src=", " defer='defer' src=", $tag);
         exit;
     }
@@ -91,7 +91,7 @@ function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
     $is_external  = __gulp_init_namespace___is_external_url($src);
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
-    if (!is_admin() && !$is_login && ($critical_css || $is_external || $is_other)) {
+    if (!is_admin() && !$is_login && ($critical_css || $is_external || $is_other) && !in_array($handle, array())) {
         return str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>"; exit;
     }
 

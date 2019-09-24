@@ -121,7 +121,7 @@ add_action("wp_footer", "__gulp_init_namespace___simplify_browsersync", 999);
 
 // add editor styles to Gutenberg
 function __gulp_init_namespace___gutenberg_styles() {
-	 wp_enqueue_style("__gulp_init_namespace__-styles-editor", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true)), false, "<%= version %>");
+    wp_enqueue_style("__gulp_init_namespace__-styles-editor", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true)), false, "<%= version %>");
 }
 add_action("enqueue_block_editor_assets", "__gulp_init_namespace___gutenberg_styles");
 
