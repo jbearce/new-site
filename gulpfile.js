@@ -143,8 +143,6 @@ GULP.task("config", () => {
     return CONFIG_MODULE.config(GULP, PLUGINS, (PLUGINS.argv.sync ? "browsersync" : (PLUGINS.argv.upload ? "ftp" : (PLUGINS.argv.rsync ? "rsync" : ""))), true);
 });
 
-let currently_running = false;
-
 // default task, runs through all primary tasks
 GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "media"), function finalize() {
     // notify that task is complete
@@ -192,8 +190,6 @@ GULP.task("default", GULP.series(GULP.parallel("styles", "scripts", "html", "med
             // reset ran_tasks array
             RAN_TASKS.length = 0;
 
-            currently_running = false;
-
             resolve();
         });
     });
@@ -209,15 +205,7 @@ GULP.task("watch", () => {
     }
 
     // watch for any changes
-    const WATCHER = GULP.watch("src/**/*");
-
-    // run default task on any change
-    WATCHER.on("all", () => {
-        if (!currently_running) {
-            currently_running = true;
-            GULP.task("default")();
-        }
-    });
+    GULP.watch("src/**/*", GULP.task("default"));
 
     // end the task
     return;
