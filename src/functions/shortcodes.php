@@ -45,3 +45,18 @@ function __gulp_init_namespace___col_shortcode($atts , $content = null) {
     return "<div class='{$value}'>" . do_shortcode($content) . "</div>";
 }
 add_shortcode("col", "__gulp_init_namespace___col_shortcode");
+
+/**
+ * Shortcode for users to set a number of CSS columns on tablet+ views
+ * @example [columns count=2]
+ */
+function __gulp_init_namespace___columns_shortcode($atts , $content = null) {
+    extract(shortcode_atts(
+        array(
+            "count" => "1",
+        ), $atts
+    ));
+
+    return "<div class='user-content__columns columns columns--{$count}'>" . do_shortcode($content) . "</div>";
+}
+add_shortcode("columns", "__gulp_init_namespace___columns_shortcode");
