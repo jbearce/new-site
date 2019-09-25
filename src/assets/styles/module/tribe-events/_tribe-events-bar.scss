@@ -183,8 +183,20 @@
         background-image: svg-load("../media/vendor/tribe-icon-list.svg", fill=#{color("foreground")});
     }
 
+    .tribe-icon-map {
+        background-image: svg-load("../media/vendor/tribe-icon-map.svg", fill=#{color("foreground")});
+    }
+
     .tribe-icon-month {
         background-image: svg-load("../media/vendor/tribe-icon-month.svg", fill=#{color("foreground")});
+    }
+
+    .tribe-icon-photo {
+        background-image: svg-load("../media/vendor/tribe-icon-photo.svg", fill=#{color("foreground")});
+    }
+
+    .tribe-icon-week {
+        background-image: svg-load("../media/vendor/tribe-icon-week.svg", fill=#{color("foreground")});
     }
 
     .tribe-bar-full &,
