@@ -542,3 +542,15 @@ function __gulp_init_namespace___acrobat_link() {
     }
 }
 add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acrobat_link");
+
+// generate default meta description if none is set
+function __gulp_init_namespace___default_wpseo_metadesc($html) {
+    global $post;
+
+    if (!$html && is_singular() && $content = wp_strip_all_tags($post->post_content)) {
+        return wp_trim_words(str_replace(array("\n", "\r"), " ", $content), 20, "…");
+    }
+
+    return $html;
+}
+add_filter("wpseo_metadesc", "__gulp_init_namespace___default_wpseo_metadesc");
