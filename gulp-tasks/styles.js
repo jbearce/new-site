@@ -12,6 +12,8 @@ module.exports = {
         const STYLELINT    = require("gulp-stylelint");
         const TOUCH        = require("gulp-touch-fd");
 
+        SASS.compiler = require("sass");
+
         const CHECK_IF_NEWER = (source = `${global.settings.paths.src}/assets/styles/**/*.scss`, folder_name = `${global.settings.paths.dev}/assets/styles/`, master_files = []) => {
             /**
              * Collect promises
