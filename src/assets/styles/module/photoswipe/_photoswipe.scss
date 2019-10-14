@@ -8,8 +8,8 @@
 
 // Vendor
 
-@import "photoswipe/dist/photoswipe";
-@import "photoswipe/dist/default-skin/default-skin";
+@use "photoswipe/dist/photoswipe.css";
+@use "photoswipe/dist/default-skin/default-skin.css";
 
 // Custom
 

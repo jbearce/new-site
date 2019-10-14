@@ -5,7 +5,6 @@
 module.exports = {
     styles(gulp, plugins, custom_notifier, ran_tasks, on_error) {
         // task-specific plugins
-        const CSS_IMPORTER = require("node-sass-simple-css-importer");
         const HASH         = require("gulp-hash");
         const POSTCSS      = require("gulp-postcss");
         const SASS         = require("gulp-sass");
@@ -115,9 +114,8 @@ module.exports = {
                     .pipe(plugins.sourcemaps.init())
                     // compile SCSS (compress if --dist is passed)
                     .pipe(SASS({
-                        importer: CSS_IMPORTER(),
                         includePaths: "node_modules",
-                        outputStyle: plugins.argv.dist ? "compressed" : "nested",
+                        outputStyle: plugins.argv.dist ? "compressed" : "expanded",
                     }))
                     // process post CSS stuff
                     .pipe(POSTCSS([
