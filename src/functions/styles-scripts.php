@@ -5,7 +5,7 @@
 
 // enqueue styles & scripts
 function __gulp_init_namespace___enqueue_scripts() {
-    global $template;
+    $template = $GLOBALS["template"];
 
     /* styles */
 

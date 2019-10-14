@@ -11,20 +11,22 @@ add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___ninja_forms_d
 
 // change order of scripts so that `nf-front-end` always comes after all dependencies
 function __gulp_init_namespace___ninja_forms_fix_scripts_order() {
-    global $wp_scripts;
+    $wp_scripts = $GLOBALS["wp_scripts"];
 
     // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
     $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
 
     // change all `nf-front-end` dependencies to `nf-front-end-deps`
     foreach ($wp_scripts->registered as $script) {
-        if (preg_match($pattern, $script->handle)) {
-            $key = $script ? array_search("nf-front-end", $script->deps) : false;
-
-            if ($key !== false) {
-                $script->deps[$key] = "nf-front-end-deps";
-            }
+        if (!preg_match($pattern, $script->handle)) {
+            continue;
         }
+
+        if (!($key = array_search("nf-front-end", $script->deps))) {
+            continue;
+        }
+
+        $script->deps[$key] = "nf-front-end-deps";
     }
 
     $last_nf_key      = false;
@@ -47,7 +49,7 @@ add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fi
 
 // fix page title on "ninja forms" pages
 function __gulp_init_namespace___ninja_forms_fix_wpseo_title($title) {
-    global $wpdb;
+    $wpdb = $GLOBALS["wpdb"];
 
     if ($public_link_key = get_query_var("nf_public_link")) {
         $query      = $wpdb->prepare("SELECT `parent_id` FROM {$wpdb->prefix}nf3_form_meta WHERE `key` = 'public_link_key' AND `value` = %s", $public_link_key);
@@ -98,14 +100,14 @@ function __gulp_init_namespace___ninja_forms_format_html($fields) {
 add_filter("ninja_forms_display_fields", "__gulp_init_namespace___ninja_forms_format_html", 10, 1);
 
 // fix success message formatting
-function __gulp_init_namespace___ninja_forms_format_success_message($action_settings, $form_id, $action_id, $form_settings) {
+function __gulp_init_namespace___ninja_forms_format_success_message($action_settings) {
     if ($action_settings["type"] === "successmessage") {
         $action_settings["success_msg"] = apply_filters("the_content", $action_settings["success_msg"]);
     }
 
     return $action_settings;
 }
-add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_format_success_message", 10, 4);
+add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_format_success_message", 10, 1);
 
 // fix Ninja Forms not being output when no content exists and selected via meta box
 function __gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content($content) {

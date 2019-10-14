@@ -6,14 +6,14 @@
 /* FILTERS */
 
 // filter out   and   characters on field save
-function __gulp_init_namespace___acf_remove_sep_characters($value, $post_id, $field) {
+function __gulp_init_namespace___acf_remove_sep_characters($value) {
     if (is_string($value)) {
         $value = __gulp_init_namespace___remove_sep_characters($value);
     }
 
     return $value;
 }
-add_filter("acf/update_value", "__gulp_init_namespace___acf_remove_sep_characters", 10, 3);
+add_filter("acf/update_value", "__gulp_init_namespace___acf_remove_sep_characters", 10);
 
 // delay when shortcodes get expanded
 function __gulp_init_namespace___acf_delay_shortcode_expansion($value = false) {

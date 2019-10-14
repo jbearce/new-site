@@ -22,7 +22,7 @@ $views       = tribe_events_get_views();
 $current_url = tribe_events_get_current_filter_url();
 $classes     = array( 'tribe-clearfix', 'tribe-bar-form' );
 
-if ( ! empty( $filters ) ) {
+if ( $filters ) {
 	$classes[] = 'tribe-events-bar--has-filters';
 }
 
@@ -39,7 +39,7 @@ if ( count( $views ) > 1 ) {
 
 	<form id="tribe-bar-form" class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>" name="tribe-bar-form" method="post" action="<?php echo esc_attr( $current_url ); ?>">
 
-		<?php if ( ! empty( $filters ) ) : ?>
+		<?php if ( $filters ) : ?>
 			<div class="tribe-bar-filters-wrap" id="tribe-bar-filters-wrap">
 
 				<button class="tribe-bar-collapse-toggle" id="tribe-bar-collapse-toggle" aria-expanded="false" type="button" aria-controls="tribe-bar-filters" data-label-hidden="<?php printf( esc_html__( 'Show %s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>" data-label-shown="<?php printf( esc_html__( 'Hide %s Search', 'the-events-calendar' ), tribe_get_event_label_plural() ); ?>">
@@ -62,7 +62,7 @@ if ( count( $views ) > 1 ) {
 					</div><!-- .tribe-bar-filters-inner -->
 				</div><!-- .tribe-bar-filters -->
 			</div><!-- .tribe-bar-filters-wrap -->
-		<?php endif; // ( !empty( $filters ) ) ?>
+		<?php endif; // ( $filters ) ?>
 
 		<?php if ( count( $views ) > 1 ) : ?>
 			<div id="tribe-bar-views" class="tribe-bar-views">

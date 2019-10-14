@@ -16,8 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 
-global $more, $post, $wp_query;
-$more = false;
+$post = $GLOBALS["post"];
 $current_timeslot = null;
 
 ?>
@@ -28,7 +27,7 @@ $current_timeslot = null;
 	<?php while ( have_posts() ) : the_post(); ?>
 		<?php do_action( 'tribe_events_inside_before_loop' ); ?>
 
-		<?php if ( $current_timeslot != $post->timeslot ) :
+		<?php if ( $current_timeslot !== $post->timeslot ) :
 		$current_timeslot = $post->timeslot; ?>
 	</div>
 	<!-- .tribe-events-day-time-slot -->

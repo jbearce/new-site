@@ -4,7 +4,7 @@
 \* ------------------------------------------------------------------------ */
 
 // construct a manifest when the user visits /manifest.json
-function __gulp_init_namespace___construct_manifest($template) {
+function __gulp_init_namespace___construct_manifest() {
     if (get_query_var("manifest")) {
         $name             = __gulp_init_namespace___get_field("full_name", "pwa");
         $short_name       = __gulp_init_namespace___get_field("short_name", "pwa");

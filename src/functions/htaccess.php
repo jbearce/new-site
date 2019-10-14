@@ -1570,7 +1570,7 @@ EOF;
 add_filter("mod_rewrite_rules", "__gulp_init_namespace___add_html5_boilerplate_directives");
 
 // set Service-Worker-Allowed header for service-worker.js in order to allow `/` scope
-function __gulp_init_namespace___set_service_worker_allowed_scope($rules) {
+function __gulp_init_namespace___set_service_worker_allowed_scope($rules = "") {
     $rules .= <<<EOF
 \n# ######################################################################
 # # SERVICE WORKER

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 $days_of_week = tribe_events_get_days_of_week();
 $week = 0;
-global $wp_locale;
+$wp_locale = $GLOBALS["wp_locale"];
 ?>
 
 <?php do_action( 'tribe_events_before_the_grid' ) ?>
@@ -34,7 +34,7 @@ global $wp_locale;
 		<tbody class="tribe-events-calendar-body">
 		<tr class="tribe-events-calendar-row">
 			<?php while ( tribe_events_have_month_days() ) : tribe_events_the_month_day(); ?>
-			<?php if ( $week != tribe_events_get_current_week() ) : $week ++; ?>
+			<?php if ( $week !== tribe_events_get_current_week() ) : $week ++; ?>
 		</tr>
 		<tr class="tribe-events-calendar-row">
 			<?php endif; ?>

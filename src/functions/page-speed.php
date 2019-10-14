@@ -13,24 +13,26 @@ function __gulp_init_namespace___resource_hints($urls, $relation_type) {
         $urls[] = "https://www.google.com";
     }
 
-    if ($relation_type === "prefetch") {
-        if ($GLOBALS["wp_scripts"]) {
-            foreach ($GLOBALS["wp_scripts"]->queue as $script) {
-                $data = $GLOBALS["wp_scripts"]->registered[$script];
+    if ($relation_type !== "prefetch") {
+        return $urls;
+    }
 
-                if ($data->src && !isset($data->extra["conditional"])) {
-                    $urls[] = $data->src;
-                }
+    if ($GLOBALS["wp_scripts"]) {
+        foreach ($GLOBALS["wp_scripts"]->queue as $script) {
+            $data = $GLOBALS["wp_scripts"]->registered[$script];
+
+            if ($data->src && !isset($data->extra["conditional"])) {
+                $urls[] = $data->src;
             }
         }
+    }
 
-        if ($GLOBALS["wp_styles"]) {
-            foreach ($GLOBALS["wp_styles"]->queue as $style) {
-                $data = $GLOBALS["wp_styles"]->registered[$style];
+    if ($GLOBALS["wp_styles"]) {
+        foreach ($GLOBALS["wp_styles"]->queue as $style) {
+            $data = $GLOBALS["wp_styles"]->registered[$style];
 
-                if ($data->src && !isset($data->extra["conditional"])) {
-                    $urls[] = $data->src;
-                }
+            if ($data->src && !isset($data->extra["conditional"])) {
+                $urls[] = $data->src;
             }
         }
     }
@@ -43,8 +45,12 @@ add_filter("wp_resource_hints", "__gulp_init_namespace___resource_hints", 10, 2)
  * Remove version strings
  */
 function __gulp_init_namespace___remove_script_version($src) {
-    $parts = explode("?ver", $src);
-    return $parts[0];
+    if ($src) {
+        $parts = explode("?ver", $src);
+        $src   = $parts[0];
+    }
+
+    return $src;
 }
 add_filter("script_loader_src", "__gulp_init_namespace___remove_script_version", 15, 1);
 add_filter("style_loader_src", "__gulp_init_namespace___remove_script_version", 15, 1);
@@ -69,22 +75,21 @@ remove_action("wp_print_styles", "print_emoji_styles");
 /**
  * Load all JavaScript asynchronously
  */
-function __gulp_init_namespace___make_scripts_async($tag, $handle, $src) {
+function __gulp_init_namespace___make_scripts_async($tag, $handle) {
     if (!is_admin() && !in_array($handle, array())) {
-        return str_replace(" src=", " defer='defer' src=", $tag);
-        exit;
+        $tag = str_replace(" src=", " defer='defer' src=", $tag);
     }
 
     return $tag;
 }
-add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async", 10, 3);
+add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async", 10, 2);
 
 /**
  * Load styles asynchronously when critical CSS is present
  */
 function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
-    global $pagenow;
-    global $template;
+    $pagenow  = $GLOBALS["pagenow"];
+    $template = isset($GLOBALS["template"]) ? $GLOBALS["template"] : false;
 
     $is_login     = (isset($_SERVER["SCRIPT_URI"]) && $_SERVER["SCRIPT_URI"] === wp_login_url()) || $pagenow === "wp-login.php";
     $critical_css = __gulp_init_namespace___get_critical_css($template);
@@ -92,7 +97,7 @@ function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
     if (!is_admin() && !$is_login && ($critical_css || $is_external || $is_other) && !in_array($handle, array())) {
-        return str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>"; exit;
+        $tag = str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>";
     }
 
     return $tag;
@@ -103,7 +108,7 @@ add_filter("style_loader_tag", "__gulp_init_namespace___make_styles_async", 10, 
  * Add critical CSS to the top of wp_head
  */
 function __gulp_init_namespace___critical_css() {
-    global $template;
+    $template = $GLOBALS["template"];
 
     // critical styles
     $critical_styles = __gulp_init_namespace___get_critical_css($template);

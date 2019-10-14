@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $day = tribe_events_get_current_month_day();
-$events_label = ( 1 === $day['total_events'] ) ? tribe_get_event_label_singular() : tribe_get_event_label_plural();
+$events_label = $day['total_events'] === 1 ? tribe_get_event_label_singular() : tribe_get_event_label_plural();
 ?>
 
 <!-- Day Header -->

@@ -37,7 +37,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
-        if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && !empty($children_elements[$element->ID])) { $i = 0;
+        if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && $children_elements[$element->ID]) { $i = 0;
             foreach ($children_elements[$element->ID] as $child) { $i++;
                 /**
                  * Only check meta keys past the first item to (slightly) improve performance
@@ -322,7 +322,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     add_action("admin_enqueue_scripts", "__gulp_init_namespace___nav_menu_color_picker");
 
     class __gulp_init_namespace___create_custom_menu_options extends Walker_Nav_Menu_Edit {
-        static $displayed_fields = array();
+        private static $displayed_fields = array();
 
         // create an array with all the new fields
         static function get_custom_fields() {
@@ -343,30 +343,30 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         // get a specific custom field template
         static function get_custom_field($field, $item = null) {
             $templates = array(
-                "label"         => "<p class='field-{{ field_name }} description description-wide hidden-field' data-locations='{{ field_locations }}'>" .
-                                   "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>" .
-                                   "{{ field_markup }}" .
-                                   "</label>" .
-                                   "</p>",
+                "label"         => "<p class='field-{{ field_name }} description description-wide hidden-field' data-locations='{{ field_locations }}'>
+                                    <label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>
+                                    {{ field_markup }}
+                                    </label>
+                                    </p>",
                 "description"   => "<span class='description'>{{ field_description }}</span>",
-                "checkbox"      => "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ field_value }}' type='checkbox'{{ item_checked }} />" .
-                                   "{{ field_label }}",
-                "color"         => "{{ field_label }}<br>" .
-                                   "<span><input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }} __gulp_init_namespace__-color-picker' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' /></span>",
+                "checkbox"      => "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ field_value }}' type='checkbox'{{ item_checked }} />
+                                    {{ field_label }}",
+                "color"         => "{{ field_label }}<br>
+                                    <span><input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }} __gulp_init_namespace__-color-picker' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' /></span>",
                 "radio"         => "{{ field_options }}",
-                "radio_option"  => "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}'>" .
-                                   "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ option_value }}' type='radio'{{ option_checked }} />" .
-                                   "{{ option_label }}" .
-                                   "</label>&nbsp;&nbsp;",
-                "select"        => "{{ field_label }}<br>" .
-                                   "<select id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'{{ field_multiple }}>" .
-                                   "{{ field_options }}" .
-                                   "</select>",
+                "radio_option"  => "<label for='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}'>
+                                    <input id='edit-menu-item-{{ field_name }}-{{ item_id }}-{{ option_value_sanitized }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ option_value }}' type='radio'{{ option_checked }} />
+                                    {{ option_label }}
+                                    </label>&nbsp;&nbsp;",
+                "select"        => "{{ field_label }}<br>
+                                    <select id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'{{ field_multiple }}>
+                                    {{ field_options }}
+                                    </select>",
                 "select_option" => "<option value='{{ option_value }}'{{ option_selected }}>{{ option_label }}</option>",
-                "text"          => "{{ field_label }}<br>" .
-                                   "<input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' />",
-                "textarea"      => "{{ field_label }}<br>" .
-                                   "<textarea id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'>{{ item_value }}</textarea>",
+                "text"          => "{{ field_label }}<br>
+                                    <input id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' name='menu-item-{{ field_name }}[{{ item_id }}]' value='{{ item_value }}' type='text' />",
+                "textarea"      => "{{ field_label }}<br>
+                                    <textarea id='edit-menu-item-{{ field_name }}-{{ item_id }}' class='widefat edit-menu-item-{{ field_name }}' rows='3' col='20' name='menu-item-{{ field_name }}[{{ item_id }}]'>{{ item_value }}</textarea>",
             );
 
             // retrieve the existing value from the database
@@ -469,7 +469,8 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                             if (isset($all_menus[$location])) {
                                 foreach ($assigned_menus as $assigned_menu) {
                                     if ($assigned_menu->term_id === $all_menus[$location]) {
-                                        $hidden = ""; break;
+                                        $hidden = "";
+                                        break;
                                     }
                                 }
                             }
@@ -512,7 +513,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
                 if ($field["type"] === "color" && $field["value"] !== "" && !preg_match("/^#[a-f0-9]{6}$/i", $field["value"])) {
                     $field["value"] = "";
 
-                    add_action("admin_notices", function () use ($post_object) {
+                    add_action("admin_notices", static function () use ($post_object) {
                         echo "<div class='notice notice-error'><p>" . sprintf(__("Invalid HEX color code entered for '%s' [%s].", "__gulp_init_namespace__"), $post_object->post_title, $post_object->ID) . "</p></div>";
                     });
                 }
@@ -523,7 +524,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 
         // add the save function to the save_post action
         static function setup_custom_fields() {
-            add_action("save_post", array(__CLASS__, "save_field_data"));
+            add_action("save_post", array("__gulp_init_namespace___create_custom_menu_options", "save_field_data"));
         }
 
         // localize the custom fields to wp-admin.js
@@ -577,11 +578,13 @@ if (is_admin() && $pagenow === "nav-menus.php") {
         }
     }
     add_action("init", array("__gulp_init_namespace___create_custom_menu_options", "setup_custom_fields"));
-    add_filter("wp_edit_nav_menu_walker", function () { return "__gulp_init_namespace___create_custom_menu_options"; });
     add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "localize_custom_fields"));
     add_action("admin_footer", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_scripts"));
     add_action("admin_head", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_styles"));
     add_filter("manage_nav-menus_columns", array("__gulp_init_namespace___create_custom_menu_options", "insert_custom_screen_options"), 20);
+    add_filter("wp_edit_nav_menu_walker", static function () {
+        return "__gulp_init_namespace___create_custom_menu_options";
+    });
 }
 
 // add sub_menu options to wp_nav_menu
@@ -591,7 +594,6 @@ if (is_admin() && $pagenow === "nav-menus.php") {
 // @param  sub_menu       {true|false}
 // @param  tree_mode      {"all"|"related"|"viewed"}
 function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
-    $root_item_id = 0;
     $post_id_map  = array();
     $loop_limit   = 1000;
 
@@ -609,18 +611,6 @@ function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
         // create an array containing menu_item_id => post_id
         foreach ($menu_items as $menu_item) {
             $post_id_map[$menu_item->ID] = (int) $menu_item->object_id;
-        }
-
-        // determine the root_item_id
-        foreach ($menu_items as $menu_item) {
-            // if a parent ID is set, just use that
-            if ($settings["parent_id"]) {
-                if ($post_id_map[$menu_item->ID] === $settings["parent_id"]) {
-                    $root_item_id = $menu_item->ID; break;
-                }
-            } elseif ($menu_item->current) {
-                $root_item_id = $menu_item->menu_item_parent ? $menu_item->menu_item_parent : $menu_item->ID; break;
-            }
         }
 
         // if tree_mode is not all, remove any menu_items that aren't in the viewed tree

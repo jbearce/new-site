@@ -35,7 +35,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
 
 		<?php if ( ! $multiple ) : // only show organizer details if there is one ?>
 
-            <?php if ( ! empty( $phone ) ) : ?>
+            <?php if ( $phone ) : ?>
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon far fa-fw fa-phone"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?></span>
@@ -43,7 +43,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
     			</li>
 			<?php endif; ?>
 
-			<?php if ( ! empty( $email ) ) : ?>
+			<?php if ( $email ) : ?>
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon far fa-fw fa-envelope"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Email:', 'the-events-calendar' ) ?></span>
@@ -51,7 +51,7 @@ $website = tribe_get_event_meta( tribe_get_organizer_id( $event_id ), '_Organize
     			</li>
             <?php endif; ?>
 
-			<?php if ( ! empty( $website ) ) : ?>
+			<?php if ( $website ) : ?>
                 <li class="tribe-events-meta-list-item">
                     <i class="tribe-events-meta-list-icon far fa-fw fa-mouse-pointer"></i>
                     <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>

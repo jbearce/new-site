@@ -48,8 +48,8 @@ function __gulp_init_namespace___remove_extra_tags($DOM) {
  * Get the path to the most recent version of a file given a glob (i.e. modern.*.css => modern.17ee0314.css)
  *
  * @param string path  Glob pattern for file to search for
- * @param boolean skip_child_theme  Optionally ignore child theme overrides
- * @param boolean full_path  Optionally return the full server path
+ * @param bool skip_child_theme  Optionally ignore child theme overrides
+ * @param bool full_path  Optionally return the full server path
  *
  * @return string
  */
@@ -79,8 +79,8 @@ function __gulp_init_namespace___get_theme_file_path($path, $skip_child_theme = 
         /**
          * Sort the matches by date to get the most recently modified copy
          */
-        usort($file_paths, function ($a, $b) {
-            return filemtime($a) < filemtime($b);
+        usort($file_paths, static function ($alpha, $beta) {
+            return filemtime($alpha) < filemtime($beta);
         });
 
         /**
@@ -130,7 +130,7 @@ function __gulp_init_namespace___get_critical_css($template) {
  *
  * @param string url  URL to identify
  *
- * @return boolean
+ * @return bool
  */
 function __gulp_init_namespace___is_external_url($url) {
     $components = parse_url($url);
@@ -138,7 +138,7 @@ function __gulp_init_namespace___is_external_url($url) {
     /**
      * Check if the URL is relative
      */
-    if (empty($components["host"])) {
+    if (!$components["host"]) {
         return false;
     }
 
@@ -167,7 +167,7 @@ function __gulp_init_namespace___is_external_url($url) {
  *
  * @param string url  URL to check the location of
  *
- * @return boolean
+ * @return bool
  */
 function __gulp_init_namespace___is_other_asset($url) {
     return strpos($url, get_template_directory_uri()) !== 0;
@@ -179,7 +179,7 @@ function __gulp_init_namespace___is_other_asset($url) {
  * @param string platform  A specific platform to check against (android|chrome|edge|ie|ios|safari)
  * @param string user_agent  A user agent to compare against a given platform
  *
- * @return boolean
+ * @return bool
  */
 function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
@@ -228,7 +228,7 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
  *
  * @param mixed src  The URL to a given image, or an array of URLs to a set of images, keyed with the dpi `array("1x" => "image.jpg", "2x" => "image@2x.jpg)`
  * @param array atts  A set of attributes to apply to the element
- * @param boolean lazy  Whether or not to lazy load the image
+ * @param bool lazy  Whether or not to lazy load the image
  * @param string tag
  *
  * @return string  HTML tag for displaying the image
@@ -259,7 +259,7 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
     /**
      * Append each custom attribute to the element
      */
-    if (!empty($atts)) {
+    if ($atts) {
         foreach ($atts as $att => $value) {
             $element .= " " . esc_attr($att) . "='" . esc_attr($value) . "'";
         }
@@ -327,7 +327,7 @@ function __gulp_init_namespace___get_sentences($content, $length = 2) {
  * @return string  The post excerpt
  */
 function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
-    global $post;
+    $post = $GLOBALS["post"];
 
     $defaults = array(
         "truncate" => array(
@@ -401,7 +401,7 @@ function __gulp_init_namespace___format_address($address = array(), $lines = 1) 
     /**
      * Immediately return empty if no address provided
      */
-    if (empty($address)) {
+    if (!$address) {
         return $output;
     }
 
@@ -481,7 +481,7 @@ function __gulp_init_namespace___format_address($address = array(), $lines = 1) 
  * Given an address, return a URL to a map, appropriate for the users platform
  *
  * @param string address  A single line, human readable address.
- * @param boolean embed  Return an embeddable Google Maps URL for an iframe
+ * @param bool embed  Return an embeddable Google Maps URL for an iframe
  *
  * @return string  The URL to the address
  */
@@ -506,7 +506,7 @@ function __gulp_init_namespace___get_map_url($address, $embed = false) {
  * @param string date_start  The first date to compare against
  * @param string date_end  The second date to compare against
  *
- * @return boolean  `true` if dates are sequential, `false` otherwise
+ * @return bool  `true` if dates are sequential, `false` otherwise
  */
 function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = null) {
     $date_start = date("Ymd", strtotime($date_start));
@@ -530,7 +530,7 @@ function __gulp_init_namespace___get_no_posts_message($queried_object) {
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
     } elseif (is_archive() && isset($queried_object->taxonomy)) {
-        global $wp_taxonomies;
+        $wp_taxonomies = $GLOBALS["wp_taxonomies"];
 
         $post_types = isset($wp_taxonomies[$queried_object->taxonomy]) ? $wp_taxonomies[$queried_object->taxonomy]->object_type : "";
 

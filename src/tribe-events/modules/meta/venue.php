@@ -34,7 +34,7 @@ $website = tribe_get_venue_website_url( $event_id );
             <?php endif; ?>
         </li>
 
-		<?php if ( ! empty( $phone ) ): ?>
+		<?php if ( $phone ): ?>
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon far fa-fw fa-phone"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Phone:', 'the-events-calendar' ) ?></span>
@@ -42,7 +42,7 @@ $website = tribe_get_venue_website_url( $event_id );
             </li>
 		<?php endif ?>
 
-		<?php if ( ! empty( $website ) ): ?>
+		<?php if ( $website ): ?>
             <li class="tribe-events-meta-list-item">
                 <i class="tribe-events-meta-list-icon far fa-fw fa-mouse-pointer"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
