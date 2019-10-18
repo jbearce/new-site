@@ -18,7 +18,7 @@ get_extended_template_part("layout", "hero", array(
                     <?php
                     if (have_posts()) {
                         while (have_posts()) { the_post();
-                            get_extended_template_part("article" ,"post-full", array(
+                            get_extended_template_part("article", "post-full", array(
                                 "post"  => $post,
                                 "class" => "content__article",
                                 "meta"  => $post->post_type === "post" ? true : false,
