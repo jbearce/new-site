@@ -6,12 +6,12 @@
 /**
  * Wrapper around ACF's `get_field` to ensure errors don't occur if ACF isn't active
  *
- * @param string name  ACF field name
- * @param int post_id  An ID for a post
+ * @param string $name  ACF field name
+ * @param mixed $post_id  An ID for a post
  *
- * @return array  The field value
+ * @return mixed  The field value
  */
-function __gulp_init_namespace___get_field($name, $post_id = null) {
+function __gulp_init_namespace___get_field(string $name, $post_id = null) {
     if (function_exists("get_field")) {
         return get_field($name, $post_id);
     } else {
@@ -24,11 +24,11 @@ function __gulp_init_namespace___get_field($name, $post_id = null) {
  *
  * @see https://stackoverflow.com/a/6406139/654480
  *
- * @param object DOM  DOMDocument object
+ * @param object $DOM  DOMDocument object
  *
  * @return string  Formatted HTML
  */
-function __gulp_init_namespace___remove_extra_tags($DOM) {
+function __gulp_init_namespace___remove_extra_tags(object $DOM): string {
     $XPath = new DOMXPath($DOM);
 
     $body_contents = $XPath->query("//body/node()");
@@ -47,13 +47,13 @@ function __gulp_init_namespace___remove_extra_tags($DOM) {
 /**
  * Get the path to the most recent version of a file given a glob (i.e. modern.*.css => modern.17ee0314.css)
  *
- * @param string path  Glob pattern for file to search for
- * @param bool skip_child_theme  Optionally ignore child theme overrides
- * @param bool full_path  Optionally return the full server path
+ * @param string $path  Glob pattern for file to search for
+ * @param bool $skip_child_theme  Optionally ignore child theme overrides
+ * @param bool $full_path  Optionally return the full server path
  *
  * @return string
  */
-function __gulp_init_namespace___get_theme_file_path($path, $skip_child_theme = false, $full_path = false) {
+function __gulp_init_namespace___get_theme_file_path(string $path, bool $skip_child_theme = false, bool $full_path = false): string {
     $file_paths = array();
 
     /**
@@ -96,11 +96,11 @@ function __gulp_init_namespace___get_theme_file_path($path, $skip_child_theme = 
 /**
  * Retrieve critical styles for a given template
  *
- * @param string template  The file name of the template styles should be retrieved for
+ * @param string $template  The file name of the template styles should be retrieved for
  *
  * @return string
  */
-function __gulp_init_namespace___get_critical_css($template) {
+function __gulp_init_namespace___get_critical_css(string $template): string {
     /**
      * Immediately stop if the user has visited previously or Critical CSS is explicity
      * disabled by the user via `$_GET["disable"]`, and the user hasn't requested to
@@ -128,11 +128,11 @@ function __gulp_init_namespace___get_critical_css($template) {
 /**
  * Check if a given URL points to an external website
  *
- * @param string url  URL to identify
+ * @param string $url  URL to identify
  *
  * @return bool
  */
-function __gulp_init_namespace___is_external_url($url) {
+function __gulp_init_namespace___is_external_url(string $url): bool {
     $components = parse_url($url);
 
     /**
@@ -165,23 +165,23 @@ function __gulp_init_namespace___is_external_url($url) {
 /**
  * Check if a given asset is outside of the active theme's directory
  *
- * @param string url  URL to check the location of
+ * @param string $url  URL to check the location of
  *
  * @return bool
  */
-function __gulp_init_namespace___is_other_asset($url) {
+function __gulp_init_namespace___is_other_asset(string $url): bool {
     return strpos($url, get_template_directory_uri()) !== 0;
 }
 
 /**
  * Check what platform a given user agent belongs to
  *
- * @param string platform  A specific platform to check against (android|chrome|edge|ie|ios|safari)
- * @param string user_agent  A user agent to compare against a given platform
+ * @param array|string $platform  A specific platform to check against (android|chrome|edge|ie|ios|safari)
+ * @param string $user_agent  A user agent to compare against a given platform
  *
  * @return bool
  */
-function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
+function __gulp_init_namespace___is_platform($platform, string $user_agent = ""): bool {
     $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
 
     if ($platform === "android" || (is_array($platform) && in_array("android", $platform))) {
@@ -226,14 +226,14 @@ function __gulp_init_namespace___is_platform($platform, $user_agent = null) {
 /**
  * Construct markup for a lazy loaded image
  *
- * @param mixed src  The URL to a given image, or an array of URLs to a set of images, keyed with the dpi `array("1x" => "image.jpg", "2x" => "image@2x.jpg)`
- * @param array atts  A set of attributes to apply to the element
- * @param bool lazy  Whether or not to lazy load the image
- * @param string tag
+ * @param array|string $src  The URL to a given image, or an array of URLs to a set of images, keyed with the dpi `array("1x" => "image.jpg", "2x" => "image@2x.jpg)`
+ * @param array<string> $atts  A set of attributes to apply to the element
+ * @param bool $lazy  Whether or not to lazy load the image
+ * @param string $tag
  *
  * @return string  HTML tag for displaying the image
  */
-function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag = "img") {
+function __gulp_init_namespace___img($src, array $atts = array(), bool $lazy = true, string $tag = "img"): string {
     $element = "<{$tag}";
 
     /**
@@ -280,11 +280,12 @@ function __gulp_init_namespace___img($src, $atts = array(), $lazy = true, $tag =
 /**
  * Get a specific number of sentences in a given string
  *
- * @param string content  Block of text of which to extract sentences from
+ * @param string $content  Block of text of which to extract sentences from
+ * @param int $length  Number of sentences to limit to
  *
  * @return string  The sentences requested
  */
-function __gulp_init_namespace___get_sentences($content, $length = 2) {
+function __gulp_init_namespace___get_sentences(string $content, int $length = 2): string {
     /**
      * Remove any HTML tags from the content, and count the total number of sentences
      */
@@ -321,12 +322,12 @@ function __gulp_init_namespace___get_sentences($content, $length = 2) {
 /**
  * Get an excerpt of a specific length, and append it with a 'read more' string
  *
- * @param integer id  The post ID of which to get the excerpt of
- * @param array options  List of options describing how the excerpt should be determined
+ * @param int $id  The post ID of which to get the excerpt of
+ * @param array<array<bool|int|string>> $options  List of options describing how the excerpt should be determined
  *
  * @return string  The post excerpt
  */
-function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
+function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = array()): string {
     $post = $GLOBALS["post"];
 
     $defaults = array(
@@ -390,12 +391,12 @@ function __gulp_init_namespace___get_the_excerpt($id = 0, $options = array()) {
 /**
  * Format an address in to a human readable format
  *
- * @param array address  An array keyed with `line_1`, `line_2`, `city`, `state`, and `zip_code`
- * @param int lines  Number of lines between 1 and 3 to format the address in to
+ * @param array<string> $address  An array keyed with `line_1`, `line_2`, `city`, `state`, and `zip_code`
+ * @param int $lines  Number of lines between 1 and 3 to format the address in to
  *
- * @return string Huamn readable address
+ * @return string  Huamn readable address
  */
-function __gulp_init_namespace___format_address($address = array(), $lines = 1) {
+function __gulp_init_namespace___format_address(array $address = array(), int $lines = 1): string {
     $output = "";
 
     /**
@@ -480,12 +481,12 @@ function __gulp_init_namespace___format_address($address = array(), $lines = 1) 
 /**
  * Given an address, return a URL to a map, appropriate for the users platform
  *
- * @param string address  A single line, human readable address.
- * @param bool embed  Return an embeddable Google Maps URL for an iframe
+ * @param string $address  A single line, human readable address.
+ * @param bool $embed  Return an embeddable Google Maps URL for an iframe
  *
  * @return string  The URL to the address
  */
-function __gulp_init_namespace___get_map_url($address, $embed = false) {
+function __gulp_init_namespace___get_map_url(string $address, bool $embed = false): string {
     $address_url = "";
 
     if ($address) {
@@ -503,12 +504,12 @@ function __gulp_init_namespace___get_map_url($address, $embed = false) {
 /**
  * Compare two dates to see if one comes immediately after the other
  *
- * @param string date_start  The first date to compare against
- * @param string date_end  The second date to compare against
+ * @param string $date_start  The first date to compare against
+ * @param string $date_end  The second date to compare against
  *
  * @return bool  `true` if dates are sequential, `false` otherwise
  */
-function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = null) {
+function __gulp_init_namespace___are_dates_sequential(string $date_start, string $date_end = ""): bool {
     $date_start = date("Ymd", strtotime($date_start));
     $date_end   = $date_end ? date("Ymd", strtotime($date_end)) : false;
 
@@ -522,11 +523,11 @@ function __gulp_init_namespace___are_dates_sequential($date_start, $date_end = n
 /**
  * Get a unique "No posts found" mesage for various types of pages
  *
- * @param object queried_object  The result of get_queried_object()
+ * @param object $queried_object  The result of get_queried_object()
  *
  * @return string  A message detailing that no posts could be found for the current context
  */
-function __gulp_init_namespace___get_no_posts_message($queried_object) {
+function __gulp_init_namespace___get_no_posts_message(object $queried_object): string {
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
     } elseif (is_archive() && isset($queried_object->taxonomy)) {
@@ -544,6 +545,7 @@ function __gulp_init_namespace___get_no_posts_message($queried_object) {
 
         if (!isset($post_taxonomy_label)) {
             $taxonomy_labels = get_taxonomy_labels(get_taxonomy($queried_object->taxonomy));
+
             if (isset($taxonomy_labels->singular_name)) {
                 $post_taxonomy_label = strtolower($taxonomy_labels->singular_name);
             }
@@ -574,11 +576,11 @@ function __gulp_init_namespace___get_no_posts_message($queried_object) {
 /**
  * Retrieve a menu tiel from the database given the location the menu is assigned to
  *
- * @param string location  Menu location
+ * @param string $location  Menu location
  *
  * @return string  The name of the menu
  */
-function __gulp_init_namespace___get_menu_title($location) {
+function __gulp_init_namespace___get_menu_title(string $location): string {
     $locations = get_nav_menu_locations();
     $menu      = get_term($locations[$location], "nav_menu");
 

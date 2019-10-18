@@ -5,7 +5,13 @@
 
 /* FILTERS */
 
-// filter out   and   characters on field save
+/**
+ * Filter out ` ` and ` ` characters on field save
+ *
+ * @param  mixed $value
+ *
+ * @return mixed
+ */
 function __gulp_init_namespace___acf_remove_sep_characters($value) {
     if (is_string($value)) {
         $value = __gulp_init_namespace___remove_sep_characters($value);
@@ -15,11 +21,17 @@ function __gulp_init_namespace___acf_remove_sep_characters($value) {
 }
 add_filter("acf/update_value", "__gulp_init_namespace___acf_remove_sep_characters", 10);
 
-// delay when shortcodes get expanded
-function __gulp_init_namespace___acf_delay_shortcode_expansion($value = false) {
+/**
+ * Delay when shortcodes get expanded
+ *
+ * @param  string $value
+ *
+ * @return string
+ */
+function __gulp_init_namespace___acf_delay_shortcode_expansion(string $value = ""): string {
     remove_filter("acf_the_content", "do_shortcode", 11);
     add_filter("acf_the_content", "do_shortcode", 25);
-    if ($value !== false) return $value;
+    if ($value !== null) return $value;
 }
 add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___acf_delay_shortcode_expansion");
 

@@ -3,10 +3,12 @@
  * Functions: Styles & Scripts
 \* ------------------------------------------------------------------------ */
 
-// enqueue styles & scripts
-function __gulp_init_namespace___enqueue_scripts() {
-    $template = $GLOBALS["template"];
-
+/**
+ * Enqueue styles & scripts
+ *
+ * @return void
+ */
+function __gulp_init_namespace___enqueue_scripts(): void {
     /* styles */
 
     // Google fonts
@@ -85,26 +87,42 @@ function __gulp_init_namespace___enqueue_scripts() {
 }
 add_action("wp_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts");
 
-// add noscript tag to the head to hide elemetns with the .__js class if script isn't enabled
-function __gulp_init_namespace___noscript_hide_js_elements() {
+/**
+ * Add noscript tag to the head to hide elemetns with the .__js class if script isn't enabled
+ *
+ * @return void
+ */
+function __gulp_init_namespace___noscript_hide_js_elements(): void {
     echo "<noscript><style>.__js {display: none !important;}</style></noscript>\n";
 }
 add_action("wp_head", "__gulp_init_namespace___noscript_hide_js_elements");
 
-// adjust WordPress login screen styles
-function __gulp_init_namespace___enqueue_scripts_login() {
+/**
+ * Adjust WordPress login screen styles
+ *
+ * @return void
+ */
+function __gulp_init_namespace___enqueue_scripts_login(): void {
     wp_enqueue_style("__gulp_init_namespace__-styles-login", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/wp-login.*.css", true)), array(), "<%= version %>");
 }
 add_action("login_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_login");
 
-// add wp-admin scripts
-function __gulp_init_namespace___enqueue_scripts_admin() {
+/**
+ * Add wp-admin scripts
+ *
+ * @return void
+ */
+function __gulp_init_namespace___enqueue_scripts_admin(): void {
     wp_enqueue_script("__gulp_init_namespace__-scripts-wp-admin", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/wp-admin.*.js", true)), array(), "<%= version %>", true);
 }
 add_action("admin_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts_admin");
 
-// add BrowserSync script to the footer when active
-function __gulp_init_namespace___simplify_browsersync() {
+/**
+ * Add BrowserSync script to the footer when active
+ *
+ * @return void
+ */
+function __gulp_init_namespace___simplify_browsersync(): void {
     $browsersync_port    = isset($_SERVER["HTTP_X_BROWSERSYNC_PORT"]) ? $_SERVER["HTTP_X_BROWSERSYNC_PORT"] : false;
     $browsersync_version = isset($_SERVER["HTTP_X_BROWSERSYNC_VERSION"]) ? $_SERVER["HTTP_X_BROWSERSYNC_VERSION"] : false;
 
@@ -119,14 +137,22 @@ function __gulp_init_namespace___simplify_browsersync() {
 }
 add_action("wp_footer", "__gulp_init_namespace___simplify_browsersync", 999);
 
-// add editor styles to Gutenberg
-function __gulp_init_namespace___gutenberg_styles() {
+/**
+ * Add editor styles to Gutenberg
+ *
+ * @return void
+ */
+function __gulp_init_namespace___gutenberg_styles(): void {
     wp_enqueue_style("__gulp_init_namespace__-styles-editor", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true)), false, "<%= version %>");
 }
 add_action("enqueue_block_editor_assets", "__gulp_init_namespace___gutenberg_styles");
 
-// add editor styles to Classic Editor
-function __gulp_init_namespace___editor_styles() {
+/**
+ * Add editor styles to Classic Editor
+ *
+ * @return void
+ */
+function __gulp_init_namespace___editor_styles(): void {
     add_editor_style(__gulp_init_namespace___get_theme_file_path("assets/styles/editor.*.css", true));
 }
 add_action("init", "__gulp_init_namespace___editor_styles");

@@ -3,14 +3,22 @@
  * Functions: Ninja Forms
 \* ------------------------------------------------------------------------ */
 
-// disable display styles
-function __gulp_init_namespace___ninja_forms_dequeue_display_styles() {
+/**
+ * Disable display styles
+ *
+ * @return void
+ */
+function __gulp_init_namespace___ninja_forms_dequeue_display_styles(): void {
     wp_dequeue_style("nf-display");
 }
 add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___ninja_forms_dequeue_display_styles", 999);
 
-// change order of scripts so that `nf-front-end` always comes after all dependencies
-function __gulp_init_namespace___ninja_forms_fix_scripts_order() {
+/**
+ * Change order of scripts so that `nf-front-end` always comes after all dependencies
+ *
+ * @return void
+ */
+function __gulp_init_namespace___ninja_forms_fix_scripts_order(): void {
     $wp_scripts = $GLOBALS["wp_scripts"];
 
     // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
@@ -47,8 +55,14 @@ function __gulp_init_namespace___ninja_forms_fix_scripts_order() {
 }
 add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fix_scripts_order");
 
-// fix page title on "ninja forms" pages
-function __gulp_init_namespace___ninja_forms_fix_wpseo_title($title) {
+/**
+ * Fix page title on "ninja forms" pages
+ *
+ * @param  string $title
+ *
+ * @return string
+ */
+function __gulp_init_namespace___ninja_forms_fix_wpseo_title(string $title): string {
     $wpdb = $GLOBALS["wpdb"];
 
     if ($public_link_key = get_query_var("nf_public_link")) {
@@ -67,8 +81,14 @@ function __gulp_init_namespace___ninja_forms_fix_wpseo_title($title) {
 }
 add_filter("wpseo_title", "__gulp_init_namespace___ninja_forms_fix_wpseo_title");
 
-// redirect to the page template if a ninja form is being viewed
-function __gulp_init_namespace___ninja_forms_fix_template($template) {
+/**
+ * Redirect to the page template if a ninja form is being viewed
+ *
+ * @param  string $template
+ *
+ * @return string
+ */
+function __gulp_init_namespace___ninja_forms_fix_template(string $template): string {
     if (get_query_var("nf_public_link")) {
         $template = locate_template(array("page.php", "index.php"));
     }
@@ -77,9 +97,15 @@ function __gulp_init_namespace___ninja_forms_fix_template($template) {
 }
 add_filter("template_include", "__gulp_init_namespace___ninja_forms_fix_template");
 
-// fix various HTML field formatting
-function __gulp_init_namespace___ninja_forms_format_html($fields) {
-    if (is_admin()) return;
+/**
+ * Fix various HTML field formatting
+ *
+ * @param  array<array<mixed>> $fields
+ *
+ * @return array<array<mixed>>
+ */
+function __gulp_init_namespace___ninja_forms_format_html(array $fields): array {
+    if (is_admin()) return $fields;
 
     foreach ($fields as $key => $field) {
         if (isset($field["desc_text"]) && trim($field["desc_text"])) {
@@ -99,8 +125,14 @@ function __gulp_init_namespace___ninja_forms_format_html($fields) {
 }
 add_filter("ninja_forms_display_fields", "__gulp_init_namespace___ninja_forms_format_html", 10, 1);
 
-// fix success message formatting
-function __gulp_init_namespace___ninja_forms_format_success_message($action_settings) {
+/**
+ * Fix success message formatting
+ *
+ * @param  array<mixed> $action_settings
+ *
+ * @return array<mixed>
+ */
+function __gulp_init_namespace___ninja_forms_format_success_message(array $action_settings): array {
     if ($action_settings["type"] === "successmessage") {
         $action_settings["success_msg"] = apply_filters("the_content", $action_settings["success_msg"]);
     }
@@ -109,8 +141,14 @@ function __gulp_init_namespace___ninja_forms_format_success_message($action_sett
 }
 add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_format_success_message", 10, 1);
 
-// fix Ninja Forms not being output when no content exists and selected via meta box
-function __gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content($content) {
+/**
+ * Fix Ninja Forms not being output when no content exists and selected via meta box
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content(string $content): string {
     return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
 }
 add_filter("the_content", "__gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content", 5);

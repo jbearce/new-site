@@ -3,59 +3,106 @@
  * Functions: Filters
 \* ------------------------------------------------------------------------ */
 
-// enable force HTTPS and HSTS if the site is served over HTTPS
-function __gulp_init_namespace___enable_https_directives() {
+/**
+ * Enable force HTTPS and HSTS if the site is served over HTTPS
+ *
+ * @return bool
+ */
+function __gulp_init_namespace___enable_https_directives(): bool {
     if (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on") {
         return true;
     }
+
+    return false;
 }
 add_action("__gulp_init_namespace___htaccess_rewrites_forcing-https_is_enabled", "__gulp_init_namespace___enable_https_directives");
 add_action("__gulp_init_namespace___htaccess_security_http-strict-transport-security-hsts_is_enabled", "__gulp_init_namespace___enable_https_directives");
 
-// disable xmlrpc.php
-add_filter("xmlrpc_enabled", "__return_false");
+/**
+ * Disable xmlrpc.php
+ *
+ * @return void
+ */
+function __gulp_init_namespace___disable_xmlrpc(): void {
+    add_filter("xmlrpc_enabled", "__return_false");
+}
+add_action("init", "__gulp_init_namespace___disable_xmlrpc");
 
-// set a cookie after the first load to mark returning visitors
-function __gulp_init_namespace___set_return_visitor_cookie() {
+/**
+ * Set a cookie after the first load to mark returning visitors
+ *
+ * @return void
+ */
+function __gulp_init_namespace___set_return_visitor_cookie(): void {
     if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
 }
 add_action("wp", "__gulp_init_namespace___set_return_visitor_cookie", 10);
 
-// change login logo URL
-function __gulp_init_namespace___login_logo_url() {
+/**
+ * Change login logo URL
+ *
+ * @return string
+ */
+function __gulp_init_namespace___login_logo_url(): string {
     return get_bloginfo("url");
 }
 add_filter("login_headerurl", "__gulp_init_namespace___login_logo_url");
 
-// change login logo title
-function __gulp_init_namespace___login_logo_title() {
+/**
+ * Change login logo title
+ *
+ * @return string
+ */
+function __gulp_init_namespace___login_logo_title(): string {
     return get_bloginfo("name");
 }
 add_filter("login_headertext", "__gulp_init_namespace___login_logo_title");
 
-// replace content with a password form if a post is password protected
-function __gulp_init_namespace___enable_post_password_protection($post_object) {
+/**
+ * Replace content with a password form if a post is password protected
+ *
+ * @param  object $post_object
+ *
+ * @return void
+ */
+function __gulp_init_namespace___enable_post_password_protection(object $post_object): void {
     if (post_password_required($post_object->ID)) {
         $post_object->post_content = get_the_password_form();
     }
 }
 add_action("the_post", "__gulp_init_namespace___enable_post_password_protection");
 
-// delay when shortcodes get expanded
-function __gulp_init_namespace___delay_shortcode_expansion() {
+/**
+ * Delay when shortcodes get expanded
+ *
+ * @return void
+ */
+function __gulp_init_namespace___delay_shortcode_expansion(): void {
     remove_filter("the_content", "do_shortcode", 11);
     add_filter("the_content", "do_shortcode", 25);
 }
 add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
-// filter out   and   characters on post save
-function __gulp_init_namespace___remove_sep_characters($content) {
+/**
+ * Filter out   and   characters on post save
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___remove_sep_characters(string $content): string {
     return preg_replace("/( | )/", "", $content);
 }
 add_filter("content_save_pre", "__gulp_init_namespace___remove_sep_characters");
 
-// remove wpautop stuff from shortcodes
-function __gulp_init_namespace___fix_shortcodes($content) {
+/**
+ * Remove wpautop stuff from shortcodes
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___fix_shortcodes(string $content): string {
     $shortcode_tags = $GLOBALS["shortcode_tags"];
 
     if (!is_admin() && $content && $shortcode_tags) {
@@ -75,8 +122,14 @@ function __gulp_init_namespace___fix_shortcodes($content) {
 }
 add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
-// add classes to elements
-function __gulp_init_namespace___add_user_content_classes($content) {
+/**
+ * Add classes to elements
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___add_user_content_classes(string $content): string {
     if (!is_admin() && $content) {
         $DOM = new DOMDocument();
 
@@ -257,8 +310,14 @@ function __gulp_init_namespace___add_user_content_classes($content) {
 add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
 add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
-// enable responsive iframes
-function __gulp_init_namespace___responsive_iframes($content) {
+/**
+ * Enable responsive iframes
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___responsive_iframes(string $content): string {
     if (!is_admin() && $content) {
         $DOM = new DOMDocument();
 
@@ -317,8 +376,14 @@ function __gulp_init_namespace___responsive_iframes($content) {
 }
 add_filter("the_content", "__gulp_init_namespace___responsive_iframes", 20);
 
-// enable responsive tables
-function __gulp_init_namespace___responsive_tables($content) {
+/**
+ * Enable responsive tables
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___responsive_tables(string $content): string {
     if (!is_admin() && $content) {
         $DOM = new DOMDocument();
 
@@ -351,8 +416,14 @@ function __gulp_init_namespace___responsive_tables($content) {
 }
 add_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
 
-// lazy load images
-function __gulp_init_namespace___lazy_load_images($content) {
+/**
+ * Lazy load images
+ *
+ * @param  string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___lazy_load_images(string $content): string {
     if (!is_admin() && $content) {
         $DOM = new DOMDocument();
 
@@ -418,18 +489,28 @@ add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20, 1);
 add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20, 1);
 add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20, 1);
 
-// add a class to images within the caption shortcode
-function __gulp_init_namespace___wp_caption_shortcode_add_image_class($shcode) {
+/**
+ * Add a class to images within the caption shortcode
+ *
+ * @param  string $shcode
+ *
+ * @return string
+ */
+function __gulp_init_namespace___wp_caption_shortcode_add_image_class(string $shcode): string {
     return preg_replace("/(<img[^>]+class=(?:\"|'))/", "$1wp-caption-image ", $shcode);
 }
 add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_shortcode_add_image_class", 10);
 
-// remove dimensions from thumbnails
-function __gulp_init_namespace___remove_thumbnail_dimensions($html) {
+/**
+ * Remove dimensions from thumbnails
+ *
+ * @param  string $html
+ *
+ * @return string
+ */
+function __gulp_init_namespace___remove_thumbnail_dimensions(string $html): string {
     if (!is_admin() && $html) {
         $DOM = new DOMDocument();
-
-        $post = $GLOBALS["post"];
 
         // disable errors to get around HTML5 warnings...
         libxml_use_internal_errors(true);
@@ -455,8 +536,14 @@ function __gulp_init_namespace___remove_thumbnail_dimensions($html) {
 }
 add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions", 10);
 
-// add link classes to __gulp_init_namespace___menu_list_link filtered content
-function __gulp_init_namespace___menu_list_link_classes($links) {
+/**
+ * Add link classes to __gulp_init_namespace___menu_list_link filtered content
+ *
+ * @param  string $links
+ *
+ * @return string
+ */
+function __gulp_init_namespace___menu_list_link_classes(string $links): string {
     if ($links) {
         $DOM = new DOMDocument();
 
@@ -483,8 +570,14 @@ function __gulp_init_namespace___menu_list_link_classes($links) {
 }
 add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___menu_list_link_classes");
 
-// redirect to the home template if no front page is set
-function __gulp_init_namespace___home_template_redirect($template) {
+/**
+ * Redirect to the home template if no front page is set
+ *
+ * @param  string $template
+ *
+ * @return string
+ */
+function __gulp_init_namespace___home_template_redirect(string $template): string {
     if (is_front_page() && get_option("show_on_front") !== "page") {
         $template = locate_template(array("home.php", "page.php", "index.php"));
     }
@@ -493,8 +586,15 @@ function __gulp_init_namespace___home_template_redirect($template) {
 }
 add_filter("template_include", "__gulp_init_namespace___home_template_redirect");
 
-// decode HTML entities in bloginfo("description")
-function __gulp_init_namespace___decode_html_entities_in_blog_description($value, $field) {
+/**
+ * Decode HTML entities in `bloginfo("description")`
+ *
+ * @param  string $value
+ * @param  string $field
+ *
+ * @return string
+ */
+function __gulp_init_namespace___decode_html_entities_in_blog_description(string $value, string $field): string {
     if ($field === "description") {
         $value = html_entity_decode($value);
     }
@@ -503,8 +603,12 @@ function __gulp_init_namespace___decode_html_entities_in_blog_description($value
 }
 add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_description", 10, 2);
 
-// add "Download Adobe Reader" link on all pages that link to PDFs
-function __gulp_init_namespace___acrobat_link() {
+/**
+ * Add "Download Adobe Reader" link on all pages that link to PDFs
+ *
+ * @return void
+ */
+function __gulp_init_namespace___acrobat_link(): void {
     $post = $GLOBALS["post"];
 
     if ($post) {
@@ -542,8 +646,14 @@ function __gulp_init_namespace___acrobat_link() {
 }
 add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acrobat_link");
 
-// generate default meta description if none is set
-function __gulp_init_namespace___default_wpseo_metadesc($html) {
+/**
+ * Generate default meta description if none is set
+ *
+ * @param  string $html
+ *
+ * @return string
+ */
+function __gulp_init_namespace___default_wpseo_metadesc(string $html): string {
     $post = $GLOBALS["post"];
 
     if (!$html && is_singular() && $content = wp_strip_all_tags($post->post_content)) {

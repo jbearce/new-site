@@ -3,8 +3,12 @@
  * Functions: Menus
 \* ------------------------------------------------------------------------ */
 
-// construct a manifest when the user visits /manifest.json
-function __gulp_init_namespace___construct_manifest() {
+/**
+ * Construct a manifest when the user visits /manifest.json
+ *
+ * @return void
+ */
+function __gulp_init_namespace___construct_manifest(): void {
     if (get_query_var("manifest")) {
         $name             = __gulp_init_namespace___get_field("full_name", "pwa");
         $short_name       = __gulp_init_namespace___get_field("short_name", "pwa");
@@ -356,16 +360,24 @@ function __gulp_init_namespace___construct_manifest() {
 }
 add_action("wp", "__gulp_init_namespace___construct_manifest");
 
-// add the PWA meta tags to the head
-function __gulp_init_namespace___add_pwa_meta_to_head() {
+/**
+ * Add the PWA meta tags to the head
+ *
+ * @return void
+ */
+function __gulp_init_namespace___add_pwa_meta_to_head(): void {
     echo "<link href='" . home_url("manifest.json") . "' rel='manifest' />\n";
 }
 add_action("admin_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
 add_action("login_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
 add_action("wp_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
 
-// add the iOS meta tags to the head
-function __gulp_init_namespace___add_ios_meta_to_head() {
+/**
+ * Add the iOS meta tags to the head
+ *
+ * @return void
+ */
+function __gulp_init_namespace___add_ios_meta_to_head(): void {
     // set home screen icons
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-76x76.png") . "' rel='apple-touch-icon' sizes='76x76' />\n";
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-120x120.png") . "' rel='apple-touch-icon' sizes='120x120' />\n";
@@ -490,8 +502,14 @@ add_action("admin_head", "__gulp_init_namespace___add_ios_meta_to_head", 0);
 add_action("login_head", "__gulp_init_namespace___add_ios_meta_to_head", 0);
 add_action("wp_head", "__gulp_init_namespace___add_ios_meta_to_head", 0);
 
-// load the "offline" template when the user visits /offline/
-function __gulp_init_namespace___load_offline_template($template) {
+/**
+ * Load the "offline" template when the user visits /offline/
+ *
+ * @param  string $template
+ *
+ * @return string
+ */
+function __gulp_init_namespace___load_offline_template(string $template): string {
     if (get_query_var("offline")) {
         $template = get_theme_file_path("/offline.php");
     }
@@ -500,8 +518,14 @@ function __gulp_init_namespace___load_offline_template($template) {
 }
 add_filter("template_include", "__gulp_init_namespace___load_offline_template");
 
-// fix page title on "offline" template
-function __gulp_init_namespace___fix_offline_page_title($title) {
+/**
+ * Fix page title on "offline" template
+ *
+ * @param  string $title
+ *
+ * @return string
+ */
+function __gulp_init_namespace___fix_offline_page_title(string $title): string {
     if (get_query_var("offline")) {
         $title = sprintf(__("No Internet Connection - %s", "__gulp_init_namespace__"), get_bloginfo("name"));
     }

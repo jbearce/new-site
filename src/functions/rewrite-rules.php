@@ -5,8 +5,10 @@
 
 /**
  * Add various rewrite rules
+ *
+ * @return void
  */
-function __gulp_init_namespace___pwa_rewrite_rules() {
+function __gulp_init_namespace___pwa_rewrite_rules(): void {
     /**
      * Point to manifest generator at /manifest.json
      */

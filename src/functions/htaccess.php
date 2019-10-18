@@ -3,8 +3,14 @@
  * .htaccess directives
 \* ------------------------------------------------------------------------ */
 
-// Add HTML5 Boilerplate .htaccess directives
-function __gulp_init_namespace___add_html5_boilerplate_directives($rules) {
+/**
+ * Add HTML5 Boilerplate .htaccess directives
+ *
+ * @param  string $rules
+ *
+ * @return string
+ */
+function __gulp_init_namespace___add_html5_boilerplate_directives(string $rules): string {
     $boilerplate = array(
         "CROSS-ORIGIN"                        => array(),
         "ERRORS"                              => array(),
@@ -1569,9 +1575,15 @@ EOF;
 }
 add_filter("mod_rewrite_rules", "__gulp_init_namespace___add_html5_boilerplate_directives");
 
-// set Service-Worker-Allowed header for service-worker.js in order to allow `/` scope
-function __gulp_init_namespace___set_service_worker_allowed_scope($rules = "") {
-    $rules .= <<<EOF
+/**
+ * Set Service-Worker-Allowed header for service-worker.js in order to allow `/` scope
+ *
+ * @param  string $rules
+ *
+ * @return string
+ */
+function __gulp_init_namespace___set_service_worker_allowed_scope(string $rules): string {
+    return $rules . <<<EOF
 \n# ######################################################################
 # # SERVICE WORKER
 # ######################################################################
@@ -1582,7 +1594,5 @@ function __gulp_init_namespace___set_service_worker_allowed_scope($rules = "") {
     </Files>
 </IfModule>\n
 EOF;
-
-    return $rules;
 }
 add_filter("mod_rewrite_rules", "__gulp_init_namespace___set_service_worker_allowed_scope");

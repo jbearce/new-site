@@ -5,8 +5,13 @@
 
 /**
  * Push assets and preconnections over HTTP/2
+ *
+ * @param  array<string> $urls
+ * @param  string $relation_type
+ *
+ * @return array<string>
  */
-function __gulp_init_namespace___resource_hints($urls, $relation_type) {
+function __gulp_init_namespace___resource_hints(array $urls, string $relation_type): array {
     if ($relation_type === "preconnect") {
         $urls[] = "https://www.google-analytics.com";
         $urls[] = "https://www.gstatic.com";
@@ -43,8 +48,12 @@ add_filter("wp_resource_hints", "__gulp_init_namespace___resource_hints", 10, 2)
 
 /**
  * Remove version strings
+ *
+ * @param  string $src
+ *
+ * @return string
  */
-function __gulp_init_namespace___remove_script_version($src) {
+function __gulp_init_namespace___remove_script_version(string $src): string {
     if ($src) {
         $parts = explode("?ver", $src);
         $src   = $parts[0];
@@ -57,8 +66,10 @@ add_filter("style_loader_src", "__gulp_init_namespace___remove_script_version", 
 
 /**
  * Disable scripts that WordPress inserts which aren't used by this theme
+ *
+ * @return void
  */
-function __gulp_init_namespace___wp_disable_default_scripts() {
+function __gulp_init_namespace___wp_disable_default_scripts(): void {
     if (!is_admin()) {
         wp_deregister_style("wp-block-library");
         wp_deregister_script("wp-embed");
@@ -68,14 +79,24 @@ add_action("init", "__gulp_init_namespace___wp_disable_default_scripts");
 
 /**
  * Disable Emoji
+ *
+ * @return void
  */
-remove_action("wp_head", "print_emoji_detection_script", 7);
-remove_action("wp_print_styles", "print_emoji_styles");
+function __gulp_init_namespace___disable_emoji(): void {
+    remove_action("wp_head", "print_emoji_detection_script", 7);
+    remove_action("wp_print_styles", "print_emoji_styles");
+}
+add_action("init", "__gulp_init_namespace___disable_emoji");
 
 /**
  * Load all JavaScript asynchronously
+ *
+ * @param  string $tag
+ * @param  string $handle
+ *
+ * @return string
  */
-function __gulp_init_namespace___make_scripts_async($tag, $handle) {
+function __gulp_init_namespace___make_scripts_async(string $tag, string $handle): string {
     if (!is_admin() && !in_array($handle, array())) {
         $tag = str_replace(" src=", " defer='defer' src=", $tag);
     }
@@ -86,8 +107,14 @@ add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async", 10
 
 /**
  * Load styles asynchronously when critical CSS is present
+ *
+ * @param  string $tag
+ * @param  string $handle
+ * @param  string $src
+ *
+ * @return string
  */
-function __gulp_init_namespace___make_styles_async($tag, $handle, $src) {
+function __gulp_init_namespace___make_styles_async(string $tag, string $handle, string $src): string {
     $pagenow  = $GLOBALS["pagenow"];
     $template = isset($GLOBALS["template"]) ? $GLOBALS["template"] : false;
 
@@ -106,8 +133,10 @@ add_filter("style_loader_tag", "__gulp_init_namespace___make_styles_async", 10, 
 
 /**
  * Add critical CSS to the top of wp_head
+ *
+ * @return void
  */
-function __gulp_init_namespace___critical_css() {
+function __gulp_init_namespace___critical_css(): void {
     $template = $GLOBALS["template"];
 
     // critical styles
@@ -119,10 +148,13 @@ function __gulp_init_namespace___critical_css() {
 add_action("wp_head", "__gulp_init_namespace___critical_css", 5, 0);
 
 /**
- * Cache Google Analytics JavaScript to better control how it loads
- * (updates every 2 hours)
+ * Cache Google Analytics JavaScript to better control how it loads (updates every 2 hours)
+ *
+ * @param  string $url
+ *
+ * @return string
  */
-function __gulp_init_namespace___cache_google_analytics($url) {
+function __gulp_init_namespace___cache_google_analytics(string $url): string {
     $local_path = WP_CONTENT_DIR . "/cache/scripts/analytics.js";
 
     if (!file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {

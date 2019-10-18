@@ -3,12 +3,21 @@
  * Functions: Menus
 \* ------------------------------------------------------------------------ */
 
-// register the menus
-register_nav_menus(array(
-    "primary" => __("Navigation", "__gulp_init_namespace__"),
-));
+/**
+ * Register the menus
+ *
+ * @return void
+ */
+function __gulp_init_namespace___register_nav_menus(): void {
+    register_nav_menus(array(
+        "primary" => __("Navigation", "__gulp_init_namespace__"),
+    ));
+}
+add_action("init", "__gulp_init_namespace___register_nav_menus");
 
-// menu walker
+/**
+ * Custom menu walker with support for mega menus and
+ */
 class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
      * Set up a variable to hold the parameters passed to the walker
@@ -17,8 +26,12 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
 
     /**
      * Store parameters in a more accessible way
+     *
+     * @param  array<mixed> $params
+     *
+     * @return void
      */
-    public function __construct($params = "") {
+    public function __construct(array $params = array()) {
         $this->params = $params;
     }
 
@@ -33,8 +46,17 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
 
     /**
      * Check if the current item contains mega menu columns
+     *
+     * @param  object $element
+     * @param  array<mixed> $children_elements
+     * @param  int $max_depth
+     * @param  int $depth
+     * @param  array<mixed> $args
+     * @param  string $output
+     *
+     * @return void
      */
-    function display_element($element, &$children_elements, $max_depth, $depth = 0, $args, &$output) {
+    function display_element($element, &$children_elements, $max_depth, $depth, $args, &$output): void {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         if (in_array("mega", $features) && $depth === 0 && isset($children_elements[$element->ID]) && $children_elements[$element->ID]) { $i = 0;
@@ -56,13 +78,21 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Pass on the element as is
          */
-        return parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
+        parent::display_element($element, $children_elements, $max_depth, $depth, $args, $output);
     }
 
     /**
      * Construct a menu item
+     *
+     * @param  string $output
+     * @param  object $item
+     * @param  int $depth
+     * @param  array<mixed> $args
+     * @param  int $id
+     *
+     * @return void
      */
-    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+    public function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0): void {
         $id_prefix = isset($this->params["id_prefix"]) ? $this->params["id_prefix"] : "menu-item-";
         $features  = isset($this->params["features"]) ? $this->params["features"] : array();
 
@@ -193,8 +223,14 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
 
     /**
      * Construct the sub-menu ul
+     *
+     * @param  string $output
+     * @param  int $depth
+     * @param  array<mixed> $args
+     *
+     * @return void
      */
-    public function start_lvl(&$output, $depth = 0, $args = array()) {
+    public function start_lvl(&$output, $depth = 0, $args = array()): void {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         /**
@@ -276,8 +312,14 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
 
     /**
      * Construct the closing sub-menu ul
+     *
+     * @param  string $output
+     * @param  int $depth
+     * @param  array<mixed> $args
+     *
+     * @return void
      */
-    public function end_lvl(&$output, $depth = 0, $args = array()) {
+    public function end_lvl(&$output, $depth = 0, $args = array()): void {
         $features = isset($this->params["features"]) ? $this->params["features"] : array();
 
         /**
@@ -300,8 +342,15 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
 
     /**
      * Construct the closing li
+     *
+     * @param  string $output
+     * @param  object $item
+     * @param  int $depth
+     * @param  array<mixed> $args
+     *
+     * @return void
      */
-    public function end_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+    public function end_el(&$output, $item, $depth = 0, $args = array()): void {
         /**
          * Close the menu item
          */
@@ -309,13 +358,19 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     }
 }
 
-// add custom options to the menu editor
+/**
+ * Add custom fields to the menu editor
+ */
 if (is_admin() && $pagenow === "nav-menus.php") {
     // include this so we can access Walker_Nav_Menu_Edit
     require_once ABSPATH . "wp-admin/includes/nav-menu.php";
 
-    // Add the WordPress color picker styles & scripts
-    function __gulp_init_namespace___nav_menu_color_picker() {
+    /**
+     * Add the WordPress color picker styles & scripts
+     *
+     * @return void
+     */
+    function __gulp_init_namespace___nav_menu_color_picker(): void {
         wp_enqueue_style("wp-color-picker");
         wp_enqueue_script("wp-color-picker");
     }
@@ -324,8 +379,12 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     class __gulp_init_namespace___create_custom_menu_options extends Walker_Nav_Menu_Edit {
         private static $displayed_fields = array();
 
-        // create an array with all the new fields
-        static function get_custom_fields() {
+        /**
+         * Create an array with all the new fields
+         *
+         * @return array<array<array<string>|string>>
+         */
+        static function get_custom_fields(): array {
             return array(
                 array(
                     "locations"   => array("primary"),
@@ -340,8 +399,15 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             );
         }
 
-        // get a specific custom field template
-        static function get_custom_field($field, $item = null) {
+        /**
+         * Get a specific custom field template
+         *
+         * @param  array<mixed> $field
+         * @param  object|null $item
+         *
+         * @return string
+         */
+        static function get_custom_field(array $field, object $item = null): string {
             $templates = array(
                 "label"         => "<p class='field-{{ field_name }} description description-wide hidden-field' data-locations='{{ field_locations }}'>
                                     <label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>
@@ -446,8 +512,18 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             return str_replace("{{ field_markup }}", $markup, $markup_label);
         }
 
-        // append the new fields to the menu system
-        function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0) {
+        /**
+         * Append the new fields to the menu system
+         *
+         * @param  string $output
+         * @param  object $item
+         * @param  int $depth
+         * @param  array<mixed> $args
+         * @param  int $id
+         *
+         * @return void
+         */
+        function start_el(&$output, $item, $depth = 0, $args = array(), $id = 0): void {
             $all_menus      = get_nav_menu_locations();
             $assigned_menus = get_the_terms($item->ID, "nav_menu");
 
@@ -496,8 +572,14 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             $output .= $item_output;
         }
 
-        // save the new fields
-        static function save_field_data($post_id) {
+        /**
+         * Save the new fields
+         *
+         * @param  int $post_id
+         *
+         * @return void
+         */
+        static function save_field_data(int $post_id): void {
             if (get_post_type($post_id) !== "nav_menu_item") return;
 
             $post_object   = get_post($post_id);
@@ -522,13 +604,21 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             }
         }
 
-        // add the save function to the save_post action
-        static function setup_custom_fields() {
+        /**
+         * Add the save function to the save_post action
+         *
+         * @return void
+         */
+        static function setup_custom_fields(): void {
             add_action("save_post", array("__gulp_init_namespace___create_custom_menu_options", "save_field_data"));
         }
 
-        // localize the custom fields to wp-admin.js
-        static function localize_custom_fields() {
+        /**
+         * Localize the custom fields to wp-admin.js
+         *
+         * @return void
+         */
+        static function localize_custom_fields(): void {
             $all_custom_fields = self::get_custom_fields();
 
             $l10n = array(
@@ -542,8 +632,12 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             wp_localize_script("__gulp_init_namespace__-scripts-wp-admin", "l10n", $l10n);
         }
 
-        // insert field custom scripts in to the admin footer
-        static function insert_custom_scripts() {
+        /**
+         * Insert field custom scripts in to the admin footer
+         *
+         * @return void
+         */
+        static function insert_custom_scripts(): void {
             $custom_fields = self::get_custom_fields();
 
             foreach ($custom_fields as $field) {
@@ -553,8 +647,12 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             }
         }
 
-        // insert field custom styles in to the admin header
-        static function insert_custom_styles() {
+        /**
+         * Insert field custom styles in to the admin header
+         *
+         * @return void
+         */
+        static function insert_custom_styles(): void {
             $custom_fields = self::get_custom_fields();
 
             foreach ($custom_fields as $field) {
@@ -564,8 +662,14 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             }
         }
 
-        // insert the screen options
-        static function insert_custom_screen_options($args) {
+        /**
+         * Insert the screen options
+         *
+         * @param  array<string> $args
+         *
+         * @return array<string>
+         */
+        static function insert_custom_screen_options(array $args): array {
             $custom_fields = self::get_custom_fields();
 
             foreach ($custom_fields as $field) {
@@ -587,13 +691,15 @@ if (is_admin() && $pagenow === "nav-menus.php") {
     });
 }
 
-// add sub_menu options to wp_nav_menu
-// @param  direct_parent  {true|false}
-// @param  parent_id      {int}
-// @param  show_parent    {true|false}
-// @param  sub_menu       {true|false}
-// @param  tree_mode      {"all"|"related"|"viewed"}
-function __gulp_init_namespace___nav_menu_sub_menu($menu_items, $args) {
+/**
+ * Add sub_menu options to wp_nav_menu
+ *
+ * @param  array<object> $menu_items
+ * @param  object $args
+ *
+ * @return array<object>
+ */
+function __gulp_init_namespace___nav_menu_sub_menu(array $menu_items, object $args): array {
     $post_id_map  = array();
     $loop_limit   = 1000;
 

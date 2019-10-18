@@ -10,8 +10,12 @@ if (!function_exists("tribe_get_events")) {
 
 /* FUNCTIONS */
 
-// determine if the current page is a tribe page
-function __gulp_init_namespace___is_tribe_page() {
+/**
+ * Determine if the current page is a tribe page
+ *
+ * @return array<array<string>|int|string>
+ */
+function __gulp_init_namespace___is_tribe_page(): array {
     $queried_object = get_queried_object();
 
 
@@ -25,7 +29,7 @@ function __gulp_init_namespace___is_tribe_page() {
             $variant[] = $queried_object->taxonomy;
         }
 
-    	return array(
+        return array(
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
@@ -204,13 +208,19 @@ function __gulp_init_namespace___is_tribe_page() {
             "type"      => "single",
             "variants"  => array("tribe_organizer"),
         );
-    } else {
-        return false;
     }
+
+    return array();
 }
 
-// retrieve a date and time string
-function __gulp_init_namespace___get_tribe_date_and_time_strings($event_id) {
+/**
+ * Retrieve a date and time string
+ *
+ * @param  int $event_id
+ *
+ * @return array<string>
+ */
+function __gulp_init_namespace___get_tribe_date_and_time_strings(int $event_id): array {
     $is_all_day   = tribe_event_is_all_day($event_id);
     $is_multiday  = tribe_event_is_multiday($event_id);
 
@@ -264,8 +274,12 @@ function __gulp_init_namespace___get_tribe_date_and_time_strings($event_id) {
 
 /**
  * Use correct Tribe templates, if they exist
+ *
+ * @param  string $template
+ *
+ * @return string
  */
-function __gulp_init_namespace___tribe_force_page_templates($template) {
+function __gulp_init_namespace___tribe_force_page_templates(string $template): string {
     $tribe_page = __gulp_init_namespace___is_tribe_page();
 
     if ($tribe_page && $tribe_page["type"] === "single") {
@@ -294,8 +308,12 @@ function __gulp_init_namespace___tribe_force_page_templates($template) {
 }
 add_filter("template_include", "__gulp_init_namespace___tribe_force_page_templates");
 
-// dequeue & deregister tribe calendar styles, keep bootstrap datepicker
-function __gulp_init_namespace___tribe_dequeue_calendar_styles() {
+/**
+ * Dequeue & deregister tribe calendar styles, keep bootstrap datepicker
+ *
+ * @return void
+ */
+function __gulp_init_namespace___tribe_dequeue_calendar_styles(): void {
     wp_dequeue_style("tribe-events-calendar-style", 999);
     wp_deregister_style("tribe-events-calendar-style");
 
@@ -305,14 +323,22 @@ function __gulp_init_namespace___tribe_dequeue_calendar_styles() {
 }
 add_action("wp_enqueue_scripts", "__gulp_init_namespace___tribe_dequeue_calendar_styles");
 
-// remove the tribe events promo
-function __gulp_init_namespace___tribe_disable_promo() {
+/**
+ * Remove the tribe events promo
+ *
+ * @return bool
+ */
+function __gulp_init_namespace___tribe_disable_promo(): bool {
     return false;
 }
 add_action("tribe_events_promo_banner", "__gulp_init_namespace___tribe_disable_promo");
 
-// remove __gulp_init_namespace___add_user_content_classes from tribe events pages
-function __gulp_init_namespace___tribe_remove_content_filters() {
+/**
+ * Remove __gulp_init_namespace___add_user_content_classes from tribe events pages
+ *
+ * @return void
+ */
+function __gulp_init_namespace___tribe_remove_content_filters(): void {
     if (__gulp_init_namespace___is_tribe_page()) {
         remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
         remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
@@ -320,22 +346,36 @@ function __gulp_init_namespace___tribe_remove_content_filters() {
 }
 add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters", 999);
 
-// add __gulp_init_namespace___add_user_content_classes filter to the_content before tribe events single content
-function __gulp_init_namespace___tribe_single_content_add_filters() {
+/**
+ * Add __gulp_init_namespace___add_user_content_classes filter to the_content before tribe events single content
+ *
+ * @return void
+ */
+function __gulp_init_namespace___tribe_single_content_add_filters(): void {
     add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
     add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
 }
 add_action("tribe_events_single_event_before_the_content", "__gulp_init_namespace___tribe_single_content_add_filters");
 
-// remove __gulp_init_namespace___add_user_content_classes filter from the_content after tribe events single content
-function __gulp_init_namespace___tribe_single_content_remove_filters() {
+/**
+ * Remove __gulp_init_namespace___add_user_content_classes filter from the_content after tribe events single content
+ *
+ * @return void
+ */
+function __gulp_init_namespace___tribe_single_content_remove_filters(): void {
     remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
     remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
 }
 add_action("tribe_events_single_event_after_the_content", "__gulp_init_namespace___tribe_single_content_remove_filters");
 
-// add 'menu-list_link link' to list of classes for tribe monthly pagination link
-function __gulp_init_namespace___tribe_add_pagination_menu_link_class($html) {
+/**
+ * Add 'menu-list_link link' to list of classes for tribe monthly pagination link
+ *
+ * @param  string $html
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_pagination_menu_link_class(string $html): string {
     if ($html) {
         $DOM = new DOMDocument();
 
@@ -364,8 +404,14 @@ add_filter("tribe_events_the_previous_month_link", "__gulp_init_namespace___trib
 add_filter("tribe_events_the_next_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
 add_filter("tribe_the_day_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
 
-// add 'title--divider' class to tribe date headers
-function __gulp_init_namespace___tribe_add_title_class_to_date_headers($html) {
+/**
+ * Add 'title--divider' class to tribe date headers
+ *
+ * @param  string $html
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_title_class_to_date_headers(string $html): string {
     if ($html) {
         $DOM = new DOMDocument();
 
@@ -392,8 +438,14 @@ function __gulp_init_namespace___tribe_add_title_class_to_date_headers($html) {
 }
 add_filter("tribe_events_list_the_date_headers", "__gulp_init_namespace___tribe_add_title_class_to_date_headers");
 
-// add 'tribe-events-text_text text' class to tribe excerpts
-function __gulp_init_namespace___tribe_add_text_class_to_excerpt($excerpt) {
+/**
+ * Add 'tribe-events-text_text text' class to tribe excerpts
+ *
+ * @param  string $excerpt
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_text_class_to_excerpt(string $excerpt): string {
     if ($excerpt) {
         $DOM = new DOMDocument();
 
@@ -420,8 +472,14 @@ function __gulp_init_namespace___tribe_add_text_class_to_excerpt($excerpt) {
 }
 add_filter("tribe_events_get_the_excerpt", "__gulp_init_namespace___tribe_add_text_class_to_excerpt");
 
-// add text classes to tribe notices
-function __gulp_init_namespace___tribe_add_text_class_to_notices($html) {
+/**
+ * Add text classes to tribe notices
+ *
+ * @param  string $html
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_text_class_to_notices(string $html): string {
     if ($html) {
         $DOM = new DOMDocument();
 
@@ -454,15 +512,25 @@ function __gulp_init_namespace___tribe_add_text_class_to_notices($html) {
 }
 add_filter("tribe_the_notices", "__gulp_init_namespace___tribe_add_text_class_to_notices");
 
-// disable tribe ical links
-function __gulp_init_namespace___tribe_disable_ical_links() {
+/**
+ * Disable tribe ical links
+ *
+ * @return bool
+ */
+function __gulp_init_namespace___tribe_disable_ical_links(): bool {
     return false;
 }
 add_filter("tribe_events_ical_single_event_links", "__gulp_init_namespace___tribe_disable_ical_links");
 add_filter("tribe_events_list_show_ical_link", "__gulp_init_namespace___tribe_disable_ical_links");
 
-// add proper classes to Tribe featured images
-function __gulp_init_namespace___tribe_add_class_to_featured_image($featured_image) {
+/**
+ * Add proper classes to Tribe featured images
+ *
+ * @param  string $featured_image
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_class_to_featured_image(string $featured_image): string {
     if (is_singular("tribe_events") && $featured_image) {
         $DOM = new DOMDocument();
 
@@ -495,8 +563,14 @@ function __gulp_init_namespace___tribe_add_class_to_featured_image($featured_ima
 }
 add_filter("tribe_event_featured_image", "__gulp_init_namespace___tribe_add_class_to_featured_image");
 
-// add 'link' class to tribe events title links
-function __gulp_init_namespace___tribe_add_events_title_link_class($title) {
+/**
+ * Add 'link' class to tribe events title links
+ *
+ * @param  string $title
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_events_title_link_class(string $title): string {
     if ($title) {
         $DOM = new DOMDocument();
 
@@ -523,8 +597,14 @@ function __gulp_init_namespace___tribe_add_events_title_link_class($title) {
 }
 add_filter("tribe_events_title", "__gulp_init_namespace___tribe_add_events_title_link_class");
 
-// add 'input' class to tribe events bar inputs
-function __gulp_init_namespace___tribe_add_bar_input_class($html) {
+/**
+ * Add 'input' class to tribe events bar inputs
+ *
+ * @param  string $html
+ *
+ * @return string
+ */
+function __gulp_init_namespace___tribe_add_bar_input_class(string $html): string {
     if ($html) {
         $DOM = new DOMDocument();
 
@@ -553,9 +633,14 @@ add_filter("__gulp_init_namespace___tribe_add_bar_input_class", "__gulp_init_nam
 
 /**
  * Remove recurring events duplicates from search results
+ *
  * @see https://www.relevanssi.com/knowledge-base/showing-one-recurring-event/
+ *
+ * @param  array<array<mixed>> $hits Array of Relevnassi hits
+ *
+ * @return array<array<mixed>>
  */
-function __gulp_init_namespace___relevanssi_cull_recurring_events($hits) {
+function __gulp_init_namespace___relevanssi_cull_recurring_events(array $hits = array()): array {
     $ok_results     = array();
     $posts_seen     = array();
     $index_by_title = array();

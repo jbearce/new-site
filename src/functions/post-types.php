@@ -3,8 +3,12 @@
  * Functions: Post Types
 \* ------------------------------------------------------------------------ */
 
-// register resource post type
-function __gulp_init_namespace___create_resource_post_type() {
+/**
+ * Register resource post type
+ *
+ * @return void
+ */
+function __gulp_init_namespace___create_resource_post_type(): void {
     $type_plural_name   = __("Resources", "__gulp_init_namespace__");
     $type_singular_name = __("Resource", "__gulp_init_namespace__");
 
