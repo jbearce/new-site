@@ -278,6 +278,82 @@ function __gulp_init_namespace___img($src, array $atts = array(), bool $lazy = t
 }
 
 /**
+ * Construct markup for a link
+ *
+ * @param string $href  The URL for the link
+ * @param string $contents  The contents to appear within the tags
+ * @param array<string> $atts  A set of attributes to apply to the element
+ * @param bool $close  Whether or not to close the tag
+ *
+ * @return string  HTML tag for displaying the link
+ */
+function __gulp_init_namespace___link(string $href, string $contents = "", array $atts = array(), bool $close = true): string {
+    /**
+     * Construct the opening of the anchor tag
+     */
+    $element = "<a href='" . esc_url($href) . "'";
+
+    /**
+     * If target is set, is not empty or `_self`, and no `rel` is set, add `rel='noopener'`
+     */
+    if (in_array("target", $atts) && !in_array($atts["target"], array("", "_self")) && !in_array("rel", $atts)) {
+        $atts["rel"] = "noopener";
+    }
+
+    /**
+     * Append each custom attribute to the element
+     */
+    if ($atts) {
+        foreach ($atts as $att => $value) {
+            if ($value) {
+                $element .= " " . esc_attr($att) . "='" . esc_attr($value) . "'";
+            }
+        }
+    }
+
+    /**
+     * Append the contents to the tag
+     */
+    $element .= ">{$contents}";
+
+    /**
+     * Close the tag
+     */
+    if ($close) {
+        $element .= "</a>";
+    }
+
+    return $element;
+}
+
+/**
+ * Generate an anchor tag based on ACF link field value
+ *
+ * @param  array|bool $value  The ACF field value
+ * @param  bool $display_title  Whether or not to include the title in the output
+ * @param  array $atts  The custom attributes to apply to the link
+ * @param  bool $close  Whether to include a closing anchor tag
+ *
+ * @return string  The HTML tag for displaying the link
+ */
+function __gulp_init_namespace___acf_link($value, bool $display_title = true, array $atts = array(), bool $close = true): string {
+    if ($value) {
+        $contents = $display_title ? $value["title"] : "";
+
+        /**
+         * If it's not blank, add the target to the atts array
+         */
+        if ($value["target"] !== "") {
+            $atts["target"] = $value["target"];
+        }
+
+        return __gulp_init_namespace___link($value["url"], $contents, $atts, $close);
+    }
+
+    return "";
+}
+
+/**
  * Get a specific number of sentences in a given string
  *
  * @param string $content  Block of text of which to extract sentences from

@@ -8,12 +8,12 @@
  *
  * @example [row class="row--padded row--tight"]
  *
- * @param  array<string> $atts
+ * @param  array<string>|string $atts
  * @param  string $content
  *
  * @return string
  */
-function __gulp_init_namespace___row_shortcode(array $atts, string $content = ""): string {
+function __gulp_init_namespace___row_shortcode($atts, string $content = ""): string {
     extract(shortcode_atts(
         array(
             "class" => false,
@@ -32,12 +32,12 @@ add_shortcode("row", "__gulp_init_namespace___row_shortcode");
  *
  * @example [col mobile=12 tablet=6 notebook=4 desktop=auto class="col--nogrow col--noshrink"]
  *
- * @param  array<string> $atts
+ * @param  array<string>|string $atts
  * @param  string $content
  *
  * @return string
  */
-function __gulp_init_namespace___col_shortcode(array $atts , string $content = ""): string {
+function __gulp_init_namespace___col_shortcode($atts , string $content = ""): string {
     extract(shortcode_atts(
         array(
             "mobile"   => "",
@@ -63,12 +63,12 @@ add_shortcode("col", "__gulp_init_namespace___col_shortcode");
  *
  * @example [columns count=2]
  *
- * @param  array<string> $atts
+ * @param  array<string>|string $atts
  * @param  string $content
  *
  * @return string
  */
-function __gulp_init_namespace___columns_shortcode(array $atts , string $content = ""): string {
+function __gulp_init_namespace___columns_shortcode($atts , string $content = ""): string {
     extract(shortcode_atts(
         array(
             "count" => "1",
