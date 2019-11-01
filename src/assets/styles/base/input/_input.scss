@@ -23,24 +23,14 @@
         width: 100%;
     }
 
-    &:active,
-    &:focus {
+    &:not(.input--disabled):active,
+    &:not(.input--disabled):focus {
         border-color: color("accent");
     }
 
     &::placeholder {
         color: color("foreground", "tint");
         opacity: 1;
-    }
-}
-
-/* disabled variant */
-
-.input--disabled {
-    & {
-        background-color: mix(color("background"), color("background", "shade"));
-        cursor: not-allowed;
-        opacity: 0.6;
     }
 }
 
@@ -152,5 +142,15 @@
 
     &:checked::after {
         transform: scale(1);
+    }
+}
+
+/* disabled variant */
+
+.input--disabled {
+    & {
+        background-color: mix(color("background"), color("background", "shade"));
+        cursor: not-allowed;
+        opacity: 0.6;
     }
 }

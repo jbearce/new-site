@@ -152,3 +152,13 @@ function __gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content(
     return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
 }
 add_filter("the_content", "__gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content", 5);
+
+/**
+ * Add missing formHoneypot label
+ */
+function __gulp_init_namespace___ninja_forms_honeypot_label($nfi18n) {
+    $nfi18n["formHoneypot"] = __("If you are a human seeing this field, please leave it empty.", "fvpd");
+
+    return $nfi18n;
+}
+add_filter("ninja_forms_i18n_front_end", "__gulp_init_namespace___ninja_forms_honeypot_label");
