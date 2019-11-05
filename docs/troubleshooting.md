@@ -23,10 +23,21 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 ```
 
-### `ERROR in ./src/assets/scripts/modern/fontawesome.init.js`
+## `ERROR in ./src/assets/scripts/modern/fontawesome.init.js`
 
 This error typically occurs when FontAwesome Pro is not installed correctly. Please refer to the [getting started](getting-started.md#fontawesome-5-pro) guide for more information on configuring FontAwesome 5 Pro.
 
-### `404 Not Found: @fortawesome/fontawesome-pro@latest`
+## `404 Not Found: @fortawesome/fontawesome-pro@latest`
 
 This error typically occurs when FontAwesome Pro is not installed correctly. Please refer to the [getting started](getting-started.md#fontawesome-5-pro) guide for more information on configuring FontAwesome 5 Pro.
+
+## All browsers load IE customizations when WordPress caching is enabled
+
+This occurs when a user visits the site in IE at just the right moment for the server cache to be rewritten. To fix this, follow these steps:
+
+- In the WP Super Cache settings, under Advanced &rarr; Rejected User Agents, add `MSIE` and `Trident`.
+- In `wp-config.php`, wrap `define('WP_CACHE', true)` in an IE check, as follows:
+
+    ```php
+    if (preg_match("/(Trident|MSIE)/", $_SERVER["HTTP_USER_AGENT"])) { define('WP_CACHE', true); }
+    ```

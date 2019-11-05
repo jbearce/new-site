@@ -663,3 +663,26 @@ function __gulp_init_namespace___default_wpseo_metadesc(string $html): string {
     return $html;
 }
 add_filter("wpseo_metadesc", "__gulp_init_namespace___default_wpseo_metadesc");
+
+/**
+ * Add `MSIE` and `Trident` to rejected user agents
+ *
+ * @return void
+ */
+function __gulp_init_namespace___wp_super_cache_disable_ie_setting(): void {
+    global $cache_rejected_user_agent;
+
+    if ($cache_rejected_user_agent) {
+        $cache_rejected_user_agent[] = "MSIE";
+        $cache_rejected_user_agent[] = "Trident";
+    }
+}
+add_action("init", "__gulp_init_namespace___wp_super_cache_disable_ie_setting");
+
+/**
+ * Exclude IE from cache
+ */
+function __gulp_init_namespace___wp_super_cache_disable_ie_wp_config() {
+    return 'if (preg_match(\'/(Trident|MSIE)/\', $_SERVER[\'HTTP_USER_AGENT\'])) { define(\'WP_CACHE\', true); }';
+}
+add_filter("supercache_wp_config_line", "__gulp_init_namespace___wp_super_cache_disable_ie_wp_config");
