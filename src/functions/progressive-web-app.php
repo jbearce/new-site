@@ -378,21 +378,18 @@ add_action("wp_head", "__gulp_init_namespace___add_pwa_meta_to_head", 0);
  * @return void
  */
 function __gulp_init_namespace___add_ios_meta_to_head(): void {
+    // declare web app support
+    echo "<meta name='apple-mobile-web-app-capable' content='yes' />\n";
+
+    // set status bar color
+    echo "<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />\n";
+
     // set home screen icons
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-76x76.png") . "' rel='apple-touch-icon' sizes='76x76' />\n";
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-120x120.png") . "' rel='apple-touch-icon' sizes='120x120' />\n";
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-152x152.png") . "' rel='apple-touch-icon' sizes='152x152' />\n";
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-180x180.png") . "' rel='apple-touch-icon' sizes='180x180' />\n";
     echo "<link href='" . get_theme_file_uri("assets/media/ios/touch-icon-1024x1024.png") . "' rel='apple-touch-icon' sizes='1024x1024' />\n";
-
-    // don't print if the user isn't on iOS
-    if (!__gulp_init_namespace___is_platform("ios")) return;
-
-    // declare web app support
-    echo "<meta name='apple-mobile-web-app-capable' content='yes' />\n";
-
-    // set status bar color
-    echo "<meta name='apple-mobile-web-app-status-bar-style' content='black-translucent' />\n";
 
     // array of splash screen images for each iOS device
     $splash_screens = array(

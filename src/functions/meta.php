@@ -25,17 +25,13 @@ function __gulp_init_namespace___add_theme_color_meta_to_head(): void {
     $theme_color = $theme_color ? $theme_color : "<%= pwa_theme_color %>";
 
     // Chrome
-    if (__gulp_init_namespace___is_platform("chrome")) {
-        echo "<meta name='theme-color' content='{$theme_color}' />\n";
-    }
+    echo "<meta name='theme-color' content='{$theme_color}' />\n";
 
     // Safari
-    if (__gulp_init_namespace___is_platform("safari")) {
-        echo "<link rel='mask-icon' href='" . get_theme_file_uri("assets/media/safari/mask-icon.svg") . "' color='{$theme_color}' />\n";
-    }
+    echo "<link rel='mask-icon' href='" . get_theme_file_uri("assets/media/safari/mask-icon.svg") . "' color='{$theme_color}' />\n";
 
     // Internet Explorer
-    if (__gulp_init_namespace___is_platform("ie")) {
+    if (__gulp_init_namespace___is_ie()) {
         echo "<meta name='msapplication-navbutton-color' content='{$theme_color}'>\n";
     }
 }

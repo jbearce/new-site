@@ -174,50 +174,13 @@ function __gulp_init_namespace___is_other_asset(string $url): bool {
 }
 
 /**
- * Check what platform a given user agent belongs to
- *
- * @param array|string $platform  A specific platform to check against (android|chrome|edge|ie|ios|safari)
- * @param string $user_agent  A user agent to compare against a given platform
+ * Check if a user is visiting the site using IE
  *
  * @return bool
  */
-function __gulp_init_namespace___is_platform($platform, string $user_agent = ""): bool {
-    $user_agent = $user_agent ? $user_agent : $_SERVER["HTTP_USER_AGENT"];
-
-    if ($platform === "android" || (is_array($platform) && in_array("android", $platform))) {
-        if (stripos($user_agent, "Android")) {
-            return true;
-        }
-    }
-
-    if ($platform === "chrome" || (is_array($platform) && in_array("chrome", $platform))) {
-        if (stripos($user_agent, "Chrome")) {
-            return true;
-        }
-    }
-
-    if ($platform === "edge" || (is_array($platform) && in_array("edge", $platform))) {
-        if (stripos($user_agent, "Edge")) {
-            return true;
-        }
-    }
-
-    if ($platform === "ie" || (is_array($platform) && in_array("ie", $platform))) {
-        if (stripos($user_agent, "MSIE") || stripos($user_agent, "Trident")) {
-            return true;
-        }
-    }
-
-    if ($platform === "ios" || (is_array($platform) && in_array("ios", $platform))) {
-        if (stripos($user_agent, "iPod") || stripos($user_agent, "iPhone") || stripos($user_agent, "iPad")) {
-            return true;
-        }
-    }
-
-    if ($platform === "safari" || (is_array($platform) && in_array("safari", $platform))) {
-        if (stripos($user_agent, "Safari")) {
-            return true;
-        }
+function __gulp_init_namespace___is_ie(): bool {
+    if (preg_match("/(Trident|MSIE)/", $_SERVER["HTTP_USER_AGENT"])) {
+        return true;
     }
 
     return false;
@@ -270,7 +233,7 @@ function __gulp_init_namespace___img($src, array $atts = array(), bool $lazy = t
     /**
      * Run through the lazy loader filter
      */
-    if ($lazy && !__gulp_init_namespace___is_platform("ie")) {
+    if ($lazy && !__gulp_init_namespace___is_ie()) {
         $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element);
     }
 

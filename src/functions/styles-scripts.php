@@ -80,7 +80,7 @@ function __gulp_init_namespace___enqueue_scripts(): void {
 
     /* only load legacy stuff in IE */
 
-    if (__gulp_init_namespace___is_platform("ie")) {
+    if (__gulp_init_namespace___is_ie()) {
         wp_enqueue_style("__gulp_init_namespace__-styles-legacy");
         wp_enqueue_script("__gulp_init_namespace__-scripts-legacy");
     }
