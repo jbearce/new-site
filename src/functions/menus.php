@@ -179,7 +179,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Construct a title attribute if specified
          */
-        $attr_title = $item->attr_title ? " title='" . htmlentities($item->attr_title, ENT_QUOTES) . "'" : "";
+        $attr_title = $item->attr_title ? " title='" . esc_attr($item->attr_title) . "'" : "";
 
         /**
          * Construct a target attribute if specified
@@ -189,14 +189,14 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         /**
          * Construct a rel attribute if specified
          */
-        $xfn = $item->xfn ? " rel='" . htmlentities($item->xfn, ENT_QUOTES) . "'" : "";
+        $xfn = $item->xfn ? " rel='" . esc_attr($item->xfn) . "'" : ($item->target ? " rel='noopener'" : "");
 
         /**
          * Construct an aria-description attribute if enabled and specified
          */
         $aria = array(
             "describedby" => in_array("description", $features) && $item->description ? " aria-describedby='{$item_id}_description'" : "",
-            "description" => in_array("description", $features) && $item->description ? " <span class='menu-item__description' id='{$item_id}_description'>" . htmlentities($item->description, ENT_QUOTES) . "</span>" : "",
+            "description" => in_array("description", $features) && $item->description ? " <span class='menu-item__description' id='{$item_id}_description'>{$item->description}</span>" : "",
         );
 
         /**
