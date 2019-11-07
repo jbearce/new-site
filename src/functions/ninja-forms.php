@@ -26,11 +26,11 @@ function __gulp_init_namespace___ninja_forms_fix_scripts_order(): void {
 
     // change all `nf-front-end` dependencies to `nf-front-end-deps`
     foreach ($wp_scripts->registered as $script) {
-        if (!preg_match($pattern, $script->handle)) {
+        if (! preg_match($pattern, $script->handle)) {
             continue;
         }
 
-        if (!($key = array_search("nf-front-end", $script->deps))) {
+        if (! ($key = array_search("nf-front-end", $script->deps))) {
             continue;
         }
 
@@ -90,7 +90,7 @@ add_filter("wpseo_title", "__gulp_init_namespace___ninja_forms_fix_wpseo_title")
  */
 function __gulp_init_namespace___ninja_forms_fix_template(string $template): string {
     if (get_query_var("nf_public_link")) {
-        $template = locate_template(array("page.php", "index.php"));
+        $template = locate_template(["page.php", "index.php"]);
     }
 
     return $template;
@@ -147,7 +147,7 @@ add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_for
  * @return void
  */
 function __gulp_init_namespace___ninja_forms_disable_append_metabox(): void {
-    remove_meta_box("nf_admin_metaboxes_appendaform", array("page", "post"), "side");
+    remove_meta_box("nf_admin_metaboxes_appendaform", ["page", "post"], "side");
 }
 add_action("add_meta_boxes", "__gulp_init_namespace___ninja_forms_disable_append_metabox");
 
@@ -159,7 +159,7 @@ add_action("add_meta_boxes", "__gulp_init_namespace___ninja_forms_disable_append
  * @return array<string>
  */
 function __gulp_init_namespace___ninja_forms_honeypot_label(array $nfi18n): array {
-    if (!isset($nfi18n["formHoneypot"])) {
+    if (! isset($nfi18n["formHoneypot"])) {
         $nfi18n["formHoneypot"] = __("If you are a human seeing this field, please leave it empty.", "fvpd");
     }
 

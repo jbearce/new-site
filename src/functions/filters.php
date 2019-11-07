@@ -34,7 +34,7 @@ add_action("init", "__gulp_init_namespace___disable_xmlrpc");
  * @return void
  */
 function __gulp_init_namespace___set_return_visitor_cookie(): void {
-    if (!isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
+    if (! isset($_COOKIE["return_visitor"])) setcookie("return_visitor", "true", time() + 604800);
 }
 add_action("wp", "__gulp_init_namespace___set_return_visitor_cookie", 10);
 
@@ -105,8 +105,8 @@ add_filter("content_save_pre", "__gulp_init_namespace___remove_sep_characters");
 function __gulp_init_namespace___fix_shortcodes(string $content): string {
     $shortcode_tags = $GLOBALS["shortcode_tags"];
 
-    if (!is_admin() && $content && $shortcode_tags) {
-        $shortcodes = array();
+    if (! is_admin() && $content && $shortcode_tags) {
+        $shortcodes = [];
 
         foreach ($shortcode_tags as $tag => $data) {
             $shortcodes[] = $tag;
@@ -130,7 +130,7 @@ add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
  * @return string
  */
 function __gulp_init_namespace___add_user_content_classes(string $content): string {
-    if (!is_admin() && $content) {
+    if (! is_admin() && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -170,7 +170,7 @@ function __gulp_init_namespace___add_user_content_classes(string $content): stri
                 }
             }
 
-            if (!$existing_rel) {
+            if (! $existing_rel) {
                 $anchor->setAttribute("rel", "noopener");
             }
         }
@@ -318,7 +318,7 @@ add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
  * @return string
  */
 function __gulp_init_namespace___responsive_iframes(string $content): string {
-    if (!is_admin() && $content) {
+    if (! is_admin() && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -384,7 +384,7 @@ add_filter("the_content", "__gulp_init_namespace___responsive_iframes", 20);
  * @return string
  */
 function __gulp_init_namespace___responsive_tables(string $content): string {
-    if (!is_admin() && $content) {
+    if (! is_admin() && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -424,7 +424,7 @@ add_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
  * @return string
  */
 function __gulp_init_namespace___lazy_load_images(string $content): string {
-    if (!is_admin() && $content) {
+    if (! is_admin() && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -442,7 +442,7 @@ function __gulp_init_namespace___lazy_load_images(string $content): string {
         $images = $XPath->query("//*[self::img or self::source]");
 
         foreach ($images as $image) {
-            if (!preg_match("/wp-caption-image/", $image->getAttribute("class")) && $image->parentNode->nodeName !== "noscript") {
+            if (! preg_match("/wp-caption-image/", $image->getAttribute("class")) && $image->parentNode->nodeName !== "noscript") {
                 $existing_src    = $image->getAttribute("src");
                 $existing_srcset = $image->getAttribute("srcset");
 
@@ -509,7 +509,7 @@ add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_sh
  * @return string
  */
 function __gulp_init_namespace___remove_thumbnail_dimensions(string $html): string {
-    if (!is_admin() && $html) {
+    if (! is_admin() && $html) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -579,7 +579,7 @@ add_filter("__gulp_init_namespace___menu_list_link", "__gulp_init_namespace___me
  */
 function __gulp_init_namespace___home_template_redirect(string $template): string {
     if (is_front_page() && get_option("show_on_front") !== "page") {
-        $template = locate_template(array("home.php", "page.php", "index.php"));
+        $template = locate_template(["home.php", "page.php", "index.php"]);
     }
 
     return $template;
@@ -625,7 +625,7 @@ function __gulp_init_namespace___acrobat_link(): void {
             }
         }
 
-        if ($fields && !$has_pdf) {
+        if ($fields && ! $has_pdf) {
             foreach ($fields as $field) {
                 preg_match("/\.pdf(?:\'|\"|$)/im", json_encode($field), $matches);
 
@@ -656,8 +656,8 @@ add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acr
 function __gulp_init_namespace___default_wpseo_metadesc(string $html): string {
     $post = $GLOBALS["post"];
 
-    if (!$html && is_singular() && $content = wp_strip_all_tags($post->post_content)) {
-        return wp_trim_words(str_replace(array("\n", "\r"), " ", $content), 20, "…");
+    if (! $html && is_singular() && $content = wp_strip_all_tags($post->post_content)) {
+        return wp_trim_words(str_replace(["\n", "\r"], " ", $content), 20, "…");
     }
 
     return $html;

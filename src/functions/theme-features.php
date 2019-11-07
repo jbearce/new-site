@@ -3,13 +3,13 @@
  * Theme Features
 \* ------------------------------------------------------------------------ */
 
-add_theme_support("html5", array(
+add_theme_support("html5", [
     "comment-list",
     "comment-form",
     "search-form",
     "gallery",
-    "caption"
-));
+    "caption",
+]);
 
 add_theme_support("title-tag");
 

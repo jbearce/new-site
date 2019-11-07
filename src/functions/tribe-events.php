@@ -4,7 +4,7 @@
 \* ------------------------------------------------------------------------ */
 
 // stop if Tribe isn't installed
-if (!function_exists("tribe_get_events")) {
+if (! function_exists("tribe_get_events")) {
     return;
 }
 
@@ -18,199 +18,198 @@ if (!function_exists("tribe_get_events")) {
 function __gulp_init_namespace___is_tribe_page(): array {
     $queried_object = get_queried_object();
 
-
     $post_id = isset($post) ? $post->ID : (isset($queried_object->ID) ? $queried_object->ID : 0);
     $term_id = isset($queried_object->term_id) ? $queried_object->term_id : 0;
 
-    if (function_exists("tribe_is_month") && tribe_is_month() && !is_tax()) {
-        $variant = array("month");
+    if (function_exists("tribe_is_month") && tribe_is_month() && ! is_tax()) {
+        $variant = ["month"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_month") && tribe_is_month() && is_tax()) {
-        $variant = array("month");
+        $variant = ["month"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
-    } elseif (function_exists("tribe_is_past") && tribe_is_past() && !is_tax()) {
-        $variant = array("list", "past");
+        ];
+    } elseif (function_exists("tribe_is_past") && tribe_is_past() && ! is_tax()) {
+        $variant = ["list", "past"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
-    } elseif (function_exists("tribe_is_upcoming") && tribe_is_upcoming() && !is_tax()) {
-        $variant = array("list", "future");
+        ];
+    } elseif (function_exists("tribe_is_upcoming") && tribe_is_upcoming() && ! is_tax()) {
+        $variant = ["list", "future"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_past") && tribe_is_past() && is_tax()) {
-        $variant = array("list", "past");
+        $variant = ["list", "past"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_upcoming") && tribe_is_upcoming() && is_tax()) {
-        $variant = array("list", "future");
+        $variant = ["list", "future"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
-    } elseif (function_exists("tribe_is_week") && tribe_is_week() && !is_tax()) {
-        $variant = array("week");
+        ];
+    } elseif (function_exists("tribe_is_week") && tribe_is_week() && ! is_tax()) {
+        $variant = ["week"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_week") && tribe_is_week() && is_tax()) {
-        $variant = array("week");
+        $variant = ["week"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
-    } elseif (function_exists("tribe_is_day") && tribe_is_day() && !is_tax()) {
-        $variant = array("day");
+        ];
+    } elseif (function_exists("tribe_is_day") && tribe_is_day() && ! is_tax()) {
+        $variant = ["day"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_day") && tribe_is_day() && is_tax()) {
-        $variant = array("day");
+        $variant = ["day"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
-    } elseif (function_exists("tribe_is_map") && tribe_is_map() && !is_tax()) {
-        $variant = array("map");
+        ];
+    } elseif (function_exists("tribe_is_map") && tribe_is_map() && ! is_tax()) {
+        $variant = ["map"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_map") && tribe_is_map() && is_tax()) {
-        $variant = array("map");
+        $variant = ["map"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
-    } elseif (function_exists("tribe_is_photo") && tribe_is_photo() && !is_tax()) {
-        $variant = array("photo");
+        ];
+    } elseif (function_exists("tribe_is_photo") && tribe_is_photo() && ! is_tax()) {
+        $variant = ["photo"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => 0,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_photo") && tribe_is_photo() && is_tax()) {
-        $variant = array("photo");
+        $variant = ["photo"];
 
         if (property_exists($queried_object, "taxonomy")) {
             $variant[] = $queried_object->taxonomy;
         }
 
-        return array(
+        return [
             "object_id" => $term_id,
             "type"      => "archive",
             "variants"  => $variant,
-        );
+        ];
     } elseif (function_exists("tribe_is_event") && tribe_is_event() && is_single()) {
-        return array(
+        return [
             "object_id" => $post_id,
             "type"      => "single",
-            "variants"  => array("tribe_events"),
-        );
+            "variants"  => ["tribe_events"],
+        ];
     } elseif (function_exists("tribe_is_venue") && tribe_is_venue()) {
-        return array(
+        return [
             "object_id" => $post_id,
             "type"      => "single",
             "variants"     => "tribe_venue",
-        );
+        ];
     } elseif (get_post_type() === "tribe_organizer" && is_single()) {
-        return array(
+        return [
             "object_id" => $post_id,
             "type"      => "single",
-            "variants"  => array("tribe_organizer"),
-        );
+            "variants"  => ["tribe_organizer"],
+        ];
     }
 
-    return array();
+    return [];
 }
 
 /**
@@ -224,8 +223,8 @@ function __gulp_init_namespace___get_tribe_date_and_time_strings(int $event_id):
     $is_all_day   = tribe_event_is_all_day($event_id);
     $is_multiday  = tribe_event_is_multiday($event_id);
 
-    $time_start = !$is_all_day ? tribe_get_start_date($event_id, false, (tribe_get_start_date($event_id, false, "i") === "00" ? "ga" : "g:ia")) : false;
-    $time_end   = !$is_all_day ? tribe_get_end_date($event_id, false, (tribe_get_end_date($event_id, false, "i") === "00" ? "ga" : "g:ia")) : false;
+    $time_start = ! $is_all_day ? tribe_get_start_date($event_id, false, (tribe_get_start_date($event_id, false, "i") === "00" ? "ga" : "g:ia")) : false;
+    $time_end   = ! $is_all_day ? tribe_get_end_date($event_id, false, (tribe_get_end_date($event_id, false, "i") === "00" ? "ga" : "g:ia")) : false;
 
     $year_current = current_time("Y");
 
@@ -241,7 +240,7 @@ function __gulp_init_namespace___get_tribe_date_and_time_strings(int $event_id):
     // if the same years and the same months
     if ($is_multiday && $year_start === $year_end && $month_start === $month_end) {
         $date_start_format = "M j"; // Jan 1
-        $date_end_format   = (!$is_all_day ? "M " : "") . "j" . ($year_end !== $year_current ? ", Y" : ""); // Jan 1, 2018
+        $date_end_format   = (! $is_all_day ? "M " : "") . "j" . ($year_end !== $year_current ? ", Y" : ""); // Jan 1, 2018
     // if the same years but different months
     } elseif ($is_multiday && $year_start === $year_end && $month_start !== $month_end) {
         $date_start_format = "M j"; // Jan 1
@@ -255,19 +254,19 @@ function __gulp_init_namespace___get_tribe_date_and_time_strings(int $event_id):
     $date_start = tribe_get_start_date($event_id, false, $date_start_format);
     $date_end   = tribe_get_end_date($event_id, false, $date_end_format);
 
-    if ($is_multiday && !$is_all_day) {
+    if ($is_multiday && ! $is_all_day) {
         $date_start .= ", {$time_start}";
         $date_end .= ", {$time_end}";
     }
 
     $date_string = $date_start . ($is_multiday ? " &ndash; {$date_end}" : "");
 
-    $time_string = !$is_multiday && !$is_all_day ? $time_start . ($time_start !== $time_end ? " &ndash; {$time_end}" : "") : false;
+    $time_string = ! $is_multiday && ! $is_all_day ? $time_start . ($time_start !== $time_end ? " &ndash; {$time_end}" : "") : false;
 
-    return array(
+    return [
         "date" => $date_string,
         "time" => $time_string,
-    );
+    ];
 }
 
 /* FILTERS */
@@ -284,23 +283,23 @@ function __gulp_init_namespace___tribe_force_page_templates(string $template): s
 
     if ($tribe_page && $tribe_page["type"] === "single") {
         if (in_array("tribe_events", $tribe_page["variants"])) {
-            return locate_template(array("single-tribe_events.php", "single.php", "page.php", "index.php"));
+            return locate_template(["single-tribe_events.php", "single.php", "page.php", "index.php"]);
         }
 
         if (in_array("tribe_venue", $tribe_page["variants"])) {
-            return locate_template(array("single-tribe_venue.php", "single-tribe_events.php", "single.php", "page.php", "index.php"));
+            return locate_template(["single-tribe_venue.php", "single-tribe_events.php", "single.php", "page.php", "index.php"]);
         }
 
         if (in_array("tribe_organizer", $tribe_page["variants"])) {
-            return locate_template(array("single-tribe_organizer.php", "single-tribe_events.php", "single.php", "page.php", "index.php"));
+            return locate_template(["single-tribe_organizer.php", "single-tribe_events.php", "single.php", "page.php", "index.php"]);
         }
     }
 
     if ($tribe_page && $tribe_page["type"] === "archive") {
         if (in_array("tribe_events_cat", $tribe_page["variants"])) {
-            return locate_template(array("taxonomy-tribe_events_cat.php", "archive-tribe_events.php", "page.php", "index.php"));
+            return locate_template(["taxonomy-tribe_events_cat.php", "archive-tribe_events.php", "page.php", "index.php"]);
         } else {
-            return locate_template(array("archive-tribe_events.php", "page.php", "index.php"));
+            return locate_template(["archive-tribe_events.php", "page.php", "index.php"]);
         }
     }
 
@@ -640,16 +639,16 @@ add_filter("__gulp_init_namespace___tribe_add_bar_input_class", "__gulp_init_nam
  *
  * @return array<array<mixed>>
  */
-function __gulp_init_namespace___relevanssi_cull_recurring_events(array $hits = array()): array {
-    $ok_results     = array();
-    $posts_seen     = array();
-    $index_by_title = array();
-    $date_by_title  = array();
+function __gulp_init_namespace___relevanssi_cull_recurring_events(array $hits = []): array {
+    $ok_results     = [];
+    $posts_seen     = [];
+    $index_by_title = [];
+    $date_by_title  = [];
 
     $i = 0;
 
     foreach ($hits[0] as $hit) {
-        if (!isset($posts_seen[$hit->post_title])) {
+        if (! isset($posts_seen[$hit->post_title])) {
             $ok_results[]                     = $hit;
             $date_by_title[$hit->post_title]  = get_post_meta($hit->ID, "_EventStartDate", true);
             $index_by_title[$hit->post_title] = $i;

@@ -1,12 +1,12 @@
 <?php get_header(); ?>
 <?php
-get_extended_template_part("layout", "hero", array(
+get_extended_template_part("layout", "hero", [
     "post"  => $post,
-    "class" => array(
+    "class" => [
         "block" => "hero-block--fullbleed __nopadding",
-        "inner" => "hero__inner--fullbleed"
-    )
-));
+        "inner" => "hero__inner--fullbleed",
+    ],
+]);
 ?>
 <div class="content-block content-block--fullbleed">
     <div class="content__inner">
@@ -16,12 +16,12 @@ get_extended_template_part("layout", "hero", array(
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    get_extended_template_part("article", "post-full", array(
+                    get_extended_template_part("article", "post-full", [
                         "post"  => $post,
                         "class" => "content__article",
                         "title" => "",
                         "meta"  => false,
-                    ));
+                    ]);
                 }
             }
             ?>

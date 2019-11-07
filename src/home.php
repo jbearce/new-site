@@ -4,9 +4,9 @@ $post_title = $post_id && get_the_title($post_id) ? get_the_title($post_id) : __
 ?>
 <?php get_header(); ?>
 <?php
-get_extended_template_part("layout", "hero", array(
-    "title" => $post_title
-));
+get_extended_template_part("layout", "hero", [
+    "title" => $post_title,
+]);
 ?>
 <div class="content-block content-block--fullbleed">
     <div class="content__inner">
@@ -24,17 +24,17 @@ get_extended_template_part("layout", "hero", array(
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    get_extended_template_part("article", "post-excerpt", array(
+                    get_extended_template_part("article", "post-excerpt", [
                         "post"  => $post,
                         "class" => "content__article",
                         "meta"  => true,
-                    ));
+                    ]);
                 }
             } else {
-                get_extended_template_part("article", "post-none", array(
+                get_extended_template_part("article", "post-none", [
                     "class" => "content__article",
                     "error" => __gulp_init_namespace___get_no_posts_message(get_queried_object()),
-                ));
+                ]);
             }
             ?>
 

@@ -20,11 +20,11 @@ $content = isset($this->vars["content"]) ? $this->vars["content"] : ($post ? app
 
                 <?php if ($meta): ?>
                     <?php
-                    get_extended_template_part("menu-list", "meta", array(
+                    get_extended_template_part("menu-list", "meta", [
                         "post"  => $post,
                         "class" => "article__menu-list__container",
                         "light" => $light,
-                    ));
+                    ]);
                     ?>
                 <?php endif; ?>
             </header><!--/.article_header-->

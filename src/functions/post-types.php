@@ -12,10 +12,10 @@ function __gulp_init_namespace___create_resource_post_type(): void {
     $type_plural_name   = __("Resources", "__gulp_init_namespace__");
     $type_singular_name = __("Resource", "__gulp_init_namespace__");
 
-    register_post_type("resource", array(
+    register_post_type("resource", [
         "has_archive"   => true,
         "hierarchical"  => false,
-        "labels"              => array(
+        "labels"              => [
             "add_new"            => __("Add New", "__gulp_init_namespace__"),
             "add_new_item"       => sprintf(__("Add New %s", "__gulp_init_namespace__"), $type_singular_name),
             "all_items"          => sprintf(__("All %s", "__gulp_init_namespace__"), $type_plural_name),
@@ -28,15 +28,15 @@ function __gulp_init_namespace___create_resource_post_type(): void {
             "search_items"       => sprintf(__("Search %s", "__gulp_init_namespace__"), strtolower($type_plural_name)),
             "singular_name"      => sprintf(__("%s", "__gulp_init_namespace__"), $type_singular_name),
             "view_item"          => sprintf(__("View %s", "__gulp_init_namespace__"), $type_singular_name),
-        ),
+        ],
         "menu_icon"     => "dashicons-admin-links",
         "menu_position" => 20,
         "public"        => true,
-        "rewrite"       => array(
+        "rewrite"       => [
             "slug" => "resources",
-        ),
+        ],
         "show_ui"       => true,
-        "supports"      => array(
+        "supports"      => [
             "title",
             "editor",
             "author",
@@ -47,8 +47,8 @@ function __gulp_init_namespace___create_resource_post_type(): void {
             "comments",
             "revisions",
             "post-formats",
-        ),
-    ));
+        ],
+    ]);
 
     $taxonomy_plural_name   = __("Tags", "__gulp_init_namespace__");
     $taxonomy_singular_name = __("Tag", "__gulp_init_namespace__");
@@ -56,10 +56,10 @@ function __gulp_init_namespace___create_resource_post_type(): void {
     register_taxonomy(
         "resource_tag",
         "resource",
-        array(
-            "capabilities" => array("edit_terms" => "manage_categories"),
+        [
+            "capabilities" => ["edit_terms" => "manage_categories"],
             "hierarchical" => false,
-            "labels"       => array(
+            "labels"       => [
                 "name"                       => sprintf(_x("%s %s", "taxonomy general name", "__gulp_init_namespace__"), $type_singular_name, $taxonomy_plural_name),
                 "singular_name"              => sprintf(_x("%s", "taxonomy singular name", "__gulp_init_namespace__"), $taxonomy_singular_name),
                 "search_items"               => sprintf(__("Search %s", "__gulp_init_namespace__"), $taxonomy_plural_name),
@@ -74,11 +74,11 @@ function __gulp_init_namespace___create_resource_post_type(): void {
                 "choose_from_most_used"      => sprintf(__("Choose from the most used %s", "__gulp_init_namespace__"), strtolower($taxonomy_plural_name)),
                 "not_found"                  => sprintf(__("No %s found.", "__gulp_init_namespace__"), strtolower($taxonomy_plural_name)),
                 "menu_name"                  => sprintf(__("%s", "__gulp_init_namespace__"), $taxonomy_plural_name),
-            ),
-            "rewrite"      => array(
+            ],
+            "rewrite"      => [
                 "slug" => "resource-tag",
-            ),
-        )
+            ],
+        ]
     );
 }
 add_action("init", "__gulp_init_namespace___create_resource_post_type");

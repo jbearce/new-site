@@ -1,5 +1,5 @@
 <?php
-$sub_menu = has_nav_menu("primary") ? wp_nav_menu(array(
+$sub_menu = has_nav_menu("primary") ? wp_nav_menu([
     "container"      => false,
     "direct_parent"  => true,
     "depth"          => 3,
@@ -10,7 +10,7 @@ $sub_menu = has_nav_menu("primary") ? wp_nav_menu(array(
     "theme_location" => "primary",
     "tree_mode"      => "viewed",
     "walker"         => new __gulp_init_namespace___menu_walker(),
-)) : false;
+]) : false;
 ?>
 
 <?php if ($sub_menu): ?>

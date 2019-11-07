@@ -11,17 +11,17 @@
             <?php
             if (have_posts()) {
                 while (have_posts()) { the_post();
-                    get_extended_template_part("article", "post-excerpt", array(
+                    get_extended_template_part("article", "post-excerpt", [
                         "post"  => $post,
                         "class" => "content__article",
                         "meta"  => $post->post_type === "post" ? true : false,
-                    ));
+                    ]);
                 }
             } else {
-                get_extended_template_part("article", "post-none", array(
+                get_extended_template_part("article", "post-none", [
                     "class" => "content__article",
-                    "error" => !get_search_query() ? __("No search phrase was entered.", "__gulp_init_namespace__") : __gulp_init_namespace___get_no_posts_message(get_queried_object()),
-                ));
+                    "error" => ! get_search_query() ? __("No search phrase was entered.", "__gulp_init_namespace__") : __gulp_init_namespace___get_no_posts_message(get_queried_object()),
+                ]);
             }
             ?>
 

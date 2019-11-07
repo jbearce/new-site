@@ -1,5 +1,8 @@
 <?php
 return [
+    "exclude" => [
+        "tribe-events"
+    ],
     "preset" => "default",
     "remove" => [
         \NunoMaduro\PhpInsights\Domain\Insights\ForbiddenDefineFunctions::class,

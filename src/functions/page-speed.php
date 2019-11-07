@@ -26,7 +26,7 @@ function __gulp_init_namespace___resource_hints(array $urls, string $relation_ty
         foreach ($GLOBALS["wp_scripts"]->queue as $script) {
             $data = $GLOBALS["wp_scripts"]->registered[$script];
 
-            if ($data->src && !isset($data->extra["conditional"])) {
+            if ($data->src && ! isset($data->extra["conditional"])) {
                 $urls[] = $data->src;
             }
         }
@@ -36,7 +36,7 @@ function __gulp_init_namespace___resource_hints(array $urls, string $relation_ty
         foreach ($GLOBALS["wp_styles"]->queue as $style) {
             $data = $GLOBALS["wp_styles"]->registered[$style];
 
-            if ($data->src && !isset($data->extra["conditional"])) {
+            if ($data->src && ! isset($data->extra["conditional"])) {
                 $urls[] = $data->src;
             }
         }
@@ -70,7 +70,7 @@ add_filter("style_loader_src", "__gulp_init_namespace___remove_script_version", 
  * @return void
  */
 function __gulp_init_namespace___wp_disable_default_scripts(): void {
-    if (!is_admin()) {
+    if (! is_admin()) {
         wp_deregister_style("wp-block-library");
         wp_deregister_script("wp-embed");
     }
@@ -97,7 +97,7 @@ add_action("init", "__gulp_init_namespace___disable_emoji");
  * @return string
  */
 function __gulp_init_namespace___make_scripts_async(string $tag, string $handle): string {
-    if (!is_admin() && !in_array($handle, array())) {
+    if (! is_admin() && ! in_array($handle, [])) {
         $tag = str_replace(" src=", " defer='defer' src=", $tag);
     }
 
@@ -123,8 +123,8 @@ function __gulp_init_namespace___make_styles_async(string $tag, string $handle, 
     $is_external  = __gulp_init_namespace___is_external_url($src);
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
-    if (!is_admin() && !$is_login && ($critical_css || $is_external || $is_other) && !in_array($handle, array())) {
-        $tag = str_replace("rel='stylesheet'", "rel='preload' as='style' " . (!(isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>";
+    if (! is_admin() && ! $is_login && ($critical_css || $is_external || $is_other) && ! in_array($handle, [])) {
+        $tag = str_replace("rel='stylesheet'", "rel='preload' as='style' " . (! (isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "onload=\"this.rel='stylesheet'\"" : ""), $tag) . "<noscript>{$tag}</noscript>";
     }
 
     return $tag;
@@ -157,7 +157,7 @@ add_action("wp_head", "__gulp_init_namespace___critical_css", 5, 0);
 function __gulp_init_namespace___cache_google_analytics(string $url): string {
     $local_path = WP_CONTENT_DIR . "/cache/scripts/analytics.js";
 
-    if (!file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {
+    if (! file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {
         $curl = curl_init();
 
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -168,11 +168,11 @@ function __gulp_init_namespace___cache_google_analytics(string $url): string {
 
         curl_close($curl);
 
-        if (!is_dir(WP_CONTENT_DIR . "/cache")) {
+        if (! is_dir(WP_CONTENT_DIR . "/cache")) {
             mkdir(WP_CONTENT_DIR . "/cache");
         }
 
-        if (!is_dir(WP_CONTENT_DIR . "/cache/scripts")) {
+        if (! is_dir(WP_CONTENT_DIR . "/cache/scripts")) {
             mkdir(WP_CONTENT_DIR . "/cache/scripts");
         }
 

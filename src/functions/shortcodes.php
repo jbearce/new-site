@@ -15,9 +15,9 @@
  */
 function __gulp_init_namespace___row_shortcode($atts, string $content = ""): string {
     extract(shortcode_atts(
-        array(
+        [
             "class" => false,
-        ),
+        ],
         $atts
     ));
 
@@ -39,13 +39,13 @@ add_shortcode("row", "__gulp_init_namespace___row_shortcode");
  */
 function __gulp_init_namespace___col_shortcode($atts , string $content = ""): string {
     extract(shortcode_atts(
-        array(
+        [
             "mobile"   => "",
             "tablet"   => "",
             "notebook" => "",
             "desktop"  => "",
             "class"    => "",
-        ), $atts
+        ], $atts
     ));
 
     $value =  $mobile   ? "col-{$mobile}"         : "col-auto";
@@ -70,9 +70,9 @@ add_shortcode("col", "__gulp_init_namespace___col_shortcode");
  */
 function __gulp_init_namespace___columns_shortcode($atts , string $content = ""): string {
     extract(shortcode_atts(
-        array(
+        [
             "count" => "1",
-        ), $atts
+        ], $atts
     ));
 
     return "<div class='user-content__columns columns columns--{$count}'>" . do_shortcode($content) . "</div>";

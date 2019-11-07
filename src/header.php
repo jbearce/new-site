@@ -12,7 +12,7 @@
                 <div class="header__inner">
                     <div class="header__row row row--padded row--tight row--vcenter">
                         <div class="col-auto col--nogrow col--noshrink __hidden-xs">
-                            <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu"<?php if (!has_nav_menu("primary")): ?> style="pointer-events:none;visibility:hidden;"<?php endif; ?>>
+                            <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu"<?php if (! has_nav_menu("primary")): ?> style="pointer-events:none;visibility:hidden;"<?php endif; ?>>
                                 <i class="panel-toggle__icon far fa-fw fa-bars"></i>
                                 <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
                             </button>
@@ -27,7 +27,7 @@
                                 <i class="panel-toggle__icon far fa-fw fa-search"></i>
                                 <span class="__visuallyhidden"><?php _e("View Search", "__gulp_init_namespace__"); ?></span>
                             </button>
-                            <?php if (!is_search()): ?>
+                            <?php if (! is_search()): ?>
                                 <div class="header__search-form__container search-form__container search-form__container--expandable __nomargin __hidden-xs" role="search" id="mobile-search">
                                     <?php get_search_form(); ?>
                                 </div>
@@ -46,20 +46,20 @@
                     <div class="navigation__inner">
                         <nav class="navigation__menu-list__container menu-list__container">
                             <?php
-                            wp_nav_menu(array(
+                            wp_nav_menu([
                                 "container"      => false,
                                 "depth"          => 3,
                                 "items_wrap"     => "<ul class='menu-list menu-list--navigation'>%3\$s</ul>",
                                 "theme_location" => "primary",
-                                "walker"         => new __gulp_init_namespace___menu_walker(array(
+                                "walker"         => new __gulp_init_namespace___menu_walker([
                                     "id_prefix" => "desktop-nav_",
-                                    "features"  => array(
+                                    "features"  => [
                                         "mega",
                                         "hover",
                                         "touch",
-                                    ),
-                                )),
-                            ));
+                                    ],
+                                ]),
+                            ]);
                             ?>
                         </nav><!--/.navigation__menu-list__container.menu-list__container-->
                     </div><!--/.navigation__inner-->

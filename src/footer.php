@@ -16,19 +16,19 @@
                     </figure>
                     <nav class="navigation__menu-list__container menu-list_container">
                         <?php
-                        wp_nav_menu(array(
+                        wp_nav_menu([
                             "container"      => false,
                             "depth"          => 3,
                             "items_wrap"     => "<ul class='menu-list menu-list--navigation menu-list--accordion menu-list--vertical'>%3\$s</ul>",
                             "theme_location" => "primary",
-                            "walker"         => new __gulp_init_namespace___menu_walker(array(
+                            "walker"         => new __gulp_init_namespace___menu_walker([
                                 "id_prefix" => "mobile-nav_",
-                                "features"  => array(
+                                "features"  => [
                                     "accordion",
                                     "touch",
-                                ),
-                            )),
-                        ));
+                                ],
+                            ]),
+                        ]);
                         ?>
                     </nav><!--/.navigation__menu-list_container.menu-list__container-->
                 </div><!--/.navigation__inner-->

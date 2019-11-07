@@ -11,15 +11,15 @@
  * @return string
  */
 function __gulp_init_namespace___add_html5_boilerplate_directives(string $rules): string {
-    $boilerplate = array(
-        "CROSS-ORIGIN"                        => array(),
-        "ERRORS"                              => array(),
-        "INTERNET EXPLORER"                   => array(),
-        "MEDIA TYPES AND CHARACTER ENCODINGS" => array(),
-        "REWRITES"                            => array(),
-        "SECURITY"                            => array(),
-        "WEB PERFORMANCE"                     => array(),
-    );
+    $boilerplate = [
+        "CROSS-ORIGIN"                        => [],
+        "ERRORS"                              => [],
+        "INTERNET EXPLORER"                   => [],
+        "MEDIA TYPES AND CHARACTER ENCODINGS" => [],
+        "REWRITES"                            => [],
+        "SECURITY"                            => [],
+        "WEB PERFORMANCE"                     => [],
+    ];
 
     # ######################################################################
     # # CROSS-ORIGIN                                                       #
@@ -37,7 +37,7 @@ http://enable-cors.org/
 http://www.w3.org/TR/cors/
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -45,16 +45,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["CROSS-ORIGIN"]["Cross-origin requests"] = array(
+    $boilerplate["CROSS-ORIGIN"]["Cross-origin requests"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
     # ----------------------------------------------------------------------
     # | Cross-origin images                                                |
@@ -67,7 +67,7 @@ https://developer.mozilla.org/en-US/docs/Web/HTML/CORS_enabled_image
 https://blog.chromium.org/2011/07/using-cross-domain-images-in-webgl-and.html
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_setenvif.c>
@@ -80,16 +80,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["CROSS-ORIGIN"]["Cross-origin images"] = array(
+    $boilerplate["CROSS-ORIGIN"]["Cross-origin images"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
     # ----------------------------------------------------------------------
     # | Cross-origin web fonts                                             |
@@ -99,7 +99,7 @@ EOF;
 Allow cross-origin access to web fonts.
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -109,16 +109,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["CROSS-ORIGIN"]["Cross-origin web fonts"] = array(
+    $boilerplate["CROSS-ORIGIN"]["Cross-origin web fonts"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
     # ----------------------------------------------------------------------
     # | Cross-origin resource timing                                       |
@@ -136,7 +136,7 @@ http://www.w3.org/TR/resource-timing/
 http://www.stevesouders.com/blog/2014/08/21/resource-timing-practical-tips/
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -144,16 +144,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["CROSS-ORIGIN"]["Cross-origin resource timing"] = array(
+    $boilerplate["CROSS-ORIGIN"]["Cross-origin resource timing"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ######################################################################
 # # ERRORS                                                             #
@@ -168,22 +168,22 @@ Customize what Apache returns to the client in case of an error.
 https://httpd.apache.org/docs/current/mod/core.html#errordocument
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 ErrorDocument 404 /404.html
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["ERRORS"]["Custom error messages/pages"] = array(
+    $boilerplate["ERRORS"]["Custom error messages/pages"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Error prevention                                                   |
@@ -198,22 +198,22 @@ of a rewrite when the directory with the same name does not exist.
 https://httpd.apache.org/docs/current/content-negotiation.html#multiviews
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 Options -MultiViews
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["ERRORS"]["Error prevention"] = array(
+    $boilerplate["ERRORS"]["Error prevention"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ######################################################################
 # # INTERNET EXPLORER                                                  #
@@ -238,7 +238,7 @@ https://msdn.microsoft.com/en-us/library/ie/bg182625.aspx#docmode
 http://blogs.msdn.com/b/ie/archive/2014/04/02/stay-up-to-date-with-enterprise-mode-for-internet-explorer-11.aspx
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -256,16 +256,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["INTERNET EXPLORER"]["Document modes"] = array(
+    $boilerplate["INTERNET EXPLORER"]["Document modes"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Iframes cookies                                                    |
@@ -278,7 +278,7 @@ https://msdn.microsoft.com/en-us/library/ms537343.aspx
 http://www.w3.org/TR/2000/CR-P3P-20001215/
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -286,16 +286,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["INTERNET EXPLORER"]["Iframes cookies"] = array(
+    $boilerplate["INTERNET EXPLORER"]["Iframes cookies"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ######################################################################
 # # MEDIA TYPES AND CHARACTER ENCODINGS                                #
@@ -312,7 +312,7 @@ https://www.iana.org/assignments/media-types/media-types.xhtml
 https://httpd.apache.org/docs/current/mod/mod_mime.html#addtype
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_mime.c>
@@ -394,16 +394,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["MEDIA TYPES AND CHARACTER ENCODINGS"]["Media types"] = array(
+    $boilerplate["MEDIA TYPES AND CHARACTER ENCODINGS"]["Media types"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Character encodings                                                |
@@ -411,7 +411,7 @@ EOF;
 
     $description = "";
 
-    $directives = array();
+    $directives = [];
 
     $directive_description = <<<EOF
 Serve all resources labeled as `text/html` or `text/plain`
@@ -424,11 +424,11 @@ EOF;
 AddDefaultCharset utf-8
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Serve the following file types with the media type `charset`
@@ -458,16 +458,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[1] = array(
+    $directives[1] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
-    $boilerplate["MEDIA TYPES AND CHARACTER ENCODINGS"]["Character encodings"] = array(
+    $boilerplate["MEDIA TYPES AND CHARACTER ENCODINGS"]["Character encodings"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ######################################################################
 # # REWRITES                                                           #
@@ -507,7 +507,7 @@ EOF;
     appropriate schema automatically (http or https).
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_rewrite.c>
@@ -536,16 +536,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["REWRITES"]["Rewrite engine"] = array(
+    $boilerplate["REWRITES"]["Rewrite engine"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Forcing `https://`                                                 |
@@ -556,7 +556,7 @@ Redirect from the `http://` to the `https://` version of the URL.
 https://wiki.apache.org/httpd/RewriteHTTPToHTTPS
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_rewrite.c>
@@ -566,16 +566,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["REWRITES"]["Forcing `https://`"] = array(
+    $boilerplate["REWRITES"]["Forcing `https://`"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Suppressing / Forcing the `www.` at the beginning of URLs          |
@@ -597,7 +597,7 @@ lines from `Option 1` and uncomment the ones from `Option 2`.
 (!) NEVER USE BOTH RULES AT THE SAME TIME!
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive_description = <<<EOF
 Option 1: rewrite www.example.com → example.com
@@ -612,11 +612,11 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => $directive_description,
         "enabled"     => false,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Option 2: rewrite example.com → www.example.com
@@ -636,16 +636,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[1] = array(
+    $directives[1] = [
         "description" => $directive_description,
         "enabled"     => false,
         "directive"   => $directive_value,
-    );
+    ];
 
-    $boilerplate["REWRITES"]["Suppressing / Forcing the `www.` at the beginning of URLs"] = array(
+    $boilerplate["REWRITES"]["Suppressing / Forcing the `www.` at the beginning of URLs"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ######################################################################
 # # SECURITY                                                           #
@@ -687,7 +687,7 @@ http://blogs.msdn.com/b/ieinternals/archive/2010/03/30/combating-clickjacking-wi
 https://www.owasp.org/index.php/Clickjacking
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -705,16 +705,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["Clickjacking"] = array(
+    $boilerplate["SECURITY"]["Clickjacking"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Content Security Policy (CSP)                                      |
@@ -739,7 +739,7 @@ http://www.html5rocks.com/en/tutorials/security/content-security-policy/
 http://www.w3.org/TR/CSP11/).
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -757,16 +757,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["Content Security Policy (CSP)"] = array(
+    $boilerplate["SECURITY"]["Content Security Policy (CSP)"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | File access                                                        |
@@ -774,7 +774,7 @@ EOF;
 
     $description = "";
 
-    $directives = array();
+    $directives = [];
 
     $directive_description = <<<EOF
 Block access to directories without a default document.
@@ -790,11 +790,11 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Block access to all hidden files and directories with the exception of
@@ -828,11 +828,11 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[1] = array(
+    $directives[1] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Block access to files that can expose sensitive information.
@@ -868,16 +868,16 @@ EOF;
 </FilesMatch>
 EOF;
 
-    $directives[2] = array(
+    $directives[2] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["File access"] = array(
+    $boilerplate["SECURITY"]["File access"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | HTTP Strict Transport Security (HSTS)                              |
@@ -903,7 +903,7 @@ https://tools.ietf.org/html/draft-ietf-websec-strict-transport-sec-14#section-6.
 http://blogs.msdn.com/b/ieinternals/archive/2014/08/18/hsts-strict-transport-security-attacks-mitigations-deployment-https.aspx
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -911,16 +911,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["HTTP Strict Transport Security (HSTS)"] = array(
+    $boilerplate["SECURITY"]["HTTP Strict Transport Security (HSTS)"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Reducing MIME type security risks                                  |
@@ -940,7 +940,7 @@ https://msdn.microsoft.com/en-us/library/ie/gg622941.aspx
 https://mimesniff.spec.whatwg.org/
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -948,16 +948,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["Reducing MIME type security risks"] = array(
+    $boilerplate["SECURITY"]["Reducing MIME type security risks"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Reflected Cross-Site Scripting (XSS) attacks                       |
@@ -997,7 +997,7 @@ http://blogs.msdn.com/b/ieinternals/archive/2011/01/31/controlling-the-internet-
 https://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -1016,16 +1016,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["Reflected Cross-Site Scripting (XSS) attacks"] = array(
+    $boilerplate["SECURITY"]["Reflected Cross-Site Scripting (XSS) attacks"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Server-side technology information                                 |
@@ -1049,7 +1049,7 @@ language / framework level (e.g.: for PHP, you can do that by setting
 https://php.net/manual/en/ini.core.php#ini.expose-php
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -1057,16 +1057,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["Server-side technology information"] = array(
+    $boilerplate["SECURITY"]["Server-side technology information"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Server software information                                        |
@@ -1074,7 +1074,7 @@ EOF;
 
     $description = "";
 
-    $directives = array();
+    $directives = [];
 
     $directive_description = <<<EOF
 Prevent Apache from adding a trailing footer line containing
@@ -1088,11 +1088,11 @@ EOF;
 ServerSignature Off
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Prevent Apache from sending in the `Server` response header its
@@ -1109,16 +1109,16 @@ EOF;
 ServerTokens Prod
 EOF;
 
-    $directives[1] = array(
+    $directives[1] = [
         "description" => $directive_description,
         "enabled"     => false,
         "directive"   => $directive_value,
-    );
+    ];
 
-    $boilerplate["SECURITY"]["Server software information"] = array(
+    $boilerplate["SECURITY"]["Server software information"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ######################################################################
 # # WEB PERFORMANCE                                                    #
@@ -1130,7 +1130,7 @@ EOF;
 
     $description = "";
 
-    $directives = array();
+    $directives = [];
 
     $directive_description = <<<EOF
 Force compression for mangled `Accept-Encoding` request headers
@@ -1148,11 +1148,11 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Compress all output labeled with one of the following media types.
@@ -1205,11 +1205,11 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[1] = array(
+    $directives[1] = [
         "description" => $directive_description,
         "enabled"     => true,
         "directive"   => $directive_value,
-    );
+    ];
 
     $directive_description = <<<EOF
 Map the following filename extensions to the specified
@@ -1234,16 +1234,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[2] = array(
+    $directives[2] = [
         "description" => $directive_description,
         "enabled"     => false,
         "directive"   => $directive_value,
-    );
+    ];
 
-    $boilerplate["WEB PERFORMANCE"]["Compression"] = array(
+    $boilerplate["WEB PERFORMANCE"]["Compression"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Content transformation                                             |
@@ -1265,7 +1265,7 @@ to `off`, also from rewriting other resources.
 https://developers.google.com/speed/pagespeed/module/configuration#notransform
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_headers.c>
@@ -1273,16 +1273,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["WEB PERFORMANCE"]["Content transformation"] = array(
+    $boilerplate["WEB PERFORMANCE"]["Content transformation"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | ETags                                                              |
@@ -1295,7 +1295,7 @@ https://developer.yahoo.com/performance/rules.html#etags
 https://tools.ietf.org/html/rfc7232#section-2.3
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 # `FileETag None` doesn't work in all cases.
@@ -1306,16 +1306,16 @@ EOF;
 FileETag None
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["WEB PERFORMANCE"]["ETags"] = array(
+    $boilerplate["WEB PERFORMANCE"]["ETags"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Expires headers                                                    |
@@ -1331,7 +1331,7 @@ to something like one week.
 https://httpd.apache.org/docs/current/mod/mod_expires.html
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_expires.c>
@@ -1424,16 +1424,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => true,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["WEB PERFORMANCE"]["Expires headers"] = array(
+    $boilerplate["WEB PERFORMANCE"]["Expires headers"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | File concatenation                                                 |
@@ -1454,7 +1454,7 @@ e.g.:
   specified files.
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_include.c>
@@ -1473,16 +1473,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["WEB PERFORMANCE"]["File concatenation"] = array(
+    $boilerplate["WEB PERFORMANCE"]["File concatenation"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
 # ----------------------------------------------------------------------
 # | Filename-based cache busting                                       |
@@ -1498,7 +1498,7 @@ using something like `*.css?v231`, please see:
 http://www.stevesouders.com/blog/2008/08/23/revving-filenames-dont-use-querystring/
 EOF;
 
-    $directives = array();
+    $directives = [];
 
     $directive = <<<EOF
 <IfModule mod_rewrite.c>
@@ -1508,16 +1508,16 @@ EOF;
 </IfModule>
 EOF;
 
-    $directives[0] = array(
+    $directives[0] = [
         "description" => "",
         "enabled"     => false,
         "directive"   => $directive,
-    );
+    ];
 
-    $boilerplate["WEB PERFORMANCE"]["Filename-based cache busting"] = array(
+    $boilerplate["WEB PERFORMANCE"]["Filename-based cache busting"] = [
         "description" => $description,
         "directives"  => $directives,
-    );
+    ];
 
     $custom_directives = <<<EOF
 \n# Apache Server Configs v2.14.0 | MIT License

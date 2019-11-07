@@ -54,7 +54,7 @@ function __gulp_init_namespace___remove_extra_tags(object $DOM): string {
  * @return string
  */
 function __gulp_init_namespace___get_theme_file_path(string $path, bool $skip_child_theme = false, bool $full_path = false): string {
-    $file_paths = array();
+    $file_paths = [];
 
     /**
      * Both stylesheet_directory and template_directory need to be checked
@@ -64,14 +64,14 @@ function __gulp_init_namespace___get_theme_file_path(string $path, bool $skip_ch
     /**
      * Check the child theme first, unless instructed to skip
      */
-    if ($child_results = !$skip_child_theme ? glob(get_stylesheet_directory() . "/{$path}") : false) {
+    if ($child_results = ! $skip_child_theme ? glob(get_stylesheet_directory() . "/{$path}") : false) {
         $file_paths = $child_results;
     }
 
     /**
      * If no matching files were found in the child theme, check the parent theme
      */
-    if (!$file_paths && $parent_results = glob(get_template_directory() . "/{$path}")) {
+    if (! $file_paths && $parent_results = glob(get_template_directory() . "/{$path}")) {
         $file_paths = $parent_results;
     }
 
@@ -106,7 +106,7 @@ function __gulp_init_namespace___get_critical_css(string $template): string {
      * disabled by the user via `$_GET["disable"]`, and the user hasn't requested to
      * debug the critical CSS.
      */
-    if ((isset($_COOKIE["return_visitor"]) || (isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) && !(isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
+    if ((isset($_COOKIE["return_visitor"]) || (isset($_GET["disable"]) && $_GET["disable"] === "critical_css")) && ! (isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
         return "";
     }
 
@@ -138,7 +138,7 @@ function __gulp_init_namespace___is_external_url(string $url): bool {
     /**
      * Check if the URL is relative
      */
-    if (!$components["host"]) {
+    if (! $components["host"]) {
         return false;
     }
 
@@ -189,14 +189,14 @@ function __gulp_init_namespace___is_ie(): bool {
 /**
  * Construct markup for a lazy loaded image
  *
- * @param array|string $src  The URL to a given image, or an array of URLs to a set of images, keyed with the dpi `array("1x" => "image.jpg", "2x" => "image@2x.jpg)`
+ * @param array|string $src  The URL to a given image, or an array of URLs to a set of images, keyed with the dpi `["1x" => "image.jpg", "2x" => "image@2x.jpg]`
  * @param array<string> $atts  A set of attributes to apply to the element
  * @param bool $lazy  Whether or not to lazy load the image
  * @param string $tag
  *
  * @return string  HTML tag for displaying the image
  */
-function __gulp_init_namespace___img($src, array $atts = array(), bool $lazy = true, string $tag = "img"): string {
+function __gulp_init_namespace___img($src, array $atts = [], bool $lazy = true, string $tag = "img"): string {
     $element = "<{$tag}";
 
     /**
@@ -233,7 +233,7 @@ function __gulp_init_namespace___img($src, array $atts = array(), bool $lazy = t
     /**
      * Run through the lazy loader filter
      */
-    if ($lazy && !__gulp_init_namespace___is_ie()) {
+    if ($lazy && ! __gulp_init_namespace___is_ie()) {
         $element = apply_filters("__gulp_init_namespace___lazy_load_images", $element);
     }
 
@@ -250,7 +250,7 @@ function __gulp_init_namespace___img($src, array $atts = array(), bool $lazy = t
  *
  * @return string  HTML tag for displaying the link
  */
-function __gulp_init_namespace___link(string $href, string $contents = "", array $atts = array(), bool $close = true): string {
+function __gulp_init_namespace___link(string $href, string $contents = "", array $atts = [], bool $close = true): string {
     /**
      * Construct the opening of the anchor tag
      */
@@ -259,7 +259,7 @@ function __gulp_init_namespace___link(string $href, string $contents = "", array
     /**
      * If target is set, is not empty or `_self`, and no `rel` is set, add `rel='noopener'`
      */
-    if (in_array("target", $atts) && !in_array($atts["target"], array("", "_self")) && !in_array("rel", $atts)) {
+    if (in_array("target", $atts) && ! in_array($atts["target"], ["", "_self"]) && ! in_array("rel", $atts)) {
         $atts["rel"] = "noopener";
     }
 
@@ -299,7 +299,7 @@ function __gulp_init_namespace___link(string $href, string $contents = "", array
  *
  * @return string  The HTML tag for displaying the link
  */
-function __gulp_init_namespace___acf_link($value, bool $display_title = true, array $atts = array(), bool $close = true): string {
+function __gulp_init_namespace___acf_link($value, bool $display_title = true, array $atts = [], bool $close = true): string {
     if ($value) {
         $contents = $display_title ? $value["title"] : "";
 
@@ -366,19 +366,19 @@ function __gulp_init_namespace___get_sentences(string $content, int $length = 2)
  *
  * @return string  The post excerpt
  */
-function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = array()): string {
+function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = []): string {
     $post = $GLOBALS["post"];
 
-    $defaults = array(
-        "truncate" => array(
+    $defaults = [
+        "truncate" => [
             "count" => 55,
             "mode"  => "words",
-        ),
-        "suffix"   => array(
+        ],
+        "suffix"   => [
             "value"    => " [...]",
             "optional" => false,
-        ),
-    );
+        ],
+    ];
 
     /**
      * Merge the defaults with the input
@@ -396,7 +396,7 @@ function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = a
     /**
      * Return false if no post could be found
      */
-    if (!$post_object) {
+    if (! $post_object) {
         return false;
     }
 
@@ -409,7 +409,7 @@ function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = a
     /**
      * If excerpt is empty, create one from the content
      */
-    if (!$excerpt) {
+    if (! $excerpt) {
         if ($options["truncate"]["mode"] === "words") {
             $excerpt = wp_trim_words($content, $options["truncate"]["count"], "");
         } elseif ($options["truncate"]["mode"] === "sentences") {
@@ -420,7 +420,7 @@ function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = a
     /**
      * Append the suffix, unless it's optional and the excerpt matches the content
      */
-    if ($options["suffix"]["value"] && !($options["suffix"]["optional"] && $excerpt === $content)) {
+    if ($options["suffix"]["value"] && ! ($options["suffix"]["optional"] && $excerpt === $content)) {
         $excerpt .= $options["suffix"]["value"];
     }
 
@@ -435,36 +435,36 @@ function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = a
  *
  * @return string  Huamn readable address
  */
-function __gulp_init_namespace___format_address(array $address = array(), int $lines = 1): string {
+function __gulp_init_namespace___format_address(array $address = [], int $lines = 1): string {
     $output = "";
 
     /**
      * Immediately return empty if no address provided
      */
-    if (!$address) {
+    if (! $address) {
         return $output;
     }
 
     /**
      * Add missing keys
      */
-    if (!isset($address["line_1"])) {
+    if (! isset($address["line_1"])) {
         $address["line_1"] = "";
     }
 
-    if (!isset($address["line_2"])) {
+    if (! isset($address["line_2"])) {
         $address["line_2"] = "";
     }
 
-    if (!isset($address["city"])) {
+    if (! isset($address["city"])) {
         $address["city"] = "";
     }
 
-    if (!isset($address["state"])) {
+    if (! isset($address["state"])) {
         $address["state"] = "";
     }
 
-    if (!isset($address["zip_code"])) {
+    if (! isset($address["zip_code"])) {
         $address["zip_code"] = "";
     }
 
@@ -472,7 +472,7 @@ function __gulp_init_namespace___format_address(array $address = array(), int $l
         $output .= $address["line_1"];
 
         if ($address["line_2"] || $address["city"] || $address["state"] || $address["zip_code"]) {
-            if ($lines !== 1 && !($address["line_2"] && $lines === 2)) {
+            if ($lines !== 1 && ! ($address["line_2"] && $lines === 2)) {
                 $output .= "<br />";
             } else {
                 $output .= ", ";
@@ -582,7 +582,7 @@ function __gulp_init_namespace___get_no_posts_message(object $queried_object): s
             }
         }
 
-        if (!isset($post_taxonomy_label)) {
+        if (! isset($post_taxonomy_label)) {
             $taxonomy_labels = get_taxonomy_labels(get_taxonomy($queried_object->taxonomy));
 
             if (isset($taxonomy_labels->singular_name)) {
@@ -591,11 +591,11 @@ function __gulp_init_namespace___get_no_posts_message(object $queried_object): s
         }
     }
 
-    if (!isset($post_type_label)) {
+    if (! isset($post_type_label)) {
         $post_type_label = __("posts", "__gulp_init_namespace__");
     }
 
-    if (!isset($post_taxonomy_label)) {
+    if (! isset($post_taxonomy_label)) {
         $post_taxonomy_label = __("taxonomy", "__gulp_init_namespace__");
     }
 
