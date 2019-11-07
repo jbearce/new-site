@@ -1,6 +1,7 @@
 {
     "require": {
-        "johnbillion/extended-template-parts": "^2.0"
+        "johnbillion/extended-template-parts": "^2.0",
+        "johnbillion/extended-cpts": "^4.3"
     },
     "require-dev": {
         "nunomaduro/phpinsights": "^1.9"
