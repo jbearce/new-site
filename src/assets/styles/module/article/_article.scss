@@ -4,12 +4,6 @@
  * Article
 \* ------------------------------------------------------------------------ */
 
-.article__title {
-    & {
-        -webkit-user-select: text; // stylelint-disable-line
-    }
-}
-
 .article__figure {
     & {
         margin: remify(0 0 30, 16);

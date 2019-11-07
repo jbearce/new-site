@@ -142,23 +142,43 @@ function __gulp_init_namespace___ninja_forms_format_success_message(array $actio
 add_filter("ninja_forms_run_action_settings", "__gulp_init_namespace___ninja_forms_format_success_message", 10, 1);
 
 /**
- * Fix Ninja Forms not being output when no content exists and selected via meta box
+ * Disable the "Append a Ninja Form" button, to prevent conflicts with `the_content`
  *
- * @param  string $content
- *
- * @return string
+ * @return void
  */
-function __gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content(string $content): string {
-    return !$content && get_post_meta(get_the_ID(), "ninja_forms_form", true) ? "<!-- ninja form -->" : $content;
+function __gulp_init_namespace___ninja_forms_disable_append_metabox(): void {
+    remove_meta_box("nf_admin_metaboxes_appendaform", array("page", "post"), "side");
 }
-add_filter("the_content", "__gulp_init_namespace___ninja_forms_fix_appended_forms_with_no_content", 5);
+add_action("add_meta_boxes", "__gulp_init_namespace___ninja_forms_disable_append_metabox");
 
 /**
  * Add missing formHoneypot label
+ *
+ * @param  array<string> $nfi18n
+ *
+ * @return array<string>
  */
-function __gulp_init_namespace___ninja_forms_honeypot_label($nfi18n) {
-    $nfi18n["formHoneypot"] = __("If you are a human seeing this field, please leave it empty.", "fvpd");
+function __gulp_init_namespace___ninja_forms_honeypot_label(array $nfi18n): array {
+    if (!isset($nfi18n["formHoneypot"])) {
+        $nfi18n["formHoneypot"] = __("If you are a human seeing this field, please leave it empty.", "fvpd");
+    }
 
     return $nfi18n;
 }
 add_filter("ninja_forms_i18n_front_end", "__gulp_init_namespace___ninja_forms_honeypot_label");
+
+/**
+ * Adjust Ninja Forms modal styles to fix conflict with ACF
+ *
+ * @param  string $context
+ *
+ * @return string
+ */
+function __gulp_init_namespace___ninja_forms_acf_fix_styles(string $context): string {
+    global $wp_styles;
+
+    wp_add_inline_style("jBox", "#nf-insert-form-modal .ui-icon { display: inline-block; text-indent: 0; }");
+
+    return $context;
+}
+add_filter("media_buttons_context", "__gulp_init_namespace___ninja_forms_acf_fix_styles", 20);

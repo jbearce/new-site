@@ -7,12 +7,6 @@
 .user-content {
     /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
-    // general
-
-    & {
-        -webkit-user-select: text; // stylelint-disable-line
-    }
-
     // tel links
 
     a[href^="tel:"] {

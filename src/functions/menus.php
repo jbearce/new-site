@@ -407,7 +407,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
          *
          * @return string
          */
-        static function get_custom_field(array $field, object $item = null): string {
+        static function get_custom_field(array $field, ?object $item = null): string {
             $templates = array(
                 "label"         => "<p class='field-{{ field_name }} description description-wide hidden-field' data-locations='{{ field_locations }}'>
                                     <label for='edit-menu-item-{{ field_name }}-{{ item_id }}'>
