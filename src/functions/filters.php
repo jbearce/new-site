@@ -665,7 +665,7 @@ function __gulp_init_namespace___default_wpseo_metadesc(string $html): string {
 add_filter("wpseo_metadesc", "__gulp_init_namespace___default_wpseo_metadesc");
 
 /**
- * Add `MSIE` and `Trident` to rejected user agents
+ * Add `MSIE` and `Trident` to rejected user agents for caching
  *
  * @return void
  */
@@ -680,9 +680,13 @@ function __gulp_init_namespace___wp_super_cache_disable_ie_setting(): void {
 add_action("init", "__gulp_init_namespace___wp_super_cache_disable_ie_setting");
 
 /**
- * Exclude IE from cache
+ * Ensure IE never loads the cached version of the site
+ *
+ * @param  string $line
+ *
+ * @return string
  */
-function __gulp_init_namespace___wp_super_cache_disable_ie_wp_config() {
-    return 'if (preg_match(\'/(Trident|MSIE)/\', $_SERVER[\'HTTP_USER_AGENT\'])) { define(\'WP_CACHE\', true); }';
+function __gulp_init_namespace___wp_super_cache_disable_ie_wp_config($line): string {
+    return "if (preg_match('/(Trident|MSIE)/', \$_SERVER['HTTP_USER_AGENT'])) { {$line} }";
 }
 add_filter("supercache_wp_config_line", "__gulp_init_namespace___wp_super_cache_disable_ie_wp_config");
