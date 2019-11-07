@@ -19,7 +19,7 @@ add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___ninja_forms_d
  * @return void
  */
 function __gulp_init_namespace___ninja_forms_fix_scripts_order(): void {
-    $wp_scripts = $GLOBALS["wp_scripts"];
+    global $wp_scripts;
 
     // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
     $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
