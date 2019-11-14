@@ -4,14 +4,14 @@
 
 /* stylelint-disable no-descending-specificity, selector-max-id, selector-max-type, selector-no-qualifying-type, selector-class-pattern, property-no-vendor-prefix */
 
-$dark:  false; // set to a HEX code to enable dark mode
+$dark:  color("dark", "tint");
 $light: color("light");
 $base:  color("accent");
 $tint:  lighten(desaturate(adjust-hue($base, 1.6532), 27.2727), 6.6667);
 $shade: darken(adjust-hue($base, 2.5111), 6.4706);
 
 body.login {
-    @if ($dark != false) {
+    @media screen and (prefers-color-scheme: dark) {
         background: $dark;
     }
 }
@@ -86,7 +86,7 @@ body.login div#login form input.button {
 
 body.login div#login p#nav a,
 body.login div#login p#backtoblog a {
-    @if ($dark != false) {
+    @media screen and (prefers-color-scheme: dark) {
         color: $light;
     }
 
