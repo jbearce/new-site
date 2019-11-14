@@ -54,6 +54,12 @@ body.login div#login form {
     }
 
     input[type="checkbox"]:checked::before {
+        content: svg-load("../media/vendor/wp-login-check.svg", fill=#{$tint});
+    }
+}
+
+body.login div#login form .button.wp-hide-pw {
+    & {
         color: $tint;
     }
 }
