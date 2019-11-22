@@ -18,17 +18,20 @@
 
 .search-form__input {
     & {
+        font-size: remify(16, 16);
         margin: 0;
-        padding-right: remify(42.6667, 13.33333333333333);
+        padding-right: remify(48, 16);
     }
 }
 
 .search-form__button {
     & {
         background: none;
+        bottom: remify(2);
         color: color("foreground");
+        font-size: remify(16, 16);
         margin: 0;
-        padding: remify(12.05 15, 18);
+        padding: remify(0 16, 16);
         position: absolute;
         right: remify(2);
         top: remify(2);
