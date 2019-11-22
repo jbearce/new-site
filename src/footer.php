@@ -30,7 +30,7 @@
                             ]),
                         ]);
                         ?>
-                    </nav><!--/.navigation__menu-list_container.menu-list__container-->
+                    </nav><!--/.navigation__menu-list_container-->
                 </div><!--/.navigation__inner-->
             </div><!--/.navigation-block-->
         <?php endif; ?>

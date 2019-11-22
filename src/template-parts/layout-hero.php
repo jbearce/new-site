@@ -70,7 +70,7 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                                     <?php endif; ?>
 
                                     <?php if ($link && $link["url"]): ?>
-                                        </a><!--/.swiper-link.link-->
+                                        </a><!--/.swiper-link-->
                                     <?php endif; ?>
 
                                 </figure><!--/.swiper-slide-->
@@ -127,7 +127,7 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                     <?php endif; ?>
                 <?php endif; ?>
 
-            </div><!--/.hero__swiper-container.swiper-container-->
+            </div><!--/.hero__swiper-container-->
         </div><!--/.hero__inner-->
     </div><!--/.hero-block-->
 <?php endif; ?>

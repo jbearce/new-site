@@ -24,7 +24,7 @@ $excerpt   = isset($this->vars["excerpt"]) ? $this->vars["excerpt"] : ($post ? _
                         <?php if ($permalink): ?>
                             </a>
                         <?php endif; ?>
-                    </h3><!--/.article__title.title-->
+                    </h3><!--/.article__title-->
                 <?php endif; ?>
 
                 <?php if ($meta): ?>

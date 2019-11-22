@@ -29,9 +29,9 @@ get_extended_template_part("layout", "hero", [
 
                     <?php do_action("__gulp_init_namespace___after_content"); ?>
                 </div><!--/.content__post-->
-            </div><!--/.col-12.col-xs-8-->
+            </div><!--/.col-12-->
             <?php get_sidebar(); ?>
-        </div><!--/.content_row.row-->
+        </div><!--/.content_row-->
     </div><!--/.content__inner-->
 </div><!--/.content-block-->
 <?php get_footer(); ?>

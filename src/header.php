@@ -38,7 +38,7 @@
                                 <?php get_search_form(); ?>
                             </div>
                         </div>
-                    </div><!--/.header__row.row-->
+                    </div><!--/.header__row-->
                 </div><!--/.header__inner-->
             </div><!--/.header-block-->
             <?php if (has_nav_menu("primary")): ?>
@@ -61,7 +61,7 @@
                                 ]),
                             ]);
                             ?>
-                        </nav><!--/.navigation__menu-list__container.menu-list__container-->
+                        </nav><!--/.navigation__menu-list__container-->
                     </div><!--/.navigation__inner-->
                 </div><!--/.navigation-block-->
             <?php endif; ?>

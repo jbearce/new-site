@@ -25,7 +25,7 @@
                             </div>
                         </div>
                     <?php endif; ?>
-                </article><!--/.content__article.article-->
+                </article><!--/.content__article-->
             <?php endif; ?>
 
             <?php

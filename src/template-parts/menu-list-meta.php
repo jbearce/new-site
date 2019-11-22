@@ -101,5 +101,5 @@ $taxonomies      = isset($this->vars["taxonomies"]) ? $this->vars["taxonomies"] 
             <?php endif; // ($post && $taxonomies) ?>
 
         </ul><!--/.menu-list-->
-    </nav><!--/.article__menu-list__container.menu-list__container-->
+    </nav><!--/.article__menu-list__container-->
 <?php endif; ?>
