@@ -16,7 +16,7 @@ function __gulp_init_namespace___register_nav_menus(): void {
 add_action("init", "__gulp_init_namespace___register_nav_menus");
 
 /**
- * Custom menu walker with support for mega menus and
+ * Custom menu walker that adds BEM classes and supports custom fields
  */
 class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     /**
@@ -36,7 +36,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
     }
 
     /**
-     * Set up variables for mega menu features
+     * Set up variables for a11y and mega menu features
      */
     private $is_mega      = false;
     private $column_limit = 3;
