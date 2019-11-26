@@ -37,7 +37,7 @@ add_shortcode("row", "__gulp_init_namespace___row_shortcode");
  *
  * @return string
  */
-function __gulp_init_namespace___col_shortcode($atts , string $content = ""): string {
+function __gulp_init_namespace___col_shortcode($atts, string $content = ""): string {
     extract(shortcode_atts(
         [
             "mobile"   => "",
@@ -68,7 +68,7 @@ add_shortcode("col", "__gulp_init_namespace___col_shortcode");
  *
  * @return string
  */
-function __gulp_init_namespace___columns_shortcode($atts , string $content = ""): string {
+function __gulp_init_namespace___columns_shortcode($atts, string $content = ""): string {
     extract(shortcode_atts(
         [
             "count" => "1",
