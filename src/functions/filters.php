@@ -442,7 +442,7 @@ function __gulp_init_namespace___lazy_load_images(string $content): string {
         $images = $XPath->query("//*[self::img or self::source]");
 
         foreach ($images as $image) {
-            if (! preg_match("/wp-caption-image/", $image->getAttribute("class")) && $image->parentNode->nodeName !== "noscript") {
+            if ($image->parentNode->nodeName !== "noscript") {
                 $existing_src    = $image->getAttribute("src");
                 $existing_srcset = $image->getAttribute("srcset");
 
@@ -485,7 +485,7 @@ function __gulp_init_namespace___lazy_load_images(string $content): string {
 
     return $content;
 }
-add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20, 1);
+add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 30, 1);
 add_filter("post_thumbnail_html", "__gulp_init_namespace___lazy_load_images", 20, 1);
 add_filter("__gulp_init_namespace___lazy_load_images", "__gulp_init_namespace___lazy_load_images", 20, 1);
 
