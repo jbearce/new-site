@@ -30,7 +30,7 @@ function __gulp_init_namespace___ninja_forms_fix_scripts_order(): void {
             continue;
         }
 
-        if (! ($key = array_search("nf-front-end", $script->deps))) {
+        if (($key = array_search("nf-front-end", $script->deps)) && $key === false) {
             continue;
         }
 
@@ -40,7 +40,7 @@ function __gulp_init_namespace___ninja_forms_fix_scripts_order(): void {
     $last_nf_key      = false;
     $front_end_nf_key = array_search("nf-front-end", $wp_scripts->queue);
 
-    // find the nast `nf-` prefixed script in the queue
+    // find the last `nf-` prefixed script in the queue
     foreach ($wp_scripts->queue as $key => $handle) {
         if (preg_match($pattern, $handle)) {
             $last_nf_key = $key;
