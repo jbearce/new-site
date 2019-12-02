@@ -1,7 +1,6 @@
 <?php
 $sub_menu = has_nav_menu("primary") ? wp_nav_menu([
     "container"      => false,
-    "direct_parent"  => true,
     "depth"          => 3,
     "echo"           => false,
     "items_wrap"     => "<ul class='menu-list menu-list--submenu menu-list--vertical'>%3\$s</ul>",

@@ -4,6 +4,11 @@
  * Input
 \* ------------------------------------------------------------------------ */
 
+$padding-bottom: 10;
+$padding-left:   15;
+$padding-right:  15;
+$padding-top:    10;
+
 .input {
     & {
         background: color("background");
@@ -15,9 +20,9 @@
         font-size: remify(14, 16);
         font-weight: 400;
         line-height: remify(21, 14);
-        margin: remify(0 0 9.999999999999999);
+        margin: remify(0 0 10);
         outline: 0;
-        padding: remify(10 15, 14);
+        padding: remify($padding-top $padding-right $padding-bottom $padding-left, 14);
         text-overflow: ellipsis;
         transition: background-color 0.15s, background-size 0.15s, border-color 0.15s, color 0.15s;
         width: 100%;
@@ -55,10 +60,8 @@
 .input--select {
     & {
         cursor: pointer;
-        padding: remify(10 11 8, 14);
         // remove Firefox default styles & arrow
         text-indent: 0.01px;
-        text-overflow: "";
         // remove IE default styles & arrow
         &::-ms-expand { display: none; }
     }
@@ -67,12 +70,83 @@
 .input--arrow {
     & {
         background-image: svg-load("../media/vendor/fas-sort.svg", fill=#{color("foreground")});
-        background-position: center right remify(15, 14);
+        background-position: center right remify($padding-right, 14);
         background-repeat: no-repeat;
-        background-size: remify(16 16, 14);
-        padding-right: remify(42, 14);
+        background-size: remify(14 14, 14);
+        padding-right: remify(14 + ($padding-right * 2), 14);
     }
 }
+
+/* select browser variants */
+
+/* stylelint-disable selector-max-type, selector-no-vendor-prefix, selector-type-no-unknown */
+
+/* IE */
+_:-ms-input-placeholder,
+:root .input--select {
+    & {
+        padding: remify($padding-bottom, 14) calc(#{remify($padding-left, 14)} - 3px) calc(#{remify($padding-bottom, 14)} - 2px);
+    }
+}
+
+_:-ms-input-placeholder,
+:root .input--arrow {
+    & {
+        padding-right: calc(#{remify(14 + ($padding-right * 2), 14)} - 3px);
+    }
+}
+
+/* Chrome  */
+@supports (-webkit-appearance: none) and (font-stretch: normal) and (not(-ms-accelerator: true)) {
+    .input--select {
+        padding: remify($padding-top, 14) remify($padding-right, 14) remify($padding-bottom, 14) remify($padding-left, 14);
+    }
+
+    .input--arrow {
+        padding-right: remify(14 + ($padding-right * 2), 14);
+    }
+}
+
+/* Safari */
+_::-webkit-full-page-media,
+_:future,
+:root .input--select {
+    & {
+        padding: remify($padding-top, 14) remify($padding-right, 14) remify($padding-bottom, 14) remify($padding-left, 14);
+    }
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .input--arrow {
+    & {
+        padding-right: remify(14 + ($padding-right * 2), 14);
+    }
+}
+
+/* Edge */
+@supports (-ms-ime-align: auto) {
+    .input--select {
+        padding: calc(#{remify($padding-top, 14)} - 1px) calc(#{remify($padding-right, 14)} - 2px) calc(#{remify($padding-bottom, 14)} - 1px) calc(#{remify($padding-left, 14)} - 2px);
+    }
+
+    .input--arrow {
+        padding-right: calc(#{remify(14 + ($padding-right * 2), 14)} - 2px);
+    }
+}
+
+/* Firefox */
+@-moz-document url-prefix("") {
+    .input--select {
+        padding: remify($padding-top, 14) calc(#{remify($padding-right, 14)} - 4px) remify($padding-bottom, 14) calc(#{remify($padding-left, 14)} - 4px);
+    }
+
+    .input--arrow {
+        padding-right: calc(#{remify(14 + ($padding-right * 2), 14)} - 4px);
+    }
+}
+
+/* stylelint-enable */
 
 /* checkbox & radiobutton variants */
 
