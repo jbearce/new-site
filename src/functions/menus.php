@@ -700,152 +700,87 @@ if (is_admin() && $pagenow === "nav-menus.php") {
  * @return array<object>
  */
 function __gulp_init_namespace___nav_menu_sub_menu(array $menu_items, object $args): array {
-    $post_id_map  = [];
-    $loop_limit   = 1000;
+    /**
+     * Return unmodified if `sub_menu` is not set or is falsey
+     */
+    if (!isset($args->sub_menu) || $args->sub_menu == false) {
+        return $menu_items;
+    }
 
-    // store the arguments in an easy to reference way
-    $settings = [
-        "direct_parent" => isset($args->direct_parent) && $args->direct_parent === true ? true : false,
-        "parent_id"     => isset($args->parent_id) && $args->parent_id !== false ? (int) $args->parent_id : false,
-        "show_parent"   => isset($args->show_parent) && $args->show_parent === true ? true : false,
-        "sub_menu"      => isset($args->sub_menu) && $args->sub_menu === true ? true : false,
-        "tree_mode"     => isset($args->tree_mode) && in_array($args->tree_mode, ["all", "related", "viewed"]) ? $args->tree_mode : "all",
-    ];
+    /**
+     * Convert `sub_menu` argument in to an array if it's not already
+     */
+    $sub_menu = is_array($args->sub_menu) ? $args->sub_menu : [];
 
-    // check if the submenu argument is set and is true
-    if ($settings["sub_menu"]) {
-        // create an array containing menu_item_id => post_id
+    /**
+     * Set required values
+     */
+    $sub_menu["allow_orphan"]     = isset($sub_menu["allow_orphan"])     ? $sub_menu["allow_orphan"]     : true;
+    $sub_menu["ancestor_depth"]   = isset($sub_menu["ancestor_depth"])   ? $sub_menu["ancestor_depth"]   : -1;
+    $sub_menu["sibling_depth"]    = isset($sub_menu["sibling_depth"])    ? $sub_menu["sibling_depth"]    : 1;
+    $sub_menu["descendant_depth"] = isset($sub_menu["descendant_depth"]) ? $sub_menu["descendant_depth"] : 1;
+    $sub_menu["fallback"]         = isset($sub_menu["fallback"])         ? $sub_menu["fallback"]         : "root";
+    $sub_menu["prefer_children"]  = isset($sub_menu["prefer_children"])  ? $sub_menu["prefer_children"]  : true;
+    $sub_menu["viewed_id"]        = isset($sub_menu["viewed_id"])        ? $sub_menu["viewed_id"]        : null;
+
+    /**
+     * Store the viewed item for reference
+     */
+    $viewed_item = null;
+
+    /**
+     * Get the viewed ID
+     */
+    if ($sub_menu["viewed_id"] === null) {
+        /**
+         * If no viewed ID is set, find the currently viewed menu item
+         */
         foreach ($menu_items as $menu_item) {
-            $post_id_map[$menu_item->ID] = (int) $menu_item->object_id;
+            if ($menu_item->current === true) {
+                $viewed_item = $menu_item; break;
+            }
         }
+    } else {
+        /**
+         * If a viewed ID is set, convert it from a post ID to a menu item
+         */
+        foreach ($menu_items as $menu_item) {
+            if (intval($menu_item->object_id) === $sub_menu["viewed_id"]) {
+                $viewed_item = $menu_item; break;
+            }
+        }
+    }
 
-        // if tree_mode is not all, remove any menu_items that aren't in the viewed tree
-        if ($settings["tree_mode"] !== "all" || ! $settings["show_parent"] || $settings["direct_parent"]) {
-            $viewed_ancestor_ids   = [];
-            $viewed_descendant_ids = [];
-            $viewed_related_ids    = [];
-            $viewed_item_id        = 0;
+    /**
+     * Add depth data to ancestors
+     */
+    $parent_item = $viewed_item;
 
-            // find the viewed item
+    $depth = 0;
+
+    if ($menu_items) {
+        while (intval($parent_item->menu_item_parent) > 0) {
             foreach ($menu_items as $menu_item) {
-                if (
-                    // if parent_id is false and it's the current menu_item or...
-                    (! $settings["parent_id"] && $menu_item->current) ||
-                    // if parent_id is true and the current menu_item->ID matches the parent_id
-                    ($settings["parent_id"] && $post_id_map[$menu_item->ID] === $settings["parent_id"])
-                ) {
-                    $viewed_item_id        = $menu_item->ID;
-                    $viewed_ancestor_ids[] = $viewed_item_id;
+                /**
+                 * If the current menu item ID is equal to the previous menu items parent,
+                 * it's an ancestor and thus should be marked with depth data.
+                 */
+                if ($menu_item->ID === intval($parent_item->menu_item_parent)) {
+                    $depth++;
 
-                    // prevent 0 (root) from being added to viewed_ancestor_ids
-                    if ((int) $menu_item->menu_item_parent !== 0) {
-                        $viewed_ancestor_ids[] = (int) $menu_item->menu_item_parent;
-                    }
+                    $menu_item->ancestor_depth = $depth;
+
+                    $parent_item = $menu_item;
 
                     break;
                 }
             }
-
-            // only return the top level menu items if the viewed page isn't in the menu
-            if ($viewed_item_id === 0) {
-                foreach ($menu_items as $key => $menu_item) {
-                    if ((int) $menu_item->menu_item_parent !== 0) {
-                        unset($menu_items[$key]);
-                    }
-                }
-
-                return $menu_items;
-            }
-
-            $parent_item_id = $viewed_item_id;
-
-            // build a complete list of ancestor menu_items (if direct_parent is false)
-            if (! $settings["direct_parent"]) { $i = 0;
-                // continue looping until we hit the top
-                while ($parent_item_id !== 0 && $i < $loop_limit) { $i++;
-                    foreach ($menu_items as $menu_item) {
-                        // find the menu_item currently set as the parent_item_id
-                        if ($menu_item->ID === $parent_item_id) {
-                            $parent_item_id = (int) $menu_item->menu_item_parent;
-
-                            // prevent 0 (root) from being added to viewed_ancestor_ids
-                            if ($parent_item_id === 0) break;
-
-                            // add the parent item id to viewed_ancestor_ids and break the loop
-                            if (! in_array($parent_item_id, $viewed_ancestor_ids)) {
-                                $viewed_ancestor_ids[] =  $parent_item_id;
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-
-            // build a complete list of decendant menu_items
-            $parent_item_id          = $viewed_item_id;
-            $viewed_descendant_ids[] = $parent_item_id;
-
-            foreach ($menu_items as $menu_item) {
-                // if the menu items parent is a descendant, the menu item is also a descendant
-                if (in_array($menu_item->menu_item_parent, $viewed_descendant_ids) && ! in_array($menu_item->ID, $viewed_descendant_ids)) {
-                    $viewed_descendant_ids[] = $menu_item->ID;
-                }
-
-                // if the menu items parent is an ancestor, the menu item is related
-                if (in_array($menu_item->menu_item_parent, $viewed_ancestor_ids) && ! in_array($menu_item->ID, $viewed_related_ids)) {
-                    $viewed_related_ids[] = $menu_item->ID;
-                }
-
-                // if the menu items parent is related, the menu item is also related
-                if (in_array($menu_item->menu_item_parent, $viewed_related_ids) && ! in_array($menu_item->ID, $viewed_related_ids)) {
-                    $viewed_related_ids[] = $menu_item->ID;
-                }
-            }
-
-            if ($settings["tree_mode"] !== "all") {
-                // remove any menu_items that aren't ancestors or descendants of the viewed page
-                foreach ($menu_items as $key => $menu_item) {
-                    if (
-                        // if the menu_item is the currently viewed page
-                        $menu_item->ID !== $viewed_item_id &&
-                        // if the menu_item->ID is NOT in viewed_ancestor_ids
-                        ! in_array((int) $menu_item->ID, $viewed_ancestor_ids) &&
-                        // if the menu_item_parent is NOT in viewed_ancestor_ids
-                        ! in_array((int) $menu_item->ID, $viewed_descendant_ids) &&
-                        // if the menu_item->ID is NOT in $viewed_descendant_ids
-                        ! in_array((int) $menu_item->menu_item_parent, $viewed_ancestor_ids) &&
-                        // if the menu_item_parent is NOT in $viewed_descendant_ids
-                        ! in_array((int) $menu_item->menu_item_parent, $viewed_descendant_ids) &&
-                        // if the tree_mode is NOT "related" and menu_item->ID is NOT in $viewed_related_ids
-                        ! ($settings["tree_mode"] === "related" && in_array((int) $menu_item->ID, $viewed_related_ids))
-                    ) {
-                        unset($menu_items[$key]);
-                    }
-                }
-            }
-
-            // if show_parent is false unset the parent menu_item
-            if (! $settings["show_parent"] && $parent_item_id) {
-                // edge case where the parent id item got reset to the viewed item id
-                if ($parent_item_id === $viewed_item_id) {
-                    foreach ($menu_items as $key => $menu_item) {
-                        if ($menu_item->ID === $viewed_item_id) {
-                            $parent_item_id = $menu_item->menu_item_parent;
-                            break;
-                        }
-                    }
-                }
-
-                foreach ($menu_items as $key => $menu_item) {
-                    if ($menu_item->ID === $parent_item_id) {
-                        unset($menu_items[$key]);
-                    }
-                }
-            }
         }
-    } // if (isset($args->sub_menu))
+    }
 
+    /**
+     * Return the sorted menu items
+     */
     return $menu_items;
 }
 add_filter("wp_nav_menu_objects", "__gulp_init_namespace___nav_menu_sub_menu", 10, 2);
