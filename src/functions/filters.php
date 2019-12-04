@@ -657,7 +657,7 @@ function __gulp_init_namespace___default_wpseo_metadesc(string $html): string {
     $post = $GLOBALS["post"];
 
     if (! $html && is_singular() && $content = wp_strip_all_tags($post->post_content)) {
-        return wp_trim_words(str_replace(["\n", "\r"], " ", $content), 20, "…");
+        return wp_trim_words(str_replace(["\n", "\r"], " ", preg_replace("~(?:\[/?)[^/\]]+/?\]~s", "", $content)), 20, "…");
     }
 
     return $html;
