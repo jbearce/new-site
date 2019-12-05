@@ -95,7 +95,7 @@
     "in-vp": "^1.1.1",
     "lazysizes": "^5.1.2",
     "mdn-polyfills": "^5.19.0",
-    "normalize-scss": "^7.0.1",
+    "normalize.css": "^8.0.1",
     "noty": "^3.2.0-beta",
     "photoswipe": "^4.1.3",
     "picturefill": "^3.0.3",
