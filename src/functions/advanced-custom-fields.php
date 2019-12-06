@@ -48,7 +48,7 @@ add_filter("acf_the_content", "__gulp_init_namespace___responsive_iframes", 20);
 add_filter("acf_the_content", "__gulp_init_namespace___responsive_tables", 20);
 
 // lazy load images
-add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 20);
+add_filter("acf_the_content", "__gulp_init_namespace___lazy_load_images", 30);
 
 /* REGISTRATIONS */
 
