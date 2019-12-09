@@ -700,152 +700,150 @@ if (is_admin() && $pagenow === "nav-menus.php") {
  * @return array<object>
  */
 function __gulp_init_namespace___nav_menu_sub_menu(array $menu_items, object $args): array {
-    $post_id_map  = [];
-    $loop_limit   = 1000;
+    /**
+     * Return unmodified if `sub_menu` is not set or is falsey
+     */
+    if (!isset($args->sub_menu) || $args->sub_menu == false) {
+        return $menu_items;
+    }
 
-    // store the arguments in an easy to reference way
-    $settings = [
-        "direct_parent" => isset($args->direct_parent) && $args->direct_parent === true ? true : false,
-        "parent_id"     => isset($args->parent_id) && $args->parent_id !== false ? (int) $args->parent_id : false,
-        "show_parent"   => isset($args->show_parent) && $args->show_parent === true ? true : false,
-        "sub_menu"      => isset($args->sub_menu) && $args->sub_menu === true ? true : false,
-        "tree_mode"     => isset($args->tree_mode) && in_array($args->tree_mode, ["all", "related", "viewed"]) ? $args->tree_mode : "all",
-    ];
+    /**
+     * Convert `sub_menu` argument in to an array if it's not already
+     */
+    $sub_menu = is_array($args->sub_menu) ? $args->sub_menu : [];
 
-    // check if the submenu argument is set and is true
-    if ($settings["sub_menu"]) {
-        // create an array containing menu_item_id => post_id
-        foreach ($menu_items as $menu_item) {
-            $post_id_map[$menu_item->ID] = (int) $menu_item->object_id;
+    /**
+     * Set required values
+     */
+    $sub_menu["fallback"]  = isset($sub_menu["fallback"])  ? $sub_menu["fallback"]  : "root";
+    $sub_menu["viewed_id"] = isset($sub_menu["viewed_id"]) ? $sub_menu["viewed_id"] : null;
+
+    /**
+     * Store the original array for fallback purposes
+     */
+    $menu_items_orig = $menu_items;
+
+    /**
+     * Store the viewed and root items for reference
+     */
+    $viewed_item = null;
+    $root_item   = null;
+
+    /**
+     * Find the viewed item
+     */
+    foreach ($menu_items as $menu_item) {
+        $is_viewed = false;
+
+        /**
+         * If no viewed ID is set, find the currently viewed menu item
+         */
+        if ($sub_menu["viewed_id"] === null && $menu_item->current === true) {
+            $is_viewed = true;
         }
 
-        // if tree_mode is not all, remove any menu_items that aren't in the viewed tree
-        if ($settings["tree_mode"] !== "all" || ! $settings["show_parent"] || $settings["direct_parent"]) {
-            $viewed_ancestor_ids   = [];
-            $viewed_descendant_ids = [];
-            $viewed_related_ids    = [];
-            $viewed_item_id        = 0;
+        /**
+         * If a viewed ID is set, convert it from a post ID to a menu item
+         */
+        if ($sub_menu["viewed_id"] && intval($menu_item->object_id) === $sub_menu["viewed_id"]) {
+            $is_viewed = true;
+        }
 
-            // find the viewed item
+        /**
+         * Store the viewed item
+         */
+        if ($is_viewed) {
+            $menu_item->current = 1;
+            $viewed_item = $menu_item;
+            $root_item   = $menu_item;
+            break;
+        }
+    }
+
+    /**
+     * Find the root item
+     */
+    if ($root_item) {
+        while (intval($root_item->menu_item_parent) !== 0) {
             foreach ($menu_items as $menu_item) {
-                if (
-                    // if parent_id is false and it's the current menu_item or...
-                    (! $settings["parent_id"] && $menu_item->current) ||
-                    // if parent_id is true and the current menu_item->ID matches the parent_id
-                    ($settings["parent_id"] && $post_id_map[$menu_item->ID] === $settings["parent_id"])
-                ) {
-                    $viewed_item_id        = $menu_item->ID;
-                    $viewed_ancestor_ids[] = $viewed_item_id;
-
-                    // prevent 0 (root) from being added to viewed_ancestor_ids
-                    if ((int) $menu_item->menu_item_parent !== 0) {
-                        $viewed_ancestor_ids[] = (int) $menu_item->menu_item_parent;
-                    }
-
-                    break;
+                if ($menu_item->ID === intval($root_item->menu_item_parent)) {
+                    $root_item = $menu_item; break;
                 }
             }
+        }
+    }
 
-            // only return the top level menu items if the viewed page isn't in the menu
-            if ($viewed_item_id === 0) {
-                foreach ($menu_items as $key => $menu_item) {
-                    if ((int) $menu_item->menu_item_parent !== 0) {
-                        unset($menu_items[$key]);
-                    }
-                }
+    /**
+     * Mark each menu item with `current_item_descendant` and `current_item_child`
+     */
+    foreach ($menu_items as $menu_item) {
+        /**
+         * Add the values to the item
+         */
+        $menu_item->current_item_descendant = null;
+        $menu_item->current_item_child      = intval($menu_item->menu_item_parent) === $viewed_item->ID;
 
-                return $menu_items;
-            }
+        /**
+         * Determine whether the item is a descendant of the viewed item
+         */
+        $parent_item = $menu_item;
 
-            $parent_item_id = $viewed_item_id;
+        while (intval($parent_item->menu_item_parent) !== 0) {
+            foreach ($menu_items as $menu_item_2) {
+                if ($menu_item_2->ID === intval($parent_item->menu_item_parent)) {
+                    $parent_item = $menu_item_2;
 
-            // build a complete list of ancestor menu_items (if direct_parent is false)
-            if (! $settings["direct_parent"]) { $i = 0;
-                // continue looping until we hit the top
-                while ($parent_item_id !== 0 && $i < $loop_limit) { $i++;
-                    foreach ($menu_items as $menu_item) {
-                        // find the menu_item currently set as the parent_item_id
-                        if ($menu_item->ID === $parent_item_id) {
-                            $parent_item_id = (int) $menu_item->menu_item_parent;
-
-                            // prevent 0 (root) from being added to viewed_ancestor_ids
-                            if ($parent_item_id === 0) break;
-
-                            // add the parent item id to viewed_ancestor_ids and break the loop
-                            if (! in_array($parent_item_id, $viewed_ancestor_ids)) {
-                                $viewed_ancestor_ids[] =  $parent_item_id;
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-
-            // build a complete list of decendant menu_items
-            $parent_item_id          = $viewed_item_id;
-            $viewed_descendant_ids[] = $parent_item_id;
-
-            foreach ($menu_items as $menu_item) {
-                // if the menu items parent is a descendant, the menu item is also a descendant
-                if (in_array($menu_item->menu_item_parent, $viewed_descendant_ids) && ! in_array($menu_item->ID, $viewed_descendant_ids)) {
-                    $viewed_descendant_ids[] = $menu_item->ID;
-                }
-
-                // if the menu items parent is an ancestor, the menu item is related
-                if (in_array($menu_item->menu_item_parent, $viewed_ancestor_ids) && ! in_array($menu_item->ID, $viewed_related_ids)) {
-                    $viewed_related_ids[] = $menu_item->ID;
-                }
-
-                // if the menu items parent is related, the menu item is also related
-                if (in_array($menu_item->menu_item_parent, $viewed_related_ids) && ! in_array($menu_item->ID, $viewed_related_ids)) {
-                    $viewed_related_ids[] = $menu_item->ID;
-                }
-            }
-
-            if ($settings["tree_mode"] !== "all") {
-                // remove any menu_items that aren't ancestors or descendants of the viewed page
-                foreach ($menu_items as $key => $menu_item) {
-                    if (
-                        // if the menu_item is the currently viewed page
-                        $menu_item->ID !== $viewed_item_id &&
-                        // if the menu_item->ID is NOT in viewed_ancestor_ids
-                        ! in_array((int) $menu_item->ID, $viewed_ancestor_ids) &&
-                        // if the menu_item_parent is NOT in viewed_ancestor_ids
-                        ! in_array((int) $menu_item->ID, $viewed_descendant_ids) &&
-                        // if the menu_item->ID is NOT in $viewed_descendant_ids
-                        ! in_array((int) $menu_item->menu_item_parent, $viewed_ancestor_ids) &&
-                        // if the menu_item_parent is NOT in $viewed_descendant_ids
-                        ! in_array((int) $menu_item->menu_item_parent, $viewed_descendant_ids) &&
-                        // if the tree_mode is NOT "related" and menu_item->ID is NOT in $viewed_related_ids
-                        ! ($settings["tree_mode"] === "related" && in_array((int) $menu_item->ID, $viewed_related_ids))
-                    ) {
-                        unset($menu_items[$key]);
-                    }
-                }
-            }
-
-            // if show_parent is false unset the parent menu_item
-            if (! $settings["show_parent"] && $parent_item_id) {
-                // edge case where the parent id item got reset to the viewed item id
-                if ($parent_item_id === $viewed_item_id) {
-                    foreach ($menu_items as $key => $menu_item) {
-                        if ($menu_item->ID === $viewed_item_id) {
-                            $parent_item_id = $menu_item->menu_item_parent;
-                            break;
-                        }
-                    }
-                }
-
-                foreach ($menu_items as $key => $menu_item) {
-                    if ($menu_item->ID === $parent_item_id) {
-                        unset($menu_items[$key]);
+                    if (! $menu_item->current_item_ancestor && $parent_item->current) {
+                        $menu_item->current_item_descendant = 1; break;
                     }
                 }
             }
         }
-    } // if (isset($args->sub_menu))
+    }
 
+    /**
+     * Remove menu items
+     */
+    foreach ($menu_items as $key => $menu_item) {
+        $remove = false;
+
+        /**
+         * Remove all root menu items
+         */
+        if (intval($menu_item->menu_item_parent) === 0) {
+            $remove = true;
+        }
+
+        /**
+         * Only if not viewing the root item, remove items which:
+         * - Are not children of the root item
+         * - Are not children of the viewed items parent
+         * - Are not within the currently viewed tree
+         */
+        if ($menu_item->ID !== $viewed_item->ID && ! in_array(intval($menu_item->menu_item_parent), [$root_item->ID, intval($viewed_item->menu_item_parent)]) && ! ($menu_item->current || $menu_item->current_item_ancestor || $menu_item->current_item_descendant)) {
+            $remove = true;
+        }
+
+        /**
+         * Remove the item if it has been marked
+         */
+        if ($remove) {
+            unset($menu_items[$key]);
+        }
+    }
+
+    /**
+     * If no items remain, use a fallback strategy
+     */
+    if ($sub_menu["fallback"] !== false && count($menu_items) === 0) {
+        if ($sub_menu["fallback"] === "root") {
+            $menu_items = $menu_items_orig;
+        }
+    }
+
+    /**
+     * Return the sorted menu items
+     */
     return $menu_items;
 }
 add_filter("wp_nav_menu_objects", "__gulp_init_namespace___nav_menu_sub_menu", 10, 2);
