@@ -715,66 +715,129 @@ function __gulp_init_namespace___nav_menu_sub_menu(array $menu_items, object $ar
     /**
      * Set required values
      */
-    $sub_menu["allow_orphan"]     = isset($sub_menu["allow_orphan"])     ? $sub_menu["allow_orphan"]     : true;
-    $sub_menu["ancestor_depth"]   = isset($sub_menu["ancestor_depth"])   ? $sub_menu["ancestor_depth"]   : -1;
-    $sub_menu["sibling_depth"]    = isset($sub_menu["sibling_depth"])    ? $sub_menu["sibling_depth"]    : 1;
-    $sub_menu["descendant_depth"] = isset($sub_menu["descendant_depth"]) ? $sub_menu["descendant_depth"] : 1;
-    $sub_menu["fallback"]         = isset($sub_menu["fallback"])         ? $sub_menu["fallback"]         : "root";
-    $sub_menu["prefer_children"]  = isset($sub_menu["prefer_children"])  ? $sub_menu["prefer_children"]  : true;
-    $sub_menu["viewed_id"]        = isset($sub_menu["viewed_id"])        ? $sub_menu["viewed_id"]        : null;
+    $sub_menu["fallback"]  = isset($sub_menu["fallback"])  ? $sub_menu["fallback"]  : "root";
+    $sub_menu["viewed_id"] = isset($sub_menu["viewed_id"]) ? $sub_menu["viewed_id"] : null;
 
     /**
-     * Store the viewed item for reference
+     * Store the original array for fallback purposes
+     */
+    $menu_items_orig = $menu_items;
+
+    /**
+     * Store the viewed and root items for reference
      */
     $viewed_item = null;
+    $root_item   = null;
 
     /**
-     * Get the viewed ID
+     * Find the viewed item
      */
-    if ($sub_menu["viewed_id"] === null) {
+    foreach ($menu_items as $menu_item) {
+        $is_viewed = false;
+
         /**
          * If no viewed ID is set, find the currently viewed menu item
          */
-        foreach ($menu_items as $menu_item) {
-            if ($menu_item->current === true) {
-                $viewed_item = $menu_item; break;
-            }
+        if ($sub_menu["viewed_id"] === null && $menu_item->current === true) {
+            $is_viewed = true;
         }
-    } else {
+
         /**
          * If a viewed ID is set, convert it from a post ID to a menu item
          */
-        foreach ($menu_items as $menu_item) {
-            if (intval($menu_item->object_id) === $sub_menu["viewed_id"]) {
-                $viewed_item = $menu_item; break;
+        if ($sub_menu["viewed_id"] && intval($menu_item->object_id) === $sub_menu["viewed_id"]) {
+            $is_viewed = true;
+        }
+
+        /**
+         * Store the viewed item
+         */
+        if ($is_viewed) {
+            $menu_item->current = 1;
+            $viewed_item = $menu_item;
+            $root_item   = $menu_item;
+            break;
+        }
+    }
+
+    /**
+     * Find the root item
+     */
+    if ($root_item) {
+        while (intval($root_item->menu_item_parent) !== 0) {
+            foreach ($menu_items as $menu_item) {
+                if ($menu_item->ID === intval($root_item->menu_item_parent)) {
+                    $root_item = $menu_item; break;
+                }
             }
         }
     }
 
     /**
-     * Add depth data to ancestors
+     * Mark each menu item with `current_item_descendant` and `current_item_child`
      */
-    $parent_item = $viewed_item;
+    foreach ($menu_items as $menu_item) {
+        /**
+         * Add the values to the item
+         */
+        $menu_item->current_item_descendant = null;
+        $menu_item->current_item_child      = intval($menu_item->menu_item_parent) === $viewed_item->ID;
 
-    $depth = 0;
+        /**
+         * Determine whether the item is a descendant of the viewed item
+         */
+        $parent_item = $menu_item;
 
-    if ($menu_items) {
-        while (intval($parent_item->menu_item_parent) > 0) {
-            foreach ($menu_items as $menu_item) {
-                /**
-                 * If the current menu item ID is equal to the previous menu items parent,
-                 * it's an ancestor and thus should be marked with depth data.
-                 */
-                if ($menu_item->ID === intval($parent_item->menu_item_parent)) {
-                    $depth++;
+        while (intval($parent_item->menu_item_parent) !== 0) {
+            foreach ($menu_items as $menu_item_2) {
+                if ($menu_item_2->ID === intval($parent_item->menu_item_parent)) {
+                    $parent_item = $menu_item_2;
 
-                    $menu_item->ancestor_depth = $depth;
-
-                    $parent_item = $menu_item;
-
-                    break;
+                    if (! $menu_item->current_item_ancestor && $parent_item->current) {
+                        $menu_item->current_item_descendant = 1; break;
+                    }
                 }
             }
+        }
+    }
+
+    /**
+     * Remove menu items
+     */
+    foreach ($menu_items as $key => $menu_item) {
+        $remove = false;
+
+        /**
+         * Remove all root menu items
+         */
+        if (intval($menu_item->menu_item_parent) === 0) {
+            $remove = true;
+        }
+
+        /**
+         * Only if not viewing the root item, remove items which:
+         * - Are not children of the root item
+         * - Are not children of the viewed items parent
+         * - Are not within the currently viewed tree
+         */
+        if ($menu_item->ID !== $viewed_item->ID && ! in_array(intval($menu_item->menu_item_parent), [$root_item->ID, intval($viewed_item->menu_item_parent)]) && ! ($menu_item->current || $menu_item->current_item_ancestor || $menu_item->current_item_descendant)) {
+            $remove = true;
+        }
+
+        /**
+         * Remove the item if it has been marked
+         */
+        if ($remove) {
+            unset($menu_items[$key]);
+        }
+    }
+
+    /**
+     * If no items remain, use a fallback strategy
+     */
+    if ($sub_menu["fallback"] !== false && count($menu_items) === 0) {
+        if ($sub_menu["fallback"] === "root") {
+            $menu_items = $menu_items_orig;
         }
     }
 
