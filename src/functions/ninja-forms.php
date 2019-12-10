@@ -21,36 +21,24 @@ add_action("ninja_forms_enqueue_scripts", "__gulp_init_namespace___ninja_forms_d
 function __gulp_init_namespace___ninja_forms_fix_scripts_order(): void {
     global $wp_scripts;
 
-    // match every script prefixed with `nf-`, except `nf-front-end` and `nf-front-end-deps`
-    $pattern = "/^nf-(?!front-end(?:-deps)?$)/";
-
-    // change all `nf-front-end` dependencies to `nf-front-end-deps`
+    /**
+     * - Add all `nf-` prefixed scripts as dependencies of `nf-front-end`
+     * - Change `nf-front-end` dependencies to `nf-front-end-deps`
+     */
     foreach ($wp_scripts->registered as $script) {
-        if (! preg_match($pattern, $script->handle)) {
+        if (! preg_match("/^nf-(?!front-end(?:-deps)?$)/", $script->handle)) {
             continue;
         }
+
+        // add the script to the dependencies for `nf-front-end`
+        $wp_scripts->registered["nf-front-end"]->deps[] = $script->handle;
 
         if (($key = array_search("nf-front-end", $script->deps)) && $key === false) {
             continue;
         }
 
+        // change the dependency to `nf-front-end-deps`
         $script->deps[$key] = "nf-front-end-deps";
-    }
-
-    $last_nf_key      = false;
-    $front_end_nf_key = array_search("nf-front-end", $wp_scripts->queue);
-
-    // find the last `nf-` prefixed script in the queue
-    foreach ($wp_scripts->queue as $key => $handle) {
-        if (preg_match($pattern, $handle)) {
-            $last_nf_key = $key;
-        }
-    }
-
-    // move `nf-front-end` just after the last `nf-` prefixed script in the queue
-    if ($last_nf_key !== false) {
-        unset($wp_scripts->queue[$front_end_nf_key]);
-        array_splice($wp_scripts->queue, $last_nf_key, 0, "nf-front-end");
     }
 }
 add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fix_scripts_order");
