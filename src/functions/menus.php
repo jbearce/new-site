@@ -768,9 +768,12 @@ function __gulp_init_namespace___nav_menu_sub_menu(array $menu_items, object $ar
     }
 
     /**
-     * Find the root item
+     * Ensure a viewed item was found to prevent infinite loops
      */
-    if ($root_item) {
+    if ($viewed_item) {
+        /**
+         * Find the root item
+         */
         while (intval($root_item->menu_item_parent) !== 0) {
             foreach ($menu_items as $menu_item) {
                 if ($menu_item->ID === intval($root_item->menu_item_parent)) {
@@ -778,71 +781,71 @@ function __gulp_init_namespace___nav_menu_sub_menu(array $menu_items, object $ar
                 }
             }
         }
-    }
-
-    /**
-     * Mark each menu item with `current_item_descendant` and `current_item_child`
-     */
-    foreach ($menu_items as $menu_item) {
-        /**
-         * Add the values to the item
-         */
-        $menu_item->current_item_descendant = null;
-        $menu_item->current_item_child      = intval($menu_item->menu_item_parent) === $viewed_item->ID;
 
         /**
-         * Determine whether the item is a descendant of the viewed item
+         * Mark each menu item with `current_item_descendant` and `current_item_child`
          */
-        $parent_item = $menu_item;
+        foreach ($menu_items as $menu_item) {
+            /**
+             * Add the values to the item
+             */
+            $menu_item->current_item_descendant = null;
+            $menu_item->current_item_child      = intval($menu_item->menu_item_parent) === $viewed_item->ID;
 
-        while (intval($parent_item->menu_item_parent) !== 0) {
-            foreach ($menu_items as $menu_item_2) {
-                if ($menu_item_2->ID === intval($parent_item->menu_item_parent)) {
-                    $parent_item = $menu_item_2;
+            /**
+             * Determine whether the item is a descendant of the viewed item
+             */
+            $parent_item = $menu_item;
 
-                    if (! $menu_item->current_item_ancestor && $parent_item->current) {
-                        $menu_item->current_item_descendant = 1; break;
+            while (intval($parent_item->menu_item_parent) !== 0) {
+                foreach ($menu_items as $menu_item_2) {
+                    if ($menu_item_2->ID === intval($parent_item->menu_item_parent)) {
+                        $parent_item = $menu_item_2;
+
+                        if (! $menu_item->current_item_ancestor && $parent_item->current) {
+                            $menu_item->current_item_descendant = 1; break;
+                        }
                     }
                 }
             }
         }
-    }
-
-    /**
-     * Remove menu items
-     */
-    foreach ($menu_items as $key => $menu_item) {
-        $remove = false;
 
         /**
-         * Remove all root menu items
+         * Remove menu items
          */
-        if (intval($menu_item->menu_item_parent) === 0) {
-            $remove = true;
-        }
+        foreach ($menu_items as $key => $menu_item) {
+            $remove = false;
 
-        /**
-         * Only if not viewing the root item, remove items which:
-         * - Are not children of the root item
-         * - Are not children of the viewed items parent
-         * - Are not within the currently viewed tree
-         */
-        if ($menu_item->ID !== $viewed_item->ID && ! in_array(intval($menu_item->menu_item_parent), [$root_item->ID, intval($viewed_item->menu_item_parent)]) && ! ($menu_item->current || $menu_item->current_item_ancestor || $menu_item->current_item_descendant)) {
-            $remove = true;
-        }
+            /**
+             * Remove all root menu items
+             */
+            if (intval($menu_item->menu_item_parent) === 0) {
+                $remove = true;
+            }
 
-        /**
-         * Remove the item if it has been marked
-         */
-        if ($remove) {
-            unset($menu_items[$key]);
+            /**
+             * Only if not viewing the root item, remove items which:
+             * - Are not children of the root item
+             * - Are not children of the viewed items parent
+             * - Are not within the currently viewed tree
+             */
+            if ($menu_item->ID !== $viewed_item->ID && ! in_array(intval($menu_item->menu_item_parent), [$root_item->ID, intval($viewed_item->menu_item_parent)]) && ! ($menu_item->current || $menu_item->current_item_ancestor || $menu_item->current_item_descendant)) {
+                $remove = true;
+            }
+
+            /**
+             * Remove the item if it has been marked
+             */
+            if ($remove) {
+                unset($menu_items[$key]);
+            }
         }
     }
 
     /**
      * If no items remain, use a fallback strategy
      */
-    if ($sub_menu["fallback"] !== false && count($menu_items) === 0) {
+    if ($sub_menu["fallback"] !== false && (! $viewed_item || count($menu_items) === 0)) {
         if ($sub_menu["fallback"] === "root") {
             $menu_items = $menu_items_orig;
         }

@@ -138,7 +138,7 @@ function __gulp_init_namespace___is_external_url(string $url): bool {
     /**
      * Check if the URL is relative
      */
-    if (! $components["host"]) {
+    if (! (isset($components["host"]) && $components["host"])) {
         return false;
     }
 

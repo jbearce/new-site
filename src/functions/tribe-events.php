@@ -343,7 +343,7 @@ function __gulp_init_namespace___tribe_remove_content_filters(): void {
         remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
-add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters", 999);
+add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters");
 
 /**
  * Add __gulp_init_namespace___add_user_content_classes filter to the_content before tribe events single content
