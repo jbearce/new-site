@@ -613,7 +613,7 @@ function __gulp_init_namespace___get_no_posts_message(object $queried_object): s
 }
 
 /**
- * Retrieve a menu tiel from the database given the location the menu is assigned to
+ * Retrieve a menu title from the database given the location the menu is assigned to
  *
  * @param string $location  Menu location
  *
