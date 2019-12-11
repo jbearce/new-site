@@ -95,7 +95,7 @@ add_action("wp_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts");
 function __gulp_init_namespace___noscript_hide_js_elements(): void {
     echo "<noscript><style>.__js {display: none !important;}</style></noscript>\n";
 }
-add_action("wp_head", "__gulp_init_namespace___noscript_hide_js_elements");
+add_action("wp_footer", "__gulp_init_namespace___noscript_hide_js_elements");
 
 /**
  * Adjust WordPress login screen styles
