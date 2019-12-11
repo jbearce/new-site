@@ -1,12 +1,12 @@
-            </div><!--/#content-->
-            <div class="footer-block footer-block--fullbleed" role="contentinfo">
+            </main><!--/#content-->
+            <footer class="footer-block footer-block--fullbleed" role="contentinfo">
                 <div class="footer__inner">
                     <p class="footer__text text __textcenter __nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
                     <?php if (is_front_page()): ?>
                     <p class="footer__text text __textcenter __nomargin"><a class="footer__link link link--inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer__link link link--inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
                 </div>
-            </div>
+            </footer>
         </div><!--/.page__container-->
         <?php if (has_nav_menu("primary")): ?>
             <div class="navigation-block navigation-block--flyout __hidden-xs __noncritical" role="navigation" aria-hidden="true" id="mobile-menu" tabindex="0">

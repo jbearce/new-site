@@ -8,7 +8,7 @@
             <a class="skip-links" href="#content">
                 <?php _e("Skip to content", "__gulp_init_namespace__"); ?>
             </a>
-            <div class="header-block header-block--fullbleed" role="banner">
+            <header class="header-block header-block--fullbleed">
                 <div class="header__inner">
                     <div class="header__row row row--padded row--tight row--vcenter">
                         <div class="col-auto col--nogrow col--noshrink __hidden-xs">
@@ -40,9 +40,9 @@
                         </div>
                     </div><!--/.header__row-->
                 </div><!--/.header__inner-->
-            </div><!--/.header-block-->
+            </header><!--/.header-block-->
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block navigation-block--fullbleed __visible-xs __noprint" role="navigation">
+                <div class="navigation-block navigation-block--fullbleed __visible-xs __noprint">
                     <div class="navigation__inner">
                         <nav class="navigation__menu-list__container menu-list__container">
                             <?php
@@ -65,4 +65,4 @@
                     </div><!--/.navigation__inner-->
                 </div><!--/.navigation-block-->
             <?php endif; ?>
-            <div id="content" tabindex="0">
+            <main id="content" tabindex="0">
