@@ -4,6 +4,9 @@
  * Input
 \* ------------------------------------------------------------------------ */
 
+$font-size: 16;
+$icon-size: 0.75em;
+
 $padding-bottom: 10;
 $padding-left:   15;
 $padding-right:  15;
@@ -13,16 +16,16 @@ $padding-top:    10;
     & {
         background: color("background");
         border: remify(2) solid color("background", "shade");
-        border-radius: remify(6, 14);
+        border-radius: 0.25em;
         color: color("foreground");
         display: block;
         font-family: $body-font;
-        font-size: remify(14, 16);
+        font-size: remify($font-size, 16);
         font-weight: 400;
-        line-height: remify(21, 14);
+        line-height: 1.2em;
         margin: remify(0 0 10);
         outline: 0;
-        padding: remify($padding-top $padding-right $padding-bottom $padding-left, 14);
+        padding: remify($padding-top $padding-right $padding-bottom $padding-left, $font-size);
         text-overflow: ellipsis;
         transition: background-color 0.15s, background-size 0.15s, border-color 0.15s, color 0.15s;
         width: 100%;
@@ -70,83 +73,12 @@ $padding-top:    10;
 .input--arrow {
     & {
         background-image: svg-load("../media/vendor/fas-sort.svg", fill=#{color("foreground")});
-        background-position: center right remify($padding-right, 14);
+        background-position: center right remify($padding-right, $font-size);
         background-repeat: no-repeat;
-        background-size: remify(14 14, 14);
-        padding-right: remify(14 + ($padding-right * 2), 14);
+        background-size: $icon-size;
+        padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)});
     }
 }
-
-/* select browser variants */
-
-/* stylelint-disable selector-max-type, selector-no-vendor-prefix, selector-type-no-unknown */
-
-/* IE */
-_:-ms-input-placeholder,
-:root .input--select {
-    & {
-        padding: remify($padding-bottom, 14) calc(#{remify($padding-left, 14)} - 3px) calc(#{remify($padding-bottom, 14)} - 2px);
-    }
-}
-
-_:-ms-input-placeholder,
-:root .input--arrow {
-    & {
-        padding-right: calc(#{remify(14 + ($padding-right * 2), 14)} - 3px);
-    }
-}
-
-/* Chrome  */
-@supports (-webkit-appearance: none) and (font-stretch: normal) and (not(-ms-accelerator: true)) {
-    .input--select {
-        padding: remify($padding-top, 14) remify($padding-right, 14) remify($padding-bottom, 14) remify($padding-left, 14);
-    }
-
-    .input--arrow {
-        padding-right: remify(14 + ($padding-right * 2), 14);
-    }
-}
-
-/* Safari */
-_::-webkit-full-page-media,
-_:future,
-:root .input--select {
-    & {
-        padding: remify($padding-top, 14) remify($padding-right, 14) remify($padding-bottom, 14) remify($padding-left, 14);
-    }
-}
-
-_::-webkit-full-page-media,
-_:future,
-:root .input--arrow {
-    & {
-        padding-right: remify(14 + ($padding-right * 2), 14);
-    }
-}
-
-/* Edge */
-@supports (-ms-ime-align: auto) {
-    .input--select {
-        padding: calc(#{remify($padding-top, 14)} - 1px) calc(#{remify($padding-right, 14)} - 2px) calc(#{remify($padding-bottom, 14)} - 1px) calc(#{remify($padding-left, 14)} - 2px);
-    }
-
-    .input--arrow {
-        padding-right: calc(#{remify(14 + ($padding-right * 2), 14)} - 2px);
-    }
-}
-
-/* Firefox */
-@-moz-document url-prefix("") {
-    .input--select {
-        padding: remify($padding-top, 14) calc(#{remify($padding-right, 14)} - 4px) remify($padding-bottom, 14) calc(#{remify($padding-left, 14)} - 4px);
-    }
-
-    .input--arrow {
-        padding-right: calc(#{remify(14 + ($padding-right * 2), 14)} - 4px);
-    }
-}
-
-/* stylelint-enable */
 
 /* checkbox & radiobutton variants */
 
@@ -156,18 +88,18 @@ _:future,
         border-width: remify(1);
         cursor: pointer;
         display: inline-block;
-        height: remify(24, 14);
+        height: $icon-size * 2;
         overflow: hidden;
         padding: 0;
         position: relative;
         vertical-align: middle;
-        width: remify(24, 14);
+        width: $icon-size * 2;
     }
 
     &::after {
         background-position: center center;
         background-repeat: no-repeat;
-        background-size: remify(16 16, 14);
+        background-size: $icon-size;
         content: "";
         display: block;
         height: 100%;
@@ -228,3 +160,74 @@ _:future,
         opacity: 0.6;
     }
 }
+
+/* select browser variants */
+
+/* stylelint-disable selector-max-type, selector-no-vendor-prefix, selector-type-no-unknown */
+
+/* IE */
+_:-ms-input-placeholder,
+:root .input--select {
+    & {
+        padding: remify($padding-bottom, $font-size) calc(#{remify($padding-left, $font-size)} - 3px) calc(#{remify($padding-bottom, $font-size)} - 2px);
+    }
+}
+
+_:-ms-input-placeholder,
+:root .input--arrow {
+    & {
+        padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)} - 3px);
+    }
+}
+
+/* Chrome  */
+@supports (-webkit-appearance: none) and (font-stretch: normal) and (not(-ms-accelerator: true)) {
+    .input--select {
+        padding: remify($padding-top, $font-size) remify($padding-right, $font-size) remify($padding-bottom, $font-size) remify($padding-left, $font-size);
+    }
+
+    .input--arrow {
+        padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)});
+    }
+}
+
+/* Safari */
+_::-webkit-full-page-media,
+_:future,
+:root .input--select {
+    & {
+        padding: remify($padding-top, $font-size) remify($padding-right, $font-size) remify($padding-bottom, $font-size) remify($padding-left, $font-size);
+    }
+}
+
+_::-webkit-full-page-media,
+_:future,
+:root .input--arrow {
+    & {
+        padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)});
+    }
+}
+
+/* Edge */
+@supports (-ms-ime-align: auto) {
+    .input--select {
+        padding: calc(#{remify($padding-top, $font-size)} - 1px) calc(#{remify($padding-right, $font-size)} - 2px) calc(#{remify($padding-bottom, $font-size)} - 1px) calc(#{remify($padding-left, $font-size)} - 2px);
+    }
+
+    .input--arrow {
+        padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)} - 2px);
+    }
+}
+
+/* Firefox */
+@-moz-document url-prefix("") {
+    .input--select {
+        padding: remify($padding-top, $font-size) calc(#{remify($padding-right, $font-size)} - 4px) remify($padding-bottom, $font-size) calc(#{remify($padding-left, $font-size)} - 4px);
+    }
+
+    .input--arrow {
+        padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)} - 4px);
+    }
+}
+
+/* stylelint-enable */
