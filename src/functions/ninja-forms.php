@@ -148,7 +148,7 @@ add_action("add_meta_boxes", "__gulp_init_namespace___ninja_forms_disable_append
  */
 function __gulp_init_namespace___ninja_forms_honeypot_label(array $nfi18n): array {
     if (! isset($nfi18n["formHoneypot"])) {
-        $nfi18n["formHoneypot"] = __("If you are a human seeing this field, please leave it empty.", "fvpd");
+        $nfi18n["formHoneypot"] = __("If you are a human seeing this field, please leave it empty.", "__gulp_init_namespace__");
     }
 
     return $nfi18n;
