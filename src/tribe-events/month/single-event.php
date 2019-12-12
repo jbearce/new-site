@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	die( '-1' );
 }
 
-$post = $GLOBALS["post"];
+global $post;
 
 /**
  * We build and gather information specific to the individual event prior to

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <?php
 $days_of_week = tribe_events_get_days_of_week();
 $week = 0;
-$wp_locale = $GLOBALS["wp_locale"];
+global $wp_locale;
 ?>
 
 <?php do_action( 'tribe_events_before_the_grid' ) ?>

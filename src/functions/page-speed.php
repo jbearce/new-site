@@ -12,6 +12,9 @@
  * @return array<string>
  */
 function __gulp_init_namespace___resource_hints(array $urls, string $relation_type): array {
+    global $wp_scripts;
+    global $wp_styles;
+
     if ($relation_type === "preconnect") {
         $urls[] = "https://www.google-analytics.com";
         $urls[] = "https://www.gstatic.com";
@@ -22,9 +25,9 @@ function __gulp_init_namespace___resource_hints(array $urls, string $relation_ty
         return $urls;
     }
 
-    if ($GLOBALS["wp_scripts"]) {
-        foreach ($GLOBALS["wp_scripts"]->queue as $script) {
-            $data = $GLOBALS["wp_scripts"]->registered[$script];
+    if ($wp_scripts) {
+        foreach ($wp_scripts->queue as $script) {
+            $data = $wp_scripts->registered[$script];
 
             if ($data->src && ! isset($data->extra["conditional"])) {
                 $urls[] = $data->src;
@@ -32,9 +35,9 @@ function __gulp_init_namespace___resource_hints(array $urls, string $relation_ty
         }
     }
 
-    if ($GLOBALS["wp_styles"]) {
-        foreach ($GLOBALS["wp_styles"]->queue as $style) {
-            $data = $GLOBALS["wp_styles"]->registered[$style];
+    if ($wp_styles) {
+        foreach ($wp_styles->queue as $style) {
+            $data = $wp_styles->registered[$style];
 
             if ($data->src && ! isset($data->extra["conditional"])) {
                 $urls[] = $data->src;
@@ -115,11 +118,11 @@ add_filter("script_loader_tag", "__gulp_init_namespace___make_scripts_async", 10
  * @return string
  */
 function __gulp_init_namespace___make_styles_async(string $tag, string $handle, string $src): string {
-    $pagenow  = $GLOBALS["pagenow"];
-    $template = isset($GLOBALS["template"]) ? $GLOBALS["template"] : false;
+    global $pagenow;
+    global $template;
 
     $is_login     = (isset($_SERVER["SCRIPT_URI"]) && $_SERVER["SCRIPT_URI"] === wp_login_url()) || $pagenow === "wp-login.php";
-    $critical_css = __gulp_init_namespace___get_critical_css($template);
+    $critical_css = $template ? __gulp_init_namespace___get_critical_css($template) : false;
     $is_external  = __gulp_init_namespace___is_external_url($src);
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
@@ -137,11 +140,10 @@ add_filter("style_loader_tag", "__gulp_init_namespace___make_styles_async", 10, 
  * @return void
  */
 function __gulp_init_namespace___critical_css(): void {
-    $template = $GLOBALS["template"];
+    global $template;
 
     // critical styles
-    $critical_styles = __gulp_init_namespace___get_critical_css($template);
-    if ($critical_styles) {
+    if ($template && $critical_styles = __gulp_init_namespace___get_critical_css($template)) {
         echo "<style type='text/css'>{$critical_styles}</style>";
     }
 }

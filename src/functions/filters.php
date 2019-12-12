@@ -103,7 +103,7 @@ add_filter("content_save_pre", "__gulp_init_namespace___remove_sep_characters");
  * @return string
  */
 function __gulp_init_namespace___fix_shortcodes(string $content): string {
-    $shortcode_tags = $GLOBALS["shortcode_tags"];
+    global $shortcode_tags;
 
     if (! is_admin() && $content && $shortcode_tags) {
         $shortcodes = [];
@@ -609,7 +609,7 @@ add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_des
  * @return void
  */
 function __gulp_init_namespace___acrobat_link(): void {
-    $post = $GLOBALS["post"];
+    global $post;
 
     if ($post) {
         $has_pdf = false;
@@ -654,7 +654,7 @@ add_filter("__gulp_init_namespace___after_content", "__gulp_init_namespace___acr
  * @return string
  */
 function __gulp_init_namespace___default_wpseo_metadesc(string $html): string {
-    $post = $GLOBALS["post"];
+    global $post;
 
     if (! $html && is_singular() && $content = wp_strip_all_tags($post->post_content)) {
         return wp_trim_words(str_replace(["\n", "\r"], " ", preg_replace("~(?:\[/?)[^/\]]+/?\]~s", "", $content)), 20, "…");

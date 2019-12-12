@@ -367,7 +367,7 @@ function __gulp_init_namespace___get_sentences(string $content, int $length = 2)
  * @return string  The post excerpt
  */
 function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = []): string {
-    $post = $GLOBALS["post"];
+    global $post;
 
     $defaults = [
         "truncate" => [
@@ -570,7 +570,7 @@ function __gulp_init_namespace___get_no_posts_message(object $queried_object): s
     if (is_post_type_archive() && isset($queried_object->labels->name)) {
         $post_type_label = strtolower($queried_object->labels->name);
     } elseif (is_archive() && isset($queried_object->taxonomy)) {
-        $wp_taxonomies = $GLOBALS["wp_taxonomies"];
+        global $wp_taxonomies;
 
         $post_types = isset($wp_taxonomies[$queried_object->taxonomy]) ? $wp_taxonomies[$queried_object->taxonomy]->object_type : "";
 

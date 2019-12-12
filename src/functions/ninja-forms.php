@@ -51,7 +51,7 @@ add_action("nf_display_enqueue_scripts", "__gulp_init_namespace___ninja_forms_fi
  * @return string
  */
 function __gulp_init_namespace___ninja_forms_fix_wpseo_title(string $title): string {
-    $wpdb = $GLOBALS["wpdb"];
+    global $wpdb;
 
     if ($public_link_key = get_query_var("nf_public_link")) {
         $query      = $wpdb->prepare("SELECT `parent_id` FROM {$wpdb->prefix}nf3_form_meta WHERE `key` = 'public_link_key' AND `value` = %s", $public_link_key);

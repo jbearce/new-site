@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 } ?>
 
 <?php
-$post = $GLOBALS["post"];
+global $post;
 ?>
 
 <div class="tribe-events-loop">

@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <?php
 
-$post = $GLOBALS["post"];
+global $post;
 $current_timeslot = null;
 
 ?>
