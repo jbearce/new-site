@@ -36,7 +36,7 @@ This guide assumes that you're running Bash on Ubuntu 16.04; instructions may di
 3. Install PHP and some related extensions.
 
     ```sh
-    sudo apt-get install php php-mysql libapache2-mod-php php-cli php-cgi php-gd
+    sudo apt-get install php php-common
     ```
 
 ### Step 2: Install Composer
@@ -273,7 +273,7 @@ A local environment may be not be needed, depending on what you're trying to do 
 
 ### Verify PHP
 
-1. [Install PHP](#install-php)
+1. [Install PHP](#step-1-install-php)
 
 2. Create a test PHP file.
 
