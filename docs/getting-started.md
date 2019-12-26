@@ -13,6 +13,7 @@
 
 - [VS Code](https://code.visualstudio.com/)
 - [Hyper](https://hyper.is/)
+- [pnpm](https://pnpm.js.org/)
 - [WSL](https://docs.microsoft.com/en-us/windows/wsl/install-win10) (Windows 10)
 - [Node Version Manager](https://github.com/creationix/nvm#installation) (Mac, Linux, WSL)
 - [LAMP](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-16-04) (Mac, Linux, WSL)
