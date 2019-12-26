@@ -411,7 +411,7 @@ BurntToast is a PowerShell module that enables sending toast notifications from 
 
 ### FontAwesome 5 Pro
 
-This project utlizes FontAwesome 5 Pro by default, but may not come preconfigured for installation from FontAwesome's private NPM repository. If when running `npm install` for the first time, you receive an error `404 Not Found: @fortawesome/fontawesome-pro@latest` or similar, follow the [guide to using NPM](https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers#installing-pro) in FontAwesome's documentation. If you don't have access to the Pro version of FontAwesome, speak with your lead developer about obtaining a key, or otherwise, if this is a new project, consider either replacing FontAwesome 5 Pro with FontAwesome 5 Free, or removing FontAwesome entirely from this project.
+This project utilizes FontAwesome 5 Pro by default, but may not come preconfigured for installation from FontAwesome's private NPM repository. If when running `npm install` for the first time, you receive an error `404 Not Found: @fortawesome/fontawesome-pro@latest` or similar, follow the [guide to using NPM](https://fontawesome.com/how-to-use/on-the-web/setup/using-package-managers#installing-pro) in FontAwesome's documentation. If you don't have access to the Pro version of FontAwesome, speak with your lead developer about obtaining a key, or otherwise, if this is a new project, consider either replacing FontAwesome 5 Pro with FontAwesome 5 Free, or removing FontAwesome entirely from this project.
 
 #### Replacing FontAwesome 5 Pro with FontAwesome 5 Free
 
@@ -435,10 +435,10 @@ You may then need to replace any broken icons in the theme with free equivalents
 
 #### Removing FontAwesome
 
-To remove FontAwesome entirely, first uninstall the module.
+To remove FontAwesome entirely, first uninstall the modules.
 
 ```sh
-npm uninstall --save @fortawesome/fontawesome-pro
+npm uninstall --save @fortawesome/fontawesome-svg-core @fortawesome/free-brands-svg-icons @fortawesome/pro-light-svg-icons @fortawesome/pro-regular-svg-icons @fortawesome/pro-solid-svg-icons
 ```
 
 Then, delete `./src/assets/scripts/modern/fontawesome.init.js`.
