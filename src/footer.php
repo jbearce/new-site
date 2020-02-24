@@ -1,7 +1,7 @@
             </main><!--/#content-->
             <footer class="footer-block footer-block--fullbleed" role="contentinfo">
                 <div class="footer__inner">
-                    <p class="footer__text text __textcenter __nomargin">&copy; <?php echo date("Y"); ?> <?php bloginfo("name"); ?></p>
+                    <p class="footer__text text __textcenter __nomargin">&copy; <?php echo current_time("Y"); ?> <?php bloginfo("name"); ?></p>
                     <?php if (is_front_page()): ?>
                     <p class="footer__text text __textcenter __nomargin"><a class="footer__link link link--inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Chicago Web Design">Chicago Web Design</a> | <a class="footer__link link link--inherit" href="https://www.weblinxinc.com/" rel="noopener" target="_blank" title="Weblinx, Inc.">Weblinx, Inc.</a></p>
                     <?php endif; ?>
