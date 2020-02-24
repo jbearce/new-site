@@ -15,6 +15,10 @@
         margin: remify(0 0 15, 16);
     }
 
+    .text {
+        font-size: 1em;
+    }
+
     > .button:last-child {
         margin-bottom: 0 !important;
     }
