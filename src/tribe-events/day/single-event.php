@@ -58,7 +58,7 @@ if ( $categories ) { $i = 0;
         <nav class="article__menu-list__container menu-list__container">
             <ul class="menu-list menu-list--meta">
                 <li class="menu-list__item">
-                    <i class="far fa-clock menu-list__icon"></i>
+                    <i class="fas fa-clock menu-list__icon"></i>
                     <a class="menu-list__link link" href="<?php echo $link; ?>">
                         <?php echo $date[ 'date' ]; ?><?php if ( $date[ 'time' ] ){ echo ', ' . $date[ 'time' ]; } ?>
                     </a>
@@ -66,7 +66,7 @@ if ( $categories ) { $i = 0;
 
                 <?php if ( $venue ) : ?>
                     <li class="menu-list__item">
-                        <i class="far fa-map-marker-alt menu-list__icon"></i>
+                        <i class="fas fa-map-marker-alt menu-list__icon"></i>
 
                         <?php
                         if ( $venue_link ) {
@@ -80,14 +80,14 @@ if ( $categories ) { $i = 0;
 
                 <?php if ( $cost ) : ?>
                     <li class="menu-list__item">
-                        <i class="far fa-money-bill menu-list__icon"></i>
+                        <i class="fas fa-money-bill menu-list__icon"></i>
                         <?php echo $cost; ?>
                     </li>
                 <?php endif; ?>
 
                 <?php if ( $categories_string ) : ?>
                     <li class="menu-list__item">
-                        <i class="far fa-folder menu-list__icon"></i>
+                        <i class="fas fa-folder menu-list__icon"></i>
                         <?php echo $categories_string; ?>
                     </li>
                 <?php endif; ?>

@@ -37,13 +37,13 @@ $cost = tribe_get_cost() ? tribe_get_cost( null, true ) : false;
     <nav class="article__menu-list__container menu-list__container">
         <ul class="menu-list menu-list--meta">
             <li class="menu-list__item">
-                <i class="far fa-clock menu-list__icon"></i>
+                <i class="fas fa-clock menu-list__icon"></i>
                 <?php echo $date[ 'date' ]; ?><?php if ( $date[ 'time' ] ){ echo ', ' . $date[ 'time' ]; } ?>
             </li>
 
             <?php if ( $cost ) : ?>
                 <li class="menu-list__item">
-                    <i class="far fa-money-bill menu-list__icon"></i>
+                    <i class="fas fa-money-bill menu-list__icon"></i>
                     <?php echo $cost; ?>
                 </li>
             <?php endif; ?>

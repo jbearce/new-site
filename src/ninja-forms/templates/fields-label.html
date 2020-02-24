@@ -5,7 +5,7 @@
                 {{{ ( 'undefined' != typeof data.required && 1 == data.required ) ? '<span class="ninja-forms-req-symbol __warning">*</span>' : '' }}}
                 {{{ data.label }}}
             </label>
-            {{{ ( 'undefined' != typeof data.help_text && "" != data.help_text ) ? '<span class="ninja-forms-help-symbol" tabindex="0" role="button"><i class="far fa-question-circle fa-fw"></i><span class="__visuallyhidden">Help</span><span class="ninja-forms-help-tooltip" aria-live="alert" aria-hidden="true" id="nf_' + data.key + '_tooltip"><span class="ninja-forms-user-content user-content user-content--light">' + data.help_text + '</span></span></span>' : '' }}}
+            {{{ ( 'undefined' != typeof data.help_text && "" != data.help_text ) ? '<span class="ninja-forms-help-symbol" tabindex="0" role="button"><i class="fas fa-question-circle fa-fw"></i><span class="__visuallyhidden">Help</span><span class="ninja-forms-help-tooltip" aria-live="alert" aria-hidden="true" id="nf_' + data.key + '_tooltip"><span class="ninja-forms-user-content user-content user-content--light">' + data.help_text + '</span></span></span>' : '' }}}
         </div>
     <# } #>
 </script>

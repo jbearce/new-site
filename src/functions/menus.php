@@ -258,7 +258,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
             /**
              * Construct a toggle
              */
-            $toggle .= "<button class='menu-list__toggle{$toggle_class}' id='{$this->current_item}_toggle' aria-controls='{$this->current_item}_child'><i class='toggle__icon far fa-angle-down' aria-hidden='true'></i><span class='__visuallyhidden' data-alt='" . esc_attr__("Close Child Menu", "__gulp_init_namespace__") . "'>" . __("Open Child Menu", "__gulp_init_namespace__") . "</span></button>";
+            $toggle .= "<button class='menu-list__toggle{$toggle_class}' id='{$this->current_item}_toggle' aria-controls='{$this->current_item}_child'><i class='toggle__icon fas fa-caret-down' aria-hidden='true'></i><span class='__visuallyhidden' data-alt='" . esc_attr__("Close Child Menu", "__gulp_init_namespace__") . "'>" . __("Open Child Menu", "__gulp_init_namespace__") . "</span></button>";
         }
 
         /**

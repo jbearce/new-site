@@ -8,7 +8,7 @@ $permalink       = isset($this->vars["permalink"]) ? $this->vars["permalink"] : 
 $datetime        = isset($this->vars["datetime"]) ? new DateTime($this->vars["datetime"]) : ($post ? new DateTime(get_the_time("c", $post->ID)) : false);
 $author_id       = isset($this->vars["author_id"]) ? $this->vars["author_id"] : ($post ? get_post_field("post_author", $post->ID) : false);
 $comments        = isset($this->vars["comments"]) ? $this->vars["comments"] : ($post ? ["count" => get_comments_number($post->ID), "url" => get_comments_link($post->ID)] : false);
-$taxonomies      = isset($this->vars["taxonomies"]) ? $this->vars["taxonomies"] : [["icon" => "far fa-folder", "name" => "category", "prefix" => __("Posted in:", "__gulp_init_namespace__")], ["icon" => "far fa-tag", "name" => "post_tag", "prefix" => __("Tagged with:", "__gulp_init_namespace__")]];
+$taxonomies      = isset($this->vars["taxonomies"]) ? $this->vars["taxonomies"] : [["icon" => "fas fa-folder", "name" => "category", "prefix" => __("Posted in:", "__gulp_init_namespace__")], ["icon" => "fas fa-tag", "name" => "post_tag", "prefix" => __("Tagged with:", "__gulp_init_namespace__")]];
 ?>
 
 <?php if ($post): ?>
@@ -18,7 +18,7 @@ $taxonomies      = isset($this->vars["taxonomies"]) ? $this->vars["taxonomies"] 
             <?php if ($datetime): ?>
                 <li class="menu-list__item">
 
-                    <i class="menu-list__icon far fa-clock"></i>
+                    <i class="menu-list__icon fas fa-clock"></i>
 
                     <?php if ($permalink): ?>
                         <a class="menu-list__link link" href="<?php echo esc_url($permalink); ?>">
@@ -43,7 +43,7 @@ $taxonomies      = isset($this->vars["taxonomies"]) ? $this->vars["taxonomies"] 
 
             <?php if ($author_id): ?>
                 <li class="menu-list__item">
-                    <i class="menu-list__icon far fa-user-circle"></i>
+                    <i class="menu-list__icon fas fa-user-circle"></i>
 
                     <a class="menu-list__link link" href="<?php echo esc_url(get_author_posts_url($author_id)); ?>">
 
@@ -61,7 +61,7 @@ $taxonomies      = isset($this->vars["taxonomies"]) ? $this->vars["taxonomies"] 
             <?php if ($comments && $comments["count"]): ?>
                 <li class="menu-list__item">
 
-                    <i class="menu-list__icon far fa-comment"></i>
+                    <i class="menu-list__icon fas fa-comment"></i>
 
                     <?php if ($comments["url"]): ?>
                         <a class="menu-list__link link" href="<?php echo esc_url($comments["url"]); ?>">

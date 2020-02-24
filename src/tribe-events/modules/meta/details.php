@@ -61,7 +61,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $date[ 'date' ] ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-clock"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Date:', 'the-events-calendar' ) ?></span>
                 <?php echo $date[ 'date' ]; ?>
                 <?php if ( $date[ 'time' ] ) : ?>
@@ -76,7 +76,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $cost ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-money-bill"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-money-bill"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Cost:', 'the-events-calendar' ) ?></span>
                 <?php echo $cost; ?>
             </li>
@@ -86,7 +86,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $website ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-mouse-pointer"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-mouse-pointer"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Website:', 'the-events-calendar' ) ?></span>
                 <a class="tribe-events-meta-list-link link link--inherit" href="<?php echo $website; ?>" target="_blank">
                     <?php echo $website; ?>
@@ -98,7 +98,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $categories_string ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-folder"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-folder"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Categories:', 'the-events-calendar' ) ?></span>
                 <?php echo $categories_string; ?>
             </li>
@@ -108,7 +108,7 @@ if ( $tags ) { $i = 0;
         <?php if ( $tags_string ) : ?>
 
             <li class="tribe-events-meta-list-item">
-                <i class="tribe-events-meta-list-icon far fa-fw fa-tag"></i>
+                <i class="tribe-events-meta-list-icon fas fa-fw fa-tag"></i>
                 <span class="__visuallyhidden"><?php esc_html_e( 'Tags:', 'the-events-calendar' ) ?></span>
                 <?php echo $tags_string; ?>
             </li>

@@ -19,14 +19,14 @@
             <ul class="tribe-events-meta-list __nomargin">
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-duration">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-clock"><\/i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-date-time">[[=raw date]][[ if(typeof time === 'string' && time.length) { ]] <span class="tribe-events-meta-list-small">[[=raw time]]<\/span>[[ } ]]<\/abbr>
                     <\/div>
                 <\/li>
                 [[ if(typeof venue === 'string' && venue.length){ ]]
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-location">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-map-marker-alt"><\/i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-map-marker-alt"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-venue">[[=venue]][[ if(typeof address === 'string' && address.length) { ]] <span class="tribe-events-meta-list-small">[[=address]]<\/span>[[ } ]]<\/abbr>
                     <\/div>
                 <\/li>
@@ -34,7 +34,7 @@
                 [[ if(typeof categories === 'string' && categories.length){ ]]
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-terms">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-calendar"><\/i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-calendar"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-categories">[[=categories]]<\/abbr>
                     <\/div>
                 <\/li>
@@ -54,14 +54,14 @@
             <ul class="tribe-events-meta-list __nomargin">
                 <li class="tribe-event-meta-list-item">
                     <div class="tribe-event-duration">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-clock"><\/i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-clock"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-date-time">[[=raw date]][[ if(typeof time === 'string' && time.length) { ]] <span class="tribe-events-meta-list-small">[[=raw time]]<\/span>[[ } ]]<\/abbr>
                     <\/div>
                 <\/li>
                 [[ if(typeof venue === 'string' && venue.length){ ]]
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-location">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-map-marker-alt"><\/i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-map-marker-alt"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-venue">[[=venue]][[ if(typeof address === 'string' && address.length) { ]] <span class="tribe-events-meta-list-small">[[=address]]<\/span>[[ } ]]<\/abbr>
                     <\/div>
                 <\/li>
@@ -69,7 +69,7 @@
                 [[ if(typeof categories === 'string' && categories.length){ ]]
                 <li class="tribe-events-meta-list-item">
                     <div class="tribe-event-terms">
-                        <i class="tribe-events-meta-list-icon far fa-fw fa-calendar"><\/i>
+                        <i class="tribe-events-meta-list-icon fas fa-fw fa-calendar"><\/i>
                         <abbr class="tribe-events-abbr tribe-event-categories">[[=categories]]<\/abbr>
                     <\/div>
                 <\/li>
