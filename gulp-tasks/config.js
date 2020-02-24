@@ -19,7 +19,7 @@ module.exports = {
         const GENERATE_CONFIG = (file_name, mode = "ftp") => {
             // write the file
             return new Promise((resolve, reject) => {
-                MKDIRP(".config", () => {
+                MKDIRP(".config").then(() => {
                     // open the file
                     plugins.fs.stat(`.config/${file_name}`, (err) => {
                         // make sure the file doesn't exist (or otherwise has an error)

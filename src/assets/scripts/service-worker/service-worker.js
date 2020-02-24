@@ -15,7 +15,7 @@ routing.registerRoute(
     new strategies.NetworkFirst({
         cacheName: "__gulp_init_namespace__-content-cache",
         plugins: [
-            new expiration.Plugin({
+            new expiration.ExpirationPlugin({
                 maxAgeSeconds: 7 * 24 * 60 * 60,
             }),
         ],
@@ -50,7 +50,7 @@ routing.registerRoute(
     new strategies.CacheFirst({
         cacheName: "__gulp_init_namespace__-image-cache",
         plugins: [
-            new expiration.Plugin({
+            new expiration.ExpirationPlugin({
                 maxAgeSeconds: 7 * 24 * 60 * 60,
             }),
         ],
@@ -65,7 +65,7 @@ routing.registerRoute(
     new strategies.CacheFirst({
         cacheName: "__gulp_init_namespace__-font-cache",
         plugins: [
-            new expiration.Plugin({
+            new expiration.ExpirationPlugin({
                 maxAgeSeconds: 7 * 24 * 60 * 60,
             }),
         ],
@@ -80,7 +80,7 @@ precaching.precacheAndRoute([
 ]);
 
 /**
- * Return "offline" page when visiting pages offlien that haven't been cached
+ * Return "offline" page when visiting pages offline that haven't been cached
  */
 routing.setCatchHandler(() => {
     return caches.match("/offline/");

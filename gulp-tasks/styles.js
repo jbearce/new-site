@@ -173,28 +173,28 @@ module.exports = {
                 console.log(`  Generating critical CSS, this may take up to ${EST_ARRAY[1]}m ${EST_ARRAY[2]}s, go get some ☕`);
 
                 // create the "critical" directory
-                MKDIRP(`${css_directory}/critical`);
+                MKDIRP(`${css_directory}/critical`).then(() => {
+                    for (let i = 0, p = Promise.resolve(); i < KEYS.length; i++) {
+                        ACCUMULATOR.push(p = p.then(() => new Promise(resolve =>
+                            (() => {
+                                console.log(`  \u001b[33m! \u001b[0mGenerating ${css_directory}/critical/${KEYS[i]}.css from ${SITEMAP[KEYS[i]]}`);
 
-                for (let i = 0, p = Promise.resolve(); i < KEYS.length; i++) {
-                    ACCUMULATOR.push(p = p.then(() => new Promise(resolve =>
-                        (() => {
-                            console.log(`  \u001b[33m! \u001b[0mGenerating ${css_directory}/critical/${KEYS[i]}.css from ${SITEMAP[KEYS[i]]}`);
+                                CRITICAL.generate({
+                                    base: `${css_directory}/critical`,
+                                    dest: `${KEYS[i]}.css`,
+                                    dimensions: [1920, 1080],
+                                    ignore: ["@font-face", "@import"],
+                                    minify: true,
+                                    src: `${SITEMAP[KEYS[i]]}?disable=critical_css`
+                                }).then(() => {
+                                    console.log("  \u001b[32m✔\u001b[0m Success!");
 
-                            CRITICAL.generate({
-                                base: `${css_directory}/critical`,
-                                dest: `${KEYS[i]}.css`,
-                                dimensions: [1920, 1080],
-                                ignore: ["@font-face", "@import"],
-                                minify: true,
-                                src: `${SITEMAP[KEYS[i]]}?disable=critical_css`
-                            }).then(() => {
-                                console.log("  \u001b[32m✔\u001b[0m Success!");
-
-                                resolve();
-                            });
-                        })()
-                    )));
-                }
+                                    resolve();
+                                });
+                            })()
+                        )));
+                    }
+                });
 
                 Promise.all(ACCUMULATOR).then(() => {
                     resolve(true);

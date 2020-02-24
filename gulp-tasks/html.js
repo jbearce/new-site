@@ -85,7 +85,7 @@ module.exports = {
         const GENERATE_POT = (html_directory, source = `${global.settings.paths.src}/**/*.php`) => {
             const PACKAGE_DATA = plugins.json.readFileSync("package.json");
 
-            MKDIRP(`${html_directory}/languages`, () => {
+            MKDIRP(`${html_directory}/languages`).then(() => {
                 try {
                     WP_POT({
                         bugReport: PACKAGE_DATA.bugs.url,

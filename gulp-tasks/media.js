@@ -29,7 +29,7 @@ module.exports = {
                 .pipe(plugins.gulpif(!plugins.argv.dist, plugins.newer(MEDIA_DIRECTORY)))
                 // compress images
                 .pipe(IMAGEMIN([
-                    IMAGEMIN.jpegtran({
+                    IMAGEMIN.mozjpeg({
                         progressive: true
                     }),
                     IMAGEMIN.svgo({
