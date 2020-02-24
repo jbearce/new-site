@@ -28,12 +28,11 @@ add_filter("acf/update_value", "__gulp_init_namespace___acf_remove_sep_character
  *
  * @return string
  */
-function __gulp_init_namespace___acf_delay_shortcode_expansion(string $value = ""): string {
+function __gulp_init_namespace___acf_delay_shortcode_expansion(): void {
     remove_filter("acf_the_content", "do_shortcode", 11);
     add_filter("acf_the_content", "do_shortcode", 25);
-    if ($value !== null) return $value;
 }
-add_action("acf/update_value/type=wysiwyg", "__gulp_init_namespace___acf_delay_shortcode_expansion");
+add_action("wp", "__gulp_init_namespace___acf_delay_shortcode_expansion");
 
 // remove wpautop stuff from shortcodes
 add_action("acf_the_content", "__gulp_init_namespace___fix_shortcodes", 15);
