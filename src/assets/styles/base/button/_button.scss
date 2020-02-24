@@ -23,7 +23,7 @@
         transition: background-color 0.15s;
     }
 
-    &:active {
+    &:not(.button--disabled):active {
         background-color: color("primary", "shade");
     }
 }
