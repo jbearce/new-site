@@ -312,7 +312,7 @@ class __gulp_init_namespace___menu_walker extends Walker_Nav_Menu {
         }
 
         /**
-         * Custruct the ul
+         * Construct the ul
          */
         $output .= "{$toggle}<ul id='{$this->current_item}_child' class='menu-list menu-list--vertical menu-list--child{$variant}'{$attr}>";
     }
