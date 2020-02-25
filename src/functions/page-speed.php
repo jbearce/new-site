@@ -126,8 +126,8 @@ function __gulp_init_namespace___make_styles_async(string $tag, string $handle, 
     $is_external  = __gulp_init_namespace___is_external_url($src);
     $is_other     = __gulp_init_namespace___is_other_asset($src);
 
-    if (! is_admin() && ! $is_login && ($critical_css || $is_external || $is_other) && ! in_array($handle, [])) {
-        $tag = str_replace("media='all'", (! (isset($_GET["debug"]) && $_GET["debug"] === "critical_css") ? "media='print' onload=\"this.media='all'\"" : "media='all'"), $tag) . "<noscript>{$tag}</noscript>";
+    if (! is_admin() && ! $is_login && ($critical_css || $is_external || $is_other) && ! in_array($handle, []) && ! (isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
+        $tag = str_replace("media='all'", "media='print' onload=\"this.media='all'\"", $tag) . "<noscript>{$tag}</noscript>";
     }
 
     return $tag;

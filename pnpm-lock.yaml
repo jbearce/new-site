@@ -6,7 +6,6 @@ dependencies:
   '@fortawesome/pro-solid-svg-icons': 5.12.1
   body-scroll-lock: 2.6.4
   debounce: 1.2.0
-  fg-loadcss: 2.1.0
   focus-trap: 5.1.0
   focus-visible: 5.0.2
   gutenberg-web-type: 1.2.3
@@ -4211,6 +4210,7 @@ packages:
       integrity: sha1-JcfInLH5B3+IkbvmHY85Dq4lbx4=
   /fg-loadcss/2.1.0:
     dev: false
+    optional: true
     resolution:
       integrity: sha512-HpvR2uRoKvrYAEwimw+k4Fr2NVHYPfld5Lc/f9uy3mKeUTXhS5urL24XA2rqyq5b2i410EXCLir4Uhsb8J1QaQ==
   /figgy-pudding/3.5.1:
@@ -12051,7 +12051,6 @@ specifiers:
   debounce: ^1.2.0
   del: ^5.1.0
   dotenv: ^8.2.0
-  fg-loadcss: ^2.1.0
   focus-trap: ^5.1.0
   focus-visible: ^5.0.2
   glob: ^7.1.6
