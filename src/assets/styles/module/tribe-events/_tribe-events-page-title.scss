@@ -1,0 +1,16 @@
+// Styles written by __gulp_init_author_name__ @ __gulp_init_author_company__
+
+/* ------------------------------------------------------------------------ *\
+ * Tribe Events Pagination (https://theeventscalendar.com/)
+\* ------------------------------------------------------------------------ */
+
+.tribe-events-page-title {
+    & {
+        color: color("foreground");
+        font-family: $heading-font;
+        font-size: remify(48, 16);
+        font-weight: 700;
+        line-height: remify(57.6, 48);
+        margin: remify(0 0 10);
+    }
+}

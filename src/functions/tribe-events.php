@@ -308,21 +308,6 @@ function __gulp_init_namespace___tribe_force_page_templates(string $template): s
 add_filter("template_include", "__gulp_init_namespace___tribe_force_page_templates");
 
 /**
- * Dequeue & deregister tribe calendar styles, keep bootstrap datepicker
- *
- * @return void
- */
-function __gulp_init_namespace___tribe_dequeue_calendar_styles(): void {
-    wp_dequeue_style("tribe-events-calendar-style", 999);
-    wp_deregister_style("tribe-events-calendar-style");
-
-    if (__gulp_init_namespace___is_tribe_page()) {
-        wp_enqueue_style("tribe-events-bootstrap-datepicker-css");
-    }
-}
-add_action("wp_enqueue_scripts", "__gulp_init_namespace___tribe_dequeue_calendar_styles");
-
-/**
  * Remove the tribe events promo
  *
  * @return bool
@@ -340,6 +325,7 @@ add_action("tribe_events_promo_banner", "__gulp_init_namespace___tribe_disable_p
 function __gulp_init_namespace___tribe_remove_content_filters(): void {
     if (__gulp_init_namespace___is_tribe_page()) {
         remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+        remove_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
         remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
     }
 }
@@ -352,6 +338,7 @@ add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters")
  */
 function __gulp_init_namespace___tribe_single_content_add_filters(): void {
     add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+    add_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
     add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
 }
 add_action("tribe_events_single_event_before_the_content", "__gulp_init_namespace___tribe_single_content_add_filters");
@@ -363,45 +350,10 @@ add_action("tribe_events_single_event_before_the_content", "__gulp_init_namespac
  */
 function __gulp_init_namespace___tribe_single_content_remove_filters(): void {
     remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+    remove_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
     remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
 }
 add_action("tribe_events_single_event_after_the_content", "__gulp_init_namespace___tribe_single_content_remove_filters");
-
-/**
- * Add 'menu-list_link link' to list of classes for tribe monthly pagination link
- *
- * @param  string $html
- *
- * @return string
- */
-function __gulp_init_namespace___tribe_add_pagination_menu_link_class(string $html): string {
-    if ($html) {
-        $DOM = new DOMDocument();
-
-        // disable errors to get around HTML5 warnings...
-        libxml_use_internal_errors(true);
-
-        // load in content
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
-
-        // reset errors to get around HTML5 warnings...
-        libxml_clear_errors();
-
-        $anchors = $DOM->getElementsByTagName("a");
-
-        foreach ($anchors as $anchor) {
-            $anchor->setAttribute("class", "menu-list__link link {$anchor->getAttribute("class")}");
-        }
-
-        // remove unneeded tags (inserted for parsing reasons)
-        $html = __gulp_init_namespace___remove_extra_tags($DOM);
-    }
-
-    return $html;
-}
-add_filter("tribe_events_the_previous_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
-add_filter("tribe_events_the_next_month_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
-add_filter("tribe_the_day_link", "__gulp_init_namespace___tribe_add_pagination_menu_link_class");
 
 /**
  * Add 'title--divider' class to tribe date headers
@@ -551,7 +503,7 @@ function __gulp_init_namespace___tribe_add_class_to_featured_image(string $featu
         $images = $DOM->getElementsByTagName("img");
 
         foreach ($images as $image) {
-            $image->setAttribute("class", "article__image {$image->getAttribute("class")}");
+            $image->setAttribute("class", "figure__image {$image->getAttribute("class")}");
         }
 
         // remove unneeded tags (inserted for parsing reasons)
@@ -595,40 +547,6 @@ function __gulp_init_namespace___tribe_add_events_title_link_class(string $title
     return $title;
 }
 add_filter("tribe_events_title", "__gulp_init_namespace___tribe_add_events_title_link_class");
-
-/**
- * Add 'input' class to tribe events bar inputs
- *
- * @param  string $html
- *
- * @return string
- */
-function __gulp_init_namespace___tribe_add_bar_input_class(string $html): string {
-    if ($html) {
-        $DOM = new DOMDocument();
-
-        // disable errors to get around HTML5 warnings...
-        libxml_use_internal_errors(true);
-
-        // load in content
-        $DOM->loadHTML(mb_convert_encoding("<html><body>{$html}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
-
-        // reset errors to get around HTML5 warnings...
-        libxml_clear_errors();
-
-        $inputs = $DOM->getElementsByTagName("input");
-
-        foreach ($inputs as $input) {
-            $input->setAttribute("class", "tribe-bar-filters-input {$input->getAttribute("class")}");
-        }
-
-        // remove unneeded tags (inserted for parsing reasons)
-        $html = __gulp_init_namespace___remove_extra_tags($DOM);
-    }
-
-    return $html;
-}
-add_filter("__gulp_init_namespace___tribe_add_bar_input_class", "__gulp_init_namespace___tribe_add_bar_input_class");
 
 /**
  * Remove recurring events duplicates from search results

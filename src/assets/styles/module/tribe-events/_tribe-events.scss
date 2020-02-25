@@ -7,16 +7,12 @@
 @import "_tribe-events-bar";
 @import "_tribe-events-calendar";
 @import "_tribe-events-meta-list";
+@import "_tribe-events-nav-pagination";
 @import "_tribe-events-notices";
+@import "_tribe-events-page-title";
 
 .tribe-events-ajax-loading {
     & {
         display: none;
-    }
-}
-
-.tribe-events__menu-list__container {
-    .menu-list--pagination {
-        margin-bottom: remify(16, 16);
     }
 }

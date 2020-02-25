@@ -4,14 +4,16 @@
  * Tribe Events Bar (https://theeventscalendar.com/)
 \* ------------------------------------------------------------------------ */
 
-.tribe-events-bar {
+/* stylelint-disable selector-max-id */
+
+#tribe-events-bar {
     & {
         position: relative;
         z-index: 1;
     }
 }
 
-.tribe-bar-collapse-toggle {
+#tribe-bar-collapse-toggle {
     & {
         align-items: center;
         background: color("background", "shade");
@@ -37,11 +39,11 @@
         background-color: color("background", "shade");
     }
 
-    .tribe-bar-collapse-toggle-icon {
+    .tribe-bar-toggle-arrow {
         transition: transform 0.15s;
     }
 
-    &.tribe-bar-filters-open .tribe-bar-collapse-toggle-icon {
+    &.tribe-bar-filters-open .tribe-bar-toggle-arrow {
         transform: rotate(-180deg);
     }
 
@@ -51,14 +53,14 @@
     }
 }
 
-.tribe-bar-form {
+#tribe-bar-form {
     &.tribe-bar-full,
     &.tribe-bar-mini {
         display: flex;
     }
 }
 
-.tribe-bar-filters-wrap {
+#tribe-bar-filters-wrap {
     & {
         position: relative;
     }
@@ -97,7 +99,8 @@
     }
 }
 
-.tribe-bar-filters-filter {
+.tribe-bar-date-filter,
+.tribe-bar-search-filter {
     .tribe-bar-full &,
     .tribe-bar-mini & {
         flex: 1 1 0%;
@@ -105,7 +108,8 @@
     }
 }
 
-.tribe-bar-filters-label {
+.label-tribe-bar-date,
+.label-tribe-bar-search {
     & {
         color: color("foreground");
         display: block;
@@ -117,7 +121,8 @@
     }
 }
 
-.tribe-bar-filters-input {
+#tribe-bar-date,
+#tribe-bar-search {
     & {
         background: color("background");
         border: remify(1) solid color("foreground");
@@ -129,9 +134,14 @@
         padding: remify(7 10.5, 14);
         width: 100%;
     }
+
+    .tribe-bar-full &,
+    .tribe-bar-mini & {
+        margin-bottom: 0;
+    }
 }
 
-.tribe-bar-filters-button {
+.tribe-bar-submit .tribe-events-button {
     & {
         background: color("primary");
         border: remify(1) solid color("primary", "shade");
@@ -156,6 +166,7 @@
     .tribe-bar-full &,
     .tribe-bar-mini & {
         flex: 0 0 auto;
+        margin-bottom: 0;
         width: auto;
     }
 }
@@ -212,7 +223,7 @@
     }
 }
 
-.tribe-bar-views-label {
+#tribe-bar-views-label {
     & {
         color: color("foreground");
         display: block;
@@ -277,7 +288,7 @@
     }
 }
 
-.tribe-filter-live .datepicker {
+.datepicker {
     & {
         color: color("foreground");
         font-family: $body-font;
