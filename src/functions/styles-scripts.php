@@ -37,12 +37,6 @@ function __gulp_init_namespace___enqueue_scripts(): void {
     // dummy hook for inline scripts in the footer
     wp_register_script("__gulp_init_namespace__-scripts-footer-hook", "", [], "", true);
 
-    // critical scripts
-    if (! (isset($_GET["debug"]) && $_GET["debug"] === "critical_css")) {
-        $critical_scripts = file_get_contents(get_theme_file_path(__gulp_init_namespace___get_theme_file_path("assets/scripts/critical.*.js", true)));
-        wp_add_inline_script("__gulp_init_namespace__-scripts-footer-hook", $critical_scripts);
-    }
-
     // Service Worker
     $service_worker_uri = get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/service-worker.js", true));
     wp_add_inline_script("__gulp_init_namespace__-scripts-modern", "

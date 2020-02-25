@@ -81,7 +81,6 @@
     "yargs": "^15.1.0"
   },
   "dependencies": {
-    "@dotsunited/load-css-polyfill": "^1.2.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.27",
     "@fortawesome/free-brands-svg-icons": "^5.12.1",
     "@fortawesome/pro-light-svg-icons": "^5.12.1",
