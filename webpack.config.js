@@ -3,6 +3,7 @@
 // Scripts written by __gulp_init_author_name__ @ __gulp_init_author_company__
 
 const GLOB = require("glob");
+const WEBPACK = require("webpack");
 
 module.exports = {
     config(plugins, source_directory, js_directory) {
@@ -41,6 +42,11 @@ module.exports = {
                     return DATA.chunk.name !== "service-worker" ? "[name].[chunkhash:8].js" : "[name].js";
                 },
             },
+            plugins: [
+                new WEBPACK.DefinePlugin({
+                    __VERSION__: JSON.stringify(require("./package.json").version),
+                }),
+            ],
         };
     }
 };

@@ -76,7 +76,10 @@ routing.registerRoute(
  * Precache "offline" page
  */
 precaching.precacheAndRoute([
-    "/offline/",
+    {
+        url: "/offline/",
+        revision: __VERSION__,
+    },
 ]);
 
 /**

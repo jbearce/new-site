@@ -6,6 +6,7 @@
         "node": true
     },
     "globals": {
+        "__VERSION__",
         "l10n"
     },
     "parserOptions": {
