@@ -25,6 +25,6 @@ function __gulp_init_namespace___pwa_rewrite_rules(): void {
      * Rewrite requests to /media/ to /wp-content/themes/__gulp_init_npm_name__/assets/media/
      * to ensure no 404s occur when critical CSS is included
      */
-    add_rewrite_rule("media/(.*)$", parse_url(get_stylesheet_directory_uri(), PHP_URL_PATH) . "/assets/media/$1", "top");
+    add_rewrite_rule("media/(.*)$", str_replace(ABSPATH, "", get_stylesheet_directory()) . "/assets/media/$1", "top");
 }
 add_action("init", "__gulp_init_namespace___pwa_rewrite_rules");
