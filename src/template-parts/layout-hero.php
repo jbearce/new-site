@@ -30,11 +30,11 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                                 <figure class="swiper-slide">
 
                                     <?php if ($link && $link["url"]): ?>
-                                        <a class="swiper-link link" href="<?php echo $link["url"]; ?>"<?php if ($link["title"]): ?> title="<?php echo $link["title"]; ?>"<?php endif; ?><?php if ($link["target"]): ?> rel="noopener" target="<?php echo $link["target"]; ?>"<?php endif; ?>>
+                                        <a class="swiper__link link" href="<?php echo $link["url"]; ?>"<?php if ($link["title"]): ?> title="<?php echo $link["title"]; ?>"<?php endif; ?><?php if ($link["target"]): ?> rel="noopener" target="<?php echo $link["target"]; ?>"<?php endif; ?>>
                                     <?php endif; ?>
 
                                     <?php if ($image["sizes"]["{$image_size}"]): ?>
-                                        <picture class="swiper-picture">
+                                        <picture class="swiper__picture">
 
                                             <?php if ($image["sizes"]["{$image_size}_large"]): ?>
                                                 <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}_large"], ["class" => "swiper-lazy", "media" => "(min-width: 64em)"], true, "source"); ?>
@@ -45,32 +45,32 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                                             <?php endif; ?>
 
                                             <?php if ($image["sizes"]["{$image_size}"]): ?>
-                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], ["alt" => $image["alt"], "class" => "swiper-image swiper-lazy"]); ?>
+                                                <?php echo __gulp_init_namespace___img($image["sizes"]["{$image_size}"], ["alt" => $image["alt"], "class" => "swiper__image swiper-lazy"]); ?>
                                             <?php endif; ?>
 
-                                        </picture><!--/.swiper-picture-->
-                                    <?php endif; ?>
+                                        </picture><!--/.swiper__picture-->
+                                    <?php endif; // ($image["sizes"]["{$image_size}"]) ?>
 
                                     <?php if ($image["title"] || $image["caption"]): ?>
-                                        <figcaption class="swiper-caption">
-                                            <div class="swiper-caption-inner">
+                                        <figcaption class="swiper__caption">
+                                            <div class="swiper__caption__inner">
                                                 <?php if ($image["title"]): ?>
-                                                    <h6 class="swiper-title title<?php echo ! $image["caption"] ? " __nomargin" : ""; ?>">
+                                                    <h6 class="swiper__title title<?php echo ! $image["caption"] ? " __nomargin" : ""; ?>">
                                                         <?php echo $image["title"]; ?>
                                                     </h6>
                                                 <?php endif; ?>
 
                                                 <?php if ($image["caption"]): ?>
-                                                    <div class="swiper-user-content user-content user-content--light">
+                                                    <div class="swiper__user-content user-content user-content--light">
                                                         <?php echo apply_filters("the_content", $image["caption"]); ?>
                                                     </div>
                                                 <?php endif; ?>
-                                            </div><!--/.swiper-caption-inner-->
-                                        </figcaption><!--/.swiper-caption-->
-                                    <?php endif; ?>
+                                            </div><!--/.swiper__caption__inner-->
+                                        </figcaption><!--/.swiper__caption-->
+                                    <?php endif; // ($image["title"] || $image["caption"]) ?>
 
                                     <?php if ($link && $link["url"]): ?>
-                                        </a><!--/.swiper-link-->
+                                        </a><!--/.swiper__link-->
                                     <?php endif; ?>
 
                                 </figure><!--/.swiper-slide-->
@@ -79,7 +79,7 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                     <?php elseif ($featured_image): ?>
                         <figure class="swiper-slide">
 
-                            <picture class="swiper-picture">
+                            <picture class="swiper__picture">
 
                                 <?php if ($featured_image["large"]): ?>
                                     <?php echo __gulp_init_namespace___img($featured_image["large"], ["class" => "swiper-lazy", "media" => "(min-width: 64em)"], false, "source"); ?>
@@ -90,15 +90,15 @@ $slide_count = $slideshow ? count($slideshow) : 0;
                                 <?php endif; ?>
 
                                 <?php if ($featured_image["small"]): ?>
-                                    <?php echo __gulp_init_namespace___img($featured_image["small"], ["alt" => $featured_image["alt"], "class" => "swiper-image swiper-lazy"]); ?>
+                                    <?php echo __gulp_init_namespace___img($featured_image["small"], ["alt" => $featured_image["alt"], "class" => "swiper__image swiper-lazy"]); ?>
                                 <?php endif; ?>
 
                             </picture><!--/.swiper-picture-->
 
                             <?php if ($title): ?>
-                                <header class="swiper-caption">
-                                    <div class="swiper-caption-inner">
-                                        <h1 class="swiper-title title __nomargin" role="heading">
+                                <header class="swiper__caption">
+                                    <div class="swiper__caption__inner">
+                                        <h1 class="swiper__title title __nomargin" role="heading">
                                             <?php echo $title; ?>
                                         </h1>
                                     </div>
@@ -116,12 +116,12 @@ $slide_count = $slideshow ? count($slideshow) : 0;
 
                     <?php if ($pagination): ?>
                         <button class="swiper-button swiper-button--prev">
-                            <i class="swiper-button-icon fas fa-caret-left"></i>
+                            <i class="swiper-button__icon fas fa-caret-left"></i>
                             <span class="__visuallyhidden"><?php _e("Previous Slide", "__gulp_init_namespace__"); ?></span>
                         </button>
 
                         <button class="swiper-button swiper-button--next">
-                            <i class="swiper-button-icon fas fa-caret-right"></i>
+                            <i class="swiper-button__icon fas fa-caret-right"></i>
                             <span class="__visuallyhidden"><?php _e("Next Slide", "__gulp_init_namespace__"); ?></span>
                         </button>
                     <?php endif; ?>

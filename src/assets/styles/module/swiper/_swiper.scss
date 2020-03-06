@@ -23,13 +23,13 @@
     }
 }
 
-.swiper-picture {
+.swiper__picture {
     & {
         flex: none;
     }
 }
 
-.swiper-image {
+.swiper__image {
     & {
         display: block;
         width: 100%;
@@ -49,31 +49,31 @@
     }
 }
 
-.swiper-caption {
+.swiper__caption {
     & {
         background: color("dark");
         flex: 1 1 auto;
         padding: remify(($content-padding * 0.75) $content-padding);
     }
 
-    .swiper-caption-inner {
+    .swiper__caption__inner {
         margin: 0 auto;
         max-width: remify($site-width, 16);
     }
 
-    .swiper-container--fullbleed & .swiper-caption-inner {
+    .swiper-container--fullbleed & .swiper__caption__inner {
         max-width: none;
     }
 }
 
-.swiper-title {
+.swiper__title {
     & {
         color: color("light");
         font-size: remify(32, 16);
     }
 }
 
-.swiper-user-content {
+.swiper__user-content {
     > :last-child {
         margin-bottom: 0 !important;
     }
@@ -81,40 +81,33 @@
 
 .swiper-button {
     & {
+        align-items: center;
         background: none;
         border: 0;
         color: color("primary");
         cursor: pointer;
-        display: block;
+        display: flex;
+        font-size: remify(50, 16);
         height: 100%;
+        justify-content: center;
         margin: 0;
         opacity: 0;
         padding: 0;
         position: absolute;
         top: 0;
         transition: opacity 0.15s;
-        width: remify(55, 16);
+        width: remify(50, 50);
         z-index: 999;
     }
 
-    &.swiper-button--prev {
-        background: none;
-        left: 0;
-    }
-
-    .swiper-container-rtl &.swiper-button--prev {
-        background: none;
-        right: 0;
-    }
-
-    &.swiper-button--next {
-        background: none;
-        right: 0;
-    }
-
+    &.swiper-button--prev,
     .swiper-container-rtl &.swiper-button--next {
-        background: none;
         left: 0;
+    }
+
+    &.swiper-button--next,
+    .swiper-container-rtl &.swiper-button--prev {
+        right: 0;
     }
 
     .swiper-container:hover & {
@@ -124,14 +117,6 @@
     .swiper-container:hover &:hover,
     .swiper-container:hover &:focus {
         opacity: 1;
-    }
-
-    .swiper-button-icon {
-        font-size: remify(48, 16);
-        left: 50%;
-        position: absolute;
-        top: 50%;
-        transform: translateX(-50%) translateY(-50%);
     }
 }
 
