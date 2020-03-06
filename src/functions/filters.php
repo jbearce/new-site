@@ -611,6 +611,8 @@ add_filter("bloginfo", "__gulp_init_namespace___decode_html_entities_in_blog_des
 function __gulp_init_namespace___acrobat_link(): void {
     global $post;
 
+    if (! is_singular()) return;
+
     if ($post) {
         $has_pdf = false;
         $content = get_the_content();
