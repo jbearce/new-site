@@ -150,37 +150,14 @@ function __gulp_init_namespace___critical_css(): void {
 add_action("wp_head", "__gulp_init_namespace___critical_css", 5, 0);
 
 /**
- * Cache Google Analytics JavaScript to better control how it loads (updates every 2 hours)
+ * Move ExactMetrics output to footer
  *
- * @param  string $url
- *
- * @return string
+ * @return void
  */
-function __gulp_init_namespace___cache_google_analytics(string $url): string {
-    $local_path = WP_CONTENT_DIR . "/cache/scripts/analytics.js";
-
-    if (! file_exists($local_path) || date("c", filemtime($local_path)) <= date("c", strtotime("-2 hours"))) {
-        $curl = curl_init();
-
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_BINARYTRANSFER, true);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $script = curl_exec($curl);
-
-        curl_close($curl);
-
-        if (! is_dir(WP_CONTENT_DIR . "/cache")) {
-            mkdir(WP_CONTENT_DIR . "/cache");
-        }
-
-        if (! is_dir(WP_CONTENT_DIR . "/cache/scripts")) {
-            mkdir(WP_CONTENT_DIR . "/cache/scripts");
-        }
-
-        file_put_contents($local_path, $script);
+function __gulp_init_namespace___exactmetrics_footer_output(): void {
+    if (function_exists("exactmetrics_tracking_script")) {
+        remove_action("wp_head", "exactmetrics_tracking_script", 6);
+        add_action("wp_footer", "exactmetrics_tracking_script", 6);
     }
-
-    return WP_CONTENT_URL . "/cache/scripts/analytics.js";
 }
-add_filter("gadwp_analytics_script_path", "__gulp_init_namespace___cache_google_analytics");
+add_action("wp", "__gulp_init_namespace___exactmetrics_footer_output");
