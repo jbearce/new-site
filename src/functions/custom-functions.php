@@ -1,6 +1,6 @@
 <?php
 /* ------------------------------------------------------------------------ *\
-* Custom Functions
+ * Custom Functions
 \* ------------------------------------------------------------------------ */
 
 /**
@@ -58,7 +58,7 @@ function __gulp_init_namespace___get_theme_file_path(string $path, bool $skip_ch
 
     /**
      * Both stylesheet_directory and template_directory need to be checked
-     * in order to account for the possibilty of child theme overrides.
+     * in order to account for the possibility of child theme overrides.
      */
 
     /**
@@ -200,7 +200,7 @@ function __gulp_init_namespace___img($src, array $atts = [], bool $lazy = true, 
     $element = "<{$tag}";
 
     /**
-     * If provided URL is an array, consturct an `srcset` attribute pointing
+     * If provided URL is an array, construct an `srcset` attribute pointing
      * to the `1x` resolution, and an srcset containing each possible resolution.
      */
     if (gettype($src) === "array") {
@@ -332,7 +332,7 @@ function __gulp_init_namespace___get_sentences(string $content, int $length = 2)
     $sentences = preg_split("/(\.|\?|\!)(\s)/", $content);
 
     /**
-     * Return the stripped content if less than $lenght sentences exist in the content
+     * Return the stripped content if less than $length sentences exist in the content
      */
     if (count($sentences) <= $length) {
         return $content;
@@ -433,7 +433,7 @@ function __gulp_init_namespace___get_the_excerpt(int $id = 0, array $options = [
  * @param array<string> $address  An array keyed with `line_1`, `line_2`, `city`, `state`, and `zip_code`
  * @param int $lines  Number of lines between 1 and 3 to format the address in to
  *
- * @return string  Huamn readable address
+ * @return string  Human readable address
  */
 function __gulp_init_namespace___format_address(array $address = [], int $lines = 1): string {
     $output = "";
@@ -560,7 +560,7 @@ function __gulp_init_namespace___are_dates_sequential(string $date_start, string
 }
 
 /**
- * Get a unique "No posts found" mesage for various types of pages
+ * Get a unique "No posts found" message for various types of pages
  *
  * @param object $queried_object  The result of get_queried_object()
  *

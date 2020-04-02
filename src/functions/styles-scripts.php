@@ -82,7 +82,7 @@ function __gulp_init_namespace___enqueue_scripts(): void {
 add_action("wp_enqueue_scripts", "__gulp_init_namespace___enqueue_scripts");
 
 /**
- * Add noscript tag to the head to hide elemetns with the .__js class if script isn't enabled
+ * Add noscript tag to the head to hide elements with the .__js class if script isn't enabled
  *
  * @return void
  */

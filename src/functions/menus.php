@@ -448,7 +448,7 @@ if (is_admin() && $pagenow === "nav-menus.php") {
             // duplicate the template
             $markup = $templates[$field["type"]];
 
-            // replace shared placeholdres
+            // replace shared placeholders
             if ($item !== null) {
                 $markup = str_replace("{{ item_id }}", $item->ID, $markup);
                 $markup = str_replace("{{ item_value }}", $item_value, $markup);

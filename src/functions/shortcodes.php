@@ -28,7 +28,7 @@ function __gulp_init_namespace___row_shortcode($atts, string $content = ""): str
 add_shortcode("row", "__gulp_init_namespace___row_shortcode");
 
 /**
- * Shortcode for usrs to add columns to the content region
+ * Shortcode for users to add columns to the content region
  *
  * @example [col mobile=12 tablet=6 notebook=4 desktop=auto class="col--nogrow col--noshrink"]
  *
