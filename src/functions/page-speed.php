@@ -100,7 +100,7 @@ add_action("init", "__gulp_init_namespace___disable_emoji");
  * @return string
  */
 function __gulp_init_namespace___make_scripts_async(string $tag, string $handle): string {
-    if (! is_admin() && ! in_array($handle, [])) {
+    if (! is_admin() && ! in_array($handle, ["jquery-core"])) {
         $tag = str_replace(" src=", " defer='defer' src=", $tag);
     }
 
