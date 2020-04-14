@@ -215,6 +215,27 @@ function __gulp_init_namespace___is_tribe_page(): array {
 /* FILTERS */
 
 /**
+ * Change order of scripts so that `tribe-events-views-v2-viewport` always comes after `tribe-events-views-v2-manager`
+ *
+ * @return void
+ */
+function __gulp_init_namespace___tribe_events_fix_scripts_order(): void {
+    global $wp_scripts;
+
+    /**
+     * Move `viewport` script to depend on `manager` to prevent deferment issues
+     */
+    if (array_key_exists ("tribe-events-views-v2-viewport", $wp_scripts->registered) && array_key_exists ("tribe-events-views-v2-manager", $wp_scripts->registered)) {
+        foreach ($wp_scripts->registered["tribe-events-views-v2-manager"]->deps as $key => $dep) {
+            if ($dep === "tribe-events-views-v2-viewport") {
+                unset($wp_scripts->registered["tribe-events-views-v2-manager"]->deps[$key]); break;
+            }
+        }
+    }
+}
+add_action("wp_enqueue_scripts", "__gulp_init_namespace___tribe_events_fix_scripts_order", 20);
+
+/**
  * Use correct Tribe templates, if they exist
  *
  * @param  string $template
