@@ -251,45 +251,6 @@ function __gulp_init_namespace___tribe_force_page_templates(string $template): s
 add_filter("template_include", "__gulp_init_namespace___tribe_force_page_templates", 50);
 
 /**
- * Remove __gulp_init_namespace___add_user_content_classes from tribe events pages
- *
- * @return void
- */
-function __gulp_init_namespace___tribe_remove_content_filters(): void {
-    if (__gulp_init_namespace___is_tribe_page()) {
-        remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-        remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-    }
-}
-add_action("loop_start", "__gulp_init_namespace___tribe_remove_content_filters");
-
-/**
- * Add __gulp_init_namespace___add_user_content_classes filter to the_content before tribe events single content
- *
- * @return void
- */
-function __gulp_init_namespace___tribe_single_content_add_filters(): void {
-    echo "<div class='tribe-events__user-content user-content'>";
-
-    add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-    add_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-}
-add_action("tribe_events_single_event_before_the_content", "__gulp_init_namespace___tribe_single_content_add_filters");
-
-/**
- * Remove __gulp_init_namespace___add_user_content_classes filter from the_content after tribe events single content
- *
- * @return void
- */
-function __gulp_init_namespace___tribe_single_content_remove_filters(): void {
-    echo "</div>";
-
-    remove_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-    remove_filter("the_content", "__gulp_init_namespace___lazy_load_images", 20);
-}
-add_action("tribe_events_single_event_after_the_content", "__gulp_init_namespace___tribe_single_content_remove_filters");
-
-/**
  * Remove recurring events duplicates from search results
  *
  * @see https://www.relevanssi.com/knowledge-base/showing-one-recurring-event/
