@@ -70,7 +70,7 @@ $padding-top:    10;
     }
 }
 
-.input--arrow {
+.input--select-arrow {
     & {
         background-image: svg-load("../media/vendor/fas-sort.svg", fill=#{color("foreground")});
         background-position: center right remify($padding-right, $font-size);
@@ -80,10 +80,9 @@ $padding-top:    10;
     }
 }
 
-/* checkbox & radiobutton variants */
+/* toggle variants */
 
-.input--checkbox,
-.input--radiobutton {
+.input--toggle {
     & {
         border-width: remify(1);
         cursor: pointer;
@@ -120,7 +119,7 @@ $padding-top:    10;
     }
 }
 
-.input--checkbox {
+.input--toggle-checkbox {
     &:checked {
         background-color: color("accent");
         border-color: color("accent");
@@ -136,7 +135,7 @@ $padding-top:    10;
     }
 }
 
-.input--radiobutton {
+.input--toggle-radio {
     & {
         border-radius: 50%;
     }
@@ -174,7 +173,7 @@ _:-ms-input-placeholder,
 }
 
 _:-ms-input-placeholder,
-:root .input--arrow {
+:root .input--select-arrow {
     & {
         padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)} - 3px);
     }
@@ -186,7 +185,7 @@ _:-ms-input-placeholder,
         padding: remify($padding-top, $font-size) remify($padding-right, $font-size) remify($padding-bottom, $font-size) remify($padding-left, $font-size);
     }
 
-    .input--arrow {
+    .input--select-arrow {
         padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)});
     }
 }
@@ -202,7 +201,7 @@ _:future,
 
 _::-webkit-full-page-media,
 _:future,
-:root .input--arrow {
+:root .input--select-arrow {
     & {
         padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)});
     }
@@ -214,7 +213,7 @@ _:future,
         padding: calc(#{remify($padding-top, $font-size)} - 1px) calc(#{remify($padding-right, $font-size)} - 2px) calc(#{remify($padding-bottom, $font-size)} - 1px) calc(#{remify($padding-left, $font-size)} - 2px);
     }
 
-    .input--arrow {
+    .input--select-arrow {
         padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)} - 2px);
     }
 }
@@ -225,7 +224,7 @@ _:future,
         padding: remify($padding-top, $font-size) calc(#{remify($padding-right, $font-size)} - 4px) remify($padding-bottom, $font-size) calc(#{remify($padding-left, $font-size)} - 4px);
     }
 
-    .input--arrow {
+    .input--select-arrow {
         padding-right: calc(#{$icon-size} + #{remify($padding-right * 2, $font-size)} - 4px);
     }
 }

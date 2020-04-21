@@ -76,11 +76,11 @@
     }
 
     ol {
-        @extend .text--ordered !optional;
+        @extend .text--list-ordered !optional;
     }
 
     ul {
-        @extend .text--list !optional;
+        @extend .text--list-unordered !optional;
     }
 
     table {

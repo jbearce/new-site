@@ -10,7 +10,7 @@
         <input type="radio"
                id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}"
                name="nf-field-{{{ data.fieldID }}}"
-               class="{{{ data.classes }}} nf-element {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked' : '' }}} nf-input input input--radiobutton" value="{{{ data.value }}}" {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'checked="checked"' : '' }}}
+               class="{{{ data.classes }}} nf-element {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'nf-checked' : '' }}} nf-input input input--toggle input--toggle-radio" value="{{{ data.value }}}" {{{ ( data.value == data.currentValue  || 1 == data.selected ) ? 'checked="checked"' : '' }}}
             aria-labelledby="nf-label-class-field-{{{ data.fieldID }}}-{{{ data.index }}}"
             <# if( data.required ) { #>
             required
@@ -25,7 +25,7 @@
 
 <script id='tmpl-nf-field-listradio-other' type='text/template'>
     <li class="list-radio__item">
-        <input type="radio" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input input--radiobutton" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}> <label class="nf-text text text--label">Other {{{ data.renderOtherText() }}}</label>
+        <input type="radio" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input input--toggle input--toggle-radio" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}> <label class="nf-text text text--label">Other {{{ data.renderOtherText() }}}</label>
     </li>
 </script>
 

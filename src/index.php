@@ -3,12 +3,12 @@
 get_extended_template_part("layout", "hero", [
     "post" => $post,
     "class" => [
-        "block" => "hero-block--fullbleed __nopadding",
-        "inner" => "hero__inner--fullbleed",
+        "block" => "__nopadding",
+        "inner" => "hero__inner--width-100",
     ],
 ]);
 ?>
-<div class="content-block content-block--fullbleed">
+<div class="content-block">
     <div class="content__inner">
         <div class="content_row row row--padded">
             <div class="col-12 col-xs-8">

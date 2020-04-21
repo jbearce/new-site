@@ -7,7 +7,7 @@
 <script id='tmpl-nf-field-listcheckbox-option' type='text/template'>
     <# if ( ! data.visible ) { return '' } #>
     <li class="list-checkbox__item">
-        <input type="checkbox" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element {{{ ( data.isSelected ) ? ' nf-checked' : '' }}} nf-input input input--checkbox" value="{{{ data.value }}}" {{{ ( data.isSelected ) ? 'checked="checked"' : '' }}}
+        <input type="checkbox" id="nf-field-{{{ data.fieldID }}}-{{{ data.index }}}" name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element {{{ ( data.isSelected ) ? ' nf-checked' : '' }}} nf-input input input--toggle input--toggle-checkbox" value="{{{ data.value }}}" {{{ ( data.isSelected ) ? 'checked="checked"' : '' }}}
             aria-labelledby="nf-label-field-{{{ data.fieldID }}}-{{{ data.index }}}"
             <# if( data.required ) { #>
             required
@@ -23,7 +23,7 @@
     <li class="list-checkbox__item" {{{ ( ! data.visible ) ? 'style="display:none"' : '' }}}>
         <input type="checkbox"
                id="nf-field-{{{ data.fieldID }}}-other"
-               name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input input--checkbox" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}
+               name="nf-field-{{{ data.fieldID }}}" class="{{{ data.classes }}} nf-element nf-input input input--toggle input--toggle-checkbox" value="nf-other" {{{ ( ! data.valueFound ) ? 'checked="checked"' : '' }}}
             aria-labelledby="nf-label-field-{{{ data.fieldID }}}-other"
             <# if( data.required ) { #>
             required

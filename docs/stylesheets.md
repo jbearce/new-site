@@ -39,7 +39,7 @@ In many cases, we treat child blocks as a kind of element of a parent block. For
 
 Modifiers are flags on blocks or elements. Use them to change appearance or behavior.
 
-New modifiers should be placed within their parent block or element stylehseet, after the initial ruleset, and named as `{block}--{modifier}`. A few examples of this include `menu-list--navigation`, `content-block--fullbleed`, and `swiper-container--hero`.
+New modifiers should be placed within their parent block or element stylehseet, after the initial ruleset, and named as `{block}--{modifier}`. A few examples of this include `menu-list--navigation`, `row--padded-tight`, and `swiper-container--hero`.
 
 #### Helpers
 

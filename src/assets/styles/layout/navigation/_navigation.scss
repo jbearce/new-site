@@ -8,11 +8,14 @@
     & {
         @include layer("navigation");
     }
+
+    & {
+        background: color("accent");
+    }
 }
 
 .navigation__inner {
     & {
-        background: color("accent");
         margin: 0 auto;
         max-width: remify($site-width);
         max-width: calc(#{remify($site-width)} + #{remify(16 * 2, 20)});
@@ -29,22 +32,6 @@
     & {
         display: block;
         width: 100%;
-    }
-}
-
-/* fullbleed variant */
-
-.navigation-block--fullbleed {
-    & {
-        background: color("accent");
-    }
-
-    > .navigation__inner {
-        background: none;
-    }
-
-    > .navigation__inner--fullbleed {
-        max-width: none;
     }
 }
 

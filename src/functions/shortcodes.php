@@ -6,7 +6,7 @@
 /**
  * Shortcode for users to add rows to the content region
  *
- * @example [row class="row--padded row--tight"]
+ * @example [row class="row--padded-tight"]
  *
  * @param  array<string>|string $atts
  * @param  string $content
@@ -30,7 +30,7 @@ add_shortcode("row", "__gulp_init_namespace___row_shortcode");
 /**
  * Shortcode for users to add columns to the content region
  *
- * @example [col mobile=12 tablet=6 notebook=4 desktop=auto class="col--nogrow col--noshrink"]
+ * @example [col mobile=12 tablet=6 notebook=4 desktop=auto class="col--grow-0 col--shrink-0"]
  *
  * @param  array<string>|string $atts
  * @param  string $content

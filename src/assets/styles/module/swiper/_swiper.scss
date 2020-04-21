@@ -4,8 +4,6 @@
  * Swiper (http://idangero.us/swiper/)
 \* ------------------------------------------------------------------------ */
 
-/* stylelint-disable selector-class-pattern */
-
 // Vendor
 
 @use "swiper/dist/css/swiper.css";
@@ -35,7 +33,7 @@
         width: 100%;
     }
 
-    .swiper-container--fixedheight & {
+    .swiper-container--height-auto & {
         left: 50%;
         min-width: 100%;
         position: relative;
@@ -45,7 +43,7 @@
 
     // hack to prevent square placeholder images
     &.lazyloading {
-        height: remify(1);
+        height: 1px;
     }
 }
 
@@ -59,10 +57,6 @@
     .swiper__caption__inner {
         margin: 0 auto;
         max-width: remify($site-width, 16);
-    }
-
-    .swiper-container--fullbleed & .swiper__caption__inner {
-        max-width: none;
     }
 }
 

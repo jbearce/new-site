@@ -46,11 +46,11 @@
         margin: 0;
     }
 
-    > .toggle__icon {
+    .toggle__icon {
         transition: transform 0.15s;
     }
 
-    .menu-list__item.is-active > & > .toggle__icon {
+    .menu-list__item.is-active > & .toggle__icon {
         transform: rotate(-180deg);
     }
 }
@@ -117,7 +117,7 @@
         visibility: visible;
     }
 
-    // must be separate from the above ruleset for fallback reasons
+    // must be separate from the above rules for fallback reasons
 
     .no-javascript .menu-list__item--parent:focus-within > & {
         left: 0;
@@ -137,7 +137,7 @@
         top: 0;
     }
 
-    // must be separate from the above ruleset for fallback reasons
+    // must be separate from the above rules for fallback reasons
 
     .no-javascript .menu-list__item--parent:focus-within > & {
         left: 100%;
@@ -194,7 +194,7 @@
         display: flex;
     }
 
-    &:not(.menu-list--between) {
+    &:not(.menu-list--justify-between) {
         text-align: center;
     }
 
@@ -206,16 +206,16 @@
         flex: 1 1 0%;
     }
 
-    &:not(.menu-list--between):not(.menu-list--center) > .menu-list__item {
+    &:not(.menu-list--justify-between):not(.menu-list--justify-center) > .menu-list__item {
         min-width: 0;
     }
 }
 
-/* flex between variant */
+/* flex start variant */
 
-.menu-list--flex.menu-list--between {
+.menu-list--justify-start {
     & {
-        justify-content: space-between;
+        justify-content: flex-start;
     }
 
     > .menu-list__item {
@@ -225,7 +225,7 @@
 
 /* flex center variant */
 
-.menu-list--flex.menu-list--center {
+.menu-list--justify-center {
     & {
         justify-content: center;
     }
@@ -237,7 +237,7 @@
 
 /* flex end variant */
 
-.menu-list--flex.menu-list--end {
+.menu-list--justify-end {
     & {
         justify-content: flex-end;
     }
@@ -247,11 +247,11 @@
     }
 }
 
-/* flex start variant */
+/* flex between variant */
 
-.menu-list--flex.menu-list--start {
+.menu-list--justify-between {
     & {
-        justify-content: flex-start;
+        justify-content: space-between;
     }
 
     > .menu-list__item {

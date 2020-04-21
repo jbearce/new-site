@@ -4,22 +4,10 @@
  * Grid (based loosely on https://v4-alpha.getbootstrap.com/layout/grid/)
 \* ------------------------------------------------------------------------ */
 
-/* stylelint-disable selector-class-pattern */
-
 .row {
     & {
         display: flex;
         flex-wrap: wrap;
-    }
-
-    &.row--grid {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-    }
-
-    &.row--grid.row--equal {
-        grid-auto-columns: 1fr;
-        grid-auto-rows: 1fr;
     }
 
     & > [class*="col-"] {
@@ -28,120 +16,144 @@
         min-width: 0;
     }
 
-    & > [class*="col-"].col--nogrow {
+    & > [class*="col-"].col--grow-0 {
         flex-grow: 0;
     }
 
-    & > [class*="col-"].col--noshrink {
+    & > [class*="col-"].col--shrink-0 {
         flex-shrink: 0;
     }
+}
 
-    &.row--padded {
+.row--display-grid {
+    & {
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+    }
+}
+
+.row--display-grid.row--equal {
+    & {
+        grid-auto-columns: 1fr;
+        grid-auto-rows: 1fr;
+    }
+}
+
+.row--padded {
+    & {
         width: calc(100% + #{remify($column-gap, 16)});
     }
 
-    &.row--padded > [class*="col-"] {
+    > [class*="col-"] {
         padding-right: remify($column-gap, 16);
     }
+}
 
-    &.row--padded.row--tight {
+.row--padded-tight {
+    & {
         width: calc(100% + #{remify($column-gap * 0.75, 16)});
     }
 
-    &.row--padded.row--tight > [class*="col-"] {
+    > [class*="col-"] {
         padding-right: remify($column-gap * 0.75, 16);
     }
+}
 
-    &.row--padded.row--loose {
+.row--padded-loose {
+    & {
         width: calc(100% + #{remify($column-gap * 1.25, 16)});
     }
 
-    &.row--padded.row--loose > [class*="col-"] {
+    > [class*="col-"] {
         padding-right: remify($column-gap * 1.25, 16);
     }
+}
 
-    &.row--nowrap {
+.row--wrap-no {
+    & {
         flex-wrap: nowrap;
     }
+}
 
-    &.row--wrapreverse {
+.row--wrap-reverse {
+    & {
         flex-wrap: wrap-reverse;
     }
+}
 
-    &.row--center {
+.row--center {
+    & {
         align-items: center;
         justify-content: center;
     }
+}
 
-    &:not(.row--column).row--hcenter {
-        justify-content: center;
-    }
-
-    &:not(.row--column).row--vcenter {
-        align-items: center;
-    }
-
-    &:not(.row--column).row--top {
+.row--align-start {
+    & {
         align-items: flex-start;
     }
+}
 
-    &:not(.row--column).row--right {
-        justify-content: flex-end;
+.row--align-center {
+    & {
+        align-items: center;
     }
+}
 
-    &:not(.row--column).row--bottom {
+.row--align-end {
+    & {
         align-items: flex-end;
     }
+}
 
-    &:not(.row--column).row--left {
-        justify-content: flex-start;
-    }
-
-    &.row--stretch {
+.row--align-stretch {
+    & {
         align-items: stretch;
     }
+}
 
-    &.row--around {
+.row--justify-start {
+    & {
+        justify-content: flex-start;
+    }
+}
+
+.row--justify-center {
+    & {
+        justify-content: center;
+    }
+}
+
+.row--justify-end {
+    & {
+        justify-content: flex-end;
+    }
+}
+
+.row--justify-around {
+    & {
         justify-content: space-around;
     }
+}
 
-    &.row--between {
+.row--justify-between {
+    & {
         justify-content: space-between;
     }
+}
 
-    &:not(.row--column).row--reverse {
+.row--direction-column {
+    & {
+        flex-direction: column;
+    }
+}
+
+.row--direction-reverse {
+    &:not(.row--direction-column) {
         flex-direction: row-reverse;
     }
 
-    &.row--column {
-        flex-direction: column;
-    }
-
-    &.row--column.row--vcenter {
-        justify-content: center;
-    }
-
-    &.row--column.row--top {
-        justify-content: flex-start;
-    }
-
-    &.row--column.row--right {
-        align-items: flex-end;
-    }
-
-    &.row--column.row--bottom {
-        justify-content: flex-end;
-    }
-
-    &.row--column.row--left {
-        align-items: flex-start;
-    }
-
-    &.row--column.row--hcenter {
-        align-items: center;
-    }
-
-    &.row--column.row--reverse {
+    &.row--direction-column {
         flex-direction: column-reverse;
     }
 }

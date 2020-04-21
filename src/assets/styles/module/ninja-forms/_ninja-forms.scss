@@ -214,8 +214,8 @@
         margin-bottom: remify(4, 16);
     }
 
-    .list-checkbox .input--checkbox,
-    .list-radio .input--radiobutton {
+    .list-checkbox .input--toggle,
+    .list-radio .input--toggle {
         margin-bottom: remify(4, 16);
     }
 
@@ -308,8 +308,8 @@
 
     // checkbox/radio lists
 
-    &.listcheckbox-container .input--checkbox,
-    &.listradio-container .input--radiobutton {
+    &.listcheckbox-container .input--toggle,
+    &.listradio-container .input--toggle {
         margin-right: remify(6, 16);
     }
 }

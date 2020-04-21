@@ -8,10 +8,10 @@
             <a class="skip-links" href="#content">
                 <?php _e("Skip to content", "__gulp_init_namespace__"); ?>
             </a>
-            <header class="header-block header-block--fullbleed">
+            <header class="header-block">
                 <div class="header__inner">
-                    <div class="header__row row row--padded row--tight row--vcenter">
-                        <div class="col-auto col--nogrow col--noshrink __hidden-xs">
+                    <div class="header__row row row--padded-tight row--align-center">
+                        <div class="col-auto col--grow-0 col--shrink-0 __hidden-xs">
                             <button class="header__panel-toggle panel-toggle" data-toggle="mobile-menu"<?php if (! has_nav_menu("primary")): ?> style="pointer-events:none;visibility:hidden;"<?php endif; ?>>
                                 <i class="panel-toggle__icon fas fa-fw fa-bars"></i>
                                 <span class="__visuallyhidden"><?php _e("View Menu", "__gulp_init_namespace__"); ?></span>
@@ -22,7 +22,7 @@
                                 <?php echo __gulp_init_namespace___img(get_theme_file_uri("assets/media/logo.svg"), ["alt" => get_bloginfo("name"), "class" => "logo__image"]); ?>
                             </a>
                         </div>
-                        <div class="col-auto col--nogrow col--noshrnk __hidden-xs">
+                        <div class="col-auto col--grow-0 col--shrink-0 __hidden-xs">
                             <button class="header__panel-toggle panel-toggle" data-toggle="mobile-search">
                                 <i class="panel-toggle__icon fas fa-fw fa-search"></i>
                                 <span class="__visuallyhidden"><?php _e("View Search", "__gulp_init_namespace__"); ?></span>
@@ -33,7 +33,7 @@
                                 </div>
                             <?php endif; ?>
                         </div><!--/.col-auto-->
-                        <div class="col-xs-auto col--nogrow col--noshrink __visible-xs">
+                        <div class="col-xs-auto col--grow-0 col--shrink-0 __visible-xs">
                             <div class="header__search-form__container search-form__container __nomargin __visible-xs" role="search">
                                 <?php get_search_form(); ?>
                             </div>
@@ -42,7 +42,7 @@
                 </div><!--/.header__inner-->
             </header><!--/.header-block-->
             <?php if (has_nav_menu("primary")): ?>
-                <div class="navigation-block navigation-block--fullbleed __visible-xs __noprint">
+                <div class="navigation-block __visible-xs __noprint">
                     <div class="navigation__inner">
                         <nav class="navigation__menu-list__container menu-list__container">
                             <?php

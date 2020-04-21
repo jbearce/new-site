@@ -51,7 +51,7 @@
 
 /* list ordered variant */
 
-.text--ordered {
+.text--list-ordered {
     & {
         list-style: decimal;
     }
@@ -59,7 +59,7 @@
 
 /* list unordered variant */
 
-.text--unordered {
+.text--list-unordered {
     & {
         list-style: disc;
     }

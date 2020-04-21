@@ -1,5 +1,5 @@
             </main><!--/#content-->
-            <footer class="footer-block footer-block--fullbleed" role="contentinfo">
+            <footer class="footer-block" role="contentinfo">
                 <div class="footer__inner">
                     <p class="footer__text text __textcenter __nomargin">&copy; <?php echo current_time("Y"); ?> <?php bloginfo("name"); ?></p>
                     <?php if (is_front_page()): ?>

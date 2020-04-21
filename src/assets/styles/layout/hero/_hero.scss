@@ -8,31 +8,20 @@
     & {
         @include layer("hero");
     }
+
+    & {
+        background: color("background");
+        padding: remify(($content-padding * 0.75) $content-padding);
+    }
 }
 
 .hero__inner {
     & {
-        background: color("background");
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(($content-padding * 0.75) $content-padding);
-    }
-}
-
-/* fullbleed variant */
-
-.hero-block--fullbleed {
-    & {
-        background: color("background");
-        padding: remify(($content-padding * 0.75) $content-padding);
     }
 
-    > .hero__inner {
-        background: none;
-        padding: 0;
-    }
-
-    > .hero__inner--fullbleed {
-        max-width: none;
+    &.hero__inner--width-100 {
+        max-width: 100%;
     }
 }

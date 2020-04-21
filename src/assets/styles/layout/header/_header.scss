@@ -8,14 +8,17 @@
     & {
         @include layer("header");
     }
+
+    & {
+        background: color("background");
+        padding: remify(($content-padding * 0.75) $content-padding);
+    }
 }
 
 .header__inner {
     & {
-        background: color("background");
         margin: 0 auto;
         max-width: remify($site-width);
-        padding: remify(($content-padding * 0.75) $content-padding);
     }
 }
 
@@ -48,23 +51,5 @@
         top: 0;
         transition: opacity 0.15s;
         visibility: visible;
-    }
-}
-
-/* fullbleed variant */
-
-.header-block--fullbleed {
-    & {
-        background: color("background");
-        padding: remify(($content-padding * 0.75) $content-padding);
-    }
-
-    > .header__inner {
-        background: none;
-        padding: 0;
-    }
-
-    > .header__inner--fullbleed {
-        max-width: none;
     }
 }
