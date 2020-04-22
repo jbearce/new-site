@@ -30,10 +30,8 @@
         display: grid;
         grid-template-columns: repeat(12, 1fr);
     }
-}
 
-.row--display-grid.row--equal {
-    & {
+    &.row--equal {
         grid-auto-columns: 1fr;
         grid-auto-rows: 1fr;
     }
@@ -164,84 +162,26 @@
     }
 }
 
-@for $i from 0 through 12 {
+@for $i from 0 through $column-count {
     .col-#{$i} {
-        flex-basis: ($i / 12) * 100%;
+        flex-basis: ($i / $column-count) * 100%;
         grid-column: span $i;
     }
 }
 
-@include larger-than(xs) {
-    .col-xs-auto {
-        & {
-            flex-basis: auto;
+@each $name, $size in $breakpoints {
+    @include larger-than($name) {
+        .col-#{$name}-auto {
+            & {
+                flex-basis: auto;
+            }
         }
-    }
 
-    @for $i from 0 through 12 {
-        .col-xs-#{$i} {
-            flex-basis: ($i / 12) * 100%;
-            grid-column: span $i;
-        }
-    }
-}
-
-@include larger-than(s) {
-    .col-s-auto {
-        & {
-            flex-basis: auto;
-        }
-    }
-
-    @for $i from 0 through 12 {
-        .col-s-#{$i} {
-            flex-basis: ($i / 12) * 100%;
-            grid-column: span $i;
-        }
-    }
-}
-
-@include larger-than(m) {
-    .col-m-auto {
-        & {
-            flex-basis: auto;
-        }
-    }
-
-    @for $i from 0 through 12 {
-        .col-m-#{$i} {
-            flex-basis: ($i / 12) * 100%;
-            grid-column: span $i;
-        }
-    }
-}
-
-@include larger-than(l) {
-    .col-l-auto {
-        & {
-            flex-basis: auto;
-        }
-    }
-
-    @for $i from 0 through 12 {
-        .col-l-#{$i} {
-            flex-basis: ($i / 12) * 100%;
-            grid-column: span $i;
-        }
-    }
-}
-
-@include larger-than(xl) {
-    .col-xl-auto {
-        & {
-            flex-basis: auto;
-        }
-    }
-
-    @for $i from 0 through 12 {
-        .col-xl-#{$i} {
-            flex-basis: ($i / 12) * 100%;
-            grid-column: span $i;
+        @for $i from 0 through $column-count {
+            .col-#{$name}-#{$i} {
+                flex-basis: ($i / $column-count) * 100%;
+                grid-column: span $i;
+            }
         }
     }
 }

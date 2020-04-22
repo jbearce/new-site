@@ -93,6 +93,12 @@ $column-gap: 30;
 $content-padding: 25;
 
 /* ------------------------------------------------------------------------ *\
+ * Column Count
+\* ------------------------------------------------------------------------ */
+
+$column-count: 12;
+
+/* ------------------------------------------------------------------------ *\
  * Break Points
 \* ------------------------------------------------------------------------ */
 
@@ -107,15 +113,15 @@ $xxs-break:  640em / 16;
 $xxxs-break: 480em / 16;
 
 $breakpoints: (
-    xxxl: $xxxl-break,
-    xxl:  $xxl-break,
-    xl:   $xl-break,
-    l:    $l-break,
-    m:    $m-break,
-    s:    $s-break,
-    xs:   $xs-break,
-    xxs:  $xxs-break,
     xxxs: $xxxs-break,
+    xxs:  $xxs-break,
+    xs:   $xs-break,
+    s:    $s-break,
+    m:    $m-break,
+    l:    $l-break,
+    xl:   $xl-break,
+    xxl:  $xxl-break,
+    xxxl: $xxxl-break,
 );
 
 /* ------------------------------------------------------------------------ *\
