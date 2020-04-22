@@ -29,9 +29,9 @@
 .user-content--light {
     /* stylelint-disable selector-no-qualifying-type, selector-max-type */
 
-    .link,
-    .title,
-    .text,
+    .user-content__link,
+    .user-content__title,
+    .user-content__text,
     .wp-caption-text {
         color: color("light");
     }
