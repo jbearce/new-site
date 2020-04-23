@@ -692,3 +692,15 @@ function __gulp_init_namespace___wp_super_cache_disable_ie_wp_config($line): str
     return "if (preg_match('/(Trident|MSIE)/', \$_SERVER['HTTP_USER_AGENT'])) { {$line} }";
 }
 add_filter("supercache_wp_config_line", "__gulp_init_namespace___wp_super_cache_disable_ie_wp_config");
+
+/**
+ * Add `the_content` filters to `comment_text`
+ *
+ * @param string $comment_text
+ * @param object|null $comment
+ * @return string
+ */
+function __gulp_init_namespace___comment_text_the_content(string $comment_text, ?object $comment = null): string {
+    return apply_filters("the_content", $comment_text);
+}
+add_filter("comment_text", "__gulp_init_namespace___comment_text_the_content");

@@ -21,3 +21,4 @@ require "{$template_directory}/functions/theme-features.php";
 require "{$template_directory}/functions/advanced-custom-fields.php";
 require "{$template_directory}/functions/ninja-forms.php";
 require "{$template_directory}/functions/tribe-events.php";
+require "{$template_directory}/functions/woocommerce.php";
