@@ -127,6 +127,7 @@ function __gulp_init_namespace___woocommerce_display_product_attributes(array $p
     if ($product_attributes) {
         foreach ($product_attributes as $key => $attribute) {
             $product_attributes[$key]["label"] = "{$product_attributes[$key]["label"]}:";
+            $product_attributes[$key]["value"] = wp_strip_all_tags($product_attributes[$key]["value"], false);
         }
     }
 

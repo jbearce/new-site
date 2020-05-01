@@ -5,6 +5,7 @@
             <div class="col-12 col-xs-8">
                 <div class="content__post">
                     <div class="woocommerce">
+                        <?php woocommerce_breadcrumb(); ?>
                         <?php woocommerce_content(); ?>
                     </div>
                 </div><!--/.content__post-->

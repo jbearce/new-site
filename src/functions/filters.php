@@ -84,14 +84,14 @@ function __gulp_init_namespace___delay_shortcode_expansion(): void {
 add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
 /**
- * Filter out   and   characters on post save
+ * Filter out badly encoded characters on post save
  *
  * @param  string $content
  *
  * @return string
  */
 function __gulp_init_namespace___remove_sep_characters(string $content): string {
-    return preg_replace("/( | )/", "", $content);
+    return preg_replace("/( | |)/", "", $content);
 }
 add_filter("content_save_pre", "__gulp_init_namespace___remove_sep_characters");
 

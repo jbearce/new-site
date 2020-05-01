@@ -150,6 +150,12 @@ $wc_font: $body-font;
 
 /* woocommerce.css */
 
+.woocommerce .woocommerce-breadcrumb { // woocommerce.css:134
+    & {
+        font-family: $wc_font;
+    }
+}
+
 .woocommerce .quantity .qty { // woocommerce.css:142
     & {
         @extend %wc__input;
@@ -271,6 +277,18 @@ $wc_font: $body-font;
     }
 }
 
+.woocommerce nav.woocommerce-pagination ul li,
+.woocommerce nav.woocommerce-pagination ul li { // woocommerce.css:618
+    a,
+    span {
+        font-family: $wc_font;
+    }
+
+    a {
+        @extend %wc__link;
+    }
+}
+
 .woocommerce #respond input#submit.alt,
 .woocommerce a.button.alt,
 .woocommerce button.button.alt,
@@ -297,6 +315,16 @@ $wc_font: $body-font;
 
     & {
         font-size: 0.75em;
+    }
+}
+
+.woocommerce a.added_to_cart { // woocommerce.css:776
+    & {
+        @extend %wc__link;
+    }
+
+    & {
+        font-family: $wc_font;
     }
 }
 
@@ -764,5 +792,21 @@ $wc_font: $body-font;
 
     legend {
         padding: 0 0.5em;
+    }
+}
+
+.woocommerce-privacy-policy-text {
+    p {
+        @extend %wc__text;
+    }
+
+    a {
+        @extend %wc__link;
+    }
+}
+
+.woocommerce-order > p {
+    & {
+        @extend %wc__text;
     }
 }
