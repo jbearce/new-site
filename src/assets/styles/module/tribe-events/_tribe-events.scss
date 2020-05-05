@@ -10,6 +10,15 @@ $tribe_primary: color("primary");
 $tribe_foreground: #141827;
 $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "Roboto", "Arial", sans-serif; // stylelint-disable-line
 
+/* container */
+
+.tribe-events .tribe-events-l-container,
+.tribe-common--breakpoint-medium.tribe-events .tribe-events-l-container {
+    & {
+        padding: 0;
+    }
+}
+
 /* loader */
 
 .tribe-common .tribe-common-c-loader__dot {
@@ -119,6 +128,13 @@ $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "
     }
 }
 
+.tribe-events .tribe-events-c-search__input-control--location-focus .tribe-events-c-search__input,
+.tribe-events .tribe-events-c-search__input-control--location .tribe-events-c-search__input:focus {
+    & {
+        background-image: svg-load("../media/vendor/tribe-location.svg", fill=#{$tribe_primary});
+    }
+}
+
 .tribe-events .tribe-events-c-events-bar__search-button::before {
     & {
         background-color: color("primary");
@@ -133,16 +149,32 @@ $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "
 
 /* ical link */
 
+.tribe-events .tribe-events-c-ical {
+    & {
+        clear: both;
+    }
+}
+
 .tribe-events .tribe-events-c-ical__link {
     & {
         border-color: $tribe_primary;
         color: $tribe_primary;
     }
 
+    &::before {
+        background-image: svg-load("../media/vendor/tribe-plus.svg", stroke=#{$tribe_primary});
+    }
+
     &:active,
     &:focus,
     &:hover {
-        background-color: $tribe_primary;
+        & {
+            background-color: $tribe_primary;
+        }
+
+        &::before {
+            background-image: svg-load("../media/vendor/tribe-plus.svg", stroke=#FFFFFF);
+        }
     }
 }
 
@@ -151,6 +183,12 @@ $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "
 .tribe-events .tribe-events-calendar-list__event-row--featured .tribe-events-calendar-list__event-date-tag-datetime::after {
     & {
         background-color: $tribe_primary;
+    }
+}
+
+.tribe-events .tribe-events-calendar-list__month-separator {
+    & {
+        width: 100%;
     }
 }
 
@@ -177,6 +215,12 @@ $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "
 }
 
 /* month mobile */
+
+.tribe-events .tribe-events-calendar-month__week {
+    & {
+        width: 100%;
+    }
+}
 
 .tribe-events .tribe-events-calendar-month__day-cell--selected,
 .tribe-events .tribe-events-calendar-month__day-cell--selected:focus,
@@ -210,7 +254,19 @@ $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "
     }
 }
 
+.tribe-events .tribe-events-calendar-month-nav {
+    & {
+        margin-bottom: 1em;
+    }
+}
+
 /* day */
+
+.tribe-events .tribe-events-calendar-day__time-separator {
+    & {
+        width: 100%;
+    }
+}
 
 .tribe-events .tribe-events-calendar-day__event--featured::after {
     & {
@@ -258,6 +314,12 @@ $tribe_font: "Helvetica Neue", "Helvetica", -apple-system, BlinkMacSystemFont, "
 .single-tribe_events .tribe-events-schedule .tribe-events-cost {
     & {
         font-family: $tribe_font;
+    }
+}
+
+.single-tribe_events .tribe-events-schedule .tribe-events-divider {
+    & {
+        margin: 0 0.25em;
     }
 }
 
