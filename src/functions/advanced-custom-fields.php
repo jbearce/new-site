@@ -6,7 +6,7 @@
 /* FILTERS */
 
 /**
- * Filter out ` ` and ` ` characters on field save
+ * Filter out badly encoded characters on field save
  *
  * @param  mixed $value
  *
@@ -39,6 +39,9 @@ add_action("acf_the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
 // add classes to elements
 add_filter("acf_the_content", "__gulp_init_namespace___add_user_content_classes", 20);
+
+// wrap handorgel accordions
+add_filter("acf_the_content", "__gulp_init_namespace___wrap_handorgel_shortcodes", 30);
 
 // enable responsive iframes
 add_filter("acf_the_content", "__gulp_init_namespace___responsive_iframes", 20);

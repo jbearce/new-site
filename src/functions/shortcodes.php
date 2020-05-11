@@ -78,3 +78,33 @@ function __gulp_init_namespace___columns_shortcode($atts, string $content = ""):
     return "<div class='user-content__columns columns columns--{$count}'>" . do_shortcode($content) . "</div>";
 }
 add_shortcode("columns", "__gulp_init_namespace___columns_shortcode");
+
+/**
+ * Add [accordion] shortcode
+ *
+ * @param mixed $atts
+ * @param string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___accordion_shortcode($atts, string $content= ""): string {
+    extract(shortcode_atts(
+        [
+            "title" => "",
+        ], $atts
+    ));
+
+    return <<<EOF
+<h3 class="handorgel__header">
+    <button class="handorgel__header__button">
+        $title
+    </button>
+</h3>
+<div class="handorgel__content">
+    <div class="handorgel__content__inner">
+        $content
+    </div>
+</div>
+EOF;
+}
+add_shortcode("accordion", "__gulp_init_namespace___accordion_shortcode");

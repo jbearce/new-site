@@ -308,7 +308,126 @@ function __gulp_init_namespace___add_user_content_classes(string $content): stri
     return $content;
 }
 add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20);
-add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
+
+/**
+ * Wrap handorgel shortcodes in appropriate containers
+ *
+ * @param string $content
+ *
+ * @return string
+ */
+function __gulp_init_namespace___wrap_handorgel_shortcodes(string $content): string {
+    if (! is_admin() && $content) {
+        $DOM = new DOMDocument();
+
+        /**
+         * Disable errors to get around HTML5 warnings...
+         */
+        libxml_use_internal_errors(true);
+
+        /**
+         * Load in content
+         */
+        $DOM->loadHTML(mb_convert_encoding("<html><body>{$content}</body></html>", "HTML-ENTITIES", "UTF-8"), LIBXML_HTML_NODEFDTD);
+
+        /**
+         * Reset errors to get around HTML5 warnings...
+         */
+        libxml_clear_errors();
+
+        /**
+         * Set up array to track handorgel groups
+         */
+        $handorgels = [];
+
+        /**
+         * Track the previous class to facilitate locating handorgel groups
+         */
+        $prev_class = "";
+
+        /**
+         * Loop through all elements that are directly within the body
+         */
+        foreach ($DOM->getElementsByTagName("body")[0]->childNodes as $element) {
+            /**
+             * Ensure that only HTML nodes get checked/modified
+             */
+            if ($element->nodeType == 1) {
+                $current_class = $element->getAttribute("class");
+
+                /**
+                 * Find any handorgel elements
+                 */
+                if (preg_match("/handorgel__/", $current_class)) {
+                    $group = array_key_last($handorgels);
+
+                    /**
+                     * If the previous class didn't include `handorgel__`, create a new handorgel group
+                     */
+                    if (! preg_match("/handorgel__/", $prev_class)) {
+                        $handorgels[] = [
+                            "container" => $DOM->createElement("div"),
+                            "elements"  => [],
+                        ];
+
+                        /**
+                         * Update `$group` to match the new container
+                         */
+                        $group = array_key_last($handorgels);
+                    }
+
+                    /**
+                     * Append the current element to the group to be moved after all sequential handorgel
+                     * elements are located for its group
+                     */
+                    $handorgels[$group]["elements"][] = $element;
+                }
+
+                /**
+                 * Update `$prev_class` to track where handorgel groups should begin and end
+                 */
+                $prev_class = $current_class;
+            }
+        }
+
+        /**
+         * Construct the handorgel groups
+         */
+        if ($handorgels) {
+            foreach ($handorgels as $group => $handorgel) {
+                /**
+                 * Add the `handorgel` class to teh container
+                 */
+                $handorgel["container"]->setAttribute("class", "handorgel");
+
+                /**
+                 * Loop through all elements within the group
+                 */
+                foreach ($handorgel["elements"] as $key => $element) {
+                    /**
+                     * Insert the container in the starting position for the group
+                     */
+                    if ($key === 0) {
+                        $element->parentNode->insertBefore($handorgels[$group]["container"], $element);
+                    }
+
+                    /**
+                     * Append the current element to the group
+                     */
+                    $handorgel["container"]->appendChild($element);
+                }
+            }
+        }
+
+        /**
+         * Remove unneeded tags (inserted for parsing reasons)
+         */
+        $content = __gulp_init_namespace___remove_extra_tags($DOM);
+    }
+
+    return $content;
+}
+add_filter("the_content", "__gulp_init_namespace___wrap_handorgel_shortcodes", 30);
 
 /**
  * Enable responsive iframes

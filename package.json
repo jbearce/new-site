@@ -91,6 +91,7 @@
     "focus-trap": "^5.1.0",
     "focus-visible": "^5.0.2",
     "gutenberg-web-type": "^1.2.3",
+    "handorgel": "^0.4.9",
     "in-vp": "^1.1.1",
     "lazysizes": "^5.2.0",
     "mdn-polyfills": "^5.20.0",
