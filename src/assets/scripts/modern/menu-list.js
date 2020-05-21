@@ -84,7 +84,7 @@ const MARK_ACTIVE = (LIST_ITEM, MENU_LIST, MENU_TOGGLE, EVENT = false) => {
     /**
      * Reverse the MENU_LIST if it's not fully within the viewport
      */
-    if (inViewport(MENU_LIST).fully === false) {
+    if (inViewport(MENU_LIST).edges.right === false) {
         MENU_LIST.classList.add("menu-list--reverse");
     }
 
