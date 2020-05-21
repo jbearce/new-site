@@ -32,6 +32,11 @@
                         ?>
                     </nav><!--/.navigation__menu-list__container-->
                 </div><!--/.navigation__inner-->
+                <button class="navigation__overlay" id="mobile-overlay">
+                    <span class="__visuallyhidden">
+                        <?php _e("Close Menu", "__gulp_init_namespace__"); ?>
+                    </span>
+                </button>
             </div><!--/.navigation-block-->
         <?php endif; ?>
         <?php get_extended_template_part("vendor", "photoswipe"); ?>

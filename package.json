@@ -101,7 +101,6 @@
     "picturefill": "^3.0.3",
     "pwa-install-prompt": "^1.1.0",
     "scroll-hint": "^1.2.4",
-    "slideout": "github:Mango/slideout#new-features",
     "swiper": "^4.5.1",
     "transition-to-from-auto": "^0.5.2",
     "workbox-expiration": "^5.0.0",

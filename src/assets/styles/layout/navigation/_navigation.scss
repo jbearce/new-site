@@ -4,6 +4,8 @@
  * Navigation
 \* ------------------------------------------------------------------------ */
 
+@use "sass:color";
+
 .navigation-block {
     & {
         @include layer("navigation");
@@ -39,19 +41,70 @@
 
 .navigation-block--flyout {
     & {
-        background: color("accent");
-        overscroll-behavior: contain;
-        position: fixed;
-        z-index: 100001 !important;
-    }
-
-    &:not(.slideout-menu) {
-        left: -999em;
-        top: -999em;
-    }
-
-    > .navigation__inner {
         background: none;
+        height: 100vh;
+        height: -webkit-fill-available; // stylelint-disable-line
+        left: -999em;
+        position: fixed;
+        top: -999em;
+        transition: left 0s 0.25s, top 0s 0.25s, visibility 0s 0.25s;
+        visibility: hidden;
+        width: 100vw;
+        z-index: 100001;
+    }
+
+    .navigation__inner {
+        background: color("accent");
+        height: 100%;
+        margin: 0;
+        overflow: auto;
+        overscroll-behavior: contain;
         padding: 0;
+        position: relative;
+        transform: translateX(#{remify(-280, 16)});
+        transition: transform 0.25s;
+        width: remify(280, 16);
+        z-index: 2;
+    }
+
+    .navigation__overlay {
+        -webkit-appearance: none; // stylelint-disable-line
+        -moz-appearance: none; // stylelint-disable-line
+        appearance: none;
+        background: color.adjust(color("dark"), $alpha: -0.4);
+        border: 0;
+        content: "";
+        cursor: pointer;
+        display: block;
+        height: 100%;
+        left: -999em;
+        margin: 0;
+        opacity: 0;
+        padding: 0;
+        position: absolute;
+        top: -999em;
+        transition: left 0s 0.25s, top 0s 0.15s, opacity 0.25s, visibility 0s 0.25s;
+        visibility: hidden;
+        width: 100%;
+        z-index: 1;
+    }
+
+    .menu-active & {
+        left: 0;
+        top: 0;
+        transition: none;
+        visibility: visible;
+    }
+
+    .menu-active & .navigation__inner {
+        transform: translateX(0);
+    }
+
+    .menu-active & .navigation__overlay {
+        left: 0;
+        opacity: 1;
+        top: 0;
+        transition: opacity 0.25s;
+        visibility: visible;
     }
 }
