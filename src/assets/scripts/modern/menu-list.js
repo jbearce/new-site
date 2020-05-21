@@ -11,7 +11,7 @@ import inViewport from "in-vp";
 import transition from "transition-to-from-auto";
 
 /**
- * Create an array of attribtes to target lists for
+ * Create an array of attributes to target lists for
  */
 const ATTRIBUTES = {
     classes:  ["menu-list", "menu-list__container--mega"],
