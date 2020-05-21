@@ -10,7 +10,7 @@ get_extended_template_part("layout", "hero", [
 ?>
 <div class="content-block">
     <div class="content__inner">
-        <div class="content_row row row--padded">
+        <div class="content__row row row--padded">
             <div class="col-12 col-xs-8">
                 <div class="content__post">
                     <?php do_action("__gulp_init_namespace___before_content"); ?>
@@ -31,7 +31,7 @@ get_extended_template_part("layout", "hero", [
                 </div><!--/.content__post-->
             </div><!--/.col-12-->
             <?php get_sidebar(); ?>
-        </div><!--/.content_row-->
+        </div><!--/.content__row-->
     </div><!--/.content__inner-->
 </div><!--/.content-block-->
 <?php get_footer(); ?>
