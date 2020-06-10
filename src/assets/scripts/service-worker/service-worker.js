@@ -11,7 +11,9 @@ import * as strategies from "workbox-strategies";
  * Cache WordPress content
  */
 routing.registerRoute(
-    /^(?:(?!wp-admin|wp-content|wp-includes|wp-login)(.*)\/)?$/,
+    ({ url }) => {
+        return (url.pathname && !url.pathname.match(/^\/(wp-admin|wp-content|wp-includes|wp-json|wp-login)/) && url.pathname.match(/\/$/));
+    },
     new strategies.NetworkFirst({
         cacheName: "__gulp_init_namespace__-content-cache",
         plugins: [
@@ -26,9 +28,16 @@ routing.registerRoute(
  * Cache CSS files
  */
 routing.registerRoute(
-    /\.css$/,
+    ({ url }) => {
+        return (url.pathname && url.pathname.match(/\.css$/) && !url.pathname.match(/wp-admin|wp-includes|wp-json/));
+    },
     new strategies.CacheFirst({
         cacheName: "__gulp_init_namespace__-css-cache",
+        plugins: [
+            new expiration.ExpirationPlugin({
+                maxAgeSeconds: 7 * 24 * 60 * 60,
+            }),
+        ],
     })
 );
 
@@ -36,9 +45,16 @@ routing.registerRoute(
  * Cache JS files
  */
 routing.registerRoute(
-    /\.js$/,
+    ({ url }) => {
+        return (url.pathname && url.pathname.match(/\.js$/) && !url.pathname.match(/wp-admin|wp-includes|wp-json/) && !url.pathname.match(/redirection/));
+    },
     new strategies.CacheFirst({
         cacheName: "__gulp_init_namespace__-js-cache",
+        plugins: [
+            new expiration.ExpirationPlugin({
+                maxAgeSeconds: 7 * 24 * 60 * 60,
+            }),
+        ],
     })
 );
 
@@ -46,7 +62,9 @@ routing.registerRoute(
  * Cache image files
  */
 routing.registerRoute(
-    /\.(gif|jpeg|jpg|png|svg|webp)$/,
+    ({ url }) => {
+        return (url.pathname && url.pathname.match(/\.gif|jpeg|jpg|png|svg|webp$/) && !url.pathname.match(/wp-admin|wp-includes|wp-json/));
+    },
     new strategies.CacheFirst({
         cacheName: "__gulp_init_namespace__-image-cache",
         plugins: [
@@ -61,7 +79,9 @@ routing.registerRoute(
  * Cache font files
  */
 routing.registerRoute(
-    /\.(otf|ttf|woff|woff2)$/,
+    ({ url }) => {
+        return (url.pathname && url.pathname.match(/\.otf|ttf|woff|woff2$/) && !url.pathname.match(/wp-admin|wp-includes|wp-json/));
+    },
     new strategies.CacheFirst({
         cacheName: "__gulp_init_namespace__-font-cache",
         plugins: [
