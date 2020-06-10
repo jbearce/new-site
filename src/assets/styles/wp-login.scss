@@ -9,6 +9,45 @@ $base:  color("accent");
 $tint:  lighten(desaturate(adjust-hue($base, 1.6532), 27.2727), 6.6667);
 $shade: darken(adjust-hue($base, 2.5111), 6.4706);
 
+a {
+    & {
+        color: $base;
+    }
+
+    &:active,
+    &:hover {
+        color: lighten(adjust-hue($base, -5.1261), 7.8431);
+    }
+
+    &:focus {
+        box-shadow: 0 0 0 1px lighten(desaturate(adjust-hue($base, 9.1597), 37.6238), 27.0588), 0 0 2px 1px transparentize(lighten(desaturate(adjust-hue($base, -0.6618), 27.2727), 9.8039), 0.2);
+        color: darken(desaturate(adjust-hue($base, 0.3443), 30.5085), 10.1961);
+    }
+}
+
+.wp-core-ui .button,
+.wp-core-ui .button-secondary {
+    &:not(.button-primary) {
+        border-color: $base;
+        color: $base;
+    }
+
+    &:not(.button-primary):active {
+        border-color: lighten(desaturate(adjust-hue($base, 10.6832), 91.1392), 21.9608);
+    }
+
+    &:not(.button-primary):hover {
+        border-color: darken(desaturate(adjust-hue($base, -0.4255), 1.4706), 4.902);
+        color: darken(desaturate(adjust-hue($base, -0.4255), 1.4706), 4.902);
+    }
+
+    &:not(.button-primary):focus {
+        border-color: lighten(adjust-hue($base, 2.1118), 4.902);
+        box-shadow: 0 0 0 1px lighten(adjust-hue($base, 2.1118), 4.902);
+        color: darken(desaturate(adjust-hue($base, -0.4255), 1.4706), 4.902);
+    }
+}
+
 body.login div#login p.message {
     & {
         border-left-color: lighten(adjust-hue($base, -2.8111), 4.7059);
