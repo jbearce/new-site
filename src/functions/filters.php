@@ -584,9 +584,20 @@ function __gulp_init_namespace___lazy_load_images(string $content): string {
 
                 $height = $image->getAttribute("height");
                 $width  = $image->getAttribute("width");
+                $size   = $image->getAttribute("intrinsicsize");
+
+                // try to determine height and width programmatically
+                if (! ($height && $width) && ! $size && ($existing_src || $existing_srcset)) {
+                    $src  = $existing_src ? $existing_src : explode(" ", $existing_srcset)[0];
+
+                    if ($data = getimagesize($_SERVER["DOCUMENT_ROOT"] . parse_url($src, PHP_URL_PATH))) {
+                        $height = $data[1];
+                        $width  = $data[0];
+                    }
+                }
 
                 // add intrinsicsize if height and width exist
-                if ($height && $width) {
+                if ($height && $width && ! $size) {
                     $image->setAttribute("intrinsicsize", "{$width}x{$height}");
                 }
 
@@ -653,7 +664,7 @@ function __gulp_init_namespace___remove_thumbnail_dimensions(string $html): stri
 
     return $html;
 }
-add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions", 10);
+add_filter("post_thumbnail_html", "__gulp_init_namespace___remove_thumbnail_dimensions", 40);
 
 /**
  * Add link classes to __gulp_init_namespace___menu_list_link filtered content
