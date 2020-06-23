@@ -6,20 +6,19 @@
 /* FILTERS */
 
 /**
- * Filter out badly encoded characters on field save
+ * Filter out badly encoded characters from strings
  *
  * @param  mixed $value
- *
  * @return mixed
  */
-function __gulp_init_namespace___acf_remove_sep_characters($value) {
+function __gulp_init_namespace___acf_remove_broken_characters($value) {
     if (is_string($value)) {
-        $value = __gulp_init_namespace___remove_sep_characters($value);
+        $value = __gulp_init_namespace___remove_broken_characters($value);
     }
 
     return $value;
 }
-add_filter("acf/update_value", "__gulp_init_namespace___acf_remove_sep_characters", 10);
+add_filter("acf/format_value", "__gulp_init_namespace___acf_remove_broken_characters", 10);
 
 /**
  * Delay when shortcodes get expanded

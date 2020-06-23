@@ -84,16 +84,16 @@ function __gulp_init_namespace___delay_shortcode_expansion(): void {
 add_action("wp", "__gulp_init_namespace___delay_shortcode_expansion");
 
 /**
- * Filter out badly encoded characters on post save
+ * Filter out badly encoded characters from the_content
  *
- * @param  string $content
- *
+ * @link https://lonewolfonline.net/html-entity-conversion-calculator/
+ * @param string $content
  * @return string
  */
-function __gulp_init_namespace___remove_sep_characters(string $content): string {
-    return preg_replace("/(||)/", "", $content);
+function __gulp_init_namespace___remove_broken_characters(string $content): string {
+    return preg_replace("/(\u{2028}|\u{2029}|\u{009D})/", "", $content);
 }
-add_filter("content_save_pre", "__gulp_init_namespace___remove_sep_characters");
+add_filter("the_content", "__gulp_init_namespace___remove_broken_characters");
 
 /**
  * Remove wpautop stuff from shortcodes
