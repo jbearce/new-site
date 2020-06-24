@@ -29,10 +29,10 @@ function __gulp_init_namespace___enqueue_scripts(): void {
     wp_register_script("__gulp_init_namespace__-scripts-fontawesome", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/fontawesome.*.js", true)), [], "<%= version %>");
 
     // modern scripts
-    wp_register_script("__gulp_init_namespace__-scripts-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/modern.*.js", true)), [], "<%= version %>");
+    wp_register_script("__gulp_init_namespace__-scripts-modern", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/modern.*.js", true)), [], "<%= version %>", true);
 
     // legacy scripts
-    wp_register_script("__gulp_init_namespace__-scripts-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/legacy.*.js", true)), [], "<%= version %>");
+    wp_register_script("__gulp_init_namespace__-scripts-legacy", get_theme_file_uri(__gulp_init_namespace___get_theme_file_path("assets/scripts/legacy.*.js", true)), [], "<%= version %>", true);
 
     // dummy hook for inline scripts in the footer
     wp_register_script("__gulp_init_namespace__-scripts-footer-hook", "", [], "", true);
