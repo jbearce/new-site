@@ -16,7 +16,7 @@ $excerpt   = isset($this->vars["excerpt"]) ? $this->vars["excerpt"] : ($post ? _
                 <?php if ($title): ?>
                     <h3 class="article__title title<?php if ($light): ?> __light<?php endif; ?>">
                         <?php if ($permalink): ?>
-                            <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>" href="<?php echo $permalink; ?>">
+                            <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>" href="<?php echo esc_url($permalink); ?>">
                         <?php endif; ?>
 
                         <?php echo $title; ?>
@@ -45,7 +45,7 @@ $excerpt   = isset($this->vars["excerpt"]) ? $this->vars["excerpt"] : ($post ? _
                     <p class="article__text text<?php if ($light): ?> __light<?php endif; ?>">
                         <?php echo $excerpt; ?>
                         <?php if ($permalink): ?>
-                            <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>" href="<?php echo $permalink; ?>">
+                            <a class="text__link link<?php if ($light): ?> link--inherit<?php endif; ?>" href="<?php echo esc_url($permalink); ?>">
                                 <?php _e("Read More", "__gulp_init_namespace__"); ?>
                             </a>
                         <?php endif; ?>
@@ -54,5 +54,5 @@ $excerpt   = isset($this->vars["excerpt"]) ? $this->vars["excerpt"] : ($post ? _
             </div><!--/.article__content-->
         <?php endif; ?>
 
-    </article><!--/.article.-excerpt-->
+    </article><!--/.article-->
 <?php endif; ?>
