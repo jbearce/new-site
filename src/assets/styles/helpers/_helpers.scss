@@ -107,116 +107,22 @@
     color: color("error") !important;
 }
 
-/* visibility classes */
-
-// when pointer is precise (mouse)
-@media (pointer: fine) {
-    .__touch {
-        display: none !important;
-    }
-}
-
-// when pointer: fine is not supported
-@supports not (pointer: fine) {
-    .__touch {
-        display: none !important;
-    }
-}
-
-// when pointer is inprecise (touch)
-@media (pointer: coarse) {
-    .__mouse {
-        display: none !important;
-    }
-}
-
-// when printing
-@media print {
-    .__noprint {
-        display: none !important;
-    }
-}
-
 /* "visible" classes */
 
-// $xs-break
-
-.__visible-xs {
-    @include smaller-than(xs) {
-        display: none !important;
+@each $name, $size in $breakpoints {
+    @include smaller-than($name) {
+        .__visible-#{$name} {
+            display: none !important;
+        }
     }
 }
 
-// $s-break
+/* "hidden" classes -- NOTE: It is important that __hidden classes come after __visible for override purposes */
 
-.__visible-s {
-    @include smaller-than(s) {
-        display: none !important;
-    }
-}
-
-// $m-break
-
-.__visible-m {
-    @include smaller-than(m) {
-        display: none !important;
-    }
-}
-
-// $l-break
-
-.__visible-l {
-    @include smaller-than(l) {
-        display: none !important;
-    }
-}
-
-// $xl-break
-
-.__visible-xl {
-    @include smaller-than(xl) {
-        display: none !important;
-    }
-}
-
-/* "hidden" classes -- NOTE: It is important that _hidden classes come after _visible for override purposes */
-
-// $xs-break
-
-.__hidden-xs {
-    @include larger-than(xs) {
-        display: none !important;
-    }
-}
-
-// $s-break
-
-.__hidden-s {
-    @include larger-than(s) {
-        display: none !important;
-    }
-}
-
-// $m-break
-
-.__hidden-m {
-    @include larger-than(m) {
-        display: none !important;
-    }
-}
-
-// $l-break
-
-.__hidden-l {
-    @include larger-than(l) {
-        display: none !important;
-    }
-}
-
-// $xl-break
-
-.__hidden-xl {
-    @include larger-than(xl) {
-        display: none !important;
+@each $name, $size in $breakpoints {
+    @include larger-than($name) {
+        .__hidden-#{$name} {
+            display: none !important;
+        }
     }
 }
