@@ -105,7 +105,7 @@ add_filter("the_content", "__gulp_init_namespace___remove_broken_characters");
 function __gulp_init_namespace___fix_shortcodes(string $content): string {
     global $shortcode_tags;
 
-    if (! is_admin() && $content && $shortcode_tags) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $content && $shortcode_tags) {
         $shortcodes = [];
 
         foreach ($shortcode_tags as $tag => $data) {
@@ -120,7 +120,7 @@ function __gulp_init_namespace___fix_shortcodes(string $content): string {
 
     return $content;
 }
-add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
+add_filter("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
 
 /**
  * Add classes to elements
@@ -130,7 +130,7 @@ add_action("the_content", "__gulp_init_namespace___fix_shortcodes", 15);
  * @return string
  */
 function __gulp_init_namespace___add_user_content_classes(string $content): string {
-    if (! is_admin() && $content) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -317,7 +317,7 @@ add_filter("the_content", "__gulp_init_namespace___add_user_content_classes", 20
  * @return string
  */
 function __gulp_init_namespace___wrap_handorgel_shortcodes(string $content): string {
-    if (! is_admin() && $content) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $content) {
         $DOM = new DOMDocument();
 
         /**
@@ -437,7 +437,7 @@ add_filter("the_content", "__gulp_init_namespace___wrap_handorgel_shortcodes", 3
  * @return string
  */
 function __gulp_init_namespace___responsive_iframes(string $content): string {
-    if (! is_admin() && $content) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -503,7 +503,7 @@ add_filter("the_content", "__gulp_init_namespace___responsive_iframes", 20);
  * @return string
  */
 function __gulp_init_namespace___responsive_tables(string $content): string {
-    if (! is_admin() && $content) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -543,7 +543,7 @@ add_filter("the_content", "__gulp_init_namespace___responsive_tables", 20);
  * @return string
  */
 function __gulp_init_namespace___lazy_load_images(string $content): string {
-    if (! is_admin() && $content) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $content) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
@@ -639,7 +639,7 @@ add_filter("image_add_caption_shortcode", "__gulp_init_namespace___wp_caption_sh
  * @return string
  */
 function __gulp_init_namespace___remove_thumbnail_dimensions(string $html): string {
-    if (! is_admin() && $html) {
+    if (! (is_admin() && ! wp_doing_ajax()) && $html) {
         $DOM = new DOMDocument();
 
         // disable errors to get around HTML5 warnings...
