@@ -27,8 +27,11 @@ a {
 
 .wp-core-ui .button,
 .wp-core-ui .button-secondary {
-    &:not(.button-primary) {
+    &:not(.button-primary):not(.wp-hide-pw) {
         border-color: $base;
+    }
+
+    &:not(.button-primary) {
         color: $base;
     }
 
@@ -36,7 +39,7 @@ a {
         border-color: lighten(desaturate(adjust-hue($base, 10.6832), 91.1392), 21.9608);
     }
 
-    &:not(.button-primary):hover {
+    &:not(.button-primary):not(.wp-hide-pw):hover {
         border-color: darken(desaturate(adjust-hue($base, -0.4255), 1.4706), 4.902);
         color: darken(desaturate(adjust-hue($base, -0.4255), 1.4706), 4.902);
     }
