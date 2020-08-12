@@ -62,7 +62,7 @@
 
     4. Write a sourcemap &ndash; *Only if `--dist` isn't passed.*
 
-4. Hashes the output file names, except `service-woker.js`.
+4. Hashes the output file names, except `service-worker.js`.
 
 7. Outputs to `./dev` &ndash; *Or `./dist` if `--dist` is passed.*
 

@@ -32,7 +32,7 @@ If using GitLab, due dates can be set by selecting a date in the "Due Date" fiel
 
 ### Labels
 
-This project uses a variation of ["Sane" labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63). In essence, each issue should be labeled with a Priority, a Status, and a Type. This helps keep track of what needs done first, how to approach it, and what phase of development it's in.
+This project uses a variation of ["Sane" labels](https://medium.com/@dave_lunny/sane-github-labels-c5d2e6004b63). In essence, each issue should be labeled with one of each Priority, Status, and Type. This helps keep track of what needs done first, how to approach it, and what phase of development it's in.
 
 ## Commit Formatting
 
@@ -42,7 +42,7 @@ Commits should be formatted in the present imperative tense. This is because whe
 
 When a commit is in relation to a specific issue, that issue should be mentioned after a semicolon at the end of the message, with either "Address" or "Close" prefixing it. "Address" should be used if the commit partially addresses an issue, but doesn't completely solve it. "Close" should be used if the commit completely addresses all aspects of the issue.
 
-If a commit requires more details than a single line, do so by adding two line breaks after the message, then entering any additional required information. This can be useful if the way something was implemented was less than ideal, confusing, or unclear, as additional the additional information can allow you to explain your rationnel.
+If a commit requires more details than a single line, do so by adding two line breaks after the message, then entering any additional required information. This can be useful if the way something was implemented was less than ideal, confusing, or unclear, as additional the additional information can allow you to explain your rationale.
 
 Some examples appear below.
 
@@ -52,7 +52,7 @@ Some examples appear below.
 - ```
   Prevent infinite loop when no match found in menu list while loop
 
-  This prevents a memory overflow from occuring when viewing a page which doesn't appear in the menu.
+  This prevents a memory overflow from occurring when viewing a page which doesn't appear in the menu.
   ```
 - `Ensure that users cannot submit a blank email address; Address #43`
 
@@ -70,7 +70,7 @@ This project has two persistent branches: `master` and `release`.
 
 `release` contains any changes that are still in flux, or undergoing active development. Once a change, or set of changes, is complete, and a build package is created (see [Deployment](deployment.md#distribution-releases)), a merge/pull request is used to merge `release` in to `master`. Typically, only the project lead should develop out of `release`, and any additional developers should work out of their own branches.
 
-Unless you're the project lead for this repository, when you make a change, you should create a new branch off of `release`. The branch should be named as `your_username-2019-05-21`, `specific-feature-description`, or similar. Once your changes are complete, a Merge/Pull request should be made from your branch in to `release`.
+Unless you're the project lead for this repository, when you make a change, you should create a new branch off of `release`. The branch should be named as `your_username-2019-05-21`, `specific-feature-description`, `issue-74`, or similar. Once your changes are complete, a Merge/Pull request should be made from your branch in to `release`.
 
 ## Merge/Pull Requests
 
@@ -87,7 +87,7 @@ Briefly describe the change in the "Title" field, and provide any relevant detai
   - Type
 - Source branch (should always be your new branch)
 - Target branch (should always be `release`)
-- [x] Delete Delete source branch when merge request is accepted.
+- [x] Delete source branch when merge request is accepted.
 - [ ] Squash commits when merge request is accepted.
 
 Once a merge request is submitted, a CI pipeline will trigger. If this passes, the merge request may be accepted, or the project lead (the assignee) may request that further changes be made before merging.

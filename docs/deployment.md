@@ -6,7 +6,7 @@ WIP
 
 ## Development Releases
 
-While working on changes to this project, you should create a variant theme diretory ending in `-dev` to test out of. For example, if the theme folder is `__gulp_init_npm_name__`, name your development folder `__gulp_init_npm_name__-dev`. Activate this theme while working on your changes, and switch back to the "live" theme when finished.
+While working on changes to this project, you should create a variant theme directory ending in `-dev` to test out of. For example, if the theme folder is `__gulp_init_npm_name__`, name your development folder `__gulp_init_npm_name__-dev`. Activate this theme while working on your changes, and switch back to the "live" theme when finished.
 
 **Note:** You may need to re-assign things like menu locations, customizations, widgets, etc. when activating the development theme.
 
@@ -16,7 +16,7 @@ When a change or set of changes is completed, a distribution package should be c
 
 To create a `dist` package, follow the steps below:
 
-1. Ensure all changes are commited and pushed to the `release` branch.
+1. Ensure all changes are committed and pushed to the `release` branch.
 
 2. Ensure that all changes are described in `CHANGELOG.md` in accordance with [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
@@ -62,7 +62,7 @@ If Continuous Deployment isn't already set up, and you'd like to enable it, foll
 
 3. Rename `deploy.sample.php` to `deploy.php`.
 
-4. Open `delopy.php` in a text editor such as VS Code.
+4. Open `deploy.php` in a text editor such as VS Code.
 
 5. In the GitLab repository, navigate to Settings > Repository > Deploy Tokens.
 
@@ -79,7 +79,7 @@ If Continuous Deployment isn't already set up, and you'd like to enable it, foll
 
 9. Copy the HTTPS clone URL to the repository in to `deploy.php` as `REMOTE_REPOSITORY`.
 
-10. Just after the `https://` in `REMOTE_REPOSITORY`, add your saved username and token like so: `gitlab+deploy-token-123:g430vdsj07jDSFj93g21@` (**note:** The username and token must be seperated by `:`, and `@` must appear immediately following the token).
+10. Just after the `https://` in `REMOTE_REPOSITORY`, add your saved username and token like so: `gitlab+deploy-token-123:g430vdsj07jDSFj93g21@` (**note:** The username and token must be separated by `:`, and `@` must appear immediately following the token).
 
 11. In `deploy.php`, change `DIR` to `{$_SERVER["DOCUMENT_ROOT"]}/.gitlab/repository/`.
 
@@ -103,4 +103,4 @@ If Continuous Deployment isn't already set up, and you'd like to enable it, foll
 
 21. Create a new environment named "Production", or if one already exists, edit it. Change "External URL" to point to your domain name, **including a trailing slash**. For example, `https://www.example.com/`.
 
-Going forward, whenever a change gets pushed to or merged in to master, you will be able to manually trigger the `deploy` pipeline to automatically fetch the latest code from GitLab! This will appear in GitLab under CI / CD > Pipelines. On the right side of the screen, a "Play" icon will appaer. Clicking this, you can click "deploy" to run the deployment task.
+Going forward, whenever a change gets pushed to or merged in to master, you will be able to manually trigger the `deploy` pipeline to automatically fetch the latest code from GitLab! This will appear in GitLab under CI / CD > Pipelines. On the right side of the screen, a "Play" icon will appear. Clicking this, you can click "deploy" to run the deployment task.

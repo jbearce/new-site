@@ -3,7 +3,7 @@
 - [BEM Documentation](http://getbem.com/)
 - "Layout" blocks are top-level element such as the header or footer.
 - "Module" blocks are components of layouts, such as a search form or article.
-- "Base" blocks are core buliding blocks of modules, such as titles or inputs.
+- "Base" blocks are core building blocks of modules, such as titles or inputs.
 
 ## Methodology
 
@@ -39,7 +39,7 @@ In many cases, we treat child blocks as a kind of element of a parent block. For
 
 Modifiers are flags on blocks or elements. Use them to change appearance or behavior.
 
-New modifiers should be placed within their parent block or element stylehseet, after the initial ruleset, and named as `{block}--{modifier}`. A few examples of this include `menu-list--navigation`, `row--padded-tight`, and `swiper-container--hero`.
+New modifiers should be placed within their parent block or element stylesheet, after the initial ruleset, and named as `{block}--{modifier}`. A few examples of this include `menu-list--navigation`, `row--padded-tight`, and `swiper-container--hero`.
 
 #### Helpers
 
@@ -84,7 +84,7 @@ Breakpoints on this project go from narrow to wide. Each breakpoint is listed be
 | xxl  | 1366px |
 | xxxl | 1440px |
 
-Two custom mixins exist for handling breakpoints &ndash; `larger-than($width)` for `min-width` breakpoitns, and `smaller-than($width)` for `max-width` breakpoints. `smaller-than()` automatically removes 1px from the specified width, to ensure it does not overlap with `larger-than` breakpoints with the same width spcified. For example, `smaller-than(xs)` will apply when the browser is <= 767px wide, and `larger-than(xs)` will apply when the browser is >= 768px wide.
+Two custom mixins exist for handling breakpoints &ndash; `larger-than($width)` for `min-width` breakpoints, and `smaller-than($width)` for `max-width` breakpoints. `smaller-than()` automatically removes 1px from the specified width, to ensure it does not overlap with `larger-than` breakpoints with the same width specified. For example, `smaller-than(xs)` will apply when the browser is <= 767px wide, and `larger-than(xs)` will apply when the browser is >= 768px wide.
 
 In most cases, breakpoints should be targeted by including a new file for each breakpoint in `views/_screen_{breakpoint}.scss`. The rare exception to this is when applying a style that needs to revert upon hitting a breakpoint.
 
@@ -120,7 +120,7 @@ That being said, each base ruleset should be nested within a `& { ... }` to help
 
 ## Creating new master stylesheets
 
-It should be rare that a new master stylesheet needs created, but when one does, it should be created in the root styles folder, and added to the enqueues using the same method as the other stylesheets. *Note:* the file name will get hashed when it is compiled, so be sure to use the `__gulp_init_namespace___get_theme_file_path()` PHP function to retrieve the most recent hashed file name.
+It should be rare that a new master stylesheet needs created, but when one does, it should be created in the root styles folder, and added to the enqueued using the same method as the other stylesheets. *Note:* the file name will get hashed when it is compiled, so be sure to use the `__gulp_init_namespace___get_theme_file_path()` PHP function to retrieve the most recent hashed file name.
 
 ## Helper Functions and Mixins
 
@@ -155,9 +155,9 @@ To use the `remify()` function, you simply provide it the size as you normally w
 
 ### `em` vs `rem` with `remify()`
 
-`remify()` can output either `em` or `rem` units depending on the settings provided to it. `rem` should typically be used when specifying values that ***don't*** depend on the elements font size (for example, the `max-width` or `padding` of a `layout`). `em` should typically be used when speicfying values that ***do*** depend on the elements font size (for example, `line-height` or `margin-bottom` on a `base`).
+`remify()` can output either `em` or `rem` units depending on the settings provided to it. `rem` should typically be used when specifying values that ***don't*** depend on the elements font size (for example, the `max-width` or `padding` of a `layout`). `em` should typically be used when specifying values that ***do*** depend on the elements font size (for example, `line-height` or `margin-bottom` on a `base`).
 
-If you only supply `remify()` with one paramter (the size value(s)), `rem` units will be returned. If you specify two values (the size value(s) and the base size), `em` units will be returned. You can override either of these by providing a third parameter (the unit) to the function, specifying either `em` or `rem`. See the examples below.
+If you only supply `remify()` with one parameter (the size value(s)), `rem` units will be returned. If you specify two values (the size value(s) and the base size), `em` units will be returned. You can override either of these by providing a third parameter (the unit) to the function, specifying either `em` or `rem`. See the examples below.
 
 ```scss
 .hero__inner {

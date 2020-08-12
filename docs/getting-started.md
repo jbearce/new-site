@@ -389,7 +389,7 @@ BurntToast is a PowerShell module that enables sending toast notifications from 
       Set-ExecutionPolicy -ExecutionPolicy RemoteSigned
       ```
 
-5. In an eleveated PowerShell window, import the BurntToast module.
+5. In an elevated PowerShell window, import the BurntToast module.
 
       ```ps
       Import-Module BurntToast

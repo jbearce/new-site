@@ -58,7 +58,7 @@ Pinned tabs in Safari can offer their own custom SVG favicons. These icons must 
 
 2. Create a new document sized 16x16.
 
-3. Add your cusotm icon to the document, and center it.
+3. Add your custom icon to the document, and center it.
 
 4. Make sure that the icon is merged in to a single path.
 
